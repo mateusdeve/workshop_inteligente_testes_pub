@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+
+<html class="light" lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Be+Vietnam+Pro:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "outline": "#6d797e",
+              "on-background": "#171c1f",
+              "on-primary-fixed-variant": "#004e5f",
+              "on-tertiary-fixed-variant": "#643f00",
+              "surface-dim": "#d5dbde",
+              "surface-container-highest": "#dee3e6",
+              "on-primary-container": "#00414f",
+              "tertiary-fixed-dim": "#ffb95a",
+              "inverse-primary": "#4cd6fb",
+              "surface-container-low": "#eff4f7",
+              "on-surface": "#171c1f",
+              "on-secondary-fixed-variant": "#723700",
+              "background": "#f5fafd",
+              "surface-tint": "#00677d",
+              "primary-fixed-dim": "#4cd6fb",
+              "surface-container": "#e9eff1",
+              "surface-container-high": "#e3e9ec",
+              "error-container": "#ffdad6",
+              "on-tertiary-container": "#543400",
+              "primary-container": "#00b4d8",
+              "surface-container-lowest": "#ffffff",
+              "surface-bright": "#f5fafd",
+              "on-secondary": "#ffffff",
+              "inverse-surface": "#2b3134",
+              "tertiary": "#845400",
+              "on-tertiary-fixed": "#2a1800",
+              "on-secondary-container": "#5d2c00",
+              "secondary": "#954a00",
+              "on-primary": "#ffffff",
+              "outline-variant": "#bcc9ce",
+              "on-surface-variant": "#3d494d",
+              "inverse-on-surface": "#ecf2f4",
+              "error": "#ba1a1a",
+              "on-error": "#ffffff",
+              "on-primary-fixed": "#001f27",
+              "surface": "#f5fafd",
+              "secondary-container": "#fd8100",
+              "surface-variant": "#dee3e6",
+              "on-error-container": "#93000a",
+              "tertiary-fixed": "#ffddb6",
+              "on-tertiary": "#ffffff",
+              "primary": "#00677d",
+              "on-secondary-fixed": "#301400",
+              "secondary-fixed": "#ffdcc6",
+              "secondary-fixed-dim": "#ffb785",
+              "tertiary-container": "#dd962b",
+              "primary-fixed": "#b3ebff"
+            },
+            fontFamily: {
+              "headline": ["Plus Jakarta Sans"],
+              "body": ["Be Vietnam Pro"],
+              "label": ["Plus Jakarta Sans"]
+            },
+            borderRadius: {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .text-shadow-subtle {
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body selection:bg-primary-container selection:text-on-primary-container">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-white/70 backdrop-blur-md shadow-xl shadow-cyan-900/5">
+<div class="flex justify-between items-center px-8 py-4 max-w-7xl mx-auto">
+<div class="text-2xl font-black text-[#00677d] tracking-tighter font-headline">
+                Amigo Fiel
+            </div>
+<div class="hidden md:flex items-center gap-8 font-headline text-sm font-semibold tracking-tight">
+<a class="text-[#00677d] border-b-2 border-[#00677d] pb-1" href="#">Serviços</a>
+<a class="text-slate-600 hover:text-[#00677d] transition-all duration-300" href="#">Clínica</a>
+<a class="text-slate-600 hover:text-[#00677d] transition-all duration-300" href="#">Estética</a>
+<a class="text-slate-600 hover:text-[#00677d] transition-all duration-300" href="#">Farmácia</a>
+<a class="text-slate-600 hover:text-[#00677d] transition-all duration-300" href="#">Blog</a>
+</div>
+<div class="flex items-center gap-4">
+<button class="bg-primary text-on-primary px-6 py-2.5 rounded-full font-headline text-sm font-bold scale-95 active:scale-90 transition-transform shadow-lg shadow-primary/20">
+                    Agendar
+                </button>
+</div>
+</div>
+</nav>
+<main class="pt-24 overflow-hidden">
+<!-- Hero Section -->
+<section class="relative px-6 py-12 md:py-24 max-w-7xl mx-auto">
+<div class="flex flex-col md:flex-row items-center gap-12">
+<div class="flex-1 space-y-8">
+<span class="inline-block px-4 py-1.5 bg-secondary-container text-on-secondary-container rounded-full text-xs font-bold uppercase tracking-widest font-headline">
+                        Concierge Pet de Luxo
+                    </span>
+<h1 class="text-5xl md:text-7xl font-extrabold font-headline text-on-background leading-[1.1] tracking-tight">
+                        O Cuidado que seu <span class="text-primary">Melhor Amigo</span> Merece.
+                    </h1>
+<p class="text-lg md:text-xl text-on-surface-variant leading-relaxed max-w-xl">
+                        Uma experiência exclusiva de bem-estar para o seu pet, onde luxo e carinho se encontram para oferecer o melhor em saúde e hospitalidade.
+                    </p>
+<div class="flex flex-wrap gap-4">
+<button class="bg-secondary text-on-secondary px-8 py-4 rounded-full font-bold font-headline flex items-center gap-2 hover:bg-secondary-fixed-variant transition-colors shadow-xl shadow-secondary/20">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">calendar_month</span>
+                            Agendar Agora
+                        </button>
+<button class="bg-surface-container-highest text-primary px-8 py-4 rounded-full font-bold font-headline hover:bg-surface-container-high transition-colors">
+                            Conhecer Unidades
+                        </button>
+</div>
+</div>
+<div class="flex-1 relative">
+<div class="absolute -top-10 -right-10 w-64 h-64 bg-primary-container/20 rounded-full blur-3xl"></div>
+<div class="relative z-10 rounded-xl overflow-hidden shadow-2xl rotate-2 hover:rotate-0 transition-transform duration-500">
+<img alt="Luxury pet care" class="w-full h-[500px] object-cover" data-alt="A happy golden retriever receiving a gentle massage from a professional groomer in a bright, modern, high-end pet spa" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBSf0FpgUjoMStDfdMKGCAoTLp_2U6sLDG54rfGYa62_epOVwCOe5sVR9NAQIs0bqIb9x3SMeaAhVESGgVfLl4EacZco6rXhr5HOO3n7f2GNMK1KJSWXuasQfkHG84eJt5MFz5z7TQZW8nsiOs380e5l1DFMLBmUdeObr2XYcX2SEaQMqPIktxvNcWIGBv-r_RHiErUm0Fo2FwFS9jm2VW0i9Yq4Uwhhf_2Vtjr5ShMymgsr8A9dT3LTGhkXeGwl79RCAPUjUtKuxY"/>
+</div>
+<div class="absolute -bottom-6 -left-6 z-20 bg-white p-6 rounded-lg shadow-xl flex items-center gap-4">
+<div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center text-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">verified</span>
+</div>
+<div>
+<p class="font-bold text-on-background font-headline">Atendimento 5 Estrelas</p>
+<p class="text-xs text-on-surface-variant">Referência em Concierge Pet</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Serviços Section -->
+<section class="bg-surface-container-low py-24 rounded-t-xl mt-12">
+<div class="max-w-7xl mx-auto px-6">
+<div class="text-center mb-16 space-y-4">
+<h2 class="text-4xl font-extrabold font-headline text-on-background">Nossos Serviços Premium</h2>
+<p class="text-on-surface-variant max-w-2xl mx-auto">Soluções completas para garantir que cada momento do seu pet seja repleto de saúde, conforto e felicidade.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<!-- Clínica Card -->
+<div class="bg-surface-container-lowest p-8 rounded-lg group hover:bg-primary transition-all duration-500 hover:-translate-y-2">
+<div class="w-16 h-16 bg-primary-container/20 rounded-2xl flex items-center justify-center text-primary mb-6 group-hover:bg-white/20 group-hover:text-white">
+<span class="material-symbols-outlined text-4xl" style="font-variation-settings: 'FILL' 0;">medical_services</span>
+</div>
+<h3 class="text-2xl font-bold font-headline mb-4 group-hover:text-white">Clínica Especializada</h3>
+<p class="text-on-surface-variant group-hover:text-white/80 leading-relaxed mb-6">
+                            Consultas, exames diagnósticos e especialistas prontos para oferecer medicina preventiva e curativa de alto padrão.
+                        </p>
+<a class="text-primary font-bold group-hover:text-white flex items-center gap-2" href="#">
+                            Saiba mais <span class="material-symbols-outlined">arrow_forward</span>
+</a>
+</div>
+<!-- Estética Card -->
+<div class="bg-surface-container-lowest p-8 rounded-lg group hover:bg-secondary transition-all duration-500 hover:-translate-y-2">
+<div class="w-16 h-16 bg-secondary-container/20 rounded-2xl flex items-center justify-center text-secondary mb-6 group-hover:bg-white/20 group-hover:text-white">
+<span class="material-symbols-outlined text-4xl" style="font-variation-settings: 'FILL' 0;">content_cut</span>
+</div>
+<h3 class="text-2xl font-bold font-headline mb-4 group-hover:text-white">Estética &amp; Spa</h3>
+<p class="text-on-surface-variant group-hover:text-white/80 leading-relaxed mb-6">
+                            Banho relaxante, tosa artística e tratamentos de pelagem com produtos de luxo e profissionais certificados.
+                        </p>
+<a class="text-secondary font-bold group-hover:text-white flex items-center gap-2" href="#">
+                            Saiba mais <span class="material-symbols-outlined">arrow_forward</span>
+</a>
+</div>
+<!-- Hospedagem Card -->
+<div class="bg-surface-container-lowest p-8 rounded-lg group hover:bg-tertiary transition-all duration-500 hover:-translate-y-2">
+<div class="w-16 h-16 bg-tertiary-container/20 rounded-2xl flex items-center justify-center text-tertiary mb-6 group-hover:bg-white/20 group-hover:text-white">
+<span class="material-symbols-outlined text-4xl" style="font-variation-settings: 'FILL' 0;">hotel</span>
+</div>
+<h3 class="text-2xl font-bold font-headline mb-4 group-hover:text-white">Hospedagem VIP</h3>
+<p class="text-on-surface-variant group-hover:text-white/80 leading-relaxed mb-6">
+                            Suítes individuais climatizadas, monitoramento 24h e atividades recreativas para o seu pet se sentir em casa.
+                        </p>
+<a class="text-tertiary font-bold group-hover:text-white flex items-center gap-2" href="#">
+                            Saiba mais <span class="material-symbols-outlined">arrow_forward</span>
+</a>
+</div>
+</div>
+</div>
+</section>
+<!-- Bento Grid "Por que Escolher" -->
+<section class="py-24 max-w-7xl mx-auto px-6">
+<div class="grid grid-cols-1 md:grid-cols-12 gap-6 h-auto md:h-[600px]">
+<div class="md:col-span-8 bg-surface-container rounded-lg p-12 flex flex-col justify-end relative overflow-hidden">
+<img alt="Dogs playing" class="absolute inset-0 w-full h-full object-cover opacity-30 mix-blend-overlay" data-alt="Two small dogs playing happily in a garden with sun rays filtering through trees, creating a warm and trustworthy atmosphere" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCVM0Q61Gb5GF8o6LUHn8Tmd09YiEcJxwlLYO_iw7VR0iE_4sjd4p2UDs5TsH5QgHPgBTJyV1-gPgqYtGpFzf4Bi8uVoo3jsuaxbZiiz2n2RB4RIwO_dnSEeKbmXwT6A-eSnQRiHEjS9kCPlGeWhw2b7AwIWng9aczrKN4ew8ePOji7pPqjnvOj2jy-OdfrXVaLGRab4suN-5xXWdvqHodIMCCp9wdooWe0WwmQoEGjFPT3LZCaI6fxn-NoQGD7aViojrCYMjKrwrE"/>
+<div class="relative z-10 space-y-4">
+<h3 class="text-4xl font-extrabold font-headline">Confiança que se sente</h3>
+<p class="text-lg max-w-xl text-on-surface-variant">Nossa equipe é formada por apaixonados por animais que tratam cada pet como se fosse parte da nossa própria família. A transparência e o carinho são os pilares do nosso serviço.</p>
+</div>
+</div>
+<div class="md:col-span-4 bg-primary text-on-primary rounded-lg p-8 flex flex-col justify-center items-center text-center space-y-6">
+<span class="material-symbols-outlined text-6xl" style="font-variation-settings: 'FILL' 1;">favorite</span>
+<h3 class="text-2xl font-bold font-headline">Carinho Incondicional</h3>
+<p class="text-white/80">Monitoramento afetivo constante e equipe treinada em comportamento animal positivo.</p>
+</div>
+<div class="md:col-span-4 bg-secondary text-on-secondary rounded-lg p-8 flex items-center gap-6">
+<div class="text-4xl font-black font-headline tracking-tighter">15k+</div>
+<div class="text-sm font-semibold opacity-90 uppercase tracking-wider">Pets Felizes<br/>Atendidos</div>
+</div>
+<div class="md:col-span-8 bg-surface-container-low rounded-lg p-8 flex items-center justify-between group cursor-default">
+<div class="space-y-2">
+<h4 class="text-xl font-bold font-headline">Infraestrutura Moderna</h4>
+<p class="text-on-surface-variant">Equipamentos de última geração para diagnósticos precisos.</p>
+</div>
+<div class="w-16 h-16 rounded-full bg-white flex items-center justify-center text-primary group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-3xl">precision_manufacturing</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Depoimentos Carousel-like Section -->
+<section class="bg-surface py-24">
+<div class="max-w-7xl mx-auto px-6">
+<div class="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
+<div class="space-y-4">
+<h2 class="text-4xl font-extrabold font-headline">Histórias de Amor</h2>
+<p class="text-on-surface-variant">O que os pais de pet dizem sobre a experiência Amigo Fiel.</p>
+</div>
+<div class="flex gap-2">
+<button class="w-12 h-12 rounded-full border border-outline-variant flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-colors">
+<span class="material-symbols-outlined">chevron_left</span>
+</button>
+<button class="w-12 h-12 rounded-full border border-outline-variant flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-colors">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+</div>
+<div class="flex gap-8 overflow-x-auto pb-12 snap-x no-scrollbar">
+<!-- Testimonial 1 -->
+<div class="min-w-[350px] md:min-w-[450px] bg-surface-container-lowest p-8 rounded-lg snap-start shadow-sm hover:shadow-lg transition-shadow border-t-4 border-primary">
+<div class="flex gap-1 text-secondary-container mb-6">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+<p class="text-lg italic text-on-surface mb-8 font-body leading-relaxed">
+                            "Nunca vi o Thor tão feliz voltando do banho. O atendimento é impecável e o cuidado com os detalhes me surpreendeu. Finalmente encontrei um lugar de confiança!"
+                        </p>
+<div class="flex items-center gap-4">
+<img alt="Mariana Oliveira" class="w-14 h-14 rounded-full object-cover" data-alt="Portrait of a smiling young woman with warm expression, high-quality professional photography style" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCZXQ0--YK5v_WLpA8YDUSo4T_1FY7kmhRNgI0Z1XGOLVIAoK88WVu1ZlQqttLouKL8I0AUgkmLTayiM7Pdusdf9-SehsP2MtXrOHoMrOA57Likxr9jzqzW9uieHZtiMwpXoenu58MVQ8g9D0F11OKNiSAPUjU8Jg3fHWswMej9lF4w4H4oqopCZjoDa0Vo-iuDgEg47Pv5-eJT6UaVxdGOy7KJilGQAoQaxwdCqaO1L5yPXIAlzN5pfI9vkYEqg7bylC_RiAaQxB8"/>
+<div>
+<h4 class="font-bold font-headline">Mariana Oliveira</h4>
+<p class="text-sm text-on-surface-variant">Mãe do Thor (Golden Retriever)</p>
+</div>
+</div>
+</div>
+<!-- Testimonial 2 -->
+<div class="min-w-[350px] md:min-w-[450px] bg-surface-container-lowest p-8 rounded-lg snap-start shadow-sm hover:shadow-lg transition-shadow border-t-4 border-secondary">
+<div class="flex gap-1 text-secondary-container mb-6">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+<p class="text-lg italic text-on-surface mb-8 font-body leading-relaxed">
+                            "A hospedagem VIP é fantástica. Recebi fotos e vídeos da Luna o dia todo. Ela se divertiu tanto que nem queria ir embora! Super recomendo para quem busca paz de espírito."
+                        </p>
+<div class="flex items-center gap-4">
+<img alt="Ricardo Santos" class="w-14 h-14 rounded-full object-cover" data-alt="Confident adult man smiling, professional studio lighting, neutral background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAajfgnRcv71wJDkFnVQhJQSqyP6OtLZDmEBtaX4kjRyuSqjV1oXXXFfoORV8PpY1s-JBjoQavrDeiuVL5SJY9n1NqVtKZDpiGxwaLHnngEdrajkqQqyX6nefbqepawrguvikoada7PqjA9bUMB1NZh8tIQfI9vi9Gzu9xY16n4HmqVPAZNXHNSdnsdyjClQz-iVbAigM3saQFhC_o81IlELH8jdBLzNNhB8ki0ImaasoB4k1df5UM65ukCpD7d4X4SFj0Z4IpHZBc"/>
+<div>
+<h4 class="font-bold font-headline">Ricardo Santos</h4>
+<p class="text-sm text-on-surface-variant">Pai da Luna (Persa)</p>
+</div>
+</div>
+</div>
+<!-- Testimonial 3 -->
+<div class="min-w-[350px] md:min-w-[450px] bg-surface-container-lowest p-8 rounded-lg snap-start shadow-sm hover:shadow-lg transition-shadow border-t-4 border-tertiary">
+<div class="flex gap-1 text-secondary-container mb-6">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+<p class="text-lg italic text-on-surface mb-8 font-body leading-relaxed">
+                            "A clínica resolveu um problema de saúde crônico do Bob que ninguém conseguia. Os médicos são extremamente competentes e humanos. Sou eternamente grata."
+                        </p>
+<div class="flex items-center gap-4">
+<img alt="Clara Mendes" class="w-14 h-14 rounded-full object-cover" data-alt="Serene woman with soft smile, natural lighting, looking into the camera, high quality portrait" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD3iZgd0C6DKqxLvaOiQlk_VweQ2b1BfZXHozlP_BzK-m9y19PK1IoxMrTirmoe7m-mPh8qO04LJyo3Wa4VNWLnigpxSs6LFj791dndFS38ayojPdTdPALcEZSh2ooKCKvYpwGmVASkJTfNlfk7DcQ5_TG-QbH30OU98c9_cIac8C1mw5BDKTasK3uni2G-AkDATGdLPxuhqGalXgk5wNfQ4pd1D7k48WfH0iaw7ceyRFGj3EY14FQpYc66fiMX-9P2B7EXCI929zI"/>
+<div>
+<h4 class="font-bold font-headline">Clara Mendes</h4>
+<p class="text-sm text-on-surface-variant">Mãe do Bob (Bulldog Francês)</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Final CTA Section -->
+<section class="py-24 px-6">
+<div class="max-w-5xl mx-auto bg-[#00677d] rounded-xl p-12 text-center text-white relative overflow-hidden">
+<div class="absolute top-0 right-0 w-64 h-64 bg-[#00b4d8] rounded-full -mr-32 -mt-32 opacity-20 blur-3xl"></div>
+<div class="relative z-10 space-y-8">
+<h2 class="text-4xl md:text-5xl font-extrabold font-headline">Pronto para dar o melhor para o seu pet?</h2>
+<p class="text-xl text-white/80 max-w-2xl mx-auto font-body">
+                        Agende um horário via WhatsApp e descubra por que somos o concierge favorito dos pets mais exigentes.
+                    </p>
+<div class="flex flex-col md:flex-row justify-center items-center gap-4">
+<a class="bg-secondary-container text-on-secondary-container px-10 py-5 rounded-full font-bold font-headline text-lg flex items-center gap-3 hover:scale-105 transition-transform shadow-2xl" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">chat</span>
+                            Falar no WhatsApp
+                        </a>
+<p class="text-sm text-white/60 font-medium">Resposta média em 5 minutos</p>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full rounded-t-[3rem] mt-20 bg-[#eff4f7] py-16 px-12">
+<div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8 w-full">
+<div class="space-y-4 text-center md:text-left">
+<div class="text-xl font-bold text-[#00677d] font-headline">Amigo Fiel</div>
+<p class="text-sm font-body text-slate-500 max-w-xs leading-relaxed">
+                    O primeiro concierge pet de luxo focado em proporcionar experiências inesquecíveis para você e seu melhor amigo.
+                </p>
+</div>
+<div class="flex flex-wrap justify-center gap-8 font-body text-sm">
+<a class="text-slate-500 hover:underline decoration-2 underline-offset-4 transition-opacity opacity-80 hover:opacity-100" href="#">Privacidade</a>
+<a class="text-slate-500 hover:underline decoration-2 underline-offset-4 transition-opacity opacity-80 hover:opacity-100" href="#">Termos de Uso</a>
+<a class="text-slate-500 hover:underline decoration-2 underline-offset-4 transition-opacity opacity-80 hover:opacity-100" href="#">Unidades</a>
+<a class="text-slate-500 hover:underline decoration-2 underline-offset-4 transition-opacity opacity-80 hover:opacity-100" href="#">Trabalhe Conosco</a>
+</div>
+<div class="flex items-center gap-6">
+<a class="w-10 h-10 rounded-full bg-white flex items-center justify-center text-primary shadow-sm hover:scale-110 transition-transform" href="#">
+<span class="material-symbols-outlined">share</span>
+</a>
+<a class="w-10 h-10 rounded-full bg-white flex items-center justify-center text-primary shadow-sm hover:scale-110 transition-transform" href="#">
+<span class="material-symbols-outlined">alternate_email</span>
+</a>
+</div>
+</div>
+<div class="max-w-7xl mx-auto pt-12 text-center">
+<p class="text-xs font-body text-slate-400">© 2024 Amigo Fiel Concierge Pet. Todos os direitos reservados.</p>
+</div>
+</footer>
+</body></html>

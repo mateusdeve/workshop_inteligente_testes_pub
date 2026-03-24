@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>The Editorial Sanctuary | A Curated Breath</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,600;0,700;1,400&amp;family=Manrope:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "surface": "#fbf9f4",
+              "primary-fixed-dim": "#b9cda4",
+              "on-secondary-fixed-variant": "#4a473b",
+              "tertiary-fixed": "#ffdbcf",
+              "primary-fixed": "#d5e9bf",
+              "secondary": "#625e52",
+              "on-tertiary-fixed": "#380d01",
+              "inverse-primary": "#b9cda4",
+              "on-error-container": "#93000a",
+              "surface-container-low": "#f5f3ee",
+              "on-secondary-fixed": "#1e1c12",
+              "surface-variant": "#e4e2dd",
+              "on-surface-variant": "#44483f",
+              "outline-variant": "#c5c8bc",
+              "surface-tint": "#526442",
+              "on-primary": "#ffffff",
+              "surface-container-high": "#eae8e3",
+              "on-primary-container": "#324224",
+              "primary-container": "#9caf88",
+              "surface-container-highest": "#e4e2dd",
+              "tertiary-container": "#e2967b",
+              "on-surface": "#1b1c19",
+              "surface-bright": "#fbf9f4",
+              "secondary-fixed": "#e8e2d2",
+              "tertiary": "#8b4e38",
+              "error-container": "#ffdad6",
+              "on-primary-fixed-variant": "#3b4c2c",
+              "surface-container": "#f0eee9",
+              "on-background": "#1b1c19",
+              "secondary-container": "#e8e2d2",
+              "surface-container-lowest": "#ffffff",
+              "inverse-surface": "#30312e",
+              "inverse-on-surface": "#f2f1ec",
+              "surface-dim": "#dbdad5",
+              "on-primary-fixed": "#111f05",
+              "on-secondary-container": "#686458",
+              "on-error": "#ffffff",
+              "tertiary-fixed-dim": "#ffb59b",
+              "on-tertiary": "#ffffff",
+              "primary": "#526442",
+              "background": "#fbf9f4",
+              "on-secondary": "#ffffff",
+              "error": "#ba1a1a",
+              "secondary-fixed-dim": "#ccc6b7",
+              "on-tertiary-fixed-variant": "#6f3723",
+              "outline": "#75786e",
+              "on-tertiary-container": "#642e1b"
+            },
+            fontFamily: {
+              "headline": ["Noto Serif"],
+              "body": ["Manrope"],
+              "label": ["Manrope"]
+            },
+            borderRadius: {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+      }
+      .editorial-shadow {
+        box-shadow: 0 40px 80px -20px rgba(27, 28, 25, 0.04);
+      }
+      .inner-glow {
+        box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.5);
+      }
+      .glass-nav {
+        backdrop-filter: blur(24px);
+        -webkit-backdrop-filter: blur(24px);
+      }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body selection:bg-primary-container/30">
+<!-- Top Navigation -->
+<nav class="fixed top-0 w-full z-50 bg-[#fbf9f4]/70 dark:bg-[#1b1c19]/70 backdrop-blur-3xl">
+<div class="flex justify-between items-center px-12 py-6 max-w-[1440px] mx-auto">
+<div class="font-['Noto_Serif'] text-2xl font-semibold text-[#1b1c19] dark:text-[#fbf9f4] tracking-tighter">The Editorial Sanctuary</div>
+<div class="hidden md:flex gap-12 items-center">
+<a class="font-['Noto_Serif'] tracking-tight text-lg transition-colors duration-300 text-[#1b1c19]/60 dark:text-[#fbf9f4]/60 hover:text-[#526442] dark:hover:text-[#9CAF88]" href="#">Essays</a>
+<a class="font-['Noto_Serif'] tracking-tight text-lg transition-colors duration-300 text-[#1b1c19]/60 dark:text-[#fbf9f4]/60 hover:text-[#526442] dark:hover:text-[#9CAF88]" href="#">Rituals</a>
+<a class="font-['Noto_Serif'] tracking-tight text-lg transition-colors duration-300 text-[#526442] dark:text-[#9CAF88] font-semibold border-b border-[#526442]/30" href="#">Sanctuary</a>
+<a class="font-['Noto_Serif'] tracking-tight text-lg transition-colors duration-300 text-[#1b1c19]/60 dark:text-[#fbf9f4]/60 hover:text-[#526442] dark:hover:text-[#9CAF88]" href="#">Journal</a>
+</div>
+<button class="bg-gradient-to-br from-primary to-primary-container text-on-primary px-8 py-3 rounded-lg font-label text-sm font-semibold tracking-widest uppercase transition-transform active:scale-95 duration-200 ease-out">
+                Subscribe
+            </button>
+</div>
+</nav>
+<main>
+<!-- Hero Section -->
+<section class="pt-48 pb-24 px-12 max-w-[1440px] mx-auto grid grid-cols-1 md:grid-cols-12 gap-12 items-center">
+<div class="md:col-span-6 lg:col-span-5 flex flex-col gap-8">
+<div class="flex flex-col gap-2">
+<span class="font-label text-sm tracking-[0.2em] uppercase text-primary font-bold">Volume I: The Awakening</span>
+<h1 class="font-headline text-6xl md:text-7xl lg:text-8xl leading-[1.1] tracking-tighter text-on-surface">Cultivate Your Inner Landscape.</h1>
+</div>
+<p class="text-xl text-on-surface-variant font-light leading-relaxed max-w-md">
+                    A curated journey into slow living, intentional movement, and the quiet art of being. Transform your daily rituals into a sanctuary of peace.
+                </p>
+<div class="flex items-center gap-6 mt-4">
+<button class="bg-gradient-to-br from-primary to-primary-container text-on-primary px-10 py-5 rounded-lg font-label font-bold tracking-widest uppercase shadow-xl shadow-primary/10">Begin the Ritual</button>
+<button class="flex items-center gap-2 font-label font-bold text-primary group">
+<span>Explore the Syllabus</span>
+<span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</button>
+</div>
+</div>
+<div class="md:col-span-6 lg:col-span-7 relative h-[600px]">
+<div class="absolute inset-0 bg-surface-container rounded-xl overflow-hidden -rotate-2 transform translate-x-4 translate-y-4"></div>
+<img alt="Wellness Aesthetic" class="absolute inset-0 w-full h-full object-cover rounded-xl shadow-2xl z-10" data-alt="Soft focused lifestyle shot of a woman in linen clothes practicing yoga in a sun-drenched minimalist room with organic textures" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBgVsjT-0mKxDI3Q9E72ChXgSIzkkLaqmaisJWAHms5K3JtikfvtP50bU7kMBDfKXqtHJ1tvA86H1T9m7rH1pH3rNbssFrCFMp1-1tP6NrP50w0PKoEEWMGa13agqyfIhristJZeQyQDaBg1tJ-I853mAApcaAa7t2yAdeVHzAIXf-2W2VBXehgOABfzsy72T5iom5_S3OfQCn4B7KwIzfr8RUx2cCPP_M4aEWonqwEfIL_Zb8uLYacv5p-sk21a7ne1bIYV9V0fKY"/>
+<div class="absolute -bottom-8 -left-8 bg-tertiary-container p-12 rounded-xl z-20 editorial-shadow hidden lg:block">
+<div class="font-headline text-3xl italic text-on-tertiary-container mb-2">"True beauty is an act of quiet rebellion."</div>
+<div class="font-label text-xs tracking-widest uppercase text-on-tertiary-container/60">Eleanor Vance, Founder</div>
+</div>
+</div>
+</section>
+<!-- Philosophy Section -->
+<section class="py-24 bg-surface-container-low">
+<div class="max-w-[1440px] mx-auto px-12 grid grid-cols-1 md:grid-cols-3 gap-16">
+<div class="flex flex-col gap-6">
+<span class="material-symbols-outlined text-4xl text-primary" data-icon="spa">spa</span>
+<h3 class="font-headline text-3xl text-on-surface">The Ritual of Pause</h3>
+<p class="text-on-surface-variant leading-relaxed">We believe in the power of the gap—the space between thoughts where clarity resides. Our methodology prioritizes stillness over speed.</p>
+</div>
+<div class="flex flex-col gap-6 translate-y-8">
+<span class="material-symbols-outlined text-4xl text-primary" data-icon="energy_savings_leaf">energy_savings_leaf</span>
+<h3 class="font-headline text-3xl text-on-surface">Earth-Bound Wisdom</h3>
+<p class="text-on-surface-variant leading-relaxed">Our practices are rooted in the changing seasons, aligning your internal rhythm with the natural world's gentle cycles.</p>
+</div>
+<div class="flex flex-col gap-6">
+<span class="material-symbols-outlined text-4xl text-primary" data-icon="fluid_meditation">fluid</span>
+<h3 class="font-headline text-3xl text-on-surface">Conscious Presence</h3>
+<p class="text-on-surface-variant leading-relaxed">From the tea you brew to the breath you take, we curate tools that anchor you firmly in the present moment.</p>
+</div>
+</div>
+</section>
+<!-- Methodology Accordion (Custom Editorial Style) -->
+<section class="py-32 max-w-[1440px] mx-auto px-12">
+<div class="text-center mb-24 max-w-2xl mx-auto">
+<h2 class="font-headline text-5xl mb-6">The Sanctuary Curriculum</h2>
+<p class="text-on-surface-variant">A 12-week immersive experience designed to dismantle stress and rebuild your daily foundation through three core pillars.</p>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
+<div class="lg:col-span-5">
+<div class="space-y-4">
+<!-- Accordion Item 1 -->
+<div class="bg-surface-container p-8 rounded-lg group transition-all cursor-pointer hover:bg-surface-container-high border-b-0">
+<div class="flex justify-between items-center">
+<span class="font-label text-xs tracking-widest text-primary font-bold">PHASE 01</span>
+<span class="material-symbols-outlined text-primary">add</span>
+</div>
+<h4 class="font-headline text-2xl mt-4 mb-2">The Architecture of Breath</h4>
+<p class="text-on-surface-variant text-sm leading-relaxed">Mastering 12 fundamental breathing patterns to regulate the nervous system and clear mental fog.</p>
+</div>
+<!-- Accordion Item 2 - Active State -->
+<div class="bg-primary-container/10 p-8 rounded-lg border-l-4 border-primary">
+<div class="flex justify-between items-center">
+<span class="font-label text-xs tracking-widest text-primary font-bold">PHASE 02</span>
+<span class="material-symbols-outlined text-primary">remove</span>
+</div>
+<h4 class="font-headline text-2xl mt-4 mb-2">The Somatic Flow</h4>
+<p class="text-on-surface-variant text-sm leading-relaxed mb-6">Intentional movement designed to release trapped tension in the fascia and improve postural alignment.</p>
+<ul class="space-y-3">
+<li class="flex items-center gap-3 text-sm text-on-surface italic"><span class="w-1.5 h-1.5 rounded-full bg-primary"></span> Dawn Movement Sequences</li>
+<li class="flex items-center gap-3 text-sm text-on-surface italic"><span class="w-1.5 h-1.5 rounded-full bg-primary"></span> Fascial Release Workshops</li>
+<li class="flex items-center gap-3 text-sm text-on-surface italic"><span class="w-1.5 h-1.5 rounded-full bg-primary"></span> Evening Restorative Rituals</li>
+</ul>
+</div>
+<!-- Accordion Item 3 -->
+<div class="bg-surface-container p-8 rounded-lg group transition-all cursor-pointer hover:bg-surface-container-high">
+<div class="flex justify-between items-center">
+<span class="font-label text-xs tracking-widest text-primary font-bold">PHASE 03</span>
+<span class="material-symbols-outlined text-primary">add</span>
+</div>
+<h4 class="font-headline text-2xl mt-4 mb-2">Digital Detachment</h4>
+<p class="text-on-surface-variant text-sm leading-relaxed">Designing a home environment and a digital schedule that protects your attention and creativity.</p>
+</div>
+</div>
+</div>
+<div class="lg:col-span-7 grid grid-cols-2 gap-6">
+<img alt="Sanctuary Space" class="w-full h-[500px] object-cover rounded-xl mt-12" data-alt="Minimalist meditation corner with a round jute rug, ceramic vase with dried grass, and soft morning shadows on neutral walls" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBzKp9cy_qOXYiWYz4gYFNysYklFr0WH5hVAsfIInhDrjw4JHy7CEdV9iGSpZvntQgFI91phFC0F9suayWdLE_frXoWy11ErcUvn7b7I7cvB_LE1KxHStwvK5tqU7RwYCGieXOiz6oPXVGTQ8CQzuYd2Br8zA3vNVjj_5xU_EUuNgk90cs9FefZ-DIGRXYJtSlduPLG0SPlYA-CV6Np9jK6SlC7CS7Pn3CFA2cNG2pxEMyKjyeafxNAvxN2RpZSy0uEq155PZsqCaE"/>
+<img alt="Focus Ritual" class="w-full h-[500px] object-cover rounded-xl" data-alt="Overhead view of a person hand-writing in a linen notebook next to a cup of herbal tea on a rustic wooden table" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCJ87h0GSzz8V0x6WhaEUp_nFj2YmBWtgA2wbJbrEE1Psc-CBGFDqsMyJlPfCuQ-8D7a20dabFePVNmKS8wxNpL9D_9oBLm5LYKGxHafNllfPkYAtGr2JRlJDTYJr8jLYmj9hD-YMJw93GdpCQaoVHNzINroVYtxZ5lrisR90JJvnvEDO5igNzm4HQB9w7wRJSpStrNorVAfrf5Kg7JtKnsXvH_UlVkNlxq0PH_iFtEqw7vuPj89-BwFyengT95z8IhAwG9r7iunSE"/>
+</div>
+</div>
+</section>
+<!-- Experts Carousel (Bento-style layout) -->
+<section class="py-24 bg-surface-container-low overflow-hidden">
+<div class="max-w-[1440px] mx-auto px-12">
+<div class="flex justify-between items-end mb-16">
+<div>
+<span class="font-label text-sm tracking-widest uppercase text-primary font-bold">The Collective</span>
+<h2 class="font-headline text-5xl mt-4">Guided by Masters</h2>
+</div>
+<div class="flex gap-4">
+<button class="w-12 h-12 rounded-full flex items-center justify-center border border-outline-variant text-outline hover:bg-surface-container-highest transition-colors">
+<span class="material-symbols-outlined">chevron_left</span>
+</button>
+<button class="w-12 h-12 rounded-full flex items-center justify-center border border-outline-variant text-outline hover:bg-surface-container-highest transition-colors">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+<!-- Mentor 1 -->
+<div class="group relative aspect-[3/4] overflow-hidden rounded-xl">
+<img alt="Julianne Moore" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="Portrait of a serene woman with grey hair in a minimalist beige sweater against a neutral background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBGDfHg6L74HM4RrSkrY46ewgZbKwY4roEEsIpVW0Rluy0n1pRLLC1COsip0H33s5kmtKVXOaRveg4WbYiKcZNZRCs2oDfBX5OAya7kj4HxpwTMspnAMpnTXevrL8WT2juzW87WSiRFzdLhZRxztqHA9tSA_wAtzGLSblNJDhlzVkaVij-wjN3LL80fI78WXVpOh6iIWfJiDP8r5IxNrnjzX6X6VffxdHP38TiWIOuJ2kljhqDe4glrrVoDa2ExP5FbePOAWSyPjdc"/>
+<div class="absolute inset-0 bg-gradient-to-t from-on-surface/80 to-transparent flex flex-col justify-end p-8">
+<h5 class="font-headline text-2xl text-white">Julianne Moore</h5>
+<p class="text-white/70 text-sm font-label tracking-widest uppercase">Breathwork Lead</p>
+</div>
+</div>
+<!-- Mentor 2 -->
+<div class="group relative aspect-[3/4] overflow-hidden rounded-xl translate-y-12">
+<img alt="Marcus Chen" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="Modern professional male mentor with a calm expression wearing a tailored sage green linen shirt" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA-h7gIUXVgddKbtReGaZ_o2416M4-iW84_m8AHcxZ-rAM2zOiE3pCZlAHD-bULK-umptt9hIrPucJc7UFhEV4Qp5NYg3i9Avln-A4qEMQ-uxlC0JJzSRR066fdSPbY38PgF9bLF-teyG9_L-TSc-0mWA1nxUOurLcMBfb6Vv96pa3f0vUwpD1Iq30XIJsc7kCvQdUpBZu_6q3AFDOnJvJGb7iYOq2CiCI15_FIFHbJcXKD1hynp7uiyrQomXohrq39pX-JZvvuYFc"/>
+<div class="absolute inset-0 bg-gradient-to-t from-on-surface/80 to-transparent flex flex-col justify-end p-8">
+<h5 class="font-headline text-2xl text-white">Marcus Chen</h5>
+<p class="text-white/70 text-sm font-label tracking-widest uppercase">Movement Architect</p>
+</div>
+</div>
+<!-- Mentor 3 -->
+<div class="group relative aspect-[3/4] overflow-hidden rounded-xl">
+<img alt="Sarah Jenkins" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="Close up of a thoughtful woman smiling gently, wearing gold jewelry and a simple silk top" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAQjWcbqyzERr-C8mnvcDv5yUlK0OufXwEOGV1BnP6mR_4KvoWuC0EsT_6PxzvxTF_bMGYrZIryxBoQAP4oe7zIPUhot3k__9-zKqiZgXDYXe7-OYtQq3z6YX74VbhdEfKeURO9PDpmJgjkVHN0N-7upzdX6DyNrLJNmmUD7DU3_is5jAKZGArj-EylllKrpRNmQe6jbyyKmDKwJuIKKdagq7DLE4LaHqXRPvrUBuFM-S7ty86F_rbW70vSH89visYhowbZU4QMOL0"/>
+<div class="absolute inset-0 bg-gradient-to-t from-on-surface/80 to-transparent flex flex-col justify-end p-8">
+<h5 class="font-headline text-2xl text-white">Sarah Jenkins</h5>
+<p class="text-white/70 text-sm font-label tracking-widest uppercase">Presence Coach</p>
+</div>
+</div>
+<!-- Mentor 4 -->
+<div class="group relative aspect-[3/4] overflow-hidden rounded-xl translate-y-12">
+<img alt="David Thorne" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="Man with a short beard and peaceful expression looking away from the camera in soft natural lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDbuJ1DL1y5CLoTDHIuaNywVnQl4DYYbHi53I8MA8q4faGfE0QfdJlwlj0Vb96xjt3HH7nOPpXFoCJsUA7-DAiz0BxlZnlO2gpr74bXmmv4XGTA6TzvNT8_RcqhNub4QiXe6Zb_1YwerV276UPbH7ooFqf9SeRxgp5UawRb2cxaznDEj4M_aL-eTuqSLlQr4Ou5fLAv-QSY9s5Fabvy7Q_jD1kqS0oN7HZ3PAOVI0afIPev950ngzgy3ZbkTF0jJiPUfH9_SD1PN0M"/>
+<div class="absolute inset-0 bg-gradient-to-t from-on-surface/80 to-transparent flex flex-col justify-end p-8">
+<h5 class="font-headline text-2xl text-white">David Thorne</h5>
+<p class="text-white/70 text-sm font-label tracking-widest uppercase">Digital Minimalist</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Pricing Section -->
+<section class="py-32 max-w-[1440px] mx-auto px-12">
+<div class="flex flex-col md:flex-row gap-16 items-center">
+<div class="flex-1">
+<h2 class="font-headline text-5xl mb-8">An Investment in Your Future Self.</h2>
+<p class="text-on-surface-variant text-lg leading-relaxed mb-12">We offer a single, comprehensive pathway. No complex tiers, no hidden costs. Just a complete transformation of your lifestyle.</p>
+<div class="grid grid-cols-2 gap-8">
+<div class="flex items-start gap-4">
+<span class="material-symbols-outlined text-primary">verified</span>
+<div>
+<h6 class="font-bold text-on-surface">Lifetime Access</h6>
+<p class="text-xs text-on-surface-variant">Revisit the rituals anytime.</p>
+</div>
+</div>
+<div class="flex items-start gap-4">
+<span class="material-symbols-outlined text-primary">group_work</span>
+<div>
+<h6 class="font-bold text-on-surface">Weekly Circles</h6>
+<p class="text-xs text-on-surface-variant">Live group reflection sessions.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="w-full md:w-[450px]">
+<div class="bg-surface-container-lowest p-12 rounded-xl shadow-2xl shadow-on-surface/5 border border-outline-variant/15 relative overflow-hidden">
+<div class="absolute top-0 right-0 bg-primary px-6 py-2 rounded-bl-xl font-label text-[10px] tracking-[0.2em] uppercase text-white font-bold">The Sanctuary Passage</div>
+<div class="font-headline text-lg italic text-on-surface-variant mb-4">The Complete Experience</div>
+<div class="flex items-baseline gap-2 mb-8">
+<span class="text-5xl font-headline font-bold text-on-surface">$599</span>
+<span class="text-on-surface-variant font-label text-xs uppercase tracking-widest">One-time Offering</span>
+</div>
+<ul class="space-y-6 mb-12">
+<li class="flex items-center justify-between group">
+<span class="text-on-surface font-light">The 12-Week Syllabus</span>
+<span class="material-symbols-outlined text-sm text-primary" data-weight="fill">check_circle</span>
+</li>
+<li class="flex items-center justify-between group">
+<span class="text-on-surface font-light">Custom Physical Toolkit</span>
+<span class="material-symbols-outlined text-sm text-primary" data-weight="fill">check_circle</span>
+</li>
+<li class="flex items-center justify-between group">
+<span class="text-on-surface font-light">Mentor Office Hours</span>
+<span class="material-symbols-outlined text-sm text-primary" data-weight="fill">check_circle</span>
+</li>
+<li class="flex items-center justify-between group">
+<span class="text-on-surface font-light">Private Community Sanctuary</span>
+<span class="material-symbols-outlined text-sm text-primary" data-weight="fill">check_circle</span>
+</li>
+</ul>
+<button class="w-full bg-gradient-to-br from-primary to-primary-container text-on-primary py-5 rounded-lg font-label font-bold tracking-widest uppercase editorial-shadow">Reserve Your Spot</button>
+<p class="text-center mt-6 text-xs text-on-surface-variant font-label italic uppercase tracking-wider">Next cohort begins September 1st</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Final CTA -->
+<section class="py-32 px-12">
+<div class="max-w-[1200px] mx-auto bg-primary rounded-xl overflow-hidden relative p-16 md:p-24 flex flex-col items-center text-center">
+<!-- Background decorative element -->
+<div class="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
+<h2 class="font-headline text-4xl md:text-6xl text-white mb-8 max-w-3xl leading-tight">Your Journey to Stillness Begins with a Single Breath.</h2>
+<p class="text-white/80 text-lg mb-12 max-w-xl font-light">Join over 12,000 seekers who have transformed their lives through the power of curated living.</p>
+<div class="flex flex-col sm:flex-row gap-6">
+<button class="bg-white text-primary px-12 py-5 rounded-lg font-label font-bold tracking-widest uppercase hover:bg-surface-container-lowest transition-colors shadow-xl">Join the Sanctuary</button>
+<button class="border border-white/30 text-white px-12 py-5 rounded-lg font-label font-bold tracking-widest uppercase hover:bg-white/10 transition-colors">Gift an Experience</button>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full rounded-t-[3rem] mt-24 bg-[#f5f3ee] dark:bg-[#121310]">
+<div class="flex flex-col md:flex-row justify-between items-center px-16 py-20 w-full max-w-[1440px] mx-auto">
+<div class="mb-10 md:mb-0">
+<div class="font-['Noto_Serif'] text-xl italic text-[#1b1c19] dark:text-[#fbf9f4] mb-4">The Editorial Sanctuary</div>
+<div class="font-['Manrope'] text-sm tracking-widest uppercase text-[#1b1c19]/40 dark:text-[#fbf9f4]/40">© 2024 The Editorial Sanctuary. All rights reserved.</div>
+</div>
+<div class="flex flex-wrap justify-center gap-12">
+<a class="font-['Manrope'] text-sm tracking-widest uppercase text-[#1b1c19]/40 dark:text-[#fbf9f4]/40 hover:text-[#1b1c19] dark:hover:text-[#fbf9f4] transition-all" href="#">Privacy</a>
+<a class="font-['Manrope'] text-sm tracking-widest uppercase text-[#1b1c19]/40 dark:text-[#fbf9f4]/40 hover:text-[#1b1c19] dark:hover:text-[#fbf9f4] transition-all" href="#">Terms</a>
+<a class="font-['Manrope'] text-sm tracking-widest uppercase text-[#1b1c19] dark:text-[#fbf9f4] underline decoration-[#9CAF88] underline-offset-4" href="#">Contact</a>
+<a class="font-['Manrope'] text-sm tracking-widest uppercase text-[#1b1c19]/40 dark:text-[#fbf9f4]/40 hover:text-[#1b1c19] dark:hover:text-[#fbf9f4] transition-all" href="#">Archive</a>
+</div>
+<div class="flex gap-6 mt-10 md:mt-0">
+<span class="material-symbols-outlined text-[#526442] cursor-pointer opacity-80 hover:opacity-100" data-icon="share">share</span>
+<span class="material-symbols-outlined text-[#526442] cursor-pointer opacity-80 hover:opacity-100" data-icon="mail">mail</span>
+</div>
+</div>
+</footer>
+</body></html>

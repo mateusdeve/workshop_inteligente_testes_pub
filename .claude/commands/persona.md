@@ -13,6 +13,21 @@ Cria documento completo de persona usando a metodologia VTSD: Identidade do Cons
 /persona
 ```
 
+## Princípios de Comportamento
+
+### Postura: Consultor que gera, não formulário que pergunta
+
+Você já tem o `perfil.md` com Quadro, Furadeira, Identidades, Decorados, Urgências Ocultas e (possivelmente) dados de pesquisa de mercado. Use TUDO isso para gerar a persona proativamente.
+
+- **Pergunte o mínimo** — só dados que apenas o aluno sabe (gênero, idade, profissão)
+- **Gere e sugira o resto** — paliativos, objeções, canais, tom de voz, frases da persona
+- **Apresente para validação** — o aluno aprova, ajusta ou complementa
+- **"Não sei" = você sugere** — use dados do perfil e pesquisa de mercado para propor a resposta
+
+### Pesquisa de mercado como apoio
+
+Se durante o `/meu-produto` foi feita pesquisa de mercado, use os dados para alimentar a persona. Se não foi feita, ofereça fazer agora.
+
 ## O Que Fazer
 
 ### 1. Contexto
@@ -48,57 +63,23 @@ Próximo: Comportamento
 ---
 ```
 
-**Bloco 2/3 — Comportamento:**
+**Bloco 2/3 — Comportamento (Geração Proativa):**
 
-Pergunta 4:
-```
-O que essa pessoa já tentou para resolver o problema e não funcionou?
-(ex: "Cursos gratuitos no YouTube", "Dietas da moda", "Planilhas que achou no Google")
-```
+Com base nos dados demográficos + Urgências Ocultas + Identidade do Consumidor do perfil + pesquisa de mercado, GERE automaticamente:
 
-Pergunta 5:
-```
-Se tivesse um resultado mágico, qual seria? O que ela diria para a amiga?
-(ex: "Consegui falar inglês na reunião sem travar")
-```
+- **Paliativos** — o que essa pessoa já tentou e não funcionou (baseado nas dores e no nicho)
+- **Sonho** — a frase que ela diria para uma amiga se alcançasse o resultado (baseado nos desejos)
+- **Canais** — onde essa pessoa busca informação (baseado no perfil demográfico e no nicho)
 
-Pergunta 6:
-```
-Onde essa pessoa busca informação?
+Apresente tudo gerado de uma vez para o aluno validar e ajustar. Não peça item por item.
 
-1. Instagram
-2. YouTube
-3. Google
-4. WhatsApp/Telegram
-5. TikTok
-6. Vários (quais?)
+Mostre progresso ao concluir.
 
-Digite o número:
-```
+**Bloco 3/3 — Objeções (Geração Automática):**
 
-```
---- Bloco 2/3 concluído ---
-Perfil: [dados demográficos]
-Paliativos: [o que já tentou]
-Sonho: [resultado mágico]
-Canais: [onde busca info]
-Próximo: Objeções
----
-```
+GERE as objeções automaticamente com base no perfil do consumidor, preço do produto, nicho e dados da pesquisa de mercado. NÃO liste opções para o aluno escolher — gere a lista completa de objeções típicas desse público e já inclua como quebrar cada uma.
 
-**Bloco 3/3 — Objeções:**
-
-Pergunta 7:
-```
-O que impediria essa pessoa de comprar? Quais as objeções?
-(ex: "Acha caro", "Não tem tempo", "Já tentou e não deu certo", "Precisa falar com o marido")
-```
-
-```
---- Bloco 3/3 concluído ---
-Persona completa. Gerando documento...
----
-```
+Apresente tudo para validação. O aluno aprova, ajusta, adiciona ou remove.
 
 **Confirmação antes de gerar:**
 ```
@@ -147,4 +128,4 @@ Salve em `meu-negocio/persona.md`:
 NOTA: As Urgências Ocultas (dores, desejos, dúvidas, assuntos relacionados) ficam centralizadas em `meu-negocio/perfil.md`. Não duplicar aqui.
 
 ### 4. Próximo Passo
-"Persona salva em `meu-negocio/persona.md`. Use `/texto-de-venda` para criar copys falando com essa persona, ou `/pagina-de-vendas` para criar a página."
+"Persona salva em `meu-negocio/persona.md`. Use `/copy-pagina` para criar copys falando com essa persona, ou `/pagina-de-vendas` para criar a página."

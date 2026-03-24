@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Nocturne AI | Kinetic SaaS Solutions</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;400;700;800&amp;family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "inverse-primary": "#4240f5",
+              "surface-container-low": "#100c37",
+              "surface-variant": "#221e55",
+              "on-secondary-fixed": "#580078",
+              "on-surface-variant": "#aaa6d5",
+              "surface": "#0b082f",
+              "primary-fixed-dim": "#8386ff",
+              "tertiary-fixed": "#00f1fd",
+              "on-tertiary-fixed": "#004145",
+              "surface-container-highest": "#221e55",
+              "secondary-fixed": "#f2c1ff",
+              "outline-variant": "#46436c",
+              "surface-container-high": "#1c184b",
+              "primary-container": "#9396ff",
+              "surface-container-lowest": "#000000",
+              "inverse-on-surface": "#53517a",
+              "on-primary-fixed": "#000000",
+              "surface-dim": "#0b082f",
+              "on-error": "#490013",
+              "tertiary": "#96f8ff",
+              "on-background": "#e6e2ff",
+              "on-tertiary-fixed-variant": "#006065",
+              "on-tertiary-container": "#00565a",
+              "outline": "#74719c",
+              "error-dim": "#d73357",
+              "tertiary-fixed-dim": "#00e2ed",
+              "primary-dim": "#5c5eff",
+              "on-error-container": "#ffb2b9",
+              "on-secondary-fixed-variant": "#792c97",
+              "secondary": "#dd8bfb",
+              "primary-fixed": "#9396ff",
+              "tertiary-dim": "#00e2ed",
+              "on-surface": "#e6e2ff",
+              "tertiary-container": "#00f1fd",
+              "surface-bright": "#28245f",
+              "on-primary": "#1000a3",
+              "surface-tint": "#a3a6ff",
+              "on-primary-container": "#0a0081",
+              "secondary-dim": "#ce7eec",
+              "secondary-container": "#6e208c",
+              "inverse-surface": "#fcf8ff",
+              "on-secondary-container": "#f1bfff",
+              "error-container": "#a70138",
+              "on-primary-fixed-variant": "#0f009d",
+              "surface-container": "#161241",
+              "on-secondary": "#4c0068",
+              "error": "#ff6e84",
+              "secondary-fixed-dim": "#ebadff",
+              "on-tertiary": "#005f64",
+              "primary": "#a3a6ff",
+              "background": "#0b082f"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; background-color: #0b082f; color: #e6e2ff; }
+        .font-headline { font-family: 'Manrope', sans-serif; }
+        .glass-panel { background: rgba(34, 30, 85, 0.6); backdrop-filter: blur(20px); }
+        .gradient-text { background: linear-gradient(135deg, #a3a6ff 0%, #dd8bfb 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .electric-glow:hover { box-shadow: 0 0 15px rgba(92, 94, 255, 0.4); }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+    </style>
+</head>
+<body class="bg-background text-on-surface selection:bg-primary-container selection:text-on-primary-container">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-slate-950/60 backdrop-blur-lg">
+<div class="flex justify-between items-center px-8 h-20 max-w-7xl mx-auto">
+<div class="text-2xl font-black tracking-tight text-indigo-300 dark:text-indigo-300 font-headline">Nocturne AI</div>
+<div class="hidden md:flex items-center space-x-8">
+<a class="text-indigo-300 font-bold border-b-2 border-indigo-300 pb-1 font-body text-sm transition-colors duration-300" href="#">Solutions</a>
+<a class="text-slate-300 dark:text-slate-300 font-body text-sm hover:text-cyan-300 transition-colors duration-300" href="#">Platform</a>
+<a class="text-slate-300 dark:text-slate-300 font-body text-sm hover:text-cyan-300 transition-colors duration-300" href="#">Pricing</a>
+<a class="text-slate-300 dark:text-slate-300 font-body text-sm hover:text-cyan-300 transition-colors duration-300" href="#">Resources</a>
+</div>
+<div class="flex items-center space-x-4">
+<button class="text-slate-300 text-sm font-medium hover:text-cyan-300 transition-all active:scale-95">Login</button>
+<button class="bg-gradient-to-br from-primary to-primary-container text-on-primary px-6 py-2.5 rounded font-bold text-sm electric-glow transition-all active:scale-95">Get Started</button>
+</div>
+</div>
+</nav>
+<main class="pt-20">
+<!-- Hero Section -->
+<section class="relative min-h-[921px] flex items-center overflow-hidden px-8">
+<div class="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-2 gap-16 items-center relative z-10">
+<div class="space-y-8">
+<div class="inline-flex items-center px-3 py-1 rounded-full bg-secondary-container/30 border border-outline-variant/20">
+<span class="text-secondary text-xs font-bold tracking-widest uppercase font-label">v2.0 Kinetic Release</span>
+</div>
+<h1 class="font-headline text-6xl md:text-7xl font-extrabold tracking-tight leading-[1.1] text-on-surface">
+                        Automate the <span class="gradient-text">Midnight</span> Economy.
+                    </h1>
+<p class="text-on-surface-variant text-lg md:text-xl max-w-xl leading-relaxed font-body">
+                        Nocturne AI provides the technical precision of a high-end cockpit for your enterprise data, turning complex workflows into cinematic experiences.
+                    </p>
+<div class="flex flex-wrap gap-4 pt-4">
+<button class="bg-gradient-to-br from-primary to-primary-container text-on-primary px-8 py-4 rounded-lg font-bold text-lg electric-glow transition-all active:scale-95 flex items-center gap-2">
+                            Deploy Now <span class="material-symbols-outlined">bolt</span>
+</button>
+<button class="bg-surface-variant/40 border border-outline-variant/20 text-primary px-8 py-4 rounded-lg font-bold text-lg hover:bg-surface-variant/60 transition-all active:scale-95">
+                            Watch Demo
+                        </button>
+</div>
+</div>
+<div class="relative group">
+<div class="absolute -inset-4 bg-primary/20 blur-3xl rounded-full opacity-30 group-hover:opacity-50 transition-opacity"></div>
+<div class="relative aspect-square md:aspect-video glass-panel rounded-xl overflow-hidden border border-outline-variant/30 shadow-2xl">
+<img alt="Product Interface Preview" class="w-full h-full object-cover mix-blend-overlay opacity-80" data-alt="Futuristic dark UI dashboard with glowing blue and purple data visualizations, abstract 3D nodes, and sleek typography elements on a deep navy background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCrH0hECj8kUncsGkUMwRha6YUHt3kb8EcHy1t3O11-BxE8ukAmgpwcxGRLL-U6d_M9odh9UHQ2jBr6MPGx6rfkUJcGM_MA1K0tTFXne4J0CTT_yNWkry8RjfN2juN4evBQIb4iqGicWWnH-ntz_Tqueps_DAO3knEck1hkqlGJ0MSViDENv8WNXu4YGhQ8yIsupuMOJJqShF1smbM4OR9-OCIHjAG-ZghmQx1kSQsY1qb1FzHt_MiPijxBX3d-ixYSiJ72H4R6plA"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface via-transparent to-transparent"></div>
+</div>
+</div>
+</div>
+</section>
+<!-- Features Bento Grid -->
+<section class="py-24 px-8 bg-surface-container-low">
+<div class="max-w-7xl mx-auto">
+<div class="mb-16 space-y-4">
+<span class="text-secondary font-label font-bold tracking-widest uppercase">Engineered Precision</span>
+<h2 class="font-headline text-4xl md:text-5xl font-bold text-on-surface">Built for high-performance scale.</h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+<!-- Large Feature Card -->
+<div class="md:col-span-8 glass-panel p-10 rounded-xl border border-outline-variant/10 flex flex-col justify-between group overflow-hidden relative">
+<div class="relative z-10">
+<span class="material-symbols-outlined text-4xl text-tertiary mb-6" data-weight="fill">analytics</span>
+<h3 class="text-3xl font-headline font-bold mb-4">Real-time Kinetic Engine</h3>
+<p class="text-on-surface-variant text-lg max-w-md">Process millions of data points per second with sub-millisecond latency using our proprietary nocturnal routing protocol.</p>
+</div>
+<div class="mt-12 h-48 rounded-lg bg-surface-container-high relative overflow-hidden">
+<img alt="Data Flow Visualization" class="w-full h-full object-cover opacity-40 group-hover:scale-105 transition-transform duration-700" data-alt="Abstract visualization of flowing data streams in electric cyan and deep indigo colors representing high speed data processing" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBfCKfea4h3Xx5iF4D6G2A2sTOttzib5d5JtBQaVt3NJD4M6QGYi09KNXYxe8L8B2cRomjPJUFLLUqttCzNjidTZsiChILxHdKyIkCRtRKZ39jDgk1mJeooVE19PIYx_5W02b_ZEmJM-gvB0S7HbunmvgMaakwgrYoh_KB3ubNhFzjGVR5Y8t3TA0lmbdDbVs1HqQP2OE3i9n3XLFcL9-6r5DY4-DbZbzY7x7TgYk6OlCiU4pxaXSH7NH3cobOVPsXlMxzo3AvrWJM"/>
+</div>
+</div>
+<!-- Small Feature Card 1 -->
+<div class="md:col-span-4 bg-surface-container-high p-10 rounded-xl border border-outline-variant/10 flex flex-col justify-between">
+<div>
+<span class="material-symbols-outlined text-4xl text-secondary mb-6">security</span>
+<h3 class="text-2xl font-headline font-bold mb-4">Zero-Trust Shell</h3>
+<p class="text-on-surface-variant font-body">End-to-end encrypted tunnels designed for the modern security architect.</p>
+</div>
+<div class="pt-8 text-secondary font-bold flex items-center gap-2 cursor-pointer hover:gap-4 transition-all">
+                            Learn More <span class="material-symbols-outlined">arrow_forward</span>
+</div>
+</div>
+<!-- Small Feature Card 2 -->
+<div class="md:col-span-4 bg-surface-container-high p-10 rounded-xl border border-outline-variant/10 flex flex-col justify-between">
+<div>
+<span class="material-symbols-outlined text-4xl text-primary mb-6">hub</span>
+<h3 class="text-2xl font-headline font-bold mb-4">Unified Mesh</h3>
+<p class="text-on-surface-variant font-body">Integrate with over 400+ cloud providers with a single line of YAML.</p>
+</div>
+<div class="pt-8">
+<div class="flex -space-x-3">
+<div class="w-10 h-10 rounded-full bg-surface-bright border-2 border-surface flex items-center justify-center text-xs font-bold text-tertiary">AWS</div>
+<div class="w-10 h-10 rounded-full bg-surface-bright border-2 border-surface flex items-center justify-center text-xs font-bold text-secondary">GCP</div>
+<div class="w-10 h-10 rounded-full bg-surface-bright border-2 border-surface flex items-center justify-center text-xs font-bold text-primary">AZ</div>
+</div>
+</div>
+</div>
+<!-- Medium Feature Card -->
+<div class="md:col-span-8 glass-panel p-10 rounded-xl border border-outline-variant/10 relative overflow-hidden group">
+<div class="flex flex-col md:flex-row gap-10 items-center">
+<div class="flex-1">
+<h3 class="text-3xl font-headline font-bold mb-4">Collaborative Canvas</h3>
+<p class="text-on-surface-variant text-lg">Bring your whole team into the cockpit with real-time multiplayer editing and advanced version control.</p>
+<ul class="mt-6 space-y-3">
+<li class="flex items-center gap-3 text-on-surface/80"><span class="material-symbols-outlined text-primary text-sm">check_circle</span> Audit Logs</li>
+<li class="flex items-center gap-3 text-on-surface/80"><span class="material-symbols-outlined text-primary text-sm">check_circle</span> RBAC Permissions</li>
+<li class="flex items-center gap-3 text-on-surface/80"><span class="material-symbols-outlined text-primary text-sm">check_circle</span> Live Presence</li>
+</ul>
+</div>
+<div class="w-full md:w-1/3 aspect-square bg-gradient-to-br from-surface-variant to-background rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined text-7xl text-primary-dim opacity-30 group-hover:rotate-12 transition-transform duration-500">groups</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Testimonials -->
+<section class="py-24 px-8 overflow-hidden">
+<div class="max-w-7xl mx-auto">
+<div class="flex flex-col md:flex-row justify-between items-end gap-8 mb-20">
+<div class="space-y-4">
+<span class="text-secondary font-label font-bold tracking-widest uppercase">Global Validation</span>
+<h2 class="font-headline text-4xl md:text-5xl font-bold text-on-surface">Trusted by the visionaries.</h2>
+</div>
+<div class="flex gap-12 grayscale opacity-50 contrast-125">
+<span class="text-2xl font-black font-headline tracking-tighter">VOLTA</span>
+<span class="text-2xl font-black font-headline tracking-tighter">AXON</span>
+<span class="text-2xl font-black font-headline tracking-tighter">NERO</span>
+</div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+<div class="p-12 glass-panel rounded-xl border-l-4 border-l-primary relative">
+<span class="material-symbols-outlined text-6xl text-primary/10 absolute top-8 right-8">format_quote</span>
+<p class="text-2xl font-body italic leading-relaxed text-on-surface/90 mb-10">
+                            "Nocturne AI didn't just speed up our workflow; it changed how we perceive data. The interface feels like it was designed for the future of work."
+                        </p>
+<div class="flex items-center gap-4">
+<div class="w-14 h-14 rounded-full bg-surface-container-highest flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">person</span>
+</div>
+<div>
+<h4 class="font-bold text-on-surface">Elena Vance</h4>
+<p class="text-on-surface-variant text-sm font-label">Lead Engineer, Hyperion Systems</p>
+</div>
+</div>
+</div>
+<div class="p-12 glass-panel rounded-xl border-l-4 border-l-secondary relative">
+<span class="material-symbols-outlined text-6xl text-secondary/10 absolute top-8 right-8">format_quote</span>
+<p class="text-2xl font-body italic leading-relaxed text-on-surface/90 mb-10">
+                            "The transition was seamless. We went from fragmented legacy systems to a unified kinetic dashboard in less than three weeks."
+                        </p>
+<div class="flex items-center gap-4">
+<div class="w-14 h-14 rounded-full bg-surface-container-highest flex items-center justify-center">
+<span class="material-symbols-outlined text-secondary">person</span>
+</div>
+<div>
+<h4 class="font-bold text-on-surface">Marcus Thorne</h4>
+<p class="text-on-surface-variant text-sm font-label">CTO, Zenith Digital</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Pricing Section -->
+<section class="py-24 px-8 bg-surface-container-lowest">
+<div class="max-w-7xl mx-auto">
+<div class="text-center mb-20 space-y-4">
+<span class="text-secondary font-label font-bold tracking-widest uppercase">Scalable Economics</span>
+<h2 class="font-headline text-4xl md:text-5xl font-bold text-on-surface">A tier for every trajectory.</h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
+<!-- Basic -->
+<div class="bg-surface p-8 rounded-xl border border-outline-variant/10 space-y-8 flex flex-col h-full">
+<div>
+<h3 class="text-xl font-headline font-bold text-on-surface-variant">Starter</h3>
+<div class="mt-4 flex items-baseline gap-1">
+<span class="text-4xl font-headline font-extrabold text-on-surface">$49</span>
+<span class="text-on-surface-variant text-sm">/mo</span>
+</div>
+</div>
+<ul class="space-y-4 flex-1">
+<li class="flex items-center gap-3 text-sm text-on-surface-variant"><span class="material-symbols-outlined text-primary text-xs">done</span> 5 Projects</li>
+<li class="flex items-center gap-3 text-sm text-on-surface-variant"><span class="material-symbols-outlined text-primary text-xs">done</span> 50GB Kinetic Storage</li>
+<li class="flex items-center gap-3 text-sm text-on-surface-variant"><span class="material-symbols-outlined text-primary text-xs">done</span> Basic Mesh Analytics</li>
+</ul>
+<button class="w-full py-3 rounded border border-outline-variant/30 text-on-surface font-bold hover:bg-surface-variant/40 transition-all">Get Started</button>
+</div>
+<!-- Pro -->
+<div class="glass-panel p-8 rounded-xl border-2 border-primary/40 space-y-8 flex flex-col h-full relative -top-4 md:scale-105 shadow-2xl">
+<div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-primary text-on-primary text-[10px] font-bold tracking-tighter uppercase px-3 py-1 rounded-full">Most Popular</div>
+<div>
+<h3 class="text-xl font-headline font-bold text-primary">Pro Velocity</h3>
+<div class="mt-4 flex items-baseline gap-1">
+<span class="text-5xl font-headline font-extrabold text-on-surface">$199</span>
+<span class="text-on-surface-variant text-sm">/mo</span>
+</div>
+</div>
+<ul class="space-y-4 flex-1">
+<li class="flex items-center gap-3 text-on-surface"><span class="material-symbols-outlined text-primary">verified</span> Unlimited Projects</li>
+<li class="flex items-center gap-3 text-on-surface"><span class="material-symbols-outlined text-primary">verified</span> 1TB Kinetic Storage</li>
+<li class="flex items-center gap-3 text-on-surface"><span class="material-symbols-outlined text-primary">verified</span> Advanced Mesh Security</li>
+<li class="flex items-center gap-3 text-on-surface"><span class="material-symbols-outlined text-primary">verified</span> 24/7 Priority Support</li>
+</ul>
+<button class="w-full py-4 rounded bg-gradient-to-br from-primary to-primary-container text-on-primary font-bold electric-glow transition-all active:scale-95">Upgrade to Pro</button>
+</div>
+<!-- Enterprise -->
+<div class="bg-surface p-8 rounded-xl border border-outline-variant/10 space-y-8 flex flex-col h-full">
+<div>
+<h3 class="text-xl font-headline font-bold text-on-surface-variant">Enterprise</h3>
+<div class="mt-4 flex items-baseline gap-1">
+<span class="text-4xl font-headline font-extrabold text-on-surface">Custom</span>
+</div>
+</div>
+<ul class="space-y-4 flex-1">
+<li class="flex items-center gap-3 text-sm text-on-surface-variant"><span class="material-symbols-outlined text-primary text-xs">done</span> Custom Nodes</li>
+<li class="flex items-center gap-3 text-sm text-on-surface-variant"><span class="material-symbols-outlined text-primary text-xs">done</span> Dedicated Cloud Sourcing</li>
+<li class="flex items-center gap-3 text-sm text-on-surface-variant"><span class="material-symbols-outlined text-primary text-xs">done</span> White-glove Onboarding</li>
+</ul>
+<button class="w-full py-3 rounded border border-outline-variant/30 text-on-surface font-bold hover:bg-surface-variant/40 transition-all">Contact Sales</button>
+</div>
+</div>
+</div>
+</section>
+<!-- FAQ Section -->
+<section class="py-24 px-8 bg-surface">
+<div class="max-w-3xl mx-auto">
+<div class="text-center mb-16 space-y-4">
+<h2 class="font-headline text-4xl font-bold text-on-surface">Common Queries</h2>
+<p class="text-on-surface-variant">Everything you need to know about the Nocturne ecosystem.</p>
+</div>
+<div class="space-y-4">
+<details class="group glass-panel rounded-lg border border-outline-variant/10">
+<summary class="flex justify-between items-center p-6 cursor-pointer list-none">
+<span class="font-bold text-on-surface">How does Kinetic Routing differ from standard API calls?</span>
+<span class="material-symbols-outlined transition-transform group-open:rotate-180">expand_more</span>
+</summary>
+<div class="p-6 pt-0 text-on-surface-variant leading-relaxed">
+                            Kinetic Routing uses a non-linear pathfinding algorithm that predicts network congestion before it happens, ensuring your data always takes the fastest route across our global mesh.
+                        </div>
+</details>
+<details class="group glass-panel rounded-lg border border-outline-variant/10">
+<summary class="flex justify-between items-center p-6 cursor-pointer list-none">
+<span class="font-bold text-on-surface">Is my data secure in the Midnight environment?</span>
+<span class="material-symbols-outlined transition-transform group-open:rotate-180">expand_more</span>
+</summary>
+<div class="p-6 pt-0 text-on-surface-variant leading-relaxed">
+                            Yes. We utilize polymorphic encryption and hardware-level security modules. Your data is decrypted only at the edge, ensuring total privacy during transit.
+                        </div>
+</details>
+<details class="group glass-panel rounded-lg border border-outline-variant/10">
+<summary class="flex justify-between items-center p-6 cursor-pointer list-none">
+<span class="font-bold text-on-surface">Can I export my configurations?</span>
+<span class="material-symbols-outlined transition-transform group-open:rotate-180">expand_more</span>
+</summary>
+<div class="p-6 pt-0 text-on-surface-variant leading-relaxed">
+                            Absolutely. Nocturne AI supports Terraform, Pulumi, and standard JSON/YAML exports for full vendor lock-in prevention.
+                        </div>
+</details>
+</div>
+</div>
+</section>
+<!-- Final CTA -->
+<section class="py-32 px-8 relative overflow-hidden">
+<div class="absolute inset-0 bg-primary/5 -skew-y-3 origin-right"></div>
+<div class="max-w-5xl mx-auto text-center relative z-10 space-y-12">
+<h2 class="font-headline text-5xl md:text-7xl font-extrabold text-on-surface tracking-tight">
+                    Ready to enter the <br/><span class="gradient-text">Kinetic Nocturne?</span>
+</h2>
+<p class="text-on-surface-variant text-xl max-w-2xl mx-auto leading-relaxed">
+                    Join over 2,500+ high-growth companies building the next generation of technical infrastructure.
+                </p>
+<div class="flex flex-col sm:flex-row gap-6 justify-center items-center">
+<button class="w-full sm:w-auto bg-gradient-to-br from-primary to-primary-container text-on-primary px-12 py-5 rounded-lg font-bold text-xl electric-glow transition-all active:scale-95 shadow-xl">
+                        Launch Your Instance
+                    </button>
+<button class="w-full sm:w-auto text-on-surface px-12 py-5 rounded-lg font-bold text-xl border border-outline-variant/30 hover:bg-surface-variant/30 transition-all">
+                        Talk to an Architect
+                    </button>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-[#0b082f] dark:bg-[#0b082f] py-16">
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 px-12 py-16 w-full max-w-7xl mx-auto">
+<div class="space-y-6">
+<div class="text-xl font-bold text-indigo-300 font-headline">Nocturne AI</div>
+<p class="text-slate-400 dark:text-slate-500 text-sm leading-relaxed font-body">
+                    Engineering the future of kinetic data. Built for high-performance SaaS environments that require technical precision.
+                </p>
+</div>
+<div class="space-y-6">
+<h4 class="font-headline text-indigo-300 font-bold tracking-wider uppercase text-xs">Product</h4>
+<ul class="space-y-4">
+<li><a class="text-slate-400 dark:text-slate-500 text-sm hover:text-purple-400 transition-all" href="#">Solutions</a></li>
+<li><a class="text-slate-400 dark:text-slate-500 text-sm hover:text-purple-400 transition-all" href="#">Documentation</a></li>
+<li><a class="text-slate-400 dark:text-slate-500 text-sm hover:text-purple-400 transition-all" href="#">Pricing</a></li>
+</ul>
+</div>
+<div class="space-y-6">
+<h4 class="font-headline text-indigo-300 font-bold tracking-wider uppercase text-xs">Company</h4>
+<ul class="space-y-4">
+<li><a class="text-slate-400 dark:text-slate-500 text-sm hover:text-purple-400 transition-all" href="#">About Us</a></li>
+<li><a class="text-slate-400 dark:text-slate-500 text-sm hover:text-purple-400 transition-all" href="#">Careers</a></li>
+<li><a class="text-slate-400 dark:text-slate-500 text-sm hover:text-purple-400 transition-all" href="#">Contact</a></li>
+</ul>
+</div>
+<div class="space-y-6">
+<h4 class="font-headline text-indigo-300 font-bold tracking-wider uppercase text-xs">Legal</h4>
+<ul class="space-y-4">
+<li><a class="text-slate-400 dark:text-slate-500 text-sm hover:text-purple-400 transition-all" href="#">Privacy Policy</a></li>
+<li><a class="text-slate-400 dark:text-slate-500 text-sm hover:text-purple-400 transition-all" href="#">Terms of Service</a></li>
+<li><a class="text-slate-400 dark:text-slate-500 text-sm hover:text-purple-400 transition-all" href="#">Security</a></li>
+<li><a class="text-slate-400 dark:text-slate-500 text-sm hover:text-purple-400 transition-all" href="#">Cookie Settings</a></li>
+</ul>
+</div>
+</div>
+<div class="max-w-7xl mx-auto px-12 pt-8 border-t border-outline-variant/10">
+<p class="text-slate-500 text-xs text-center font-body">© 2024 Nocturne AI. Engineered for the Kinetic Nocturne.</p>
+</div>
+</footer>
+</body></html>

@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+
+<html class="light" lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>HORIZONTE | Encontre o Seu Refúgio de Luxo</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@300;400;600&amp;family=Manrope:wght@300;400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "surface-variant": "#e3e2e0",
+                        "secondary-container": "#e9e1dd",
+                        "surface": "#faf9f7",
+                        "on-primary-fixed": "#001c38",
+                        "on-error": "#ffffff",
+                        "error": "#ba1a1a",
+                        "inverse-on-surface": "#f1f1ef",
+                        "on-surface-variant": "#43474e",
+                        "on-secondary-container": "#686360",
+                        "secondary": "#625d5a",
+                        "on-primary": "#ffffff",
+                        "outline-variant": "#c3c6cf",
+                        "on-tertiary-fixed": "#1e1b16",
+                        "tertiary": "#0f0c08",
+                        "inverse-surface": "#2f3130",
+                        "primary-fixed": "#d3e3ff",
+                        "tertiary-container": "#25221d",
+                        "secondary-fixed-dim": "#ccc5c1",
+                        "secondary-fixed": "#e9e1dd",
+                        "on-secondary-fixed": "#1e1b19",
+                        "primary": "#000c1e",
+                        "on-tertiary": "#ffffff",
+                        "tertiary-fixed": "#e9e1d9",
+                        "on-error-container": "#93000a",
+                        "on-primary-container": "#708bb2",
+                        "surface-container-highest": "#e3e2e0",
+                        "surface-dim": "#dadad8",
+                        "on-primary-fixed-variant": "#2c486b",
+                        "on-tertiary-fixed-variant": "#4b4640",
+                        "on-background": "#1a1c1b",
+                        "outline": "#74777f",
+                        "on-secondary": "#ffffff",
+                        "surface-bright": "#faf9f7",
+                        "surface-container-lowest": "#ffffff",
+                        "primary-container": "#002344",
+                        "on-tertiary-container": "#8f8982",
+                        "error-container": "#ffdad6",
+                        "surface-container-high": "#e9e8e6",
+                        "surface-container": "#efeeec",
+                        "primary-fixed-dim": "#adc8f2",
+                        "surface-tint": "#456084",
+                        "background": "#faf9f7",
+                        "on-secondary-fixed-variant": "#4a4643",
+                        "on-surface": "#1a1c1b",
+                        "inverse-primary": "#adc8f2",
+                        "surface-container-low": "#f4f3f1",
+                        "tertiary-fixed-dim": "#cdc5bd"
+                    },
+                    fontFamily: {
+                        "headline": ["Noto Serif"],
+                        "body": ["Manrope"],
+                        "label": ["Manrope"]
+                    },
+                    borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 200, 'GRAD' 0, 'opsz' 24;
+        }
+        .hero-gradient {
+            background: linear-gradient(to bottom, rgba(0, 12, 30, 0.8), rgba(0, 35, 68, 0.4));
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body selection:bg-primary-container selection:text-white">
+<!-- TopNavBar -->
+<header class="fixed top-0 w-full z-50 bg-white/80 dark:bg-slate-950/80 backdrop-blur-xl shadow-[0_32px_64px_-15px_rgba(0,12,30,0.04)]">
+<nav class="flex justify-between items-center px-12 py-6 max-w-[1920px] mx-auto">
+<div class="text-2xl font-semibold tracking-[0.2em] text-slate-900 dark:text-slate-50 uppercase">HORIZONTE</div>
+<div class="hidden md:flex gap-10 items-center">
+<a class="font-['Noto_Serif'] font-light tracking-tight text-lg text-slate-900 dark:text-slate-50 border-b border-slate-900 dark:border-slate-50 pb-1" href="#">Coleções</a>
+<a class="font-['Noto_Serif'] font-light tracking-tight text-lg text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-50 transition-colors" href="#">Residências</a>
+<a class="font-['Noto_Serif'] font-light tracking-tight text-lg text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-50 transition-colors" href="#">Sobre</a>
+<a class="font-['Noto_Serif'] font-light tracking-tight text-lg text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-50 transition-colors" href="#">Contato</a>
+</div>
+<button class="bg-primary text-on-primary px-8 py-3 rounded-sm font-label text-sm uppercase tracking-widest hover:opacity-70 transition-opacity duration-300">
+                Agendar Visita
+            </button>
+</nav>
+</header>
+<main>
+<!-- Hero Section -->
+<section class="relative h-screen flex items-center overflow-hidden">
+<div class="absolute inset-0 z-0">
+<img class="w-full h-full object-cover" data-alt="Modern architectural villa with floor to ceiling glass walls at sunset, reflecting warm orange light and surrounding pine trees" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDofVbdbTsWb2x_6jjggO0awRWqnPJ6bEH8QYVdin2nHqqWqAPEHEXkevG_Jx2EwoFYoKTf8l5UHVdc8LotwsGHsAOLusmAYqCF3sMfRtxG0XV7l7nNf3v9SpK7crKanNmYDdNwhCd6eY8S1aAuJ9-1eUZwQUeVfUUjfqL-iZUDNtbW1_CKobG5frmJ8WN7EiYuaoHpZdnu1gdWbYxuY_bh8zmui-cENrXEG3OlzVfKx2abrWtvZOALSirzQVmfSbSOKtadg0W8QxA"/>
+<div class="absolute inset-0 hero-gradient"></div>
+</div>
+<div class="relative z-10 px-12 max-w-7xl mx-auto w-full">
+<div class="max-w-3xl">
+<span class="inline-block mb-6 text-on-primary-container font-label tracking-[0.3em] uppercase text-sm">A Arte de Viver Bem</span>
+<h1 class="text-white font-headline text-6xl md:text-8xl font-light leading-tight mb-12 tracking-tighter">
+                        Encontre o Seu <br/>
+<span class="italic">Refúgio de Luxo</span>
+</h1>
+<div class="flex gap-6">
+<a class="bg-surface-container-lowest text-primary px-10 py-5 rounded-sm font-label text-sm uppercase tracking-widest hover:scale-95 transition-all duration-300" href="#vitrine">Explorar Coleções</a>
+<button class="border border-white/30 text-white backdrop-blur-md px-10 py-5 rounded-sm font-label text-sm uppercase tracking-widest hover:bg-white/10 transition-all duration-300">O Legado</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Vitrine de Imóveis -->
+<section class="py-32 bg-background" id="vitrine">
+<div class="px-12 max-w-7xl mx-auto">
+<div class="flex justify-between items-end mb-20">
+<div class="max-w-xl">
+<h2 class="font-headline text-5xl text-primary mb-6">Vitrine de <span class="italic font-light">Curadoria</span></h2>
+<p class="text-secondary text-lg">Uma seleção rigorosa de propriedades que transcendem o comum, onde a arquitetura encontra a alma.</p>
+</div>
+<div class="hidden md:flex gap-4">
+<button class="p-4 border border-outline-variant rounded-full text-primary hover:bg-primary hover:text-white transition-colors">
+<span class="material-symbols-outlined" data-icon="arrow_back">arrow_back</span>
+</button>
+<button class="p-4 border border-outline-variant rounded-full text-primary hover:bg-primary hover:text-white transition-colors">
+<span class="material-symbols-outlined" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-8">
+<!-- Residência Exclusiva -->
+<div class="md:col-span-8 group relative overflow-hidden bg-surface-container-lowest">
+<div class="aspect-[16/9] overflow-hidden">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="Ultra-modern luxury mansion with a large infinity pool reflecting the architectural lines and a clear blue sky" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAwvCrUQhHdemS4SOGLL6bQa8pmbM9aYdACpJK1E6D3i1WvQHX_fwdTUG_QJzsrz7FbRALMtGa3C7puk_jlErZICeTAiALBWMmTGd_zDKdbjY602zEtFWCAJr8gNCZKTICkWl3i9KK15TZUYw-wjd-LV5SPPYFnh8z-jtQZk4IJQ9yTOvf1OP-OU8A6iE26knTtk_0KfeXMSPoaVlxMX0l4P__jRnhwP146ljRIZkhLvLkiMFJhOR09BeWkBEGfiAoeEjJ6K-CgI-U"/>
+</div>
+<div class="p-10 flex justify-between items-start">
+<div>
+<span class="text-secondary text-xs uppercase tracking-widest mb-2 block">Residências Exclusivas</span>
+<h3 class="font-headline text-3xl text-primary">Villa Orizzonte</h3>
+<p class="text-secondary mt-2">São Paulo, SP • 1.200m²</p>
+</div>
+<span class="text-primary font-headline text-2xl">R$ 24.5M</span>
+</div>
+</div>
+<!-- Cobertura -->
+<div class="md:col-span-4 group relative overflow-hidden bg-surface-container-lowest">
+<div class="aspect-square overflow-hidden">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="Luxury penthouse living room with double-height ceiling and panoramic views of the city skyline through floor-to-ceiling windows" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBHEHKjXBo6kxVUlnFs-pFmBVTG9ktHVz5izb-6UDhkcJEvFr-sowd1SLsUPh_SpOgBuGBPloPT8GWFDvyyiVPma-aI-5gOFESysEOWzQakrFUjo7PZYfcApJNKTykntVTD5ZtyrF5dnL_MRqnS0wj-K6p8-hwA67Ikz5Lhdzfr1id8AIPk-bgeqLdHjkhs4CUNyljAZah_FA8Cbrkmd_n93dFkG0bUThvkoZISHP6iFiv7kCxwxgOzFrbhIf80IbDcoCQMo2n7x7w"/>
+</div>
+<div class="p-10">
+<span class="text-secondary text-xs uppercase tracking-widest mb-2 block">Coberturas</span>
+<h3 class="font-headline text-2xl text-primary">Sky Loft Itaim</h3>
+<p class="text-secondary mt-2">Penthouse Duplex</p>
+</div>
+</div>
+<!-- Casa de Campo -->
+<div class="md:col-span-12 group relative overflow-hidden bg-surface-container-lowest mt-4">
+<div class="flex flex-col md:flex-row">
+<div class="md:w-1/2 aspect-video overflow-hidden">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="Elegant country estate nestled in lush green rolling hills with a stone facade and traditional architecture" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB3YoGZGI5fDumoNcahJaL_9NjtRcTT-cRht31vmu10Rzug7_TZRMxqpw7scZqdceCWVQ3cGqt4rd--BRRbsvSAG_G4MErziABly4I1O01now2olRIstMelnSKErBmVxIknWgJhcbB4Pe94IMrn-p-9HcrOlJc-GnvkCVSs6xbN1RnkwAFrnt7OH0PHyjNnbozWT1FdiIWyHKomuHFN0QG66x4j-BPUz8vk1AQr57LLMZyVK-XrTpLBXLz7un-94K9SsePJw3TAm6w"/>
+</div>
+<div class="md:w-1/2 p-16 flex flex-col justify-center">
+<span class="text-secondary text-xs uppercase tracking-widest mb-4 block">Casas de Campo</span>
+<h3 class="font-headline text-4xl text-primary mb-6">Reserva da Montanha</h3>
+<p class="text-secondary text-lg mb-8 leading-relaxed">Privacidade absoluta em meio à natureza exuberante, com acabamentos em madeira nobre e pedra bruta local.</p>
+<div class="flex gap-4">
+<span class="bg-secondary-container text-on-secondary-container px-4 py-1 text-xs uppercase">Heliponto</span>
+<span class="bg-secondary-container text-on-secondary-container px-4 py-1 text-xs uppercase">Adega</span>
+<span class="bg-secondary-container text-on-secondary-container px-4 py-1 text-xs uppercase">Spa</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Diferenciais Section -->
+<section class="py-32 bg-surface-container-low">
+<div class="px-12 max-w-7xl mx-auto">
+<div class="text-center mb-24">
+<h2 class="font-headline text-5xl text-primary mb-4 italic">Excelência em Cada Detalhe</h2>
+<div class="w-24 h-px bg-outline mx-auto mt-8"></div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-20">
+<div class="text-center">
+<div class="mb-8 flex justify-center">
+<span class="material-symbols-outlined text-4xl text-primary" style="font-variation-settings: 'wght' 200;">diamond</span>
+</div>
+<h4 class="font-headline text-2xl text-primary mb-6">Curadoria Exclusiva</h4>
+<p class="text-secondary leading-relaxed">Nossa seleção de imóveis passa por um rigoroso processo de avaliação estética e técnica, garantindo apenas o extraordinário.</p>
+</div>
+<div class="text-center">
+<div class="mb-8 flex justify-center">
+<span class="material-symbols-outlined text-4xl text-primary" style="font-variation-settings: 'wght' 200;">person_pin_circle</span>
+</div>
+<h4 class="font-headline text-2xl text-primary mb-6">Atendimento Personalizado</h4>
+<p class="text-secondary leading-relaxed">Consultores especializados dedicados a entender seu estilo de vida e encontrar o imóvel que é a sua extensão natural.</p>
+</div>
+<div class="text-center">
+<div class="mb-8 flex justify-center">
+<span class="material-symbols-outlined text-4xl text-primary" style="font-variation-settings: 'wght' 200;">gavel</span>
+</div>
+<h4 class="font-headline text-2xl text-primary mb-6">Assessoria Jurídica</h4>
+<p class="text-secondary leading-relaxed">Segurança total em todas as etapas da transação, com suporte jurídico especializado em mercado imobiliário de alto luxo.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Formulário Section -->
+<section class="py-32 relative bg-white">
+<div class="px-12 max-w-7xl mx-auto flex flex-col md:flex-row gap-20 items-center">
+<div class="md:w-1/2">
+<img class="w-full aspect-square object-cover shadow-[0_40px_100px_rgba(0,12,30,0.1)]" data-alt="Elegant corporate office meeting room with minimal white furniture and soft natural lighting for private consultations" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCiw6UnVQ7j9WxWR3royIjzEHJ-AU2ePSutS0ubh641Hi0ZkcWjoe7lA5YW6Xxl1nbyzz02fNL-ym-eQELrlmDagdWc8dQBw3Y3umkDy8wiNsPIt8LkJvpJ7XwCqTbZaUKCI6fwxNhwWaR3tV1bHqxCNCqq72EmuhBi7W6nuRt0EPKhkE3d_DPFv11Kcf3x6LoVmbusRKnhRA0RzuitCoLQejxMw-jtFLxd9BEnoxD3oKUMCj4LMaCdQEmUEiPwkL5ue0BdEVK6pjs"/>
+</div>
+<div class="md:w-1/2">
+<div class="mb-12">
+<h2 class="font-headline text-5xl text-primary mb-4">Agende uma <span class="italic font-light">Visita Privada</span></h2>
+<p class="text-secondary">Permita-nos apresentar pessoalmente o futuro do seu novo lar.</p>
+</div>
+<form class="space-y-8">
+<div>
+<label class="block text-xs uppercase tracking-widest text-secondary mb-2">Nome Completo</label>
+<input class="w-full bg-transparent border-t-0 border-x-0 border-b border-outline-variant focus:border-primary focus:ring-0 px-0 py-3 text-primary transition-colors" type="text"/>
+</div>
+<div class="grid grid-cols-2 gap-8">
+<div>
+<label class="block text-xs uppercase tracking-widest text-secondary mb-2">E-mail</label>
+<input class="w-full bg-transparent border-t-0 border-x-0 border-b border-outline-variant focus:border-primary focus:ring-0 px-0 py-3 text-primary transition-colors" type="email"/>
+</div>
+<div>
+<label class="block text-xs uppercase tracking-widest text-secondary mb-2">Telefone</label>
+<input class="w-full bg-transparent border-t-0 border-x-0 border-b border-outline-variant focus:border-primary focus:ring-0 px-0 py-3 text-primary transition-colors" type="tel"/>
+</div>
+</div>
+<div>
+<label class="block text-xs uppercase tracking-widest text-secondary mb-2">Interesse</label>
+<select class="w-full bg-transparent border-t-0 border-x-0 border-b border-outline-variant focus:border-primary focus:ring-0 px-0 py-3 text-primary transition-colors">
+<option>Residências Exclusivas</option>
+<option>Coberturas</option>
+<option>Casas de Campo</option>
+</select>
+</div>
+<div class="pt-8">
+<button class="bg-primary text-on-primary w-full py-5 rounded-sm font-label text-sm uppercase tracking-widest hover:opacity-90 transition-all shadow-xl" type="submit">Solicitar Atendimento</button>
+</div>
+</form>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full pt-20 pb-10 bg-slate-50 dark:bg-slate-900 bg-shift-tonal-depth">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-12 px-12 max-w-7xl mx-auto">
+<div class="md:col-span-1">
+<div class="text-xl font-bold tracking-tighter text-slate-800 dark:text-slate-200 mb-6">HORIZONTE</div>
+<p class="font-['Manrope'] font-normal text-sm tracking-wide text-slate-500 dark:text-slate-400 leading-relaxed">
+                    Elevando o padrão de excelência no mercado imobiliário de alto luxo desde 1998.
+                </p>
+</div>
+<div class="md:col-span-1">
+<h5 class="font-bold text-slate-900 dark:text-white text-sm uppercase tracking-widest mb-6">Coleções</h5>
+<ul class="space-y-4">
+<li><a class="font-['Manrope'] font-normal text-sm tracking-wide text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 transition-all underline-offset-4 hover:underline" href="#">Residências Urbanas</a></li>
+<li><a class="font-['Manrope'] font-normal text-sm tracking-wide text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 transition-all underline-offset-4 hover:underline" href="#">Coastal Living</a></li>
+<li><a class="font-['Manrope'] font-normal text-sm tracking-wide text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 transition-all underline-offset-4 hover:underline" href="#">Mountain Retreats</a></li>
+</ul>
+</div>
+<div class="md:col-span-1">
+<h5 class="font-bold text-slate-900 dark:text-white text-sm uppercase tracking-widest mb-6">A Imobiliária</h5>
+<ul class="space-y-4">
+<li><a class="font-['Manrope'] font-normal text-sm tracking-wide text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 transition-all underline-offset-4 hover:underline" href="#">Nossa História</a></li>
+<li><a class="font-['Manrope'] font-normal text-sm tracking-wide text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 transition-all underline-offset-4 hover:underline" href="#">Imprensa</a></li>
+<li><a class="font-['Manrope'] font-normal text-sm tracking-wide text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 transition-all underline-offset-4 hover:underline" href="#">Investidores</a></li>
+</ul>
+</div>
+<div class="md:col-span-1">
+<h5 class="font-bold text-slate-900 dark:text-white text-sm uppercase tracking-widest mb-6">Legal</h5>
+<ul class="space-y-4">
+<li><a class="font-['Manrope'] font-normal text-sm tracking-wide text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 transition-all underline-offset-4 hover:underline" href="#">Privacidade</a></li>
+<li><a class="font-['Manrope'] font-normal text-sm tracking-wide text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 transition-all underline-offset-4 hover:underline" href="#">Termos</a></li>
+</ul>
+</div>
+</div>
+<div class="mt-20 border-t border-slate-200 dark:border-slate-800 pt-10 text-center">
+<p class="font-['Manrope'] font-normal text-sm tracking-wide text-slate-500 dark:text-slate-400">
+                © 2024 Horizonte Imóveis. Todos os direitos reservados.
+            </p>
+</div>
+</footer>
+</body></html>

@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Energia Pura | High Performance Gym</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Manrope:wght@300;400;500;600;700&amp;family=Lexend:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-primary-container": "#4a5e00",
+              "surface-container-highest": "#262626",
+              "error-dim": "#d53d18",
+              "on-background": "#ffffff",
+              "on-secondary": "#525251",
+              "surface-container-lowest": "#000000",
+              "on-tertiary-container": "#565757",
+              "primary-container": "#cafd00",
+              "tertiary-dim": "#ecebeb",
+              "error-container": "#b92902",
+              "surface-container": "#1a1a1a",
+              "primary-fixed-dim": "#beee00",
+              "background": "#0e0e0e",
+              "surface-container-low": "#131313",
+              "tertiary-fixed-dim": "#f1f0f0",
+              "surface-variant": "#262626",
+              "on-primary-fixed": "#3a4a00",
+              "error": "#ff7351",
+              "inverse-surface": "#fcf9f8",
+              "secondary-dim": "#d6d4d3",
+              "primary-fixed": "#cafd00",
+              "secondary-fixed-dim": "#d6d4d3",
+              "secondary-fixed": "#e4e2e1",
+              "tertiary-fixed": "#ffffff",
+              "on-error-container": "#ffd2c8",
+              "surface-dim": "#0e0e0e",
+              "on-primary-fixed-variant": "#526900",
+              "on-tertiary-fixed-variant": "#6d6d6d",
+              "outline": "#767575",
+              "surface-bright": "#2c2c2c",
+              "surface-container-high": "#20201f",
+              "surface-tint": "#f3ffca",
+              "on-secondary-fixed-variant": "#5c5b5b",
+              "on-surface": "#ffffff",
+              "inverse-primary": "#516700",
+              "secondary-container": "#474747",
+              "surface": "#0e0e0e",
+              "primary-dim": "#beee00",
+              "on-surface-variant": "#adaaaa",
+              "inverse-on-surface": "#565555",
+              "on-error": "#450900",
+              "on-secondary-container": "#d2d0cf",
+              "secondary": "#e4e2e1",
+              "on-primary": "#516700",
+              "outline-variant": "#484847",
+              "tertiary": "#faf9f9",
+              "on-tertiary-fixed": "#4f5050",
+              "tertiary-container": "#ecebeb",
+              "on-secondary-fixed": "#3f3f3f",
+              "primary": "#f3ffca",
+              "on-tertiary": "#5e5f5f"
+            },
+            fontFamily: {
+              "headline": ["Space Grotesk"],
+              "body": ["Manrope"],
+              "label": ["Lexend"]
+            },
+            borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .kinetic-gradient {
+            background: linear-gradient(135deg, #f3ffca 0%, #cafd00 100%);
+        }
+        .text-stroke {
+            -webkit-text-stroke: 1px rgba(255, 255, 255, 0.2);
+            color: transparent;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body selection:bg-primary-container selection:text-on-primary-container">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-[#0e0e0e]/70 backdrop-blur-md">
+<div class="flex justify-between items-center px-8 py-4 max-w-screen-2xl mx-auto">
+<div class="text-2xl font-black italic text-[#CCFF00] tracking-tighter font-headline">KINETIC PULSE</div>
+<div class="hidden md:flex gap-8 items-center">
+<a class="font-headline font-bold tracking-tighter uppercase text-[#CCFF00] border-b-2 border-[#CCFF00] pb-1" href="#programas">PROGRAMS</a>
+<a class="font-headline font-bold tracking-tighter uppercase text-white/70 hover:text-white transition-colors" href="#modalidades">COACHES</a>
+<a class="font-headline font-bold tracking-tighter uppercase text-white/70 hover:text-white transition-colors" href="#galeria">FACILITIES</a>
+<a class="font-headline font-bold tracking-tighter uppercase text-white/70 hover:text-white transition-colors" href="#planos">MEMBERSHIP</a>
+</div>
+<button class="bg-primary px-6 py-2 font-headline font-bold text-on-primary text-sm tracking-widest hover:scale-105 active:scale-95 transition-all duration-200 rounded-sm">
+                JOIN NOW
+            </button>
+</div>
+</nav>
+<!-- Hero Section -->
+<header class="relative min-h-screen flex items-center pt-20 overflow-hidden">
+<div class="absolute inset-0 z-0">
+<img alt="High performance gym hero" class="w-full h-full object-cover opacity-40" data-alt="Intense athlete lifting heavy barbell in a dark industrial gym with dramatic neon yellow lighting and smoke effects" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBJBEF4zM7NfJIV0xw0VWmfn3yrKqsxkfP3YjBNwws4kMu6-j8QLyG71hkF-LL_ktc_lkiaKm1y9NCumfT-1z1Rt1e_GIv9qZxNFY-Cy40Shr6FPfKTs_nDRq0ckJcPaEqzhoazix4dNR4bhDU04V_9bcDqX4daKuzYIilfUSGU8i-X6u-cLx7MwbOkKaf4BDmQq8pImfX_nrNwBNwzSQME71Uf-9wuEnv2YXg2Fm-_kZug7gtlVUH-ZpTqj--7TEuUxlEWqQW9YQU"/>
+<div class="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent"></div>
+</div>
+<div class="relative z-10 px-8 max-w-screen-2xl mx-auto w-full">
+<div class="max-w-4xl">
+<span class="inline-block px-4 py-1 bg-primary-container text-on-primary-container font-label text-xs font-bold tracking-tighter mb-6 rounded-sm">ESTILO DE VIDA ALTA PERFORMANCE</span>
+<h1 class="font-headline text-7xl md:text-9xl font-extrabold tracking-tighter leading-[0.9] mb-8">
+                    SUPERE SEUS <br/> <span class="text-primary italic">LIMITES</span>
+</h1>
+<p class="font-body text-xl text-on-surface-variant max-w-xl mb-12 leading-relaxed">
+                    A Energia Pura não é apenas uma academia. É um laboratório de resultados. Equipamentos de elite, coachings especializados e uma comunidade focada em evolução constante.
+                </p>
+<div class="flex flex-col sm:flex-row gap-4">
+<a class="bg-primary-container text-on-primary-container px-10 py-5 font-headline font-black text-lg tracking-tighter flex items-center justify-center gap-2 hover:scale-105 transition-transform rounded-sm" href="#contato">
+                        INICIAR TRANSFORMAÇÃO
+                        <span class="material-symbols-outlined">arrow_forward</span>
+</a>
+<button class="border border-outline-variant/30 px-10 py-5 font-headline font-bold text-lg tracking-tighter backdrop-blur-sm hover:bg-surface-container-highest transition-colors rounded-sm">
+                        VER TOUR VIRTUAL
+                    </button>
+</div>
+</div>
+</div>
+<div class="absolute right-0 bottom-20 hidden lg:block opacity-10">
+<span class="font-headline font-black text-[20rem] tracking-tighter text-stroke leading-none">ENERGY</span>
+</div>
+</header>
+<!-- Modalidades (Bento Grid) -->
+<section class="py-24 px-8 max-w-screen-2xl mx-auto" id="modalidades">
+<div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
+<div>
+<h2 class="font-headline text-5xl font-black tracking-tighter mb-4">ESPECIALIDADES</h2>
+<p class="font-body text-on-surface-variant max-w-md">Treinamentos desenhados para máxima eficiência metabólica e ganho de força bruta.</p>
+</div>
+<div class="flex gap-2">
+<div class="w-12 h-1 bg-primary"></div>
+<div class="w-24 h-1 bg-surface-container-highest"></div>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-12 gap-6 h-[800px] md:h-[600px]">
+<!-- Crossfit -->
+<div class="md:col-span-8 relative group overflow-hidden rounded-sm bg-surface-container">
+<img alt="Crossfit training" class="w-full h-full object-cover opacity-60 group-hover:scale-110 transition-transform duration-700" data-alt="Athlete performing a power snatch with high intensity in a crossfit box, sweat and chalk in the air" src="https://lh3.googleusercontent.com/aida-public/AB6AXuALJ9SBCjfUs4mMP8bu-17cXiCx0Gf1rARk7U0G3pvJ3-Z2asPgjmUcQ-a6zV29sW8lw3-ntI7pNdpL2WJ5EaCsD2fCwrmi_SdGEeRwmnwq4bFEOYsmnnPEEnK52XvMAkjyffd-2koRHoXgxZCrkjPQu_aFfvTM88UH0VWBk1ggSIINEMdYdCNtGcVC8ApMMQqZgmGQihmnWJIYVBHPHIcwFZS3nu7zaCsrcaHDpJ3QaxzkUBMVI2a4KQ7pBKZopum8IimJKG-xbIU"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/90 to-transparent"></div>
+<div class="absolute bottom-0 left-0 p-10">
+<span class="font-label text-primary font-bold text-xs tracking-widest mb-2 block">POWER &amp; STAMINA</span>
+<h3 class="font-headline text-4xl font-black italic tracking-tighter text-white mb-4">CROSSFIT</h3>
+<p class="text-on-surface-variant max-w-sm mb-6">WODs desafiadores que integram ginástica, levantamento de peso e cardio de alta intensidade.</p>
+<button class="text-primary font-headline font-bold flex items-center gap-2 hover:translate-x-2 transition-transform">
+                        EXPLORAR WODS <span class="material-symbols-outlined">trending_flat</span>
+</button>
+</div>
+</div>
+<!-- Musculação -->
+<div class="md:col-span-4 relative group overflow-hidden rounded-sm bg-surface-container">
+<img alt="Bodybuilding" class="w-full h-full object-cover opacity-60 group-hover:scale-110 transition-transform duration-700" data-alt="Close up of heavily muscled person training arms with dumbbells in a modern luxury gym" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCjaVUj1-F8Ow6b72YfhRb0ykU41HqY5nIGwN7AmsxhqnxKk5rFa9aqdPQSQEtT7BRdO2VR4kAWYHOLxW4SJlrQ8K3-Ii_A_RdNXESCiwknLK606q5Ei8ov_gap-phHY9wZdb44yHoLIvoRGBl7NSTy2ssBKApRSeJrZDDNfKGWSXsaq6y4c7AJMFmdGAz9h1BhQHUG9qNWeQ2hWzFhi_B-riJVIynuqR0LJxowvdDLB9bendj7I0_4HOrO38zrRouoO2Fn71CzUe4"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/90 to-transparent"></div>
+<div class="absolute bottom-0 left-0 p-8">
+<h3 class="font-headline text-3xl font-black italic tracking-tighter text-white mb-2">BODYBUILDING</h3>
+<p class="text-on-surface-variant text-sm">Hipertrofia e força com tecnologia Hammer Strength.</p>
+</div>
+</div>
+<!-- HIIT -->
+<div class="md:col-span-12 relative group overflow-hidden rounded-sm bg-surface-container">
+<div class="absolute inset-0 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')]"></div>
+<div class="flex flex-col md:flex-row h-full">
+<div class="p-10 flex-1 flex flex-col justify-center">
+<h3 class="font-headline text-5xl font-black italic tracking-tighter text-primary mb-4 underline decoration-4 underline-offset-8">HIIT FAT BURN</h3>
+<p class="text-on-surface-variant max-w-xl leading-relaxed">Sessões explosivas de 45 minutos desenhadas para queimar calorias até 24 horas após o treino. Ciência aplicada ao suor.</p>
+</div>
+<div class="w-full md:w-1/3 h-48 md:h-full">
+<img alt="HIIT training" class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500" data-alt="Action shot of multiple people sprinting on assault bikes in a dark gym environment" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBC-2RSGltJVG1Pe68Zk8hptpEh6TBvY-_Ssr_oqGIl9AO8y2p48GhZ0gd2cUwhQzzfPMyAHve2It0KaSyFpmQjRSjMxqdCWIWLYmkB3_wODTY09LIJvtMts3L4etj2dhZWPQ28fqgfznPGnIEGUubNw93he9Yymusua-und17t8_b00cBsp0mjL_5NLPRORTEyDpnA6e-GtCWxu42MvHmUvYW5R1mhNkp_vPL7MFfpmh_KzFRDLQvcNI1ELKHsIpuwlIJtKxCAbwo"/>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Planos -->
+<section class="py-24 bg-surface-container-low" id="planos">
+<div class="max-w-screen-2xl mx-auto px-8">
+<div class="text-center mb-20">
+<h2 class="font-headline text-6xl font-black tracking-tighter mb-4">ESCOLHA SEU <span class="text-primary italic">NÍVEL</span></h2>
+<p class="font-body text-on-surface-variant">Planos flexíveis para objetivos inegociáveis.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<!-- Starter -->
+<div class="bg-surface-container-high p-10 flex flex-col border-t-4 border-transparent hover:border-outline transition-all group">
+<h3 class="font-headline text-2xl font-bold mb-2">STARTER</h3>
+<div class="flex items-baseline gap-1 mb-8">
+<span class="text-on-surface-variant font-label">R$</span>
+<span class="text-5xl font-headline font-black">149</span>
+<span class="text-on-surface-variant font-label">/mês</span>
+</div>
+<ul class="space-y-4 mb-12 flex-grow">
+<li class="flex items-center gap-3 text-on-surface-variant font-label text-sm">
+<span class="material-symbols-outlined text-primary text-sm">check_circle</span> Musculação Completa
+                        </li>
+<li class="flex items-center gap-3 text-on-surface-variant font-label text-sm">
+<span class="material-symbols-outlined text-primary text-sm">check_circle</span> Acesso em Horário Livre
+                        </li>
+<li class="flex items-center gap-3 text-on-surface-variant font-label text-sm">
+<span class="material-symbols-outlined text-primary text-sm">check_circle</span> App Energia Pura
+                        </li>
+</ul>
+<button class="w-full py-4 bg-surface-container-highest text-primary font-headline font-black tracking-widest text-sm hover:bg-primary hover:text-on-primary transition-all rounded-sm">
+                        ASSINAR AGORA
+                    </button>
+</div>
+<!-- Pro -->
+<div class="bg-surface-container-highest p-10 flex flex-col border-t-4 border-primary relative transform scale-105 z-10">
+<div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-primary text-on-primary px-4 py-1 font-label text-[10px] font-black tracking-[0.2em]">RECOMENDADO</div>
+<h3 class="font-headline text-2xl font-bold mb-2">PRO PERFORMANCE</h3>
+<div class="flex items-baseline gap-1 mb-8">
+<span class="text-on-surface-variant font-label">R$</span>
+<span class="text-5xl font-headline font-black">219</span>
+<span class="text-on-surface-variant font-label">/mês</span>
+</div>
+<ul class="space-y-4 mb-12 flex-grow">
+<li class="flex items-center gap-3 text-on-surface font-label text-sm">
+<span class="material-symbols-outlined text-primary text-sm">check_circle</span> Musculação + CrossFit
+                        </li>
+<li class="flex items-center gap-3 text-on-surface font-label text-sm">
+<span class="material-symbols-outlined text-primary text-sm">check_circle</span> Todas as Aulas Coletivas
+                        </li>
+<li class="flex items-center gap-3 text-on-surface font-label text-sm">
+<span class="material-symbols-outlined text-primary text-sm">check_circle</span> Avaliação Bioimpedância
+                        </li>
+<li class="flex items-center gap-3 text-on-surface font-label text-sm">
+<span class="material-symbols-outlined text-primary text-sm">check_circle</span> Convidados Grátis (2x/mês)
+                        </li>
+</ul>
+<button class="w-full py-4 bg-primary text-on-primary font-headline font-black tracking-widest text-sm hover:scale-105 transition-transform rounded-sm">
+                        DOMINAR AGORA
+                    </button>
+</div>
+<!-- Black -->
+<div class="bg-surface-container-high p-10 flex flex-col border-t-4 border-transparent hover:border-outline transition-all">
+<h3 class="font-headline text-2xl font-bold mb-2">BLACK ELITE</h3>
+<div class="flex items-baseline gap-1 mb-8">
+<span class="text-on-surface-variant font-label">R$</span>
+<span class="text-5xl font-headline font-black">399</span>
+<span class="text-on-surface-variant font-label">/mês</span>
+</div>
+<ul class="space-y-4 mb-12 flex-grow">
+<li class="flex items-center gap-3 text-on-surface-variant font-label text-sm">
+<span class="material-symbols-outlined text-primary text-sm">check_circle</span> Acesso VIP All-Inclusive
+                        </li>
+<li class="flex items-center gap-3 text-on-surface-variant font-label text-sm">
+<span class="material-symbols-outlined text-primary text-sm">check_circle</span> Personal Trainer Semanal
+                        </li>
+<li class="flex items-center gap-3 text-on-surface-variant font-label text-sm">
+<span class="material-symbols-outlined text-primary text-sm">check_circle</span> Kit Suplementação Mensal
+                        </li>
+<li class="flex items-center gap-3 text-on-surface-variant font-label text-sm">
+<span class="material-symbols-outlined text-primary text-sm">check_circle</span> Spa e Recuperação Ativa
+                        </li>
+</ul>
+<button class="w-full py-4 bg-surface-container-highest text-primary font-headline font-black tracking-widest text-sm hover:bg-primary hover:text-on-primary transition-all rounded-sm">
+                        EXPERIÊNCIA ELITE
+                    </button>
+</div>
+</div>
+</div>
+</section>
+<!-- Galeria Infraestrutura -->
+<section class="py-24" id="galeria">
+<div class="max-w-screen-2xl mx-auto px-8">
+<h2 class="font-headline text-5xl font-black tracking-tighter mb-12">NOSSO <span class="italic text-primary">ECOSSISTEMA</span></h2>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+<div class="h-64 overflow-hidden rounded-sm">
+<img alt="Gym floor" class="w-full h-full object-cover hover:scale-110 transition-transform duration-500" data-alt="Modern minimalist gym interior with high end machines and neon accents" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBFy7icAFCswUEMB-6QAFsnKqFquPF-fYyzoOu4fUekuiD6VG0_aTorqYplkBFJzEb390bQnhtDAtjEoYK44-HTx1vsOeN1l6XlhS-ItpahUwjr0f07iQjKFTFxubZI9y0iP6aJPRPZzmJs7pZlLdp-ymLlNXmIWRJi3ON166tpzGjXwAzcYOHWPMoAkUkRXi4PxtTcKMQk-Myz4L12ndu_6ukMRGBel5fz2GZO7GwD5N5UkM8tEqmCfQM2h4J36IHg2zJdLFwYDKI"/>
+</div>
+<div class="h-64 overflow-hidden rounded-sm col-span-2">
+<img alt="Gym layout" class="w-full h-full object-cover hover:scale-110 transition-transform duration-500" data-alt="Wide shot of a luxury gym training area with pristine equipment and architectural lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC8VGBLa4oHxZRk-BG1XSs0uICX_9kGUvxXPik1YibFKyG7Zsuq-Nb-wIub6WyfU4oSmqruq_b09KVZqWUqZwojEjQsVSUGqKDePxnCkM92MUG-AsvD9ETCWPs84iK4cG15BhbSYiiikNoEhXFzJCZscFNSE717kZNi6ndEGLSWzbgMEFw5z8-75EVvHE3JKPsw9TUnfIAQ-K2-VpKWpPfIuyVxj8M2fpxRnyNUdSCV3B1bgRAjwqm3JtHN61ibOHD64Q6iJunR05U"/>
+</div>
+<div class="h-64 overflow-hidden rounded-sm">
+<img alt="Cardio area" class="w-full h-full object-cover hover:scale-110 transition-transform duration-500" data-alt="Row of professional treadmills in a high tech cardio zone" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDcHw3ECiiH8BpQFSjOoOycw7gjrRezcttgrMj3pwKr7vrNhYBccP0dcqVIt0oRsSC36AE1czGa2bD6RzK_F29gJQCONe81eo-ArBzU52sJaGK3ecuv9LSJ2TbWmV3g2mkX373Hs4Mmc1fO8yhsp1ApiXXWUgTgma6iNWxS1zoGwXPqv9pOameR0MqijJYOrZoRDp21Qsl6eZjl0tLIuD-UDLHDNSvKQV0Aws6R-I0AhKZJqGzgrJJIvZH6WotipVnSQiIEWdcGqfU"/>
+</div>
+<div class="h-64 overflow-hidden rounded-sm col-span-2">
+<img alt="Lifting platform" class="w-full h-full object-cover hover:scale-110 transition-transform duration-500" data-alt="Dedicated heavy lifting platform with olympic bumper plates and professional squat rack" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA7R4GV5zjjCmsFoY9mMyJClqJhDXnNLKj2aJs1YfHR4UJp_Lu9MWTFDEcxCBclVBm1v7aBo-3ohQ1LAJHL2LJh1d2TJVv3JxHyqCIEdqeG9FH8fvzFXriNzgKUIj62IbUyHF8uQ6td0t7XTdFZ6S3bmmfeE3lgD_T3L9ChKPJtgySquNZ2yPGZ0AIkKu0x-e9fodN2GqC1b28-C2EYvZNe8qVn9Kn5TMKiB0qhLoqu_IhpdLfAMzZ9E6Zt41qJC4rMOuEjBgAqqKo"/>
+</div>
+<div class="h-64 overflow-hidden rounded-sm">
+<img alt="Dumbbells" class="w-full h-full object-cover hover:scale-110 transition-transform duration-500" data-alt="Close up of high quality rubber dumbbells organized on a sleek black rack" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDs-_ghBr9cM3wojT3G8zVy2bbF4PW_MsJbcnZoBg7pjuvMXR3GUTx_GbDlWOT9ZHG97lNruVyDPsO0ZkGMkhJX7Kod8nawVAbpDzEuqGkc0jctVJLPwpz5LSSg5A3xHu7kv8uddi-x-lS6kKkQ9akmaCD8evFFL_DkXVOdMnpynpatyUlcYEuoPK2qErn03cFdpoMp48cUy4vThunOU6I86pwx7yUg151Wu_QOarKWCKzChYIC4UwuVCbNDkrMRysIxWJtADjaO_c"/>
+</div>
+<div class="h-64 overflow-hidden rounded-sm">
+<img alt="Locker room" class="w-full h-full object-cover hover:scale-110 transition-transform duration-500" data-alt="Luxury locker room with wood finishes and high end amenities" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC4cUPfk7encVVE9grRtOqHFEmBs6OoQBlWGMZ4hauTSSBt8NBPogYk-_UxRzoN5HZdFDhiyh6lARCD6fBk80qiybabXI2P_c2ZltlGVinSzdENksWWJ4scOCSrwzUcjfOtLSmFi3i1rUrSofHysDi3Y7STx7AuM4zLU8t0koqwXQiVK_NP9PCgbTIR9yg1nMeqwMD_EZy_NIITKAhvXLKy1OM26Hf5eNuYTFUEBpkB53Kv21SwZswqLP6gd9VZ8LD2XheOGEGcMxU"/>
+</div>
+</div>
+</div>
+</section>
+<!-- Formulário Aula Experimental -->
+<section class="py-24 relative overflow-hidden bg-surface-container-lowest" id="contato">
+<div class="absolute -right-20 top-0 text-primary opacity-5 select-none pointer-events-none">
+<span class="material-symbols-outlined font-black text-[30rem]" style="font-variation-settings: 'FILL' 1;">bolt</span>
+</div>
+<div class="max-w-screen-2xl mx-auto px-8 relative z-10">
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+<div>
+<h2 class="font-headline text-6xl font-black tracking-tighter mb-8 leading-none">PRONTO PARA O <br/><span class="text-primary italic">PRÓXIMO NÍVEL?</span></h2>
+<p class="font-body text-on-surface-variant text-lg mb-8 max-w-lg">Sua primeira aula é por nossa conta. Experimente a intensidade do método Energia Pura e descubra por que somos a escolha dos atletas de elite.</p>
+<div class="space-y-6">
+<div class="flex items-start gap-4">
+<div class="w-12 h-12 flex items-center justify-center bg-surface-container-highest text-primary rounded-sm">
+<span class="material-symbols-outlined">location_on</span>
+</div>
+<div>
+<h4 class="font-headline font-bold">LOCALIZAÇÃO ESTRATÉGICA</h4>
+<p class="font-body text-sm text-on-surface-variant">Av. Paulista, 1000 - Bela Vista, SP</p>
+</div>
+</div>
+<div class="flex items-start gap-4">
+<div class="w-12 h-12 flex items-center justify-center bg-surface-container-highest text-primary rounded-sm">
+<span class="material-symbols-outlined">schedule</span>
+</div>
+<div>
+<h4 class="font-headline font-bold">HORÁRIO DE ATENDIMENTO</h4>
+<p class="font-body text-sm text-on-surface-variant">Seg - Sex: 05h às 23h | Sab - Dom: 08h às 14h</p>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-surface-container p-12 rounded-sm border border-outline-variant/10 shadow-2xl">
+<form class="space-y-6">
+<div class="space-y-2">
+<label class="font-label text-xs font-bold tracking-widest text-on-surface-variant uppercase">NOME COMPLETO</label>
+<input class="w-full bg-surface-container-low border-b-2 border-outline-variant/30 border-t-0 border-x-0 focus:border-primary focus:ring-0 text-on-surface placeholder:text-on-secondary/50 font-body transition-colors py-4" placeholder="Como devemos te chamar?" type="text"/>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="space-y-2">
+<label class="font-label text-xs font-bold tracking-widest text-on-surface-variant uppercase">E-MAIL</label>
+<input class="w-full bg-surface-container-low border-b-2 border-outline-variant/30 border-t-0 border-x-0 focus:border-primary focus:ring-0 text-on-surface placeholder:text-on-secondary/50 font-body transition-colors py-4" placeholder="seu@email.com" type="email"/>
+</div>
+<div class="space-y-2">
+<label class="font-label text-xs font-bold tracking-widest text-on-surface-variant uppercase">WHATSAPP</label>
+<input class="w-full bg-surface-container-low border-b-2 border-outline-variant/30 border-t-0 border-x-0 focus:border-primary focus:ring-0 text-on-surface placeholder:text-on-secondary/50 font-body transition-colors py-4" placeholder="(11) 99999-9999" type="tel"/>
+</div>
+</div>
+<div class="space-y-2">
+<label class="font-label text-xs font-bold tracking-widest text-on-surface-variant uppercase">MODALIDADE DE INTERESSE</label>
+<select class="w-full bg-surface-container-low border-b-2 border-outline-variant/30 border-t-0 border-x-0 focus:border-primary focus:ring-0 text-on-surface font-body transition-colors py-4">
+<option>CrossFit</option>
+<option>Musculação High Performance</option>
+<option>HIIT / Cardio Pro</option>
+<option>Lutas</option>
+</select>
+</div>
+<button class="w-full py-5 kinetic-gradient text-on-primary font-headline font-black text-lg tracking-tighter hover:scale-[1.02] active:scale-[0.98] transition-all rounded-sm shadow-lg shadow-primary-container/10">
+                            GARANTIR MINHA VAGA GRÁTIS
+                        </button>
+<p class="text-[10px] text-center text-on-surface-variant font-label uppercase tracking-widest">Ao enviar você concorda com nossa política de privacidade.</p>
+</form>
+</div>
+</div>
+</div>
+</section>
+<!-- Footer -->
+<footer class="bg-[#0e0e0e] border-t border-[#484847]/15">
+<div class="flex flex-col md:flex-row justify-between items-center px-8 py-12 gap-6 max-w-screen-2xl mx-auto">
+<div class="flex flex-col items-center md:items-start gap-4">
+<div class="text-xl font-black text-[#CCFF00] font-headline">KINETIC PULSE</div>
+<p class="font-['Manrope'] text-sm tracking-wide text-gray-500 uppercase">© 2024 KINETIC PULSE. HIGH PERFORMANCE OR NOTHING.</p>
+</div>
+<div class="flex flex-wrap justify-center gap-8">
+<a class="font-['Manrope'] text-sm tracking-wide text-gray-500 hover:text-[#CCFF00] transition-colors" href="#">PRIVACY POLICY</a>
+<a class="font-['Manrope'] text-sm tracking-wide text-gray-500 hover:text-[#CCFF00] transition-colors" href="#">TERMS OF SERVICE</a>
+<a class="font-['Manrope'] text-sm tracking-wide text-gray-500 hover:text-[#CCFF00] transition-colors" href="#">CONTACT US</a>
+<a class="font-['Manrope'] text-sm tracking-wide text-gray-500 hover:text-[#CCFF00] transition-colors" href="#">LOCATIONS</a>
+</div>
+<div class="flex gap-4">
+<a class="w-10 h-10 flex items-center justify-center bg-surface-container-highest text-white hover:text-primary transition-colors rounded-sm" href="#">
+<span class="material-symbols-outlined text-lg">share</span>
+</a>
+<a class="w-10 h-10 flex items-center justify-center bg-surface-container-highest text-white hover:text-primary transition-colors rounded-sm" href="#">
+<span class="material-symbols-outlined text-lg">public</span>
+</a>
+</div>
+</div>
+</footer>
+</body></html>
