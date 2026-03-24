@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>GROWTH_ARCHITECT | Scaling High-Velocity Systems</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Manrope:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "surface-container-low": "#131b2e",
+                        "secondary-fixed": "#acedff",
+                        "on-error": "#690005",
+                        "on-tertiary": "#003731",
+                        "surface-tint": "#ddb7ff",
+                        "secondary-container": "#03b5d3",
+                        "inverse-surface": "#dae2fd",
+                        "on-secondary-container": "#00424e",
+                        "on-secondary-fixed-variant": "#004e5c",
+                        "surface-container-highest": "#2d3449",
+                        "primary": "#ddb7ff",
+                        "inverse-on-surface": "#283044",
+                        "on-background": "#dae2fd",
+                        "surface-container-lowest": "#060e20",
+                        "surface-dim": "#0b1326",
+                        "surface-container-high": "#222a3d",
+                        "on-surface": "#dae2fd",
+                        "tertiary-fixed": "#62fae3",
+                        "inverse-primary": "#842bd2",
+                        "error-container": "#93000a",
+                        "tertiary": "#3cddc7",
+                        "on-error-container": "#ffdad6",
+                        "surface-container": "#171f33",
+                        "on-tertiary-fixed-variant": "#005047",
+                        "on-tertiary-container": "#00302a",
+                        "surface-variant": "#2d3449",
+                        "on-secondary-fixed": "#001f26",
+                        "background": "#0b1326",
+                        "surface": "#0b1326",
+                        "secondary-fixed-dim": "#4cd7f6",
+                        "on-primary": "#490080",
+                        "outline-variant": "#494454",
+                        "surface-bright": "#31394d",
+                        "on-surface-variant": "#cbc3d7",
+                        "secondary": "#4cd7f6",
+                        "error": "#ffb4ab",
+                        "primary-fixed": "#f0dbff",
+                        "on-primary-fixed-variant": "#6900b3",
+                        "on-secondary": "#003640",
+                        "tertiary-fixed-dim": "#3cddc7",
+                        "on-tertiary-fixed": "#00201c",
+                        "primary-fixed-dim": "#ddb7ff",
+                        "tertiary-container": "#00a392",
+                        "on-primary-fixed": "#2c0051",
+                        "primary-container": "#b76dff",
+                        "outline": "#958ea0",
+                        "on-primary-container": "#400071"
+                    },
+                    fontFamily: {
+                        "headline": ["Space Grotesk"],
+                        "body": ["Manrope"],
+                        "label": ["Manrope"]
+                    },
+                    borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .glass-nav { background: rgba(23, 31, 51, 0.6); backdrop-filter: blur(12px); }
+        .hero-glow { background: radial-gradient(circle at 50% 50%, rgba(221, 183, 255, 0.15) 0%, transparent 70%); }
+    </style>
+</head>
+<body class="bg-surface font-body text-on-surface selection:bg-primary/30">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-[#171f33]/60 backdrop-blur-lg">
+<div class="flex justify-between items-center w-full px-8 py-4 max-w-7xl mx-auto">
+<div class="text-2xl font-black tracking-tighter text-[#ddb7ff] italic font-headline">GROWTH_ARCHITECT</div>
+<div class="hidden md:flex gap-8 font-headline font-bold tracking-tighter">
+<a class="text-[#ddb7ff] border-b-2 border-[#ddb7ff] pb-1 transition-all duration-300" href="#strategy">Estratégia</a>
+<a class="text-slate-300 hover:text-white transition-all duration-300" href="#results">Resultados</a>
+<a class="text-slate-300 hover:text-white transition-all duration-300" href="#mentoria">Mentoria</a>
+<a class="text-slate-300 hover:text-white transition-all duration-300" href="#faq">FAQ</a>
+</div>
+<button class="bg-primary-container text-on-primary-container px-6 py-2 rounded-xl font-bold hover:scale-105 active:scale-95 transition-all">ACESSAR AGORA</button>
+</div>
+</nav>
+<!-- 1. Hero Section -->
+<header class="relative pt-32 pb-24 overflow-hidden hero-glow">
+<div class="max-w-7xl mx-auto px-8 grid md:grid-cols-2 gap-12 items-center">
+<div class="z-10">
+<span class="inline-block py-1 px-3 mb-6 rounded-full bg-secondary/10 border border-secondary/20 text-secondary text-xs font-bold tracking-[0.2em] uppercase">Phase 01: Activation</span>
+<h1 class="font-headline text-5xl md:text-7xl font-extrabold tracking-tighter leading-tight mb-6">
+                    SCALING TO <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary via-secondary to-tertiary">7-FIGURES</span> SEM DESCULPAS.
+                </h1>
+<p class="text-on-surface-variant text-lg md:text-xl mb-8 leading-relaxed max-w-xl">
+                    Pare de queimar dinheiro com anúncios que não convertem. Domine a arquitetura cinética de tráfego pago e transforme dados em escala previsível.
+                </p>
+<div class="flex flex-col sm:flex-row gap-4">
+<button class="bg-gradient-to-r from-primary-container to-inverse-primary text-white px-8 py-4 rounded-xl font-extrabold text-lg shadow-[0_0_20px_rgba(183,109,255,0.4)] hover:shadow-[0_0_30px_rgba(183,109,255,0.6)] transition-all">GARANTIR MINHA VAGA</button>
+<div class="flex items-center gap-3 px-4">
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">bolt</span>
+<span class="text-sm font-bold tracking-wide">Acesso Imediato</span>
+</div>
+</div>
+</div>
+<div class="relative group">
+<div class="absolute -inset-1 bg-gradient-to-r from-primary to-secondary rounded-xl blur opacity-25 group-hover:opacity-50 transition duration-1000"></div>
+<div class="relative bg-surface-container rounded-xl overflow-hidden border border-outline-variant/30 aspect-video shadow-2xl">
+<img class="w-full h-full object-cover" data-alt="high-tech workspace with multiple monitors showing financial charts and analytics data in a dark neon aesthetic room" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCos7LQXQMyUPQA3QM6pfl1_ik3NKXzsAVKSWgvrwzw0i3cP4N_UqGzFrf18E03quDpa7T9i_6_Vit4QAExLnxwm9meEZ8ybTYmWurt1tuTDghCuPVSWYB1_6ol-mx19mUboLzqLkCUPhsQ4wGX_Jj1w5qM3rXVv1eydV_N23yUo69lvf03W8XQevH8qUz5fULJr9s4OiAJElbCvFI5sGRd_3zpVqp2hzAstvO4i1QWx3TMgjk_P5bbeKY1lIBDK0LXzTBN5scj1Ho"/>
+<div class="absolute inset-0 flex items-center justify-center bg-black/40 group-hover:bg-black/20 transition-all">
+<div class="w-20 h-20 bg-primary/90 rounded-full flex items-center justify-center text-on-primary-container cursor-pointer transform group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-4xl" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+</div>
+</div>
+</div>
+<!-- Float Stat Card -->
+<div class="absolute -bottom-6 -left-6 bg-surface-container-high p-4 rounded-xl border border-secondary/30 shadow-2xl md:flex hidden flex-col">
+<span class="text-secondary font-headline font-bold text-2xl">+450% ROI</span>
+<span class="text-xs text-on-surface-variant uppercase tracking-widest">Average Growth Rate</span>
+</div>
+</div>
+</div>
+</header>
+<!-- 3. Problema -->
+<section class="py-24 bg-surface-container-lowest">
+<div class="max-w-7xl mx-auto px-8">
+<div class="mb-16">
+<label class="text-tertiary font-bold tracking-[0.3em] uppercase text-sm block mb-4">A Realidade Amarga</label>
+<h2 class="font-headline text-4xl md:text-5xl font-bold max-w-2xl tracking-tight">O TRÁFEGO FICOU CARO, MAS SUA ESTRATÉGIA CONTINUA BARATA.</h2>
+</div>
+<div class="grid md:grid-cols-3 gap-8">
+<div class="p-8 bg-surface rounded-xl border border-outline-variant/10 hover:border-error/30 transition-colors">
+<span class="material-symbols-outlined text-error text-4xl mb-4">trending_down</span>
+<h3 class="font-headline text-xl font-bold mb-3">CPM EXPLODINDO</h3>
+<p class="text-on-surface-variant leading-relaxed">Você está pagando fortunas para o Mark Zuckerberg enquanto o seu lucro é drenado por leilões cada vez mais competitivos.</p>
+</div>
+<div class="p-8 bg-surface rounded-xl border border-outline-variant/10 hover:border-error/30 transition-colors">
+<span class="material-symbols-outlined text-error text-4xl mb-4">data_alert</span>
+<h3 class="font-headline text-xl font-bold mb-3">DADOS CEGOS</h3>
+<p class="text-on-surface-variant leading-relaxed">Desde a atualização do iOS 14, suas métricas mentem para você. Você não sabe de onde vêm suas vendas.</p>
+</div>
+<div class="p-8 bg-surface rounded-xl border border-outline-variant/10 hover:border-error/30 transition-colors">
+<span class="material-symbols-outlined text-error text-4xl mb-4">psychology_alt</span>
+<h3 class="font-headline text-xl font-bold mb-3">FADIGA DE CRIATIVO</h3>
+<p class="text-on-surface-variant leading-relaxed">Seus anúncios saturam em 3 dias e você vive no ciclo infinito de criar vídeos que ninguém clica.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- 4. Agitação -->
+<section class="py-24 bg-surface relative overflow-hidden">
+<div class="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_10%_20%,rgba(76,215,246,0.05)_0%,transparent_50%)]"></div>
+<div class="max-w-5xl mx-auto px-8 text-center relative z-10">
+<h2 class="font-headline text-4xl font-bold mb-8 italic">Até quando você vai "tentar" escalar sem uma fundação sólida?</h2>
+<p class="text-xl text-on-surface-variant leading-relaxed mb-12">
+                Enquanto você luta para manter o ROI positivo, seus concorrentes estão usando sistemas de **Arquitetura Cinética** para dominar o mercado. Eles não têm mais sorte; eles têm um método que ignora a sorte.
+            </p>
+<div class="h-1 w-32 bg-secondary mx-auto rounded-full mb-12"></div>
+</div>
+</section>
+<!-- 5. Solução -->
+<section class="py-24 bg-surface-container-low" id="strategy">
+<div class="max-w-7xl mx-auto px-8">
+<div class="grid md:grid-cols-2 gap-16 items-center">
+<div class="order-2 md:order-1">
+<img class="rounded-xl shadow-[0_0_50px_rgba(60,221,199,0.2)] border border-tertiary/20" data-alt="abstract visualization of growth data charts with glowing cyan and purple lines over a dark background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBGNamb29jAAgd3qRt_ctONGz2d6U5g1cnyUUCl3AVWaTYxev521YFTD9czmKX0Jx_h3PZui_FH0x0a85W5vhbEWN8tz1TLIi91HtZkfgg4-E7Dq_aJCIaKYKtxgBuea7xNdJLA-QYfNJ7BByyXA1RHdZeDeX9QpNV6825tZwmVX_A_dDFy2vQmfby1Z1ZPQSTQQ7Uvyxb44r07lc8ANZP-gN3kP0tefRNYpfbUwfR2fSbXWcuJa19bYi6ppNsuEjcATdrDQPSpQoI"/>
+</div>
+<div class="order-1 md:order-2">
+<label class="text-primary font-bold tracking-widest text-xs uppercase mb-4 block">A Nova Engenharia</label>
+<h2 class="font-headline text-4xl font-bold mb-6">GROWTH_ARCHITECT: O FRAMEWORK VTSD.</h2>
+<ul class="space-y-6">
+<li class="flex gap-4">
+<span class="w-8 h-8 rounded-full bg-secondary/20 text-secondary flex items-center justify-center shrink-0 font-bold">V</span>
+<div>
+<strong class="text-on-surface">Volume Inteligente:</strong> Pare de buscar cliques, busque intenção. Escalamos apenas o que tem tração real.
+                            </div>
+</li>
+<li class="flex gap-4">
+<span class="w-8 h-8 rounded-full bg-secondary/20 text-secondary flex items-center justify-center shrink-0 font-bold">T</span>
+<div>
+<strong class="text-on-surface">Tração Algorítmica:</strong> Alimentamos o pixel com os dados certos para que a IA do Facebook trabalhe para você, não contra.
+                            </div>
+</li>
+<li class="flex gap-4">
+<span class="w-8 h-8 rounded-full bg-secondary/20 text-secondary flex items-center justify-center shrink-0 font-bold">S</span>
+<div>
+<strong class="text-on-surface">Sistema de Escala:</strong> Onde 1 virá 10. Processos automatizados de ajuste de orçamento.
+                            </div>
+</li>
+<li class="flex gap-4">
+<span class="w-8 h-8 rounded-full bg-secondary/20 text-secondary flex items-center justify-center shrink-0 font-bold">D</span>
+<div>
+<strong class="text-on-surface">Domínio de Dados:</strong> Painéis de controle em tempo real para decisões frias e lucrativas.
+                            </div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+<!-- 6 & 7. Para quem é / Não é -->
+<section class="py-24 bg-surface">
+<div class="max-w-7xl mx-auto px-8">
+<h2 class="font-headline text-4xl font-bold text-center mb-16">ESTE CAMINHO É PARA VOCÊ?</h2>
+<div class="grid md:grid-cols-2 gap-12">
+<div class="bg-surface-container p-10 rounded-xl border-l-4 border-tertiary shadow-xl">
+<h3 class="text-tertiary font-headline font-bold text-2xl mb-8 flex items-center gap-3">
+<span class="material-symbols-outlined">check_circle</span> É PARA QUEM:
+                    </h3>
+<ul class="space-y-4">
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-tertiary text-sm mt-1">done</span>
+<span>Já investe pelo menos R$ 100/dia em anúncios.</span>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-tertiary text-sm mt-1">done</span>
+<span>Busca previsibilidade de vendas e lucro real.</span>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-tertiary text-sm mt-1">done</span>
+<span>Acredita em processos e dados, não em "hacks".</span>
+</li>
+</ul>
+</div>
+<div class="bg-surface-container p-10 rounded-xl border-l-4 border-error shadow-xl opacity-70">
+<h3 class="text-error font-headline font-bold text-2xl mb-8 flex items-center gap-3">
+<span class="material-symbols-outlined">cancel</span> NÃO É PARA QUEM:
+                    </h3>
+<ul class="space-y-4">
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-error text-sm mt-1">close</span>
+<span>Quer dinheiro fácil sem investir um centavo.</span>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-error text-sm mt-1">close</span>
+<span>Não está disposto a testar criativos novos semanalmente.</span>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-error text-sm mt-1">close</span>
+<span>Acha que tráfego pago é uma "aposta".</span>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+<!-- 8. Módulos -->
+<section class="py-24 bg-surface-container-lowest">
+<div class="max-w-7xl mx-auto px-8">
+<div class="text-center mb-16">
+<h2 class="font-headline text-4xl md:text-5xl font-bold mb-4">A JORNADA DO ARQUITETO</h2>
+<p class="text-on-surface-variant max-w-2xl mx-auto">Um currículo desenhado para levar você do caos à escala agressiva em 8 semanas.</p>
+</div>
+<div class="grid md:grid-cols-4 gap-4">
+<div class="bg-surface p-6 rounded-xl border border-outline-variant/20 hover:bg-surface-container transition-all">
+<span class="text-4xl font-headline font-black text-primary/20 block mb-4">01</span>
+<h4 class="font-bold mb-2">Fundação Blindada</h4>
+<p class="text-sm text-on-surface-variant">Setup de contingência e Business Manager à prova de bloqueios.</p>
+</div>
+<div class="bg-surface p-6 rounded-xl border border-outline-variant/20 hover:bg-surface-container transition-all">
+<span class="text-4xl font-headline font-black text-primary/20 block mb-4">02</span>
+<h4 class="font-bold mb-2">O Radar de Dados</h4>
+<p class="text-sm text-on-surface-variant">Implementação de Tracking Lado Servidor (API de Conversão).</p>
+</div>
+<div class="bg-surface p-6 rounded-xl border border-outline-variant/20 hover:bg-surface-container transition-all">
+<span class="text-4xl font-headline font-black text-primary/20 block mb-4">03</span>
+<h4 class="font-bold mb-2">Engenharia de Criativos</h4>
+<p class="text-sm text-on-surface-variant">Scripts e ângulos de venda que geram CTR acima de 3%.</p>
+</div>
+<div class="bg-surface p-6 rounded-xl border border-outline-variant/20 hover:bg-surface-container transition-all">
+<span class="text-4xl font-headline font-black text-primary/20 block mb-4">04</span>
+<h4 class="font-bold mb-2">Escala Horizontal</h4>
+<p class="text-sm text-on-surface-variant">Como dominar novos públicos sem explodir o seu CPA.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- 9. Bônus -->
+<section class="py-24 bg-surface">
+<div class="max-w-7xl mx-auto px-8">
+<h2 class="font-headline text-4xl font-bold text-center mb-16">POWER-UPS EXCLUSIVOS</h2>
+<div class="grid md:grid-cols-2 gap-8">
+<div class="flex gap-6 p-8 bg-surface-container rounded-xl border border-primary/20">
+<div class="shrink-0 w-16 h-16 bg-primary/10 rounded-xl flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-3xl">terminal</span>
+</div>
+<div>
+<h4 class="font-bold text-xl mb-1">Templates de Dashboard Looker Studio</h4>
+<p class="text-on-surface-variant text-sm mb-4">Visualize seu lucro real sem planilhas complexas.</p>
+<div class="text-xs uppercase font-bold tracking-widest text-on-surface-variant">
+                            De <span class="line-through">R$ 497</span> por <span class="text-primary">GRÁTIS</span>
+</div>
+</div>
+</div>
+<div class="flex gap-6 p-8 bg-surface-container rounded-xl border border-secondary/20">
+<div class="shrink-0 w-16 h-16 bg-secondary/10 rounded-xl flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-3xl">groups</span>
+</div>
+<div>
+<h4 class="font-bold text-xl mb-1">Comunidade "Inner Circle"</h4>
+<p class="text-on-surface-variant text-sm mb-4">Acesso vitalício ao nosso grupo secreto de networking.</p>
+<div class="text-xs uppercase font-bold tracking-widest text-on-surface-variant">
+                            De <span class="line-through">R$ 997</span> por <span class="text-secondary">GRÁTIS</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- 10. Stack de Valor -->
+<section class="py-24 bg-surface-container-low border-y border-outline-variant/10">
+<div class="max-w-3xl mx-auto px-8 text-center">
+<h2 class="font-headline text-3xl font-bold mb-12">TUDO O QUE VOCÊ VAI RECEBER:</h2>
+<div class="space-y-4 mb-12">
+<div class="flex justify-between items-center py-3 border-b border-outline-variant/10">
+<span class="text-on-surface-variant">Mentoria GROWTH_ARCHITECT (8 Semanas)</span>
+<span class="font-bold text-primary">R$ 2.997</span>
+</div>
+<div class="flex justify-between items-center py-3 border-b border-outline-variant/10">
+<span class="text-on-surface-variant">Templates Looker Studio</span>
+<span class="font-bold text-primary">R$ 497</span>
+</div>
+<div class="flex justify-between items-center py-3 border-b border-outline-variant/10">
+<span class="text-on-surface-variant">Comunidade Inner Circle</span>
+<span class="font-bold text-primary">R$ 997</span>
+</div>
+<div class="flex justify-between items-center py-3 border-b border-outline-variant/10">
+<span class="text-on-surface-variant">Script Creator 2.0</span>
+<span class="font-bold text-primary">R$ 297</span>
+</div>
+<div class="flex justify-between items-center pt-6 text-xl">
+<span class="font-headline font-bold uppercase tracking-widest">Valor Total:</span>
+<span class="font-headline font-bold line-through opacity-50">R$ 4.788</span>
+</div>
+</div>
+<div class="bg-surface p-10 rounded-2xl border-2 border-primary shadow-[0_0_40px_rgba(183,109,255,0.2)]">
+<span class="text-sm font-bold tracking-[0.3em] uppercase mb-2 block text-secondary">Oferta Especial de Lançamento</span>
+<div class="text-5xl font-headline font-black mb-4">12x R$ 97,40</div>
+<p class="text-on-surface-variant mb-8">ou R$ 997,00 à vista</p>
+<button class="w-full bg-gradient-to-r from-primary to-inverse-primary text-white py-5 rounded-xl font-black text-xl hover:scale-[1.02] transition-transform">SIM! QUERO ESCALAR AGORA</button>
+</div>
+</div>
+</section>
+<!-- 11. Depoimentos -->
+<section class="py-24 bg-surface" id="results">
+<div class="max-w-7xl mx-auto px-8">
+<h2 class="font-headline text-4xl font-bold text-center mb-16">RESULTADOS REAIS</h2>
+<div class="grid md:grid-cols-3 gap-8">
+<div class="bg-surface-container p-8 rounded-xl relative">
+<span class="material-symbols-outlined text-secondary absolute -top-4 right-8 text-4xl" style="font-variation-settings: 'FILL' 1;">format_quote</span>
+<p class="italic text-on-surface-variant mb-6">"Em apenas 3 semanas de mentoria, baixamos nosso CPA em 45% e finalmente batemos os 100k de faturamento mensal."</p>
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-surface-container-high overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="portrait of a confident business professional male with a neutral background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAZYYsDultHWpoi0vtUWUoAPCFUVYgoelIh-vWbfPNAkpoMk60ft8VM21_DRjlie6zx6RbtFENge3fkcZcVkZAJKv0kOH-A9-N1JWF_H234S6_XPgEDnWmQjuBxkooYjdhDUYPZFEwlkABHADJN5RP33Z13_rZX-7R8L7turyjc-pO93WEi1EulIJfawuPVqFjuj17SX6tdAY-BeajXFuP1ZGAuwN-WFmJT3AVExgF2b9ujsMvJgbINEXPRJW89fiakl_6ddhqqhjk"/>
+</div>
+<div>
+<h5 class="font-bold">Ricardo S.</h5>
+<span class="text-xs text-secondary font-bold">Ecommerce Owner</span>
+</div>
+</div>
+</div>
+<div class="bg-surface-container p-8 rounded-xl relative">
+<span class="material-symbols-outlined text-secondary absolute -top-4 right-8 text-4xl" style="font-variation-settings: 'FILL' 1;">format_quote</span>
+<p class="italic text-on-surface-variant mb-6">"A estrutura de criativos mudou o jogo. Paramos de queimar caixa e o tráfego se tornou nossa maior fonte de lucro."</p>
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-surface-container-high overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="smiling professional woman headshot with a clean corporate background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCSuUQecnpZXfEXgLp6PxZsvPZqa9hOdMB2mZqokw4oMYYC7sm6I6ppcLWCQmgrG46MEVavkEYr3YfmpT3qSqZXzI8wFxQcBAt_L3knyl-lXybvGXarB1T2yj15u3R70kUjbhzSwtYTgiPaby1o50I8BpEq7X_tdG3Eae42xeoliPTrDDix6Hvsvg7oQrSI3Bipr0sBNCIgYZP-25PZstHLnXjZ4b21fRnWl4MT_e02kGDVmkUSuFp0KO2N4W-GW0NB6fLZdRrLep0"/>
+</div>
+<div>
+<h5 class="font-bold">Mariana L.</h5>
+<span class="text-xs text-secondary font-bold">Infoprodutora</span>
+</div>
+</div>
+</div>
+<div class="bg-surface-container p-8 rounded-xl relative">
+<span class="material-symbols-outlined text-secondary absolute -top-4 right-8 text-4xl" style="font-variation-settings: 'FILL' 1;">format_quote</span>
+<p class="italic text-on-surface-variant mb-6">"O tracking via API de Conversão é o que ninguém te ensina. Agora meus dados batem 100% com o checkout."</p>
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-surface-container-high overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="professional man in a smart casual outfit looking at camera against an urban office backdrop" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD0_p8Cs2iEHttqs0824LwIpk6xCWmJEE0CORgaGFsaXCFpoVG6maVOjx7mNj46-SaS1kQadB404i8VSXYFDNwwi1sbpZUV5voC61bclb_5X1WiHANs5ZG261Ce9VV_2hGDgOEAVYfbUJlVEFliH1zLW12xnWGYIWeo1uQ4wItP5Gy32gyygA5cKFT63Y6a7nfuFgbnBIUFtIysNp7YENNgkOv8t49ff6w0mWC4NCJFHqXX8_Sbf5PLrltANuAStMRbAh6wQ4XJ8cQ"/>
+</div>
+<div>
+<h5 class="font-bold">André T.</h5>
+<span class="text-xs text-secondary font-bold">Media Buyer</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- 12. Garantia -->
+<section class="py-16 bg-surface">
+<div class="max-w-4xl mx-auto px-8">
+<div class="bg-surface-container-low p-12 rounded-3xl flex flex-col md:flex-row items-center gap-12 border border-outline-variant/10 shadow-2xl">
+<div class="w-32 h-32 flex-shrink-0 relative">
+<svg class="w-full h-full" viewbox="0 0 100 100">
+<circle cx="50" cy="50" fill="none" r="45" stroke="#ddb7ff" stroke-dasharray="10 5" stroke-width="2"></circle>
+<text fill="#ddb7ff" font-family="Space Grotesk" font-size="24" font-weight="bold" text-anchor="middle" x="50" y="55">7</text>
+<text fill="#ddb7ff" font-family="Manrope" font-size="10" font-weight="bold" text-anchor="middle" x="50" y="75">DIAS</text>
+</svg>
+</div>
+<div>
+<h3 class="font-headline text-2xl font-bold mb-4">RISCO ZERO PARA VOCÊ</h3>
+<p class="text-on-surface-variant leading-relaxed">Assista às primeiras aulas, use nossos templates e entre na comunidade. Se você não achar que o GROWTH_ARCHITECT vai pagar o seu próprio investimento em 30 dias, peça o reembolso total. Sem perguntas, sem letras miúdas.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- 14. FAQ -->
+<section class="py-24 bg-surface-container-lowest" id="faq">
+<div class="max-w-4xl mx-auto px-8">
+<h2 class="font-headline text-4xl font-bold text-center mb-16">PERGUNTAS FREQUENTES</h2>
+<div class="space-y-4">
+<details class="group bg-surface rounded-xl border border-outline-variant/10 open:border-primary/30 transition-all">
+<summary class="flex justify-between items-center p-6 cursor-pointer font-bold list-none">
+                        Preciso já ter um produto rodando?
+                        <span class="material-symbols-outlined transition-transform group-open:rotate-180">expand_more</span>
+</summary>
+<div class="px-6 pb-6 text-on-surface-variant">
+                        Sim. Este framework foi desenhado para escalar o que já funciona. Se você está começando do zero absoluto, sugerimos primeiro validar sua oferta.
+                    </div>
+</details>
+<details class="group bg-surface rounded-xl border border-outline-variant/10 open:border-primary/30 transition-all">
+<summary class="flex justify-between items-center p-6 cursor-pointer font-bold list-none">
+                        Serve para Google Ads também?
+                        <span class="material-symbols-outlined transition-transform group-open:rotate-180">expand_more</span>
+</summary>
+<div class="px-6 pb-6 text-on-surface-variant">
+                        O foco principal é Meta Ads (Facebook/Instagram), mas os fundamentos de tracking e criativos são 100% aplicáveis a qualquer plataforma de tráfego.
+                    </div>
+</details>
+<details class="group bg-surface rounded-xl border border-outline-variant/10 open:border-primary/30 transition-all">
+<summary class="flex justify-between items-center p-6 cursor-pointer font-bold list-none">
+                        Por quanto tempo terei acesso?
+                        <span class="material-symbols-outlined transition-transform group-open:rotate-180">expand_more</span>
+</summary>
+<div class="px-6 pb-6 text-on-surface-variant">
+                        O acesso ao curso e todas as atualizações futuras é vitalício. A comunidade Inner Circle também não tem prazo de validade.
+                    </div>
+</details>
+</div>
+</div>
+</section>
+<!-- 15. CTA Urgência -->
+<section class="py-24 bg-gradient-to-br from-primary-container/20 to-surface border-t border-primary/20">
+<div class="max-w-7xl mx-auto px-8 text-center">
+<h2 class="font-headline text-4xl md:text-6xl font-black mb-8 italic tracking-tighter">O PRÓXIMO NÍVEL NÃO ESPERA.</h2>
+<p class="text-xl mb-12 text-on-surface-variant max-w-2xl mx-auto">As vagas para a mentoria com acompanhamento são limitadas. Garanta seu lugar na próxima turma agora.</p>
+<button class="bg-primary text-on-primary-container px-12 py-6 rounded-full font-black text-2xl shadow-[0_20px_50px_rgba(221,183,255,0.3)] hover:scale-105 active:scale-95 transition-all">
+                QUERO MEU ACESSO AGORA
+            </button>
+<div class="mt-8 flex items-center justify-center gap-6 text-sm font-bold opacity-60">
+<span class="flex items-center gap-2"><span class="material-symbols-outlined text-sm">lock</span> Checkout Seguro</span>
+<span class="flex items-center gap-2"><span class="material-symbols-outlined text-sm">verified_user</span> 7 Dias de Garantia</span>
+</div>
+</div>
+</section>
+<!-- Footer -->
+<footer class="bg-[#060e20] w-full py-16 px-8 border-t border-[#171f33]/30">
+<div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+<div class="flex flex-col items-center md:items-start gap-4">
+<div class="text-xl font-bold text-[#ddb7ff] font-headline tracking-tighter italic">GROWTH_ARCHITECT</div>
+<p class="font-['Manrope'] text-sm tracking-wide text-slate-500 max-w-xs text-center md:text-left">© 2024 Kinetic Architect. High-Velocity Scaling Systems.</p>
+</div>
+<div class="flex gap-8">
+<a class="text-slate-500 hover:text-[#ddb7ff] transition-colors font-['Manrope'] text-sm" href="#">Termos de Uso</a>
+<a class="text-slate-500 hover:text-[#ddb7ff] transition-colors font-['Manrope'] text-sm" href="#">Privacidade</a>
+<a class="text-slate-500 hover:text-[#ddb7ff] transition-colors font-['Manrope'] text-sm" href="#">Afiliados</a>
+<a class="text-slate-500 hover:text-[#ddb7ff] transition-colors font-['Manrope'] text-sm" href="#">Suporte</a>
+</div>
+<div class="flex gap-4">
+<div class="w-10 h-10 rounded-full border border-slate-800 flex items-center justify-center hover:bg-primary/10 hover:border-primary/40 transition-all cursor-pointer">
+<span class="material-symbols-outlined text-slate-400 text-xl">language</span>
+</div>
+<div class="w-10 h-10 rounded-full border border-slate-800 flex items-center justify-center hover:bg-primary/10 hover:border-primary/40 transition-all cursor-pointer">
+<span class="material-symbols-outlined text-slate-400 text-xl">share</span>
+</div>
+</div>
+</div>
+</footer>
+</body></html>

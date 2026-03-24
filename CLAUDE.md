@@ -30,7 +30,7 @@ Aqui estão os comandos disponíveis:
 
 **Páginas e Textos:**
 - `/pagina-de-vendas` — Criar página profissional (vendas, captura ou obrigado)
-- `/texto-de-venda` — Criar copy persuasiva (headlines, VSL, carta de vendas)
+- `/copy-pagina` — Criar copy completa da página de vendas (16 seções, estrutura 8D)
 - `/anuncio` — Criar anúncios para Meta Ads e Google Ads (Mandala de 18 tipos)
 
 **Conteúdo:**
@@ -147,7 +147,7 @@ A persona contém: Identidade do Consumidor detalhada, paliativos, objeções de
 | Tipo de Material | Pasta | Formato |
 |---|---|---|
 | Páginas (vendas, captura, obrigado) | `entregas/paginas/` | `.html` |
-| Textos de venda (copy, VSL, headlines) | `entregas/textos-de-venda/` | `.md` |
+| Copy de página de vendas | `entregas/copy-pagina/` | `.md` |
 | Sequências de email | `entregas/emails/` | `.md` |
 | Anúncios (Meta, Google) | `entregas/anuncios/` | `.md` |
 | Conteúdo para redes sociais | `entregas/conteudo-social/` | `.md` |

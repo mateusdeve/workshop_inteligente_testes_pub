@@ -47,7 +47,7 @@ Use os comandos na ordem que fizer sentido para voce.
 
 1. `/meu-produto` — Cadastrar produto
 2. `/persona` — Perfil do cliente ideal
-3. `/texto-de-venda` — Criar copy
+3. `/copy-pagina` — Criar copy completa da pagina
 4. `/pagina-de-vendas` — Criar pagina profissional
 5. `/anuncio` — Criar anuncios para trafego
 
@@ -108,11 +108,11 @@ Resultado: `entregas/paginas/[tipo]-[produto].html`
 
 Como ver: abra o arquivo `.html` no navegador.
 
-### /texto-de-venda
+### /copy-pagina
 
-Cria textos persuasivos no estilo Light Copy: headlines, cartas de venda, scripts de VVV, bullets, CTAs.
+Cria a copy completa da pagina de vendas com todas as 16 secoes (estrutura 8D expandida). Texto pronto para virar pagina HTML.
 
-Resultado: `entregas/textos-de-venda/[tipo]-[produto].md`
+Resultado: `entregas/copy-pagina/copy-[produto].md`
 
 ### /anuncio
 

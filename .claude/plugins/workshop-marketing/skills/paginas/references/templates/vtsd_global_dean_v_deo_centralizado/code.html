@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+
+<html class="scroll-smooth" lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Global Dean | Destrave seu Inglês Executivo</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700;800&amp;family=Public+Sans:wght@300;400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "surface-container-high": "#e5e8ed",
+              "secondary-container": "#ffbf00",
+              "on-surface": "#181c20",
+              "on-background": "#181c20",
+              "on-secondary": "#ffffff",
+              "error": "#ba1a1a",
+              "surface-bright": "#f7f9fe",
+              "primary-container": "#002366",
+              "error-container": "#ffdad6",
+              "on-tertiary-fixed": "#390b00",
+              "primary-fixed": "#dbe1ff",
+              "primary-fixed-dim": "#b3c5ff",
+              "tertiary-container": "#501300",
+              "surface-container": "#ebeef3",
+              "on-secondary-fixed-variant": "#5c4300",
+              "surface-container-lowest": "#ffffff",
+              "surface": "#f7f9fe",
+              "on-secondary-fixed": "#261a00",
+              "secondary-fixed": "#ffdfa0",
+              "outline-variant": "#c5c6d2",
+              "surface-dim": "#d7dadf",
+              "surface-container-highest": "#dfe3e8",
+              "outline": "#757682",
+              "on-primary-container": "#758dd5",
+              "surface-container-low": "#f1f4f9",
+              "tertiary-fixed-dim": "#ffb59e",
+              "on-secondary-container": "#6d5000",
+              "on-tertiary-container": "#d37758",
+              "secondary": "#795900",
+              "on-error": "#ffffff",
+              "on-tertiary-fixed-variant": "#783018",
+              "tertiary": "#2d0700",
+              "secondary-fixed-dim": "#fbbc00",
+              "on-primary-fixed-variant": "#2a4386",
+              "on-error-container": "#93000a",
+              "on-primary": "#ffffff",
+              "primary": "#00113a",
+              "inverse-surface": "#2d3135",
+              "inverse-primary": "#b3c5ff",
+              "on-surface-variant": "#444650",
+              "on-primary-fixed": "#00174a",
+              "background": "#f7f9fe",
+              "inverse-on-surface": "#eef1f6",
+              "on-tertiary": "#ffffff",
+              "tertiary-fixed": "#ffdbd0",
+              "surface-variant": "#dfe3e8",
+              "surface-tint": "#435b9f"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Public Sans"],
+              "label": ["Public Sans"]
+            },
+            borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .bg-primary-gradient {
+            background: linear-gradient(135deg, #00113a 0%, #002366 100%);
+        }
+        .glass-nav {
+            background: rgba(247, 249, 254, 0.8);
+            backdrop-filter: blur(20px);
+        }
+    </style>
+</head>
+<body class="bg-surface font-body text-on-surface antialiased">
+<!-- 1. TopNavBar (Shared Component) -->
+<nav class="fixed top-0 w-full z-50 glass-nav shadow-sm">
+<div class="flex justify-between items-center w-full px-6 py-4 max-w-7xl mx-auto">
+<div class="text-xl font-extrabold tracking-tighter text-blue-900">Global Dean</div>
+<div class="hidden md:flex space-x-8 items-center">
+<a class="text-slate-600 hover:text-blue-900 transition-colors font-manrope tracking-tight font-bold" href="#curriculum">Curriculum</a>
+<a class="text-slate-600 hover:text-blue-900 transition-colors font-manrope tracking-tight font-bold" href="#note">The Dean's Note</a>
+<a class="text-slate-600 hover:text-blue-900 transition-colors font-manrope tracking-tight font-bold" href="#stories">Success Stories</a>
+<a class="text-slate-600 hover:text-blue-900 transition-colors font-manrope tracking-tight font-bold" href="#pricing">Pricing</a>
+<a class="bg-primary-gradient text-on-primary px-6 py-2 rounded-md font-bold transition-all duration-300 ease-in-out hover:scale-[1.02]" href="#cta">Join the Elite</a>
+</div>
+</div>
+<div class="bg-slate-100 h-[1px] w-full"></div>
+</nav>
+<!-- 1. Hero Section -->
+<section class="pt-32 pb-20 px-6">
+<div class="max-w-7xl mx-auto">
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+<div class="space-y-8">
+<span class="inline-block bg-secondary-fixed text-on-secondary-fixed px-3 py-1 rounded-sm text-xs font-bold tracking-widest uppercase">CARREIRA INTERNACIONAL</span>
+<h1 class="font-headline text-5xl md:text-6xl font-extrabold text-primary leading-tight tracking-tight">
+                        Destrave seu Inglês e Alcance Cargos de Liderança
+                    </h1>
+<p class="text-xl text-on-surface-variant max-w-xl">
+                        O método focado em Business English para profissionais que querem salários internacionais e autoridade em reuniões globais.
+                    </p>
+<ul class="space-y-4">
+<li class="flex items-center gap-3 font-semibold text-primary">
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+                            Inglês prático para reuniões
+                        </li>
+<li class="flex items-center gap-3 font-semibold text-primary">
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+                            Networking global
+                        </li>
+<li class="flex items-center gap-3 font-semibold text-primary">
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+                            Vocabulário executivo
+                        </li>
+</ul>
+</div>
+<div class="relative">
+<div class="aspect-square bg-surface-container rounded-2xl overflow-hidden shadow-2xl">
+<img alt="Executive Leadership" class="w-full h-full object-cover" data-alt="confident professional woman in a modern corporate setting looking thoughtfully into the distance with soft office lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDoHohEbqQn3YEFfvIJDGouml4wvQzMh0eq2DkutliNM5JeIDl_lutlXCMy50r88NEKQgw5f-9opb_BsxDDY8-IQaezhNbjuILf974YBaJik5UKp7nfgJ9LMUWND6w3WYKwOPNDo6EtD6PHKe3F3HKV5Y4HePDrBCzLTTdVr-hnX8mTXNb9vzyao8MxsX4QJKVpLtwp1MbtB5wgCIutUKPeLCvwNpKDNcx_0rlko_rtB4ywGpt9o_Dnbn3W2KWBr-gbPCkUcY2ENlY"/>
+</div>
+<div class="absolute -bottom-6 -left-6 bg-white p-6 rounded-xl shadow-lg max-w-xs border-l-8 border-secondary">
+<p class="text-primary italic font-medium">"A fluência técnica foi o divisor de águas para minha promoção a Diretor Regional."</p>
+<p class="mt-2 text-sm font-bold text-on-surface-variant">— Ricardo M., Tech Lead</p>
+</div>
+</div>
+</div>
+<!-- Moved VSL Component Centered Below -->
+<div class="mt-16 max-w-4xl mx-auto space-y-12">
+<div class="text-center">
+<h2 class="font-headline text-3xl font-bold text-primary mb-8">Assista ao Manifesto Global Dean</h2>
+<div class="aspect-video bg-primary rounded-2xl shadow-2xl flex items-center justify-center relative overflow-hidden group cursor-pointer border-4 border-white/50">
+<img class="absolute inset-0 w-full h-full object-cover opacity-40" data-alt="Modern high-tech conference room with blurred digital screens and professional aesthetic lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBQxw9fqWbBjcuW1Ydd8kG3oVOlTsVZO6a8hna0hhUD40PG9xl7ofphqDuFMNnB4Ay8JyKxvFsU_IkXty1TIsLnXT0y4Bo7fdtyLbVnLcXLWsQ-q94HrPl54IyD8nqJs_pGEalaGvyGK7bYbYVmpOYrHia5QlAWbkRN-_8PGF3RdKYIz0ktBdsG0DThXfOmi3gxhyjJdMSTVb9UL1QCttQMJhL5KyavqQsx0GjYTGGAGQH_ArcFPnuNfEls_oJ_FwW_0e5we09ZN-s"/>
+<span class="material-symbols-outlined text-white text-8xl transition-transform duration-300 group-hover:scale-110" style="font-variation-settings: 'FILL' 1;">play_circle</span>
+<div class="absolute bottom-6 left-6 right-6 text-left">
+<p class="text-white/80 font-bold uppercase tracking-widest text-xs">VÍDEO DE APRESENTAÇÃO</p>
+</div>
+</div>
+</div>
+<div class="text-center">
+<a class="inline-flex items-center justify-center bg-secondary-container hover:bg-secondary text-primary hover:text-white font-bold py-5 px-10 rounded-md transition-all duration-300 shadow-xl text-lg" href="#offer">
+                        Quero minha Carreira Internacional
+                    </a>
+</div>
+</div>
+</div>
+</section>
+<!-- 3 & 4. Problema & Agitação -->
+<section class="py-24 px-6 bg-surface-container-low">
+<div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-20">
+<div>
+<span class="text-secondary font-bold tracking-widest text-xs block mb-4">O DIAGNÓSTICO</span>
+<h2 class="font-headline text-4xl font-extrabold text-primary mb-6">Perder oportunidades por falta de fluência.</h2>
+<p class="text-lg text-on-surface-variant mb-8 leading-relaxed">
+                    Você tem a competência técnica, os anos de experiência e a visão estratégica. Mas, no momento da reunião global, sua voz trava. O "inglês de cursinho" não é suficiente para negociar prazos ou defender orçamentos.
+                </p>
+<div class="bg-surface-container-high p-8 rounded-xl border-l-8 border-primary">
+<p class="font-bold text-primary italic">"Enquanto você hesita em pronunciar uma palavra, um competidor global menos qualificado assume a liderança da conversa."</p>
+</div>
+</div>
+<div class="grid grid-cols-1 gap-6">
+<div class="bg-surface-container-lowest p-8 rounded-xl shadow-sm">
+<span class="material-symbols-outlined text-error mb-4">trending_down</span>
+<h3 class="text-xl font-bold text-primary mb-2">Estagnação Salarial</h3>
+<p class="text-on-surface-variant">Profissionais com inglês fluente ganham até 61% mais, mas o inglês 'médio' te mantém preso ao teto salarial local.</p>
+</div>
+<div class="bg-surface-container-lowest p-8 rounded-xl shadow-sm">
+<span class="material-symbols-outlined text-error mb-4">public_off</span>
+<h3 class="text-xl font-bold text-primary mb-2">Invisibilidade Global</h3>
+<p class="text-on-surface-variant">Sua incapacidade de expressar nuances estratégicas faz você parecer menos sênior do que realmente é.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- 5. Solução: Global Dean English Academy -->
+<section class="py-24 px-6 bg-primary text-white overflow-hidden relative" id="curriculum">
+<div class="max-w-7xl mx-auto relative z-10">
+<div class="text-center mb-16">
+<h2 class="font-headline text-4xl md:text-5xl font-extrabold mb-6">Global Dean English Academy</h2>
+<p class="text-xl text-primary-fixed-dim max-w-2xl mx-auto">Não é sobre gramática. É sobre poder, negociação e presença executiva internacional.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<div class="p-8 border border-white/10 rounded-xl bg-white/5 backdrop-blur-sm">
+<span class="material-symbols-outlined text-secondary-fixed text-4xl mb-6">handshake</span>
+<h3 class="text-2xl font-bold mb-4">Foco em Performance</h3>
+<p class="text-primary-fixed">Simulações reais de reuniões de Board e negociações de alto nível.</p>
+</div>
+<div class="p-8 border border-white/10 rounded-xl bg-white/5 backdrop-blur-sm">
+<span class="material-symbols-outlined text-secondary-fixed text-4xl mb-6">dynamic_feed</span>
+<h3 class="text-2xl font-bold mb-4">Vocabulário de Elite</h3>
+<p class="text-primary-fixed">Aprenda as expressões que os C-levels usam em Nova York, Londres e Singapura.</p>
+</div>
+<div class="p-8 border border-white/10 rounded-xl bg-white/5 backdrop-blur-sm">
+<span class="material-symbols-outlined text-secondary-fixed text-4xl mb-6">psychology</span>
+<h3 class="text-2xl font-bold mb-4">Mindset Internacional</h3>
+<p class="text-primary-fixed">Entenda a cultura de business anglo-saxã para não cometer gafes diplomáticas.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- 6 & 7. Para quem é / NÃO é -->
+<section class="py-24 px-6">
+<div class="max-w-7xl mx-auto">
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+<div class="bg-surface-container p-10 rounded-2xl">
+<h3 class="font-headline text-2xl font-bold text-primary mb-8 flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">done_all</span>
+                        Este programa é para você:
+                    </h3>
+<ul class="space-y-6">
+<li class="flex items-start gap-4">
+<span class="bg-primary text-white p-1 rounded-full text-xs">01</span>
+<p class="font-medium">Executivos e Gestores que reportam para o exterior.</p>
+</li>
+<li class="flex items-start gap-4">
+<span class="bg-primary text-white p-1 rounded-full text-xs">02</span>
+<p class="font-medium">Profissionais de Tech buscando salários em Dólar ou Euro.</p>
+</li>
+<li class="flex items-start gap-4">
+<span class="bg-primary text-white p-1 rounded-full text-xs">03</span>
+<p class="font-medium">Líderes que precisam palestrar ou apresentar resultados em inglês.</p>
+</li>
+</ul>
+</div>
+<div class="bg-surface-dim/30 p-10 rounded-2xl border border-outline-variant/20">
+<h3 class="font-headline text-2xl font-bold text-on-surface-variant mb-8 flex items-center gap-3">
+<span class="material-symbols-outlined text-error" style="font-variation-settings: 'FILL' 1;">block</span>
+                        NÃO é para você:
+                    </h3>
+<ul class="space-y-6 opacity-70">
+<li class="flex items-start gap-4">
+<span class="bg-outline text-white p-1 rounded-full text-xs">01</span>
+<p class="font-medium">Estudantes que buscam apenas gramática tradicional e provas.</p>
+</li>
+<li class="flex items-start gap-4">
+<span class="bg-outline text-white p-1 rounded-full text-xs">02</span>
+<p class="font-medium">Pessoas que não estão dispostas a aplicar o método no dia a dia.</p>
+</li>
+<li class="flex items-start gap-4">
+<span class="bg-outline text-white p-1 rounded-full text-xs">03</span>
+<p class="font-medium">Quem busca soluções mágicas sem prática real.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+<!-- 8. Módulos: Bento Grid Layout -->
+<section class="py-24 px-6 bg-surface-container-lowest">
+<div class="max-w-7xl mx-auto">
+<h2 class="font-headline text-4xl font-extrabold text-primary text-center mb-16">Estrutura Curricular Elite</h2>
+<div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+<!-- Module 1 -->
+<div class="md:col-span-8 bg-surface-container-low p-8 rounded-2xl relative overflow-hidden group">
+<div class="relative z-10">
+<span class="text-secondary font-bold text-xs tracking-widest uppercase">MÓDULO 01</span>
+<h3 class="text-3xl font-bold text-primary mt-2 mb-4">Negociação e Persuasão</h3>
+<p class="max-w-md text-on-surface-variant">Domine os gatilhos verbais para fechar acordos e defender sua posição sob pressão corporativa.</p>
+</div>
+<span class="material-symbols-outlined absolute -right-4 -bottom-4 text-9xl text-primary/5 transition-transform group-hover:scale-110">handshake</span>
+</div>
+<!-- Module 2 -->
+<div class="md:col-span-4 bg-primary text-white p-8 rounded-2xl group">
+<span class="text-secondary-fixed font-bold text-xs tracking-widest uppercase">MÓDULO 02</span>
+<h3 class="text-2xl font-bold mt-2 mb-4">High-Impact Presentations</h3>
+<p class="text-primary-fixed-dim">Como estruturar slides e seu discurso para prender a atenção de investidores e diretores.</p>
+</div>
+<!-- Module 3 -->
+<div class="md:col-span-4 bg-secondary-fixed p-8 rounded-2xl group">
+<span class="text-on-secondary-fixed-variant font-bold text-xs tracking-widest uppercase">MÓDULO 03</span>
+<h3 class="text-2xl font-bold text-on-secondary-fixed mt-2 mb-4">Executive Writing</h3>
+<p class="text-on-secondary-fixed-variant">E-mails curtos, diretos e poderosos. Pare de soar como um assistente e escreva como um líder.</p>
+</div>
+<!-- Module 4 -->
+<div class="md:col-span-8 bg-surface p-8 rounded-2xl border-l-8 border-secondary group shadow-sm">
+<span class="text-secondary font-bold text-xs tracking-widest uppercase">MÓDULO 04</span>
+<h3 class="text-3xl font-bold text-primary mt-2 mb-4">The Global Socializing</h3>
+<p class="text-on-surface-variant">O "Small Talk" que abre portas. Como fazer networking em jantares e conferências internacionais sem constrangimento.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- 9. Bônus -->
+<section class="py-24 px-6 bg-surface-bright">
+<div class="max-w-4xl mx-auto">
+<div class="bg-primary-gradient p-12 rounded-3xl relative overflow-hidden text-white">
+<div class="absolute top-0 right-0 p-8">
+<span class="bg-secondary px-4 py-2 rounded-full font-bold text-xs animate-pulse">PRESENTE EXCLUSIVO</span>
+</div>
+<h2 class="font-headline text-3xl font-bold mb-6">Bônus: LinkedIn Optimization</h2>
+<p class="text-lg text-primary-fixed-dim mb-8">
+                    Não adianta falar inglês se o seu perfil não atrai os headhunters internacionais. Você receberá um guia passo a passo para transformar seu LinkedIn em um imã de vagas gringas.
+                </p>
+<div class="flex items-center gap-4 text-secondary-fixed font-bold">
+<span class="material-symbols-outlined">workspace_premium</span>
+                    Valor Individual: R$ 497,00 (Grátis hoje)
+                </div>
+</div>
+</div>
+</section>
+<!-- 10. Stack de Valor -->
+<section class="py-24 px-6">
+<div class="max-w-3xl mx-auto border-t border-b border-surface-container py-12">
+<h2 class="font-headline text-3xl font-bold text-primary text-center mb-12">Tudo o que você leva:</h2>
+<div class="space-y-4">
+<div class="flex justify-between items-center p-4 hover:bg-surface-container transition-colors rounded-lg">
+<span class="font-medium text-lg">Curso Global Dean Completo</span>
+<span class="text-outline line-through">R$ 1.997</span>
+</div>
+<div class="flex justify-between items-center p-4 hover:bg-surface-container transition-colors rounded-lg">
+<span class="font-medium text-lg">Comunidade Global Dean Alumni</span>
+<span class="text-outline line-through">R$ 997</span>
+</div>
+<div class="flex justify-between items-center p-4 hover:bg-surface-container transition-colors rounded-lg">
+<span class="font-medium text-lg">Bônus: LinkedIn Internacional</span>
+<span class="text-secondary font-bold">GRÁTIS</span>
+</div>
+<div class="flex justify-between items-center p-4 hover:bg-surface-container transition-colors rounded-lg">
+<span class="font-medium text-lg">Templates de Negociação</span>
+<span class="text-secondary font-bold">GRÁTIS</span>
+</div>
+<div class="pt-8 border-t border-surface-container mt-4 flex justify-between items-center px-4">
+<span class="text-2xl font-extrabold text-primary">VALOR TOTAL:</span>
+<span class="text-2xl font-bold text-outline line-through">R$ 3.491,00</span>
+</div>
+</div>
+</div>
+</section>
+<!-- 11. Depoimentos -->
+<section class="py-24 px-6 bg-surface-container-low" id="stories">
+<div class="max-w-7xl mx-auto">
+<h2 class="font-headline text-3xl font-bold text-primary text-center mb-16">Líderes que Transformaram sua Realidade</h2>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+<div class="bg-surface-container-lowest p-8 rounded-xl shadow-sm">
+<div class="flex gap-1 text-secondary mb-4">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+<p class="text-on-surface-variant italic mb-6">"Em 3 meses de curso, consegui minha primeira vaga em uma Big Tech americana recebendo 3x mais."</p>
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-surface-dim overflow-hidden">
+<img alt="Alumni" data-alt="Portrait of a smiling professional man in business casual attire" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCtJ5DXY3XNRRUbDGvZ0vh15naBSNlQFLpPueWrpj2Zibq65J_Z9sqUL-uOBCk1OmoBIiRQdNwC8WGr23YRu8qixh0s99rYD1v3jfGp0b-uVEZMuKfVQ05g1o6m3PqwbKBUCScYhd4S8mvjbL8g-51TpF66RiaLuwCaWg7kAjzCRzQPoEK9P_U0JeCat3YJvcu2aOb030eO6atmeu4hfDZd2zbD_lKvOvaeg4MKHicpbM3SQ8EO8AwKN6KAPKQSF0F8LLcdxSi81WI"/>
+</div>
+<div>
+<p class="font-bold text-primary">Marcos V.</p>
+<p class="text-xs text-outline">Software Engineer</p>
+</div>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-8 rounded-xl shadow-sm">
+<div class="flex gap-1 text-secondary mb-4">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+<p class="text-on-surface-variant italic mb-6">"As simulações de negociação foram fundamentais. Hoje apresento resultados para a matriz em Londres com total calma."</p>
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-surface-dim overflow-hidden">
+<img alt="Alumni" data-alt="Portrait of a professional woman with a confident smile in a bright office environment" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA9oJxWsXZel_7YFuaUvmFmQk8f1s5irS45bx58iojXXPIrqnKFfPBGLZJgy-3uJEHEqZlmNfBAUV0d5P0mJSpvLJP7AmjnRJymiiZw_RFWw7KIXWB2YRdstajG-F6btoI28ZL4i0xfM9hGjnQAkQ8sqjS6fXg8b4wnxEQU6GO5Rikid0Ue7uS6jRccYzMwZcGwQIwNbMr_0K-tZ9ZOri3nEBOUmAySSNFLj7QV3hanDQZaXkoHZM12-P9M2Rahiw5OjMLEqKIcB7Y"/>
+</div>
+<div>
+<p class="font-bold text-primary">Carla S.</p>
+<p class="text-xs text-outline">Project Manager</p>
+</div>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-8 rounded-xl shadow-sm">
+<div class="flex gap-1 text-secondary mb-4">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+<p class="text-on-surface-variant italic mb-6">"O foco em vocabulário executivo mudou o jogo. Meus e-mails agora soam muito mais profissionais e autoritários."</p>
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-surface-dim overflow-hidden">
+<img alt="Alumni" data-alt="Close up portrait of a middle-aged male executive with a focused look" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDRRG2rK6J4CAV98keY0uP2xQjeIw7Sa_Z0fkVscpRiCtqdqmiLNsBwWvlwgPTsNq3fk8sbTgg0m0lSdKGXlpRc6fot_xLS-TODAuGdNqJfVDpFX1pAzM5taVzWCKce9D6PwQNRa2B5-EhwdT2hVJUU_gDqC80lZhSMLRgakBHMliF5s2r7yVW_HHgCjQ9qcY-uG0OBa_zKqdbIS1uTpoV6ygsj_C_mqGEPHZA20OqV05-h8TETdwX_dtNMew7jYX3qjwVpSHukHDo"/>
+</div>
+<div>
+<p class="font-bold text-primary">Eduardo F.</p>
+<p class="text-xs text-outline">Operations Director</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- 12. Garantia -->
+<section class="py-24 px-6">
+<div class="max-w-4xl mx-auto flex flex-col md:flex-row items-center gap-12 bg-white p-12 rounded-3xl shadow-xl border-t-8 border-secondary">
+<div class="w-40 flex-shrink-0">
+<span class="material-symbols-outlined text-9xl text-secondary" style="font-variation-settings: 'wght' 700;">verified_user</span>
+</div>
+<div>
+<h2 class="font-headline text-3xl font-bold text-primary mb-4">Risco Zero: Garantia Incondicional</h2>
+<p class="text-on-surface-variant text-lg leading-relaxed">
+                    Você tem 15 dias para testar todo o método, assistir às aulas e participar da comunidade. Se por qualquer motivo você achar que não é para você, basta um e-mail. Devolvemos 100% do seu investimento. Sem perguntas, sem burocracia.
+                </p>
+</div>
+</div>
+</section>
+<!-- 13. Oferta Final -->
+<section class="py-24 px-6 bg-primary overflow-hidden relative" id="offer">
+<div class="absolute inset-0 opacity-10 pointer-events-none">
+<svg class="w-full h-full" preserveaspectratio="none" viewbox="0 0 100 100">
+<path d="M0 0 L100 0 L100 100 L0 100 Z" fill="none" stroke="white" stroke-width="0.1"></path>
+<path d="M0 20 L100 20 M0 40 L100 40 M0 60 L100 60 M0 80 L100 80" stroke="white" stroke-width="0.05"></path>
+</svg>
+</div>
+<div class="max-w-2xl mx-auto text-center relative z-10">
+<h2 class="font-headline text-4xl md:text-5xl font-extrabold text-white mb-8">Decida Hoje o Seu Próximo Nível</h2>
+<div class="bg-surface-container-lowest p-12 rounded-3xl shadow-2xl">
+<span class="text-secondary font-bold tracking-widest text-sm block mb-4">ACESSO VITALÍCIO</span>
+<div class="mb-6">
+<span class="text-outline line-through text-lg">De R$ 1.997,00</span>
+<div class="flex items-center justify-center gap-2 mt-2">
+<span class="text-2xl font-bold text-primary">12x de</span>
+<span class="text-6xl font-extrabold text-primary tracking-tighter">R$ 97,00</span>
+</div>
+<p class="text-primary-container font-bold mt-2">ou R$ 997,00 à vista</p>
+</div>
+<div class="space-y-6">
+<a class="block w-full bg-secondary-container hover:bg-secondary text-primary hover:text-white font-extrabold py-6 rounded-xl transition-all duration-300 shadow-xl text-xl transform hover:-translate-y-1" href="#">
+                        QUERO MINHA CARREIRA INTERNACIONAL
+                    </a>
+<div class="flex items-center justify-center gap-6 text-sm text-outline">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-xs">lock</span> Pagamento Seguro</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-xs">mail</span> Acesso Imediato</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- 14. FAQ -->
+<section class="py-24 px-6 bg-surface">
+<div class="max-w-3xl mx-auto">
+<h2 class="font-headline text-3xl font-bold text-primary text-center mb-16">Perguntas Frequentes</h2>
+<div class="space-y-4">
+<details class="group bg-surface-container-low rounded-xl" open="">
+<summary class="flex justify-between items-center p-6 cursor-pointer font-bold text-primary list-none">
+                        Preciso de inglês avançado para começar?
+                        <span class="material-symbols-outlined transition-transform group-open:rotate-180">expand_more</span>
+</summary>
+<div class="px-6 pb-6 text-on-surface-variant">
+                        O ideal é que você já tenha uma base intermediária. O foco do curso é transformar o seu conhecimento passivo em habilidade executiva ativa.
+                    </div>
+</details>
+<details class="group bg-surface-container-low rounded-xl">
+<summary class="flex justify-between items-center p-6 cursor-pointer font-bold text-primary list-none">
+                        Como funciona o suporte?
+                        <span class="material-symbols-outlined transition-transform group-open:rotate-180">expand_more</span>
+</summary>
+<div class="px-6 pb-6 text-on-surface-variant">
+                        Temos uma comunidade fechada para alunos e suporte via plataforma para dúvidas sobre as aulas. Além de sessões mensais de Q&amp;A.
+                    </div>
+</details>
+<details class="group bg-surface-container-low rounded-xl">
+<summary class="flex justify-between items-center p-6 cursor-pointer font-bold text-primary list-none">
+                        O curso é ao vivo?
+                        <span class="material-symbols-outlined transition-transform group-open:rotate-180">expand_more</span>
+</summary>
+<div class="px-6 pb-6 text-on-surface-variant">
+                        As aulas principais são gravadas para você assistir no seu ritmo, com materiais de apoio em PDF e áudio para prática constante.
+                    </div>
+</details>
+</div>
+</div>
+</section>
+<!-- 15. Último CTA -->
+<section class="py-20 px-6 bg-surface-container-highest text-center">
+<div class="max-w-4xl mx-auto">
+<h2 class="font-headline text-3xl font-bold text-primary mb-8">Ainda com dúvida? Não deixe o inglês barrar seu próximo aumento.</h2>
+<a class="inline-flex items-center gap-3 text-secondary font-extrabold text-xl hover:underline decoration-4 underline-offset-8 transition-all" href="#offer">
+                Garanta sua vaga com desconto agora
+                <span class="material-symbols-outlined">arrow_forward</span>
+</a>
+</div>
+</section>
+<!-- 16. Rodapé (Shared Component) -->
+<footer class="w-full border-t border-slate-200 bg-slate-50">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-12 px-8 py-16 max-w-7xl mx-auto">
+<div class="md:col-span-1">
+<div class="text-lg font-bold text-blue-900 mb-4">Global Dean</div>
+<p class="text-slate-500 text-sm">Formando líderes globais através da comunicação executiva de elite.</p>
+</div>
+<div>
+<h4 class="font-bold text-blue-900 mb-6 text-sm uppercase tracking-widest">Institucional</h4>
+<ul class="space-y-4">
+<li><a class="text-slate-500 hover:text-amber-600 transition-opacity text-sm" href="#">Privacy Policy</a></li>
+<li><a class="text-slate-500 hover:text-amber-600 transition-opacity text-sm" href="#">Terms of Growth</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-bold text-blue-900 mb-6 text-sm uppercase tracking-widest">Suporte</h4>
+<ul class="space-y-4">
+<li><a class="text-slate-500 hover:text-amber-600 transition-opacity text-sm" href="#">Contact Support</a></li>
+<li><a class="text-slate-500 hover:text-amber-600 transition-opacity text-sm" href="#">Alumni Portal</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-bold text-blue-900 mb-6 text-sm uppercase tracking-widest">Series</h4>
+<p class="text-slate-500 text-sm">Part of the Modern Dean Executive Series.</p>
+</div>
+</div>
+<div class="border-t border-slate-200 py-8 px-8 text-center text-slate-400 text-xs">
+            © 2024 Global Dean. All rights reserved. Part of the Modern Dean Executive Series.
+        </div>
+</footer>
+</body></html>
