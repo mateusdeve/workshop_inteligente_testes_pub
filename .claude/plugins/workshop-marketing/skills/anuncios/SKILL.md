@@ -69,19 +69,57 @@ O gancho deve ser uma **premissa não óbvia** — afirmação que surpreende qu
 - "Decorar os 78 significados é o caminho mais rápido para travar na leitura." ✓
 - "Fechar bem uma sessão de tarô é mais difícil do que abrir ela." ✓
 
+## Plataforma
+
+O comando `/anuncio` gera anúncios para **Meta Ads por padrão**. Não perguntar sobre plataforma.
+Nome do arquivo salvo: `anuncios-meta-[formato]-[objetivo]-[produto].md`.
+
 ## Fluxo de Entrevista (UMA pergunta por vez)
 
+**Primeira pergunta obrigatória:** Perpétuo ou Pico de Vendas?
+
 ### Se Perpétuo:
-1. Qual o objetivo? (Descoberta / Relacionamento / Conversão / RMKT)
-2. Qual o momento de consumo? (Prontidão / Urgência Oculta / Oportunidade)
-3. Qual o tipo de anúncio? (Imagem / Vídeo / Carrossel / Stories)
+1. Perpétuo ou Pico de Vendas?
+2. Qual o objetivo? (Descoberta / Relacionamento / Conversão / RMKT)
+3. Qual o momento de consumo? (Prontidão / Urgência Oculta / Oportunidade)
+4. Qual o tipo de anúncio? (Imagem / Vídeo / Carrossel / Stories)
+5. **Se Conversão ou RMKT:** qual é a oferta?
+6. Resumo → confirmação → pode gerar
+
+**Na fase Descoberta, NÃO perguntar sobre oferta ou promoção.** O foco é gancho de conteúdo baseado em urgências ocultas, com CTA leve (seguir, salvar, clicar para saber mais).
 
 ### Se Pico de Vendas:
-1. Qual fase? (Captura / Aquecimento / Lembrete / Venda / Remarketing)
-2. **Se Captura ou Aquecimento:** nome do evento → promessa do evento → data
-3. **Se Venda ou Remarketing:** qual é a oferta?
+1. Perpétuo ou Pico de Vendas?
+2. Qual fase? (Captura / Aquecimento / Lembrete / Venda / Remarketing)
+3. **Se Captura ou Aquecimento:** nome do evento → promessa do evento → data do evento
+4. **Se Venda ou Remarketing:** qual é a oferta?
+5. Resumo → confirmação → pode gerar
 
 **Confirmação antes de gerar:** resumir e pedir OK antes de escrever qualquer anúncio.
+**Se o formato for Vídeo, NÃO incluir duração no resumo** — a duração é definida após a pesquisa de tendências. Indicar apenas: `Vídeo (duração definida após pesquisa de tendências)`.
+
+## Estrutura do texto principal — seções explícitas
+
+O texto principal de cada anúncio deve ter as seções **explicitamente rotuladas**:
+- **GANCHO:** — premissa que para o scroll
+- **DESENVOLVIMENTO:** — argumento que aprofunda
+- **CTA:** — convite direto adequado à fase
+
+Não entregar texto corrido sem identificar cada parte.
+
+## Estrutura obrigatória para Descoberta + Vídeo
+
+```
+[0–2s]   GANCHO      → Afirmação contra-intuitiva. Texto na tela + fala simultâneos.
+[3–5s]   TEASE       → Uma frase que expande o gancho e retém.
+[6–25s]  ENTREGA     → Ensina a técnica ou dá o insight real. Específico, concreto.
+[26–30s] REGANCHO    → Texto na tela sintetizando a ideia central.
+[31–35s] CTA         → Convite leve para seguir. Sem urgência forçada.
+```
+
+Vídeos de Descoberta devem **entregar conteúdo real** — ensinar algo concreto dentro do próprio vídeo. ERRADO: vídeo que só promete sem ensinar. CERTO: vídeo que dá uma técnica, insight ou passo prático.
+
+Tamanho alvo: ~130 palavras por roteiro (~35–45 segundos). Calibrar com os virais da pesquisa.
 
 ---
 
@@ -139,14 +177,14 @@ A mandala funciona cruzando **objetivo** + **momento de consumo** + **tipo de an
 - **Conversão + Prontidão** → está pronto, precisa do empurrão certo
 - **RMKT + Prontidão** → já viu a página, só precisa de prova e urgência
 
-## CTAs por Fase do Funil
+## CTAs por Objetivo (Mandala da Criatividade)
 
-| Fase | Objetivo | CTA típico |
+| Objetivo | Definição | CTA típico |
 | --- | --- | --- |
-| Descoberta | Base / seguidores | Seguir, curtir, comentar, compartilhar |
-| Relacionamento | Relacionar com a base | Comentar, DM, lives, conteúdo para quem já segue |
+| Descoberta | Atrair novas pessoas, aumentar base/seguidores | Seguir, curtir, comentar, compartilhar |
+| Relacionamento | Gerar relacionamento com a base | Comentar, DM, lives, conteúdo para quem já segue |
 | Conversão | Vender | Comprar agora, garantir vaga, quero começar |
-| Remarketing | Vender para quem viu a página | Comprar agora, retomar oferta, última chance |
+| RMKT | Vender para quem já viu a página | Comprar agora, retomar oferta, última chance |
 
 ## Estrutura de Campanha Meta Ads
 
@@ -172,3 +210,17 @@ A mandala funciona cruzando **objetivo** + **momento de consumo** + **tipo de an
 - Títulos: até 15 (máx 30 chars cada)
 - Descrições: até 4 (máx 90 chars cada)
 - Incluir palavras-chave negativas: grátis, download, torrent, emprego
+
+---
+
+## Fluxo completo do comando `/anuncio` (7 passos)
+
+```
+1. Contexto       → ler meu-negocio/perfil.md, idconsumidor.md e correcoes/informacoes-adicionais.md
+2. Entrevista     → uma pergunta por vez, sem agrupar, com progresso visual
+3. Pesquisa       → 2 buscas na web (formato + objetivo) — a cada geração, não reutilizar
+4. Geração        → 3 variações da Mandala da Criatividade (VTSD + tendências)
+5. Aprovação      → mostrar conteúdo, aguardar ok do usuário
+6. Salvar         → somente após aprovação
+7. Próximo passo  → sugerir comando seguinte
+```

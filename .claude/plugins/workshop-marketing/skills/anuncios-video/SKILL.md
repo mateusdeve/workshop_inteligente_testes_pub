@@ -70,6 +70,20 @@ Lista canonica (mesma da Mandala da Criatividade):
 - Texto na tela com a acao
 - Urgencia se aplicavel
 
+### Formato Descoberta + Video (estrutura obrigatoria)
+
+Videos de Descoberta devem **entregar conteudo real** dentro do proprio video — ensinar uma tecnica, dar um insight, entregar valor concreto. ERRADO: video que so promete ("me segue que eu te mostro"). CERTO: video que ensina algo e o CTA vem como convite natural.
+
+```
+[0-2s]   GANCHO      → Afirmacao contra-intuitiva. Texto na tela + fala simultaneos.
+[3-5s]   TEASE       → Uma frase que expande o gancho e retem.
+[6-25s]  ENTREGA     → Ensina a tecnica ou da o insight real. Especifico, concreto.
+[26-30s] REGANCHO    → Texto na tela sintetizando a ideia central.
+[31-35s] CTA         → Convite leve para seguir. Sem urgencia forcada.
+```
+
+Tamanho alvo: ~130 palavras por roteiro (~35-45 segundos de fala natural). Calibrar a partir dos virais encontrados na pesquisa.
+
 ### Formato YouTube Pre-Roll (15-30 segundos)
 
 **Estrutura (nao pulavel em 5s):**

@@ -45,6 +45,31 @@ Liste 10+ de cada. Usar como base para conteúdos e ganchos.
 2. **Consumidor** — Demografia, psicografia, dores, desejos, comportamento, objeções, nível de consciência
 3. **Produto** — Quadro, diferenciação, analogias, argumentos incontestáveis
 
+## Pesquisa de Mercado (OBRIGATÓRIA após Quadro, Furadeira, Decorados e Urgências Ocultas)
+
+Assim que estiver finalizada a geração de Quadro, Furadeira, Decorados e Urgências Ocultas, fazer **pesquisa de mercado** com entrega em **tabela de concorrentes**:
+
+### Tabela única de concorrentes (obrigatória)
+
+| Coluna |
+|--------|
+| Nome concorrente |
+| Link da página do concorrente |
+| Promessa |
+| Resumo das entregáveis |
+| Bônus |
+| Preço |
+
+### Após a tabela, entregar também:
+
+- **Diferenciais** que o concorrente não tem e qual diferencial o nosso produto usa (posicionamento)
+- **Sugestão de preço**
+- **Sugestão de oferta**
+
+## Pesquisa de Objeções (Reclame Aqui)
+
+Para criação de objeções, fazer **pesquisa no Reclame Aqui** (reclamações relevantes ao nicho, concorrentes ou tipo de serviço/produto) para embasar objeções reais e respostas fundamentadas.
+
 ## Níveis de Consciência (Eugene Schwartz)
 
 1. Inconsciente — Não sabe que tem problema

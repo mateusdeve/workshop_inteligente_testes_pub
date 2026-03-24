@@ -8,6 +8,12 @@ description: >
 
 # Páginas — Base de Conhecimento
 
+## Regras de Fluxo para Páginas
+
+1. **Coletar TUDO antes de gerar copy.** Tudo o que for necessário para a página deve ser perguntado ANTES de gerar qualquer copy. Não gerar copy assumindo dados que não foram coletados ou confirmados.
+2. **Validar a copy com o usuário ANTES de gerar o HTML.** Mostrar toda a copy textual, pedir aprovação, e só depois gerar o arquivo HTML.
+3. **Exceção de exibição:** O HTML não é mostrado ao usuário (seria confuso). Salvar direto e informar o caminho do arquivo.
+
 ## Estrutura 8D (Página de Vendas VTSD)
 
 1. **Header** — Logotipo + CTA pequeno (opcional)
