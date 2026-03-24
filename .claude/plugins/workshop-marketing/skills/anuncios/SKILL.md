@@ -8,26 +8,43 @@ description: >
 
 # Anúncios — Base de Conhecimento (Mandala de 18 Tipos)
 
-## Os 18 Tipos de Anúncios VTSD
+## Estrutura da Mandala da Criatividade
 
-1. **Comparação** — Compare duas situações
-2. **Apelo Emocional** — Histórias que tocam sentimentos
-3. **Certo vs Errado** — Erros comuns vs forma correta
-4. **Curiosidade** — Informação surpreendente
-5. **Demonstração** — Mostre funcionando na prática
-6. **Oportunidade** — Revele algo não percebido
-7. **Visual** — Apelo visual forte para parar scroll
-8. **Dilema** — Opções onde nenhuma parece ideal
-9. **Clickbait** — Frase chamativa que revela depois
-10. **Prova** — Evidência concreta (prints, resultados)
-11. **Contraste** — Comparação "preto no branco"
-12. **História** — Narrativa com moral
-13. **Ultra Segmentado** — Fale direto com público específico
-14. **Reflexão** — Provoque pensamento profundo
-15. **Explicação** — Ensine de forma lógica
-16. **Problema-Solução** — Identifique problema e dê solução
-17. **Sensação** — Crie experiência sensorial
-18. **Mito** — Quebre crenças erradas do mercado
+### Objetivos
+| Objetivo | Definição |
+| --- | --- |
+| **Descoberta** | Atrair novas pessoas que ainda não conhecem o produto ou especialista |
+| **Relacionamento** | Criar conexão e construir autoridade com novos leads/seguidores |
+| **Conversão** | Converter leads em clientes (vender) |
+| **RMKT** | Converter quem já interagiu com a página de vendas |
+
+### Momentos de Consumo
+| Momento | Definição |
+| --- | --- |
+| **Prontidão** | Público pronto para comprar |
+| **Urgência Oculta** | Potencial comprador com problema não explícito |
+| **Oportunidade** | Público maior, ainda não está pronto para comprar |
+
+### Os 18 Tipos de Anúncios
+
+1. **Comparação** — Comparar dois produtos ou soluções
+2. **Problema/Solução** — Apresentar problema comum e mostrar como o produto resolve
+3. **Explicação** — Explicar um conceito ou funcionamento do produto
+4. **Curiosidade** — Criar anúncios que despertam curiosidade
+5. **Reflexão** — Estimular reflexão sobre tema relacionado ao produto
+6. **Certo/Errado** — Mostrar erros comuns e a forma correta de fazer
+7. **Demonstração** — Demonstrar o uso ou resultado do produto
+8. **Procedimento** — Mostrar o passo a passo de como usar o produto
+9. **Impacto Visual** — Usar imagens ou vídeos impactantes para chamar atenção
+10. **Oportunidade** — Mostrar oportunidades únicas relacionadas ao produto
+11. **História** — Contar uma história que envolva o produto
+12. **Prova Social** — Usar depoimentos ou resultados de clientes
+13. **Clickbait** — Usar títulos e imagens que instigam o clique
+14. **Sensação** — Despertar emoções ou sensações no público
+15. **Contraste** — Mostrar contraste claro entre antes e depois ou dois cenários
+16. **Ensino** — Ensinar algo relacionado ao uso ou benefícios do produto
+17. **Revelação** — Revelar detalhes importantes ou desconhecidos sobre o produto
+18. **Dilema** — Apresentar dilema e mostrar como o produto pode resolvê-lo
 
 ## Regras de Anúncio VTSD
 
@@ -36,21 +53,106 @@ description: >
 - Estrutura: Gancho + Desenvolvimento (1 parágrafo) + CTA
 - ❌ Sem ponto de exclamação
 - ❌ Sem perguntas no gancho
+- ❌ Gancho óbvio para quem já está no nicho
+
+### Regra do Gancho — NUNCA pergunta, NUNCA óbvio
+
+O gancho deve ser uma **premissa não óbvia** — afirmação que surpreende quem já está no nicho.
+
+**ERRADO:**
+- "Sabe aquela sensação de travar na leitura?" ❌ (pergunta)
+- "Você já se sentiu insegura com o tarô?" ❌ (pergunta)
+- "Aprender tarô é difícil." ❌ (óbvio)
+
+**CERTO:**
+- "A leitora que mais trava raramente é a que sabe menos." ✓
+- "Decorar os 78 significados é o caminho mais rápido para travar na leitura." ✓
+- "Fechar bem uma sessão de tarô é mais difícil do que abrir ela." ✓
+
+## Fluxo de Entrevista (UMA pergunta por vez)
+
+### Se Perpétuo:
+1. Qual o objetivo? (Descoberta / Relacionamento / Conversão / RMKT)
+2. Qual o momento de consumo? (Prontidão / Urgência Oculta / Oportunidade)
+3. Qual o tipo de anúncio? (Imagem / Vídeo / Carrossel / Stories)
+
+### Se Pico de Vendas:
+1. Qual fase? (Captura / Aquecimento / Lembrete / Venda / Remarketing)
+2. **Se Captura ou Aquecimento:** nome do evento → promessa do evento → data
+3. **Se Venda ou Remarketing:** qual é a oferta?
+
+**Confirmação antes de gerar:** resumir e pedir OK antes de escrever qualquer anúncio.
+
+---
+
+## Pesquisa de Tendências (OBRIGATÓRIO antes de gerar)
+
+Antes de escrever qualquer anúncio, fazer **2 buscas na web**:
+
+### Busca 1 — Por formato
+
+| Formato | O que pesquisar | O que extrair |
+|---|---|---|
+| Vídeo | `reels instagram virais [mês/ano]` + `tiktok trends [mês/ano]` | Estrutura dos 3 primeiros segundos, duração ideal, estilo de edição, tom, padrão de CTA |
+| Imagem | `posts imagem instagram viral [mês/ano]` + `trending static ads instagram [mês/ano]` | Estilo visual, uso de texto, proporção, paleta, elemento que para o scroll |
+| Carrossel | `carrossel instagram viral [mês/ano]` + `trending carousel instagram [mês/ano]` | Estrutura de slides, como começa/termina, progressão, continuidade visual, CTA final |
+
+### Busca 2 — Por objetivo
+
+| Objetivo | O que pesquisar | O que extrair |
+|---|---|---|
+| Descoberta | `como ganhar seguidores instagram [mês/ano]` + `conteudo que vira seguidor instagram [mês/ano]` | Gancho que atrai estranho, tema que converte em follow, CTA que gera seguidor |
+| Relacionamento | `conteudo que gera comentarios instagram [mês/ano]` + `posts mais compartilhados instagram [mês/ano]` | O que faz comentar, compartilhar e salvar, tom que gera conversa |
+| Conversão | `anuncio que converte instagram infoproduto [mês/ano]` + `copy anuncio link na bio [mês/ano]` | Estrutura de copy para clique, nível de prova social, CTA de conversão |
+| RMKT | `remarketing anuncio instagram copy [mês/ano]` + `retargeting ad copy que converte [mês/ano]` | Abordagem para quem já viu, gatilhos, tom sem parecer perseguição |
+
+### Calibrar 4 elementos com o que encontrou:
+1. **Formato do gancho** — como os virais estão abrindo nos primeiros 3 segundos
+2. **Estilo visual/edição** — o que está funcionando esteticamente agora
+3. **Tom** — o que está ressoando com o público nesse objetivo
+4. **CTA** — padrão de chamada que está gerando ação agora
+
+O **conteúdo** (o que diz) segue VTSD + perfil do negócio. O **formato e estilo** (como diz) segue o que está funcionando agora.
+
+**Fazer essa pesquisa a cada geração — não reutilizar pesquisa anterior.**
+
+---
+
+## Aprovação antes de salvar
+
+Todo anúncio deve ser **mostrado ao usuário** antes de salvar. Após mostrar, perguntar:
+```
+1. Aprovar e salvar
+2. Quero ajustar algo
+```
+Só salvar após aprovação.
+
+---
+
+## Combinação Objetivo × Momento (como usar)
+
+A mandala funciona cruzando **objetivo** + **momento de consumo** + **tipo de anúncio**:
+
+- **Descoberta + Oportunidade** → público amplo, ainda não sabe que precisa
+- **Descoberta + Urgência Oculta** → sente o problema mas não procura solução ainda
+- **Relacionamento + Urgência Oculta** → já segue, começa a reconhecer o problema
+- **Conversão + Prontidão** → está pronto, precisa do empurrão certo
+- **RMKT + Prontidão** → já viu a página, só precisa de prova e urgência
 
 ## CTAs por Fase do Funil
 
-| Fase | CTA |
-| --- | --- |
-| Descoberta | Seguir, comentar, compartilhar |
-| Relacionamento | Comentar, compartilhar |
-| Conversão | Assistir aula, baixar isca, saiba mais |
-| Remarketing | Comprar agora, garantir vaga |
+| Fase | Objetivo | CTA típico |
+| --- | --- | --- |
+| Descoberta | Base / seguidores | Seguir, curtir, comentar, compartilhar |
+| Relacionamento | Relacionar com a base | Comentar, DM, lives, conteúdo para quem já segue |
+| Conversão | Vender | Comprar agora, garantir vaga, quero começar |
+| Remarketing | Vender para quem viu a página | Comprar agora, retomar oferta, última chance |
 
 ## Estrutura de Campanha Meta Ads
 
-**Campanha 1 — Descoberta:** Alcance/Engajamento, público amplo, conteúdo de valor
-**Campanha 2 — Conversão:** Conversões, engajados + lookalike, anúncios de conversão
-**Campanha 3 — Remarketing:** Conversões, visitantes + carrinho, urgência + prova
+**Campanha 1 — Descoberta:** Alcance/Engajamento, público amplo, conteúdo para crescer base e seguidores
+**Campanha 2 — Conversão:** Conversões com foco em venda; engajados + lookalike quando fizer sentido
+**Campanha 3 — Remarketing:** Conversões, público que visitou a página (vendas/oferta); urgência + prova
 
 ## Métricas de Referência
 

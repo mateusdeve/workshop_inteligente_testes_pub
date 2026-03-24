@@ -16,7 +16,7 @@ Cria conteúdo usando as Urgências Ocultas como fonte de temas e os elementos l
 ## O Que Fazer
 
 ### 1. Contexto
-Leia `meu-negocio/perfil.md` e persona.
+Leia `meu-negocio/perfil.md` e `meu-negocio/idconsumidor.md` se existir.
 
 ### 2. Entrevista (UMA pergunta por vez, com progresso visual)
 

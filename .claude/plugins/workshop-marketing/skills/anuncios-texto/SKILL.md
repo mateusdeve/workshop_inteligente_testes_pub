@@ -21,23 +21,23 @@ Criativos estaticos: imagem + copy. Para anuncios em video, consulte a skill `an
 ## Os 18 Tipos de Anuncios VTSD (Aplicados a Imagem)
 
 1. **Comparacao** — Imagem dividida: antes vs depois, errado vs certo
-2. **Apelo Emocional** — Foto emocional + copy que conta historia
-3. **Certo vs Errado** — Layout de duas colunas com X e check
+2. **Problema/Solucao** — Imagem de problema + solucao visual
+3. **Explicacao** — Infografico ou imagem didatica
 4. **Curiosidade** — Imagem intrigante + headline que gera duvida
-5. **Demonstracao** — Screenshot, print de resultado, tutorial visual
-6. **Oportunidade** — Imagem de dados/graficos + copy reveladora
-7. **Visual** — Imagem forte e impactante que para o scroll
-8. **Dilema** — Imagem com duas opcoes visuais
-9. **Clickbait** — Imagem chamativa + headline provocativa
-10. **Prova** — Print de depoimento, resultado, faturamento
-11. **Contraste** — Imagem split-screen com contraste visual forte
-12. **Historia** — Foto pessoal + copy narrativa
-13. **Ultra Segmentado** — Imagem que fala diretamente com nicho especifico
-14. **Reflexao** — Imagem minimalista + frase de impacto
-15. **Explicacao** — Infografico ou imagem didatica
-16. **Problema-Solucao** — Imagem de problema + solucao visual
-17. **Sensacao** — Imagem sensorial (comida, paisagem, toque)
-18. **Mito** — Imagem que contradiz crenca popular
+5. **Reflexao** — Imagem minimalista + frase de impacto
+6. **Certo/Errado** — Layout de duas colunas com X e check
+7. **Demonstracao** — Screenshot, print de resultado, tutorial visual
+8. **Procedimento** — Passo a passo visual, checklist
+9. **Impacto Visual** — Imagem forte e impactante que para o scroll
+10. **Oportunidade** — Imagem de dados/graficos + copy reveladora
+11. **Historia** — Foto pessoal + copy narrativa
+12. **Prova Social** — Print de depoimento, resultado, faturamento
+13. **Clickbait** — Imagem chamativa + headline provocativa
+14. **Sensacao** — Imagem sensorial que desperta emocao
+15. **Contraste** — Imagem split-screen com contraste visual forte
+16. **Ensino** — Conteudo didatico, dica util aplicada a imagem
+17. **Revelacao** — Imagem que contradiz crenca popular ou revela algo inesperado
+18. **Dilema** — Imagem com duas opcoes visuais
 
 ## Estrutura de Copy para Anuncio Estatico
 
@@ -49,8 +49,19 @@ Criativos estaticos: imagem + copy. Para anuncios em video, consulte a skill `an
 **Regras VTSD:**
 - Sem ponto de exclamacao
 - Sem perguntas no gancho
+- Sem premissa obvia para quem ja esta no nicho
 - Argumentativo e logico
 - Baseado em premissas, nao promessas
+
+**Regra do Gancho — NUNCA pergunta, NUNCA obvio:**
+
+ERRADO:
+- "Voce ja sentiu dificuldade de..." (pergunta)
+- "Aprender [tema] e dificil." (obvio)
+
+CERTO:
+- Afirmacao que surpreende quem ja esta no universo do produto
+- Premissa contra-intuitiva ou revelacao inesperada
 
 **Headline:** maximo 40 caracteres
 **Descricao:** maximo 90 caracteres
@@ -143,11 +154,11 @@ Em 3 segundos o espectador decide se para ou continua scrollando. Ele precisa:
 2. Sentir que e RELEVANTE
 3. Ter CURIOSIDADE de saber mais
 
-## CTAs por Fase do Funil
+## CTAs por Fase (Mandala da Criatividade)
 
-| Fase | CTA |
-| --- | --- |
-| Descoberta | Seguir, comentar, compartilhar |
-| Relacionamento | Comentar, compartilhar |
-| Conversao | Assistir aula, baixar isca, saiba mais |
-| Remarketing | Comprar agora, garantir vaga |
+| Objetivo | Definicao | CTA tipico |
+| --- | --- | --- |
+| Descoberta | Atrair novas pessoas que ainda nao conhecem o produto | Seguir, curtir, comentar, compartilhar |
+| Relacionamento | Criar conexao e autoridade com quem ja segue | Comentar, DM, salvar, lives |
+| Conversao | Vender | Comprar agora, garantir vaga, quero comecar |
+| RMKT | Converter quem ja viu a pagina de vendas | Comprar agora, retomar oferta, ultima chance |

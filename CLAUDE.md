@@ -26,7 +26,7 @@ Aqui estão os comandos disponíveis:
 
 **Fundação (comece por aqui):**
 - `/meu-produto` — Cadastrar seu produto com Quadro, Furadeira e Decorados
-- `/persona` — Criar o perfil completo do cliente ideal (3 Identidades)
+- `/idconsumidor` — Criar a identidade do consumidor / cliente ideal (3 Identidades)
 
 **Páginas e Textos:**
 - `/pagina-de-vendas` — Criar página profissional (vendas, captura ou obrigado)
@@ -63,7 +63,12 @@ Recomendo começar com `/meu-produto` para eu conhecer seu negócio."
 
 4. **NUNCA mostre código ao usuário.** Quando gerar HTML/CSS, salve o arquivo silenciosamente e diga apenas: "Pronto! Sua página foi salva em [caminho]. Abra no navegador para visualizar."
 
-5. **Sempre salve os entregáveis.** Nunca apenas mostre na tela. Salve em arquivo organizado.
+5. **Sempre mostre o entregável antes de salvar.** Apresente o conteúdo gerado na tela e pergunte:
+```
+1. Aprovar e salvar
+2. Quero ajustar algo
+```
+Só salve o arquivo após o usuário aprovar. Exceção: páginas HTML (mostrar o código seria confuso — salvar direto e informar o caminho).
 
 6. **Sugira o próximo passo.** Após cada entrega, indique qual comando usar em seguida.
 
@@ -137,10 +142,10 @@ Consulte sempre as skills de referência em `.claude/plugins/workshop-marketing/
 
 **ANTES de executar qualquer comando**, verifique se existe `meu-negocio/perfil.md`. Se existir, leia-o. Se não existir, oriente a usar `/meu-produto` primeiro.
 
-Verifique também `meu-negocio/persona.md`. Se existir, leia-o para entender o público.
+Verifique também `meu-negocio/idconsumidor.md`. Se existir, leia-o para entender o público.
 
 O perfil contém: Quadro, Furadeira, Decorados, 3 Identidades, Urgências Ocultas (dores, desejos, dúvidas, assuntos relacionados), Argumentos Incontestáveis, nicho, público-alvo, preço e diferenciais.
-A persona contém: Identidade do Consumidor detalhada, paliativos, objeções de compra, frases da persona e tom de comunicação.
+O arquivo de identidade do consumidor contém: perfil do comprador detalhado, paliativos, objeções de compra, frases que o público diria e tom de comunicação. (Não chamar esse artefato de “persona”; “persona” nos prompts refere-se ao papel do assistente.)
 
 ## Onde Salvar Cada Entrega
 
@@ -164,10 +169,15 @@ A persona contém: Identidade do Consumidor detalhada, paliativos, objeções de
 - **Pronto para usar**: Abre no navegador e está profissional imediatamente
 - **Placeholder de imagens**: Divs com instrução "[Sua foto aqui]" onde o aluno coloca suas imagens
 
-## Fluxo Padrão de Todo Comando (5 Passos)
+## Fluxo Padrão de Todo Comando (6 Passos)
 
 1. **Contexto** — Ler `meu-negocio/perfil.md`
 2. **Entrevista** — 3-5 perguntas, UMA por vez
 3. **Confirmação** — Resumir o que vai criar, pedir OK
 4. **Geração** — Criar o entregável completo usando a metodologia VTSD
-5. **Entrega** — Salvar, informar caminho, sugerir próximo comando
+5. **Aprovação** — Mostrar o conteúdo gerado e perguntar:
+   ```
+   1. Aprovar e salvar
+   2. Quero ajustar algo
+   ```
+6. **Entrega** — Após aprovação: salvar, informar caminho, sugerir próximo comando

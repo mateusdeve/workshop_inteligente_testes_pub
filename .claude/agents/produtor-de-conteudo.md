@@ -24,7 +24,7 @@ Criar um plano de conteúdo completo que inclui:
 
 ### 1. Ler Contexto
 - Leia `meu-negocio/perfil.md` (Quadro, Decorados, Urgências Ocultas) — as Urgências Ocultas são a FONTE de todos os temas
-- Leia `meu-negocio/persona.md` (persona, paliativos, objeções e tom de comunicação)
+- Leia `meu-negocio/idconsumidor.md` (identidade do consumidor, paliativos, objeções e tom de comunicação)
 
 ### 2. Perguntar
 - Rede principal (Instagram, TikTok, YouTube)

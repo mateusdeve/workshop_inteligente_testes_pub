@@ -16,7 +16,7 @@ Cria páginas HTML completas e profissionais usando a estrutura 8D do VTSD.
 ## O Que Fazer
 
 ### 1. Contexto
-Leia `meu-negocio/perfil.md` e persona existente.
+Leia `meu-negocio/perfil.md` e `meu-negocio/idconsumidor.md` se existir.
 
 ### 2. Entrevista (UMA pergunta por vez, com progresso visual)
 

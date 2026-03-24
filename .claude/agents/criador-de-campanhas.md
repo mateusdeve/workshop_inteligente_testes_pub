@@ -24,7 +24,7 @@ Criar um pacote completo de campanha que inclui:
 
 ### 1. Ler Contexto
 - Leia `meu-negocio/perfil.md`
-- Leia `meu-negocio/persona.md` (persona, paliativos e objeções)
+- Leia `meu-negocio/idconsumidor.md` (identidade do consumidor, paliativos e objeções)
 - As Urgências Ocultas (dores, desejos, dúvidas, assuntos relacionados) estão no `perfil.md`
 - Leia página de vendas existente em `entregas/paginas/` (se houver)
 

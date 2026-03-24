@@ -46,7 +46,7 @@
 ### Segmentação Sugerida:
 - **Interesses**: Baseado no nicho do produto
 - **Lookalike**: De compradores ou leads (quando disponível)
-- **Remarketing**: Visitantes do site nos últimos 30/60/90 dias
+- **Remarketing**: Quem já viu a página (ex.: visitantes do site / página de vendas nos últimos 30/60/90 dias)
 - **Aberto**: Deixar o algoritmo otimizar (Advantage+)
 
 ### Objetivos de Campanha Recomendados:

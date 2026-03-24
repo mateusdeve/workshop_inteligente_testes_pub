@@ -21,24 +21,22 @@ Criativos em video: Reels, Stories, YouTube Ads, UGC. Para anuncios estaticos (i
 
 ## Os 18 Tipos de Anuncios VTSD (Aplicados a Video)
 
-Os tipos que mais funcionam em video:
+Lista canonica (mesma da Mandala da Criatividade):
+1. Comparacao, 2. Problema/Solucao, 3. Explicacao, 4. Curiosidade, 5. Reflexao,
+6. Certo/Errado, 7. Demonstracao, 8. Procedimento, 9. Impacto Visual, 10. Oportunidade,
+11. Historia, 12. Prova Social, 13. Clickbait, 14. Sensacao, 15. Contraste,
+16. Ensino, 17. Revelacao, 18. Dilema
 
-**Alta performance em video:**
+**Os que mais performam em video (ordem de eficacia):**
 1. **Demonstracao** — Mostre o produto/metodo funcionando ao vivo
 2. **Historia** — Narrativa pessoal com arco emocional
-3. **Prova** — Depoimento em video, resultado filmado
-4. **Problema-Solucao** — Comece pelo problema, mostre a virada
-5. **Apelo Emocional** — Historia tocante com imagens reais
-6. **Comparacao** — Mostre o antes e depois com transicao
-
-**Funcionam bem em video:**
-7. **Certo vs Errado** — Demonstre os dois caminhos
-8. **Curiosidade** — Comece com gancho e revele ao longo do video
-9. **Explicacao** — Tutorial rapido, passo a passo visual
-10. **Mito** — Comece com a crenca errada, quebre com prova
-
-**Mais dificeis em video (preferir estatico):**
-11-18. Clickbait, Dilema, Reflexao, Sensacao — funcionam melhor como imagem
+3. **Prova Social** — Depoimento em video, resultado filmado
+4. **Problema/Solucao** — Comece pelo problema, mostre a virada
+5. **Certo/Errado** — Demonstre os dois caminhos
+6. **Curiosidade** — Comece com gancho e revele ao longo do video
+7. **Explicacao** — Tutorial rapido, passo a passo visual
+8. **Revelacao** — Comece com a crenca errada, quebre com prova
+9. **Comparacao** — Antes e depois com transicao visual
 
 ## Estrutura de Roteiro para Video Ad
 
@@ -47,10 +45,19 @@ Os tipos que mais funcionam em video:
 **Estrutura padrao (3 blocos):**
 
 **Bloco 1 — Gancho (0-3 segundos)**
-- Premissa forte que para o scroll
-- SEM pergunta (regra VTSD)
+- Premissa forte que para o scroll — afirmacao NAO OBVIA para quem ja esta no nicho
+- ❌ NUNCA usar pergunta no gancho (regra VTSD)
+- ❌ NUNCA usar premissa obvia ("aprender X e dificil")
 - Texto na tela reforçando o gancho
 - Movimento ou mudanca visual imediata
+
+**Exemplos de gancho ERRADO:**
+- "Voce ja sentiu dificuldade de..." ❌ (pergunta)
+- "Aprender [nicho] e dificil." ❌ (obvio)
+
+**Exemplos de gancho CERTO:**
+- "A pessoa que mais trava raramente e a que sabe menos." ✓
+- "O caminho mais rapido para travar e estudar da forma que todo mundo ensina." ✓
 
 **Bloco 2 — Desenvolvimento (3-45 segundos)**
 - Conte a historia, mostre o problema, apresente a solucao
@@ -162,19 +169,38 @@ Antes de publicar, verifique:
 - [ ] Copy segue regras Light Copy (sem pontos de exclamacao, sem perguntas no gancho)?
 - [ ] Audio limpo e audivel?
 
-## CTAs por Fase do Funil
+## CTAs por Objetivo (Mandala da Criatividade)
 
-| Fase | CTA em Video |
-| --- | --- |
-| Descoberta | "Me siga para mais" / "Salva esse video" |
-| Relacionamento | "Comenta aqui" / "Marca alguem" |
-| Conversao | "Link na bio" / "Clica no botao" / "Arrasta pra cima" |
-| Remarketing | "Ultimas vagas" / "So ate amanha" / "Garanta agora" |
+| Objetivo | Definicao | CTA em Video |
+| --- | --- | --- |
+| Descoberta | Atrair novas pessoas que ainda nao conhecem | "Me segue para mais" / "Salva esse video" |
+| Relacionamento | Criar conexao com quem ja segue | "Comenta aqui" / "Marca alguem" / "Compartilha" |
+| Conversao | Vender | "Link na bio" / "Clica no botao" / "Garante sua vaga" |
+| RMKT | Converter quem ja viu a pagina | "Ultimas vagas" / "So ate amanha" / "Garanta agora" |
 
-## O Que Funciona em 2024/2025
+## Pesquisa de Tendencias (OBRIGATORIA antes de gerar)
+
+Antes de escrever qualquer video ad, fazer 2 buscas na web:
+
+**Busca 1 — formato video:**
+- `reels instagram virais [mes e ano atual]`
+- `tiktok trends [mes e ano atual]`
+
+Extrair: estrutura dos 3 primeiros segundos, duracao ideal, estilo de edicao, tom predominante, padrao de CTA.
+
+**Busca 2 — objetivo especifico:**
+- Descoberta: `conteudo que vira seguidor instagram [mes e ano atual]`
+- Relacionamento: `conteudo que gera comentarios instagram [mes e ano atual]`
+- Conversao: `anuncio que converte instagram infoproduto [mes e ano atual]`
+- RMKT: `remarketing anuncio instagram copy [mes e ano atual]`
+
+Calibrar com o encontrado: gancho, estilo de edicao, tom, CTA.
+**Fazer essa pesquisa a cada geracao — nao reutilizar pesquisa anterior.**
+
+## Boas Praticas Atuais
 
 - **UGC** (conteudo gerado por usuario) tem maior CTR que producoes profissionais
-- **Depoimentos em video** convertem 2-3x mais que texto
+- **Depoimentos em video** convertem mais que texto
 - **Formato vertical** e obrigatorio (80%+ do consumo e mobile)
 - **Primeiros 3 segundos** definem se o anuncio funciona
 - **Legendas** sao obrigatorias (nao opcionais)
