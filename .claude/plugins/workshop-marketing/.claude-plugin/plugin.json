@@ -1,0 +1,9 @@
+{
+  "name": "workshop-marketing",
+  "description": "Assistente completo de marketing digital para infoprodutores. Gera páginas de vendas, copys, anúncios, conteúdo social, scripts comerciais e mais — baseado na metodologia VTSD, Light Copy, C10X e D48.",
+  "version": "1.0.0",
+  "author": {
+    "name": "Workshop Marketing IA"
+  },
+  "skills": "./skills"
+}

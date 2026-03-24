@@ -1,0 +1,47 @@
+# ══════════════════════════════════════════
+# Prompts originais (referência interna, não distribui)
+# ══════════════════════════════════════════
+_prompts-gpt/
+
+# ══════════════════════════════════════════
+# Chaves de API (NUNCA subir para repositorio)
+# ══════════════════════════════════════════
+.env
+.env.local
+.env.production
+
+# ══════════════════════════════════════════
+# Dados do aluno (cada um gera os seus)
+# ══════════════════════════════════════════
+meu-negocio/perfil.md
+meu-negocio/persona.md
+entregas/
+
+# ══════════════════════════════════════════
+# Claude Code — arquivos de sessão/runtime
+# ══════════════════════════════════════════
+.claude/projects/
+.claude/plans/
+.claude/debug/
+.claude/file-history/
+.claude/shell-snapshots/
+.claude/ide/
+.claude/telemetry/
+.claude/backups/
+.claude/.credentials.json
+.claude/mcp.json
+.claude/mcp-needs-auth-cache.json
+
+# ══════════════════════════════════════════
+# Sistema operacional
+# ══════════════════════════════════════════
+.DS_Store
+Thumbs.db
+desktop.ini
+*.tmp
+
+# ══════════════════════════════════════════
+# Node (caso alguém rode npx localmente)
+# ══════════════════════════════════════════
+node_modules/
+package-lock.json

@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Write(entregas/**)",
+      "Write(meu-negocio/**)",
+      "Write(docs/**)",
+      "Read(**)",
+      "Bash(ls *)",
+      "Bash(cat .env)",
+      "Bash(vercel *)",
+      "Bash(curl *)"
+    ]
+  }
+}
