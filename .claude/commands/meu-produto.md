@@ -189,5 +189,4 @@ Salve em `meu-negocio/perfil.md` com a estrutura:
 ```
 
 ### 5. Próximo Passo
-
-Sugira o próximo comando lógico: `/persona` para detalhar o cliente ideal, ou `/pagina-de-vendas` se quiser ir direto para a página.
+"Perfil salvo. Agora use `/idconsumidor` para detalhar a identidade do consumidor (cliente ideal), ou `/pagina-de-vendas` se quiser ir direto para a página."

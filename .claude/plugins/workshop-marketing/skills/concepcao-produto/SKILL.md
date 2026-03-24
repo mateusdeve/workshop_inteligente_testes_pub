@@ -3,7 +3,7 @@ name: concepcao-produto
 description: >
   Base de conhecimento para concepção de produto usando metodologia VTSD.
   Inclui Quadro, Furadeira, Decorados, Urgências Ocultas e 3 Identidades.
-  Acionada automaticamente pelos commands /meu-produto e /persona.
+  Acionada automaticamente pelos commands /meu-produto e /idconsumidor.
 ---
 
 # Concepção de Produto — Base de Conhecimento VTSD

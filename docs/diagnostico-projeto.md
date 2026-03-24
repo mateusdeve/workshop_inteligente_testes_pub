@@ -206,11 +206,9 @@ O modulo e mencionado na skill `playbook-comercial` e no `/funil-de-vendas`, mas
 
 ### IMPORTANTE 5 — Persona salva em local nao intuitivo
 
-O `/persona` salva em `entregas/textos-de-venda/persona-[nome].md`. A persona e um documento de fundacao (como o perfil), nao um texto de venda. Deveria estar em `meu-negocio/` junto com o perfil.
+Historico: o fluxo antigo salvava em `entregas/textos-de-venda/persona-[nome].md`. Hoje o comando e `/idconsumidor` e o arquivo e `meu-negocio/idconsumidor.md` (documento de fundacao, como o perfil).
 
-**Impacto:** O agent `construtor-de-paginas` tenta ler de `entregas/textos-de-venda/persona-*.md`. Se mudar o local, precisa atualizar os agents e commands que referenciam persona.
-
-**Acao:** Mover o local de salvamento para `meu-negocio/persona.md` e atualizar todos os agents e commands que leem persona.
+**Impacto:** Agents e commands leem `meu-negocio/idconsumidor.md`.
 
 ---
 
@@ -270,7 +268,7 @@ Para suportar as integracoes com APIs externas, sera necessario expandir permiss
 
 | Modulo VTSD | Skill | Command | Agent | Cobertura |
 |---|---|---|---|---|
-| 1. Fundamentos (Quadro, Furadeira, 3Is) | concepcao-produto | /meu-produto, /persona | estrategista-de-produto | TOTAL |
+| 1. Fundamentos (Quadro, Furadeira, 3Is) | concepcao-produto | /meu-produto, /idconsumidor | estrategista-de-produto | TOTAL |
 | 2. Oferta e Pagina 8D | paginas | /pagina-de-vendas | construtor-de-paginas | TOTAL |
 | 3. VVV (Video de Vendas) | conteudo | /roteiro-de-video, /texto-de-venda | — | TOTAL |
 | 4. Mandala 18 Anuncios | anuncios | /anuncio | criador-de-campanhas | TOTAL |
@@ -295,7 +293,7 @@ Essa tabela mostra exatamente quem faz o que, usando qual ferramenta, e entrega 
 | Acao | Command | Agent | Skill consultada | Ferramenta externa | Entregavel | Destino |
 |---|---|---|---|---|---|---|
 | Cadastrar produto | `/meu-produto` | estrategista-de-produto | concepcao-produto | Nenhuma | Perfil completo VTSD | `meu-negocio/perfil.md` |
-| Criar persona | `/persona` | estrategista-de-produto | concepcao-produto | Nenhuma | Perfil do cliente ideal | `meu-negocio/persona.md` (proposto) |
+| Identidade do consumidor | `/idconsumidor` | estrategista-de-produto | concepcao-produto | Nenhuma | Cliente ideal detalhado | `meu-negocio/idconsumidor.md` |
 
 ### Paginas
 
@@ -352,7 +350,7 @@ Essa tabela mostra exatamente quem faz o que, usando qual ferramenta, e entrega 
 ### Prioridade 2 — Melhorias importantes
 
 - [x] **2.1** Fortalecer Upsell/Downsell no `/funil-de-vendas` (secao 4 completa com Upsell, Order Bump, Downsell) — CONCLUIDO 2026-03-24
-- [x] **2.2** Mover persona para `meu-negocio/persona.md` e atualizar todas as referencias (persona.md, 4 agents, CLAUDE.md, COMO-USAR.md) — CONCLUIDO 2026-03-24
+- [x] **2.2** Arquivo de cliente ideal em `meu-negocio/idconsumidor.md` (comando `/idconsumidor`; antes `persona.md` / `/persona`) — referencias atualizadas (agents, CLAUDE.md, COMO-USAR.md) — CONCLUIDO 2026-03-24; renomeacao comando 2026-03-24
 - [x] **2.3** Adicionar pergunta sobre Argumentos Incontestaveis no `/meu-produto` (Bloco 5 + secao no perfil.md) — CONCLUIDO 2026-03-24
 - [x] **2.4** Expandir permissoes no `settings.json` (adicionado: docs/**, cat .env, vercel *, curl *) — CONCLUIDO 2026-03-24
 
@@ -419,9 +417,9 @@ Passo 2.1: Claude Code edita /funil-de-vendas ou /meu-produto
   Arquivo: .claude/commands/funil-de-vendas.md (ou meu-produto.md)
   Acao: Edit — adicionar secao de Upsell/Downsell/Order Bump com perguntas e geracao
 
-Passo 2.2: Claude Code edita /persona e todos os agents que leem persona
+Passo 2.2: Claude Code edita /idconsumidor e todos os agents que leem idconsumidor.md
   Arquivos:
-    .claude/commands/persona.md — mudar destino para meu-negocio/persona.md
+    .claude/commands/idconsumidor.md — destino meu-negocio/idconsumidor.md
     .claude/agents/construtor-de-paginas.md — atualizar caminho de leitura
     .claude/agents/criador-de-campanhas.md — idem
     .claude/agents/produtor-de-conteudo.md — idem
@@ -503,7 +501,7 @@ Passo 4.2-4.4: Criar guias praticos
 
 3. **Testar apos cada mudanca.** Apos editar um command ou agent, verificar se o arquivo esta sintaticamente correto (frontmatter YAML valido, markdown bem formatado).
 
-4. **Nao quebrar o que funciona.** Ao mover persona para `meu-negocio/`, atualizar TODAS as referencias antes de comunicar a mudanca.
+4. **Nao quebrar o que funciona.** Ao mudar caminhos em `meu-negocio/`, atualizar TODAS as referencias antes de comunicar a mudanca.
 
 5. **Integracoes sao opcionais.** O toolkit deve funcionar 100% sem nenhuma chave API. As integracoes sao melhorias progressivas.
 

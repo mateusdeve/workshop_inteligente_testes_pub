@@ -25,7 +25,7 @@ Criar um playbook comercial completo:
 
 ### 1. Ler Contexto
 - Leia `meu-negocio/perfil.md` (Quadro, Furadeira, Urgências Ocultas)
-- Leia `meu-negocio/persona.md` (objeções de compra são essenciais para o playbook)
+- Leia `meu-negocio/idconsumidor.md` (objeções de compra são essenciais para o playbook)
 
 ### 2. Perguntar
 - Produto e faixa de preço

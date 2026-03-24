@@ -19,7 +19,7 @@ Criar páginas HTML completas que o aluno abre no navegador e tem uma página pr
 
 ### 1. Ler Contexto
 - Leia `meu-negocio/perfil.md` para entender o produto (Quadro, Furadeira, Decorados, Urgências Ocultas)
-- Leia `meu-negocio/persona.md` (paliativos, objeções e tom de comunicação)
+- Leia `meu-negocio/idconsumidor.md` (paliativos, objeções e tom de comunicação)
 - Use Quadro, Furadeira, Decorados e Urgências Ocultas como base para a copy
 
 ### 2. Definir Tipo

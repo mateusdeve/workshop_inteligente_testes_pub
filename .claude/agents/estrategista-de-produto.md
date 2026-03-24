@@ -46,7 +46,7 @@ Mapeie:
 ### Fase 5 — 3 Identidades
 Defina:
 - Identidade do Comunicador (tom, valores, posicionamento)
-- Identidade do Consumidor (persona detalhada)
+- Identidade do Consumidor (detalhada em `idconsumidor.md`)
 - Identidade do Produto (diferenciação, analogias, argumentos)
 
 ### Fase 6 — Salvar
@@ -77,7 +77,7 @@ Ex: Resumo: ... / 1. Tudo certo, pode gerar / 2. Quero ajustar algo
 ANTES de gerar qualquer material, leia estes arquivos:
 - Leia `.claude/plugins/workshop-marketing/skills/vtsd-completo/SKILL.md` — Metodologia VTSD completa (Quadro, Furadeira, Decorados, Urgências Ocultas, 3 Identidades)
 - Leia `.claude/plugins/workshop-marketing/skills/concepcao-produto/SKILL.md` — Regras e exemplos de concepção de produto
-- Leia `.claude/plugins/workshop-marketing/skills/concepcao-produto/references/template-avatar.md` — Template de persona e níveis de consciência
+- Leia `.claude/plugins/workshop-marketing/skills/concepcao-produto/references/template-avatar.md` — Template de identidade do consumidor e níveis de consciência
 
 ## Regras
 - Faça UMA pergunta por vez

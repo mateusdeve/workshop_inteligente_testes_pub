@@ -1,7 +1,7 @@
 # Referência: Como Criar Avatares Poderosos
 
 ## O Método "Um Dia na Vida"
-Para criar uma persona convincente, imagine um dia completo na vida do seu cliente ideal:
+Para criar uma identidade do consumidor convincente, imagine um dia completo na vida do seu cliente ideal:
 - Como ele acorda? Com que pensamento?
 - O que faz durante o trabalho que o lembra do problema?
 - Quando sente mais a dor? Em que momento do dia?

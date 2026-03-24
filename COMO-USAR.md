@@ -29,13 +29,13 @@ O assistente vai te guiar com perguntas sobre:
 
 Responda uma pergunta por vez.
 
-### 3. Crie sua persona
+### 3. Crie a identidade do consumidor
 
 ```text
-/persona
+/idconsumidor
 ```
 
-O assistente cria o perfil completo do cliente ideal com Urgencias Ocultas (dores, desejos, duvidas).
+O assistente cria a identidade do consumidor (cliente ideal): paliativos, objeções e tom de voz. As Urgências Ocultas ficam no `/meu-produto` (`perfil.md`).
 
 ### 4. Crie seus materiais
 
@@ -46,15 +46,15 @@ Use os comandos na ordem que fizer sentido para voce.
 ### Para quem quer comecar a vender
 
 1. `/meu-produto` — Cadastrar produto
-2. `/persona` — Perfil do cliente ideal
-3. `/copy-pagina` — Criar copy completa da pagina
+2. `/idconsumidor` — Perfil do cliente ideal
+3. `/texto-de-venda` — Criar copy
 4. `/pagina-de-vendas` — Criar pagina profissional
 5. `/anuncio` — Criar anuncios para trafego
 
 ### Para quem vai lancar
 
 1. `/meu-produto` — Cadastrar produto
-2. `/persona` — Perfil do cliente ideal
+2. `/idconsumidor` — Perfil do cliente ideal
 3. `/lancamento` — Planejar o evento completo
 4. `/pagina-de-vendas` — Criar pagina do evento + pagina de vendas
 5. `/sequencia-de-emails` — Criar emails do pico de vendas
@@ -64,7 +64,7 @@ Use os comandos na ordem que fizer sentido para voce.
 ### Para quem quer vender no perpetuo
 
 1. `/meu-produto` — Cadastrar produto
-2. `/persona` — Perfil do cliente ideal
+2. `/idconsumidor` — Perfil do cliente ideal
 3. `/funil-de-vendas` — Mapear funil perpetuo
 4. `/pagina-de-vendas` — Criar paginas (captura + vendas + obrigado)
 5. `/sequencia-de-emails` — Criar email de nutricao
@@ -73,7 +73,7 @@ Use os comandos na ordem que fizer sentido para voce.
 ### Para quem quer vender low ticket (D48)
 
 1. `/meu-produto` — Cadastrar produto
-2. `/persona` — Perfil do cliente ideal
+2. `/idconsumidor` — Perfil do cliente ideal
 3. `/low-ticket` — Criar produto de entrada (quiz, desafio, ebook)
 4. `/anuncio` — Criar anuncios caixa rapido para o quiz
 5. `/funil-de-vendas` — Mapear funil D48 com upsell
@@ -81,7 +81,7 @@ Use os comandos na ordem que fizer sentido para voce.
 ### Para quem quer vender high ticket
 
 1. `/meu-produto` — Cadastrar produto
-2. `/persona` — Perfil do cliente ideal
+2. `/idconsumidor` — Perfil do cliente ideal
 3. `/lancamento` — Planejar retiro/evento online
 4. `/playbook-comercial` — Criar scripts SPIN para venda 1:1
 5. `/pagina-de-vendas` — Criar pagina do evento
@@ -94,11 +94,11 @@ Cadastra seu produto usando a metodologia VTSD: Quadro (transformacao), Furadeir
 
 Resultado: `meu-negocio/perfil.md`
 
-### /persona
+### /idconsumidor
 
-Cria perfil completo do cliente ideal com Urgencias Ocultas (dores, desejos, duvidas, assuntos relacionados).
+Cria a identidade do consumidor (cliente ideal): paliativos, objeções e comunicação. Urgências Ocultas permanecem em `perfil.md`.
 
-Resultado: `meu-negocio/persona.md`
+Resultado: `meu-negocio/idconsumidor.md`
 
 ### /pagina-de-vendas
 

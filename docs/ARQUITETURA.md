@@ -30,7 +30,7 @@ Este repositorio e um **toolkit de marketing digital para infoprodutores** que r
 ```
 workshop_inteligente/
 │
-├── CLAUDE.md                              ← ARQUIVO CENTRAL: define persona, regras e comportamento
+├── CLAUDE.md                              ← ARQUIVO CENTRAL: papel do assistente, regras e comportamento
 ├── README.md                              ← Documentacao publica para o usuario final
 ├── COMO-USAR.md                           ← Guia passo a passo para o usuario
 ├── .env.example                           ← Modelo de chaves API (opcional)
@@ -41,7 +41,7 @@ workshop_inteligente/
 │   │
 │   ├── commands/                          ← SLASH COMMANDS (atalhos /comando)
 │   │   ├── meu-produto.md                 ← /meu-produto
-│   │   ├── persona.md                     ← /persona
+│   │   ├── idconsumidor.md                     ← /idconsumidor
 │   │   ├── pagina-de-vendas.md            ← /pagina-de-vendas
 │   │   ├── texto-de-venda.md              ← /texto-de-venda
 │   │   ├── anuncio.md                     ← /anuncio
@@ -105,7 +105,7 @@ workshop_inteligente/
 ├── meu-negocio/                           ← DADOS DO USUARIO (nao sobe pro git)
 │   ├── README.md                          ← Instrucoes para o usuario
 │   ├── perfil.md                          ← Gerado por /meu-produto (Quadro, Furadeira, etc.)
-│   └── persona.md                         ← Gerado por /persona (cliente ideal)
+│   └── idconsumidor.md                         ← Gerado por /idconsumidor (cliente ideal)
 │
 ├── entregas/                              ← OUTPUT GERADO (nao sobe pro git)
 │   ├── paginas/                           ← Arquivos .html
@@ -141,7 +141,7 @@ O sistema usa 5 tipos de componentes. Cada um tem um papel especifico:
 - Regras de comportamento (perguntar antes de gerar, Light Copy, nunca mostrar codigo)
 - Padrao de UX da entrevista (perguntas numeradas, progresso visual, confirmacao)
 - Metodologia base (VTSD — Quadro, Furadeira, Decorados, etc.)
-- Contexto persistente (onde ler perfil.md e persona.md)
+- Contexto persistente (onde ler perfil.md e idconsumidor.md)
 - Tabela de onde salvar cada tipo de entrega
 - Padrao de qualidade para HTML
 - Fluxo padrao de 5 passos (Contexto, Entrevista, Confirmacao, Geracao, Entrega)
@@ -156,8 +156,8 @@ O sistema usa 5 tipos de componentes. Cada um tem um papel especifico:
 **Como o Claude Code encontra:** Automaticamente — qualquer `.md` dentro de `.claude/commands/` vira um slash command. O nome do arquivo (sem extensao) e o nome do comando.
 
 **Como funciona na pratica:**
-1. Usuario digita `/persona` no chat
-2. Claude Code carrega `.claude/commands/persona.md`
+1. Usuario digita `/idconsumidor` no chat
+2. Claude Code carrega `.claude/commands/idconsumidor.md`
 3. O conteudo do arquivo e injetado como instrucao no contexto do Claude
 4. O Claude segue as instrucoes do command + as regras do CLAUDE.md
 
@@ -220,7 +220,7 @@ USUARIO
   ├── digita /comando ──────────► COMMAND (.claude/commands/X.md)
   │                                  │
   │                                  ├── le ► meu-negocio/perfil.md (contexto do produto)
-  │                                  ├── le ► meu-negocio/persona.md (contexto do publico)
+  │                                  ├── le ► meu-negocio/idconsumidor.md (contexto do publico)
   │                                  ├── consulta ► SKILL (base de conhecimento)
   │                                  │
   │                                  └── salva ► entregas/[tipo]/[arquivo]
@@ -228,7 +228,7 @@ USUARIO
   └── (ou agente e acionado) ───► AGENT (.claude/agents/X.md)
                                      │
                                      ├── le ► meu-negocio/perfil.md
-                                     ├── le ► meu-negocio/persona.md
+                                     ├── le ► meu-negocio/idconsumidor.md
                                      ├── consulta ► SKILL (base de conhecimento)
                                      ├── le ► .env (chaves opcionais)
                                      │
@@ -237,8 +237,8 @@ USUARIO
 
 **Ordem recomendada de uso:**
 1. `/meu-produto` → gera `meu-negocio/perfil.md`
-2. `/persona` → gera `meu-negocio/persona.md`
-3. Qualquer outro comando → le perfil.md e persona.md como contexto
+2. `/idconsumidor` → gera `meu-negocio/idconsumidor.md`
+3. Qualquer outro comando → le perfil.md e idconsumidor.md como contexto
 
 ---
 
@@ -395,7 +395,7 @@ SEMPRE em Portugues do Brasil.
 
 ### 1. Ler Contexto
 - Leia `meu-negocio/perfil.md` para entender o produto
-- Leia `meu-negocio/persona.md` para entender o publico
+- Leia `meu-negocio/idconsumidor.md` para entender o publico
 - Use Quadro, Furadeira, Decorados e Urgencias Ocultas como base
 
 ### 2. [Etapa especifica do agente]
@@ -450,7 +450,7 @@ Adicione o agente na secao "Agentes Especialistas" da lista de comandos no CLAUD
 
 - [ ] Arquivo `.md` criado em `.claude/agents/`
 - [ ] Frontmatter com `name`, `description`, `tools`
-- [ ] Instrucoes de leitura de contexto (perfil.md, persona.md)
+- [ ] Instrucoes de leitura de contexto (perfil.md, idconsumidor.md)
 - [ ] Etapas claras de execucao
 - [ ] Instrucoes de onde salvar o output
 - [ ] Referencia a skills relevantes
@@ -606,7 +606,7 @@ O arquivo `.claude/settings.json` controla quais acoes o Claude Code pode execut
   "permissions": {
     "allow": [
       "Write(entregas/**)",        ← Pode criar/editar arquivos em entregas/
-      "Write(meu-negocio/**)",     ← Pode criar/editar perfil.md e persona.md
+      "Write(meu-negocio/**)",     ← Pode criar/editar perfil.md e idconsumidor.md
       "Write(docs/**)",            ← Pode criar/editar documentacao
       "Read(**)",                  ← Pode ler qualquer arquivo
       "Bash(ls *)",               ← Pode listar arquivos
@@ -700,7 +700,7 @@ Protegido pelo `.gitignore`:
 |---|---|
 | `.env` | Chaves de API do usuario |
 | `meu-negocio/perfil.md` | Dados do produto do usuario |
-| `meu-negocio/persona.md` | Dados da persona do usuario |
+| `meu-negocio/idconsumidor.md` | Identidade do consumidor (cliente ideal) |
 | `entregas/` (conteudo) | Materiais gerados sao unicos de cada usuario |
 | `_prompts-gpt/` | Prompts originais de referencia interna |
 | `.claude/projects/`, `.claude/plans/`, etc. | Arquivos de runtime do Claude Code |
@@ -721,7 +721,7 @@ Protegido pelo `.gitignore`:
 CLAUDE.md (regras globais)
     │
     ├── /meu-produto ──────► skill: concepcao-produto ──► salva: meu-negocio/perfil.md
-    ├── /persona ──────────► skill: concepcao-produto ──► salva: meu-negocio/persona.md
+    ├── /idconsumidor ──────────► skill: concepcao-produto ──► salva: meu-negocio/idconsumidor.md
     │
     ├── /pagina-de-vendas ─► skill: paginas ────────────► salva: entregas/paginas/*.html
     ├── /texto-de-venda ───► skill: conteudo ───────────► salva: entregas/textos-de-venda/*.md
@@ -798,7 +798,7 @@ description: Criar roteiro completo de webinar de vendas com estrutura de 4 atos
 ## O Que Fazer
 
 ### 1. Contexto
-Leia `meu-negocio/perfil.md` e `meu-negocio/persona.md`.
+Leia `meu-negocio/perfil.md` e `meu-negocio/idconsumidor.md`.
 
 ### 2. Entrevista
 [... perguntas seguindo o padrao ...]
@@ -892,11 +892,11 @@ Adicionar o novo comando nas tabelas e fluxos recomendados.
 
 Se voce e um LLM lendo este arquivo para entender o projeto:
 
-1. **Leia `CLAUDE.md` primeiro** — contem todas as regras de comportamento, persona e fluxo padrao
+1. **Leia `CLAUDE.md` primeiro** — contem todas as regras de comportamento, papel do assistente e fluxo padrao
 2. **Commands** estao em `.claude/commands/*.md` — sao slash commands interativos
 3. **Agents** estao em `.claude/agents/*.md` — sao subprocessos autonomos
 4. **Skills** estao em `.claude/plugins/workshop-marketing/skills/*/SKILL.md` — sao base de conhecimento
-5. **Dados do usuario** ficam em `meu-negocio/` (perfil.md e persona.md)
+5. **Dados do usuario** ficam em `meu-negocio/` (perfil.md e idconsumidor.md)
 6. **Output** vai para `entregas/` organizado por tipo
 7. **Tudo segue a metodologia VTSD** — Quadro, Furadeira, Decorados, Light Copy, 8D, Mandala
 8. **Idioma:** Sempre Portugues do Brasil para conteudo visivel ao usuario

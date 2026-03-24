@@ -1,16 +1,16 @@
 ---
-name: workshop-marketing:persona
-description: Criar perfil completo do cliente ideal usando as 3 Identidades da metodologia VTSD (Comunicador, Consumidor, Produto) e mapeamento de Urgências Ocultas.
+name: workshop-marketing:idconsumidor
+description: Criar identidade do consumidor (cliente ideal) usando as 3 Identidades da metodologia VTSD (Comunicador, Consumidor, Produto) e mapeamento alinhado às Urgências Ocultas do perfil.
 ---
 
-# Persona — Perfil do Cliente Ideal (3 Identidades)
+# Identidade do consumidor — Cliente ideal (3 Identidades)
 
-Cria documento completo de persona usando a metodologia VTSD: Identidade do Consumidor detalhada, paliativos, objeções e comunicação. As Urgências Ocultas já devem existir no `perfil.md` (geradas pelo `/meu-produto`).
+Cria o documento de **identidade do consumidor** (VTSD): perfil detalhado, paliativos, objeções e comunicação. As Urgências Ocultas já devem existir no `perfil.md` (geradas pelo `/meu-produto`).
 
 ## Usage
 
 ```
-/persona
+/idconsumidor
 ```
 
 ## Princípios de Comportamento
@@ -83,7 +83,7 @@ Apresente tudo para validação. O aluno aprova, ajusta, adiciona ou remove.
 
 **Confirmação antes de gerar:**
 ```
-Resumo da persona:
+Resumo da identidade do consumidor:
 - Perfil: [gênero], [idade], [profissão]
 - Renda: [renda]
 - Paliativos: [o que já tentou]
@@ -96,10 +96,10 @@ Resumo da persona:
 ```
 
 ### 3. Gerar Documento
-Salve em `meu-negocio/persona.md`:
+Salve em `meu-negocio/idconsumidor.md`:
 
 ```markdown
-# Persona: [Nome Fictício]
+# Identidade do consumidor: [Nome Fictício]
 
 ## Identidade do Consumidor
 - **Idade:** / **Gênero:** / **Profissão:**
@@ -128,4 +128,4 @@ Salve em `meu-negocio/persona.md`:
 NOTA: As Urgências Ocultas (dores, desejos, dúvidas, assuntos relacionados) ficam centralizadas em `meu-negocio/perfil.md`. Não duplicar aqui.
 
 ### 4. Próximo Passo
-"Persona salva em `meu-negocio/persona.md`. Use `/copy-pagina` para criar copys falando com essa persona, ou `/pagina-de-vendas` para criar a página."
+"Identidade do consumidor salva em `meu-negocio/idconsumidor.md`. Use `/texto-de-venda` para criar copys falando com esse público, ou `/pagina-de-vendas` para criar a página."
