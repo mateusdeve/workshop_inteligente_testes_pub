@@ -314,7 +314,7 @@ O projeto precisa ser replicável para os alunos via GitHub, e cada aluno pode t
 
 ```
 produtos/
-  .ativo              ← contém o slug do produto ativo (ex: curso-tarot)
+  .ativo              ← contém o slug do produto ativo (ex: meu-produto)
   {slug-do-produto}/
     perfil.md
     idconsumidor.md
@@ -382,9 +382,9 @@ Comando `/quiz` adicionado ao menu de apresentação no `CLAUDE.md`, na seção 
 - Salva em `produtos/{ativo}/entregas/quiz/perguntas-quiz-[produto].md`
 
 **Fase 2 — Prompt técnico completo (automático após aprovação):**
-- Lê o template em `C:\Users\Elen\Downloads\prompt-quiz-funnel-detalhado (1).md`
-- Esse arquivo é o prompt técnico completo para construir o funil de quiz no Lovable.dev (React + Vite + TypeScript + Tailwind + Supabase), usando um exemplo de curso de francês como placeholder
-- Substitui todo o conteúdo específico do exemplo (francês) pelo produto do aluno: headline, subheadline, perguntas, valores de resposta, tela de resultado, página de vendas, preço, benefícios (Decorados), depoimentos, labels do painel admin
+- Lê o template de referência do prompt técnico do quiz (localizado em `Downloads` do usuário ou conforme indicado na sessão)
+- Esse arquivo é o prompt técnico completo para construir o funil de quiz no Lovable.dev (React + Vite + TypeScript + Tailwind + Supabase), usando um produto de exemplo como placeholder
+- Substitui todo o conteúdo específico do exemplo pelo produto do aluno: headline, subheadline, perguntas, valores de resposta, tela de resultado, página de vendas, preço, benefícios (Decorados), depoimentos, labels do painel admin
 - Mantém toda a estrutura técnica intacta (banco de dados, tracking, componentes, admin)
 - Salva em `produtos/{ativo}/entregas/quiz/prompt-tecnico-quiz-[produto].md`
 - Entrega final: dois arquivos prontos, o segundo para colar no Lovable.dev
@@ -424,9 +424,7 @@ Somente após aprovação de tudo isso é que se avança para a Fase 2 (prompt t
 
 ### Template de referência
 
-Localização local: `C:\Users\Elen\Downloads\prompt-quiz-funnel-detalhado (1).md`
-
-Esse arquivo deve ser lido a cada execução do comando para gerar a Fase 2.
+O template de referência do prompt técnico deve ser solicitado ao usuário na primeira execução caso não esteja disponível no projeto. Esse arquivo deve ser lido a cada execução do comando para gerar a Fase 2.
 
 ---
 
@@ -619,7 +617,7 @@ Não usar `vercel.json` nem `package.json` para esse deploy — o comando acima 
 
 ### Regra: nome do projeto Vercel = slug do produto ativo
 
-Usar o slug do produto ativo (ex: `precifique-seu-taro`) como `--name` no deploy. Isso garante que a URL final seja `{slug}.vercel.app`.
+Usar o slug do produto ativo (ex: `meu-produto`) como `--name` no deploy. Isso garante que a URL final seja `{slug}.vercel.app`.
 
 ---
 
