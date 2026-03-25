@@ -45,8 +45,20 @@ desktop.ini
 *.tmp
 
 # ══════════════════════════════════════════
-# Node (caso alguém rode npx localmente)
+# Entregas (cada aluno gera as suas)
+# ══════════════════════════════════════════
+entregas/
+
+# ══════════════════════════════════════════
+# Node e servidor local
 # ══════════════════════════════════════════
 node_modules/
 package-lock.json
+server.js
+package.json
+
+# ══════════════════════════════════════════
+# Vercel (deploy e configurações de projeto)
+# ══════════════════════════════════════════
 .vercel
+vercel.json
