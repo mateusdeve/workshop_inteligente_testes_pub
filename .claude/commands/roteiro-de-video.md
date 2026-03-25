@@ -16,7 +16,7 @@ Cria roteiros seguindo a estrutura VVV (Vídeo de Vendas de Valor) do VTSD.
 ## O Que Fazer
 
 ### 1. Contexto
-Leia `meu-negocio/perfil.md`.
+Leia `produtos/{ativo}/perfil.md`.
 
 ### 2. Entrevista (UMA pergunta por vez, com progresso visual)
 
@@ -119,7 +119,7 @@ Formato Problema-Solução:
 - Adaptado para leitura de teleprompter
 
 ### 4. Salvar
-`entregas/textos-de-venda/roteiro-[formato]-[produto].md`
+`produtos/{ativo}/entregas/textos-de-venda/roteiro-[formato]-[produto].md`
 
 ### 5. Gerar Vídeo com Avatar (se formato Avatar e chave configurada)
 Leia `.env` e verifique se existe `HEYGEN_API_KEY`.

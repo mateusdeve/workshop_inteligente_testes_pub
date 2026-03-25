@@ -23,8 +23,8 @@ Criar um plano de conteúdo completo que inclui:
 ## Como Trabalhar
 
 ### 1. Ler Contexto
-- Leia `meu-negocio/perfil.md` (Quadro, Decorados, Urgências Ocultas) — as Urgências Ocultas são a FONTE de todos os temas
-- Leia `meu-negocio/idconsumidor.md` (identidade do consumidor, paliativos, objeções e tom de comunicação)
+- Leia `produtos/{ativo}/perfil.md` (Quadro, Decorados, Urgências Ocultas) — as Urgências Ocultas são a FONTE de todos os temas
+- Leia `produtos/{ativo}/idconsumidor.md` (identidade do consumidor, paliativos, objeções e tom de comunicação)
 
 ### 2. Perguntar
 - Rede principal (Instagram, TikTok, YouTube)
@@ -67,7 +67,7 @@ Aplique 1-3 elementos por peça (dos 26 do VTSD):
 - Antítese para comparações
 
 ### 5. Salvar
-`entregas/conteudo-social/plano-completo-[produto].md`
+`produtos/{ativo}/entregas/conteudo-social/plano-completo-[produto].md`
 
 ## Padrão de UX da Entrevista
 

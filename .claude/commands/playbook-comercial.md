@@ -16,7 +16,7 @@ Cria scripts de vendas consultivas usando SPIN Selling adaptado (C10X).
 ## O Que Fazer
 
 ### 1. Contexto
-Leia `meu-negocio/perfil.md`.
+Leia `produtos/{ativo}/perfil.md`.
 
 ### 2. Entrevista (UMA pergunta por vez, com progresso visual)
 
@@ -114,7 +114,7 @@ Resumo do que vou criar:
 - "Não é o momento" → "Quando seria? O que precisa acontecer?"
 
 ### 4. Salvar
-`entregas/comercial/playbook-[produto].md`
+`produtos/{ativo}/entregas/comercial/playbook-[produto].md`
 
 ### 5. Próximo Passo
 "Playbook salvo. Use `/lancamento` para planejar o evento que vai gerar esses leads, ou `/anuncio` para trazer tráfego."

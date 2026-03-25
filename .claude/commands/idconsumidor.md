@@ -31,7 +31,7 @@ Se durante o `/meu-produto` foi feita pesquisa de mercado, use os dados para ali
 ## O Que Fazer
 
 ### 1. Contexto
-Leia `meu-negocio/perfil.md`. Se não existir, oriente a usar `/meu-produto` primeiro.
+Leia `produtos/.ativo` para obter o produto ativo. Leia `produtos/{ativo}/perfil.md`. Se não existir, oriente a usar `/meu-produto` primeiro.
 Verifique se as Urgências Ocultas já estão completas no perfil. Se estiverem com stubs ("a completar"), gere as Urgências Ocultas completas e atualize o `perfil.md` antes de continuar.
 
 ### 2. Entrevista (UMA pergunta por vez, com progresso visual)
@@ -96,7 +96,7 @@ Resumo da identidade do consumidor:
 ```
 
 ### 3. Gerar Documento
-Salve em `meu-negocio/idconsumidor.md`:
+Salve em `produtos/{ativo}/idconsumidor.md`:
 
 ```markdown
 # Identidade do consumidor: [Nome Fictício]
@@ -125,7 +125,7 @@ Salve em `meu-negocio/idconsumidor.md`:
 - Palavras que afastam
 ```
 
-NOTA: As Urgências Ocultas (dores, desejos, dúvidas, assuntos relacionados) ficam centralizadas em `meu-negocio/perfil.md`. Não duplicar aqui.
+NOTA: As Urgências Ocultas (dores, desejos, dúvidas, assuntos relacionados) ficam centralizadas em `produtos/{ativo}/perfil.md`. Não duplicar aqui.
 
 ### 4. Próximo Passo
-"Identidade do consumidor salva em `meu-negocio/idconsumidor.md`. Use `/texto-de-venda` para criar copys falando com esse público, ou `/pagina-de-vendas` para criar a página."
+"Identidade do consumidor salva em `produtos/{ativo}/idconsumidor.md`. Use `/texto-de-venda` para criar copys falando com esse público, ou `/pagina-de-vendas` para criar a página."

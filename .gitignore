@@ -13,6 +13,10 @@ _prompts-gpt/
 # ══════════════════════════════════════════
 # Dados do aluno (cada um gera os seus)
 # ══════════════════════════════════════════
+# Nova estrutura multi-produto: cada aluno cria os seus
+produtos/*/
+produtos/.ativo
+# Legado — mantidos por compatibilidade
 meu-negocio/perfil.md
 meu-negocio/idconsumidor.md
 entregas/
@@ -45,3 +49,4 @@ desktop.ini
 # ══════════════════════════════════════════
 node_modules/
 package-lock.json
+.vercel

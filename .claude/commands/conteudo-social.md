@@ -16,7 +16,7 @@ Cria conteúdo usando as Urgências Ocultas como fonte de temas e os elementos l
 ## O Que Fazer
 
 ### 1. Contexto
-Leia `meu-negocio/perfil.md` e `meu-negocio/idconsumidor.md` se existir.
+Leia `produtos/{ativo}/perfil.md` e `produtos/{ativo}/idconsumidor.md` se existir.
 
 ### 2. Entrevista (UMA pergunta por vez, com progresso visual)
 
@@ -113,7 +113,7 @@ Formato 2 — Problema-Solução:
 - Incluir CTAs estratégicos (seguidores → leads → vendas)
 
 ### 4. Salvar
-`entregas/conteudo-social/[tipo]-[produto].md`
+`produtos/{ativo}/entregas/conteudo-social/[tipo]-[produto].md`
 
 ### 5. Próximo Passo
 "Conteúdo salvo. Use `/criativo-de-imagem` para gerar as artes, ou `/roteiro-de-video` para roteiros mais elaborados."

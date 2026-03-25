@@ -1,7 +1,18 @@
 {
   "permissions": {
     "allow": [
-      "WebSearch"
+      "WebSearch",
+      "Bash(cp \"/c/Users/Elen/.cursor/Imersão IA/workshop_inteligente/entregas/anuncios/\"* \"/c/Users/Elen/.cursor/Imersão IA/workshop_inteligente/produtos/curso-tarot/entregas/anuncios/\")",
+      "Bash(cp \"/c/Users/Elen/.cursor/Imersão IA/workshop_inteligente/entregas/paginas/\"* \"/c/Users/Elen/.cursor/Imersão IA/workshop_inteligente/produtos/curso-tarot/entregas/paginas/\")",
+      "Bash(BASE=\"/c/Users/Elen/.cursor/Imersão IA/workshop_inteligente/.claude/agents\")",
+      "Bash(__NEW_LINE_90397b2a120b1341__ for:*)",
+      "Bash(do)",
+      "Bash(sed -i 's|`meu-negocio/perfil.md`|`produtos/{ativo}/perfil.md`|g; s|`meu-negocio/idconsumidor.md`|`produtos/{ativo}/idconsumidor.md`|g; s|`entregas/|`produtos/{ativo}/entregas/|g; s|\"\"entregas/|\"\"produtos/{ativo}/entregas/|g; s|Salve tudo em `meu-negocio/perfil.md`|Salve tudo em `produtos/{ativo}/perfil.md`|g; s|`meu-negocio/perfil.md` salvo|`produtos/{ativo}/perfil.md` salvo|g' \"$BASE/$f\")",
+      "Bash(echo \"$f ok\")",
+      "Bash(\"C:/Users/Elen/.cursor/Imersão IA/workshop_inteligente/produtos/.ativo\")",
+      "Bash(find '/c/Users/Elen/.cursor/Imersão IA/workshop_inteligente/skills' -name *.md -o -name *.html)",
+      "mcp__Claude_Preview__preview_start",
+      "Bash(npm list:*)"
     ]
   }
 }

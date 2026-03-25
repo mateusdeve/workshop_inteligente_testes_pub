@@ -1,11 +1,11 @@
 ---
 name: workshop-marketing:pagina-de-vendas
-description: Criar páginas web profissionais completas (vendas 8D, captura ou obrigado) com HTML/CSS responsivo, design moderno e copy persuasiva baseada na metodologia VTSD.
+description: Criar páginas web profissionais completas (vendas, captura ou obrigado) com HTML/CSS responsivo, design moderno, vídeo na primeira dobra, headline como premissa e estrutura de conversão em 10 seções baseada na metodologia VTSD.
 ---
 
 # Página de Vendas — Gerador de Páginas Profissionais
 
-Cria páginas HTML completas e profissionais usando a estrutura 8D do VTSD.
+Cria páginas HTML completas e profissionais com estrutura de conversão baseada na metodologia VTSD.
 
 ## Usage
 
@@ -16,7 +16,7 @@ Cria páginas HTML completas e profissionais usando a estrutura 8D do VTSD.
 ## O Que Fazer
 
 ### 1. Contexto
-Leia `meu-negocio/perfil.md` e `meu-negocio/idconsumidor.md` se existir.
+Leia `produtos/{ativo}/perfil.md` e `produtos/{ativo}/idconsumidor.md` se existir.
 
 ### 2. Entrevista (UMA pergunta por vez, com progresso visual)
 
@@ -42,14 +42,14 @@ Próximo: Detalhes do conteúdo
 
 **Bloco 2/3 — Detalhes (varia conforme o tipo):**
 
-Se escolheu **1. Vendas (8D):**
+Se escolheu **1. Vendas:**
 ```
-Quais os módulos ou entregáveis do produto?
-(ex: "5 módulos de vídeo + planilhas + grupo VIP")
+Quais os entregáveis do produto? O que está incluso na compra?
+(ex: "Planilha principal + guia de preenchimento + tabela de serviços")
 ```
 ```
-Tem depoimentos de alunos? Se sim, passe 3-5 com nome e resultado.
-(ex: "João, faturou R$10k no primeiro mês")
+Tem depoimentos de clientes? Se sim, passe nome e resultado de cada um.
+(ex: "Ana, estava cobrando R$30, agora cobra R$120 por leitura" — ou "não tenho" para criar placeholders realistas)
 ```
 ```
 Qual a garantia?
@@ -62,23 +62,27 @@ Qual a garantia?
 Digite o número:
 ```
 ```
-Qual o preço e parcelamento?
-(ex: "R$497 ou 12x R$47")
+Qual o preço?
+(ex: "R$37" ou "R$497 ou 12x R$47")
 ```
 ```
 Tem bônus? Quais?
-(ex: "Grupo VIP, planilha de métricas, aula extra")
+(ex: "Guia de reajuste de preços, script de objeções" — ou "não" para criar bônus coerentes)
 ```
 ```
 Link de checkout (Hotmart, Kiwify)?
 (ex: "https://pay.hotmart.com/ABC123" ou "ainda não tenho")
 ```
+```
+Tem um vídeo de vendas para a primeira dobra?
+(ex: "https://www.youtube.com/watch?v=XXXX" — ou "ainda não tenho" para usar placeholder)
+```
 
-Se escolheu **2. Captura** ou **3. Obrigado**, verificar ANTES se já existem páginas criadas em `entregas/paginas/`. Se existirem, perguntar:
+Se escolheu **2. Captura** ou **3. Obrigado**, verificar ANTES se já existem páginas criadas em `produtos/{ativo}/produtos/{ativo}/entregas/paginas/`. Se existirem, perguntar:
 
 ```
 Encontrei estas páginas já criadas:
-[listar arquivos encontrados em entregas/paginas/]
+[listar arquivos encontrados em produtos/{ativo}/entregas/paginas/]
 
 Quer que a nova página siga o mesmo visual (cores, fontes, estilo)?
 
@@ -270,7 +274,7 @@ O resultado final NÃO deve parecer nenhum template individual. Se alguém abrir
 
 Consulte a base de design em `skills/paginas/references/cdn-design-resources.md` para CDNs e padrões visuais. Consulte `skills/paginas/references/estruturas-pagina.md` para estrutura das seções.
 
-Se existir `entregas/copy-pagina/copy-[produto].md`, use a copy pronta. Se não existir, gere a copy durante a construção da página.
+Se existir `produtos/{ativo}/entregas/copy-pagina/copy-[produto].md`, use a copy pronta. Se não existir, gere a copy durante a construção da página.
 
 ---
 
@@ -532,118 +536,179 @@ Consulte a lista completa de fontes aprovadas em `skills/paginas/SKILL.md` → "
 - `lang="pt-BR"`, meta viewport, semântico
 - `<meta charset="UTF-8">` para suportar acentos
 
-## Estrutura Completa da Página de Vendas (16 seções)
+## Regras Globais de Copy (aplicar em TODA a página)
 
-Cada seção abaixo é OBRIGATÓRIA. Seguir esta ordem e estas regras ao gerar a página.
+### NUNCA usar travessão (—) em copy
 
-### Seção 1 — Header
+Todo texto visível deve ser contínuo, sem travessão separando partes da frase. Substituir por "e", vírgula, dois-pontos ou reescrever a frase de forma fluida.
 
-**Elementos:** Logotipo + botão CTA pequeno (opcional)
-**Fundo:** Transparente sobre o hero ou cor sólida que combine
+**Errado:** "Como calcular o valor real — para nunca mais aceitar um preço errado"
+**Certo:** "Como calcular o valor real para nunca mais aceitar um preço errado"
 
-Regras:
-- Logo alinhado à esquerda (centralizado no mobile)
-- Pode ter CTA pequeno à direita (ex: "Quero me inscrever")
-- Quando não houver logo: nome do produto como texto estilizado na fonte heading
-- Placeholder: `[Insira seu logotipo aqui — 180x50px]`
+Aplica-se a: headlines, subheadlines, bullets, descrições, depoimentos, bônus, FAQs — tudo que o usuário lê na página.
 
-### Seção 2 — Hero (Primeira Dobra)
+---
 
-**Elementos (nesta ordem):**
-1. Headline — Frase principal de impacto (até 12 palavras). Sem ponto de exclamação, sem pergunta. Declaração forte
-2. Subheadline — Complementa a headline com mais contexto (1-2 linhas)
-3. 3 Bullets — Combinação de Urgência Oculta + Decorado. Cada bullet toca uma dor ou desejo específico
-4. CTA principal — Botão grande e contrastante com texto de ação
-5. Indicação de vídeo — Espaço para VSL ou placeholder instrucional
+## Estrutura da Página de Vendas
 
-**Fundo:** Escuro com gradiente + texto claro
+A página segue a estrutura de conversão abaixo. Cada seção tem um objetivo específico. Seguir esta ordem.
 
-Regras:
-- Headline usa a fonte heading em tamanho grande (2.5rem+ no desktop)
-- Bullets com ícones para facilitar a leitura rápida
-- CTA com cor que contrasta contra o fundo (verde ou laranja)
-- No mobile, tudo centralizado e botão ocupa largura toda
-- O visitante entende o que é, para quem é e o que ganha SEM rolar a página
+**Header fixo** — logotipo + botão CTA pequeno. Glassmorphism. Logo à esquerda, CTA à direita.
 
-### Seção 3 — Vídeo (VSL)
+---
 
-**Elementos:** Embed de vídeo ou placeholder instrucional
-**Fundo:** Claro ou continuação do hero
+### Seção 1 — Primeira Dobra (OBRIGATÓRIO: vídeo visível sem scroll)
 
-Regras:
-- Espaço para embed do YouTube/Vimeo ou placeholder `[Insira seu vídeo de vendas aqui]`
-- Proporção 16:9
-- Borda sutil ou sombra para destacar
-- Pode estar integrado ao hero (dentro da mesma seção) ou ser seção separada
-- Se o aluno não tiver vídeo, gerar o placeholder com instrução clara
+**Objetivo:** Fazer a pessoa assistir ao vídeo de vendas de valor.
 
-### Seção 4 — Problema/Dor
+**Estrutura obrigatória (nesta ordem):**
 
-**Elementos:** Descrição vívida da dor do público, com cenas do cotidiano
-**Fundo:** Claro + cards com borda lateral colorida
+1. **Headline (Premissa)** — vende uma ideia, não o produto. Não pode estar no imperativo. Sem tom de promessa direta. Conduz a pessoa de forma sutil para que ela chegue à conclusão sozinha.
+   - Padrões válidos: "Quem vende barato vende menos", "É possível...", "O melhor jeito de... é", "Como...", "Qualquer pessoa pode", "Tarotista que cobra X por Y provavelmente está no prejuízo sem saber"
+   - Proibido: imperativos ("Pare de...", "Aprenda...", "Descubra..."), perguntas no gancho, promessas vagas
 
-Regras:
-- Usar frases que a persona diria (extrair de `meu-negocio/persona.md` → "Frases que a persona diria")
-- Mostrar situações específicas do dia a dia, não dores genéricas
-- Cards com citações em itálico + aspas grandes decorativas
-- Tom empático, nunca julgador
+2. **Subheadline** — reforça a premissa gerando mais curiosidade. 1-2 linhas. Tom analítico, não de promessa.
 
-### Seção 5 — Agitação (Consequências)
+3. **3 bullets** — cada bullet é uma combinação de urgência oculta + decorado, mostrando o que a pessoa vai descobrir/aprender no vídeo.
+   - Estrutura: [O que vai aprender / urgência oculta] + [pra quê / decorado]
+   - Exemplo: "Como calcular o valor real de cada leitura para nunca mais aceitar um preço que te deixa no prejuízo sem saber"
+   - Os bullets são numerados (1, 2, 3), não ícones de check
 
-**Elementos:** O que acontece se NÃO resolver o problema
-**Fundo:** Imagem de fundo + overlay escuro + texto claro
+4. **Vídeo** — OBRIGATÓRIO na primeira dobra. O player começa a aparecer antes do scroll, criando o efeito de "continua abaixo". Usar `aspect-ratio: 16/9`, `border-radius` no topo, sem `border-bottom`, encostado na borda inferior da seção. Fundo da seção vai até o player.
 
-Regras:
-- Amplifica a dor mostrando o futuro sem solução
-- Conecta com as Urgências Ocultas (dores + consequências emocionais)
-- Texto curto e direto, sem exagero — Light Copy
-- Esta seção cria urgência emocional antes de apresentar a solução
-- Pode usar contador ou timeline visual ("Daqui a 6 meses...")
+   **Se o usuário forneceu link do YouTube ou Vimeo**, embutir com iframe:
+   ```html
+   <iframe
+     src="https://www.youtube.com/embed/VIDEO_ID?rel=0&modestbranding=1"
+     title="Nome do produto"
+     frameborder="0"
+     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+     allowfullscreen
+     style="width:100%;aspect-ratio:16/9;display:block;border:0;">
+   </iframe>
+   ```
+   Para YouTube: extrair o ID do link (parte após `?v=` ou após `youtu.be/`) e montar o src com `/embed/ID`.
+   Para Vimeo: usar `https://player.vimeo.com/video/ID`.
+   O container pai do iframe deve ter `overflow: hidden` e `width: 100%` — **sem** `position: relative` nem `aspect-ratio` no container (o iframe define as proporções por si só).
 
-### Seção 6 — Solução/Método
+   **Se não tiver vídeo**, usar placeholder visual com instrução: `[Insira aqui o embed do seu vídeo]`.
 
-**Elementos:** Apresenta o produto como resposta. Furadeira com macroetapas visuais
-**Fundo:** Claro com textura sutil
+**Não incluir botão CTA na primeira dobra.** O objetivo é assistir ao vídeo, não comprar agora.
 
-Regras:
-- Mostrar as macroetapas do método (extrair de `perfil.md` → Furadeira)
-- Cada etapa com número, título e descrição curta
-- Layout em cards numerados ou timeline visual
-- Fazer a ponte clara: "A dor que você tem → O método resolve → O resultado que você quer"
-- Tom de confiança e clareza, não hype
+---
 
-### Seção 7 — Para Quem É
+### Seção 2 — Botão de Compra
 
-**Elementos:** Lista de perfis ideais com ícone de check verde
-**Fundo:** Escuro sólido + texto claro
+**Objetivo:** Fazer a pessoa clicar no botão de compra logo após assistir ao vídeo.
 
-Regras:
-- 4-6 itens descrevendo o público ideal
-- Cada item com ícone check + frase que começa com "Você que..."
-- Extrair de `persona.md` para ser específico
+Elementos obrigatórios:
+- Preço em destaque grande
+- Botão CTA principal (verde ou laranja, máximo contraste)
+- Selos de confiança abaixo do botão: compra segura, garantia (X dias), acesso imediato, dados protegidos
 
-### Seção 8 — Para Quem NÃO É
+---
 
-**Elementos:** Lista com ícone X vermelho
-**Fundo:** Continuação da seção anterior (mesmo fundo escuro)
+### Seção 3 — Paliativo
 
-Regras:
-- 3-4 itens que filtram e geram credibilidade
-- Tom honesto: "Não é pra quem quer resultado sem esforço"
-- Pode ser na mesma seção que "Para Quem É" (grid 2 colunas: check à esquerda, X à direita)
+**Objetivo:** Encantar rápido mostrando que as tentativas anteriores não resolvem.
 
-### Seção 9 — Módulos/Conteúdo (Entregáveis)
+**Incluir somente se houver paliativo.** Se não houver, ir direto para Seção 4.
 
-**Elementos:** Detalhamento do que está incluso no produto
-**Fundo:** Claro + cards grandes
+O paliativo são as soluções que o público já tentou antes de chegar ao produto. Mostrar por que cada tentativa falha — não por incompetência da pessoa, mas por limitação da tentativa. Usar cards com citação em itálico + label explicando o problema da tentativa.
 
-Regras:
-- Grid de **2 colunas** no desktop, 1 no mobile (NÃO 3 colunas)
-- Cada card: ícone + título do módulo + descrição + lista de tópicos
-- Cards com min-width 340px e padding 28px+
-- Usar metáforas de valor ("A planilha que faz o cálculo por você")
+---
 
-### Seção 10 — Bônus
+### Seção 4 — Resultados Concretos
+
+**Objetivo:** Comprovar com números e casos reais.
+
+Depoimentos com resultado quantificável em destaque (badge com o resultado: "De R$40 para R$95", "Tabela pronta em 20 min"). Fundo com imagem + overlay escuro. Cards glassmorphism.
+
+---
+
+### Seção 5 — Suporte
+
+**Objetivo:** Transmitir segurança sobre o que acontece depois da compra.
+
+Cobrir: como e quando recebe o acesso, formatos disponíveis, canal de suporte, garantia. Grid de cards com ícone + título + descrição curta.
+
+---
+
+### Seção 6 — Bônus
+
+**Objetivo:** Vender os bônus como itens de valor independente.
+
+Cada bônus com: badge "Bônus X", nome, descrição do que entrega, valor original riscado + "Incluso hoje".
+
+---
+
+### Seção 7 — Autoridade do Criador
+
+**Objetivo:** Gerar confiança em quem criou o produto.
+
+Foto + nome + posicionamento + bio em 2 parágrafos + lista de credenciais. Se não tiver foto, usar placeholder instrucional `[Insira sua foto aqui, tamanho recomendado: 400x400px]`.
+
+---
+
+### Seção 8 — Para Quem É
+
+**Objetivo:** Funciona pra mim? Filtrar e identificar o público.
+
+Grid de 2 colunas: "É pra você se" (checks verdes) e "Não é pra você se" (X vermelhos). Extrair os perfis da identidade do consumidor (`idconsumidor.md`). Fundo escuro.
+
+---
+
+### Seção 9 — Lógica do Método
+
+**Objetivo:** Explicar como o produto funciona de ponta a ponta.
+
+Passos numerados (como funciona) + grid de entregáveis detalhados com ícone, título, descrição e lista de tópicos. Grid de entregáveis: **2 colunas no desktop, 1 no mobile** (nunca 3 colunas).
+
+---
+
+### Seção 10 — Depoimentos + Reflexão Emocional
+
+**Objetivo:** Mostrar muita prova e ativar o emocional antes do CTA.
+
+Mínimo 4 depoimentos. Fundo com imagem + overlay. Após os depoimentos, bloco de reflexão emocional: headline que conecta com a identidade da pessoa + parágrafo que valida a jornada + botão CTA.
+
+---
+
+### Stack de Valor + Botão
+
+Tabela com todos os itens e valores individuais. Total riscado. Preço real em destaque. Botão CTA. Selos de confiança.
+
+---
+
+### FAQ
+
+**Objetivo:** Tirar dúvidas específicas com profundidade e provas.
+
+5-8 perguntas baseadas nas objeções reais da identidade do consumidor. Accordion funcional em JS. Respostas diretas e com substância, não respostas genéricas.
+
+---
+
+### Seção Final — Resumindo
+
+Headline que sintetiza a transformação. Parágrafo recapitulando o que está incluso. Preço. Botão CTA. Selos de confiança.
+
+---
+
+### Rodapé
+
+Copyright + links de termos e privacidade.
+
+---
+
+### CTA Flutuante Mobile
+
+Aparece ao rolar no mobile. Some quando a pessoa chega na seção final.
+
+---
+
+## Seções de Captura e Obrigado (estruturas separadas)
+
+### Seção 10 — Bônus (legado, mantido para compatibilidade)
 
 **Elementos:** Cada bônus com nome, descrição e valor individual em R$
 **Fundo:** Gradiente sutil
@@ -795,86 +860,78 @@ Leia `.env` e verifique `META_PIXEL_ID`. Se existir, insira o snippet do Faceboo
 Se não existir, gere a página sem Pixel.
 
 ### 5. Salvar
-- `entregas/paginas/vendas-[produto].html`
-- `entregas/paginas/captura-[produto].html`
-- `entregas/paginas/obrigado-[produto].html`
 
-### 6. Deploy na Vercel
+Salvar o arquivo da página:
+- `produtos/{ativo}/entregas/paginas/vendas-[produto].html`
+- `produtos/{ativo}/entregas/paginas/captura-[produto].html`
+- `produtos/{ativo}/entregas/paginas/obrigado-[produto].html`
 
-Após salvar a página, verifique se o projeto está configurado para deploy:
+**SEMPRE** criar também `index.html` como cópia do arquivo gerado na mesma pasta. A Vercel exige `index.html` para servir o conteúdo na raiz do domínio.
 
-**Passo 1 — Verificar pré-requisitos:**
+### 6. Publicar na Vercel
 
-Checar se existem os seguintes arquivos no projeto:
-- `.env` com `VERCEL_TOKEN` e `VERCEL_ORG_ID` e `VERCEL_PROJECT_ID`
-- `vercel.json` na raiz do projeto
-- `package.json` na raiz do projeto
-
-**Passo 2 — Se NÃO estiver configurado**, solicitar ao usuário:
+Após salvar, perguntar:
 
 ```
-Para publicar sua página online, preciso configurar o deploy na Vercel.
+Sua página está salva. Quer publicar online agora para ter um link para compartilhar?
 
-Você vai precisar de:
-1. Uma conta na Vercel (gratuita) — vercel.com
-2. Um token de acesso — Vercel → Settings → Tokens → Create Token
-3. Instalar o Vercel CLI — `npm i -g vercel`
-
-Quando tiver o token, me passe que eu configuro tudo.
-Ou se preferir, abra o arquivo HTML direto no navegador por enquanto.
-
-1. Tenho o token, vou passar
-2. Vou criar a conta e volto depois
-3. Não quero deploy agora, só salvar local
+1. Sim, quero publicar
+2. Não agora
 
 Digite o número:
 ```
 
-Se o usuário passar o token:
-1. Criar `.env` com `VERCEL_TOKEN=<token>`
-2. Criar `package.json` mínimo:
-```json
-{
-  "name": "paginas-marketing",
-  "version": "1.0.0",
-  "private": true
-}
-```
-3. Criar `vercel.json`:
-```json
-{
-  "buildCommand": null,
-  "outputDirectory": "entregas/paginas",
-  "cleanUrls": true,
-  "trailingSlash": false,
-  "headers": [
-    {
-      "source": "/(.*)",
-      "headers": [
-        { "key": "X-Content-Type-Options", "value": "nosniff" }
-      ]
-    }
-  ]
-}
-```
-4. Executar o deploy:
+Se escolher **2**, informar o caminho do arquivo e ir para o Próximo Passo.
+
+Se escolher **1**, executar o deploy de forma autônoma, sem mais perguntas:
+
+---
+
+#### Fluxo de deploy autônomo
+
+**Passo 1 — Verificar se a conta está conectada:**
 ```bash
-cd <projeto> && npx vercel --token $VERCEL_TOKEN --yes
-```
-5. Informar a URL pública ao usuário
-
-**Passo 3 — Se JÁ estiver configurado**, fazer o deploy diretamente:
-
-```bash
-cd <projeto> && npx vercel --token $VERCEL_TOKEN --yes
+npx vercel whoami
 ```
 
-Informar: "Sua página está online em [URL]. Compartilhe esse link."
+**Se retornar um nome de usuário** (conta conectada): ir direto para o Passo 2.
 
-**Passo 4 — Deploy de produção (quando o usuário pedir):**
+**Se retornar erro** (não autenticado): orientar o usuário:
+```
+Para publicar, você precisa de uma conta gratuita na Vercel.
+São 3 passos — leva menos de 5 minutos:
+
+1. Acesse vercel.com e crie a conta (recomendo entrar com GitHub)
+2. Clique no seu avatar → Settings → Tokens → Create Token
+   Dê o nome "cursor", clique em Create e copie o token (aparece só uma vez)
+3. Cole o token aqui — eu conecto e publico tudo automaticamente
+```
+
+Quando o usuário colar o token:
+- Salvar em `.env`: `VERCEL_TOKEN=<token>`
+- Executar: `npx vercel --token <token> produtos/{ativo}/entregas/paginas --prod --yes --name {slug-do-produto}`
+
+**Passo 2 — Deploy direto (conta já conectada):**
+```bash
+npx vercel produtos/{ativo}/entregas/paginas --prod --yes --name {slug-do-produto}
+```
+
+Onde `{slug-do-produto}` é o valor lido de `produtos/.ativo` (ex: `precifique-seu-taro`).
+
+Informar ao usuário:
+```
+Sua página está online em: https://{slug-do-produto}.vercel.app
+
+[Se usou link do YouTube]: Para o vídeo aparecer, ative a incorporação:
+studio.youtube.com → Conteúdo → editar o vídeo → Mais opções → Permitir incorporação → Salvar
+```
+
+---
+
+#### Atualizar a página (nova versão após edições)
 
 ```bash
-cd <projeto> && npx vercel --prod --token $VERCEL_TOKEN --yes
+npx vercel produtos/{ativo}/entregas/paginas --prod --yes --name {slug-do-produto}
 ```
 
 ### 7. Próximo Passo

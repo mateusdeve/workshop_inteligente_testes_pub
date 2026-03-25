@@ -94,6 +94,7 @@ Ao perguntar **“Qual fase?”**, a skill de **anúncio** deve usar **somente**
   3. **Fase do funil** (Descoberta, Relacionamento, Conversão, Remarketing)
 - Só depois de coletar essas três informações (e oferta, se fase for Conversão ou Remarketing) gerar os anúncios.
 - **Não assumir os tipos da Mandala** — sempre perguntar e deixar o usuário escolher.
+- **Sempre listar os 18 tipos da Mandala** para o usuário escolher — nunca sugerir ou assumir tipos por conta própria.
 
 ### Anúncio de Descoberta não precisa de oferta/promoção
 
@@ -300,6 +301,426 @@ No resumo de confirmação (antes de gerar), o tempo do vídeo estava sendo indi
 - **Não incluir duração do vídeo no resumo de confirmação** (Passo 2 — Entrevista).
 - O campo de formato deve constar apenas como: `Vídeo (duração definida após pesquisa de tendências)`.
 - A duração real é calibrada na pesquisa e aplicada na geração — não antes.
+
+---
+
+## 2026-03-25 — Estrutura multi-produto: pasta `produtos/` e produto ativo
+
+### Motivação
+
+O projeto precisa ser replicável para os alunos via GitHub, e cada aluno pode ter mais de um produto/nicho. A estrutura anterior (`meu-negocio/` único + `entregas/` única) não suportava múltiplos produtos.
+
+### Nova estrutura implementada
+
+```
+produtos/
+  .ativo              ← contém o slug do produto ativo (ex: curso-tarot)
+  {slug-do-produto}/
+    perfil.md
+    idconsumidor.md
+    entregas/
+      paginas/
+      anuncios/
+      emails/
+      copy-pagina/
+      conteudo-social/
+      criativos/
+      comercial/
+      textos-de-venda/
+```
+
+### Regra obrigatória para todos os comandos e agentes
+
+**ANTES de qualquer operação:**
+1. Ler `produtos/.ativo` para obter o slug do produto ativo.
+2. Usar `produtos/{ativo}/` como caminho base para todos os arquivos do produto.
+3. Se `produtos/.ativo` não existir, orientar o aluno a usar `/novo-produto` primeiro.
+
+### Comandos novos
+
+- `/novo-produto` — cria pasta do produto, subpastas de entregas, e escreve o slug em `produtos/.ativo`.
+- `/trocar-produto` — lista subpastas de `produtos/`, mostra qual está ativa, deixa o aluno trocar.
+
+### .gitignore
+
+Adicionado:
+```
+produtos/*/
+produtos/.ativo
+```
+Assim o aluno que clona o repositório recebe apenas a infraestrutura (`.claude/`, `CLAUDE.md`, `correcoes/`) — sem dados pessoais.
+
+---
+
+## 2026-03-25 — Furadeira em produtos Low Ticket (R$37–97)
+
+### Regra: a Furadeira é a própria ferramenta
+
+- Para produtos **Low Ticket** (faixa de R$37–97), a Furadeira **não** é um método de ensino com macroetapas e microetapas.
+- A Furadeira nesses produtos **é a própria ferramenta** entregue (planilha, template, checklist, agente GPT, etc.).
+- No `perfil.md`, o campo Furadeira deve registrar: `A ferramenta é a Furadeira — [descrição da ferramenta]`.
+- No fluxo do `/meu-produto`, quando o produto for Low Ticket, **não perguntar** sobre macroetapas. Registrar diretamente a ferramenta como Furadeira e avançar para as Identidades.
+
+---
+
+## 2026-03-25 — Novo comando `/quiz` — Gerador de Quiz de Vendas (Caixa Rápido)
+
+### O que foi criado
+
+Arquivo: `.claude/commands/quiz.md`
+
+Comando `/quiz` adicionado ao menu de apresentação no `CLAUDE.md`, na seção Estratégia, abaixo de `/low-ticket`.
+
+### Fluxo do comando (duas fases)
+
+**Fase 1 — Perguntas do quiz:**
+- Lê o perfil do produto ativo (`perfil.md` + `idconsumidor.md`)
+- Faz no máximo 2 perguntas se faltar Quadro ou preço
+- Gera Tela de Entrada + Pergunta 1 (com prompts de imagem para cada opção) + 9 a 19 perguntas adicionais
+- Perguntas organizadas em 4 blocos: A (Problema/SPIN), B (Desejo + Visualização Profunda obrigatória), C (Comprometimento), D (Diagnóstico Final)
+- Exibe resumo e pede aprovação
+- Salva em `produtos/{ativo}/entregas/quiz/perguntas-quiz-[produto].md`
+
+**Fase 2 — Prompt técnico completo (automático após aprovação):**
+- Lê o template em `C:\Users\Elen\Downloads\prompt-quiz-funnel-detalhado (1).md`
+- Esse arquivo é o prompt técnico completo para construir o funil de quiz no Lovable.dev (React + Vite + TypeScript + Tailwind + Supabase), usando um exemplo de curso de francês como placeholder
+- Substitui todo o conteúdo específico do exemplo (francês) pelo produto do aluno: headline, subheadline, perguntas, valores de resposta, tela de resultado, página de vendas, preço, benefícios (Decorados), depoimentos, labels do painel admin
+- Mantém toda a estrutura técnica intacta (banco de dados, tracking, componentes, admin)
+- Salva em `produtos/{ativo}/entregas/quiz/prompt-tecnico-quiz-[produto].md`
+- Entrega final: dois arquivos prontos, o segundo para colar no Lovable.dev
+
+### Regras específicas do comando
+
+- Headline SEMPRE: resultado específico + número concreto + prazo realista
+- PROIBIDO: "sem X", "não precisa", "mesmo que", clichês, perguntas no gancho
+- Cada opção de resposta deve descrever uma realidade DIFERENTE e reconhecível (não sinônimos)
+- Toda pergunta tem ancoragem cotidiana concreta (não abstrata)
+- Visualização Profunda obrigatória no Bloco B (cenas concretas do cotidiano transformado)
+- NÃO sugerir `/pagina-de-vendas` ao final — o fluxo termina com o prompt técnico do Lovable.dev
+
+### Fase 1 do quiz: perguntas + Tela de Resultado + Página Final de Oferta
+
+A **Fase 1** do comando `/quiz` deve entregar **três componentes juntos**, no mesmo arquivo, antes de avançar para o prompt técnico (Fase 2):
+
+1. Tela de Entrada + Pergunta 1 (com prompts de imagem para cada opção)
+2. Perguntas dos 4 blocos (A, B, C, D)
+3. Tela de Resultado (diagnóstico personalizado com mensagens condicionais por segmento + CTA)
+4. **Página Final de Oferta** (copy completa da página de vendas que aparece após a Tela de Resultado)
+
+A Página Final de Oferta segue 11 blocos obrigatórios:
+1. Headline com premissas
+2. Subheadline
+3. Quadro Comparativo Antes × Depois (logo após o subtítulo)
+4. Valor e Botão de Checkout #1
+5. Entregáveis (nome + benefícios + resumo + suporte)
+6. Valor e Botão de Checkout #2
+7. Bônus (nome + benefícios + o que entrega)
+8. Valor e Botão de Checkout #3
+9. Garantia
+10. Autoridade do Criador + Depoimentos (SEMPRE como [IMAGEM], nunca texto corrido)
+11. Valor e Botão de Checkout #4 (última chamada)
+
+Somente após aprovação de tudo isso é que se avança para a Fase 2 (prompt técnico do Lovable.dev).
+
+### Template de referência
+
+Localização local: `C:\Users\Elen\Downloads\prompt-quiz-funnel-detalhado (1).md`
+
+Esse arquivo deve ser lido a cada execução do comando para gerar a Fase 2.
+
+---
+
+---
+
+## 2026-03-25 — Estrutura correta da skill `/pagina-de-vendas`
+
+### Vídeo sempre na primeira dobra
+
+A skill de página **sempre** deve colocar o vídeo na primeira dobra, visível sem scroll.
+
+Estrutura obrigatória da primeira dobra:
+1. **Headline (Premissa)** — vende uma ideia, não o produto. Não pode estar no imperativo, sem tom de promessa. Conduz a pessoa sutilmente à conclusão pré-determinada.
+   - Exemplos de padrões válidos: "Todo paciente tem cura", "Quem vende barato vende menos", "É possível...", "O melhor jeito de... é", "Como...", "Qualquer pessoa pode", "Pessoas bonitas usam maquiagem"
+2. **Subheadline** — reforça a premissa gerando mais curiosidade
+3. **3 bullets** — combinação de urgência oculta + decorado. Mostram o que a pessoa vai aprender/descobrir no vídeo.
+   - Estrutura de cada bullet: [O que vai aprender/urgência oculta] → [Pra quê/Decorado]
+   - Exemplo: "Como criar um projeto protótipo e fazer a sua primeira venda em pouco tempo e gastando pouco dinheiro"
+4. **Vídeo** — já aparece na primeira dobra (começa a aparecer sem precisar rolar)
+
+### Estrutura de seções da página
+
+| Seção | Objetivo |
+|---|---|
+| Seção 1 | Fazer a pessoa assistir ao vídeo de vendas de valor |
+| Seção 2 | Fazer a pessoa clicar no botão de compra — botão acompanhado de compra segura, garantia, acesso imediato |
+| Seção 3 | Encantar rápido — paliativo (somente se houver paliativo; se não, ir direto para Seção 4) |
+| Seção 4 | Comprovar resultados concretos |
+| Seção 5 | Falar do suporte |
+| Seção 6 | Vender os bônus |
+| Seção 7 | Autoridade do criador |
+| Seção 8 | A quem se destina — usar os baldes de "para quem" da identidade do consumidor |
+| Seção 9 | Explicar a lógica do método como um todo |
+| Seção 10 | Mostrar muita verdade em depoimentos incontestáveis + reflexão e ativação emocional |
+| — | Botão de venda |
+| Seção FAQ | Tirar dúvidas específicas com profundidade e provas |
+| Seção final | Resumindo |
+
+### Regra de copy: nunca usar travessão (—)
+
+O texto de copy deve ser **contínuo**, sem travessão (—) separando partes da frase.
+Reescrever as frases de forma fluida, sem esse separador.
+
+**Errado:** "Como calcular o valor real — para nunca mais aceitar um preço que te deixa no prejuízo"
+**Certo:** "Como calcular o valor real para nunca mais aceitar um preço que te deixa no prejuízo"
+
+Essa regra se aplica a: bullets, headlines, subheadlines, depoimentos, descrições de bônus, entregáveis — tudo.
+
+> **Atenção:** essa regra foi expandida para **todos os textos/copies gerados por qualquer skill** — não apenas a skill `/pagina-de-vendas`. Ver entrada de 2026-03-25 abaixo.
+
+---
+
+### Sobre as Premissas (headlines)
+
+- Não podem estar no imperativo
+- Não devem ter tom de promessa direta
+- O objetivo é conduzir a pessoa de forma sutil para que ela chegue à conclusão (pré-determinada) sozinha
+- Vendem uma ideia/crença, não o produto
+
+---
+
+## 2026-03-25 — Regra de qualidade obrigatória para todos os anúncios
+
+### Problema identificado
+Os anúncios gerados na primeira versão foram considerados rasos, curtos demais e genéricos — não entregavam valor real, apenas prometiam ou teasavam conteúdo.
+
+### Regra obrigatória: todo anúncio deve entregar valor real e seguir o modelo viral
+
+**Nenhum anúncio pode ser:**
+- Óbvio para quem já está no nicho
+- Raso — sem argumento concreto, sem especificidade
+- Curto demais — desenvolvimento de 1-2 frases não é suficiente
+
+**Todo anúncio deve:**
+- Entregar conteúdo real dentro do próprio anúncio (ensinar, revelar, demonstrar)
+- Seguir a estrutura e o estilo das referências virais encontradas na pesquisa
+- Ter desenvolvimento substancial — mínimo 2-3 parágrafos com argumento, especificidade e profundidade
+- Modelar o **formato e estilo** (como diz) a partir dos virais pesquisados; o **conteúdo** (o que diz) vem do VTSD + perfil do negócio
+
+### Estrutura obrigatória para TODO vídeo (qualquer fase, qualquer objetivo)
+
+```
+[0–3s]   GANCHO      → Afirmação contra-intuitiva ou quebra-padrão. Texto na tela + fala simultâneos.
+[4–15s]  TEASE       → Expande o gancho, cria tensão, contextualiza o problema.
+[16–42s] ENTREGA     → Ensina, demonstra ou revela algo real e concreto. NUNCA apenas prometer.
+[43–48s] REGANCHO    → Texto na tela sintetizando a ideia central (âncora visual para quem assiste sem som).
+[49–55s] CTA         → Convite direto adequado à fase. Sem urgência forçada.
+```
+
+- **Duração alvo:** 45–60s para vídeos de conversão/captura; 35–45s para Descoberta
+- **Palavras por roteiro:** ~150–200 palavras (não menos que isso)
+- **Legendas na tela em todo o vídeo** — maioria assiste sem som
+
+### Três estruturas de roteiro válidas (baseadas em virais 2026)
+
+| Estrutura | Quando usar | Lógica de retenção |
+|---|---|---|
+| **Loop Perfeito** | Revelação, insights | O final conecta ao gancho — incentiva replay |
+| **Tutorial de 3 Passos** | Procedimento, ensino | Cada passo avança a narrativa — pessoa assiste até o fim para completar |
+| **Quebra-Padrão** | Contraste, paradoxo | Começo inesperado para o cérebro — força a pausa no scroll |
+
+### Texto principal (legenda) — padrão de profundidade
+
+- **GANCHO:** premissa não óbvia — 1-2 frases fortes
+- **DESENVOLVIMENTO:** mínimo 2 parágrafos substanciais com argumento específico, concreto e não óbvio. Não pode ser resumo vago do que o vídeo mostra — precisa entregar valor por si só, mesmo sem o vídeo.
+- **CTA:** convite direto adequado à fase
+
+---
+
+---
+
+## 2026-03-25 — Publicação na Vercel após geração de página
+
+### Regra: sempre oferecer publicação ao final
+
+Após salvar qualquer página HTML, a skill deve **sempre perguntar** se o usuário quer publicar online, não assumir que sim nem que não.
+
+### Dois fluxos distintos
+
+**Usuário sem conta Vercel:**
+Orientar passo a passo em linguagem simples (não técnica):
+1. Criar conta gratuita em vercel.com (recomendado: entrar com GitHub)
+2. Gerar token: avatar > Settings > Tokens > Create Token > copiar
+3. Colar o token aqui, o assistente configura e publica tudo
+
+**Usuário com conta Vercel (token já disponível):**
+Pedir o token (ou usar o que está no `.env`), criar `vercel.json` + `package.json` se não existirem, executar `npx vercel --token ... --yes` e informar a URL.
+
+### Nunca usar linguagem técnica com o usuário
+
+Não falar em "CLI", "npm", "Node", "terminal" como se fossem pré-requisitos que o usuário já conhece. Explicar o que cada coisa é quando necessário. O usuário é empreendedor digital, não desenvolvedor.
+
+---
+
+## 2026-03-25 — Comando `/quiz`: número fixo de 10 perguntas
+
+### Regra
+
+- O comando `/quiz` deve gerar **exatamente 10 perguntas** — nem mais, nem menos.
+- A estrutura dos blocos foi redefinida para respeitar esse total fixo:
+
+| Bloco | Perguntas | Quantidade |
+|---|---|---|
+| Tela de Entrada + Pergunta 1 (segmentação) | P1 | 1 |
+| Bloco A — Problema (SPIN) | P2 a P4 | 3 |
+| Bloco B — Desejo + Visualização Profunda | P5 a P7 | 3 |
+| Bloco C — Comprometimento | P8 a P9 | 2 |
+| Bloco D — Diagnóstico Final | P10 | 1 |
+| **Total** | | **10** |
+
+- O resumo de confirmação deve mostrar "Total: 10 perguntas (fixo)".
+- O arquivo `.claude/commands/quiz.md` foi atualizado com essa regra.
+
+---
+
+## 2026-03-25 — Deploy autônomo da Vercel e vídeo na página
+
+### Regra: pedir o vídeo durante a entrevista, antes de gerar
+
+A skill `/pagina-de-vendas` deve perguntar o link do vídeo no Bloco 2/3 (junto com os outros detalhes da página de vendas), antes de gerar. Não perguntar depois.
+
+Pergunta obrigatória:
+```
+Tem um vídeo de vendas para usar na primeira dobra?
+(ex: "https://www.youtube.com/watch?v=XXXX" — ou "ainda não tenho" para usar placeholder)
+```
+
+Se informado, embutir diretamente no HTML com iframe e `aspect-ratio: 16/9; display: block;`.
+Se não informado, usar placeholder visual com instrução.
+
+### Regra: aviso sobre incorporação do YouTube
+
+Se o usuário informar um link do YouTube, incluir este aviso após a publicação:
+
+> "Para o vídeo aparecer na página, certifique-se de que a opção 'Permitir incorporação' está ativa no YouTube: studio.youtube.com → Conteúdo → editar o vídeo → Mais opções → Permitir incorporação → Salvar."
+
+### Regra: deploy autônomo sem perguntas desnecessárias
+
+O fluxo de publicação deve ser o mais autônomo possível. Após o usuário aprovar a página:
+
+1. Salvar o arquivo com o nome padrão (`vendas-[produto].html`)
+2. **Sempre** criar `index.html` como cópia do arquivo na mesma pasta (a Vercel exige `index.html` para servir na raiz)
+3. Publicar com o comando:
+   ```
+   npx vercel produtos/{ativo}/entregas/paginas --prod --yes --name {slug-do-produto}
+   ```
+4. Informar a URL pública ao usuário
+
+Não usar `vercel.json` nem `package.json` para esse deploy — o comando acima já aponta direto para a pasta da página.
+
+### Regra: nome do projeto Vercel = slug do produto ativo
+
+Usar o slug do produto ativo (ex: `precifique-seu-taro`) como `--name` no deploy. Isso garante que a URL final seja `{slug}.vercel.app`.
+
+---
+
+## 2026-03-25 — Página Final de Oferta do quiz: sem vídeo
+
+### Regra
+
+- A **Página Final de Oferta** gerada pelo comando `/quiz` (a página de vendas que aparece após a Tela de Resultado) **não tem vídeo**.
+- Remover a seção "Seção de Vídeo" do template da Página Final — tanto do arquivo de perguntas (copy) quanto do prompt técnico para o Lovable.dev.
+- Essa regra se aplica ao funil de quiz (Caixa Rápido / low ticket). Páginas de vendas geradas pelo comando `/pagina-de-vendas` seguem a regra própria daquela skill (vídeo obrigatório na primeira dobra).
+
+---
+
+## 2026-03-25 — Comando `/quiz`: estrutura SPIN e tipos variados de pergunta
+
+### Estrutura SPIN obrigatória (10 perguntas fixas)
+
+| Posição | Fase | Tipo sugerido | Observação |
+|---|---|---|---|
+| P1 | Segmentação (Tela de Entrada) | Múltipla escolha + fotos | Fixo |
+| P2 | S — Situação | Calculadora ou Input numérico | Coleta dado real para usar na Implicação |
+| P3 | S — Situação | Múltipla escolha | Confirma contexto |
+| P4 | P — Problema | Sim/Não ou Múltipla escolha | Dor cotidiana direta |
+| P5 | P — Problema | Múltipla escolha | Comportamento-problema |
+| P6 | I — Implicação | **Calculadora (obrigatório)** | Confronta o lead com dado numérico real |
+| P7 | I — Implicação | Slider ou Múltipla escolha | Aprofunda tensão do resultado |
+| P8 | N — Necessidade | **Múltipla escolha (Visualização Profunda obrigatória)** | Cenas cotidianas transformadas |
+| P9 | N — Necessidade | Múltipla escolha | Comprometimento com a mudança |
+| P10 | Diagnóstico Final | Múltipla escolha | Síntese que conecta ao Quadro |
+
+### 5 tipos de pergunta disponíveis
+
+1. **Múltipla escolha** — 4 opções com emoji, clicar avança
+2. **Calculadora** — 2 campos de input + fórmula + resultado exibido na tela antes de avançar
+3. **Slider** — barra deslizante 1–10 com labels nos extremos
+4. **Sim/Não** — dois botões grandes (✅ / ❌)
+5. **Input numérico** — campo único de digitação com unidade
+
+### Regras de uso dos tipos
+
+- Calculadora é **obrigatória** na fase I (P6) — confronta o lead com um número concreto que revela o custo real da inação
+- Visualização Profunda é **obrigatória** na fase N (P8) — cenas cotidianas transformadas, nunca estados emocionais abstratos
+- Nunca usar mais de 2 perguntas do mesmo tipo em sequência
+- Variar tipos ao longo do quiz é regra (não opcional)
+- O prompt técnico do Lovable.dev deve incluir estrutura de dados para todos os 5 tipos
+
+### Arquivo atualizado
+
+`.claude/commands/quiz.md` — estrutura SPIN, 5 tipos de pergunta, blocos renomeados de A/B/C/D para S/P/I/N + Diagnóstico.
+
+---
+
+## 2026-03-25 — Comando `/quiz`: arquivo único em vez de dois arquivos separados
+
+### Decisão
+
+- O comando `/quiz` gera **um único arquivo** `.md` — não dois arquivos separados.
+- O arquivo único contém as perguntas (com prompts de imagem e tipos de pergunta) embutidas dentro do prompt técnico do Lovable.dev.
+- Nome do arquivo: `quiz-[produto].md` (não mais `perguntas-quiz-[produto].md` + `prompt-tecnico-quiz-[produto].md`).
+- Os prompts de imagem da P1 ficam embutidos diretamente no campo `image_prompt` de cada opção, dentro da Seção 5 do prompt técnico.
+
+### Motivo
+
+Testado e validado: um único arquivo é suficiente para copiar e colar no Lovable.dev. Dois arquivos criavam redundância sem benefício prático.
+
+---
+
+## 2026-03-25 — Regra global: nunca usar travessão em nenhum texto/copy
+
+### Regra
+
+- **Nenhum texto ou copy gerado por qualquer skill pode conter travessão (—).**
+- Essa regra é global e se aplica a todas as skills: `/anuncio`, `/copy-pagina`, `/pagina-de-vendas`, `/roteiro-de-video`, `/conteudo-social`, `/sequencia-de-emails`, `/playbook-comercial`, `/low-ticket`, `/quiz` e quaisquer outras.
+- Reescrever sempre de forma fluida, sem o separador.
+
+**Errado:** "Descubra o método — e comece a vender hoje"
+**Certo:** "Descubra o método e comece a vender hoje"
+
+---
+
+## 2026-03-25 — Comando `/novo-produto`: perguntar tipo do produto (Low Ticket ou Middle Ticket)
+
+### Regra
+
+- Ao criar um novo produto com `/novo-produto`, **imediatamente após perguntar o nome**, o comando deve perguntar o tipo do produto:
+
+```
+Que tipo de produto é este?
+
+1. Low Ticket (R$7 a R$97 — quiz, desafio, mini-curso, agente GPT)
+2. Middle Ticket (R$97 a R$997 — curso online, workshop, grupo)
+
+Digite o número:
+```
+
+- O tipo escolhido é salvo em `produtos/{slug}/tipo.md`.
+- Todos os comandos que leem o perfil do produto também devem verificar esse arquivo para adaptar o fluxo (ex: `/meu-produto` não pergunta sobre macroetapas se for Low Ticket).
+
+### Arquivo atualizado
+
+`.claude/commands/novo-produto.md` — novo Passo 2 (pergunta de tipo) e novo Passo 6 (salvar `tipo.md`). Os passos anteriores foram renumerados.
 
 ---
 

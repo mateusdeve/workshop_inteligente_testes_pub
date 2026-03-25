@@ -16,7 +16,7 @@ Cria sequências de email seguindo a estrutura de Pico de Vendas do VTSD.
 ## O Que Fazer
 
 ### 1. Contexto
-Leia `meu-negocio/perfil.md`.
+Leia `produtos/{ativo}/perfil.md`.
 
 ### 2. Entrevista (UMA pergunta por vez, com progresso visual)
 
@@ -110,7 +110,7 @@ Cada email deve usar Light Copy e incluir:
 - CTA claro
 
 ### 4. Salvar
-`entregas/emails/sequencia-[tipo]-[produto].md`
+`produtos/{ativo}/entregas/emails/sequencia-[tipo]-[produto].md`
 
 ### 5. Próximo Passo
 "Sequência salva. Use `/pagina-de-vendas` para criar a página do evento, ou `/anuncio` para criar anúncios de divulgação."

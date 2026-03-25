@@ -16,7 +16,7 @@ Cria textos persuasivos no estilo Light Copy (argumentativo, lógico, conversaci
 ## O Que Fazer
 
 ### 1. Contexto
-Leia `meu-negocio/perfil.md` e `meu-negocio/idconsumidor.md` se existir. Use o Quadro, Furadeira, Decorados e Urgências Ocultas como base.
+Leia `produtos/{ativo}/perfil.md` e `produtos/{ativo}/idconsumidor.md` se existir. Use o Quadro, Furadeira, Decorados e Urgências Ocultas como base.
 
 ### 2. Entrevista (UMA pergunta por vez, com progresso visual)
 
@@ -110,7 +110,7 @@ Use os 26 elementos literários quando apropriado:
 8. CTA
 
 ### 4. Salvar
-`entregas/textos-de-venda/[tipo]-[produto].md`
+`produtos/{ativo}/entregas/textos-de-venda/[tipo]-[produto].md`
 
 ### 5. Próximo Passo
 "Texto salvo. Use `/pagina-de-vendas` para transformar em página profissional, ou `/anuncio` para criar anúncios."

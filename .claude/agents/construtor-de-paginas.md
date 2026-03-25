@@ -18,8 +18,8 @@ Criar páginas HTML completas que o aluno abre no navegador e tem uma página pr
 ## Como Trabalhar
 
 ### 1. Ler Contexto
-- Leia `meu-negocio/perfil.md` para entender o produto (Quadro, Furadeira, Decorados, Urgências Ocultas)
-- Leia `meu-negocio/idconsumidor.md` (paliativos, objeções e tom de comunicação)
+- Leia `produtos/{ativo}/perfil.md` para entender o produto (Quadro, Furadeira, Decorados, Urgências Ocultas)
+- Leia `produtos/{ativo}/idconsumidor.md` (paliativos, objeções e tom de comunicação)
 - Use Quadro, Furadeira, Decorados e Urgências Ocultas como base para a copy
 
 ### 2. Definir Tipo
@@ -82,9 +82,9 @@ Adicione eventos conforme o tipo de página:
 Se `META_PIXEL_ID` não existir no `.env`, gere a página normalmente sem Pixel.
 
 ### 5. Salvar
-- Vendas: `entregas/paginas/vendas-[produto].html`
-- Captura: `entregas/paginas/captura-[produto].html`
-- Obrigado: `entregas/paginas/obrigado-[produto].html`
+- Vendas: `produtos/{ativo}/entregas/paginas/vendas-[produto].html`
+- Captura: `produtos/{ativo}/entregas/paginas/captura-[produto].html`
+- Obrigado: `produtos/{ativo}/entregas/paginas/obrigado-[produto].html`
 
 ### 6. Deploy Automático (se configurado)
 Após salvar o HTML, leia o arquivo `.env` e verifique se existem `VERCEL_TOKEN` e `VERCEL_PROJECT_ID`.

@@ -16,7 +16,7 @@ Gera prompts detalhados para ferramentas de IA (Midjourney, DALL-E, Freepik AI) 
 ## O Que Fazer
 
 ### 1. Contexto
-Leia `meu-negocio/perfil.md` e anúncios existentes em `entregas/anuncios/`.
+Leia `produtos/{ativo}/perfil.md` e anúncios existentes em `produtos/{ativo}/entregas/anuncios/`.
 
 ### 2. Entrevista (UMA pergunta por vez, com progresso visual)
 
@@ -124,7 +124,7 @@ Resumo do que vou criar:
 **Gere 3-5 variações** de prompt para teste.
 
 ### 4. Salvar Prompts
-`entregas/criativos/prompts-[tipo]-[produto].md`
+`produtos/{ativo}/entregas/criativos/prompts-[tipo]-[produto].md`
 
 ### 5. Gerar Imagens Automaticamente (se configurado)
 Leia `.env` e verifique se existe `FREEPIK_API_KEY`.
@@ -137,7 +137,7 @@ curl -X POST "https://api.freepik.com/v1/ai/text-to-image" \
   -H "Content-Type: application/json" \
   -d '{"prompt": "PROMPT_AQUI", "num_images": 1, "image": {"size": "square"}}'
 ```
-2. Salve as imagens geradas em `entregas/criativos/imagem-[numero]-[produto].png`
+2. Salve as imagens geradas em `produtos/{ativo}/entregas/criativos/imagem-[numero]-[produto].png`
 3. Informe: "Imagens geradas e salvas em entregas/criativos/."
 
 Se a chave não existir, informe:

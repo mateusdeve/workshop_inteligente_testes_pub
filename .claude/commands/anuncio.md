@@ -16,7 +16,7 @@ Cria pacotes de anúncios usando os 18 tipos da Mandala VTSD + estrutura de camp
 ## O Que Fazer
 
 ### 1. Contexto
-Leia `meu-negocio/perfil.md` e `meu-negocio/idconsumidor.md` se existir.
+Leia `produtos/{ativo}/perfil.md` e `produtos/{ativo}/idconsumidor.md` se existir.
 
 ### 2. Entrevista
 
@@ -229,19 +229,34 @@ Após as pesquisas, antes de gerar os anúncios, sintetize:
 
 Use esses 5 elementos para calibrar as 3 variações. O **conteúdo** (o que diz) segue VTSD + perfil do negócio. O **formato e estilo** (como diz) seguem o que está funcionando agora.
 
-**REGRA CRÍTICA para Descoberta + Vídeo:** o vídeo deve ensinar algo real. A pessoa que assiste até o final aprende uma técnica, recebe um insight concreto ou tem uma virada de perspectiva. Vídeo que só promete ("me segue que eu te mostro") sem entregar nada dentro do próprio vídeo não gera follow orgânico. O CTA é consequência do valor entregue — não substituto.
+**REGRA CRÍTICA para TODO vídeo (qualquer fase, qualquer objetivo):** o vídeo deve entregar conteúdo real. A pessoa que assiste até o final aprende uma técnica, recebe um insight concreto ou tem uma virada de perspectiva. Vídeo que só promete sem entregar nada dentro do próprio vídeo não funciona. O CTA é consequência do valor entregue — não substituto.
 
-**Estrutura obrigatória para Descoberta + Vídeo (~35–45s / ~130 palavras):**
+**Estrutura obrigatória para TODO vídeo (~45–60s / ~150–200 palavras):**
 
 ```
-[0–2s]   GANCHO      → Afirmação contra-intuitiva. Texto na tela + fala simultâneos.
-[3–5s]   TEASE       → Uma frase que expande o gancho e retém atenção.
-[6–25s]  ENTREGA     → Ensina a técnica ou dá o insight real. Específico e concreto.
-[26–30s] REGANCHO    → Texto na tela sintetizando a ideia central (âncora visual).
-[31–35s] CTA         → Convite leve para seguir. Sem urgência forçada.
+[0–3s]   GANCHO      → Afirmação contra-intuitiva ou quebra-padrão.
+                       Texto na tela + fala simultâneos.
+[4–15s]  TEASE       → Expande o gancho, cria tensão, contextualiza o problema.
+[16–42s] ENTREGA     → Ensina, demonstra ou revela algo real e concreto.
+                       NUNCA apenas prometer — ENTREGAR dentro do vídeo.
+[43–48s] REGANCHO    → Texto na tela sintetizando a ideia central
+                       (âncora visual para quem assiste sem som).
+[49–55s] CTA         → Convite direto adequado à fase. Sem urgência forçada.
 ```
 
-Calibrar a duração a partir dos virais encontrados — se o padrão for mais curto ou mais longo, ajustar para ser similar às referências.
+**Para Descoberta especificamente:** duração alvo de 35–45s. Para Captura, Conversão e demais fases: 45–60s.
+
+Calibrar a duração a partir dos virais encontrados na pesquisa — usar duração similar às referências.
+
+**Três estruturas de roteiro baseadas em virais 2026:**
+
+| Estrutura | Quando usar | Lógica de retenção |
+|---|---|---|
+| **Loop Perfeito** | Revelação, insights | O final conecta ao gancho — incentiva replay |
+| **Tutorial de 3 Passos** | Procedimento, ensino | Cada passo avança a narrativa — pessoa assiste até o fim para completar |
+| **Quebra-Padrão** | Contraste, paradoxo | Começo inesperado para o cérebro — força a pausa no scroll |
+
+Usar estruturas diferentes nas 3 variações sempre que possível.
 
 ### 4. Geração (após aprovação do resumo)
 
@@ -268,33 +283,26 @@ Use a Mandala de 18 Tipos (skill vtsd-completo):
 | Conversão / Venda | Comprar agora, garantir vaga, quero começar |
 | Remarketing | Comprar agora, retomar oferta, última chance |
 
-**Estrutura de todo anúncio VTSD (texto/legenda):**
-- **GANCHO:** premissa não óbvia — NUNCA uma pergunta, NUNCA algo óbvio para quem já está no nicho
-- **DESENVOLVIMENTO:** 1–2 parágrafos que aprofundam a premissa com argumento concreto
+**Estrutura de todo anúncio VTSD (texto/legenda) — padrão de profundidade obrigatório:**
+- **GANCHO:** premissa não óbvia — NUNCA uma pergunta, NUNCA algo óbvio para quem já está no nicho. 1–2 frases fortes.
+- **DESENVOLVIMENTO:** mínimo 2 parágrafos substanciais com argumento específico, concreto e não óbvio. Não pode ser resumo vago — precisa entregar valor por si só, mesmo sem o vídeo. Raso, curto e genérico são proibidos.
 - **CTA:** convite direto adequado à fase do funil
 
-**Estrutura de roteiro de VÍDEO — Descoberta (obrigatória):**
-
-```
-[0–2s]   GANCHO      → Afirmação contra-intuitiva. Texto na tela + fala simultâneos.
-[3–5s]   TEASE       → Uma frase que expande e retém atenção.
-[6–25s]  ENTREGA     → Ensina uma técnica ou dá insight real e concreto.
-                       NÃO prometer — ENSINAR dentro do vídeo.
-[26–30s] REGANCHO    → Texto na tela sintetizando a ideia central.
-[31–35s] CTA         → Convite leve para seguir. Sem urgência forçada.
-```
-
-**REGRA:** vídeo de Descoberta que viraliza entrega conteúdo real. A pessoa que assiste aprende algo antes do CTA. Vídeo que só promete sem entregar não gera follow orgânico.
+**REGRA DE QUALIDADE:** todo anúncio deve entregar valor real. Nenhum anúncio pode ser óbvio, raso ou curto demais. O desenvolvimento deve ter profundidade suficiente para que a pessoa aprenda, entenda ou se reconheça — mesmo lendo só a legenda, sem ver o vídeo.
 
 **Exemplos de gancho ERRADO:**
 - "Sabe aquela sensação de travar na leitura?" ❌ (pergunta)
 - "Você já se sentiu insegura com o tarô?" ❌ (pergunta)
 - "Aprender tarô é difícil." ❌ (óbvio)
+- "Você não sabe quanto cobrar?" ❌ (pergunta + óbvio)
+- "Cobrar é difícil para tarotistas." ❌ (óbvio)
 
 **Exemplos de gancho CERTO:**
-- "A leitora que mais trava raramente é a que sabe menos." ✓
-- "Decorar os 78 significados é o caminho mais rápido para travar na leitura." ✓
-- "Fechar bem uma sessão de tarô é mais difícil do que abrir ela." ✓
+- "A leitora que mais trava raramente é a que sabe menos." ✓ (contra-intuitivo)
+- "Decorar os 78 significados é o caminho mais rápido para travar na leitura." ✓ (paradoxo)
+- "Você não trava na tiragem por saber pouco. Você trava porque aprendeu na ordem errada." ✓ (revelação)
+- "Parei de estudar os significados das cartas por 30 dias. Minha leitura melhorou." ✓ (quebra-padrão)
+- "O método que todo mundo ensina primeiro no tarô é o que mais gera travamento na leitura real." ✓ (premissa não óbvia)
 
 **Para Google Ads:**
 - 15 títulos (máx 30 caracteres)
@@ -313,7 +321,7 @@ Após mostrar os anúncios gerados, perguntar:
 Só salvar após aprovação do usuário.
 
 ### 6. Salvar
-`entregas/anuncios/anuncios-meta-[formato]-[objetivo]-[produto].md`
+`produtos/{ativo}/entregas/anuncios/anuncios-meta-[formato]-[objetivo]-[produto].md`
 
 ### 7. Próximo Passo
 "Anúncios salvos em [caminho]. Use `/criativo-de-imagem` para gerar prompts das imagens, ou `/pagina-de-vendas` para criar a página de destino."

@@ -19,7 +19,7 @@ Conduzir uma sessão estruturada que resulte em:
 3. **50 Decorados** gerados (benefícios)
 4. **Urgências Ocultas** mapeadas (dores, desejos, dúvidas)
 5. **3 Identidades** definidas (comunicador, consumidor, produto)
-6. Arquivo `meu-negocio/perfil.md` salvo com tudo
+6. Arquivo `produtos/{ativo}/perfil.md` salvo com tudo
 
 ## Como Trabalhar
 
@@ -50,7 +50,7 @@ Defina:
 - Identidade do Produto (diferenciação, analogias, argumentos)
 
 ### Fase 6 — Salvar
-Salve tudo em `meu-negocio/perfil.md` no formato estruturado.
+Salve tudo em `produtos/{ativo}/perfil.md` no formato estruturado.
 
 ## Padrão de UX da Entrevista
 

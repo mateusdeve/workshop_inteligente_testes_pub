@@ -43,7 +43,7 @@ Os blocos abaixo são uma referência de ordem, não uma camisa de força. Se a 
 ## O Que Fazer
 
 ### 1. Verificar perfil existente
-Leia `meu-negocio/perfil.md`. Se existir, mostre resumo e pergunte se quer atualizar.
+Leia `produtos/.ativo` para obter o produto ativo. Leia `produtos/{ativo}/perfil.md`. Se existir, mostre resumo e pergunte se quer atualizar.
 
 ### 2. Entrevista guiada (UMA pergunta por vez, com progresso visual)
 
@@ -126,7 +126,7 @@ Apresente resumo completo de tudo que foi definido/gerado e peça confirmação 
 
 ### 4. Salvar Perfil
 
-Salve em `meu-negocio/perfil.md` com a estrutura:
+Salve em `produtos/{ativo}/perfil.md` com a estrutura:
 
 ```markdown
 # Perfil do Negócio
@@ -189,4 +189,4 @@ Salve em `meu-negocio/perfil.md` com a estrutura:
 ```
 
 ### 5. Próximo Passo
-"Perfil salvo. Agora use `/idconsumidor` para detalhar a identidade do consumidor (cliente ideal), ou `/pagina-de-vendas` se quiser ir direto para a página."
+"Perfil salvo em `produtos/{ativo}/perfil.md`. Agora use `/idconsumidor` para detalhar a identidade do consumidor (cliente ideal), ou `/pagina-de-vendas` se quiser ir direto para a página."

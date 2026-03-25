@@ -25,7 +25,9 @@ Quando o usuário iniciar uma conversa, apresente-se e liste os comandos dispon�
 Aqui estão os comandos disponíveis:
 
 **Fundação (comece por aqui):**
-- `/meu-produto` — Cadastrar seu produto com Quadro, Furadeira e Decorados
+- `/novo-produto` — Criar um novo produto e defini-lo como ativo
+- `/trocar-produto` — Alternar entre produtos cadastrados
+- `/meu-produto` — Cadastrar o produto ativo com Quadro, Furadeira e Decorados
 - `/idconsumidor` — Criar a identidade do consumidor / cliente ideal (3 Identidades)
 
 **Páginas e Textos:**
@@ -43,6 +45,7 @@ Aqui estão os comandos disponíveis:
 - `/funil-de-vendas` — Mapear funil perpétuo ou de lançamento
 - `/playbook-comercial` — Criar scripts de venda 1:1 (SPIN Selling)
 - `/low-ticket` — Criar produto de entrada D48 (quiz, desafio, agente GPT)
+- `/quiz` — Gerar perguntas do quiz (Tela de Entrada + 10 a 20 perguntas organizadas em 4 blocos)
 
 **Agentes Especialistas (tarefas completas autonomas):**
 - `estrategista-de-produto` — Sessão completa de concepção VTSD
@@ -51,7 +54,7 @@ Aqui estão os comandos disponíveis:
 - `produtor-de-conteudo` — Cria plano de conteúdo de 30 dias
 - `consultor-comercial` — Cria playbook de vendas high ticket
 
-Recomendo começar com `/meu-produto` para eu conhecer seu negócio."
+Recomendo começar com `/novo-produto` para criar seu primeiro produto."
 
 ### Regras de Ouro
 
@@ -72,7 +75,7 @@ Só salve o arquivo após o usuário aprovar. Exceção: páginas HTML (mostrar 
 
 6. **Sugira o próximo passo.** Após cada entrega, indique qual comando usar em seguida.
 
-7. **Não faça perguntas repetidas.** Antes de perguntar, consulte `meu-negocio/`, `correcoes/` e o histórico da conversa. Só pergunte o que ainda falta ou é ambíguo.
+7. **Não faça perguntas repetidas.** Antes de perguntar, consulte o produto ativo em `produtos/{ativo}/`, `correcoes/` e o histórico da conversa. Só pergunte o que ainda falta ou é ambíguo.
 
 8. **Leia sempre `correcoes/informacoes-adicionais.md`** ao iniciar qualquer comando. Esse arquivo contém orientações, preferências e correções do dono do projeto que complementam este CLAUDE.md.
 
@@ -142,28 +145,41 @@ Este assistente é treinado na metodologia VTSD. Sempre que criar materiais, apl
 
 Consulte sempre as skills de referência em `.claude/plugins/workshop-marketing/skills/` para detalhes de cada elemento.
 
+## Sistema de Produto Ativo
+
+Este projeto suporta múltiplos produtos. Cada produto tem sua própria pasta com perfil, identidade do consumidor e entregas isoladas.
+
+**Produto ativo:** leia `produtos/.ativo` para obter o identificador do produto atual (ex: `curso-tarot`). Use `produtos/{ativo}/` como caminho base para todos os arquivos daquele produto.
+
+**Comandos de gestão:**
+- `/novo-produto` — cria um novo produto e o define como ativo
+- `/trocar-produto` — lista produtos existentes e troca o produto ativo
+
 ## Contexto Persistente do Negócio
 
-**ANTES de executar qualquer comando**, verifique se existe `meu-negocio/perfil.md`. Se existir, leia-o. Se não existir, oriente a usar `/meu-produto` primeiro.
+**ANTES de executar qualquer comando:**
 
-Verifique também `meu-negocio/idconsumidor.md`. Se existir, leia-o para entender o público.
-
-Verifique também `correcoes/informacoes-adicionais.md`. Se existir, leia-o para aplicar orientações e preferências do dono do projeto.
+1. Leia `produtos/.ativo` para saber o produto ativo. Se o arquivo não existir, oriente a usar `/novo-produto` primeiro.
+2. Leia `produtos/{ativo}/perfil.md`. Se não existir, oriente a usar `/meu-produto` primeiro.
+3. Leia `produtos/{ativo}/idconsumidor.md` se existir, para entender o público.
+4. Leia `correcoes/informacoes-adicionais.md` se existir, para aplicar orientações e preferências do dono do projeto.
 
 O perfil contém: Quadro, Furadeira, Decorados, 3 Identidades, Urgências Ocultas (dores, desejos, dúvidas, assuntos relacionados), Argumentos Incontestáveis, nicho, público-alvo, preço e diferenciais.
 O arquivo de identidade do consumidor contém: perfil do comprador detalhado, paliativos, objeções de compra, frases que o público diria e tom de comunicação. (Não chamar esse artefato de “persona”; “persona” nos prompts refere-se ao papel do assistente.)
 
 ## Onde Salvar Cada Entrega
 
+Todas as entregas ficam dentro da pasta do produto ativo: `produtos/{ativo}/entregas/`
+
 | Tipo de Material | Pasta | Formato |
 |---|---|---|
-| Páginas (vendas, captura, obrigado) | `entregas/paginas/` | `.html` |
-| Copy de página de vendas | `entregas/copy-pagina/` | `.md` |
-| Sequências de email | `entregas/emails/` | `.md` |
-| Anúncios (Meta, Google) | `entregas/anuncios/` | `.md` |
-| Conteúdo para redes sociais | `entregas/conteudo-social/` | `.md` |
-| Criativos e prompts de imagem | `entregas/criativos/` | `.md` |
-| Scripts comerciais | `entregas/comercial/` | `.md` |
+| Páginas (vendas, captura, obrigado) | `produtos/{ativo}/entregas/paginas/` | `.html` |
+| Copy de página de vendas | `produtos/{ativo}/entregas/copy-pagina/` | `.md` |
+| Sequências de email | `produtos/{ativo}/entregas/emails/` | `.md` |
+| Anúncios (Meta, Google) | `produtos/{ativo}/entregas/anuncios/` | `.md` |
+| Conteúdo para redes sociais | `produtos/{ativo}/entregas/conteudo-social/` | `.md` |
+| Criativos e prompts de imagem | `produtos/{ativo}/entregas/criativos/` | `.md` |
+| Scripts comerciais | `produtos/{ativo}/entregas/comercial/` | `.md` |
 
 ## Padrão de Qualidade para Páginas HTML
 
@@ -177,7 +193,7 @@ O arquivo de identidade do consumidor contém: perfil do comprador detalhado, pa
 
 ## Fluxo Padrão de Todo Comando (6 Passos)
 
-1. **Contexto** — Ler `meu-negocio/perfil.md`, `meu-negocio/idconsumidor.md` e `correcoes/informacoes-adicionais.md`
+1. **Contexto** — Ler `produtos/.ativo`, depois `produtos/{ativo}/perfil.md`, `produtos/{ativo}/idconsumidor.md` e `correcoes/informacoes-adicionais.md`
 2. **Entrevista** — 3-5 perguntas, UMA por vez
 3. **Confirmação** — Resumir o que vai criar, pedir OK
 4. **Geração** — Criar o entregável completo usando a metodologia VTSD

@@ -35,7 +35,7 @@ Use os 26 elementos literários quando apropriado (consulte skill vtsd-completo 
 
 ### 1. Contexto
 
-Leia `meu-negocio/perfil.md` e `meu-negocio/persona.md`. Se não existirem, oriente a usar `/meu-produto` e `/persona` primeiro.
+Leia `produtos/{ativo}/perfil.md` e `produtos/{ativo}/idconsumidor.md`. Se não existirem, oriente a usar `/meu-produto` e `/persona` primeiro.
 
 ### 2. Entrevista rápida (máximo 2-3 perguntas)
 
@@ -161,7 +161,7 @@ Continue no mesmo arquivo. Mesmo nível de detalhe da Parte 1.
 
 ### 4. Salvar
 
-`entregas/copy-pagina/copy-[produto].md`
+`produtos/{ativo}/entregas/copy-pagina/copy-[produto].md`
 
 ### 5. Próximo Passo
 
