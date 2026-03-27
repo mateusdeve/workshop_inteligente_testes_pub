@@ -260,7 +260,7 @@ Para obter esses valores:
 O campo `input_text` deve conter apenas o texto que o avatar vai falar — sem colchetes de cena, sem indicacoes de edicao, sem marcacoes de tempo. Exemplo:
 
 ```
-A leitora que mais trava raramente e a que sabe menos. Isso acontece porque ela aprendeu a decorar significados antes de aprender a fazer perguntas. O Taro nao e um dicionario. E uma conversa. E conversas nao se decoram, se praticam. Se voce quer parar de travar na leitura, comeca treinando a pergunta — nao a resposta. Me segue para o proximo passo.
+O aluno que mais trava raramente e o que sabe menos. Isso acontece porque ele aprendeu a decorar conteudo antes de aprender a aplicar. O metodo nao e um manual. E uma pratica. E praticas nao se decoram, se executam. Se voce quer parar de travar, comeca pela execucao — nao pelo estudo. Me segue para o proximo passo.
 ```
 
 ### Especificacoes de saida

@@ -45,10 +45,10 @@ Em seguida, liste os comandos disponíveis organizados por categoria:
 - `/trocar-produto` — Alternar entre produtos cadastrados
 - `/novo-produto` — Criar um novo produto
 - `/excluir-produto` — Excluir um produto e todas as suas entregas
+- `/zerar-contexto` — Zerar o perfil.md e/ou idconsumidor.md sem apagar o produto
 
 **Páginas e Textos:**
-- `/pagina-de-vendas` — Criar página profissional (vendas, captura ou obrigado)
-- `/copy-pagina` — Criar copy completa da página de vendas (estrutura 8D)
+- `/pagina-de-vendas` — Criar copy e/ou página HTML profissional (vendas, captura ou obrigado)
 - `/paginas-low-ticket` — Gerar as 4 leads D48 (Inadequação, Identificação, Plug & Play, Promessa Boa Demais)
 - `/anuncio` — Criar anúncios para Meta Ads (Mandala da Criatividade — 18 tipos)
 
@@ -62,6 +62,7 @@ Em seguida, liste os comandos disponíveis organizados por categoria:
 - `/funil-de-vendas` — Mapear funil perpétuo ou de lançamento
 - `/playbook-comercial` — Criar scripts de venda 1:1 (SPIN Selling)
 - `/low-ticket` — Criar produto de entrada D48 (quiz, desafio, agente GPT)
+- `/criar-produto-low-ticket` — Criar o conteúdo real do produto digital (e-book, checklist, mini-curso, desafio, agente GPT ou planilha)
 - `/quiz` — Gerar perguntas do quiz (Tela de Entrada + 10 a 20 perguntas em 4 blocos)
 
 **Agentes Especialistas (tarefas completas autônomas):**
@@ -118,9 +119,7 @@ Só salve o arquivo após o usuário aprovar. Exceção: páginas HTML (mostrar 
 
 6. **Sugira o próximo passo.** Após cada entrega, indique qual comando usar em seguida.
 
-7. **Não faça perguntas repetidas.** Antes de perguntar, consulte o produto ativo em `produtos/{ativo}/`, `correcoes/` e o histórico da conversa. Só pergunte o que ainda falta ou é ambíguo.
-
-8. **Leia sempre `correcoes/informacoes-adicionais.md`** ao iniciar qualquer comando. Esse arquivo contém orientações, preferências e correções do dono do projeto que complementam este CLAUDE.md.
+7. **Não faça perguntas repetidas.** Antes de perguntar, consulte o produto ativo em `produtos/{ativo}/` e o histórico da conversa. Só pergunte o que ainda falta ou é ambíguo.
 
 ### Padrão de UX da Entrevista
 
@@ -175,7 +174,7 @@ Resumo do que vou criar:
 
 Este assistente é treinado na metodologia VTSD. Sempre que criar materiais, aplique:
 
-- **Quadro** — Transformação principal do produto (até 10 palavras, verbo no infinitivo)
+- **Quadro** — Transformação principal do produto (até 10 palavras, verbo no infinitivo). É o RESULTADO FINAL que a pessoa conquista — nunca o processo, o meio ou a etapa para chegar lá. Teste: a pessoa pode dizer "isso aconteceu na minha vida" ao usar o produto? Se não, não é Quadro.
 - **Furadeira** — Método estruturado em macroetapas e microetapas
 - **Decorados** — 50 benefícios que decorrem do Quadro
 - **Urgência Oculta** — Dores, desejos, dúvidas e assuntos relacionados
@@ -205,7 +204,6 @@ Este projeto suporta múltiplos produtos. Cada produto tem sua própria pasta co
 1. Leia `produtos/.ativo` para saber o produto ativo. Se o arquivo não existir, oriente a usar `/novo-produto` primeiro.
 2. Leia `produtos/{ativo}/perfil.md`. Se não existir, oriente a usar `/meu-produto` primeiro.
 3. Leia `produtos/{ativo}/idconsumidor.md` se existir, para entender o público.
-4. Leia `correcoes/informacoes-adicionais.md` se existir, para aplicar orientações e preferências do dono do projeto.
 
 O perfil contém: Quadro, Furadeira, Decorados, 3 Identidades, Urgências Ocultas (dores, desejos, dúvidas, assuntos relacionados), Argumentos Incontestáveis, nicho, público-alvo, preço e diferenciais.
 O arquivo de identidade do consumidor contém: perfil do comprador detalhado, paliativos, objeções de compra, frases que o público diria e tom de comunicação. (Não chamar esse artefato de “persona”; “persona” nos prompts refere-se ao papel do assistente.)
@@ -236,7 +234,7 @@ Todas as entregas ficam dentro da pasta do produto ativo: `produtos/{ativo}/entr
 
 ## Fluxo Padrão de Todo Comando (6 Passos)
 
-1. **Contexto** — Ler `produtos/.ativo`, depois `produtos/{ativo}/perfil.md`, `produtos/{ativo}/idconsumidor.md` e `correcoes/informacoes-adicionais.md`
+1. **Contexto** — Ler `produtos/.ativo`, depois `produtos/{ativo}/perfil.md` e `produtos/{ativo}/idconsumidor.md`
 2. **Entrevista** — 3-5 perguntas, UMA por vez
 3. **Confirmação** — Resumir o que vai criar, pedir OK
 4. **Geração** — Criar o entregável completo usando a metodologia VTSD

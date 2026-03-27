@@ -27,13 +27,6 @@ Leia `produtos/{ativo}/perfil.md` e `produtos/{ativo}/idconsumidor.md` se existi
 
 **Regra de não repetição:** nas novas variações, priorize urgências ocultas e decorados ainda não usados. Se todos já foram usados, escolha os de maior potencial e anote que está retomando esse tema.
 
-Apresente ao usuário (antes de perguntar sobre a campanha):
-```
-Temos [X] decorados e [Y] urgências ocultas no perfil.
-Já explorados em anúncios anteriores: [lista resumida]
-Disponíveis para este pacote: [lista resumida dos ainda não usados]
-```
-
 Se não houver anúncios anteriores: "É o primeiro pacote de anúncios — vamos usar as urgências e decorados mais relevantes para a fase escolhida."
 
 ### 2. Entrevista
@@ -256,6 +249,26 @@ Use esses 5 elementos para calibrar as 3 variações. O **conteúdo** (o que diz
 
 **REGRA CRÍTICA para TODO vídeo (qualquer fase, qualquer objetivo):** o vídeo deve entregar conteúdo real. A pessoa que assiste até o final aprende uma técnica, recebe um insight concreto ou tem uma virada de perspectiva. Vídeo que só promete sem entregar nada dentro do próprio vídeo não funciona. O CTA é consequência do valor entregue — não substituto.
 
+**Regras de Copy:** 
+
+ Princípio central
+A melhor copy não parece copy. Parece alguém inteligente te explicando algo que você nunca tinha entendido.
+
+As 7 leis da copy:
+1. Ensinar em vez de prometer: A copy entrega conhecimento real. Curiosidade vem do aprendizado, não de promessa vaga
+2. Nomear cria realidade: Dê nomes próprios para problemas ou soluções. Nome transforma ideia em algo concreto
+3. O produto não aparece no lead: Nada de “curso”, “treinamento”, “compre” no início. Só o leitor e a realidade dele
+4. Tom de escritor, não de vendedor. Escreva como quem explica, não como quem vende. Mostre, não empurre.
+5. Especificidade mata generalização: Use números, datas, valores, situações reais: Quanto mais concreto, mais confiável
+6. Informar, não vender: Ou você ensina, ou você avisa. Nunca tenta vender diretamente
+7. Crie um inimigo concreto (ou cenário inevitável). Um culpado externo facilita a aceitação. Pode ser pessoa, sistema ou método antigo
+Vícios proibidos:
+Não usar travessão (—)
+Não usar estrutura: “Não é X. É Y.”
+Não usar frases genéricas de vendedor
+Não mencionar o produto na copy
+Não usar emojis
+
 **Estrutura obrigatória para TODO vídeo (~45–60s / ~150–200 palavras):**
 
 ```
@@ -374,10 +387,7 @@ curl -X POST "https://api.freepik.com/v1/ai/text-to-image" \
 ```
 Salve cada imagem em: `produtos/{ativo}/entregas/anuncios/img-variacao-[N]-[produto].png`
 
-**Se não existir**, entregue os prompts prontos e em seguida ensine o usuário como configurar, com esta mensagem exata:
-
----
-Seus prompts de imagem estão prontos acima. Para gerar as imagens automaticamente na próxima vez, siga esses passos:
+**Se não existir**, ensine o a fazer a conta no freepik, gerar a chave api.
 
 **Como configurar o Freepik AI (gratuito para começar):**
 
@@ -388,9 +398,9 @@ Seus prompts de imagem estão prontos acima. Para gerar as imagens automaticamen
 5. Adicione a linha: `FREEPIK_API_KEY=sua_chave_aqui`
 6. Salve o arquivo
 
-Pronto. Na próxima vez que usar `/anuncio`, as imagens serão geradas automaticamente.
+Quando o usuário colocar a chave API, gere as imagens. 
 
-Por enquanto, cole cada prompt acima em freepik.com/ai/image-generator para gerar as imagens manualmente.
+
 ---
 
 ---
@@ -438,7 +448,7 @@ curl "https://api.heygen.com/v1/video_status.get?video_id=VIDEO_ID" \
 Quando status for `completed`, faça download do `video_url` e salve em:
 `produtos/{ativo}/entregas/anuncios/video-variacao-[N]-[produto].mp4`
 
-**Se faltar alguma variável**, entregue o roteiro completo formatado e em seguida ensine o usuário como configurar, com esta mensagem exata:
+**Se faltar alguma variável**, ensine o usuário como configurar, com esta mensagem exata:
 
 ---
 Seu roteiro está pronto acima. Para gerar o vídeo com avatar automaticamente, você precisa configurar o HeyGen. Siga estes passos:
@@ -471,9 +481,7 @@ HEYGEN_VOICE_ID=id_da_voz_aqui
 ```
 3. Salve o arquivo
 
-Pronto. Na próxima vez que usar `/anuncio` com formato Vídeo, o vídeo será gerado automaticamente com seu avatar.
-
-Por enquanto, use o roteiro acima para gravar o vídeo você mesmo ou cole diretamente no painel do HeyGen em app.heygen.com/video-translate ou no editor de vídeo.
+Em seguida, gere o vídeo para o usuário. 
 ---
 
 ---
@@ -498,10 +506,10 @@ curl -X POST "https://api.freepik.com/v1/ai/text-to-image" \
 ```
 Salve cada card em: `produtos/{ativo}/entregas/anuncios/carrossel-[N]-[produto].png`
 
-**Se não existir**, entregue os prompts de cada card individualmente e ensine como configurar, com esta mensagem exata:
+**Se não existir**, ensine como configurar, com esta mensagem exata:
 
 ---
-Os prompts de cada slide do carrossel estão prontos acima. Para gerar as imagens automaticamente na próxima vez, configure o Freepik:
+Configure o Freepik:
 
 **Como configurar o Freepik AI:**
 1. Acesse freepik.com e crie uma conta gratuita (ou faça login)
@@ -511,7 +519,7 @@ Os prompts de cada slide do carrossel estão prontos acima. Para gerar as imagen
 5. Adicione: `FREEPIK_API_KEY=sua_chave_aqui`
 6. Salve
 
-Por enquanto, cole cada prompt acima em freepik.com/ai/image-generator. Gere um slide por vez e mantenha o mesmo estilo visual entre todos para o carrossel ficar coerente.
+Em seguida gere as imagens de carrossel 
 ---
 
 ---

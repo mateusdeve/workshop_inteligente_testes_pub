@@ -160,7 +160,15 @@ Perguntar **uma por vez**, nesta ordem:
 
 ---
 
-### 5. Fluxo de entrevista correto para Pico de Vendas
+### 5. Descoberta de produtos no `/trocar-produto` — usar Glob, não `.ativo`
+
+- O comando `/trocar-produto` deve descobrir todos os produtos varrendo a pasta `produtos/` com **Glob** (`produtos/*/perfil.md` e `produtos/*/`).
+- O arquivo `.ativo` serve **somente** para marcar qual produto está ativo na listagem — nunca para descobrir quais produtos existem.
+- Se o Claude usar só `.ativo` para montar a lista, exibirá apenas o produto ativo em vez de todos os cadastrados.
+
+---
+
+### 6. Fluxo de entrevista correto para Pico de Vendas
 
 1. Perpétuo ou Pico de Vendas?
 2. Qual fase? (Captura / Aquecimento / Lembrete / Venda / Remarketing)
@@ -244,6 +252,24 @@ O **conteúdo** (o que diz) segue VTSD + perfil do negócio. O **formato e estil
 6. Salvar         → somente após aprovação
 7. Próximo passo  → sugerir comando seguinte
 ```
+
+---
+
+## 2026-03-27 — Novo comando `/zerar-negocio`
+
+### Comando criado: `/zerar-negocio`
+
+- Novo comando adicionado ao sistema para **zerar o `perfil.md` e/ou `idconsumidor.md`** do produto ativo sem excluir o produto nem suas entregas.
+- O nome original `limpar-produto` foi **rejeitado** pelo usuário por ser confuso com `/excluir-produto`. O nome correto e definitivo é **`/zerar-negocio`**.
+- Arquivo: `.claude/commands/zerar-negocio.md`
+- Listado na seção **Fundação** do menu do `CLAUDE.md`.
+
+**O que o comando faz:**
+1. Verifica o produto ativo
+2. Pergunta o que zerar: `perfil.md`, `idconsumidor.md` ou os dois
+3. Confirma antes de executar
+4. Esvazia os arquivos escolhidos (não os deleta)
+5. Sugere `/meu-produto` ou `/idconsumidor` como próximo passo
 
 ---
 
@@ -1142,6 +1168,213 @@ O objetivo do comando `/paginas-low-ticket` dentro da mentoria é ensinar os alu
 - O assistente deve reforçar essa lógica ao entregar as 4 leads: deixar claro que são ângulos diferentes para testar, não variações do mesmo texto
 - A Matriz de Decisão ao final das 4 leads ajuda o aluno a escolher por qual começar — mas o fluxo de teste continua até uma vender
 - O quiz é apresentado como recurso adicional (não substituto das leads), pois combina um funil de diagnóstico com a página de oferta low ticket
+
+---
+
+## 2026-03-27 — Comando `/zerar-negocio`: fallback para `meu-negocio/`
+
+### Correção aplicada
+
+O comando `/zerar-negocio` (e qualquer outro comando que precise localizar `perfil.md` e `idconsumidor.md`) deve seguir este fluxo de localização:
+
+1. Ler `produtos/.ativo`. Se existir e tiver conteúdo (slug), usar `produtos/{ativo}/` como caminho base.
+2. Se `produtos/.ativo` estiver vazio ou não existir, verificar se `meu-negocio/perfil.md` ou `meu-negocio/idconsumidor.md` existem e têm conteúdo. Se sim, usar `meu-negocio/` como caminho base.
+3. Só encerrar com "nenhum produto ativo" se nenhum dos dois caminhos tiver arquivos com conteúdo.
+
+**Motivação:** o projeto do usuário ainda usa `meu-negocio/` como pasta de dados. A nova estrutura multi-produto (`produtos/`) coexiste com a estrutura legada. O comando não pode falhar só porque `produtos/.ativo` está vazio.
+
+**Arquivo corrigido:** `.claude/commands/zerar-negocio.md`
+
+---
+
+## 2026-03-27
+
+### Framework de Decisão: Quiz vs. Página de Vendas (Low Ticket)
+
+Antes de acionar qualquer skill de página para produto de entrada, o agente deve analisar os dados do produto e do consumidor e aplicar este framework — **nunca perguntar de cara ao aluno** qual formato ele quer. A sugestão deve vir acompanhada da explicação dos critérios.
+
+#### Critérios de Decisão
+
+| Critério | Aponta para QUIZ | Aponta para PÁGINA |
+|---|---|---|
+| Tipo de produto | Emocional / dor / identificação | Prático / ferramenta / direto ao ponto |
+| Nível de consciência do lead | Não sabe que tem problema | Já sabe o que quer |
+| Complexidade da decisão | Precisa diagnosticar / explicar | Decisão simples e direta |
+| Faixa de preço | Até R$47 | Acima de R$97 |
+| Tipo de público | Emocional | Analítico / pragmático |
+
+**Regra:** Se 2 ou mais critérios apontarem para o mesmo lado, siga ele.
+**Desempate:** Em caso de empate, recomendar QUIZ (mais rápido de validar).
+
+#### Fluxo correto
+
+1. Analisar `perfil.md` e `idconsumidor.md` pelos 5 critérios acima
+2. Apresentar a recomendação com explicação critério a critério (baseada nos dados reais do produto)
+3. Informar que o aluno pode trocar depois se quiser testar o outro formato
+4. Perguntar se o aluno concorda ou prefere o outro formato
+5. Só após confirmação, acionar a skill correspondente (`paginas-low-ticket` ou `quiz`)
+
+---
+
+## 2026-03-27 — Correção crítica: Quadro deve ser resultado final, não processo
+
+### Regra
+
+O Quadro é a **transformação final** que a pessoa CONQUISTA ou SE TORNA após usar o produto. É a chegada, não o caminho.
+
+**O que NÃO é Quadro (processo / meio para chegar lá):**
+- "Identificar [causa do problema]" ❌ — isso é investigação, não resultado
+- "Descobrir [o que está causando X]" ❌ — é o caminho, não a chegada
+- "Mapear [padrão ou comportamento]" ❌ — é diagnóstico, não transformação
+- "Entender como funciona X" ❌ — é aprendizado, não mudança de vida
+- "Aprender o método Y" ❌ — é processo, não conquista
+
+**O que É Quadro (resultado final concreto e verificável):**
+- "Falar inglês em 90 dias" ✓
+- "Fechar R$10 mil por mês como social media" ✓
+- "Vender bolo caseiro todos os dias" ✓
+- "Fazer a primeira leitura de tarô com confiança" ✓
+- "Emagrecer 8kg sem cortar o que você gosta" ✓
+
+**Teste rápido:** a pessoa pode dizer "isso aconteceu na minha vida" ao final do produto? Se sim, é Quadro. Se não, é processo.
+
+Esta regra se aplica a todos os comandos e agentes que geram opções de Quadro: `/meu-produto`, `estrategista-de-produto`, `estrategista-low-ticket`, onboarding, e qualquer outro fluxo de concepção de produto.
+
+---
+
+## 2026-03-27 — Agente `estrategista-low-ticket`: benchmark antes da pergunta de formato
+
+### Regra
+
+Na **Etapa 1 — Concepção do Produto**, passo 2 (Formato do produto), o agente deve fazer uma **pesquisa de benchmark** (WebSearch) no nicho do produto **antes** de apresentar as opções de formato.
+
+**O que pesquisar:**
+- Quais formatos os concorrentes mais usam no nicho
+- Qual faixa de preço é praticada
+- Quais formatos têm melhor percepção de valor pelo público do nicho
+
+**Como apresentar a pergunta:**
+
+```
+Qual formato o produto vai ter?
+
+1. E-book / Guia (PDF passo a passo)
+2. Checklist / Roteiro de autoaplicação
+3. Mini-curso (3 a 5 aulas curtas em vídeo)
+4. Desafio (5 a 7 dias com tarefas diárias)
+5. Agente GPT (assistente de IA personalizado)
+
+De acordo com a pesquisa de mercado que eu fiz e com as informações que tenho sobre você e o seu projeto, eu sugiro [formato recomendado] porque [razão baseada no nicho, público e Quadro], no valor de R$[valor sugerido], com [quantidade e descrição dos entregáveis principais], [quantidade] bônus e suporte via [forma de suporte].
+
+Digite o número:
+```
+
+**A sugestão deve ser sempre fundamentada em:**
+- Resultado da pesquisa de benchmark (formatos e preços praticados no nicho)
+- Quadro do produto (resultado final que o aluno conquista)
+- Urgências Ocultas e público já levantados nas fases anteriores
+
+**Arquivo atualizado:** `.claude/agents/estrategista-low-ticket.md` — passo 2 da "Ordem das fases" na Etapa 1.
+
+---
+
+## 2026-03-27 — Correção crítica: quiz gera prompt Lovable.dev, não HTML
+
+### Regra
+
+O comando `/quiz` e o fluxo de quiz dentro do `estrategista-low-ticket` **nunca geram um arquivo HTML**. O resultado é um arquivo `.md` com o **prompt técnico completo para colar no Lovable.dev**.
+
+**ERRADO — nunca oferecer estas opções ao final do quiz:**
+- "Aprovar e gerar a página HTML" ❌
+- "Quero gerar o HTML agora" ❌
+- Salvar em `produtos/{ativo}/entregas/paginas/quiz-[produto].html` ❌
+
+**CERTO — opção correta ao final da Fase 1 do quiz:**
+- "Aprovar e gerar o prompt técnico para o Lovable.dev" ✓
+- Salvar em `produtos/{ativo}/entregas/quiz/quiz-[produto].md` ✓
+
+### Por que
+
+O quiz é um funil interativo com calculadora, slider, múltipla escolha com fotos, banco de dados (Supabase), tracking de etapas e painel administrativo. Isso não pode ser feito em HTML estático. O Lovable.dev constrói o app completo em React + Vite + TypeScript + Tailwind + Supabase a partir do prompt técnico.
+
+### Arquivos corrigidos
+
+- `.claude/agents/estrategista-low-ticket.md` — Etapa 3 (fluxo de QUIZ) reescrita com as instruções corretas
+- `.claude/commands/quiz.md` — já tinha o fluxo correto; o problema estava no agente que o invocava
+
+---
+
+## 2026-03-27 — Otimizações de performance no `estrategista-low-ticket`
+
+### 1. Pasta `correcoes/` não deve ser lida por agentes ou skills
+
+A pasta `correcoes/informacoes-adicionais.md` é apenas um **registro histórico** de decisões e ajustes do projeto. Nenhum agente, skill ou comando deve ler esse arquivo durante a execução.
+
+**Arquivos atualizados para remover a leitura:**
+- `CLAUDE.md` — Regra de Ouro #8 removida, item 4 do "Contexto Persistente" removido, referência no Fluxo Padrão removida, referência na Regra #7 removida
+- `.claude/agents/estrategista-low-ticket.md`
+- `.claude/agents/estrategista-middle-ticket.md`
+- `.claude/commands/criar-produto-low-ticket.md`
+- `.claude/commands/paginas-low-ticket.md`
+- `.claude/plugins/workshop-marketing/skills/anuncios/SKILL.md`
+
+---
+
+### 2. WebSearch unificada na Etapa 1 (duas buscas viram uma)
+
+O agente fazia duas WebSearches separadas na Etapa 1:
+- Passo 2: benchmark de formato (para sugerir o formato ao aluno)
+- Passo 6: tabela de concorrentes (Pesquisa de Mercado)
+
+Ambas buscavam informações sobre o mesmo nicho. Foram unificadas em **uma única busca** feita antes do passo de formato, cujos resultados servem para os dois propósitos.
+
+**Impacto:** elimina 1 WebSearch completa por execução do agente.
+
+**Arquivo atualizado:** `.claude/agents/estrategista-low-ticket.md`
+
+---
+
+### 3. Redução do volume de Decorados e Urgências Ocultas
+
+Para reduzir o tempo de geração da Etapa 1 sem comprometer a qualidade do produto final:
+
+| Item | Antes | Depois |
+|---|---|---|
+| Decorados | 30 benefícios (10 por categoria) | 15 benefícios (5 por categoria) |
+| Urgências Ocultas — Dores | 8 | 5 |
+| Urgências Ocultas — Desejos | 8 | 5 |
+| Urgências Ocultas — Dúvidas | 8 | 5 |
+| Urgências Ocultas — Assuntos relacionados | 6 | 4 |
+| **Total Urgências** | **30** | **19** |
+
+**Arquivo atualizado:** `.claude/agents/estrategista-low-ticket.md`
+
+---
+
+## 2026-03-27 — Regra crítica: nunca restaurar produtos/.ativo ao final de uma sessão
+
+### Problema que ocorreu
+
+O agente `estrategista-low-ticket` foi usado para criar um produto para uma mentorada (Luciane Severo). Ao final da sessão, foi instruído a "restaurar `produtos/.ativo` para `taro-para-iniciantes`" (o produto que estava ativo antes). Esse produto havia sido excluído anteriormente, então o `.ativo` ficou apontando para um slug inexistente, quebrando todos os comandos subsequentes.
+
+### Regra
+
+**NUNCA restaurar `produtos/.ativo` para um valor anterior ao final de qualquer sessão.**
+
+O `.ativo` deve sempre apontar para o produto que foi criado ou estava sendo trabalhado. Se o dono do projeto quiser voltar para outro produto, ele usa `/trocar-produto` manualmente.
+
+**Fluxo correto:**
+- Criar produto → escrever slug em `produtos/.ativo` → deixar lá
+- Nunca "desfazer" a ativação ao final de uma sessão
+- Nunca assumir que existe um "produto original a restaurar"
+
+**Contexto adicional:** o `estrategista-low-ticket` (e outros agentes) pode ser usado pela Elen para criar produtos de seus mentorados, não só os produtos dela. Nesses casos, o produto criado é o produto ativo até que ela troque manualmente.
+
+### Arquivos corrigidos
+
+- `.claude/agents/estrategista-low-ticket.md` — adicionada regra explícita proibindo restauração do `.ativo`
+- `produtos/.ativo` — corrigido para `decisao-raiz` (produto da Lu, único produto existente agora)
+- `produtos/crenca-raiz-intro/` — pasta criada por engano durante a sessão foi removida
 
 ---
 

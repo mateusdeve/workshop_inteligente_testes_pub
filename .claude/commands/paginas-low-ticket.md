@@ -1,11 +1,11 @@
 ---
 name: workshop-marketing:paginas-low-ticket
-description: Criar leads e páginas de vendas low ticket com as 4 categorias da metodologia D48 — Inadequação, Identificação com o Problema, Plug & Play e Promessa Boa Demais. Cada lead segue as 7 leis de copy e termina com parágrafo técnico/racional.
+description: Criar copies e páginas de vendas low ticket com as 4 categorias da metodologia D48 — Inadequação, Identificação com o Problema, Plug & Play e Promessa Boa Demais. Cada copy segue as 7 leis e termina com parágrafo técnico/racional.
 ---
 
-# Páginas Low Ticket — 4 Leads D48
+# Páginas Low Ticket — 4 Copies D48
 
-Gera as 4 leads de abertura para páginas de vendas low ticket. Cada lead é um estilo diferente de gancho — você escolhe qual usar ou testa as 4.
+Gera as 4 copies de abertura para páginas de vendas low ticket. Cada copy é um estilo diferente de gancho — você escolhe qual usar ou testa as 4.
 
 ## Usage
 
@@ -17,16 +17,16 @@ Gera as 4 leads de abertura para páginas de vendas low ticket. Cada lead é um 
 
 A melhor copy não parece copy. Parece alguém inteligente explicando algo que você nunca tinha entendido direito.
 
-O lead nunca vende. Ele informa, avisa ou ensina. O produto não existe nos primeiros parágrafos — só existe o leitor e a realidade dele.
+A copy nunca vende. Ela informa, avisa ou ensina. O produto não existe nos primeiros parágrafos — só existe o leitor e a realidade dele.
 
-## As 7 Leis (aplicar em todas as leads)
+## As 7 Leis (aplicar em todas as copies)
 
-1. **Ensinar em vez de prometer** — O lead entrega conhecimento real ali mesmo. A curiosidade vem de querer saber o resto, não de uma promessa vaga.
+1. **Ensinar em vez de prometer** — A copy entrega conhecimento real ali mesmo. A curiosidade vem de querer saber o resto, não de uma promessa vaga.
 2. **Nomear cria realidade** — Sempre que possível, crie um nome próprio para o conceito, problema ou solução. Exemplos que funcionam: "Negociação Terapêutica", "Programação Emocional Repetitiva", "Peeling Estratificado Programado".
-3. **O produto não aparece no lead** — Nenhuma lead fala "esse curso", "esse treinamento", "compre".
+3. **O produto não aparece na copy** — Nenhuma copy fala "esse curso", "esse treinamento", "compre".
 4. **Tom de escritor, não de vendedor** — Frases proibidas: "Isso vai transformar sua vida", "Descubra o método", "Não perca essa oportunidade".
 5. **Especificidade mata generalização** — "Antes dos 7 anos" > "na infância". "15 mil pra 70 mil por projeto" > "multiplique seus ganhos".
-6. **Informar, não vender** — As leads fazem uma de duas coisas: avisam ou ensinam. Nunca vendem.
+6. **Informar, não vender** — As copies fazem uma de duas coisas: avisam ou ensinam. Nunca vendem.
 7. **Crie um inimigo concreto** — Vendedora da loja, professor do YouTube, método antigo. A pessoa não precisa admitir que errou — só que foi mal orientada.
 
 ## Vícios Proibidos
@@ -34,7 +34,7 @@ O lead nunca vende. Ele informa, avisa ou ensina. O produto não existe nos prim
 - Travessão longo (—): NUNCA usar. Use vírgula, ponto, ou reformule a frase.
 - Estrutura "Não é X. É Y.": NUNCA usar. É muleta de IA.
 - Frases genéricas: "Transforme sua vida", "Descubra o segredo", "Método revolucionário".
-- Mencionar o produto no lead.
+- Mencionar o produto na copy.
 - Emojis.
 
 ---
@@ -45,7 +45,41 @@ O lead nunca vende. Ele informa, avisa ou ensina. O produto não existe nos prim
 
 Leia `produtos/.ativo` e `produtos/{ativo}/perfil.md`. Se não existir, oriente a usar `/meu-produto` primeiro.
 Leia também `produtos/{ativo}/idconsumidor.md` se existir.
-Leia `correcoes/informacoes-adicionais.md` para aplicar orientações do dono do projeto.
+
+### 1.5 — Framework de Decisão: Página vs. Quiz
+
+Antes de iniciar a entrevista, analise os dados do perfil e do consumidor e aplique este framework. **Nunca pergunte de cara qual formato o aluno quer** — recomende com base nos critérios abaixo e explique o porquê.
+
+| Critério | Aponta para QUIZ | Aponta para PÁGINA |
+|---|---|---|
+| Tipo de produto | Emocional / dor / identificação | Prático / ferramenta / direto ao ponto |
+| Nível de consciência do lead | Não sabe que tem problema | Já sabe o que quer |
+| Complexidade da decisão | Precisa diagnosticar / explicar | Decisão simples e direta |
+| Faixa de preço | Até R$47 | Acima de R$97 |
+| Tipo de público | Emocional | Analítico / pragmático |
+
+**Regra:** 2 ou mais critérios para o mesmo lado — siga ele. **Desempate:** recomendar QUIZ (mais rápido de validar).
+
+Apresente a recomendação assim:
+
+```
+Com base no seu produto e público, minha recomendação é:
+
+→ [QUIZ ou PÁGINA DE VENDAS]
+
+Por quê:
+• [Critério 1]: [explicação com dado real do produto]
+• [Critério 2]: [explicação com dado real do produto]
+• [Critério 3]: [explicação com dado real do produto]
+
+Você pode trocar depois se quiser testar o outro formato.
+
+1. Concordo, seguir com [recomendação]
+2. Prefiro o outro formato
+```
+
+**Se escolher QUIZ:** encaminhe para `/quiz` e encerre este comando.
+**Se escolher PÁGINA:** continue para a Etapa 2 abaixo.
 
 ### 2. Entrevista (UMA pergunta por vez)
 
@@ -82,7 +116,7 @@ Digite o número:
 --- Bloco 2/2 concluído ---
 Público: [tipo]
 Faixa de preço: R$[faixa]
-Próximo: Geração das 4 leads
+Próximo: Geração das 4 copies
 ---
 ```
 
@@ -92,15 +126,15 @@ Resumo do que vou criar:
 - Produto: [nome do produto ativo]
 - Público: [profissional / cliente final]
 - Faixa de preço: R$[faixa]
-- Entregáveis: 4 leads completas (Inadequação, Identificação, Plug & Play, Promessa Boa Demais)
+- Entregáveis: 4 copies completas (Inadequação, Identificação, Plug & Play, Promessa Boa Demais)
 
 1. Tudo certo, pode gerar
 2. Quero ajustar algo
 ```
 
-### 3. Geração das 4 Leads
+### 3. Geração das 4 Copies
 
-Gere as 4 leads em sequência. Cada lead deve:
+Gere as 4 copies em sequência. Cada copy deve:
 - Aplicar as 7 leis sem exceção
 - Evitar todos os vícios proibidos
 - Terminar com parágrafo técnico/racional em itálico
@@ -110,14 +144,14 @@ Após gerar todas as 4, revise cada uma conferindo:
 - Tem frase que um vendedor diria? Se sim, reescreva.
 - Tem travessão longo (—)? Se sim, substitua.
 - Tem estrutura "Não é X. É Y."? Se sim, reformule.
-- A pessoa aprende algo lendo o lead? Se não, está prometendo em vez de ensinando.
+- A pessoa aprende algo lendo a copy? Se não, está prometendo em vez de ensinando.
 - Criou um nome próprio para o conceito ou problema? Se não, considere criar.
 - Os detalhes são específicos o suficiente?
 - O tom soa como conversa ou como anúncio?
 
 ---
 
-#### Lead 1 — Inadequação
+#### Copy 1 — Inadequação
 
 **Engrenagem:** A pessoa descobre que está fazendo algo errado ou está desatualizada. Sente "será que estou ficando pra trás?" — urgência silenciosa impossível de ignorar.
 
@@ -138,7 +172,7 @@ Após gerar todas as 4, revise cada uma conferindo:
 
 ---
 
-#### Lead 2 — Identificação com o Problema
+#### Copy 2 — Identificação com o Problema
 
 **Engrenagem:** A pessoa lê e pensa "isso sou eu." Você descreve a realidade dela com tanta precisão que ela sente que você está dentro da cabeça dela. Confiança instantânea.
 
@@ -156,7 +190,7 @@ Após gerar todas as 4, revise cada uma conferindo:
 
 ---
 
-#### Lead 3 — Plug & Play
+#### Copy 3 — Plug & Play
 
 **Engrenagem:** A pessoa não precisa aprender nada, estudar nada, mudar nada. Só precisa pegar e usar. O valor está na praticidade imediata.
 
@@ -176,7 +210,7 @@ A página inteira raramente passa de 3 a 4 scrolls no celular.
 
 ---
 
-#### Lead 4 — Promessa Boa Demais (Específica)
+#### Copy 4 — Promessa Boa Demais (Específica)
 
 **Engrenagem:** A pessoa lê e pensa "não é possível, mas se for verdade..." O que segura ela é a combinação de resultado muito desejável com especificidade tão concreta que parece real demais pra ser marketing.
 
@@ -199,7 +233,7 @@ A página inteira raramente passa de 3 a 4 scrolls no celular.
 
 ---
 
-### 4. Matriz de Decisão (indicar qual lead usar)
+### 4. Matriz de Decisão (indicar qual copy usar)
 
 Após gerar as 4, indique qual é mais indicada para o produto com base nesta lógica:
 
@@ -216,20 +250,20 @@ Após gerar as 4, indique qual é mais indicada para o produto com base nesta l�
 
 ### 5. Aprovação e Salvamento
 
-Mostre as 4 leads na tela e pergunte:
+Mostre as 4 copies na tela e pergunte:
 ```
-As 4 leads estão prontas.
+As 4 copies estão prontas.
 
 1. Aprovar e salvar todas
-2. Quero ajustar alguma lead
-3. Salvar só a lead [número]
+2. Quero ajustar alguma copy
+3. Salvar só a copy [número]
 ```
 
-Salvar em: `produtos/{ativo}/entregas/copy-pagina/leads-low-ticket-[produto].md`
+Salvar em: `produtos/{ativo}/entregas/copy-pagina/copies-low-ticket-[produto].md`
 
 Após salvar, pergunte:
 ```
-Quer que eu gere a página HTML agora com a lead escolhida?
+Quer que eu gere a página HTML agora com a copy escolhida?
 
 1. Sim, gerar a página HTML completa
 2. Não, vou usar /pagina-de-vendas depois
@@ -240,7 +274,7 @@ Digite o número:
 Se escolher **1**, continue:
 
 ```
-Qual lead usar na página?
+Qual copy usar na página?
 
 1. Inadequação
 2. Identificação com o Problema
@@ -278,7 +312,7 @@ Digite o número:
 ```
 Resumo do que vou criar:
 - Tipo: Página de vendas low ticket
-- Lead: [categoria escolhida]
+- Copy: [categoria escolhida]
 - Produto: [nome do produto]
 - Preço: [preço]
 - Cor: [cor]
@@ -308,17 +342,18 @@ Antes de gerar, leia `skills/paginas/SKILL.md` e `skills/paginas/references/cdn-
 **Mixagem de templates (OBRIGATÓRIO):**
 Selecionar 2-3 templates de `skills/paginas/references/templates/` conforme o nicho e COMBINAR os melhores elementos de cada um. NUNCA usar um template sozinho. O catálogo completo com instruções de mixagem está em `skills/paginas/SKILL.md`.
 
-**Estrutura da página low ticket:**
-1. Header com logotipo
-2. Lead (hero — texto persuasivo da categoria escolhida + CTA)
-3. Problema + Paliativo (por que o que tentou antes não funcionou)
-4. Solução — o que é o produto e como funciona
-5. Entregáveis — o que está incluso (grid 2 colunas)
-6. Stack de Valor + Preço (ancoragem visual)
+**Estrutura obrigatória da página low ticket (aplicar em TODAS as versões de copy):**
+1. Promessa (hero — copy da categoria escolhida + CTA)
+2. Ferramenta dentro da entrega que resolve uma dor específica rápida
+3. Depoimento
+4. Entregáveis/método (grid 2 colunas)
+5. Bônus
+6. Oferta (Stack de Valor + Preço com ancoragem visual)
 7. Garantia
-8. FAQ (3-5 objeções comuns)
-9. CTA final
-10. Rodapé
+8. Quem sou eu
+9. FAQ (3-5 objeções comuns)
+10. CTA final
+11. Rodapé
 
 Salvar em: `produtos/{ativo}/entregas/paginas/pagina-low-ticket-[produto].html`
 

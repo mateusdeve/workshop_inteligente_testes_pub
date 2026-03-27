@@ -43,16 +43,37 @@ Siga RIGOROSAMENTE:
 - Tipografia com hierarquia clara
 
 **Estrutura 8D (página de vendas):**
-1. Primeira Dobra — Premissa + subheadline + 3 bullets + vídeo placeholder
-2. Paliativo — O que já tentaram e falhou
-3. Método — Furadeira visual
+1. Primeira Dobra — Premissa + subheadline + 3 bullets (Urgência Oculta+Decorado) + vídeo placeholder
+2. Provas Sociais 
+3. Método — (Furadeira) representação visual do método
 4. Entregáveis — Cards com tudo que recebe
 5. Bônus — 3 bônus com valor individual
 6. Prova Social — Cards de depoimentos
-7. Garantia — Selo visual
-8. Oferta Final — Stack de valor + preço + CTA
+7. Suporte
+8. Garantia — Selo visual
+9. Oferta Final — Stack de valor + preço + CTA
+10. Autoridade do Criador 
+11. Faq
 
-**Copy:** Usar estilo Light Copy (argumentativo, sem ponto de exclamação, sem perguntas no gancho)
+**Regras de Copy:** 
+
+ Princípio central
+A melhor copy não parece copy. Parece alguém inteligente te explicando algo que você nunca tinha entendido.
+
+As 7 leis da copy:
+1. Ensinar em vez de prometer: A copy entrega conhecimento real. Curiosidade vem do aprendizado, não de promessa vaga
+2. Nomear cria realidade: Dê nomes próprios para problemas ou soluções. Nome transforma ideia em algo concreto
+3. O produto não aparece no lead: Nada de “curso”, “treinamento”, “compre” no início. Só o leitor e a realidade dele
+4. Tom de escritor, não de vendedor. Escreva como quem explica, não como quem vende. Mostre, não empurre.
+5. Especificidade mata generalização: Use números, datas, valores, situações reais: Quanto mais concreto, mais confiável
+6. Informar, não vender: Ou você ensina, ou você avisa. Nunca tenta vender diretamente
+7. Crie um inimigo concreto (ou cenário inevitável). Um culpado externo facilita a aceitação. Pode ser pessoa, sistema ou método antigo
+Vícios proibidos:
+Não usar travessão (—)
+Não usar estrutura: “Não é X. É Y.”
+Não usar frases genéricas de vendedor
+Não mencionar o produto na copy
+Não usar emojis
 
 ### 4. Inserir Pixel Automaticamente (se configurado)
 Após gerar o HTML, leia o arquivo `.env` e verifique se existe `META_PIXEL_ID`.

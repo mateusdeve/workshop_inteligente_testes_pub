@@ -1,11 +1,11 @@
 ---
 name: workshop-marketing:pagina-de-vendas
-description: Criar páginas web profissionais completas (vendas, captura ou obrigado) com HTML/CSS responsivo, design moderno, vídeo na primeira dobra, headline como premissa e estrutura de conversão em 10 seções baseada na metodologia VTSD.
+description: Criar copy completa e/ou página HTML profissional de vendas, captura ou obrigado. Gera texto persuasivo (Light Copy, estrutura 8D) e/ou página com design responsivo baseado na metodologia VTSD.
 ---
 
-# Página de Vendas — Gerador de Páginas Profissionais
+# Página de Vendas — Copy e HTML
 
-Cria páginas HTML completas e profissionais com estrutura de conversão baseada na metodologia VTSD.
+Cria a copy completa da página de vendas e/ou a página HTML profissional com estrutura de conversão baseada na metodologia VTSD.
 
 ## Usage
 
@@ -13,16 +13,210 @@ Cria páginas HTML completas e profissionais com estrutura de conversão baseada
 /pagina-de-vendas
 ```
 
+---
+
 ## O Que Fazer
 
 ### 1. Contexto
+
 Leia `produtos/{ativo}/perfil.md` e `produtos/{ativo}/idconsumidor.md` se existir.
 
-### 2. Entrevista (UMA pergunta por vez, com progresso visual)
+### 2. Primeira Pergunta — O que criar
+
+```
+O que você quer criar?
+
+1. Só a copy (texto completo da página de vendas em markdown)
+2. Só a página HTML (usa copy já salva ou gera durante a criação)
+3. Copy + página HTML (gera o texto primeiro, depois monta a página)
+
+Digite o número:
+```
+
+---
+
+## FLUXO A — Só a Copy
+
+> Ativar quando o usuário escolher a opção 1.
+
+### A1. Entrevista rápida (máximo 2-3 perguntas)
+
+Você já tem `perfil.md` e `idconsumidor.md` com Quadro, Furadeira, Decorados, Urgências Ocultas, Identidades, objeções e pesquisa de mercado. Use TUDO isso para gerar a copy. Pergunte apenas o que NÃO está no perfil:
+
+```
+Tem promoção, desconto ou condição especial ativa?
+(ex: "Lançamento com 40% de desconto até sexta" — ou "não")
+```
+
+```
+Tem bônus específicos que quer incluir?
+(ex: "Planilha de precificação + script de objeções" — ou "não, pode criar")
+```
+
+```
+Tem depoimentos reais? Se sim, passe nome e resultado de cada um.
+(ex: "Ana, estava cobrando R$30, agora cobra R$120 por leitura" — ou "não tenho")
+```
+
+```
+Qual o ângulo de entrada da copy?
+
+1. Inadequação — a pessoa está desatualizada ou fazendo errado
+2. Identificação — a pessoa se reconhece na dor descrita
+3. Plug & Play — a pessoa quer algo pronto para usar
+4. Promessa Boa Demais — existe história real com números verificáveis
+
+Digite o número:
+```
+
+Confirme antes de gerar:
+
+```
+Resumo do que vou criar:
+- Produto: [nome do produto]
+- Preço: [preço do perfil]
+- Ângulo: [ângulo escolhido]
+- Bônus: [bônus informados ou "vou criar 3 coerentes"]
+- Depoimentos: [reais ou "vou criar modelos para substituir"]
+
+Aviso: vou gerar em 2 partes para garantir qualidade.
+
+1. Tudo certo, pode gerar
+2. Quero ajustar algo
+```
+
+### A2. Princípios de Copy (Light Copy — SEMPRE)
+
+**Princípio central:** A melhor copy não parece copy. Parece alguém inteligente te explicando algo que você nunca tinha entendido.
+
+**As 7 leis da copy:**
+1. Ensinar em vez de prometer: a copy entrega conhecimento real. Curiosidade vem do aprendizado, não de promessa vaga
+2. Nomear cria realidade: dê nomes próprios para problemas ou soluções. Nome transforma ideia em algo concreto
+3. O produto não aparece no lead: nada de "curso", "treinamento", "compre" no início. Só o leitor e a realidade dele
+4. Tom de escritor, não de vendedor: escreva como quem explica, não como quem vende. Mostre, não empurre
+5. Especificidade mata generalização: use números, datas, valores, situações reais. Quanto mais concreto, mais confiável
+6. Informar, não vender: ou você ensina, ou você avisa. Nunca tenta vender diretamente
+7. Crie um inimigo concreto (ou cenário inevitável): um culpado externo facilita a aceitação. Pode ser pessoa, sistema ou método antigo
+
+**Vícios proibidos:**
+- Não usar travessão (—)
+- Não usar estrutura: "Não é X. É Y."
+- Não usar frases genéricas de vendedor
+- Não mencionar o produto no lead
+- Não usar emojis
+
+**Nomear cria realidade:** sempre que possível, criar um nome próprio para o conceito, problema ou solução. Nomes como "Negociação Terapêutica" ou "Programação Emocional Repetitiva" funcionam. "Método Exclusivo" não funciona.
+
+**Parágrafo técnico em itálico:** incluir um parágrafo em itálico que ancora a emoção com razão — explica por que aquilo funciona do ponto de vista científico ou lógico.
+
+Use os 26 elementos literários quando apropriado (consulte skill vtsd-completo para lista completa).
+
+### A3. Geração em 2 Partes
+
+Para garantir qualidade, SEMPRE gere em duas partes separadas.
+
+#### PARTE 1 — Persuasão (Seções 1 a 8)
+
+Gere as seções 1 a 8 completas e salve no arquivo. Cada seção narrativa deve ter parágrafos desenvolvidos com linguagem da persona, cenas do cotidiano e elementos literários.
+
+**Seção 1 — Primeira Dobra (Hero)**
+- Headline principal (premissa matadora baseada no Quadro)
+- Subheadline (expansão da promessa)
+- 3 bullet points (cada um = Urgência Oculta + Decorado)
+- Indicação de vídeo de vendas
+- Botão de Vendas
+
+**Seção 2 — Paliativo**
+- Uma parte do produto ou ferramenta que resolve uma dor específica rápido
+
+**Seção 3 — Prova Social**
+- 3-6 depoimentos completos (nome, situação antes, resultado depois)
+- Se não tiver reais, gere modelos marcados: "[Depoimento modelo — substituir por depoimento real]"
+
+**Seção 4 — Solução (Apresentação do Método)**
+- Apresente o produto como a resposta lógica de forma visual
+- Mostre a Furadeira: macroetapas + o que cada uma resolve
+- Nome do método em destaque
+- Mínimo 3 parágrafos
+
+**Seção 5 — Para Quem É**
+- Use os baldes de "pra quem é" da identidade do consumidor
+- O público se reconhece aqui
+
+**Seção 6 — Entregáveis (Módulos/Conteúdo)**
+- Lista completa do que está incluso
+- Cada item com nome + descrição de valor (não só o nome)
+- Use metáforas de valor para tangibilizar
+
+**Seção 7 — Bônus**
+- 3 bônus estratégicos (gere com base no perfil e persona se o aluno não tiver)
+- Cada bônus com: nome, descrição completa e valor individual em R$
+- Bônus devem resolver objeções ou complementar o produto
+
+**Seção 8 — Stack de Valor (Ancoragem)**
+- Liste tudo que está incluso com valor individual
+- Some o valor total
+- Mostre o preço real como fração do valor total
+
+Ao terminar a Parte 1, salve no arquivo e informe:
+"Parte 1 pronta (seções 1 a 8). Gerando a Parte 2 agora..."
+
+#### PARTE 2 — Conversão (Seções 9 a 14)
+
+Continue no mesmo arquivo. Mesmo nível de detalhe da Parte 1.
+
+**Seção 9 — Prova Social**
+- 3-6 depoimentos completos (nome, situação antes, resultado depois)
+- Se não tiver reais, gere modelos marcados: "[Depoimento modelo — substituir por depoimento real]"
+
+**Seção 10 — Garantia**
+- Tipo de garantia (7, 15 ou 30 dias)
+- Texto que elimina o risco
+- Tom confiante, não defensivo
+
+**Seção 11 — Autoridade do Criador**
+- Pequena apresentação do criador do método
+
+**Seção 12 — FAQ**
+- 5-8 perguntas frequentes baseadas nas objeções da persona
+- Respostas curtas, diretas, que quebram a objeção
+
+**Seção 13 — Último CTA**
+- Reforço de urgência ou escassez (se houver)
+- Frase de fechamento + botão final
+
+**Seção 14 — Rodapé**
+- Indicações de termos de uso e política de privacidade
+
+### A4. Salvar
+
+`produtos/{ativo}/entregas/copy-pagina/copy-[produto].md`
+
+### A5. Próximo Passo
+
+```
+Copy completa salva em produtos/{ativo}/entregas/copy-pagina/copy-[produto].md
+
+Quer que eu monte a página HTML agora com essa copy?
+
+1. Sim, montar a página HTML
+2. Não agora
+
+Digite o número:
+```
+
+Se escolher 1, execute o Fluxo B usando a copy recém-gerada.
+
+---
+
+## FLUXO B — Página HTML
+
+> Ativar quando o usuário escolher a opção 2 ou 3, ou quando aceitar montar a HTML após o Fluxo A.
+
+### B1. Entrevista (UMA pergunta por vez, com progresso visual)
 
 **Bloco 1/3 — Tipo de Página:**
 
-Pergunta 1:
 ```
 Qual tipo de página?
 
@@ -49,7 +243,7 @@ Quais os entregáveis do produto? O que está incluso na compra?
 ```
 ```
 Tem depoimentos de clientes? Se sim, passe nome e resultado de cada um.
-(ex: "Ana, estava cobrando R$30, agora cobra R$120 por leitura" — ou "não tenho" para criar placeholders realistas)
+(ex: "Ana, estava cobrando R$30, agora cobra R$120 por leitura" — ou "não tenho" para criar placeholders)
 ```
 ```
 Qual a garantia?
@@ -78,11 +272,11 @@ Tem um vídeo de vendas para a primeira dobra?
 (ex: "https://www.youtube.com/watch?v=XXXX" — ou "ainda não tenho" para usar placeholder)
 ```
 
-Se escolheu **2. Captura** ou **3. Obrigado**, verificar ANTES se já existem páginas criadas em `produtos/{ativo}/produtos/{ativo}/entregas/paginas/`. Se existirem, perguntar:
+Se escolheu **2. Captura** ou **3. Obrigado**, verificar ANTES se já existem páginas criadas em `produtos/{ativo}/entregas/paginas/`. Se existirem, perguntar:
 
 ```
 Encontrei estas páginas já criadas:
-[listar arquivos encontrados em produtos/{ativo}/entregas/paginas/]
+[listar arquivos encontrados]
 
 Quer que a nova página siga o mesmo visual (cores, fontes, estilo)?
 
@@ -92,7 +286,7 @@ Quer que a nova página siga o mesmo visual (cores, fontes, estilo)?
 Digite o número:
 ```
 
-Se escolher **1**, ler o HTML da página existente para extrair: paleta de cores, fontes, padrões de componentes, estilo de botões e cards. Aplicar a mesma identidade visual na nova página para manter consistência entre páginas do funil.
+Se escolher **1**, ler o HTML da página existente para extrair: paleta de cores, fontes, padrões de componentes, estilo de botões e cards. Aplicar a mesma identidade visual na nova página.
 
 Se escolher **2**, seguir o fluxo normal de entrevista visual (Bloco 3/3).
 
@@ -133,7 +327,6 @@ Próximo: Visual
 
 **Bloco 3/3 — Visual:**
 
-Pergunta:
 ```
 Preferência de cor?
 
@@ -160,9 +353,9 @@ Resumo do que vou criar:
 2. Quero ajustar algo
 ```
 
-### 3. Mixagem de Templates (OBRIGATÓRIO)
+### B2. Mixagem de Templates (OBRIGATÓRIO)
 
-**NUNCA use um template sozinho.** Sempre selecione **2-3 templates** da biblioteca e **misture** os melhores elementos de cada um para criar um resultado orgânico e único. Copiar um template inteiro gera resultado genérico.
+**NUNCA use um template sozinho.** Sempre selecione **2-3 templates** da biblioteca e **misture** os melhores elementos de cada um para criar um resultado orgânico e único.
 
 Os templates estão em `skills/paginas/references/templates/`. Cada template tem `code.html` (código) e/ou `DESIGN.md` (especificação).
 
@@ -237,7 +430,7 @@ Os templates estão em `skills/paginas/references/templates/`. Cada template tem
 
 **Passo 3 — Extraia elementos específicos de cada template:**
 
-De cada template, extraia pelo menos **2-3 elementos únicos**. Exemplos do que cada tipo de template oferece:
+De cada template, extraia pelo menos **2-3 elementos únicos**. Exemplos:
 
 | Template | O que extrair |
 |---|---|
@@ -248,19 +441,19 @@ De cada template, extraia pelo menos **2-3 elementos únicos**. Exemplos do que 
 | `landing_page_croch_lucrativo` | Bento grid no problema, floating testimonial cards, progress bars em cards |
 | `hyperion_growth` | Neon glow effects, dark void backgrounds, kinetic hover states |
 | `zen_moderno` | Whitespace extremo, transições lentas, paleta muted com 1 acento |
-| `echelon_executive` | Tipografia de autoridade, dados em destaque, grid formal com quebre inesperada |
+| `echelon_executive` | Tipografia de autoridade, dados em destaque, grid formal com quebra inesperada |
 
 **Passo 4 — Monte a página combinando:**
 - **Layout e estrutura** do template principal (hero, grids, seções)
 - **Sistema de design** do template DESIGN.md (cores, fontes, espaçamento, regras como No-Line)
 - **Componentes visuais** do template complementar (cards, hovers, texturas, divisores)
-- **Paleta e fontes** definidas pelo usuário na entrevista (adaptar tudo à paleta escolhida)
+- **Paleta e fontes** definidas pelo usuário na entrevista
 
 #### Regra de Ouro da Mixagem
 
-O resultado final NÃO deve parecer nenhum template individual. Se alguém abrir o template original e a página gerada, devem parecer projetos diferentes. A mixagem existe para criar **identidade visual única**, não para copiar.
+O resultado final NÃO deve parecer nenhum template individual. Se alguém abrir o template original e a página gerada, devem parecer projetos diferentes.
 
-**Padrões obrigatórios da mixagem (aplicar SEMPRE):**
+**Padrões obrigatórios (aplicar SEMPRE):**
 - Use **Tailwind CDN** com config customizado OU CSS puro com variables — escolha um
 - Use **Material Symbols Outlined** ou **Phosphor Icons** para ícones
 - **No-Line Rule**: sem bordas 1px entre seções. Usar mudanças tonais e espaçamento
@@ -270,17 +463,17 @@ O resultado final NÃO deve parecer nenhum template individual. Se alguém abrir
 - **Tonal layering**: profundidade por camadas de cor, não por drop shadows pesados
 - **Editorial spacing**: espaçamento generoso (80-96px) entre seções principais
 
-### 4. Geração
+### B3. Geração
 
-Consulte a base de design em `skills/paginas/references/cdn-design-resources.md` para CDNs e padrões visuais. Consulte `skills/paginas/references/estruturas-pagina.md` para estrutura das seções.
+Consulte a base de design em `skills/paginas/references/cdn-design-resources.md` para CDNs e padrões visuais.
 
-Se existir `produtos/{ativo}/entregas/copy-pagina/copy-[produto].md`, use a copy pronta. Se não existir, gere a copy durante a construção da página.
+**Se existir `produtos/{ativo}/entregas/copy-pagina/copy-[produto].md`, use a copy pronta.** Se não existir, gere a copy durante a construção da página aplicando os princípios Light Copy do Fluxo A.
 
 ---
 
 ## REGRAS CRÍTICAS DE QUALIDADE
 
-### Regra #1: Texto SEMPRE em português com acentos
+### Regra 1: Texto SEMPRE em português com acentos
 
 **OBRIGATÓRIO:** Todo texto visível na página DEVE estar em português do Brasil com acentos corretos.
 
@@ -290,28 +483,20 @@ Se existir `produtos/{ativo}/entregas/copy-pagina/copy-[produto].md`, use a copy
 - "Método" e NÃO "Metodo"
 - "Você" e NÃO "Voce"
 - "Não" e NÃO "Nao"
-- "É" e NÃO "E"
-- "Já" e NÃO "Ja"
-- "Também" e NÃO "Tambem"
-- "Negócio" e NÃO "Negocio"
 
-Use o charset UTF-8 no `<meta charset="UTF-8">` e garanta que TODOS os textos — headlines, parágrafos, botões, labels, FAQs, depoimentos, footer — tenham acentuação correta da língua portuguesa.
+Use `<meta charset="UTF-8">` e garanta que TODOS os textos tenham acentuação correta. **Antes de salvar, revise TODOS os textos.**
 
-**Antes de salvar, revise TODOS os textos da página e corrija qualquer palavra sem acento.**
-
-### Regra #2: Logotipo no topo OBRIGATÓRIO
+### Regra 2: Logotipo no topo OBRIGATÓRIO
 
 Toda página DEVE ter um logotipo/marca no topo antes do hero ou como parte do header.
 
-Estrutura:
 ```html
 <header class="site-header">
   <div class="container">
     <div class="logo">
-      <!-- Opção 1: Imagem (quando o aluno tiver logo) -->
+      <!-- Opção 1: Imagem -->
       <img src="[caminho-do-logo]" alt="Nome do Produto" class="logo-img">
-
-      <!-- Opção 2: Logo texto estilizado (padrão quando não há imagem) -->
+      <!-- Opção 2: Logo texto estilizado -->
       <span class="logo-text">Nome do Produto</span>
     </div>
   </div>
@@ -321,111 +506,62 @@ Estrutura:
 Regras do header:
 - Fundo transparente ou cor sólida que combine com o hero
 - Logo alinhado à esquerda
-- Pode incluir um botão CTA pequeno à direita (ex: "Quero me inscrever")
+- Pode incluir botão CTA pequeno à direita
 - No mobile, centralizar o logo
 - Placeholder instrucional: `[Insira seu logotipo aqui — tamanho recomendado: 180x50px]`
-- Quando não houver logo, usar o nome do produto como texto estilizado com a fonte heading
 
-### Regra #3: Grids e cards NÃO podem quebrar texto
+### Regra 3: Grids e cards NÃO podem quebrar texto
 
-**PROIBIDO** grids que cortam ou apertam texto em telas médias.
-
-Regras de grid:
-- Cards com texto descritivo: `min-width: 320px` no grid (NUNCA menor que 300px)
+- Cards com texto descritivo: `min-width: 320px` no grid
 - Se o card tem lista de itens: usar `grid-template-columns: repeat(auto-fit, minmax(340px, 1fr))`
-- Se o grid tem 3+ cards: no mobile cai para 1 coluna, no tablet pode ter 2
-- Texto dentro de card: NUNCA menor que `font-size: 0.95rem` (15.2px)
+- Texto dentro de card: NUNCA menor que `font-size: 0.95rem`
 - Padding interno dos cards: mínimo 28px em todos os lados
-- Para seções como "Entregáveis" ou "Módulos" com listas longas: usar layout de 2 colunas (`1fr 1fr`) no desktop, 1 coluna no mobile — NÃO usar 3 colunas que apertam o texto
-- Testar mentalmente: "esse texto cabe confortavelmente nessa largura?"
+- Para seções de Entregáveis ou Módulos: usar 2 colunas no desktop, 1 no mobile (NUNCA 3 colunas)
 
-Exemplo correto:
-```css
-/* Entregáveis — 2 colunas no desktop, 1 no mobile */
-.entregaveis-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-  gap: 24px;
-}
-```
+### Regra 4: NÃO parecer design genérico de IA
 
-Exemplo ERRADO (evitar):
-```css
-/* NUNCA: 3 colunas apertadas com texto longo */
-.entregaveis-grid {
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-}
-```
-
-### Regra #4: NÃO parecer design genérico de IA
-
-Evitar padrões que identificam páginas como "feitas por IA" (Lovable, v0, Claude Code genérico):
-
-**PROIBIDO (cara de IA/Lovable):**
-- Fontes serifadas como padrão para todos os projetos (Playfair, Fraunces, Lora para body)
+**PROIBIDO:**
+- Fontes serifadas em qualquer parte da página
 - Gradiente roxo-azul em fundo branco
-- Cards brancos arredondados idênticos em fundo bege/cinza claro
-- Espaçamento uniforme e previsível entre todas as seções
-- Paleta pastel tímida sem contraste forte
+- Cards brancos arredondados idênticos em fundo bege
 - Layout 100% simétrico sem surpresa visual
-- Todas as seções com o mesmo padrão visual (fundo claro → card → fundo claro → card)
-- Ícones dentro de quadrados arredondados com fundo pastel (típico Lovable)
-- Tudo flat sem texturas, imagens de fundo ou profundidade
-- Fonte serifada no body text (dificulta leitura em telas)
+- Ícones dentro de quadrados arredondados com fundo pastel
+- Tudo flat sem texturas ou profundidade
 
-**OBRIGATÓRIO (cara de profissional de verdade):**
-- **TODAS as fontes sans-serif** — heading E body. Serifadas são PROIBIDAS
-- Escolher da biblioteca aprovada em SKILL.md (17 opções de heading, 16 de body)
-- Seções visualmente DIFERENTES entre si (ver Regra #5)
-- Imagens de fundo em pelo menos 2 seções (ver Regra #6)
+**OBRIGATÓRIO:**
+- **TODAS as fontes sans-serif** — heading E body
+- Seções visualmente diferentes entre si
+- Imagens de fundo em pelo menos 2 seções
 - Contraste forte entre seções (escura → clara → imagem → colorida)
-- Elementos visuais que quebram a monotonia: badges, counters, aspas grandes, divisores decorativos
-- Hover states que surpreendem (não só mudar cor — mover, escalar, revelar)
+- Hover states que surpreendem (mover, escalar, revelar)
 
-### Regra #5: Seções DEVEM ser visualmente diferentes entre si
+### Regra 5: Seções DEVEM ser visualmente diferentes entre si
 
-Cada seção da página deve ter uma identidade visual própria. PROIBIDO repetir o mesmo padrão visual.
+**Variações obrigatórias de fundo (alternar pelo menos 4 tipos):**
+1. Fundo sólido claro — branco ou off-white
+2. Fundo sólido escuro — cor primária escura com texto claro
+3. Fundo com imagem — Picsum com overlay escuro + texto claro
+4. Fundo com gradiente sutil
+5. Fundo com textura/padrão CSS
+6. Fundo colorido vibrante
 
-**Variações obrigatórias de fundo entre seções (alternar pelo menos 4 tipos):**
-
-1. **Fundo sólido claro** — branco ou off-white (`#fafafa`, `#f8f7f4`)
-2. **Fundo sólido escuro** — cor primária escura com texto claro
-3. **Fundo com imagem** — imagem de fundo com overlay escuro + texto claro (ver Regra #6)
-4. **Fundo com gradiente sutil** — gradiente de 2 cores da paleta
-5. **Fundo com textura/padrão** — cor sólida + SVG pattern ou noise sutil via CSS
-6. **Fundo colorido vibrante** — cor de destaque como fundo com texto contrastante
-
-**Exemplo de sequência de seções bem variada:**
+**Exemplo de sequência bem variada:**
 ```
 Hero:         Fundo escuro com gradiente + texto claro
 Problema:     Fundo claro + cards com borda
-Paliativo:    Fundo com imagem + overlay escuro + texto claro
-CTA meio:     Fundo cor vibrante (CTA color) + texto branco
+Paliativo:    Fundo com imagem + overlay escuro
+CTA meio:     Fundo cor vibrante + texto branco
 Método:       Fundo claro com textura sutil
-Para quem:    Fundo escuro sólido + listas
+Para quem:    Fundo escuro sólido
 Entregáveis:  Fundo claro + cards grandes
-Bônus:        Fundo gradiente sutil
-Stack:        Fundo escuro premium
-Depoimentos:  Fundo com imagem + overlay + cards flutuantes
-Garantia:     Fundo claro com destaque central
-FAQ:          Fundo neutro alternado
+Depoimentos:  Fundo com imagem + cards flutuantes
 CTA final:    Fundo escuro com gradiente
 ```
 
-**Divisores entre seções:**
-Use pelo menos 2 tipos de divisores para quebrar a monotonia:
-- SVG wave/curve no topo ou base da seção
-- Linha decorativa com ícone central
-- Mudança abrupta de cor (escuro → claro)
-- Borda superior colorida na seção
+### Regra 6: Imagens de fundo em seções
 
-### Regra #6: Imagens de fundo em seções
+Pelo menos **2 seções** devem ter imagem de fundo.
 
-Pelo menos **2 seções** da página devem ter imagem de fundo para dar profundidade e profissionalismo.
-
-**Como implementar (sem upload de imagem):**
-
-Opção 1 — Picsum com overlay:
 ```css
 .section-com-imagem {
   background:
@@ -433,69 +569,24 @@ Opção 1 — Picsum com overlay:
     url('https://picsum.photos/1920/1080?random=1');
   background-size: cover;
   background-position: center;
-  background-attachment: fixed; /* efeito parallax */
+  background-attachment: fixed;
   color: #fff;
 }
 ```
-
-Opção 2 — Placeholder instrucional com fallback:
-```css
-.section-com-imagem {
-  background:
-    linear-gradient(135deg, rgba(45,24,16,0.85), rgba(74,44,26,0.9)),
-    url('https://picsum.photos/1920/1080?random=2');
-  background-size: cover;
-  background-position: center;
-  color: #fff;
-  position: relative;
-}
-/* Comentário no HTML: [Substitua pela sua imagem — tamanho recomendado: 1920x1080px] */
-```
-
-Opção 3 — CSS gradient artístico (sem imagem externa):
-```css
-.section-atmosferica {
-  background-color: #0a0a0a;
-  background-image:
-    radial-gradient(at 20% 50%, hsla(28,100%,74%,0.15) 0px, transparent 50%),
-    radial-gradient(at 80% 20%, hsla(189,100%,56%,0.08) 0px, transparent 50%),
-    radial-gradient(at 50% 80%, hsla(355,85%,60%,0.06) 0px, transparent 50%);
-}
-```
-
-**Seções recomendadas para imagem de fundo:**
-- Paliativo / "O que já tentou" — imagem cria atmosfera emocional
-- Depoimentos — foto real transmite autenticidade
-- CTA final — imagem de fundo com overlay escuro gera impacto
-- "Para quem é" — foto do público-alvo no background
-
-**Temas de imagem por nicho (para Picsum ou instrução ao usuário):**
-- Finanças: escritório, gráficos, paisagem urbana
-- Saúde: natureza, alimentos, exercício
-- Educação: livros, sala de aula, formatura
-- Artesanato: mãos trabalhando, tecidos, ateliê
-- Marketing: laptop, café, workspace criativo
-- Feminino: flores, lifestyle, moda
-
-**IMPORTANTE:** Sempre usar `loading="lazy"` em imagens. Para imagens de fundo CSS, usar fallback de cor sólida caso a imagem não carregue.
 
 ---
 
-## Recursos CDN permitidos (arquivo único, sem build)
+## Recursos CDN permitidos
 
-Cada página DEVE usar:
+- **Google Fonts** — combinação heading + body
+- **1 biblioteca de ícones** — Phosphor Icons (recomendado), Lucide ou Tabler Icons
+- **AOS (Animate on Scroll)** — para animações de entrada
+- **Avatares para depoimentos** — pravatar.cc ou DiceBear
+- **Placeholders de imagem** — Lorem Picsum com tema relacionado ao nicho
 
-- **Google Fonts** — combinação heading + body (consultar lista em cdn-design-resources.md)
-- **1 biblioteca de ícones** — Phosphor Icons (recomendado), Lucide ou Tabler Icons via CDN
-- **AOS (Animate on Scroll)** — para animações de entrada nas seções. Ou IntersectionObserver puro em CSS/JS
-- **Avatares para depoimentos** — pravatar.cc ou DiceBear quando não houver fotos reais
-- **Placeholders de imagem** — Lorem Picsum com tema relacionado ao nicho, ou divs instrucionais
+## Escolha de Fontes por Nicho
 
-## Escolha de fontes por nicho
-
-**REGRA: TODAS as fontes DEVEM ser sans-serif** — heading E body. Fontes serifadas são PROIBIDAS em qualquer parte da página. Serifadas (Playfair, Fraunces, Noto Serif, Lora, Merriweather, Instrument Serif, etc.) dão cara de template de IA e prejudicam leitura em telas.
-
-Consulte a lista completa de fontes aprovadas em `skills/paginas/SKILL.md` → "Fontes Sans-Serif Aprovadas".
+**REGRA: TODAS as fontes DEVEM ser sans-serif** — heading E body. Fontes serifadas são PROIBIDAS.
 
 | Nicho | Heading | Body |
 |---|---|---|
@@ -513,7 +604,7 @@ Consulte a lista completa de fontes aprovadas em `skills/paginas/SKILL.md` → "
 | Gastronomia | Sora 700 | DM Sans 400,500 |
 | Beleza/Skincare | Raleway 600 | Outfit 400,500 |
 
-## Paletas por nicho
+## Paletas por Nicho
 
 - **Finanças**: Azul marinho #1e3a5f + Dourado #d4a574 + CTA Verde #38a169
 - **Saúde**: Verde #11998e + Branco + CTA Laranja #dd6b20
@@ -523,280 +614,110 @@ Consulte a lista completa de fontes aprovadas em `skills/paginas/SKILL.md` → "
 - **Coaching**: Terracota #c4603c + Creme #fdf6ec + CTA Laranja #ed8936
 - **Artesanato**: Dourado #d4a574 + Marrom #2d1810 + CTA Verde #38a169
 
-## Padrão técnico HTML
+## Padrão Técnico HTML
 
 - Arquivo HTML único
 - CSS em `<style>` (CSS custom properties para cores, fontes, espaçamento)
 - JS em `<script>` no final do body
-- CDNs permitidos: Google Fonts, 1 lib de ícones, AOS
 - Modern CSS Reset (Josh Comeau) inline
 - `scroll-behavior: smooth`
 - Sistema de espaçamento base 8px via CSS variables
 - Escala tipográfica consistente via CSS variables
 - `lang="pt-BR"`, meta viewport, semântico
-- `<meta charset="UTF-8">` para suportar acentos
+- `<meta charset="UTF-8">`
 
-## Regras Globais de Copy (aplicar em TODA a página)
+## Regras Globais de Copy na Página
 
-### NUNCA usar travessão (—) em copy
-
-Todo texto visível deve ser contínuo, sem travessão separando partes da frase. Substituir por "e", vírgula, dois-pontos ou reescrever a frase de forma fluida.
+**NUNCA usar travessão (—) em copy.** Substituir por "e", vírgula, dois-pontos ou reescrever.
 
 **Errado:** "Como calcular o valor real — para nunca mais aceitar um preço errado"
 **Certo:** "Como calcular o valor real para nunca mais aceitar um preço errado"
-
-Aplica-se a: headlines, subheadlines, bullets, descrições, depoimentos, bônus, FAQs — tudo que o usuário lê na página.
 
 ---
 
 ## Estrutura da Página de Vendas
 
-A página segue a estrutura de conversão abaixo. Cada seção tem um objetivo específico. Seguir esta ordem.
-
-**Header fixo** — logotipo + botão CTA pequeno. Glassmorphism. Logo à esquerda, CTA à direita.
-
----
+### Header Fixo
+Logotipo + botão CTA pequeno. Glassmorphism. Logo à esquerda, CTA à direita.
 
 ### Seção 1 — Primeira Dobra (OBRIGATÓRIO: vídeo visível sem scroll)
 
-**Objetivo:** Fazer a pessoa assistir ao vídeo de vendas de valor.
+**Objetivo:** Fazer a pessoa assistir ao vídeo de vendas.
 
-**Estrutura obrigatória (nesta ordem):**
-
-1. **Headline (Premissa)** — vende uma ideia, não o produto. Não pode estar no imperativo. Sem tom de promessa direta. Conduz a pessoa de forma sutil para que ela chegue à conclusão sozinha.
-   - Padrões válidos: "Quem vende barato vende menos", "É possível...", "O melhor jeito de... é", "Como...", "Qualquer pessoa pode", "Tarotista que cobra X por Y provavelmente está no prejuízo sem saber"
+1. **Headline (Premissa)** — vende uma ideia, não o produto. Não pode estar no imperativo. Sem tom de promessa direta.
+   - Padrões válidos: "Quem vende barato vende menos", "É possível...", "Como...", "Qualquer pessoa pode"
    - Proibido: imperativos ("Pare de...", "Aprenda...", "Descubra..."), perguntas no gancho, promessas vagas
 
-2. **Subheadline** — reforça a premissa gerando mais curiosidade. 1-2 linhas. Tom analítico, não de promessa.
+2. **Subheadline** — reforça a premissa. 1-2 linhas. Tom analítico.
 
-3. **3 bullets** — cada bullet é uma combinação de urgência oculta + decorado, mostrando o que a pessoa vai descobrir/aprender no vídeo.
-   - Estrutura: [O que vai aprender / urgência oculta] + [pra quê / decorado]
-   - Exemplo: "Como calcular o valor real de cada leitura para nunca mais aceitar um preço que te deixa no prejuízo sem saber"
-   - Os bullets são numerados (1, 2, 3), não ícones de check
+3. **3 bullets** — cada bullet = urgência oculta + decorado. Numerados (1, 2, 3), não ícones de check.
+   - Exemplo: "Como calcular o valor real de cada leitura para nunca mais aceitar um preço que te deixa no prejuízo"
 
-4. **Vídeo** — OBRIGATÓRIO na primeira dobra. O player começa a aparecer antes do scroll, criando o efeito de "continua abaixo". Usar `aspect-ratio: 16/9`, `border-radius` no topo, sem `border-bottom`, encostado na borda inferior da seção. Fundo da seção vai até o player.
+4. **Vídeo** — OBRIGATÓRIO. Usar `aspect-ratio: 16/9`, encostado na borda inferior da seção.
+   - Se tiver link do YouTube: extrair o ID e usar `/embed/ID`
+   - Se não tiver: placeholder visual `[Insira aqui o embed do seu vídeo]`
 
-   **Se o usuário forneceu link do YouTube ou Vimeo**, embutir com iframe:
-   ```html
-   <iframe
-     src="https://www.youtube.com/embed/VIDEO_ID?rel=0&modestbranding=1"
-     title="Nome do produto"
-     frameborder="0"
-     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-     allowfullscreen
-     style="width:100%;aspect-ratio:16/9;display:block;border:0;">
-   </iframe>
-   ```
-   Para YouTube: extrair o ID do link (parte após `?v=` ou após `youtu.be/`) e montar o src com `/embed/ID`.
-   Para Vimeo: usar `https://player.vimeo.com/video/ID`.
-   O container pai do iframe deve ter `overflow: hidden` e `width: 100%` — **sem** `position: relative` nem `aspect-ratio` no container (o iframe define as proporções por si só).
-
-   **Se não tiver vídeo**, usar placeholder visual com instrução: `[Insira aqui o embed do seu vídeo]`.
-
-**Não incluir botão CTA na primeira dobra.** O objetivo é assistir ao vídeo, não comprar agora.
-
----
+**Não incluir botão CTA na primeira dobra.** O objetivo é assistir ao vídeo.
 
 ### Seção 2 — Botão de Compra
 
-**Objetivo:** Fazer a pessoa clicar no botão de compra logo após assistir ao vídeo.
-
-Elementos obrigatórios:
 - Preço em destaque grande
 - Botão CTA principal (verde ou laranja, máximo contraste)
-- Selos de confiança abaixo do botão: compra segura, garantia (X dias), acesso imediato, dados protegidos
-
----
+- Selos de confiança: compra segura, garantia, acesso imediato, dados protegidos
 
 ### Seção 3 — Paliativo
 
-**Objetivo:** Encantar rápido mostrando que as tentativas anteriores não resolvem.
-
-**Incluir somente se houver paliativo.** Se não houver, ir direto para Seção 4.
-
-O paliativo são as soluções que o público já tentou antes de chegar ao produto. Mostrar por que cada tentativa falha — não por incompetência da pessoa, mas por limitação da tentativa. Usar cards com citação em itálico + label explicando o problema da tentativa.
-
----
+**Incluir somente se houver paliativo.** Mostrar por que as tentativas anteriores falham usando cards com citação em itálico + label.
 
 ### Seção 4 — Resultados Concretos
 
-**Objetivo:** Comprovar com números e casos reais.
-
-Depoimentos com resultado quantificável em destaque (badge com o resultado: "De R$40 para R$95", "Tabela pronta em 20 min"). Fundo com imagem + overlay escuro. Cards glassmorphism.
-
----
+Depoimentos com resultado quantificável em destaque (badge com o resultado). Fundo com imagem + overlay escuro. Cards glassmorphism.
 
 ### Seção 5 — Suporte
 
-**Objetivo:** Transmitir segurança sobre o que acontece depois da compra.
-
-Cobrir: como e quando recebe o acesso, formatos disponíveis, canal de suporte, garantia. Grid de cards com ícone + título + descrição curta.
-
----
+Cobrir: como e quando recebe o acesso, formatos disponíveis, canal de suporte, garantia. Grid de cards com ícone + título + descrição.
 
 ### Seção 6 — Bônus
 
-**Objetivo:** Vender os bônus como itens de valor independente.
-
 Cada bônus com: badge "Bônus X", nome, descrição do que entrega, valor original riscado + "Incluso hoje".
-
----
 
 ### Seção 7 — Autoridade do Criador
 
-**Objetivo:** Gerar confiança em quem criou o produto.
-
-Foto + nome + posicionamento + bio em 2 parágrafos + lista de credenciais. Se não tiver foto, usar placeholder instrucional `[Insira sua foto aqui, tamanho recomendado: 400x400px]`.
-
----
+Foto + nome + posicionamento + bio em 2 parágrafos + lista de credenciais. Placeholder instrucional se não tiver foto.
 
 ### Seção 8 — Para Quem É
 
-**Objetivo:** Funciona pra mim? Filtrar e identificar o público.
-
-Grid de 2 colunas: "É pra você se" (checks verdes) e "Não é pra você se" (X vermelhos). Extrair os perfis da identidade do consumidor (`idconsumidor.md`). Fundo escuro.
-
----
+Grid de 2 colunas: "É pra você se" (checks verdes) e "Não é pra você se" (X vermelhos). Extrair perfis da identidade do consumidor. Fundo escuro.
 
 ### Seção 9 — Lógica do Método
 
-**Objetivo:** Explicar como o produto funciona de ponta a ponta.
-
-Passos numerados (como funciona) + grid de entregáveis detalhados com ícone, título, descrição e lista de tópicos. Grid de entregáveis: **2 colunas no desktop, 1 no mobile** (nunca 3 colunas).
-
----
+Passos numerados + grid de entregáveis detalhados com ícone, título, descrição e lista de tópicos. **2 colunas no desktop, 1 no mobile** (nunca 3 colunas).
 
 ### Seção 10 — Depoimentos + Reflexão Emocional
 
-**Objetivo:** Mostrar muita prova e ativar o emocional antes do CTA.
-
-Mínimo 4 depoimentos. Fundo com imagem + overlay. Após os depoimentos, bloco de reflexão emocional: headline que conecta com a identidade da pessoa + parágrafo que valida a jornada + botão CTA.
-
----
+Mínimo 4 depoimentos. Fundo com imagem + overlay. Após os depoimentos, bloco de reflexão emocional: headline que conecta com a identidade da pessoa + parágrafo + botão CTA.
 
 ### Stack de Valor + Botão
 
 Tabela com todos os itens e valores individuais. Total riscado. Preço real em destaque. Botão CTA. Selos de confiança.
 
----
-
 ### FAQ
 
-**Objetivo:** Tirar dúvidas específicas com profundidade e provas.
-
-5-8 perguntas baseadas nas objeções reais da identidade do consumidor. Accordion funcional em JS. Respostas diretas e com substância, não respostas genéricas.
-
----
+5-8 perguntas baseadas nas objeções reais da identidade do consumidor. Accordion funcional em JS. Respostas diretas.
 
 ### Seção Final — Resumindo
 
-Headline que sintetiza a transformação. Parágrafo recapitulando o que está incluso. Preço. Botão CTA. Selos de confiança.
-
----
+Headline que sintetiza a transformação. Parágrafo recapitulando o que está incluso. Preço. Botão CTA. Selos.
 
 ### Rodapé
 
 Copyright + links de termos e privacidade.
-
----
 
 ### CTA Flutuante Mobile
 
 Aparece ao rolar no mobile. Some quando a pessoa chega na seção final.
 
 ---
-
-## Seções de Captura e Obrigado (estruturas separadas)
-
-### Seção 10 — Bônus (legado, mantido para compatibilidade)
-
-**Elementos:** Cada bônus com nome, descrição e valor individual em R$
-**Fundo:** Gradiente sutil
-
-Regras:
-- 2-4 bônus estratégicos
-- Cada card com badge "Bônus 1", "Bônus 2"
-- Valor original riscado (ex: "Valor: ~~R$ 97~~")
-- Se o aluno não especificou bônus, criar bônus coerentes com o produto
-
-### Seção 11 — Stack de Valor
-
-**Elementos:** Lista de tudo incluso + valor individual + total riscado + preço real
-**Fundo:** Escuro premium
-
-Regras:
-- Tabela ou lista: item → valor em R$
-- Total somado (ex: R$ 1.149) riscado
-- Preço real em destaque grande + parcelamento
-- CTA logo abaixo da oferta
-- Selos de segurança + garantia abaixo do botão
-
-### Seção 12 — Depoimentos
-
-**Elementos:** 3-6 depoimentos com foto, nome e resultado específico
-**Fundo:** Imagem de fundo + overlay + cards flutuantes
-
-Regras:
-- Cada depoimento: avatar (pravatar.cc) + nome + resultado quantificável + texto em itálico
-- Estrelas de avaliação (5/5)
-- Se o aluno forneceu depoimentos reais, usar. Se não, criar placeholders realistas
-- Cards com aspas grandes decorativas
-
-### Seção 13 — Garantia
-
-**Elementos:** Selo visual circular + texto confiante
-**Fundo:** Claro com destaque central
-
-Regras:
-- Selo visual: círculo com número de dias (7, 15 ou 30)
-- Título: "Garantia incondicional de X dias"
-- Texto que inverte o risco: "Se não gostar, devolvemos 100% do seu dinheiro"
-- Layout: selo à esquerda + texto à direita (centralizado no mobile)
-
-### Seção 14 — FAQ
-
-**Elementos:** 5-8 perguntas frequentes com accordion funcional
-**Fundo:** Neutro (off-white ou cinza muito claro)
-
-Regras:
-- Perguntas baseadas nas objeções reais da persona (extrair de `persona.md` → Objeções de Compra)
-- Accordion em JS: clica na pergunta, abre a resposta
-- Respostas curtas, diretas, sem enrolação
-- Ícone de seta que gira ao abrir/fechar
-
-### Seção 15 — CTA Final (Último Empurrão)
-
-**Elementos:** Headline emocional + preço + parcelamento + botão grande + selos de confiança
-**Fundo:** Escuro com gradiente
-
-Regras:
-- Headline que reforça a transformação (não repetir a do hero)
-- Preço com parcela em destaque (ex: "12x de R$ 29,04")
-- Preço à vista menor abaixo
-- Botão CTA grande e contrastante
-- Selos: "Compra segura", "X dias de garantia", "Até 12x sem juros"
-- Senso de urgência sutil, sem countdown falso
-
-### Seção 16 — Rodapé
-
-**Elementos:** Copyright + links de termos e privacidade
-**Fundo:** Escuro sólido (cor primária)
-
-Regras:
-- Texto pequeno centralizado
-- Links: Termos de uso | Política de privacidade
-- Ano atual + nome do produto
-
-### Regras Globais da Página
-
-- **Mínimo 3 CTAs** espalhados: após o hero, no stack de valor e no CTA final
-- **CTA flutuante no mobile** — aparece ao rolar, some perto do CTA final
-- **Preço com ancoragem** — valor original riscado + preço real em destaque
-- **Botão CTA sempre verde ou laranja** — máximo contraste contra o fundo
-- **2+ seções com imagem de fundo** — para dar profundidade (Agitação + Depoimentos recomendados)
-- **Seções visualmente diferentes** — alternar fundos claros, escuros, com imagem, com gradiente
-- **Smooth scroll** entre âncoras internas
-- **Depoimentos com avatar + nome + resultado específico** (nunca genérico)
 
 ## Página de Captura
 
@@ -815,11 +736,12 @@ Regras:
 4. Instruções de acesso
 5. CTA secundário (grupo WhatsApp, redes sociais)
 
-## Checklist pré-entrega (verificar ANTES de salvar)
+---
+
+## Checklist Pré-Entrega (verificar ANTES de salvar)
 
 **Texto e idioma:**
-- [ ] TODOS os textos em português com acentos corretos (módulo, não modulo)
-- [ ] Nenhuma palavra sem acento na página inteira
+- [ ] TODOS os textos em português com acentos corretos
 - [ ] Revisar headlines, parágrafos, botões, FAQs, footer, labels — tudo
 
 **Estrutura:**
@@ -827,50 +749,47 @@ Regras:
 - [ ] HTML válido, semântico, `lang="pt-BR"`, `charset="UTF-8"`
 
 **Design e layout:**
-- [ ] TODAS as fontes são SANS-SERIF (heading E body) — zero serifadas na página
-- [ ] Fontes escolhidas da biblioteca aprovada em SKILL.md
+- [ ] TODAS as fontes são SANS-SERIF (heading E body)
+- [ ] Fontes escolhidas da biblioteca aprovada
 - [ ] Cards de conteúdo com min-width >= 320px no grid
 - [ ] Texto dentro de cards com font-size >= 0.95rem
 - [ ] Padding interno de cards >= 28px
 - [ ] Entregáveis/módulos em grid de 2 colunas (NÃO 3)
-- [ ] NÃO parece design Lovable/v0 (sem cards idênticos em fundo bege)
+- [ ] NÃO parece design Lovable/v0
 
 **Variedade visual:**
 - [ ] Pelo menos 4 tipos diferentes de fundo entre as seções
 - [ ] Pelo menos 2 seções com imagem de fundo (Picsum + overlay)
-- [ ] Seções visualmente distintas (não repetir o mesmo padrão)
+- [ ] Seções visualmente distintas
 - [ ] Pelo menos 1 divisor decorativo (wave SVG, linha, mudança abrupta)
-- [ ] Pelo menos 3 animações de scroll (AOS ou CSS puro)
+- [ ] Pelo menos 3 animações de scroll
 
 **Conversão:**
-- [ ] Paleta com cor dominante forte (não pastéis tímidos)
-- [ ] Botão CTA com contraste máximo contra o fundo
+- [ ] Botão CTA com contraste máximo
 - [ ] Depoimentos com avatar (pravatar.cc)
 - [ ] FAQ com accordion funcional em JS
 - [ ] Smooth scroll ativado
-- [ ] Mobile responsivo (testar visualmente em 375px)
+- [ ] Mobile responsivo (375px)
 - [ ] CTA flutuante no mobile
 
-### 4. Inserir Pixel (se configurado)
-Leia `.env` e verifique `META_PIXEL_ID`. Se existir, insira o snippet do Facebook Pixel no `<head>` da página com os eventos adequados:
+---
+
+## B4. Inserir Pixel (se configurado)
+
+Leia `.env` e verifique `META_PIXEL_ID`. Se existir, insira o snippet do Facebook Pixel no `<head>`:
 - Captura: evento `Lead` no submit
 - Vendas: evento `ViewContent` no carregamento
 - Obrigado: evento `Purchase` ou `CompleteRegistration`
 
-Se não existir, gere a página sem Pixel.
+## B5. Salvar
 
-### 5. Salvar
-
-Salvar o arquivo da página:
 - `produtos/{ativo}/entregas/paginas/vendas-[produto].html`
 - `produtos/{ativo}/entregas/paginas/captura-[produto].html`
 - `produtos/{ativo}/entregas/paginas/obrigado-[produto].html`
 
-**SEMPRE** criar também `index.html` como cópia do arquivo gerado na mesma pasta. A Vercel exige `index.html` para servir o conteúdo na raiz do domínio.
+**SEMPRE** criar também `index.html` como cópia do arquivo gerado na mesma pasta.
 
-### 6. Publicar na Vercel
-
-Após salvar, perguntar:
+## B6. Publicar na Vercel
 
 ```
 Sua página está salva. Quer publicar online agora para ter um link para compartilhar?
@@ -883,20 +802,14 @@ Digite o número:
 
 Se escolher **2**, informar o caminho do arquivo e ir para o Próximo Passo.
 
-Se escolher **1**, executar o deploy de forma autônoma, sem mais perguntas:
-
----
-
-#### Fluxo de deploy autônomo
+Se escolher **1**, executar o deploy de forma autônoma:
 
 **Passo 1 — Verificar se a conta está conectada:**
 ```bash
 npx vercel whoami
 ```
 
-**Se retornar um nome de usuário** (conta conectada): ir direto para o Passo 2.
-
-**Se retornar erro** (não autenticado): orientar o usuário:
+**Se retornar erro** (não autenticado):
 ```
 Para publicar, você precisa de uma conta gratuita na Vercel.
 São 3 passos — leva menos de 5 minutos:
@@ -911,12 +824,10 @@ Quando o usuário colar o token:
 - Salvar em `.env`: `VERCEL_TOKEN=<token>`
 - Executar: `npx vercel --token <token> produtos/{ativo}/entregas/paginas --prod --yes --name {slug-do-produto}`
 
-**Passo 2 — Deploy direto (conta já conectada):**
+**Se conta conectada:**
 ```bash
 npx vercel produtos/{ativo}/entregas/paginas --prod --yes --name {slug-do-produto}
 ```
-
-Onde `{slug-do-produto}` é o valor lido de `produtos/.ativo` (ex: `precifique-seu-taro`).
 
 Informar ao usuário:
 ```
@@ -926,13 +837,11 @@ Sua página está online em: https://{slug-do-produto}.vercel.app
 studio.youtube.com → Conteúdo → editar o vídeo → Mais opções → Permitir incorporação → Salvar
 ```
 
----
-
 #### Atualizar a página (nova versão após edições)
-
 ```bash
 npx vercel produtos/{ativo}/entregas/paginas --prod --yes --name {slug-do-produto}
 ```
 
-### 7. Próximo Passo
+## B7. Próximo Passo
+
 "Use `/anuncio` para criar anúncios que levem tráfego a essa página."

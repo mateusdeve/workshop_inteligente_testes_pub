@@ -17,13 +17,17 @@ Lista todos os produtos cadastrados em `produtos/` e permite trocar o produto at
 
 ### 1. Ler produto ativo atual
 
-Leia `produtos/.ativo` para saber qual produto está ativo agora.
+Leia `produtos/.ativo` para saber qual produto está ativo agora. Use este valor **somente** para marcar o produto ativo na listagem — não use para descobrir os outros produtos.
 
-### 2. Listar produtos disponíveis
+### 2. Descobrir todos os produtos cadastrados
 
-Liste todas as subpastas dentro de `produtos/` (ignorar arquivos como `.ativo` e `.gitkeep`).
+Use **Glob** com o padrão `produtos/*/perfil.md` para encontrar todos os produtos que têm perfil cadastrado.
 
-Para cada pasta, verifique se existe `produtos/{slug}/perfil.md` e mostre:
+Em seguida, use **Glob** com o padrão `produtos/*/` para detectar pastas que existem mas ainda não têm `perfil.md`.
+
+**Nunca** assuma que só existe o produto que está em `.ativo`. Sempre varre toda a pasta `produtos/` para descobrir os produtos disponíveis.
+
+Para cada pasta encontrada, mostre:
 - Nome do produto (leia a linha do Quadro do `perfil.md` se existir, senão mostre só o slug)
 - Indicador se é o produto ativo atual
 

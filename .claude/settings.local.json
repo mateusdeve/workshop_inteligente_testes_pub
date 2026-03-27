@@ -27,7 +27,9 @@
       "Bash(pip --version)",
       "Bash(npm --version)",
       "Bash(ffmpeg -version)",
-      "Bash(node --experimental-vm-modules transcribe.mjs)"
+      "Bash(node --experimental-vm-modules transcribe.mjs)",
+      "Read(//c/Users/Elen/Downloads/**)",
+      "Bash(python3 -c \":*)"
     ]
   }
 }

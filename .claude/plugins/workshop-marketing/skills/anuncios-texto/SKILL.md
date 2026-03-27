@@ -205,7 +205,7 @@ Para cada variacao, o prompt deve descrever:
 
 Exemplo de prompt bem formado:
 ```
-Professional lifestyle photo of a woman studying at a clean desk, natural light from window, warm tones, text overlay "Aprenda Tarot em 30 dias" in bold white font centered, minimal background, Instagram feed format, 1:1 aspect ratio, soft shadow, high quality
+Professional lifestyle photo of a woman studying at a clean desk, natural light from window, warm tones, text overlay "Aprenda [Tema do Produto] em 30 dias" in bold white font centered, minimal background, Instagram feed format, 1:1 aspect ratio, soft shadow, high quality
 ```
 
 ### Carrossel — um prompt por card

@@ -79,14 +79,14 @@ Sempre que possível, criar nome próprio para o conceito, problema ou solução
 O gancho deve ser uma **premissa não óbvia** — afirmação que surpreende quem já está no nicho.
 
 **ERRADO:**
-- "Sabe aquela sensação de travar na leitura?" ❌ (pergunta)
-- "Você já se sentiu insegura com o tarô?" ❌ (pergunta)
-- "Aprender tarô é difícil." ❌ (óbvio)
+- "Sabe aquela sensação de não conseguir avançar?" ❌ (pergunta)
+- "Você já se sentiu travado no seu negócio?" ❌ (pergunta)
+- "Aprender a vender é difícil." ❌ (óbvio)
 
 **CERTO:**
-- "A leitora que mais trava raramente é a que sabe menos." ✓
-- "Decorar os 78 significados é o caminho mais rápido para travar na leitura." ✓
-- "Fechar bem uma sessão de tarô é mais difícil do que abrir ela." ✓
+- "O aluno que mais trava raramente é o que sabe menos." ✓
+- "Quem estuda demais sem executar nunca sai do lugar." ✓
+- "Fechar bem uma venda é mais difícil do que começar uma conversa." ✓
 
 ## Plataforma
 
@@ -260,7 +260,7 @@ A mandala funciona cruzando **objetivo** + **momento de consumo** + **tipo de an
 ## Fluxo completo do comando `/anuncio` (7 passos)
 
 ```
-1. Contexto       → ler meu-negocio/perfil.md, idconsumidor.md e correcoes/informacoes-adicionais.md
+1. Contexto       → ler produtos/.ativo, produtos/{ativo}/perfil.md e produtos/{ativo}/idconsumidor.md
 2. Entrevista     → uma pergunta por vez, sem agrupar, com progresso visual
 3. Pesquisa       → 2 buscas na web (formato + objetivo) — a cada geração, não reutilizar
 4. Geração        → 3 variações da Mandala da Criatividade (VTSD + tendências)

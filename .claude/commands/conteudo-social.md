@@ -135,16 +135,24 @@ Após as buscas, sintetize em 3–4 linhas o que está funcionando agora e use i
 ### 4. Geração
 
 **Regras de estilo Light Copy — obrigatórias em todo conteúdo:**
-- Sem ponto de exclamação.
-- Sem perguntas no gancho.
-- Sem "mesmo que" / "sem precisar" como muletas.
-- Sem promessas vagas.
-- Travessão longo (—): nunca usar. Substituir por vírgula, ponto ou reformulação.
-- Estrutura "Não é X. É Y.": nunca usar. Reformular de forma mais elaborada.
-- Emojis: nunca usar na copy.
-- O produto não aparece nas primeiras linhas: começar pelo leitor ou pelo insight.
-- Nomear cria realidade: criar nome próprio para o conceito ou problema quando possível.
-- Especificidade: usar números concretos, situações reais. "R$ 1.600" > "muito dinheiro". "Antes dos 7 anos" > "na infância".
+ Princípio central
+A melhor copy não parece copy. Parece alguém inteligente te explicando algo que você nunca tinha entendido.
+
+As 7 leis da copy:
+1. Ensinar em vez de prometer: A copy entrega conhecimento real. Curiosidade vem do aprendizado, não de promessa vaga
+2. Nomear cria realidade: Dê nomes próprios para problemas ou soluções. Nome transforma ideia em algo concreto
+3. O produto não aparece no lead: Nada de “curso”, “treinamento”, “compre” no início. Só o leitor e a realidade dele
+4. Tom de escritor, não de vendedor. Escreva como quem explica, não como quem vende. Mostre, não empurre.
+5. Especificidade mata generalização: Use números, datas, valores, situações reais: Quanto mais concreto, mais confiável
+6. Informar, não vender: Ou você ensina, ou você avisa. Nunca tenta vender diretamente
+7. Crie um inimigo concreto (ou cenário inevitável). Um culpado externo facilita a aceitação. Pode ser pessoa, sistema ou método antigo
+Vícios proibidos:
+Não usar travessão (—)
+Não usar estrutura: “Não é X. É Y.”
+Não usar frases genéricas de vendedor
+Não mencionar o produto na copy
+Não usar emojis
+
 
 **REGRA DE PROFUNDIDADE OBRIGATÓRIA — vale para todo tipo de conteúdo:**
 - **Gancho:** afirmação não óbvia, contra-intuitiva ou específica. NUNCA uma pergunta. NUNCA algo genérico.

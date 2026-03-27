@@ -12,13 +12,24 @@ description: >
 
 Até 10 palavras. Verbo no infinitivo. Único resultado. Atrativo, claro, específico.
 
-**O que NÃO é Quadro:** Slogan, promessa vaga, frase com imperativo, caminho para resultado.
+É o **resultado final** que a pessoa CONQUISTA ou SE TORNA após usar o produto. É a chegada, não o caminho.
 
-**Exemplos:**
-- Falar inglês em 90 dias
-- Fechar R$10 mil por mês como social media
-- Vender bolo caseiro todos os dias
-- Zerar dívidas em até 90 dias sem renda extra
+**Teste rápido:** a pessoa pode dizer "isso aconteceu na minha vida" ao final do produto? Se sim, é Quadro. Se não, é processo.
+
+**O que NÃO é Quadro (processo / meio):**
+- "Identificar a crença que te trava" ❌ — isso é o processo, não o resultado
+- "Descobrir por que você sabota os resultados" ❌ — é a investigação, não a chegada
+- "Aprender como funciona X" ❌ — é o caminho, não a transformação
+- Slogan, promessa vaga, frase com imperativo ❌
+
+**O que É Quadro (resultado final concreto e verificável):**
+- Falar inglês em 90 dias ✓
+- Fechar R$10 mil por mês como social media ✓
+- Vender bolo caseiro todos os dias ✓
+- Zerar dívidas em até 90 dias sem renda extra ✓
+- Ganhar dinheiro sem culpa e guardar sem medo de perder ✓
+- Cobrar o que vale sem sentir que está exagerando ✓
+- Agir em direção ao que quer sem travar no último momento ✓
 
 ## Furadeira (Método)
 
