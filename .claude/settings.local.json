@@ -12,7 +12,22 @@
       "Bash(\"C:/Users/Elen/.cursor/Imersão IA/workshop_inteligente/produtos/.ativo\")",
       "Bash(find '/c/Users/Elen/.cursor/Imersão IA/workshop_inteligente/skills' -name *.md -o -name *.html)",
       "mcp__Claude_Preview__preview_start",
-      "Bash(npm list:*)"
+      "Bash(npm list:*)",
+      "Bash(python -c \":*)",
+      "Bash(py --version)",
+      "Bash(where python*)",
+      "Bash(node -e \":*)",
+      "Bash(where gs:*)",
+      "Bash(where ghostscript:*)",
+      "Bash(where magick:*)",
+      "Bash(where convert:*)",
+      "Bash(where tesseract:*)",
+      "Read(//c/tmp/**)",
+      "Bash(npm install:*)",
+      "Bash(pip --version)",
+      "Bash(npm --version)",
+      "Bash(ffmpeg -version)",
+      "Bash(node --experimental-vm-modules transcribe.mjs)"
     ]
   }
 }

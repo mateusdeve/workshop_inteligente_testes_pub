@@ -29,6 +29,18 @@ Você já tem `perfil.md` e `persona.md` com Quadro, Furadeira, Decorados, Urgê
 - Sem "mesmo que" / "sem precisar" como muletas
 - Sem promessas vagas
 
+**Vícios de escrita proibidos (além do Light Copy):**
+- Travessão longo (—): nunca usar. Substituir por vírgula, ponto ou reformulação da frase.
+- Estrutura "Não é X. É Y.": nunca usar (ex: "Não é disciplina. É método."). Reformular de forma mais elaborada e natural.
+- O produto não aparece nos primeiros parágrafos: a copy começa pelo leitor e pela realidade dele.
+- Emojis: nunca usar na copy.
+
+**Nomear cria realidade:** sempre que possível, criar um nome próprio para o conceito, problema ou solução. Nomes como "Negociação Terapêutica" ou "Programação Emocional Repetitiva" funcionam. "Método Exclusivo" não funciona.
+
+**Parágrafo técnico em itálico:** ao final de cada lead, incluir um parágrafo em itálico que ancora a emoção com razão — explica por que aquilo funciona do ponto de vista científico ou lógico.
+
+**Referência de exemplos validados:** consulte `.claude/plugins/workshop-marketing/skills/conteudo/references/exemplos-leads-4-categorias.md` para ver as 4 categorias aplicadas a 3 nichos reais (skincare, saúde/imunidade, psicologia). Use como referência de nível de especificidade, profundidade, estrutura e tom — não como template.
+
 Use os 26 elementos literários quando apropriado (consulte skill vtsd-completo para lista completa).
 
 ## O Que Fazer
@@ -44,6 +56,11 @@ Pergunte apenas o que NÃO está no perfil:
 - Tem promoção, desconto ou condição especial ativa?
 - Tem bônus específicos que quer incluir? (se não tiver, gere 3 com base no perfil)
 - Tem depoimentos reais? (se não tiver, gere modelos para substituir depois)
+- Qual é o ângulo de entrada? (para definir a categoria de lead)
+  1. Inadequação — a pessoa está desatualizada ou fazendo errado
+  2. Identificação — a pessoa se reconhece na dor descrita
+  3. Plug & Play — a pessoa quer algo pronto para usar
+  4. Promessa Boa Demais — existe história real com números verificáveis
 
 Confirme antes de gerar:
 - Produto, preço, formato (já no perfil)

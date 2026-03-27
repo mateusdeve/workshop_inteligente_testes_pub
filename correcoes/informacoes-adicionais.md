@@ -247,6 +247,91 @@ O **conteúdo** (o que diz) segue VTSD + perfil do negócio. O **formato e estil
 
 ---
 
+## 2026-03-26 — Melhorias estruturais no sistema
+
+### 1. Primeira interação: detectar produto antes de mostrar menu
+
+- O sistema **não deve mostrar a lista de comandos logo de cara**.
+- Ao iniciar, deve **ler `produtos/.ativo`**:
+  - **Se existir produto:** mostrar o nome do produto ativo e perguntar o que quer criar. Depois listar os comandos.
+  - **Se não existir produto:** entrar em **onboarding guiado** (ver item 2).
+- Esse comportamento está registrado no `CLAUDE.md` na seção "Primeira Interação".
+
+---
+
+### 2. Onboarding guiado para novos usuários (sem produto)
+
+Quando o usuário não tiver produto cadastrado, conduzir o fluxo completo **sem pular etapas**, uma pergunta por vez:
+
+1. Qual é a sua especialidade? O que você ensina ou entrega?
+2. Você já tem alguma ideia de produto?
+   - **Tem ideia clara** → perguntar nome → criar produto → `/meu-produto` automático
+   - **Ideia vaga ou nenhuma** → fazer pesquisa de mercado no nicho → sugerir 2-3 ideias com posicionamento, formato e faixa de preço → usuário escolhe → seguir para `/meu-produto`
+3. O fluxo de `/meu-produto` inclui: Quadro → Furadeira → Decorados → Urgências Ocultas
+4. **O menu de comandos só aparece depois que o perfil estiver completo e salvo.**
+
+---
+
+### 3. `/idconsumidor`: gerar "Para Quem É" e "Baldes de Conteúdo"
+
+O documento gerado pelo `/idconsumidor` agora inclui duas seções obrigatórias:
+
+**Para Quem É:**
+- Frase de posicionamento clara: "Este produto é para [perfil], que [problema], e quer [transformação]."
+- "Não é para:" — exclusões que ajudam a posicionar
+
+**Baldes de Conteúdo (Identidade do Comunicador):**
+- 5 baldes derivados das Urgências Ocultas e dos Decorados
+- Cada balde tem: Nome, Propósito (educar / engajar / converter), Tom e Exemplos de temas concretos
+- Os baldes são a base da linha editorial e da Identidade do Comunicador
+- Esses baldes alimentam o `/conteudo-social` — o comando deve usar os baldes para distribuir os temas quando o arquivo `idconsumidor.md` existir
+
+---
+
+### 4. `/anuncio`: decorados e urgências ocultas como fonte obrigatória
+
+- **Antes de qualquer pergunta sobre a campanha**, o comando deve:
+  1. Carregar todos os **Decorados** e todas as **Urgências Ocultas** do `perfil.md`
+  2. Ler os arquivos existentes em `produtos/{ativo}/entregas/anuncios/` para identificar quais já foram explorados
+  3. Apresentar ao usuário: total disponível, já explorados, e disponíveis para o novo pacote
+- **Regra de não repetição:** priorizar urgências e decorados ainda não usados. Se todos já foram usados, indicar que está retomando o tema.
+- Os decorados e urgências ocultas são a **fonte de temas** de todo anúncio — não criar temas "do zero" sem consultar essa lista.
+
+---
+
+### 5. `/anuncio`: pesquisa de virais obrigatória para TODOS os formatos
+
+- A pesquisa de TikTok + Instagram virais era obrigatória só para vídeo. **Agora é obrigatória para qualquer formato** (vídeo, imagem, carrossel, texto).
+- **Busca Base obrigatória (sempre):**
+  - `reels instagram virais [mês e ano atual]` — todos os nichos
+  - `tiktok trends virais [mês e ano atual]` — todos os nichos
+- Objetivo: captar o padrão de estrutura, tom e abertura que está funcionando agora — não o conteúdo. O conteúdo vem do produto. O formato vem dos virais.
+- O que extrair: estrutura de abertura, tom predominante, se entrega conteúdo real ou só promete, padrão de CTA.
+- **Modelar sempre os virais que entregam conteúdo real** — nunca os que só prometem sem entregar dentro do próprio post/vídeo.
+
+---
+
+### 6. `/conteudo-social`: mesmas regras de fonte e pesquisa
+
+- Carregar Decorados + Urgências Ocultas do `perfil.md` antes de qualquer geração
+- Ler entregas existentes em `produtos/{ativo}/entregas/conteudo-social/` para verificar o que já foi explorado
+- Apresentar ao usuário o que está disponível (já usados vs disponíveis)
+- Usar os **Baldes de Conteúdo** do `idconsumidor.md` para distribuir os temas entre as categorias corretas
+- **Pesquisa de virais obrigatória** (TikTok + Instagram, todos os nichos) antes de gerar qualquer peça
+
+---
+
+### 7. Regra de profundidade mínima — vale para anúncios e conteúdo
+
+Todo anúncio e todo conteúdo criado pelos comandos `/anuncio` e `/conteudo-social` deve obedecer:
+
+- **Gancho:** afirmação não óbvia, contra-intuitiva ou específica. NUNCA pergunta. NUNCA algo genérico.
+- **Desenvolvimento:** **mínimo 2 parágrafos substanciais**. Cada parágrafo entrega argumento, ensinamento ou insight concreto.
+- **Entrega de valor obrigatória:** o conteúdo precisa ensinar, revelar ou gerar reconhecimento dentro dele mesmo — sem depender de link externo, vídeo ou produto. Quem lê ou assiste aprende algo.
+- **Raso, vago e curto são proibidos.** Um parágrafo de desenvolvimento não passa.
+
+---
+
 ## 2026-03-24 — Correção da skill `/anuncio`: pesquisa e estrutura de vídeo de Descoberta
 
 ### Problema identificado na geração anterior
@@ -301,6 +386,177 @@ No resumo de confirmação (antes de gerar), o tempo do vídeo estava sendo indi
 - **Não incluir duração do vídeo no resumo de confirmação** (Passo 2 — Entrevista).
 - O campo de formato deve constar apenas como: `Vídeo (duração definida após pesquisa de tendências)`.
 - A duração real é calibrada na pesquisa e aplicada na geração — não antes.
+
+---
+
+## 2026-03-26 — Princípios de Copy: estilo, leis e categorias
+
+Toda copy gerada por qualquer skill deste projeto deve seguir estes princípios. Eles se sobrepõem a qualquer instrução genérica de "copy persuasiva" ou "copywriting".
+
+### Princípio Central
+
+A melhor copy não parece copy. Parece alguém inteligente explicando uma coisa que o leitor nunca tinha entendido direito.
+
+Nunca vender na copy. Informar, avisar ou ensinar. O produto não existe nos primeiros parágrafos. Só existem o leitor e a realidade dele.
+
+---
+
+### As 7 Leis (seguir todas, sempre)
+
+**1. Ensinar em vez de prometer**
+A copy entrega um pedaço de conhecimento real ali mesmo, no texto. A curiosidade vem de querer saber o resto, não de uma promessa vaga.
+- Certo: "O primeiro passo é não tentar explicar o que você faz para convencer alguém a comprar. Você só precisa fazer as perguntas certas para que a pessoa, ao responder, perceba por si só que ela precisa do que você faz."
+- Errado: "Descubra o método que vai transformar suas vendas para sempre."
+
+**2. Nomear cria realidade**
+Sempre que possível, criar um nome próprio para o conceito, problema ou solução. A pessoa sente que está descobrindo algo que já existia e ela não conhecia.
+- Nomes que funcionam: "Negociação Terapêutica", "Programação Emocional Repetitiva", "Peeling Estratificado Programado"
+- Nomes que não funcionam: "Método Exclusivo de Vendas", "Sistema Revolucionário", "Fórmula Definitiva"
+
+**3. O produto não aparece na copy**
+Em nenhum momento a copy fala "esse curso", "esse treinamento", "compre." A pessoa está lendo sobre ela mesma, sobre como o mundo funciona, sobre uma mecânica que explica a vida dela. O produto aparece depois, quando ela já estiver convencida sozinha.
+
+**4. Tom de escritor, não de vendedor**
+Escrever como alguém explicando algo que sabe muito bem, não como alguém vendendo algo.
+Frases proibidas: "Isso vai transformar sua vida", "Descubra o método", "Não perca essa oportunidade", "Isso pode mudar sua vida", "Você merece isso."
+
+**5. Especificidade mata generalização**
+Usar números concretos, situações específicas, detalhes que fazem o texto parecer real.
+- "Antes dos 7 anos de idade" > "na infância"
+- "15 mil pra 70 mil por projeto" > "multiplique seus ganhos"
+- "10 franquias no primeiro ano" > "expanda seu negócio"
+- "R$ 1.600" > "vai gastar dinheiro à toa"
+
+**6. Informar, não vender: avisar ou ensinar**
+As melhores copies fazem uma de duas coisas: avisam ou ensinam. Nunca vendem.
+- Avisar: "Quando você for montar o enxoval do seu bebê, as vendedoras de loja vão te empurrar esses 7 itens — você vai achar que precisa, mas são totalmente desnecessários e vão te custar pelo menos R$ 1.600."
+- Ensinar: "O primeiro passo é não tentar explicar o que você faz para convencer alguém a comprar."
+
+**7. Criar um inimigo concreto (ou um cenário inevitável)**
+Quando a copy tem um inimigo externo (a vendedora da loja, o professor do YouTube, o jeito antigo de fazer algo), a pessoa não precisa admitir que errou. Ela só precisa aceitar que foi mal orientada. Isso é muito mais fácil de engolir e converte mais.
+
+---
+
+### Vícios de Escrita Proibidos (em toda copy do projeto)
+
+- **Travessão longo (—):** NUNCA usar. É carimbo de texto gerado por IA. Usar vírgula, ponto ou reformular a frase.
+- **Estrutura "Não é X. É Y.":** NUNCA usar. Exemplos do que NÃO fazer: "Não é o produto. É o que você faz antes dele." / "Não é disciplina. É método." Reescrever de forma mais elaborada e natural.
+- **Frases genéricas de vendedor:** "Transforme sua vida", "Descubra o segredo", "Método revolucionário", "Isso pode mudar tudo."
+- **Mencionar o produto na copy:** Nunca falar do curso, treinamento, método ou produto nos primeiros parágrafos.
+- **Emojis:** Nunca usar emojis na copy.
+
+---
+
+### As 4 Categorias de Copy (leads de página e anúncio)
+
+Antes de escrever, perguntar: o público é o profissional da área ou o cliente final? Qual a faixa de preço?
+
+Cada lead deve terminar com um parágrafo técnico/racional em itálico que explica por que aquilo funciona do ponto de vista científico ou lógico. Esse parágrafo ancora a emoção com razão.
+
+**Categoria 1 — Inadequação**
+Engrenagem: a pessoa descobre que está fazendo algo errado ou está desatualizada. Urgência silenciosa impossível de ignorar.
+Estrutura: afirmação direta que desconforta → contextualização (o que mudou) → nomear o problema ou solução → parágrafo técnico em itálico.
+Funciona melhor para: cursos, métodos, frameworks. Nichos com atualização constante. Versátil em preço.
+Exemplos: "Se você não faz Avaliação Neuropsicológica ou faz do mesmo jeito que se fazia em 2020, você está desatualizada." / "Aquele sérum anti-idade que você passa toda noite? Se você não preparou sua pele antes, ele não penetra quase nada."
+
+**Categoria 2 — Identificação com o Problema**
+Engrenagem: a pessoa lê e pensa "isso sou eu." Você descreve a realidade dela com tanta precisão que ela sente que você está dentro da cabeça dela.
+Estrutura: descrição vívida do problema com detalhes sensoriais (4-6 parágrafos) → amplificação (dor ou cenário ideal) → revelação do "grande problema" → parágrafo técnico em itálico.
+Funciona melhor para: métodos, cursos práticos, mentorias. Público que já tentou e fracassou. Forte para low ticket (R$27 a R$197).
+
+**Categoria 3 — Plug & Play**
+Engrenagem: a pessoa não precisa aprender nada. Só pegar e usar. O valor está na praticidade imediata.
+Estrutura: headline curta com resultado prático → parágrafo explicando o que recebe e como usa → parágrafo técnico em itálico → CTA.
+Funciona melhor para: planilhas, templates, checklists, scripts prontos. Low ticket clássico (R$17 a R$97).
+Exemplos: "Tenha confiança para fazer qualquer contratação no seu casamento, com a certeza que ela cabe no seu bolso!"
+
+**Categoria 4 — Promessa Boa Demais (Específica)**
+Engrenagem: a pessoa lê e pensa "não é possível, mas se for verdade..." O que segura é a combinação de resultado muito desejável com especificidade tão concreta que parece real demais para ser marketing.
+Estrutura: resultado específico com números e situação concreta (antes e depois) → frase que derruba objeção → convite a ver os detalhes sem pressão → parágrafo técnico em itálico.
+Tom: de quem está abrindo o jogo, não de quem está vendendo. Precisa de história verdadeira com números verificáveis.
+Exemplos: "Eu cobrava 15 mil por projeto de arquitetura, tinha dificuldade de vender e de entregar. Hoje eu cobro mais de 70 mil por projeto."
+
+---
+
+### Matriz de Decisão Rápida
+
+Antes de escrever qualquer copy, responder:
+- O cliente precisa aprender ou usar? → Aprender: Inadequação, Identificação ou Promessa Boa Demais. Usar: Plug & Play.
+- O cliente já sabe que tem o problema? → Já sabe e sofre: Identificação. Não sabe: Inadequação. Expert tem história real com números: Promessa Boa Demais.
+
+---
+
+### Checklist de Revisão (aplicar antes de entregar qualquer copy)
+
+1. O produto aparece nos primeiros parágrafos? Se sim, tirar.
+2. Tem alguma frase que um vendedor diria? Se sim, reescrever.
+3. Tem travessão longo (—)? Se sim, substituir.
+4. Tem estrutura "Não é X. É Y."? Se sim, reformular.
+5. A pessoa aprende algo lendo? Se não, está prometendo em vez de ensinando.
+6. Foi criado um nome próprio para o conceito ou problema? Se não, considerar criar.
+7. Os detalhes são específicos o suficiente?
+8. O tom soa como conversa ou como anúncio?
+
+---
+
+## 2026-03-26 — Estrutura correta de entrega do anúncio de imagem estática
+
+### Problema identificado
+
+Os anúncios de imagem estática eram entregues sem separar o que vai em cada campo. O usuário questionou como todo aquele texto caberia em uma imagem.
+
+### Correção
+
+Um anúncio de imagem estática no Meta Ads tem 4 campos distintos:
+
+| Campo | Conteúdo | Limite |
+|---|---|---|
+| **Imagem** | Apenas o headline (5–7 palavras) | Visual |
+| **Texto principal (legenda)** | GANCHO + DESENVOLVIMENTO + CTA completos | Sem limite prático |
+| **Headline (Meta Ads)** | O headline do anúncio | Máx 40 chars |
+| **Descrição (Meta Ads)** | Frase de apoio | Máx 90 chars |
+
+**Na entrega de anúncios de imagem, sempre usar esses rótulos explicitamente:**
+
+```
+NA IMAGEM: [headline curto — 5–7 palavras]
+
+LEGENDA:
+[texto completo com GANCHO, DESENVOLVIMENTO e CTA]
+
+HEADLINE (Meta Ads): [headline]
+DESCRIÇÃO (Meta Ads): [frase de apoio]
+```
+
+Nunca entregar tudo junto como se coubesse em uma imagem. O texto longo vai na legenda, não na imagem.
+
+Esta regra está registrada também em `skills/anuncios/SKILL.md`.
+
+---
+
+## 2026-03-26 — Exemplos de referência de copy validados (12 leads, 3 nichos)
+
+### Arquivo de referência criado
+
+`.claude/plugins/workshop-marketing/skills/conteudo/references/exemplos-leads-4-categorias.md`
+
+Contém 12 exemplos das 4 categorias de lead aplicadas a 3 nichos:
+- **Skincare / Beleza** — Lead 1 (Inadequação), Lead 2 (Identificação), Lead 3 (Plug & Play), Lead 4 (Promessa Boa Demais)
+- **Saúde / Imunidade** — Lead 1 (Inadequação), Lead 2 (Identificação), Lead 3 (Plug & Play), Lead 4 (Promessa Boa Demais)
+- **Psicologia B2B** — Lead 1 (Inadequação), Lead 2 (Identificação), Lead 3 (Plug & Play), Lead 4 (Promessa Boa Demais)
+
+### Como usar
+
+- Consultar antes de gerar qualquer lead ou abertura de copy
+- Referência de: nível de especificidade, profundidade de desenvolvimento, tom, inimigo concreto, parágrafo técnico em itálico
+- Não usar como template — usar como parâmetro de qualidade
+
+### Skills atualizadas para referenciar esses exemplos
+
+- `commands/copy-pagina.md`
+- `commands/texto-de-venda.md`
+- `skills/anuncios/SKILL.md`
+- `skills/conteudo/SKILL.md`
 
 ---
 
@@ -719,6 +975,173 @@ Digite o número:
 ### Arquivo atualizado
 
 `.claude/commands/novo-produto.md` — novo Passo 2 (pergunta de tipo) e novo Passo 6 (salvar `tipo.md`). Os passos anteriores foram renumerados.
+
+---
+
+## 2026-03-26 — Regras de design obrigatórias em todas as skills de página
+
+### Regra
+
+As regras de design definidas em `skills/paginas/SKILL.md` e `skills/paginas/references/cdn-design-resources.md` são **obrigatórias para todas as skills que geram páginas HTML**, sem exceção:
+
+- `/pagina-de-vendas` — já incluía as regras ✓
+- `/paginas-low-ticket` — atualizado nesta sessão ✓
+- Página de Captura — coberta pelo `/pagina-de-vendas` (opção 2) ✓
+- Página de Obrigado — coberta pelo `/pagina-de-vendas` (opção 3) ✓
+
+### Regras de design que se aplicam a todas as páginas
+
+- **TODAS as fontes sans-serif** — heading e body. Serifadas são PROIBIDAS (ver biblioteca aprovada)
+- **Mínimo 4 tipos de fundo** diferentes entre seções (claro, escuro, imagem+overlay, gradiente)
+- **Pelo menos 2 seções com imagem de fundo** (picsum.photos + overlay)
+- **Grid 2 colunas** para entregáveis — NUNCA 3 colunas
+- **Cards** com min-width 320px, padding 28px+, font-size 0.95rem+
+- **Header com logotipo** obrigatório em toda página
+- **Texto sempre em pt-BR** com acentos corretos
+- **NÃO parecer Lovable/v0** — sem cards brancos idênticos em fundo bege, sem gradiente roxo-azul genérico, sem ícones em quadrados arredondados pastéis
+- **Mixagem de 2-3 templates** obrigatória antes de gerar — nunca usar um template sozinho
+
+### O que mudou no `/paginas-low-ticket`
+
+Antes: gerava só copy (4 leads) e sugeria usar `/pagina-de-vendas` para criar o HTML.
+
+Depois: após aprovação das leads, pergunta se o usuário quer gerar o HTML agora. Se sim:
+1. Pergunta qual lead usar, preço, link de checkout e cor
+2. Lê `skills/paginas/SKILL.md` e `cdn-design-resources.md` para design
+3. Faz mixagem de 2-3 templates conforme o nicho
+4. Gera página HTML completa com estrutura de 10 seções (lead hero → problema/paliativo → solução → entregáveis → stack de valor → garantia → FAQ → CTA → rodapé)
+5. Salva em `produtos/{ativo}/entregas/paginas/pagina-low-ticket-[produto].html`
+
+---
+
+## 2026-03-26 — Novo comando `/paginas-low-ticket`: origem e fluxo completo
+
+### Fonte original
+
+Prompt fornecido pelo usuário: `Downloads/prompt-copy-low-ticket.md`. Adaptado para o formato de comando do projeto e salvo em `.claude/commands/paginas-low-ticket.md`.
+
+### O que o comando entrega
+
+1. **4 leads de abertura** para páginas de vendas low ticket, uma para cada ângulo:
+   - **Inadequação** — a pessoa descobre que está desatualizada ou fazendo errado
+   - **Identificação com o Problema** — descreve a realidade com tanta precisão que a pessoa pensa "isso sou eu"
+   - **Plug & Play** — só pegar e usar, zero aprendizado necessário
+   - **Promessa Boa Demais** — resultado concreto com números reais (exige história verdadeira)
+
+2. **Matriz de Decisão** incluída: ao final das 4 leads, indica qual é mais indicada para o produto com base no tipo de público e no problema.
+
+3. **Geração opcional da página HTML** diretamente no mesmo fluxo — sem precisar chamar `/pagina-de-vendas` depois.
+
+### Regras específicas do comando
+
+- As 7 leis de copy D48 estão explicitadas no comando (ensinar em vez de prometer, nomear cria realidade, produto não aparece no lead, etc.)
+- Categoria 4 (Promessa Boa Demais) exige história real com números verificáveis — sem isso, não usar
+- Cada lead termina com parágrafo técnico/racional em itálico
+- Checklist de revisão automática antes de entregar
+
+### Registro no CLAUDE.md
+
+Adicionado na seção "Páginas e Textos", entre `/copy-pagina` e `/anuncio`:
+`/paginas-low-ticket` — Gerar as 4 leads D48 (Inadequação, Identificação, Plug & Play, Promessa Boa Demais)
+
+---
+
+## 2026-03-26 — Novo comando `/excluir-produto`
+
+### Origem
+
+O usuário pediu uma skill para excluir um produto e todas as entregas e pastas referentes a ele.
+
+### O que o comando faz
+
+- Lista todos os produtos cadastrados em `produtos/`, marcando qual está ativo
+- Pede confirmação antes de apagar (com aviso especial se for o produto ativo)
+- Apaga toda a pasta `produtos/{slug}/` e seu conteúdo recursivamente (`rm -rf`)
+- Se o produto excluído era o ativo:
+  - Pergunta qual outro produto ativar (se houver outros)
+  - Limpa o arquivo `produtos/.ativo` se não restar nenhum produto
+- Confirma a exclusão e sugere o próximo passo
+
+### Arquivo
+
+`.claude/commands/excluir-produto.md`
+
+### Listagem no CLAUDE.md
+
+Adicionado na seção **Fundação** da lista de comandos:
+
+`/excluir-produto` — Excluir um produto e todas as suas entregas
+
+---
+
+---
+
+## 2026-03-26 — Referências visuais e de copy adicionadas (VTSD, Light Copy, Stories 10x)
+
+### Arquivos de referência criados
+
+Três páginas de venda reais do ecossistema Leandro Ladeira foram analisadas e documentadas como referência para copy e design de páginas:
+
+| Página | URL de origem | Conteúdo |
+|---|---|---|
+| VTSD (aula gratuita) | vendatodosantodia.br/pv0622-d | Método principal — design light/claro |
+| Light Copy | vendatodosantodia.br/lightcopy | Copywriting — design dark premium (preto + dourado) |
+| Stories 10x | vendatodosantodia.br/stories10x | Instagram — design dark vibrante (preto + rosa) |
+
+### Arquivos criados
+
+**1. Design** — `.claude/plugins/workshop-marketing/skills/paginas/references/design-referencia-vtsd.md`
+- 3 estilos visuais documentados: Light, Dark Premium, Dark Vibrante
+- Paletas reais (hex), CSS dos botões CTA, tipografias por estilo
+- Seções recorrentes: hero com vídeo, tabela comparativa, para quem é, estudos de caso, bio do autor, grid de mídia, FAQ accordion
+- Lógica de alternância de fundos entre seções
+- Padrão de cores por categoria de produto
+
+**2. Copy** — `.claude/plugins/workshop-marketing/skills/conteudo/references/exemplos-copy-paginas-vtsd.md`
+- Headlines e subheadlines das 3 páginas com análise de estrutura
+- CTAs padrão ("Quero ganhar dinheiro com a internet →", "QUERO VENDER MUITO MAIS", "QUERO ENTRAR NO STORIES 10X")
+- Features, bullets de aprendizado e features rápidas (4-5 itens) de cada página
+- Tabelas comparativas (com vs sem, método tradicional vs novo) — copy completa
+- Para Quem É (5 perfis) e nichos listados
+- Depoimentos com resultado específico em R$ ou métrica
+- Currículo de módulos (Light Copy — 5 módulos com ementa)
+- Bio do Leandro Ladeira em 2 versões: curta e completa
+- FAQ real das 3 páginas (9 perguntas do Stories 10x)
+- Padrões extraídos: estrutura de headline, padrão de CTA, bullet de resultado, copy de garantia
+
+### Skills atualizadas
+
+- `skills/paginas/SKILL.md` — adicionada referência ao `design-referencia-vtsd.md` como "principal referência de design"
+- `skills/conteudo/SKILL.md` — adicionada seção "Referências de Copy" com o `exemplos-copy-paginas-vtsd.md` como principal referência
+
+### Instrução de uso
+
+**Ao gerar qualquer página de vendas** (`/pagina-de-vendas`):
+- Consultar `design-referencia-vtsd.md` para calibrar o estilo visual, paleta e padrões de seção
+
+**Ao gerar qualquer copy de página** (`/copy-pagina`, `/texto-de-venda`):
+- Consultar `exemplos-copy-paginas-vtsd.md` para calibrar tom, estrutura de headline, CTA e argumentação no padrão Light Copy real
+
+---
+
+## 2026-03-26 — Estratégia de uso das 4 leads D48 com os mentorados
+
+### Contexto estratégico (origem: áudio de WhatsApp)
+
+O objetivo do comando `/paginas-low-ticket` dentro da mentoria é ensinar os alunos a usar as 4 categorias de lead como um sistema de teste:
+
+- Cada aluno cria as 4 leads (Inadequação, Identificação, Plug & Play, Promessa Boa Demais) para o produto dele
+- Ele escolhe qual lead tem mais identificação com o posicionamento do produto
+- Investe 200 a 500 reais em tráfego pago naquela lead
+- Se não vender, troca para a próxima lead e testa novamente
+- Uma das 4 vai acabar vendendo — são 4 chances de acertar
+- Além das 4 leads, ainda existe o quiz (Caixa Rápido) como mais uma opção de funil
+
+### Implicação para o assistente
+
+- O assistente deve reforçar essa lógica ao entregar as 4 leads: deixar claro que são ângulos diferentes para testar, não variações do mesmo texto
+- A Matriz de Decisão ao final das 4 leads ajuda o aluno a escolher por qual começar — mas o fluxo de teste continua até uma vender
+- O quiz é apresentado como recurso adicional (não substituto das leads), pois combina um funil de diagnóstico com a página de oferta low ticket
 
 ---
 

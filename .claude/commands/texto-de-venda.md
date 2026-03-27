@@ -18,6 +18,8 @@ Cria textos persuasivos no estilo Light Copy (argumentativo, lógico, conversaci
 ### 1. Contexto
 Leia `produtos/{ativo}/perfil.md` e `produtos/{ativo}/idconsumidor.md` se existir. Use o Quadro, Furadeira, Decorados e Urgências Ocultas como base.
 
+**Referência de exemplos validados:** consulte `.claude/plugins/workshop-marketing/skills/conteudo/references/exemplos-leads-4-categorias.md` para exemplos das 4 categorias de lead aplicadas a nichos reais. Use como referência de nível de qualidade esperado.
+
 ### 2. Entrevista (UMA pergunta por vez, com progresso visual)
 
 **Bloco 1/3 — Tipo de Texto:**
@@ -93,6 +95,16 @@ Aplique as regras do Light Copy (skill vtsd-completo):
 - ❌ Sem perguntas no gancho
 - ❌ Sem "mesmo que" / "sem precisar" como muletas
 - ❌ Sem promessas vagas
+
+**Proibições adicionais de estilo:**
+- Travessão longo (—): nunca usar. Substituir por vírgula, ponto ou reformulação.
+- Estrutura "Não é X. É Y.": nunca usar. Reformular de forma mais elaborada.
+- O produto não aparece nos primeiros parágrafos: começar pelo leitor e pela realidade dele.
+- Emojis: nunca usar.
+
+**Nomear cria realidade:** criar nomes próprios para conceitos e problemas quando possível.
+
+**Parágrafo técnico em itálico:** ao final da lead ou da abertura, incluir parágrafo em itálico que ancora emoção com razão — explica por que aquilo funciona logicamente.
 
 Use os 26 elementos literários quando apropriado:
 - Setup + Punchline, Hipérbole, Metáfora Visual

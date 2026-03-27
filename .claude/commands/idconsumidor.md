@@ -101,6 +101,12 @@ Salve em `produtos/{ativo}/idconsumidor.md`:
 ```markdown
 # Identidade do consumidor: [Nome Fictício]
 
+## Para Quem É
+[Frase de posicionamento clara, 1-2 linhas]
+"Este produto é para [perfil específico], que [problema/situação atual], e quer [transformação desejada]."
+
+Não é para: [exclusões que ajudam a posicionar — quem NÃO é o público]
+
 ## Identidade do Consumidor
 - **Idade:** / **Gênero:** / **Profissão:**
 - **Renda:** / **Estado civil:** / **Localização:**
@@ -123,9 +129,40 @@ Salve em `produtos/{ativo}/idconsumidor.md`:
 - Tom de voz recomendado
 - Palavras que conectam
 - Palavras que afastam
+
+## Baldes de Conteúdo (Identidade do Comunicador)
+
+Os baldes são as categorias de conteúdo que o comunicador usa para se conectar com esse público. Cada balde gera uma linha de posts, vídeos e anúncios com um propósito diferente.
+
+Gere 5 baldes com base no perfil do consumidor, nas Urgências Ocultas e nos Decorados:
+
+### Balde 1 — [Nome do Balde]
+- **Propósito:** [o que esse balde faz pelo público — educar, engajar, converter]
+- **Tom:** [como falar nesse balde]
+- **Exemplos de temas:** [3-5 ideias concretas baseadas nas Urgências Ocultas desse público]
+
+### Balde 2 — [Nome do Balde]
+- **Propósito:**
+- **Tom:**
+- **Exemplos de temas:**
+
+### Balde 3 — [Nome do Balde]
+- **Propósito:**
+- **Tom:**
+- **Exemplos de temas:**
+
+### Balde 4 — [Nome do Balde]
+- **Propósito:**
+- **Tom:**
+- **Exemplos de temas:**
+
+### Balde 5 — [Nome do Balde]
+- **Propósito:**
+- **Tom:**
+- **Exemplos de temas:**
 ```
 
-NOTA: As Urgências Ocultas (dores, desejos, dúvidas, assuntos relacionados) ficam centralizadas em `produtos/{ativo}/perfil.md`. Não duplicar aqui.
+NOTA: As Urgências Ocultas (dores, desejos, dúvidas, assuntos relacionados) ficam centralizadas em `produtos/{ativo}/perfil.md`. Não duplicar aqui. Os baldes são derivados delas — não copiados.
 
 ### 4. Próximo Passo
 "Identidade do consumidor salva em `produtos/{ativo}/idconsumidor.md`. Use `/texto-de-venda` para criar copys falando com esse público, ou `/pagina-de-vendas` para criar a página."

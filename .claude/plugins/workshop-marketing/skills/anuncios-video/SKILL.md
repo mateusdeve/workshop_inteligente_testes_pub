@@ -183,6 +183,26 @@ Antes de publicar, verifique:
 - [ ] Copy segue regras Light Copy (sem pontos de exclamacao, sem perguntas no gancho)?
 - [ ] Audio limpo e audivel?
 
+## Regras de Estilo de Copy para Video
+
+**Vícios proibidos (Light Copy):**
+- Ponto de exclamação: nunca usar.
+- Perguntas no gancho: nunca usar.
+- "Mesmo que" / "sem precisar" como muletas: nunca usar.
+- Promessas vagas: nunca usar.
+- Travessão longo (—): nunca usar no roteiro. Substituir por vírgula, ponto ou pausa [pausa].
+- Estrutura "Não é X. É Y.": nunca usar. Reformular de forma mais elaborada.
+- Emojis: nunca usar.
+- Frases genéricas: "Transforme sua vida", "Descubra o segredo", "Método revolucionário."
+- Especificidade: usar números concretos, situações reais. "10 alunos em 30 dias" > "crescimento rápido".
+
+**Princípio central:**
+O roteiro não vende. Ele ensina, avisa ou revela. O produto não aparece nos primeiros blocos.
+Quem assiste até o fim aprende algo concreto — não apenas fica curioso sobre um produto.
+
+**Nomear cria realidade:**
+Quando possível, dar nome próprio ao conceito ensinado no vídeo ("Método da Inversão", "Gatilho da Especificidade"). Nomes próprios criam autoridade sem exagero.
+
 ## CTAs por Objetivo (Mandala da Criatividade)
 
 | Objetivo | Definicao | CTA em Video |
@@ -210,6 +230,45 @@ Extrair: estrutura dos 3 primeiros segundos, duracao ideal, estilo de edicao, to
 
 Calibrar com o encontrado: gancho, estilo de edicao, tom, CTA.
 **Fazer essa pesquisa a cada geracao — nao reutilizar pesquisa anterior.**
+
+## Geracao Automatica de Video (HeyGen Avatar IA)
+
+O comando `/anuncio` gera o roteiro e, se configurado, cria o video automaticamente via HeyGen.
+
+### Configuracao necessaria no `.env`
+
+```
+HEYGEN_API_KEY=sua_chave_aqui
+HEYGEN_AVATAR_ID=id_do_avatar_aqui
+HEYGEN_VOICE_ID=id_da_voz_aqui
+```
+
+Para obter esses valores:
+- **HEYGEN_API_KEY**: painel HeyGen > Account > API
+- **HEYGEN_AVATAR_ID**: painel HeyGen > Avatars > selecionar avatar > copiar ID
+- **HEYGEN_VOICE_ID**: painel HeyGen > Voices > selecionar voz em português > copiar ID
+
+### Fluxo de geracao
+
+1. Roteiro aprovado → formatar como texto corrido (sem marcacoes de cena)
+2. POST `/v2/video/generate` com avatar + voz + roteiro
+3. Polling no `/v1/video_status.get?video_id=ID` a cada 30s ate status `completed`
+4. Download do `video_url` → salvar como `.mp4` na pasta de entregas
+
+### Formatacao do roteiro para HeyGen
+
+O campo `input_text` deve conter apenas o texto que o avatar vai falar — sem colchetes de cena, sem indicacoes de edicao, sem marcacoes de tempo. Exemplo:
+
+```
+A leitora que mais trava raramente e a que sabe menos. Isso acontece porque ela aprendeu a decorar significados antes de aprender a fazer perguntas. O Taro nao e um dicionario. E uma conversa. E conversas nao se decoram, se praticam. Se voce quer parar de travar na leitura, comeca treinando a pergunta — nao a resposta. Me segue para o proximo passo.
+```
+
+### Especificacoes de saida
+
+- Dimensao: 1080x1920 (vertical 9:16) — formato Reels/Stories
+- Formato: MP4
+- Avatar: falando para camera, fundo limpo
+- Legendas: ativar no proprio HeyGen ou adicionar no editor de video
 
 ## Boas Praticas Atuais
 

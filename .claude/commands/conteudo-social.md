@@ -16,7 +16,26 @@ Cria conteúdo usando as Urgências Ocultas como fonte de temas e os elementos l
 ## O Que Fazer
 
 ### 1. Contexto
+
 Leia `produtos/{ativo}/perfil.md` e `produtos/{ativo}/idconsumidor.md` se existir.
+
+**Extraia e liste internamente (não precisa mostrar ao usuário):**
+- Todos os **Decorados** do perfil — cada decorado é um benefício que pode virar tema de post
+- Todas as **Urgências Ocultas** (dores, desejos, dúvidas, assuntos relacionados) — cada item é um ângulo de entrada para conteúdo
+- Os **Baldes de Conteúdo** do `idconsumidor.md` se existir — usá-los para distribuir os temas entre os baldes corretos
+
+**Verifique o histórico:** leia todos os arquivos em `produtos/{ativo}/entregas/conteudo-social/`. Identifique quais urgências ocultas e decorados já foram explorados em conteúdos anteriores.
+
+**Regra de não repetição:** nas novas peças, priorize urgências ocultas e decorados ainda não usados. Se todos já foram usados, escolha os de maior potencial e anote que está retomando esse tema.
+
+Apresente ao usuário (antes de perguntar sobre o tipo de conteúdo):
+```
+Temos [X] decorados e [Y] urgências ocultas disponíveis como fonte de ideias.
+Já explorados em conteúdos anteriores: [lista resumida]
+Disponíveis para este pacote: [lista resumida dos ainda não usados]
+```
+
+Se não houver conteúdos anteriores: "É o primeiro conteúdo — vamos usar as urgências e decorados mais relevantes para o objetivo escolhido."
 
 ### 2. Entrevista (UMA pergunta por vez, com progresso visual)
 
@@ -88,29 +107,77 @@ Resumo do que vou criar:
 2. Quero ajustar algo
 ```
 
-### 3. Geração
+### 3. Pesquisa de Virais (OBRIGATÓRIO antes de gerar — qualquer tipo de conteúdo)
+
+**Antes de escrever qualquer peça de conteúdo**, faça obrigatoriamente as seguintes buscas — independentemente do formato (carrossel, caption, reels, linha editorial):
+
+Pesquise os dois canais obrigatoriamente:
+- `reels instagram virais [mês e ano atual]` — todos os nichos
+- `tiktok trends virais [mês e ano atual]` — todos os nichos
+
+**REGRA ABSOLUTA:** Pesquisar virais de **todos os nichos** (não apenas o nicho do produto). O objetivo é captar o padrão de estrutura, tom e abertura que está funcionando agora. O conteúdo (o que diz) vem das urgências ocultas e decorados. O formato e o estilo (como diz) vêm dos virais encontrados.
+
+O que extrair:
+- **Estrutura de abertura**: o que está parando o scroll nos primeiros 2–3 segundos (afirmação contra-intuitiva, dado específico, paradoxo, confissão, revelação)
+- **Tom predominante no momento**: didático, emocional, provocativo, informal, polêmica suave, história pessoal
+- **O que os virais entregam**: identificar se entregam conteúdo real dentro do próprio post/vídeo ou apenas prometem — **modelar sempre os que entregam conteúdo real**
+- **Estrutura de progressão**: como o conteúdo se desenvolve — começo, meio, fim, cliffhanger, resolução
+- **Padrão de CTA**: o que está gerando engajamento agora (salva, comenta, segue, compartilha)
+
+**Se o formato for Reels**, pesquise adicionalmente:
+- `estrutura roteiro viral reels tiktok [mês e ano atual]`
+- Extrair: duração predominante, estilo de edição, ritmo, se usa texto na tela
+
+Após as buscas, sintetize em 3–4 linhas o que está funcionando agora e use isso para calibrar o estilo e a abertura de cada peça gerada.
+
+---
+
+### 4. Geração
+
+**Regras de estilo Light Copy — obrigatórias em todo conteúdo:**
+- Sem ponto de exclamação.
+- Sem perguntas no gancho.
+- Sem "mesmo que" / "sem precisar" como muletas.
+- Sem promessas vagas.
+- Travessão longo (—): nunca usar. Substituir por vírgula, ponto ou reformulação.
+- Estrutura "Não é X. É Y.": nunca usar. Reformular de forma mais elaborada.
+- Emojis: nunca usar na copy.
+- O produto não aparece nas primeiras linhas: começar pelo leitor ou pelo insight.
+- Nomear cria realidade: criar nome próprio para o conceito ou problema quando possível.
+- Especificidade: usar números concretos, situações reais. "R$ 1.600" > "muito dinheiro". "Antes dos 7 anos" > "na infância".
+
+**REGRA DE PROFUNDIDADE OBRIGATÓRIA — vale para todo tipo de conteúdo:**
+- **Gancho:** afirmação não óbvia, contra-intuitiva ou específica. NUNCA uma pergunta. NUNCA algo genérico.
+- **Desenvolvimento:** mínimo 2 parágrafos substanciais. Cada parágrafo precisa entregar um argumento, ensinamento ou insight concreto. Raso, vago e curto são proibidos.
+- **O conteúdo precisa entregar valor por si só** — quem lê ou assiste aprende algo, tem uma virada de perspectiva ou se reconhece. Conteúdo que só promete sem entregar nada dentro dele mesmo não é publicado.
+
+---
 
 **Carrossel (7-10 slides):**
-- Slide 1: Gancho forte (use elemento literário)
-- Slides 2-8: Conteúdo de valor (baseado em Urgências Ocultas)
+- Slide 1: Gancho forte baseado nos virais pesquisados (use elemento literário + abertura modelada nos virais)
+- Slides 2-8: Conteúdo de valor real — cada slide avança o argumento, não repete o anterior. Baseado em Urgências Ocultas e Decorados.
 - Slide final: CTA + identidade visual
-- Caption com hashtags relevantes
+- Caption: mínimo 2 parágrafos de desenvolvimento antes do CTA. Com hashtags relevantes.
 
-**Roteiro de Reels (VTSD):**
-Formato 1 — Pergunta, Resposta e Objeção:
-1. Pergunta comum do público
-2. Resposta direta
-3. Quebra de objeção
+**Roteiro de Reels:**
 
-Formato 2 — Problema-Solução:
-1. Problema específico
-2. Amplifica a dor
-3. Solução prática
+Estrutura obrigatória (~45–60s):
+```
+[0–3s]   GANCHO    → Afirmação contra-intuitiva ou quebra-padrão. Texto na tela + fala simultâneos.
+[4–15s]  TEASE     → Expande o gancho, contextualiza o problema ou a promessa.
+[16–42s] ENTREGA   → Ensina, demonstra ou revela algo real e concreto. NUNCA apenas prometer.
+[43–48s] REGANCHO  → Texto na tela sintetizando a ideia central (âncora visual para quem assiste sem som).
+[49–55s] CTA       → Convite direto e leve. Sem urgência forçada.
+```
+
+Duração e estilo de edição: calibrar com base nos virais encontrados na pesquisa.
 
 **Linha editorial (30 dias):**
-- Distribuir entre: Dores, Desejos, Dúvidas, Assuntos relacionados
+- Distribuir entre: Dores, Desejos, Dúvidas, Assuntos relacionados (fonte: urgências ocultas do perfil)
+- Cada tema distribuído em um balde de conteúdo do `idconsumidor.md` (se existir)
 - Alternar formatos: carrossel, reels, stories, post estático
 - Incluir CTAs estratégicos (seguidores → leads → vendas)
+- Para cada dia: indicar tema, urgência/decorado de origem, formato e objetivo
 
 ### 4. Salvar
 `produtos/{ativo}/entregas/conteudo-social/[tipo]-[produto].md`

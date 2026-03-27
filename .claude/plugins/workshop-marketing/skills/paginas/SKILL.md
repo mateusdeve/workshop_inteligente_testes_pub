@@ -175,3 +175,4 @@ Todos os templates seguem estes padrões (aplicar ao gerar páginas):
 
 - `references/cdn-design-resources.md` — CDNs, fontes, ícones, animações, gradientes, checklist
 - `references/estruturas-pagina.md` — Seções por tipo de página, fundos por seção, imagens de fundo por nicho
+- `references/design-referencia-vtsd.md` — **PRINCIPAL REFERÊNCIA DE DESIGN.** Análise visual das páginas reais VTSD, Light Copy e Stories 10x: 3 estilos visuais (Light, Dark Premium, Dark Vibrante), paletas reais, padrões de seção, botões CTA, tabelas comparativas, seções recorrentes e lógica de alternância de fundos. Consultar SEMPRE ao gerar páginas para garantir nível de qualidade VTSD.

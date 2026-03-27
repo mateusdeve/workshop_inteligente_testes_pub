@@ -100,16 +100,16 @@ Resumo do que vou criar:
 
 **Reels 60s (2 formatos VTSD):**
 
-Formato Pergunta-Resposta-Objeção:
-- 0-5s: Pergunta do público
-- 5-30s: Resposta direta
-- 30-55s: Quebra de objeção
+Formato Revelação-Quebra-Solução:
+- 0-5s: Gancho (afirmação contra-intuitiva ou revelação não óbvia — nunca pergunta)
+- 5-30s: Desenvolvimento (aprofunda o argumento ou ensina algo concreto)
+- 30-55s: Quebra de objeção ou reforço da ideia central
 - 55-60s: CTA
 
 Formato Problema-Solução:
-- 0-5s: Gancho com problema
-- 5-20s: Amplifica dor
-- 20-50s: Solução prática
+- 0-5s: Gancho com problema (afirmação que nomeia o problema de forma inesperada)
+- 5-20s: Amplifica dor com especificidade
+- 20-50s: Solução prática com entrega real
 - 50-60s: CTA
 
 **Avatar (HeyGen):**
@@ -117,6 +117,18 @@ Formato Problema-Solução:
 - Linguagem natural e pausada
 - Indicações de expressão e ritmo
 - Adaptado para leitura de teleprompter
+
+**Regras de estilo para todos os roteiros (Light Copy):**
+- Sem ponto de exclamação.
+- Sem perguntas no gancho: sempre afirmação contra-intuitiva ou premissa não óbvia.
+- Sem "mesmo que" / "sem precisar" como muletas.
+- Sem promessas vagas.
+- Travessão longo (—): nunca usar. Substituir por vírgula, ponto ou pausa indicada entre colchetes.
+- Estrutura "Não é X. É Y.": nunca usar. Reformular de forma mais elaborada.
+- Emojis: nunca usar no roteiro.
+- O produto não aparece nos primeiros blocos: começar pelo problema ou pelo insight.
+- Nomear cria realidade: criar nome próprio para o conceito ensinado quando possível ("Método da Inversão", "Gatilho da Especificidade").
+- Especificidade: usar números concretos, situações reais. "R$ 1.600" > "muito dinheiro". "10 clientes em 30 dias" > "crescimento rápido".
 
 ### 4. Salvar
 `produtos/{ativo}/entregas/textos-de-venda/roteiro-[formato]-[produto].md`

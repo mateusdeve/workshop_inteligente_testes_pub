@@ -109,6 +109,19 @@ Cada email deve usar Light Copy e incluir:
 - Corpo (conversacional, com elementos literários)
 - CTA claro
 
+**Regras de estilo Light Copy — obrigatórias em todos os emails:**
+- Sem ponto de exclamação.
+- Sem perguntas no gancho.
+- Sem "mesmo que" / "sem precisar" como muletas.
+- Sem promessas vagas.
+- Travessão longo (—): nunca usar. Substituir por vírgula, ponto ou reformulação.
+- Estrutura "Não é X. É Y.": nunca usar. Reformular de forma mais elaborada.
+- Emojis: nunca usar.
+- O produto não aparece nas primeiras linhas do email: começar pelo contexto do leitor.
+- Frases genéricas: "Transforme sua vida", "Método revolucionário", "Isso pode mudar tudo."
+- Nomear cria realidade: criar nome próprio para o conceito ou problema quando possível.
+- Especificidade: usar números concretos, situações reais. "3 dias sem dormir" > "noites difíceis".
+
 ### 4. Salvar
 `produtos/{ativo}/entregas/emails/sequencia-[tipo]-[produto].md`
 
