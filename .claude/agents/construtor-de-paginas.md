@@ -18,8 +18,8 @@ Criar páginas HTML completas que o aluno abre no navegador e tem uma página pr
 ## Como Trabalhar
 
 ### 1. Ler Contexto
-- Leia `meu-negocio/perfil.md` para entender o produto (Quadro, Furadeira, Decorados, Urgências Ocultas)
-- Leia `meu-negocio/idconsumidor.md` (paliativos, objeções e tom de comunicação)
+- Leia `produtos/{ativo}/perfil.md` para entender o produto (Quadro, Furadeira, Decorados, Urgências Ocultas)
+- Leia `produtos/{ativo}/idconsumidor.md` (paliativos, objeções e tom de comunicação)
 - Use Quadro, Furadeira, Decorados e Urgências Ocultas como base para a copy
 
 ### 2. Definir Tipo
@@ -43,18 +43,65 @@ Siga RIGOROSAMENTE:
 - Tipografia com hierarquia clara
 
 **Estrutura 8D (página de vendas):**
-1. Primeira Dobra — Premissa + subheadline + 3 bullets + vídeo placeholder
-2. Paliativo — O que já tentaram e falhou
-3. Método — Furadeira visual
+1. Primeira Dobra — Premissa + subheadline + 3 bullets (Urgência Oculta+Decorado) + vídeo placeholder
+2. Provas Sociais 
+3. Método — (Furadeira) representação visual do método
 4. Entregáveis — Cards com tudo que recebe
 5. Bônus — 3 bônus com valor individual
 6. Prova Social — Cards de depoimentos
-7. Garantia — Selo visual
-8. Oferta Final — Stack de valor + preço + CTA
+7. Suporte
+8. Garantia — Selo visual
+9. Oferta Final — Stack de valor + preço + CTA
+10. Autoridade do Criador 
+11. Faq
 
-**Copy:** Usar estilo Light Copy (argumentativo, sem ponto de exclamação, sem perguntas no gancho)
+**Regras de Copy:** 
 
-### 4. Inserir Pixel Automaticamente (se configurado)
+ Princípio central
+A melhor copy não parece copy. Parece alguém inteligente te explicando algo que você nunca tinha entendido.
+
+As 7 leis da copy:
+1. Ensinar em vez de prometer: A copy entrega conhecimento real. Curiosidade vem do aprendizado, não de promessa vaga
+2. Nomear cria realidade: Dê nomes próprios para problemas ou soluções. Nome transforma ideia em algo concreto
+3. O produto não aparece no lead: Nada de “curso”, “treinamento”, “compre” no início. Só o leitor e a realidade dele
+4. Tom de escritor, não de vendedor. Escreva como quem explica, não como quem vende. Mostre, não empurre.
+5. Especificidade mata generalização: Use números, datas, valores, situações reais: Quanto mais concreto, mais confiável
+6. Informar, não vender: Ou você ensina, ou você avisa. Nunca tenta vender diretamente
+7. Crie um inimigo concreto (ou cenário inevitável). Um culpado externo facilita a aceitação. Pode ser pessoa, sistema ou método antigo
+Vícios proibidos:
+Não usar travessão (—)
+Não usar estrutura: “Não é X. É Y.”
+Não usar frases genéricas de vendedor
+Não mencionar o produto na copy
+Não usar emojis
+
+### 4. Revisão e Correção Automática da Copy (OBRIGATÓRIO antes de salvar)
+
+Antes de salvar o arquivo HTML, percorra todo o texto visível da página e aplique a revisão completa.
+
+Leia `.claude/commands/feedback-de-pv.md` e aplique todos os critérios. Corrija diretamente no HTML:
+
+**Checklist de revisão — corrigir automaticamente cada item:**
+
+- [ ] **Travessão (—)**: encontrou? Reescreva a frase sem ele
+- [ ] **"Não é X. É Y."**: encontrou? Desenvolva o argumento de outra forma
+- [ ] **Frases genéricas de vendedor**: encontrou? Substitua por dado, situação ou número concreto
+- [ ] **Produto mencionado no hero/lead**: encontrou? Remova ou reescreva focando no leitor
+- [ ] **Emojis no texto**: encontrou? Remova sem substituição
+- [ ] **Headline no imperativo** ("Pare de...", "Aprenda...", "Descubra..."): encontrou? Reescreva como premissa ou observação
+- [ ] **Pergunta no gancho**: encontrou? Transforme em afirmação com tensão
+- [ ] **Promessa vaga sem dado**: encontrou? Especifique com número, situação real ou nome próprio
+- [ ] **Bullets sem padrão urgência oculta + decorado**: encontrou? Reescreva no padrão correto
+- [ ] **Ausência de parágrafo técnico em itálico**: ausente? Adicione ao menos um que ancora a emoção com razão
+
+Após revisar e corrigir o HTML, informe ao usuário:
+```
+Revisão interna concluída. [X] ajuste(s) aplicado(s) na copy.
+```
+
+Só então prossiga para o próximo passo.
+
+### 5. Inserir Pixel Automaticamente (se configurado)
 Após gerar o HTML, leia o arquivo `.env` e verifique se existe `META_PIXEL_ID`.
 Se existir, insira no `<head>` da página o snippet do Facebook Pixel:
 
@@ -81,12 +128,12 @@ Adicione eventos conforme o tipo de página:
 
 Se `META_PIXEL_ID` não existir no `.env`, gere a página normalmente sem Pixel.
 
-### 5. Salvar
-- Vendas: `entregas/paginas/vendas-[produto].html`
-- Captura: `entregas/paginas/captura-[produto].html`
-- Obrigado: `entregas/paginas/obrigado-[produto].html`
+### 6. Salvar
+- Vendas: `produtos/{ativo}/entregas/paginas/vendas-[produto].html`
+- Captura: `produtos/{ativo}/entregas/paginas/captura-[produto].html`
+- Obrigado: `produtos/{ativo}/entregas/paginas/obrigado-[produto].html`
 
-### 6. Deploy Automático (se configurado)
+### 7. Deploy Automático (se configurado)
 Após salvar o HTML, leia o arquivo `.env` e verifique se existem `VERCEL_TOKEN` e `VERCEL_PROJECT_ID`.
 
 Se existirem, execute o deploy:
@@ -99,7 +146,7 @@ Informe ao aluno: "Sua página foi salva em [caminho local] e publicada em [URL 
 Se as chaves não existirem, informe apenas:
 "Sua página foi salva em [caminho]. Abra no navegador para visualizar. Para publicar online, configure VERCEL_TOKEN no arquivo .env."
 
-### 7. Informar
+### 8. Informar
 NUNCA mostre o código HTML ao aluno.
 Sugira: "Use `/anuncio` para criar anúncios que levem tráfego a essa página."
 

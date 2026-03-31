@@ -24,8 +24,8 @@ Criar um playbook comercial completo:
 ## Como Trabalhar
 
 ### 1. Ler Contexto
-- Leia `meu-negocio/perfil.md` (Quadro, Furadeira, Urgências Ocultas)
-- Leia `meu-negocio/idconsumidor.md` (objeções de compra são essenciais para o playbook)
+- Leia `produtos/{ativo}/perfil.md` (Quadro, Furadeira, Urgências Ocultas)
+- Leia `produtos/{ativo}/idconsumidor.md` (objeções de compra são essenciais para o playbook)
 
 ### 2. Perguntar
 - Produto e faixa de preço
@@ -76,7 +76,7 @@ Cada uma com:
 **Regra de ouro:** Nunca pergunte "quer comprar?" — assuma o interesse e envie o link.
 
 ### 4. Salvar
-`entregas/comercial/playbook-completo-[produto].md`
+`produtos/{ativo}/entregas/comercial/playbook-completo-[produto].md`
 
 ## Padrão de UX da Entrevista
 

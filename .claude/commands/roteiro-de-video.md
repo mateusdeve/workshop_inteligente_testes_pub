@@ -16,7 +16,7 @@ Cria roteiros seguindo a estrutura VVV (Vídeo de Vendas de Valor) do VTSD.
 ## O Que Fazer
 
 ### 1. Contexto
-Leia `meu-negocio/perfil.md`.
+Leia `produtos/{ativo}/perfil.md`.
 
 ### 2. Entrevista (UMA pergunta por vez, com progresso visual)
 
@@ -100,16 +100,16 @@ Resumo do que vou criar:
 
 **Reels 60s (2 formatos VTSD):**
 
-Formato Pergunta-Resposta-Objeção:
-- 0-5s: Pergunta do público
-- 5-30s: Resposta direta
-- 30-55s: Quebra de objeção
+Formato Revelação-Quebra-Solução:
+- 0-5s: Gancho (afirmação contra-intuitiva ou revelação não óbvia — nunca pergunta)
+- 5-30s: Desenvolvimento (aprofunda o argumento ou ensina algo concreto)
+- 30-55s: Quebra de objeção ou reforço da ideia central
 - 55-60s: CTA
 
 Formato Problema-Solução:
-- 0-5s: Gancho com problema
-- 5-20s: Amplifica dor
-- 20-50s: Solução prática
+- 0-5s: Gancho com problema (afirmação que nomeia o problema de forma inesperada)
+- 5-20s: Amplifica dor com especificidade
+- 20-50s: Solução prática com entrega real
 - 50-60s: CTA
 
 **Avatar (HeyGen):**
@@ -118,8 +118,33 @@ Formato Problema-Solução:
 - Indicações de expressão e ritmo
 - Adaptado para leitura de teleprompter
 
+**Regras de estilo para todos os roteiros (Light Copy):**
+- Sem ponto de exclamação.
+- Sem perguntas no gancho: sempre afirmação contra-intuitiva ou premissa não óbvia.
+- Sem "mesmo que" / "sem precisar" como muletas.
+- Sem promessas vagas.
+- Travessão longo (—): nunca usar. Substituir por vírgula, ponto ou pausa indicada entre colchetes.
+- Estrutura "Não é X. É Y.": nunca usar. Reformular de forma mais elaborada.
+- Emojis: nunca usar no roteiro.
+- O produto não aparece nos primeiros blocos: começar pelo problema ou pelo insight.
+- Nomear cria realidade: criar nome próprio para o conceito ensinado quando possível ("Método da Inversão", "Gatilho da Especificidade").
+- Especificidade: usar números concretos, situações reais. "R$ 1.600" > "muito dinheiro". "10 clientes em 30 dias" > "crescimento rápido".
+
+**Checklist obrigatório — revisar antes de entregar qualquer roteiro:**
+
+Antes de entregar, revise e substitua:
+- Travessão (—) → reescreva a frase sem ele
+- Estrutura "Não é X. É Y." → desenvolva o argumento de outra forma
+- Frases genéricas de vendedor → substitua por dado ou situação concreta
+- Menção ao produto nos primeiros blocos → remova ou reescreva focando no leitor
+- Emojis → remova sem substituição
+
+- [ ] Nenhum travessão no texto
+- [ ] Nenhuma estrutura "Não é X. É Y."
+- [ ] Nenhuma frase genérica de vendedor
+
 ### 4. Salvar
-`entregas/textos-de-venda/roteiro-[formato]-[produto].md`
+`produtos/{ativo}/entregas/textos-de-venda/roteiro-[formato]-[produto].md`
 
 ### 5. Gerar Vídeo com Avatar (se formato Avatar e chave configurada)
 Leia `.env` e verifique se existe `HEYGEN_API_KEY`.

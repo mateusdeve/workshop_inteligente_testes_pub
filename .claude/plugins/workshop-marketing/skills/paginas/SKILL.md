@@ -12,7 +12,8 @@ description: >
 
 1. **Coletar TUDO antes de gerar copy.** Tudo o que for necessário para a página deve ser perguntado ANTES de gerar qualquer copy. Não gerar copy assumindo dados que não foram coletados ou confirmados.
 2. **Validar a copy com o usuário ANTES de gerar o HTML.** Mostrar toda a copy textual, pedir aprovação, e só depois gerar o arquivo HTML.
-3. **Exceção de exibição:** O HTML não é mostrado ao usuário (seria confuso). Salvar direto e informar o caminho do arquivo.
+3. **Revisão e correção automática SEMPRE.** Após gerar a copy ou o HTML, ler `.claude/commands/feedback-de-pv.md`, aplicar todos os critérios e corrigir o que for necessário. Informar ao usuário o número de ajustes feitos. Só então entregar ou salvar.
+4. **Exceção de exibição:** O HTML não é mostrado ao usuário (seria confuso). Salvar direto e informar o caminho do arquivo.
 
 ## Estrutura 8D (Página de Vendas VTSD)
 
@@ -110,6 +111,38 @@ description: >
 - **4+ tipos de fundo** alternando entre seções (claro, escuro, imagem+overlay, gradiente, textura)
 - **2+ seções com imagem de fundo** (Picsum + overlay ou CSS artístico)
 - **NÃO parecer Lovable/v0** — sem cards brancos idênticos em fundo bege
+
+## Vícios Proibidos na Copy da Página
+
+> ⛔ BLOQUEIO OBRIGATÓRIO — Esta etapa não é opcional. Nenhum HTML pode ser salvo e nenhuma copy pode ser entregue sem passar por esta revisão completa. Sem exceção.
+
+**ETAPA 0 — Varredura Anti-Vícios (executar ANTES de salvar ou mostrar qualquer coisa):**
+
+Percorra TODO o texto gerado e elimine cada item abaixo. Se encontrar, corrija na hora antes de continuar:
+
+| Vício | Ação obrigatória |
+|---|---|
+| Travessão (—) em qualquer frase | Reescreva a frase inteira sem ele. Não substitua por vírgula se a frase ficar estranha — refaça a construção. |
+| Estrutura "Não é X. É Y." | Desenvolva o argumento de outra forma. Nunca use essa construção. |
+| Ponto de exclamação | Remova. A frase deve ser impactante sem ele. |
+| Pergunta no gancho ou headline | Transforme em afirmação com tensão. |
+| Frase genérica de vendedor | Substitua por dado concreto ou cena real do cotidiano. |
+| Promessa vaga sem número ou situação | Especifique: prazo, quantidade, situação real. |
+| "mesmo que" ou "sem precisar" como muletas | Reescreva o argumento sem essas muletas. |
+| Bullets que não seguem padrão urgência oculta + decorado | Reescreva no padrão correto. |
+| Produto mencionado nos primeiros parágrafos da hero | Reescreva focando no leitor, não no produto. |
+| Emojis | Remova sem substituição. |
+
+Após a varredura, confirme internamente: "Não há nenhum travessão, exclamação, pergunta no gancho ou estrutura proibida neste texto." Só então salve ou entregue.
+
+- [ ] Nenhum travessão no texto
+- [ ] Nenhuma estrutura "Não é X. É Y."
+- [ ] Nenhuma frase genérica de vendedor
+- [ ] Produto não mencionado no hero/lead
+- [ ] Nenhum emoji
+- [ ] Headline sem imperativo ou pergunta no gancho
+
+---
 
 ## Design System e Montagem
 
@@ -269,4 +302,5 @@ Card "Crochê de madrugada":
 - `references/estruturas-pagina.md` — Seções por tipo de página, fundos por seção, paletas por nicho
 - `references/cdn-design-resources.md` — CDNs, fontes, ícones, animações, gradientes
 - `references/performance-otimizacao.md` — Auditoria e otimização (meta: 90+ mobile / 100 desktop)
+- `references/design-referencia-vtsd.md` — **REFERÊNCIA DE DESIGN VTSD.** Análise visual das páginas reais VTSD, Light Copy e Stories 10x: 3 estilos visuais (Light, Dark Premium, Dark Vibrante), paletas reais, padrões de seção, botões CTA, tabelas comparativas, seções recorrentes e lógica de alternância de fundos. Consultar SEMPRE ao gerar páginas para garantir nível de qualidade VTSD.
 - `references/templates/` — Templates HTML individuais por seção/estilo (referência visual, NÃO ler durante geração)

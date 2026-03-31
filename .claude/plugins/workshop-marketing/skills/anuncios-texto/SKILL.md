@@ -46,12 +46,34 @@ Criativos estaticos: imagem + copy. Para anuncios em video, consulte a skill `an
 - Desenvolvimento (1 paragrafo curto) — 2-3 linhas
 - CTA direto — 1 linha
 
-**Regras VTSD:**
+**Regras VTSD (Light Copy):**
 - Sem ponto de exclamacao
 - Sem perguntas no gancho
+- Sem "mesmo que" / "sem precisar" como muletas
+- Sem promessas vagas
 - Sem premissa obvia para quem ja esta no nicho
 - Argumentativo e logico
 - Baseado em premissas, nao promessas
+- Sem travessão longo (—): substituir por vírgula, ponto ou reformulação
+- Sem estrutura "Não é X. É Y.": reformular de forma mais elaborada
+- Sem frases genéricas de vendedor: "Transforme sua vida", "Descubra o segredo"
+- O produto não aparece nos primeiros parágrafos
+- Sem emojis na copy
+- Nomear conceitos: criar nomes próprios quando possível ("Negociação Terapêutica" > "Método Exclusivo")
+- Especificidade: usar números concretos, situações reais. "R$ 1.600" > "muito dinheiro"
+
+**Checklist obrigatório — revisar antes de entregar qualquer copy:**
+
+Antes de entregar, revise e substitua:
+- Travessão (—) → reescreva a frase sem ele
+- Estrutura "Não é X. É Y." → desenvolva o argumento de outra forma
+- Frases genéricas de vendedor → substitua por dado ou situação concreta
+- Menção ao produto nos primeiros parágrafos → remova ou reescreva focando no leitor
+- Emojis → remova sem substituição
+
+- [ ] Nenhum travessão no texto
+- [ ] Nenhuma estrutura "Não é X. É Y."
+- [ ] Nenhuma frase genérica de vendedor
 
 **Regra do Gancho — NUNCA pergunta, NUNCA obvio:**
 
@@ -162,3 +184,48 @@ Em 3 segundos o espectador decide se para ou continua scrollando. Ele precisa:
 | Relacionamento | Criar conexao e autoridade com quem ja segue | Comentar, DM, salvar, lives |
 | Conversao | Vender | Comprar agora, garantir vaga, quero comecar |
 | RMKT | Converter quem ja viu a pagina de vendas | Comprar agora, retomar oferta, ultima chance |
+
+---
+
+## Geracao Automatica de Imagens (Freepik API)
+
+O comando `/anuncio` gera a copy e, se configurado, cria as imagens automaticamente via Freepik.
+
+### Configuracao necessaria no `.env`
+
+```
+FREEPIK_API_KEY=sua_chave_aqui
+```
+
+Para obter: freepik.com/api > Create API Key
+
+### Parametros de tamanho por formato
+
+| Formato | Parametro `size` |
+| --- | --- |
+| Feed quadrado (1:1) | `square_1_1` |
+| Stories / Reels (9:16) | `portrait_9_16` |
+| Feed horizontal (1.91:1) | `landscape_16_9` |
+
+### Estrutura do prompt de imagem
+
+Para cada variacao, o prompt deve descrever:
+1. **Estilo fotografico**: foto real de pessoa, fundo clean, mockup, infografico, flat design
+2. **Composicao**: plano americano, close, vista aerea, split-screen
+3. **Paleta**: cores alinhadas ao nicho do produto
+4. **Texto overlay**: headline da variacao, centralizado, fonte bold
+5. **Mood**: profissional, acolhedor, urgente, premium (baseado no objetivo)
+
+Exemplo de prompt bem formado:
+```
+Professional lifestyle photo of a woman studying at a clean desk, natural light from window, warm tones, text overlay "Aprenda [Tema do Produto] em 30 dias" in bold white font centered, minimal background, Instagram feed format, 1:1 aspect ratio, soft shadow, high quality
+```
+
+### Carrossel — um prompt por card
+
+Cada card deve ter prompt individual com identidade visual consistente entre todos os slides:
+- **Card 1 (Gancho)**: elemento visual de impacto, headline grande, fundo de contraste
+- **Cards do meio (Conteudo)**: layout limpo, texto legivel, icone ou ilustracao simples
+- **Card final (CTA)**: cor de destaque, call to action centralizado, logotipo ou nome do produto
+
+**Regra de consistencia**: incluir no prompt de cada card a mesma descricao de paleta e estilo para manter identidade visual uniforme no carrossel.

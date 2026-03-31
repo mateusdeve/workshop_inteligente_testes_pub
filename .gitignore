@@ -13,6 +13,10 @@ _prompts-gpt/
 # ══════════════════════════════════════════
 # Dados do aluno (cada um gera os seus)
 # ══════════════════════════════════════════
+# Nova estrutura multi-produto: cada aluno cria os seus
+produtos/*/
+produtos/.ativo
+# Legado — mantidos por compatibilidade
 meu-negocio/perfil.md
 meu-negocio/idconsumidor.md
 entregas/
@@ -31,6 +35,14 @@ entregas/
 .claude/.credentials.json
 .claude/mcp.json
 .claude/mcp-needs-auth-cache.json
+.claude/worktrees/
+
+# Cursor IDE
+.cursor/
+
+# Outputs e feedback de sessão
+outputs/
+feedback/
 
 # ══════════════════════════════════════════
 # Sistema operacional
@@ -41,7 +53,20 @@ desktop.ini
 *.tmp
 
 # ══════════════════════════════════════════
-# Node (caso alguém rode npx localmente)
+# Entregas (cada aluno gera as suas)
+# ══════════════════════════════════════════
+entregas/
+
+# ══════════════════════════════════════════
+# Node e servidor local
 # ══════════════════════════════════════════
 node_modules/
 package-lock.json
+server.js
+package.json
+
+# ══════════════════════════════════════════
+# Vercel (deploy e configurações de projeto)
+# ══════════════════════════════════════════
+.vercel
+vercel.json

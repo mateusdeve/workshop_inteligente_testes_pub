@@ -23,10 +23,10 @@ Criar um pacote completo de campanha que inclui:
 ## Como Trabalhar
 
 ### 1. Ler Contexto
-- Leia `meu-negocio/perfil.md`
-- Leia `meu-negocio/idconsumidor.md` (identidade do consumidor, paliativos e objeções)
+- Leia `produtos/{ativo}/perfil.md`
+- Leia `produtos/{ativo}/idconsumidor.md` (identidade do consumidor, paliativos e objeções)
 - As Urgências Ocultas (dores, desejos, dúvidas, assuntos relacionados) estão no `perfil.md`
-- Leia página de vendas existente em `entregas/paginas/` (se houver)
+- Leia página de vendas existente em `produtos/{ativo}/entregas/paginas/` (se houver)
 
 ### 2. Perguntar o Essencial
 - Plataforma (Meta, Google, ambas)
@@ -61,7 +61,7 @@ Cada anúncio com:
 - API de conversão
 
 ### 4. Salvar
-`entregas/anuncios/campanha-completa-[produto].md`
+`produtos/{ativo}/entregas/anuncios/campanha-completa-[produto].md`
 
 ### 5. Próximos Passos
 Sugira: criar criativos visuais, criar página de destino, configurar pixel.

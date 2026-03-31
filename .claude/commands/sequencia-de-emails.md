@@ -16,7 +16,7 @@ Cria sequências de email seguindo a estrutura de Pico de Vendas do VTSD.
 ## O Que Fazer
 
 ### 1. Contexto
-Leia `meu-negocio/perfil.md`.
+Leia `produtos/{ativo}/perfil.md`.
 
 ### 2. Entrevista (UMA pergunta por vez, com progresso visual)
 
@@ -109,8 +109,34 @@ Cada email deve usar Light Copy e incluir:
 - Corpo (conversacional, com elementos literários)
 - CTA claro
 
+**Regras de estilo Light Copy — obrigatórias em todos os emails:**
+- Sem ponto de exclamação.
+- Sem perguntas no gancho.
+- Sem "mesmo que" / "sem precisar" como muletas.
+- Sem promessas vagas.
+- Travessão longo (—): nunca usar. Substituir por vírgula, ponto ou reformulação.
+- Estrutura "Não é X. É Y.": nunca usar. Reformular de forma mais elaborada.
+- Emojis: nunca usar.
+- O produto não aparece nas primeiras linhas do email: começar pelo contexto do leitor.
+- Frases genéricas: "Transforme sua vida", "Método revolucionário", "Isso pode mudar tudo."
+- Nomear cria realidade: criar nome próprio para o conceito ou problema quando possível.
+- Especificidade: usar números concretos, situações reais. "3 dias sem dormir" > "noites difíceis".
+
+**Checklist obrigatório — revisar antes de entregar qualquer email:**
+
+Antes de entregar, revise e substitua:
+- Travessão (—) → reescreva a frase sem ele
+- Estrutura "Não é X. É Y." → desenvolva o argumento de outra forma
+- Frases genéricas de vendedor → substitua por dado ou situação concreta
+- Menção ao produto nas primeiras linhas → remova ou reescreva focando no leitor
+- Emojis → remova sem substituição
+
+- [ ] Nenhum travessão no texto
+- [ ] Nenhuma estrutura "Não é X. É Y."
+- [ ] Nenhuma frase genérica de vendedor
+
 ### 4. Salvar
-`entregas/emails/sequencia-[tipo]-[produto].md`
+`produtos/{ativo}/entregas/emails/sequencia-[tipo]-[produto].md`
 
 ### 5. Próximo Passo
 "Sequência salva. Use `/pagina-de-vendas` para criar a página do evento, ou `/anuncio` para criar anúncios de divulgação."

@@ -23,8 +23,8 @@ Criar um plano de conteúdo completo que inclui:
 ## Como Trabalhar
 
 ### 1. Ler Contexto
-- Leia `meu-negocio/perfil.md` (Quadro, Decorados, Urgências Ocultas) — as Urgências Ocultas são a FONTE de todos os temas
-- Leia `meu-negocio/idconsumidor.md` (identidade do consumidor, paliativos, objeções e tom de comunicação)
+- Leia `produtos/{ativo}/perfil.md` (Quadro, Decorados, Urgências Ocultas) — as Urgências Ocultas são a FONTE de todos os temas
+- Leia `produtos/{ativo}/idconsumidor.md` (identidade do consumidor, paliativos, objeções e tom de comunicação)
 
 ### 2. Perguntar
 - Rede principal (Instagram, TikTok, YouTube)
@@ -67,7 +67,7 @@ Aplique 1-3 elementos por peça (dos 26 do VTSD):
 - Antítese para comparações
 
 ### 5. Salvar
-`entregas/conteudo-social/plano-completo-[produto].md`
+`produtos/{ativo}/entregas/conteudo-social/plano-completo-[produto].md`
 
 ## Padrão de UX da Entrevista
 
@@ -89,6 +89,23 @@ Ex: Resumo: ... / 1. Tudo certo, pode gerar / 2. Quero ajustar algo
 - SEMPRE numerar as opções quando houver escolha
 - SEMPRE mostrar progresso ao concluir cada bloco
 - SEMPRE pedir confirmação com resumo antes de gerar o entregável final
+
+## Vícios Proibidos na Copy
+
+**Checklist obrigatório — revisar antes de entregar qualquer peça de conteúdo:**
+
+Antes de entregar, revise e substitua:
+- Travessão (—) → reescreva a frase sem ele
+- Estrutura "Não é X. É Y." → desenvolva o argumento de outra forma
+- Frases genéricas de vendedor → substitua por dado ou situação concreta
+- Menção ao produto no início do conteúdo → remova ou reescreva focando no leitor
+- Emojis → remova sem substituição
+
+- [ ] Nenhum travessão no texto
+- [ ] Nenhuma estrutura "Não é X. É Y."
+- [ ] Nenhuma frase genérica de vendedor
+
+---
 
 ## Referências
 ANTES de gerar qualquer conteúdo, leia estes arquivos:

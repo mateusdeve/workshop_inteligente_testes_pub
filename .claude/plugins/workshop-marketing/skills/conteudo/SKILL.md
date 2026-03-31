@@ -65,3 +65,63 @@ Distribuir entre 4 categorias de Urgência Oculta:
 
 **Regra:** Não começar com o elemento literário. Inserir naturalmente.
 Usar 1-3 elementos por peça. Gerar 3 variações.
+
+## Referência de Exemplos Validados
+
+Consulte `.claude/plugins/workshop-marketing/skills/conteudo/references/exemplos-leads-4-categorias.md` para 12 exemplos reais das 4 categorias de copy (Inadequação, Identificação com o Problema, Plug & Play, Promessa Boa Demais) aplicadas a 3 nichos diferentes (skincare, saúde/imunidade, psicologia B2B).
+
+**O que usar como referência nos exemplos:**
+- Nível de especificidade (números concretos, situações reais)
+- Profundidade do desenvolvimento (mínimo 4-5 parágrafos nas categorias de dor)
+- Inimigo concreto presente no texto
+- Parágrafo técnico em itálico ao final
+- Tom de escritor, não de vendedor
+
+## Princípios de Copy para Todo Conteúdo
+
+**Princípio central:**
+O conteúdo não vende. Ele ensina, avisa ou revela. O produto não existe nas primeiras linhas.
+A pessoa lê ou assiste e aprende algo — a curiosidade vem de querer saber mais, não de uma promessa vaga.
+
+**Nomear cria realidade:**
+Criar nomes próprios para conceitos e problemas quando possível.
+- Funcionam: "Programação Emocional Repetitiva", "Síndrome do Loop Criativo"
+- Não funcionam: "Método Exclusivo", "Sistema Único"
+
+**Vícios de escrita proibidos (Light Copy):**
+- Ponto de exclamação: nunca usar.
+- Perguntas no gancho: nunca usar.
+- "Mesmo que" / "sem precisar" como muletas: nunca usar.
+- Promessas vagas: nunca usar.
+- Travessão longo (—): nunca usar. Substituir por vírgula, ponto ou reformulação.
+- Estrutura "Não é X. É Y.": nunca usar (ex: "Não é preguiça. É falta de método."). Reformular.
+- Frases genéricas: "Transforme sua vida", "Descubra o segredo", "Isso pode mudar tudo."
+- Emojis: nunca usar na copy.
+- O produto não aparece nos primeiros parágrafos.
+
+**Checklist obrigatório — revisar antes de entregar qualquer copy ou conteúdo:**
+
+Antes de entregar, revise e substitua:
+- Travessão (—) → reescreva a frase sem ele
+- Estrutura "Não é X. É Y." → desenvolva o argumento de outra forma
+- Frases genéricas de vendedor → substitua por dado ou situação concreta
+- Menção ao produto nos primeiros parágrafos → remova ou reescreva focando no leitor
+- Emojis → remova sem substituição
+
+- [ ] Nenhum travessão no texto
+- [ ] Nenhuma estrutura "Não é X. É Y."
+- [ ] Nenhuma frase genérica de vendedor
+
+**Especificidade mata generalização:**
+Usar números concretos, situações específicas, detalhes que fazem o texto parecer real.
+- "Antes dos 7 anos" > "na infância"
+- "R$ 1.600" > "muito dinheiro"
+- "10 franquias no primeiro ano" > "crescimento acelerado"
+
+## Referências de Copy
+
+- `references/exemplos-copy-paginas-vtsd.md` — **PRINCIPAL REFERÊNCIA DE COPY.** Headlines, argumentos, CTAs, bullets, tabelas comparativas, seção para quem é, depoimentos com resultado, bio do autor e FAQ das páginas reais VTSD, Light Copy e Stories 10x. Consultar ao criar copy de página de vendas, copy-pagina e texto de venda para calibrar o tom e a estrutura correta do estilo Light Copy.
+- `references/frameworks-copy.md` — Frameworks e estruturas de copy gerais
+- `references/gatilhos-mentais.md` — Lista de gatilhos mentais aplicados
+- `references/exemplos-vsl.md` — Exemplos de VSL (Vídeo de Vendas de Valor)
+- `references/exemplos-leads-4-categorias.md` — Exemplos das 4 leads da metodologia D48

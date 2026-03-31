@@ -55,19 +55,51 @@ description: >
 - ❌ Sem perguntas no gancho
 - ❌ Gancho óbvio para quem já está no nicho
 
+**Referência de exemplos validados:** consulte `.claude/plugins/workshop-marketing/skills/conteudo/references/exemplos-leads-4-categorias.md` para 12 exemplos reais das 4 categorias de lead (Inadequação, Identificação, Plug & Play, Promessa Boa Demais) em 3 nichos. Usar como referência de nível de especificidade, profundidade e inimigo concreto.
+
+**Princípio central de copy:**
+A copy não vende. Ela informa, avisa ou ensina. O produto não existe nos primeiros parágrafos.
+
+**Nomear cria realidade:**
+Sempre que possível, criar nome próprio para o conceito, problema ou solução ("Negociação Terapêutica" > "Método Exclusivo").
+
+**Vícios proibidos:**
+- Ponto de exclamação: nunca usar.
+- Perguntas no gancho: nunca usar.
+- "Mesmo que" / "sem precisar" como muletas: nunca usar.
+- Promessas vagas: nunca usar.
+- Travessão longo (—): nunca usar. Substituir por vírgula, ponto ou reformulação.
+- Estrutura "Não é X. É Y.": nunca usar. Reformular de forma mais elaborada.
+- Frases genéricas: "Transforme sua vida", "Descubra o segredo", "Isso pode mudar tudo."
+- Emojis: nunca usar.
+- Especificidade: usar números concretos, situações reais. "R$ 1.600" > "muito dinheiro".
+
+**Checklist obrigatório — revisar antes de entregar qualquer copy:**
+
+Antes de entregar, revise e substitua:
+- Travessão (—) → reescreva a frase sem ele
+- Estrutura "Não é X. É Y." → desenvolva o argumento de outra forma
+- Frases genéricas de vendedor → substitua por dado ou situação concreta
+- Menção ao produto nos primeiros parágrafos → remova ou reescreva focando no leitor
+- Emojis → remova sem substituição
+
+- [ ] Nenhum travessão no texto
+- [ ] Nenhuma estrutura "Não é X. É Y."
+- [ ] Nenhuma frase genérica de vendedor
+
 ### Regra do Gancho — NUNCA pergunta, NUNCA óbvio
 
 O gancho deve ser uma **premissa não óbvia** — afirmação que surpreende quem já está no nicho.
 
 **ERRADO:**
-- "Sabe aquela sensação de travar na leitura?" ❌ (pergunta)
-- "Você já se sentiu insegura com o tarô?" ❌ (pergunta)
-- "Aprender tarô é difícil." ❌ (óbvio)
+- "Sabe aquela sensação de não conseguir avançar?" ❌ (pergunta)
+- "Você já se sentiu travado no seu negócio?" ❌ (pergunta)
+- "Aprender a vender é difícil." ❌ (óbvio)
 
 **CERTO:**
-- "A leitora que mais trava raramente é a que sabe menos." ✓
-- "Decorar os 78 significados é o caminho mais rápido para travar na leitura." ✓
-- "Fechar bem uma sessão de tarô é mais difícil do que abrir ela." ✓
+- "O aluno que mais trava raramente é o que sabe menos." ✓
+- "Quem estuda demais sem executar nunca sai do lugar." ✓
+- "Fechar bem uma venda é mais difícil do que começar uma conversa." ✓
 
 ## Plataforma
 
@@ -106,6 +138,31 @@ O texto principal de cada anúncio deve ter as seções **explicitamente rotulad
 - **CTA:** — convite direto adequado à fase
 
 Não entregar texto corrido sem identificar cada parte.
+
+## Estrutura do anúncio de imagem estática — o que vai onde
+
+Um anúncio de imagem estática no Meta Ads tem 4 campos distintos. Cada campo recebe um conteúdo diferente:
+
+| Campo | O que recebe | Limite |
+|---|---|---|
+| **Imagem** | Apenas o headline (5–7 palavras). O texto visual que para o scroll. Nada mais. | Visual |
+| **Texto principal (legenda)** | Texto completo: GANCHO + DESENVOLVIMENTO + CTA | Sem limite prático |
+| **Headline (Meta Ads)** | O mesmo headline que está na imagem | Máx 40 chars |
+| **Descrição (Meta Ads)** | Frase de apoio ao headline | Máx 90 chars |
+
+**Regra de entrega:** ao gerar anúncios de imagem, sempre separar explicitamente com esses rótulos:
+
+```
+NA IMAGEM: [headline curto — 5–7 palavras]
+
+LEGENDA:
+[texto completo com GANCHO, DESENVOLVIMENTO e CTA]
+
+HEADLINE (Meta Ads): [headline]
+DESCRIÇÃO (Meta Ads): [frase de apoio]
+```
+
+Nunca entregar o texto corrido como se coubesse inteiro na imagem.
 
 ## Estrutura obrigatória para Descoberta + Vídeo
 
@@ -216,7 +273,7 @@ A mandala funciona cruzando **objetivo** + **momento de consumo** + **tipo de an
 ## Fluxo completo do comando `/anuncio` (7 passos)
 
 ```
-1. Contexto       → ler meu-negocio/perfil.md, idconsumidor.md e correcoes/informacoes-adicionais.md
+1. Contexto       → ler produtos/.ativo, produtos/{ativo}/perfil.md e produtos/{ativo}/idconsumidor.md
 2. Entrevista     → uma pergunta por vez, sem agrupar, com progresso visual
 3. Pesquisa       → 2 buscas na web (formato + objetivo) — a cada geração, não reutilizar
 4. Geração        → 3 variações da Mandala da Criatividade (VTSD + tendências)

@@ -16,7 +16,7 @@ Cria produtos low ticket usando a metodologia D48 do VTSD: produto de entrada, p
 ## O Que Fazer
 
 ### 1. Contexto
-Leia `meu-negocio/perfil.md`. Se não existir, oriente a usar `/meu-produto` primeiro.
+Leia `produtos/{ativo}/perfil.md`. Se não existir, oriente a usar `/meu-produto` primeiro.
 Consulte `.claude/plugins/workshop-marketing/skills/vtsd-completo/SKILL.md` (Módulo 10: D48).
 
 ### 2. Entrevista (UMA pergunta por vez, com progresso visual)
@@ -197,11 +197,11 @@ Estrutura do produto:
 
 | Material | Destino |
 | --- | --- |
-| Página final do quiz (HTML) | `entregas/paginas/quiz-[produto].html` |
-| Anúncios caixa rápido | `entregas/anuncios/caixa-rapido-[produto].md` |
-| Produto desafio | `entregas/textos-de-venda/desafio-[produto].md` |
-| Copy Hotmart/Kiwify | `entregas/textos-de-venda/copy-plataforma-[produto].md` |
-| Agente GPT (estrutura) | `entregas/textos-de-venda/agente-gpt-[produto].md` |
+| Página final do quiz (HTML) | `produtos/{ativo}/produtos/{ativo}/entregas/paginas/quiz-[produto].html` |
+| Anúncios caixa rápido | `produtos/{ativo}/entregas/anuncios/caixa-rapido-[produto].md` |
+| Produto desafio | `produtos/{ativo}/entregas/textos-de-venda/desafio-[produto].md` |
+| Copy Hotmart/Kiwify | `produtos/{ativo}/entregas/textos-de-venda/copy-plataforma-[produto].md` |
+| Agente GPT (estrutura) | `produtos/{ativo}/entregas/textos-de-venda/agente-gpt-[produto].md` |
 
 ### 5. Próximo Passo
 "Produto low ticket criado. Use `/anuncio` para criar mais variações de anúncios, ou `/funil-de-vendas` para mapear o funil completo com upsell."
