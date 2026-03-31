@@ -111,50 +111,38 @@ description: >
 - **2+ seções com imagem de fundo** (Picsum + overlay ou CSS artístico)
 - **NÃO parecer Lovable/v0** — sem cards brancos idênticos em fundo bege
 
-## Biblioteca de Templates
+## Design System e Montagem
 
-Os templates estão em `references/templates/`. Cada um tem `code.html` (código) e/ou `DESIGN.md` (especificação).
+### Fluxo de Geração (OTIMIZADO)
 
-**OBRIGATÓRIO:** Antes de gerar qualquer página, ler **2-3 templates** e **mixar** os melhores elementos de cada um. NUNCA usar um template sozinho — sempre combinar para resultado orgânico e único.
+1. Ler **`references/design-system-components.md`** — contém TODOS os padrões CSS pré-compilados (variáveis, componentes, animações, responsivo). Este arquivo ÚNICO substitui a leitura de templates individuais.
+2. Adaptar as CSS variables à paleta e fontes do nicho
+3. Montar a página seção por seção usando os componentes do design system
+4. Preencher a copy com dados do perfil do negócio e identidade do consumidor
 
-### Templates por Nicho
+**NÃO ler templates individuais em `references/templates/`.** Usar apenas o design system compilado. Os templates existem como arquivo de referência, mas o design system já contém todos os padrões extraídos.
 
-| Nicho | Templates com HTML | Templates DESIGN.md |
-|---|---|---|
-| Artesanato/Handmade | `vtsd_ateli_lucrativo/`, `landing_page_croch_lucrativo/` | `terra_trama/`, `artes_elegance/`, `ateli_moderno/` |
-| Gastronomia/Confeitaria | `vtsd_doces_de_elite/`, `modelo_confeitaria_gastronomia/` | `velvet_ganache/`, `velvet_zest/` |
-| Marketing/Negócios | `vtsd_marketing_digital/` | `hyperion_growth/` |
-| Saúde/Fitness | `modelo_sa_de_bem_estar/`, `modelo_academia_fitness/` | `energia_pura/` |
-| Dev Pessoal/Coaching | `vtsd_desenvolvimento_pessoal/` | `zen_moderno/`, `solstice_sage/` |
-| Finanças/Investimentos | `modelo_finan_as_investimentos/` | `equity_ledger/` |
-| Premium/High Ticket | `vtsd_executivo/`, `vtsd_global_dean/` | `echelon_executive/`, `summit_legacy/` |
-| Tech/SaaS | `modelo_tech_moderno/` | `electric_velocity/` |
-| Educação/Mentoria | `modelo_educa_o_mentoria/` | `sovereign_academic/` |
-| Beleza/Skincare | `modelo_beleza_skincare/` | `ethereal_bloom/` |
-| Imobiliário/Luxo | `modelo_imobili_ria_de_luxo/` | `horizonte_thos/` |
-| Pet/Animais | — | `amigo_fiel/` |
-| Genérico/Clean | `landing_page_moderno_clean/` | — |
+### Padrões Visuais (aplicar a todas as seções)
 
-### Variantes com Vídeo Centralizado
-
-Alguns templates têm versão com vídeo centralizado no hero:
-
-- `vtsd_ateli_lucrativo_v_deo_centralizado/`
-- `vtsd_doces_de_elite_v_deo_centralizado/`
-- `vtsd_global_dean_v_deo_centralizado/`
-
-### Padrões Comuns nos Templates
-
-Todos os templates seguem estes padrões (aplicar ao gerar páginas):
-
-- **Tailwind CDN** — `<script src="https://cdn.tailwindcss.com"></script>` com config customizado
-- **Material Symbols Outlined** ou Phosphor Icons para ícones
+- **CSS puro com custom properties** — preferir CSS puro. Tailwind CDN apenas se necessário
+- **Material Symbols Outlined** para ícones
 - **No-Line Rule** — sem bordas 1px entre seções. Usar mudanças tonais e espaçamento
 - **Glassmorphism** — `backdrop-filter: blur() + rgba` para navs e cards sobrepostos
-- **Assimetria intencional** — layouts não são 100% simétricos
 - **Espaçamento como design** — separação por tom de fundo, não por linhas
-- **Elevation via toning** — containers com camadas tonais em vez de drop shadows
 - **Hierarquia tipográfica dramática** — heading 48-56px vs body 15-16px
+- **NUNCA usar badges/tags** — Proibido usar elementos tipo pill/badge acima do headline
+
+### Estilos Visuais Disponíveis (referência)
+
+| Estilo | Tema | Característica |
+|---|---|---|
+| glass_escuro | Escuro | Glassmorphism, shimmer, refinado |
+| flat_claro | Claro | Bordas flat, warm/dourado |
+| teal_claro | Claro | Teal/verde, botão pill verde |
+| purple_escuro | Escuro | Roxo, moderno |
+| minimal_claro | Claro | Minimalista, neutro |
+
+Templates individuais em `references/templates/` servem como referência visual se precisar consultar um padrão específico. Mas para geração, usar o design system compilado.
 
 ## Paletas por Nicho
 
@@ -171,7 +159,114 @@ Todos os templates seguem estes padrões (aplicar ao gerar páginas):
 | Coaching | Terracota #c4603c | Creme #fdf6ec | Laranja #ed8936 |
 | Feminino | Rose #f5576c | Nude #fdf6ec | Dourado #d69e2e |
 
-## Referências Detalhadas
+## Imagens Contextuais (OBRIGATÓRIO)
 
-- `references/cdn-design-resources.md` — CDNs, fontes, ícones, animações, gradientes, checklist
-- `references/estruturas-pagina.md` — Seções por tipo de página, fundos por seção, imagens de fundo por nicho
+**NUNCA usar imagens genéricas.** Toda imagem na página deve ter relação semântica direta com o conteúdo da seção onde está inserida. Imagens decorativas sem significado dão cara de template de IA.
+
+### Processo de Seleção (3 Etapas)
+
+**Etapa 1 — Análise Semântica do Conteúdo**
+
+Antes de escolher qualquer imagem, analisar o texto da seção e extrair:
+- **Objeto central** — O que está sendo descrito? (ex: peça de crochê, feira, celular)
+- **Emoção dominante** — O que a pessoa sente? (ex: frustração, vergonha, esperança)
+- **Cenário físico** — Onde a cena acontece? (ex: mesa de trabalho, barraca de feira, sofá à noite)
+
+**Etapa 2 — Mapeamento de Palavras-Chave**
+
+Traduzir a análise em 2-3 keywords em inglês para busca de imagens. Ser específico, não genérico.
+
+| Conteúdo da Seção | Errado (genérico) | Certo (contextual) |
+|---|---|---|
+| Postar no Instagram sem resultado | `phone` | `woman,phone,frustrated` |
+| Vender em feira de artesanato | `market` | `craft,fair,handmade,stall` |
+| Pedir para família divulgar | `friends` | `woman,sharing,phone,awkward` |
+| Baixar preço para competir | `coins` | `price,tag,discount,loss` |
+| Crochê de madrugada | `night` | `crochet,night,lamp,tired` |
+| Peças acumuladas sem vender | `storage` | `handmade,products,shelf,unsold` |
+| Síndrome do impostor em reunião | `office` | `meeting,room,anxious,silent` |
+| Salário estagnado | `money` | `paycheck,calculator,worried` |
+| Horas de trabalho por centavos | `work` | `hands,crafting,thread,table` |
+
+**Etapa 3 — Construção da URL**
+
+**Opção principal — Picsum com seed descritivo (SEMPRE funciona):**
+```
+https://picsum.photos/seed/{keyword1-keyword2-keyword3}/{largura}/{altura}
+```
+Exemplo: `https://picsum.photos/seed/crochet-night-lamp/600/300`
+
+O seed é formado pelas keywords separadas por hífen. Mesma seed = mesma imagem (consistência entre reloads).
+
+**Opção alternativa — Unsplash com ID específico de foto:**
+```
+https://images.unsplash.com/photo-{ID}?w=600&h=300&fit=crop&q=80
+```
+Só usar quando souber o ID exato da foto. Exemplo: `photo-1601985705806-5b9a71f6004f`
+
+**PROIBIDO usar `source.unsplash.com`** — esse serviço foi descontinuado e as imagens não carregam.
+
+### Regras de Uso de Imagens
+
+1. **Mínimo 2 keywords por imagem** — nunca usar uma palavra só (ex: `phone`). Sempre combinar objeto + contexto (ex: `woman,phone,frustrated`)
+
+2. **Keywords devem vir do texto da seção** — ler o parágrafo do card/bloco e extrair os substantivos e adjetivos mais descritivos
+
+3. **Adaptar ao nicho do produto:**
+   - Artesanato → `handmade`, `craft`, `yarn`, `thread`, `hands`, `table`
+   - Gastronomia → `kitchen`, `baking`, `cake`, `ingredients`, `apron`
+   - Finanças → `calculator`, `spreadsheet`, `bills`, `wallet`
+   - Saúde → `wellness`, `exercise`, `tired`, `energy`
+   - Tech → `laptop`, `code`, `screen`, `developer`
+   - Educação → `classroom`, `books`, `studying`, `notebook`
+   - Beleza → `skincare`, `mirror`, `routine`, `products`
+
+4. **Tratamento visual conforme o design system:**
+
+   | Estilo da página | Filtro na imagem |
+   |---|---|
+   | Light/clean | `opacity: 0.85` ou sem filtro |
+   | Flat B&W | `filter: grayscale(100%); opacity: 0.6` |
+   | Dark mode | `filter: brightness(0.35-0.4)` + gradient overlay escuro |
+   | Warm/dourado | `filter: sepia(0.2) saturate(0.9)` |
+   | Teal/vibrante | `filter: saturate(1.15)` + gradient overlay branco na base |
+
+5. **Imagens de fundo de seção** — usar keywords mais amplas e emocionais (ex: `woman,workshop,creative,warm`), com overlay forte para legibilidade do texto
+
+6. **Imagens em cards** — usar keywords específicas do conteúdo daquele card individual
+
+### Exemplo Completo (Seção Problema/Dor — Crochê)
+
+```
+Card "Horas de trabalho por centavos":
+  Texto: "Você passa a tarde inteira fazendo uma peça e vende por menos do que gastou em linha"
+  Análise: mãos trabalhando crochê, mesa, linha, cansaço
+  Keywords: hands,crochet,yarn,table
+  URL: https://picsum.photos/seed/hands-crochet-yarn-table/600/300
+
+Card "A pechincha que dói":
+  Texto: "A cliente olha, elogia, pergunta o preço e some"
+  Análise: conversa de venda, celular com mensagem, desânimo
+  Keywords: phone,message,disappointed,woman
+  URL: https://picsum.photos/seed/phone-message-disappointed/600/300
+
+Card "Peças guardadas no armário":
+  Texto: "Peças lindas acumulando poeira na prateleira"
+  Análise: produtos handmade na estante, sem comprador
+  Keywords: handmade,shelf,products,unused
+  URL: https://picsum.photos/seed/handmade-shelf-products-unused/600/300
+
+Card "Crochê de madrugada":
+  Texto: "Trabalhando enquanto a família dorme"
+  Análise: noite, abajur, mãos cansadas, solidão
+  Keywords: night,lamp,hands,crafting
+  URL: https://picsum.photos/seed/night-lamp-hands-crafting/600/300
+```
+
+## Referências
+
+- **`references/design-system-components.md`** — **ARQUIVO PRINCIPAL** — CSS variables, componentes, animações, responsivo. Ler este arquivo substitui a leitura de todos os templates individuais.
+- `references/estruturas-pagina.md` — Seções por tipo de página, fundos por seção, paletas por nicho
+- `references/cdn-design-resources.md` — CDNs, fontes, ícones, animações, gradientes
+- `references/performance-otimizacao.md` — Auditoria e otimização (meta: 90+ mobile / 100 desktop)
+- `references/templates/` — Templates HTML individuais por seção/estilo (referência visual, NÃO ler durante geração)

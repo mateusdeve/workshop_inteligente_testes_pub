@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atelier - Problema e Dor</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        base: "#fafafa",
+                        surface: "#f0f0f2",
+                        ink: "#18181b",
+                        accent: "#d4d4d8",
+                        warm: "#c2956b"
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        body {
+            background-color: #fafafa;
+            background-image:
+                radial-gradient(circle at 20% 50%, rgba(194, 149, 107, 0.06) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(194, 149, 107, 0.04) 0%, transparent 40%);
+        }
+
+        .flat-border {
+            border: 1.5px solid #18181b;
+        }
+
+        .pain-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .pain-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 30px rgba(24, 24, 27, 0.06);
+        }
+        .pain-card:hover .pain-icon-wrap {
+            background-color: #c2956b;
+            border-color: #c2956b;
+        }
+        .pain-card:hover .pain-icon-wrap .material-symbols-outlined {
+            color: #fafafa;
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-in {
+            animation: fadeUp 0.6s ease-out forwards;
+        }
+        .animate-in-delay-1 { animation-delay: 0.1s; opacity: 0; }
+        .animate-in-delay-2 { animation-delay: 0.2s; opacity: 0; }
+        .animate-in-delay-3 { animation-delay: 0.3s; opacity: 0; }
+        .animate-in-delay-4 { animation-delay: 0.4s; opacity: 0; }
+        .animate-in-delay-5 { animation-delay: 0.5s; opacity: 0; }
+        .animate-in-delay-6 { animation-delay: 0.6s; opacity: 0; }
+
+        .warm-line {
+            width: 48px;
+            height: 2px;
+            background-color: #c2956b;
+        }
+    </style>
+</head>
+<body class="text-ink font-sans antialiased selection:bg-ink selection:text-base min-h-screen flex flex-col">
+
+    <main class="flex-grow">
+
+        <section class="max-w-5xl mx-auto px-6 py-20 md:py-28">
+
+            <div class="text-center max-w-2xl mx-auto mb-16 md:mb-20">
+                <div class="warm-line mx-auto mb-6 animate-in animate-in-delay-1"></div>
+
+                <h2 class="text-3xl sm:text-4xl md:text-[2.75rem] font-extrabold leading-[1.12] tracking-tighter text-ink animate-in animate-in-delay-2">
+                    Você faz peças incríveis, mas no final do mês o saldo não fecha.
+                </h2>
+
+                <p class="text-lg text-gray-500 font-light leading-relaxed mt-6 animate-in animate-in-delay-3">
+                    Se alguma dessas cenas parece familiar, saiba que o problema não é o seu crochê — é a falta de um método para transformar talento em renda.
+                </p>
+            </div>
+
+            <div class="grid sm:grid-cols-2 gap-6 md:gap-8">
+
+                <div class="pain-card flat-border bg-white p-7 md:p-8 flex flex-col gap-5 animate-in animate-in-delay-3">
+                    <div class="pain-icon-wrap w-12 h-12 rounded-full flat-border flex items-center justify-center shrink-0 transition-all duration-300">
+                        <span class="material-symbols-outlined text-ink text-xl transition-colors duration-300">schedule</span>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-bold tracking-tight leading-snug mb-2">Horas de trabalho por centavos</h3>
+                        <p class="text-[15px] text-gray-500 font-light leading-relaxed">
+                            Você passa a tarde inteira numa peça — escolhe a linha, acerta o ponto, capricha no acabamento. Na hora de vender, faz a conta e percebe que ganhou menos que o salário mínimo por hora. O carinho que colocou em cada ponto não aparece no preço.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="pain-card flat-border bg-white p-7 md:p-8 flex flex-col gap-5 animate-in animate-in-delay-4">
+                    <div class="pain-icon-wrap w-12 h-12 rounded-full flat-border flex items-center justify-center shrink-0 transition-all duration-300">
+                        <span class="material-symbols-outlined text-ink text-xl transition-colors duration-300">trending_down</span>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-bold tracking-tight leading-snug mb-2">"Faz por quanto?"</h3>
+                        <p class="text-[15px] text-gray-500 font-light leading-relaxed">
+                            A pessoa olha, elogia, diz que amou — e na sequência pede desconto. Você cede, porque tem medo de perder a venda. Depois se sente mal por ter baixado um preço que já era baixo. E o ciclo recomeça na próxima encomenda.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="pain-card flat-border bg-white p-7 md:p-8 flex flex-col gap-5 animate-in animate-in-delay-5">
+                    <div class="pain-icon-wrap w-12 h-12 rounded-full flat-border flex items-center justify-center shrink-0 transition-all duration-300">
+                        <span class="material-symbols-outlined text-ink text-xl transition-colors duration-300">inventory_2</span>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-bold tracking-tight leading-snug mb-2">Peças lindas guardadas no armário</h3>
+                        <p class="text-[15px] text-gray-500 font-light leading-relaxed">
+                            A gaveta vai enchendo de peças que você fez com carinho e ninguém comprou. Publica no Instagram, manda no WhatsApp, mostra nas feirinhas — mas as vendas não aparecem. A vontade de criar vai diminuindo quando o estoque só cresce.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="pain-card flat-border bg-white p-7 md:p-8 flex flex-col gap-5 animate-in animate-in-delay-6">
+                    <div class="pain-icon-wrap w-12 h-12 rounded-full flat-border flex items-center justify-center shrink-0 transition-all duration-300">
+                        <span class="material-symbols-outlined text-ink text-xl transition-colors duration-300">heart_broken</span>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-bold tracking-tight leading-snug mb-2">Comparada com produto de loja de R$1,99</h3>
+                        <p class="text-[15px] text-gray-500 font-light leading-relaxed">
+                            Alguém olha a sua peça artesanal, feita à mão com linha de qualidade, e diz: "mas na loja X eu acho mais barato". Você engole a frustração, porque não sabe explicar o valor do que faz sem parecer que está se justificando.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="text-center mt-14 md:mt-16 animate-in animate-in-delay-6">
+                <p class="text-base text-gray-400 font-light leading-relaxed max-w-lg mx-auto">
+                    O talento você já tem. O que falta é um método para que o mercado enxergue — e pague — o real valor do seu trabalho.
+                </p>
+                <div class="warm-line mx-auto mt-6"></div>
+            </div>
+
+        </section>
+
+    </main>
+
+</body>
+</html>
