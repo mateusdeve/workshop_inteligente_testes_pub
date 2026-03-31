@@ -1,4 +1,4 @@
----
+﻿---
 name: workshop-marketing:conteudo-social
 description: Criar conteúdo para redes sociais — carrosséis, captions, roteiros de Reels, linha editorial e calendário de publicação. Baseado nas Urgências Ocultas e elementos literários do VTSD.
 ---
@@ -152,6 +152,19 @@ Não usar estrutura: “Não é X. É Y.”
 Não usar frases genéricas de vendedor
 Não mencionar o produto na copy
 Não usar emojis
+
+**Checklist obrigatório — revisar antes de entregar qualquer peça de conteúdo:**
+
+Antes de entregar, revise e substitua:
+- Travessão (—) → reescreva a frase sem ele
+- Estrutura "Não é X. É Y." → desenvolva o argumento de outra forma
+- Frases genéricas de vendedor → substitua por dado ou situação concreta
+- Menção ao produto no início do conteúdo → remova ou reescreva focando no leitor
+- Emojis → remova sem substituição
+
+- [ ] Nenhum travessão no texto
+- [ ] Nenhuma estrutura "Não é X. É Y."
+- [ ] Nenhuma frase genérica de vendedor
 
 
 **REGRA DE PROFUNDIDADE OBRIGATÓRIA — vale para todo tipo de conteúdo:**

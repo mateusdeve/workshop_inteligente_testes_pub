@@ -75,7 +75,33 @@ Não usar frases genéricas de vendedor
 Não mencionar o produto na copy
 Não usar emojis
 
-### 4. Inserir Pixel Automaticamente (se configurado)
+### 4. Revisão e Correção Automática da Copy (OBRIGATÓRIO antes de salvar)
+
+Antes de salvar o arquivo HTML, percorra todo o texto visível da página e aplique a revisão completa.
+
+Leia `.claude/commands/feedback-de-pv.md` e aplique todos os critérios. Corrija diretamente no HTML:
+
+**Checklist de revisão — corrigir automaticamente cada item:**
+
+- [ ] **Travessão (—)**: encontrou? Reescreva a frase sem ele
+- [ ] **"Não é X. É Y."**: encontrou? Desenvolva o argumento de outra forma
+- [ ] **Frases genéricas de vendedor**: encontrou? Substitua por dado, situação ou número concreto
+- [ ] **Produto mencionado no hero/lead**: encontrou? Remova ou reescreva focando no leitor
+- [ ] **Emojis no texto**: encontrou? Remova sem substituição
+- [ ] **Headline no imperativo** ("Pare de...", "Aprenda...", "Descubra..."): encontrou? Reescreva como premissa ou observação
+- [ ] **Pergunta no gancho**: encontrou? Transforme em afirmação com tensão
+- [ ] **Promessa vaga sem dado**: encontrou? Especifique com número, situação real ou nome próprio
+- [ ] **Bullets sem padrão urgência oculta + decorado**: encontrou? Reescreva no padrão correto
+- [ ] **Ausência de parágrafo técnico em itálico**: ausente? Adicione ao menos um que ancora a emoção com razão
+
+Após revisar e corrigir o HTML, informe ao usuário:
+```
+Revisão interna concluída. [X] ajuste(s) aplicado(s) na copy.
+```
+
+Só então prossiga para o próximo passo.
+
+### 5. Inserir Pixel Automaticamente (se configurado)
 Após gerar o HTML, leia o arquivo `.env` e verifique se existe `META_PIXEL_ID`.
 Se existir, insira no `<head>` da página o snippet do Facebook Pixel:
 
@@ -102,12 +128,12 @@ Adicione eventos conforme o tipo de página:
 
 Se `META_PIXEL_ID` não existir no `.env`, gere a página normalmente sem Pixel.
 
-### 5. Salvar
+### 6. Salvar
 - Vendas: `produtos/{ativo}/entregas/paginas/vendas-[produto].html`
 - Captura: `produtos/{ativo}/entregas/paginas/captura-[produto].html`
 - Obrigado: `produtos/{ativo}/entregas/paginas/obrigado-[produto].html`
 
-### 6. Deploy Automático (se configurado)
+### 7. Deploy Automático (se configurado)
 Após salvar o HTML, leia o arquivo `.env` e verifique se existem `VERCEL_TOKEN` e `VERCEL_PROJECT_ID`.
 
 Se existirem, execute o deploy:
@@ -120,7 +146,7 @@ Informe ao aluno: "Sua página foi salva em [caminho local] e publicada em [URL 
 Se as chaves não existirem, informe apenas:
 "Sua página foi salva em [caminho]. Abra no navegador para visualizar. Para publicar online, configure VERCEL_TOKEN no arquivo .env."
 
-### 7. Informar
+### 8. Informar
 NUNCA mostre o código HTML ao aluno.
 Sugira: "Use `/anuncio` para criar anúncios que levem tráfego a essa página."
 

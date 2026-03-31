@@ -90,6 +90,23 @@ Ex: Resumo: ... / 1. Tudo certo, pode gerar / 2. Quero ajustar algo
 - SEMPRE mostrar progresso ao concluir cada bloco
 - SEMPRE pedir confirmação com resumo antes de gerar o entregável final
 
+## Vícios Proibidos na Copy
+
+**Checklist obrigatório — revisar antes de entregar qualquer peça de conteúdo:**
+
+Antes de entregar, revise e substitua:
+- Travessão (—) → reescreva a frase sem ele
+- Estrutura "Não é X. É Y." → desenvolva o argumento de outra forma
+- Frases genéricas de vendedor → substitua por dado ou situação concreta
+- Menção ao produto no início do conteúdo → remova ou reescreva focando no leitor
+- Emojis → remova sem substituição
+
+- [ ] Nenhum travessão no texto
+- [ ] Nenhuma estrutura "Não é X. É Y."
+- [ ] Nenhuma frase genérica de vendedor
+
+---
+
 ## Referências
 ANTES de gerar qualquer conteúdo, leia estes arquivos:
 - Leia `.claude/plugins/workshop-marketing/skills/conteudo/SKILL.md` — Formatos de Reels, carrosséis, linha editorial, elementos literários

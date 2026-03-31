@@ -29,7 +29,21 @@
       "Bash(ffmpeg -version)",
       "Bash(node --experimental-vm-modules transcribe.mjs)",
       "Read(//c/Users/Elen/Downloads/**)",
-      "Bash(python3 -c \":*)"
+      "Bash(python3 -c \":*)",
+      "Bash(for f:*)",
+      "Bash(do sed:*)",
+      "Bash(sed -i \"s|''/c10x-|''/ht-|g\" \"$f\")",
+      "Bash(done)",
+      "Bash(do echo:*)",
+      "Bash(/dev/null find:*)",
+      "Bash(find C:/Users/Elen/.claude/plugins/marketplaces -maxdepth 5 -name *.claude-plugin -o -name .claude-plugin)",
+      "Bash(find C:/Users/Elen/.claude -path */anthropic-skills* -type d)",
+      "Bash(find C:/Users/Elen/.claude/plugins -maxdepth 6 -name vtsd* 2)",
+      "Bash(python3 -c \"import sys,json; d=json.load\\(sys.stdin\\); keys=list\\(d.keys\\(\\)\\)[:20]; print\\(''''\\\\n''''.join\\(keys\\)\\)\")",
+      "Bash(xargs grep:*)",
+      "Bash(head -5 find C:/Users/Elen/.claude -path *anthropic*)",
+      "Bash(find C:/Users/Elen -path *anthropic-skills* -name SKILL.md)",
+      "WebFetch(domain:prontapratudo.hotmart.host)"
     ]
   }
 }

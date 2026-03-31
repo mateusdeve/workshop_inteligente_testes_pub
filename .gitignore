@@ -35,6 +35,14 @@ entregas/
 .claude/.credentials.json
 .claude/mcp.json
 .claude/mcp-needs-auth-cache.json
+.claude/worktrees/
+
+# Cursor IDE
+.cursor/
+
+# Outputs e feedback de sessão
+outputs/
+feedback/
 
 # ══════════════════════════════════════════
 # Sistema operacional

@@ -99,6 +99,19 @@ Criar nomes próprios para conceitos e problemas quando possível.
 - Emojis: nunca usar na copy.
 - O produto não aparece nos primeiros parágrafos.
 
+**Checklist obrigatório — revisar antes de entregar qualquer copy ou conteúdo:**
+
+Antes de entregar, revise e substitua:
+- Travessão (—) → reescreva a frase sem ele
+- Estrutura "Não é X. É Y." → desenvolva o argumento de outra forma
+- Frases genéricas de vendedor → substitua por dado ou situação concreta
+- Menção ao produto nos primeiros parágrafos → remova ou reescreva focando no leitor
+- Emojis → remova sem substituição
+
+- [ ] Nenhum travessão no texto
+- [ ] Nenhuma estrutura "Não é X. É Y."
+- [ ] Nenhuma frase genérica de vendedor
+
 **Especificidade mata generalização:**
 Usar números concretos, situações específicas, detalhes que fazem o texto parecer real.
 - "Antes dos 7 anos" > "na infância"

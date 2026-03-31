@@ -37,6 +37,19 @@ A copy nunca vende. Ela informa, avisa ou ensina. O produto não existe nos prim
 - Mencionar o produto na copy.
 - Emojis.
 
+**Checklist obrigatório — revisar antes de entregar qualquer copy:**
+
+Antes de entregar, revise e substitua:
+- Travessão (—) → reescreva a frase sem ele
+- Estrutura "Não é X. É Y." → desenvolva o argumento de outra forma
+- Frases genéricas de vendedor → substitua por dado ou situação concreta
+- Menção ao produto nos primeiros parágrafos → remova ou reescreva focando no leitor
+- Emojis → remova sem substituição
+
+- [ ] Nenhum travessão no texto
+- [ ] Nenhuma estrutura "Não é X. É Y."
+- [ ] Nenhuma frase genérica de vendedor
+
 ---
 
 ## O Que Fazer

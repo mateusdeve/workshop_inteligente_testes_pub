@@ -130,6 +130,19 @@ Formato Problema-Solução:
 - Nomear cria realidade: criar nome próprio para o conceito ensinado quando possível ("Método da Inversão", "Gatilho da Especificidade").
 - Especificidade: usar números concretos, situações reais. "R$ 1.600" > "muito dinheiro". "10 clientes em 30 dias" > "crescimento rápido".
 
+**Checklist obrigatório — revisar antes de entregar qualquer roteiro:**
+
+Antes de entregar, revise e substitua:
+- Travessão (—) → reescreva a frase sem ele
+- Estrutura "Não é X. É Y." → desenvolva o argumento de outra forma
+- Frases genéricas de vendedor → substitua por dado ou situação concreta
+- Menção ao produto nos primeiros blocos → remova ou reescreva focando no leitor
+- Emojis → remova sem substituição
+
+- [ ] Nenhum travessão no texto
+- [ ] Nenhuma estrutura "Não é X. É Y."
+- [ ] Nenhuma frase genérica de vendedor
+
 ### 4. Salvar
 `produtos/{ativo}/entregas/textos-de-venda/roteiro-[formato]-[produto].md`
 

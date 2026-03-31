@@ -196,6 +196,19 @@ Antes de publicar, verifique:
 - Frases genéricas: "Transforme sua vida", "Descubra o segredo", "Método revolucionário."
 - Especificidade: usar números concretos, situações reais. "10 alunos em 30 dias" > "crescimento rápido".
 
+**Checklist obrigatório — revisar antes de entregar qualquer roteiro:**
+
+Antes de entregar, revise e substitua:
+- Travessão (—) → reescreva a frase sem ele
+- Estrutura "Não é X. É Y." → desenvolva o argumento de outra forma
+- Frases genéricas de vendedor → substitua por dado ou situação concreta
+- Menção ao produto nos primeiros blocos → remova ou reescreva focando no leitor
+- Emojis → remova sem substituição
+
+- [ ] Nenhum travessão no texto
+- [ ] Nenhuma estrutura "Não é X. É Y."
+- [ ] Nenhuma frase genérica de vendedor
+
 **Princípio central:**
 O roteiro não vende. Ele ensina, avisa ou revela. O produto não aparece nos primeiros blocos.
 Quem assiste até o fim aprende algo concreto — não apenas fica curioso sobre um produto.

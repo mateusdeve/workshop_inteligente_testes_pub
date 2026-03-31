@@ -74,6 +74,19 @@ Sempre que possível, criar nome próprio para o conceito, problema ou solução
 - Emojis: nunca usar.
 - Especificidade: usar números concretos, situações reais. "R$ 1.600" > "muito dinheiro".
 
+**Checklist obrigatório — revisar antes de entregar qualquer copy:**
+
+Antes de entregar, revise e substitua:
+- Travessão (—) → reescreva a frase sem ele
+- Estrutura "Não é X. É Y." → desenvolva o argumento de outra forma
+- Frases genéricas de vendedor → substitua por dado ou situação concreta
+- Menção ao produto nos primeiros parágrafos → remova ou reescreva focando no leitor
+- Emojis → remova sem substituição
+
+- [ ] Nenhum travessão no texto
+- [ ] Nenhuma estrutura "Não é X. É Y."
+- [ ] Nenhuma frase genérica de vendedor
+
 ### Regra do Gancho — NUNCA pergunta, NUNCA óbvio
 
 O gancho deve ser uma **premissa não óbvia** — afirmação que surpreende quem já está no nicho.

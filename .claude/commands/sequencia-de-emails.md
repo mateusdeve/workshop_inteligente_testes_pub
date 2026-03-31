@@ -122,6 +122,19 @@ Cada email deve usar Light Copy e incluir:
 - Nomear cria realidade: criar nome próprio para o conceito ou problema quando possível.
 - Especificidade: usar números concretos, situações reais. "3 dias sem dormir" > "noites difíceis".
 
+**Checklist obrigatório — revisar antes de entregar qualquer email:**
+
+Antes de entregar, revise e substitua:
+- Travessão (—) → reescreva a frase sem ele
+- Estrutura "Não é X. É Y." → desenvolva o argumento de outra forma
+- Frases genéricas de vendedor → substitua por dado ou situação concreta
+- Menção ao produto nas primeiras linhas → remova ou reescreva focando no leitor
+- Emojis → remova sem substituição
+
+- [ ] Nenhum travessão no texto
+- [ ] Nenhuma estrutura "Não é X. É Y."
+- [ ] Nenhuma frase genérica de vendedor
+
 ### 4. Salvar
 `produtos/{ativo}/entregas/emails/sequencia-[tipo]-[produto].md`
 

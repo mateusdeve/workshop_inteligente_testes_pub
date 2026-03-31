@@ -105,6 +105,19 @@ Aviso: vou gerar em 2 partes para garantir qualidade.
 - Não mencionar o produto no lead
 - Não usar emojis
 
+**Checklist obrigatório — revisar antes de entregar qualquer copy:**
+
+Antes de entregar, revise e substitua:
+- Travessão (—) → reescreva a frase sem ele
+- Estrutura "Não é X. É Y." → desenvolva o argumento de outra forma
+- Frases genéricas de vendedor → substitua por dado ou situação concreta
+- Menção ao produto nos primeiros parágrafos → remova ou reescreva focando no leitor
+- Emojis → remova sem substituição
+
+- [ ] Nenhum travessão no texto
+- [ ] Nenhuma estrutura "Não é X. É Y."
+- [ ] Nenhuma frase genérica de vendedor
+
 **Nomear cria realidade:** sempre que possível, criar um nome próprio para o conceito, problema ou solução. Nomes como "Negociação Terapêutica" ou "Programação Emocional Repetitiva" funcionam. "Método Exclusivo" não funciona.
 
 **Parágrafo técnico em itálico:** incluir um parágrafo em itálico que ancora a emoção com razão — explica por que aquilo funciona do ponto de vista científico ou lógico.
@@ -163,6 +176,7 @@ Ao terminar a Parte 1, salve no arquivo e informe:
 
 #### PARTE 2 — Conversão (Seções 9 a 14)
 
+
 Continue no mesmo arquivo. Mesmo nível de detalhe da Parte 1.
 
 **Seção 9 — Prova Social**
@@ -188,11 +202,41 @@ Continue no mesmo arquivo. Mesmo nível de detalhe da Parte 1.
 **Seção 14 — Rodapé**
 - Indicações de termos de uso e política de privacidade
 
-### A4. Salvar
+### A4. Revisão e Correção Automática (OBRIGATÓRIO antes de entregar)
+
+Antes de mostrar a copy ao usuário, aplique a revisão completa da metodologia VTSD.
+
+Leia `.claude/commands/feedback-de-pv.md` e aplique todos os critérios na copy gerada. Depois corrija tudo que estiver fora do padrão:
+
+**Checklist de revisão — corrigir automaticamente cada item:**
+
+- [ ] **Travessão (—)**: encontrou? Reescreva a frase sem ele
+- [ ] **"Não é X. É Y."**: encontrou? Desenvolva o argumento de outra forma
+- [ ] **Frases genéricas de vendedor**: encontrou? Substitua por dado, situação ou número concreto
+- [ ] **Produto mencionado no hero/lead**: encontrou? Remova ou reescreva focando no leitor
+- [ ] **Emojis**: encontrou? Remova sem substituição
+- [ ] **Headline no imperativo** ("Pare de...", "Aprenda...", "Descubra..."): encontrou? Reescreva como premissa ou observação
+- [ ] **Pergunta no gancho**: encontrou? Transforme em afirmação com tensão
+- [ ] **Promessa vaga sem dado**: encontrou? Especifique com número, situação real ou nome próprio
+- [ ] **Bullets sem padrão urgência oculta + decorado**: encontrou? Reescreva no padrão correto
+- [ ] **Ausência de parágrafo técnico em itálico**: ausente? Adicione ao menos um que ancora a emoção com razão
+
+Após a revisão, informe ao usuário:
+```
+Revisão interna concluída. [X] ajuste(s) aplicado(s) na copy.
+```
+
+Só então apresente a copy corrigida e pergunte:
+```
+1. Aprovar e salvar
+2. Quero ajustar algo
+```
+
+### A5. Salvar
 
 `produtos/{ativo}/entregas/copy-pagina/copy-[produto].md`
 
-### A5. Próximo Passo
+### A6. Próximo Passo
 
 ```
 Copy completa salva em produtos/{ativo}/entregas/copy-pagina/copy-[produto].md
@@ -774,14 +818,35 @@ Aparece ao rolar no mobile. Some quando a pessoa chega na seção final.
 
 ---
 
-## B4. Inserir Pixel (se configurado)
+## B4. Revisão e Correção Automática da Copy no HTML (OBRIGATÓRIO antes de salvar)
+
+Antes de salvar o arquivo HTML, percorra todo o texto visível da página e aplique a revisão completa.
+
+Leia `.claude/commands/feedback-de-pv.md` e aplique todos os critérios. Corrija diretamente no HTML:
+
+**Checklist de revisão — corrigir automaticamente cada item:**
+
+- [ ] **Travessão (—)**: encontrou? Reescreva a frase sem ele
+- [ ] **"Não é X. É Y."**: encontrou? Desenvolva o argumento de outra forma
+- [ ] **Frases genéricas de vendedor**: encontrou? Substitua por dado, situação ou número concreto
+- [ ] **Produto mencionado no hero**: encontrou? Remova ou reescreva focando no leitor
+- [ ] **Emojis no texto**: encontrou? Remova sem substituição
+- [ ] **Headline no imperativo** ("Pare de...", "Aprenda...", "Descubra..."): encontrou? Reescreva como premissa ou observação
+- [ ] **Pergunta no gancho**: encontrou? Transforme em afirmação com tensão
+- [ ] **Promessa vaga sem dado**: encontrou? Especifique com número, situação real ou nome próprio
+- [ ] **Bullets sem padrão urgência oculta + decorado**: encontrou? Reescreva no padrão correto
+- [ ] **Ausência de parágrafo técnico em itálico**: ausente? Adicione ao menos um que ancora a emoção com razão
+
+Após a revisão e correção do HTML, informe internamente o número de ajustes e só então prossiga para salvar.
+
+## B5. Inserir Pixel (se configurado)
 
 Leia `.env` e verifique `META_PIXEL_ID`. Se existir, insira o snippet do Facebook Pixel no `<head>`:
 - Captura: evento `Lead` no submit
 - Vendas: evento `ViewContent` no carregamento
 - Obrigado: evento `Purchase` ou `CompleteRegistration`
 
-## B5. Salvar
+## B6. Salvar
 
 - `produtos/{ativo}/entregas/paginas/vendas-[produto].html`
 - `produtos/{ativo}/entregas/paginas/captura-[produto].html`
@@ -789,7 +854,7 @@ Leia `.env` e verifique `META_PIXEL_ID`. Se existir, insira o snippet do Faceboo
 
 **SEMPRE** criar também `index.html` como cópia do arquivo gerado na mesma pasta.
 
-## B6. Publicar na Vercel
+## B7. Publicar na Vercel
 
 ```
 Sua página está salva. Quer publicar online agora para ter um link para compartilhar?
@@ -842,6 +907,6 @@ studio.youtube.com → Conteúdo → editar o vídeo → Mais opções → Permi
 npx vercel produtos/{ativo}/entregas/paginas --prod --yes --name {slug-do-produto}
 ```
 
-## B7. Próximo Passo
+## B8. Próximo Passo
 
 "Use `/anuncio` para criar anúncios que levem tráfego a essa página."

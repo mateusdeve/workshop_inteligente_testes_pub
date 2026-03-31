@@ -116,9 +116,20 @@ Apresente para validação e ajuste.
 
 **Se dar exemplos:** Peça exemplos de cada categoria (UMA por vez) e expanda para 10+ de cada.
 
-**Bloco 6/6 — Argumentos Incontestáveis (opcional):**
+**Bloco 6/6 — Argumentos Incontestáveis (Geração Automática):**
 
-Pergunte se o aluno tem dados, pesquisas ou estatísticas que comprovam a eficácia do método. Se não tiver, pule sem pressão.
+NÃO peça argumentos ao aluno. Gere automaticamente com base em tudo que já foi coletado: pesquisa de mercado, dados do nicho, Quadro, Furadeira e Identidades.
+
+Os argumentos incontestáveis são evidências externas, lógicas ou estatísticas que tornam a promessa do produto difícil de contestar. Gere de 5 a 8 argumentos organizados em categorias:
+
+- **Dados de mercado** — estatísticas, tamanho do mercado, crescimento do nicho (extraídos da pesquisa já feita)
+- **Evidências da lógica do método** — por que a sequência da Furadeira funciona (raciocínio causal, não promessa)
+- **Referências do setor** — o que especialistas ou pesquisas reconhecidas dizem sobre o tema ou a transformação prometida
+- **Dados de resultado** — se a pesquisa revelou resultados documentados de métodos similares no nicho, use-os
+
+Se a pesquisa de mercado não foi feita, faça uma busca rápida (WebSearch) por dados e estatísticas do nicho antes de gerar.
+
+Apresente para validação e pergunte se o aluno quer adicionar dados próprios (número de alunos, faturamento gerado, resultados documentados). Se tiver, incorpore à lista existente.
 
 ### 3. Confirmação
 

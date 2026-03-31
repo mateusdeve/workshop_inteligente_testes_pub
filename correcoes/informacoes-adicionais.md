@@ -1378,6 +1378,29 @@ O `.ativo` deve sempre apontar para o produto que foi criado ou estava sendo tra
 
 ---
 
+## 2026-03-30 — Correção: skill `/meu-produto` deve gerar Argumentos Incontestáveis, não perguntar ao usuário
+
+### Problema identificado
+
+O Bloco 6/6 da skill `/meu-produto` perguntava ao aluno se ele tinha dados, pesquisas ou estatísticas para comprovar a eficácia do método. Isso contradiz o princípio central da skill ("Consultor, não formulário") e interrompe o fluxo de geração automática.
+
+### Correção aplicada
+
+**Arquivo corrigido:** `.claude/commands/meu-produto.md` — Bloco 6/6
+
+**Comportamento anterior:**
+> "Pergunte se o aluno tem dados, pesquisas ou estatísticas que comprovam a eficácia do método. Se não tiver, pule sem pressão."
+
+**Comportamento correto:**
+- Gerar automaticamente de 5 a 8 Argumentos Incontestáveis com base em tudo já coletado: pesquisa de mercado, dados do nicho, Quadro, Furadeira e Identidades
+- Organizar em categorias: Dados de mercado, Evidências da lógica do método, Referências do setor, Dados de resultado
+- Se a pesquisa de mercado não foi feita anteriormente, fazer WebSearch rápida por dados e estatísticas do nicho antes de gerar
+- Após gerar, apresentar para validação e **então** perguntar se o aluno quer adicionar dados próprios (alunos, faturamento, resultados documentados) para incorporar à lista existente
+
+**Regra:** os Argumentos Incontestáveis são sempre gerados pelo assistente — nunca solicitados como formulário ao aluno.
+
+---
+
 ## Como acrescentar entradas
 
 Use o formato:
