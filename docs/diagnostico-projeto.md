@@ -1,12 +1,46 @@
-# Diagnostico Completo — Workshop Marketing IA
+# Diagnostico Completo. Workshop Marketing IA
 
-Data: 2026-03-24
+Data: 2026-03-24 (revisado em 2026-04-08)
+
+---
+
+## Atualizacao 2026-04-08
+
+Limpeza estrutural completa do projeto:
+
+- Pastas duplicadas `entregas-familia-viajante/` e `entregas-familia-viajante2/` consolidadas em `entregas/familia-viajante/low-ticket-v1/` e `low-ticket-v2/`.
+- Arquivos soltos da raiz (`funil-familia-viajante.html`, `quiz-funnel-workshop-*.md/.html/.docx`) movidos para subpastas dentro do produto correspondente.
+- Pastas orfas removidas: `correcoes/`, `feedback/`, `outputs/`, `produtos/`.
+- `server.js` deletado (apontava para `produtos/curso-tarot/` que ja nao existe).
+- `README.md` reescrito com a estrutura real do projeto.
+- `CLAUDE.md` sincronizado com a lista atual de comandos: incluidos os 17 comandos `/ht-*` da trilha High Ticket, os 4 comandos `/pagina-*` de infraestrutura, e os agentes `estrategista-low-ticket`, `estrategista-middle-ticket`, `estrategista-ht`, `copywriter`, `video-maker`, `executor-de-plano-de-acao`.
+- Hook `no-emdash-guard.js` instalado em PreToolUse para fiscalizar a regra absoluta de proibicao de travessao em arquivos de copy (`.md`, `.html`, `.txt` dentro de `entregas/`).
+- `.gitignore` atualizado com `entregas-*/` para evitar futuras pastas duplicadas na raiz.
+
+Estado atual da raiz:
+
+```
+CLAUDE.md  COMO-USAR.md  README.md
+docs/  entregas/  .claude/
+package.json  vercel.json  .env.example
+```
+
+Inventario atualizado:
+
+| Elemento | Quantidade | Local |
+|---|---|---|
+| Commands ativos | 49 | `.claude/commands/` (sem contar `gsd/` e `references/`) |
+| Agents do workshop | 11 | `.claude/agents/` (sem contar os 24 `gsd-*`) |
+| Skills do plugin | 22 | `.claude/plugins/workshop-marketing/skills/` |
+| Hooks PreToolUse | 5 | `.claude/hooks/` (incluindo `no-emdash-guard.js`) |
+
+Pendencia conhecida: a pasta vazia `entregas-familia-viajante2/` esta travada por outro processo do Windows e nao foi possivel removela via `rm`/`rmdir`. Reiniciar o explorer ou o IDE deve liberar.
 
 ---
 
 ## Visao Geral
 
-O projeto esta bem estruturado na sua base. A metodologia VTSD (11 modulos) foi traduzida em 7 skills, 12 commands e 5 agents. O SKILL.md original (`_prompts-gpt`) e o implementado no plugin sao 100% identicos (1084 linhas, zero diferencas) — nenhuma informacao foi perdida na conversao.
+O projeto esta bem estruturado na sua base. A metodologia VTSD (11 modulos) foi traduzida em 7 skills, 12 commands e 5 agents. O SKILL.md original (`_prompts-gpt`) e o implementado no plugin sao 100% identicos (1084 linhas, zero diferencas). nenhuma informacao foi perdida na conversao.
 
 ### Inventario do Projeto
 
@@ -36,7 +70,7 @@ O projeto esta bem estruturado na sua base. A metodologia VTSD (11 modulos) foi 
 
 ---
 
-## Cofre de Chaves API — Integracao com Ferramentas Externas
+## Cofre de Chaves API. Integracao com Ferramentas Externas
 
 O toolkit gera entregaveis (copy, HTML, roteiros, prompts), mas para automatizar a publicacao e criacao de ativos visuais, o Claude Code precisa se conectar a ferramentas externas via API.
 
@@ -108,7 +142,7 @@ Rastreamento (todas as paginas):
 
 | Nivel | O que precisa | O que consegue |
 |---|---|---|
-| **Basico** | Nenhuma chave | Todos os entregaveis em arquivo (copy, HTML, roteiros, prompts) — uso manual |
+| **Basico** | Nenhuma chave | Todos os entregaveis em arquivo (copy, HTML, roteiros, prompts). uso manual |
 | **Intermediario** | VERCEL_TOKEN + FREEPIK_API_KEY | Paginas publicadas online + imagens geradas automaticamente |
 | **Avancado** | Todas as chaves | Automacao completa: paginas no ar, anuncios criados, videos gerados, pixel instalado |
 
@@ -118,7 +152,7 @@ O toolkit funciona 100% no nivel Basico. As APIs sao opcionais e progressivas.
 
 ## Problemas Encontrados
 
-### CRITICO 1 — README com arquitetura errada
+### CRITICO 1. README com arquitetura errada
 
 O `README.md` mostra `commands/` dentro de `plugins/workshop-marketing/`, mas os commands estao em `.claude/commands/`. Isso confunde quem olha a estrutura.
 
@@ -143,27 +177,27 @@ plugins/
 
 ---
 
-### CRITICO 2 — Modulo D48 (Low Ticket) esta subrepresentado
+### CRITICO 2. Modulo low ticket (Low Ticket) esta subrepresentado
 
-O Modulo 10 do VTSD e um dos mais praticos para quem esta comecando e NAO tem um command dedicado. O `/funil-de-vendas` menciona D48 brevemente, mas faltam:
+O Modulo 10 do VTSD e um dos mais praticos para quem esta comecando e NAO tem um command dedicado. O `/funil-de-vendas` menciona low ticket brevemente, mas faltam:
 
-- **Pagina Final do Quiz** (estrutura de 12 blocos do VTSD) — nao esta em nenhum command
-- **Anuncios "Caixa Rapido"** (focados em quiz) — nao cobertos
-- **Produto Desafio** (3-7 dias com missoes) — nao tem command
-- **Agente GPT vendavel** (secao 10.6 do VTSD) — nao coberto
-- **Copy Hotmart** (secao 10.7) — elementos especificos da plataforma nao cobertos
+- **Pagina Final do Quiz** (estrutura de 12 blocos do VTSD). nao esta em nenhum command
+- **Anuncios "Low Ticket"** (focados em quiz). nao cobertos
+- **Produto Desafio** (3-7 dias com missoes). nao tem command
+- **Agente GPT vendavel** (secao 10.6 do VTSD). nao coberto
+- **Copy Hotmart** (secao 10.7). elementos especificos da plataforma nao cobertos
 
-**Acao:** Criar um command `/low-ticket` ou `/d48` dedicado que cubra:
+**Acao:** Criar um command `/low-ticket` ou `/low ticket` dedicado que cubra:
 - Definicao do produto low ticket (tipos permitidos: ebook, guia, planilha, checklist, mini-curso, desafio, agente GPT, template)
 - Quadro adaptado para low ticket (resultado rapido e tangivel)
 - Estrutura da pagina final do quiz (12 blocos)
-- Anuncios "Caixa Rapido" com foco em quiz
+- Anuncios "Low Ticket" com foco em quiz
 - Produto Desafio (3-7 dias)
 - Copy adaptada para Hotmart
 
 ---
 
-### IMPORTANTE 3 — Agents referenciam skills por nome generico
+### IMPORTANTE 3. Agents referenciam skills por nome generico
 
 Os 5 agents dizem coisas como "Consulte a skill `vtsd-completo`" ou "Consulte skill `paginas`", mas nao indicam o caminho real dos arquivos. Quando o agent roda como subprocesso, ele pode nao encontrar os skills.
 
@@ -190,7 +224,7 @@ Leia `.claude/plugins/workshop-marketing/skills/paginas/references/estruturas-pa
 
 ---
 
-### IMPORTANTE 4 — Modulo 7 (Upsell/Downsell/Order Bump) sem command dedicado
+### IMPORTANTE 4. Modulo 7 (Upsell/Downsell/Order Bump) sem command dedicado
 
 O modulo e mencionado na skill `playbook-comercial` e no `/funil-de-vendas`, mas nao ha um command ou fluxo dedicado para o aluno criar essas ofertas complementares. Isso e dinheiro na mesa para o infoprodutor.
 
@@ -204,7 +238,7 @@ O modulo e mencionado na skill `playbook-comercial` e no `/funil-de-vendas`, mas
 
 ---
 
-### IMPORTANTE 5 — Persona salva em local nao intuitivo
+### IMPORTANTE 5. Persona salva em local nao intuitivo
 
 Historico: o fluxo antigo salvava em `entregas/textos-de-venda/persona-[nome].md`. Hoje o comando e `/idconsumidor` e o arquivo e `meu-negocio/idconsumidor.md` (documento de fundacao, como o perfil).
 
@@ -212,11 +246,11 @@ Historico: o fluxo antigo salvava em `entregas/textos-de-venda/persona-[nome].md
 
 ---
 
-### IMPORTANTE 6 — Mapa mental do Workshop menciona skills nao implementadas
+### IMPORTANTE 6. Mapa mental do Workshop menciona skills nao implementadas
 
 O PDF do mind map (`_prompts-gpt/Workshop IA na pratica para infoprodutores`) lista:
-- **"Skill de anuncios em videos"** — Nao existe separada
-- **"Skill de anuncios em texto"** — Nao existe separada
+- **"Skill de anuncios em videos"**. Nao existe separada
+- **"Skill de anuncios em texto"**. Nao existe separada
 
 O que existe e uma unica skill `anuncios` que cobre ambos. No contexto do Workshop ao vivo, pode valer separar para que o aluno entenda a diferenca entre criativos de imagem estatica vs video.
 
@@ -224,7 +258,7 @@ O que existe e uma unica skill `anuncios` que cobre ambos. No contexto do Worksh
 
 ---
 
-### MENOR 7 — Ferramentas do Workshop nao integradas no toolkit
+### MENOR 7. Ferramentas do Workshop nao integradas no toolkit
 
 O mind map mostra ferramentas que o Workshop usa mas o toolkit nao orienta:
 
@@ -242,7 +276,7 @@ O mind map mostra ferramentas que o Workshop usa mas o toolkit nao orienta:
 
 ---
 
-### MENOR 8 — Argumentos Incontestaveis (Modulo 2.3) pouco visiveis
+### MENOR 8. Argumentos Incontestaveis (Modulo 2.3) pouco visiveis
 
 O conceito de "argumentos baseados em dados e pesquisa" e poderoso para copy, mas esta diluido no SKILL.md geral. Nenhum command pede explicitamente ao aluno para fornecer dados, pesquisas ou estatisticas do nicho.
 
@@ -250,7 +284,7 @@ O conceito de "argumentos baseados em dados e pesquisa" e poderoso para copy, ma
 
 ---
 
-### MENOR 9 — Settings.json com permissoes minimas
+### MENOR 9. Settings.json com permissoes minimas
 
 O `.claude/settings.json` permite apenas:
 - `Write(entregas/**)`
@@ -270,17 +304,17 @@ Para suportar as integracoes com APIs externas, sera necessario expandir permiss
 |---|---|---|---|---|
 | 1. Fundamentos (Quadro, Furadeira, 3Is) | concepcao-produto | /meu-produto, /idconsumidor | estrategista-de-produto | TOTAL |
 | 2. Oferta e Pagina 8D | paginas | /pagina-de-vendas | construtor-de-paginas | TOTAL |
-| 3. VVV (Video de Vendas) | conteudo | /roteiro-de-video, /texto-de-venda | — | TOTAL |
+| 3. VVV (Video de Vendas) | conteudo | /roteiro-de-video, /texto-de-venda |. | TOTAL |
 | 4. Mandala 18 Anuncios | anuncios | /anuncio | criador-de-campanhas | TOTAL |
 | 5. Conteudo Redes | conteudo | /conteudo-social | produtor-de-conteudo | TOTAL |
-| 6. Emails Pico de Vendas | vtsd-completo | /sequencia-de-emails | — | TOTAL |
-| 7. Upsell/Downsell/Bump | playbook-comercial | /funil-de-vendas (parcial) | — | PARCIAL |
+| 6. Emails Pico de Vendas | vtsd-completo | /sequencia-de-emails |. | TOTAL |
+| 7. Upsell/Downsell/Bump | playbook-comercial | /funil-de-vendas (parcial) |. | PARCIAL |
 | 8. Estrutura Campanha | trafego-pago | /anuncio (parcial) | criador-de-campanhas | TOTAL |
 | 9. C10X (High Ticket) | playbook-comercial | /lancamento, /playbook-comercial | consultor-comercial | TOTAL |
-| 10. D48 (Low Ticket) | vtsd-completo | /funil-de-vendas (mencao breve) | — | FRACA |
+| 10. low ticket (Low Ticket) | vtsd-completo | /funil-de-vendas (mencao breve) |. | FRACA |
 | 11. Light Copy (26 Elementos) | conteudo + vtsd-completo | /texto-de-venda, /conteudo-social | produtor-de-conteudo | TOTAL |
 
-**Resultado geral:** 9 de 11 modulos com cobertura TOTAL. 1 PARCIAL (Upsell). 1 FRACA (D48).
+**Resultado geral:** 9 de 11 modulos com cobertura TOTAL. 1 PARCIAL (Upsell). 1 FRACA (low ticket).
 
 ---
 
@@ -307,17 +341,17 @@ Essa tabela mostra exatamente quem faz o que, usando qual ferramenta, e entrega 
 
 | Acao | Command | Agent | Skill consultada | Ferramenta externa | Entregavel | Destino |
 |---|---|---|---|---|---|---|
-| Headlines e copy | `/texto-de-venda` | — | conteudo + vtsd-completo | Nenhuma | Textos Light Copy | `entregas/textos-de-venda/` |
-| Roteiro VVV | `/roteiro-de-video` | — | conteudo + vtsd-completo | **HeyGen** (avatar) | Script de video | `entregas/textos-de-venda/roteiro-*.md` |
-| Emails pico de vendas | `/sequencia-de-emails` | — | vtsd-completo | **WhatsApp** (envio) | Sequencia completa | `entregas/emails/sequencia-*.md` |
+| Headlines e copy | `/texto-de-venda` |. | conteudo + vtsd-completo | Nenhuma | Textos Light Copy | `entregas/textos-de-venda/` |
+| Roteiro VVV | `/roteiro-de-video` |. | conteudo + vtsd-completo | **HeyGen** (avatar) | Script de video | `entregas/textos-de-venda/roteiro-*.md` |
+| Emails pico de vendas | `/sequencia-de-emails` |. | vtsd-completo | **WhatsApp** (envio) | Sequencia completa | `entregas/emails/sequencia-*.md` |
 
 ### Anuncios e Trafego
 
 | Acao | Command | Agent | Skill consultada | Ferramenta externa | Entregavel | Destino |
 |---|---|---|---|---|---|---|
 | Anuncios Mandala 18 | `/anuncio` | criador-de-campanhas | anuncios + vtsd-completo | **Meta Ads** / **Google Ads** | Copy + direcao criativa | `entregas/anuncios/` |
-| Imagens de criativos | `/criativo-de-imagem` | — | anuncios | **Freepik** (geracao IA) | Prompts + imagens | `entregas/criativos/` |
-| Campanha completa | — | criador-de-campanhas | anuncios + trafego-pago | **Meta Ads** + **Google Ads** | Pacote de campanha | `entregas/anuncios/campanha-completa-*.md` |
+| Imagens de criativos | `/criativo-de-imagem` |. | anuncios | **Freepik** (geracao IA) | Prompts + imagens | `entregas/criativos/` |
+| Campanha completa |. | criador-de-campanhas | anuncios + trafego-pago | **Meta Ads** + **Google Ads** | Pacote de campanha | `entregas/anuncios/campanha-completa-*.md` |
 
 ### Conteudo Social
 
@@ -331,43 +365,43 @@ Essa tabela mostra exatamente quem faz o que, usando qual ferramenta, e entrega 
 
 | Acao | Command | Agent | Skill consultada | Ferramenta externa | Entregavel | Destino |
 |---|---|---|---|---|---|---|
-| Plano de lancamento | `/lancamento` | — | vtsd-completo (C10X) | Nenhuma | Cronograma + materiais | `entregas/textos-de-venda/lancamento-*.md` |
-| Funil completo | `/funil-de-vendas` | — | vtsd-completo + trafego-pago | Nenhuma | Mapa de funil | `entregas/textos-de-venda/funil-*.md` |
+| Plano de lancamento | `/lancamento` |. | vtsd-completo (C10X) | Nenhuma | Cronograma + materiais | `entregas/textos-de-venda/lancamento-*.md` |
+| Funil completo | `/funil-de-vendas` |. | vtsd-completo + trafego-pago | Nenhuma | Mapa de funil | `entregas/textos-de-venda/funil-*.md` |
 | Playbook comercial | `/playbook-comercial` | consultor-comercial | playbook-comercial | Nenhuma | Scripts SPIN + fechamento | `entregas/comercial/playbook-*.md` |
 
 ---
 
 ## Plano de Acoes (por prioridade)
 
-### Prioridade 1 — Correcoes criticas
+### Prioridade 1. Correcoes criticas
 
-- [x] **1.1** Corrigir diagrama de arquitetura no README.md — CONCLUIDO 2026-03-24
-- [x] **1.2** Corrigir referencias dos 5 agents (caminhos reais dos arquivos) — CONCLUIDO 2026-03-24
-- [x] **1.3** Criar command `/low-ticket` para cobrir Modulo D48 completo — CONCLUIDO 2026-03-24
-- [x] **1.4** Criar `.env.example` com todas as chaves documentadas — CONCLUIDO 2026-03-24
-- [x] **1.5** Adicionar `.env` ao `.gitignore` (proteger chaves do aluno) — CONCLUIDO 2026-03-24
+- [x] **1.1** Corrigir diagrama de arquitetura no README.md. CONCLUIDO 2026-03-24
+- [x] **1.2** Corrigir referencias dos 5 agents (caminhos reais dos arquivos). CONCLUIDO 2026-03-24
+- [x] **1.3** Criar command `/low-ticket` para cobrir Modulo low ticket completo. CONCLUIDO 2026-03-24
+- [x] **1.4** Criar `.env.example` com todas as chaves documentadas. CONCLUIDO 2026-03-24
+- [x] **1.5** Adicionar `.env` ao `.gitignore` (proteger chaves do aluno). CONCLUIDO 2026-03-24
 
-### Prioridade 2 — Melhorias importantes
+### Prioridade 2. Melhorias importantes
 
-- [x] **2.1** Fortalecer Upsell/Downsell no `/funil-de-vendas` (secao 4 completa com Upsell, Order Bump, Downsell) — CONCLUIDO 2026-03-24
-- [x] **2.2** Arquivo de cliente ideal em `meu-negocio/idconsumidor.md` (comando `/idconsumidor`; antes `persona.md` / `/persona`) — referencias atualizadas (agents, CLAUDE.md, COMO-USAR.md) — CONCLUIDO 2026-03-24; renomeacao comando 2026-03-24
-- [x] **2.3** Adicionar pergunta sobre Argumentos Incontestaveis no `/meu-produto` (Bloco 5 + secao no perfil.md) — CONCLUIDO 2026-03-24
-- [x] **2.4** Expandir permissoes no `settings.json` (adicionado: docs/**, cat .env, vercel *, curl *) — CONCLUIDO 2026-03-24
+- [x] **2.1** Fortalecer Upsell/Downsell no `/funil-de-vendas` (secao 4 completa com Upsell, Order Bump, Downsell). CONCLUIDO 2026-03-24
+- [x] **2.2** Arquivo de cliente ideal em `meu-negocio/idconsumidor.md` (comando `/idconsumidor`; antes `persona.md` / `/persona`). referencias atualizadas (agents, CLAUDE.md, COMO-USAR.md). CONCLUIDO 2026-03-24; renomeacao comando 2026-03-24
+- [x] **2.3** Adicionar pergunta sobre Argumentos Incontestaveis no `/meu-produto` (Bloco 5 + secao no perfil.md). CONCLUIDO 2026-03-24
+- [x] **2.4** Expandir permissoes no `settings.json` (adicionado: docs/**, cat .env, vercel *, curl *). CONCLUIDO 2026-03-24
 
-### Prioridade 3 — Integracoes com ferramentas externas
+### Prioridade 3. Integracoes com ferramentas externas
 
-- [x] **3.1** Implementar deploy automatico via Vercel (agent construtor-de-paginas + command pagina-de-vendas) — CONCLUIDO 2026-03-24
-- [x] **3.2** Implementar geracao de imagens via Freepik API no `/criativo-de-imagem` — CONCLUIDO 2026-03-24
-- [x] **3.3** Implementar criacao de video via HeyGen API no `/roteiro-de-video` — CONCLUIDO 2026-03-24
-- [x] **3.4** Implementar insercao automatica do Pixel nas paginas (agent + command) — CONCLUIDO 2026-03-24
-- [x] **3.5** Criar skill `ferramentas` com guia completo de 9 ferramentas — CONCLUIDO 2026-03-24
+- [x] **3.1** Implementar deploy automatico via Vercel (agent construtor-de-paginas + command pagina-de-vendas). CONCLUIDO 2026-03-24
+- [x] **3.2** Implementar geracao de imagens via Freepik API no `/criativo-de-imagem`. CONCLUIDO 2026-03-24
+- [x] **3.3** Implementar criacao de video via HeyGen API no `/roteiro-de-video`. CONCLUIDO 2026-03-24
+- [x] **3.4** Implementar insercao automatica do Pixel nas paginas (agent + command). CONCLUIDO 2026-03-24
+- [x] **3.5** Criar skill `ferramentas` com guia completo de 9 ferramentas. CONCLUIDO 2026-03-24
 
-### Prioridade 4 — Alinhamento com Workshop ao vivo
+### Prioridade 4. Alinhamento com Workshop ao vivo
 
-- [x] **4.1** Skills separadas: anuncios-texto (estaticos) e anuncios-video (Reels, Stories, YouTube) — CONCLUIDO 2026-03-24
-- [x] **4.2** Orientacoes de Pixel/CAPI incluidas na skill ferramentas e no agent construtor-de-paginas — CONCLUIDO 2026-03-24
-- [x] **4.3** Guia de WhatsApp incluido na skill ferramentas — CONCLUIDO 2026-03-24
-- [x] **4.4** Guia de Lovable para quiz incluido na skill ferramentas — CONCLUIDO 2026-03-24
+- [x] **4.1** Skills separadas: anuncios-texto (estaticos) e anuncios-video (Reels, Stories, YouTube). CONCLUIDO 2026-03-24
+- [x] **4.2** Orientacoes de Pixel/CAPI incluidas na skill ferramentas e no agent construtor-de-paginas. CONCLUIDO 2026-03-24
+- [x] **4.3** Guia de WhatsApp incluido na skill ferramentas. CONCLUIDO 2026-03-24
+- [x] **4.4** Guia de Lovable para quiz incluido na skill ferramentas. CONCLUIDO 2026-03-24
 
 ---
 
@@ -375,16 +409,16 @@ Essa tabela mostra exatamente quem faz o que, usando qual ferramenta, e entrega 
 
 ### Principio de Execucao
 
-O Claude Code le este documento como referencia e executa cada acao do plano modificando os arquivos do projeto. O operador (voce, Vitor) autoriza cada etapa. O Claude Code NAO executa tudo de uma vez — segue a sequencia de prioridades e pede confirmacao entre blocos.
+O Claude Code le este documento como referencia e executa cada acao do plano modificando os arquivos do projeto. O operador (voce, Vitor) autoriza cada etapa. O Claude Code NAO executa tudo de uma vez. segue a sequencia de prioridades e pede confirmacao entre blocos.
 
 ### Sequencia de Execucao
 
-#### FASE 1 — Correcoes criticas (execucao imediata)
+#### FASE 1. Correcoes criticas (execucao imediata)
 
 ```
 Passo 1.1: Claude Code le README.md e edita o diagrama de arquitetura
   Arquivo: README.md
-  Acao: Edit — corrigir bloco de arquitetura para refletir a estrutura real
+  Acao: Edit. corrigir bloco de arquitetura para refletir a estrutura real
 
 Passo 1.2: Claude Code le cada agent e corrige as referencias de skills
   Arquivos:
@@ -393,13 +427,13 @@ Passo 1.2: Claude Code le cada agent e corrige as referencias de skills
     .claude/agents/criador-de-campanhas.md
     .claude/agents/produtor-de-conteudo.md
     .claude/agents/consultor-comercial.md
-  Acao: Edit — trocar "Consulte skill X" por "Leia o arquivo .claude/plugins/workshop-marketing/skills/X/SKILL.md"
+  Acao: Edit. trocar "Consulte skill X" por "Leia o arquivo .claude/plugins/workshop-marketing/skills/X/SKILL.md"
 
 Passo 1.3: Claude Code cria o command /low-ticket
   Arquivo novo: .claude/commands/low-ticket.md
   Base: Modulo 10 do VTSD (secoes 10.1 a 10.7) extraido de vtsd-completo/SKILL.md
   Conteudo: Entrevista sobre tipo de produto low ticket, geracao de pagina quiz (12 blocos),
-            anuncios caixa rapido, produto desafio, copy Hotmart
+            anuncios low ticket, produto desafio, copy Hotmart
 
 Passo 1.4: Claude Code cria o arquivo .env.example
   Arquivo novo: .env.example
@@ -407,36 +441,36 @@ Passo 1.4: Claude Code cria o arquivo .env.example
 
 Passo 1.5: Claude Code edita .gitignore
   Arquivo: .gitignore
-  Acao: Edit — adicionar linha `.env` na secao de dados do aluno
+  Acao: Edit. adicionar linha `.env` na secao de dados do aluno
 ```
 
-#### FASE 2 — Melhorias importantes
+#### FASE 2. Melhorias importantes
 
 ```
 Passo 2.1: Claude Code edita /funil-de-vendas ou /meu-produto
   Arquivo: .claude/commands/funil-de-vendas.md (ou meu-produto.md)
-  Acao: Edit — adicionar secao de Upsell/Downsell/Order Bump com perguntas e geracao
+  Acao: Edit. adicionar secao de Upsell/Downsell/Order Bump com perguntas e geracao
 
 Passo 2.2: Claude Code edita /idconsumidor e todos os agents que leem idconsumidor.md
   Arquivos:
-    .claude/commands/idconsumidor.md — destino meu-negocio/idconsumidor.md
-    .claude/agents/construtor-de-paginas.md — atualizar caminho de leitura
-    .claude/agents/criador-de-campanhas.md — idem
-    .claude/agents/produtor-de-conteudo.md — idem
-    .claude/agents/consultor-comercial.md — idem
-    CLAUDE.md — atualizar tabela de "Onde Salvar Cada Entrega" se necessario
+    .claude/commands/idconsumidor.md. destino meu-negocio/idconsumidor.md
+    .claude/agents/construtor-de-paginas.md. atualizar caminho de leitura
+    .claude/agents/criador-de-campanhas.md. idem
+    .claude/agents/produtor-de-conteudo.md. idem
+    .claude/agents/consultor-comercial.md. idem
+    CLAUDE.md. atualizar tabela de "Onde Salvar Cada Entrega" se necessario
 
 Passo 2.3: Claude Code edita /meu-produto
   Arquivo: .claude/commands/meu-produto.md
-  Acao: Edit — adicionar pergunta sobre dados/estatisticas do nicho
+  Acao: Edit. adicionar pergunta sobre dados/estatisticas do nicho
          Salvar como secao "Argumentos Incontestaveis" no perfil.md
 
 Passo 2.4: Claude Code edita settings.json
   Arquivo: .claude/settings.json
-  Acao: Edit — adicionar permissoes para Bash(vercel *), Bash(curl *) quando integracoes forem ativadas
+  Acao: Edit. adicionar permissoes para Bash(vercel *), Bash(curl *) quando integracoes forem ativadas
 ```
 
-#### FASE 3 — Integracoes com ferramentas externas
+#### FASE 3. Integracoes com ferramentas externas
 
 ```
 Para cada integracao, o Claude Code segue este padrao:
@@ -478,7 +512,7 @@ Passo 3.5: Reference file de ferramentas
   Conteudo: Link, para que serve, como configurar API key, e como o toolkit usa cada ferramenta
 ```
 
-#### FASE 4 — Alinhamento com Workshop ao vivo
+#### FASE 4. Alinhamento com Workshop ao vivo
 
 ```
 Passo 4.1: Avaliar com Vitor se separa skills de anuncios
@@ -488,9 +522,9 @@ Passo 4.1: Avaliar com Vitor se separa skills de anuncios
 
 Passo 4.2-4.4: Criar guias praticos
   Arquivos novos em .claude/plugins/workshop-marketing/skills/trafego-pago/references/:
-    guia-pixel-capi.md — Passo a passo de instalacao
-    guia-whatsapp-automacao.md — Configuracao de notificacoes
-    guia-lovable-quiz.md — Como criar quiz no Lovable
+    guia-pixel-capi.md. Passo a passo de instalacao
+    guia-whatsapp-automacao.md. Configuracao de notificacoes
+    guia-lovable-quiz.md. Como criar quiz no Lovable
 ```
 
 ### Regras de Execucao para o Claude Code
