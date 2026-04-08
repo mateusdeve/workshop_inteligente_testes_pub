@@ -1,9 +1,9 @@
 ---
 name: workshop-marketing:ht-cronograma
-description: Montar o cronograma completo de um Retiro Online ou evento C10X — agenda por dia, blocos de conteúdo, intervalos, momentos de engajamento e timing do pitch.
+description: Montar o cronograma completo de um Retiro Online ou evento C10X. agenda por dia, blocos de conteúdo, intervalos, momentos de engajamento e timing do pitch.
 ---
 
-# HT — Cronograma do Evento
+# HT. Cronograma do Evento
 
 Monta a agenda completa do Retiro Online ou evento high ticket com timing, blocos de conteúdo e momento estratégico do pitch.
 
@@ -16,18 +16,18 @@ Monta a agenda completa do Retiro Online ou evento high ticket com timing, bloco
 ## O Que Fazer
 
 ### 1. Contexto
-Leia `produtos/.ativo`, depois `produtos/{ativo}/perfil.md`.
-Se existir `produtos/{ativo}/entregas/c10x/big-idea-*.md`, leia para alinhar com a promessa do evento.
+Leia `entregas/.ativo`, depois `entregas/{ativo}/perfil.md`.
+Se existir `entregas/{ativo}/c10x/big-idea-*.md`, leia para alinhar com a promessa do evento.
 
 ### 2. Entrevista (UMA pergunta por vez, com progresso visual)
 
-**Bloco 1/4 — Formato do Evento:**
+**Bloco 1/4. Formato do Evento:**
 ```
 Qual o formato do evento?
 
-1. Retiro Online — 2 dias (formato mais comum no C10X)
-2. Retiro Online — 1 dia (imersão intensiva)
-3. Retiro Online — 3 dias (alta profundidade)
+1. Retiro Online. 2 dias (formato mais comum no C10X)
+2. Retiro Online. 1 dia (imersão intensiva)
+3. Retiro Online. 3 dias (alta profundidade)
 4. Webinar com pitch (evento único, 2-3 horas)
 
 Digite o número:
@@ -40,7 +40,7 @@ Próximo: Horários
 ---
 ```
 
-**Bloco 2/4 — Horários:**
+**Bloco 2/4. Horários:**
 ```
 Qual o horário de início e término por dia?
 (ex: "9h às 18h", "10h às 20h")
@@ -54,10 +54,10 @@ Próximo: Conteúdo principal
 ---
 ```
 
-**Bloco 3/4 — Conteúdo:**
+**Bloco 3/4. Conteúdo:**
 ```
 Quais são os 3 a 5 grandes temas que vai ensinar no evento?
-Não precisa ser o roteiro completo — só os temas centrais.
+Não precisa ser o roteiro completo. só os temas centrais.
 (ex: "posicionamento, precificação, captação de clientes, fechamento")
 ```
 
@@ -70,11 +70,11 @@ Próximo: Momento do pitch
 ---
 ```
 
-**Bloco 4/4 — Momento do Pitch:**
+**Bloco 4/4. Momento do Pitch:**
 ```
 Quando prefere fazer o pitch de vendas?
 
-1. Final do último dia (clássico — melhor conversão)
+1. Final do último dia (clássico. melhor conversão)
 2. Início do segundo dia (para fechar antes do conteúdo final)
 3. Meio do último dia (antes do encerramento com conteúdo motivacional)
 
@@ -99,7 +99,7 @@ Resumo do evento:
 
 ---
 
-**DIA 1 — [Data]**
+**DIA 1. [Data]**
 
 | Horário | Bloco | Duração |
 |---|---|---|
@@ -118,7 +118,7 @@ Resumo do evento:
 
 ---
 
-**DIA 2 — [Data]**
+**DIA 2. [Data]**
 
 | Horário | Bloco | Duração |
 |---|---|---|
@@ -162,7 +162,7 @@ Resumo do evento:
 ```
 
 ### 5. Salvar
-`produtos/{ativo}/entregas/c10x/cronograma-[evento].md`
+`entregas/{ativo}/c10x/cronograma-[evento].md`
 
 ### 6. Próximo Passo
 "Cronograma pronto. Próximo: `/ht-conteudo` para roteirizar os blocos de ensino, ou `/ht-pitch-palco` para criar o script do momento de venda."

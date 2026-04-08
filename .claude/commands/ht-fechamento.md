@@ -1,11 +1,11 @@
 ---
 name: workshop-marketing:ht-fechamento
-description: Criar script de fechamento de venda 1:1 high ticket — conexão dor-solução, ancoragem de valor, apresentação de preço e envio do link com pressuposto do sim. Baseado no método C10X.
+description: Criar script de fechamento de venda 1:1 high ticket. conexão dor-solução, ancoragem de valor, apresentação de preço e envio do link com pressuposto do sim. Baseado no método C10X.
 ---
 
-# HT — Script de Fechamento
+# HT. Script de Fechamento
 
-Cria o script do momento de fechamento da venda 1:1 high ticket — da transição do SPIN para a oferta até o link de pagamento.
+Cria o script do momento de fechamento da venda 1:1 high ticket. da transição do SPIN para a oferta até o link de pagamento.
 
 ## Usage
 
@@ -16,14 +16,14 @@ Cria o script do momento de fechamento da venda 1:1 high ticket — da transiç�
 ## O Que Fazer
 
 ### 1. Contexto
-Leia `produtos/.ativo`, depois `produtos/{ativo}/perfil.md` e `produtos/{ativo}/idconsumidor.md`.
+Leia `entregas/.ativo`, depois `entregas/{ativo}/perfil.md` e `entregas/{ativo}/idconsumidor.md`.
 
 ### 2. Entrevista (UMA pergunta por vez, com progresso visual)
 
-**Bloco 1/2 — Produto e Preço:**
+**Bloco 1/2. Produto e Preço:**
 ```
 Qual o produto e o investimento?
-(ex: "Mentoria de 3 meses — R$5.000 à vista ou 6x R$997")
+(ex: "Mentoria de 3 meses. R$5.000 à vista ou 6x R$997")
 ```
 
 ```
@@ -33,7 +33,7 @@ Próximo: Forma de pagamento
 ---
 ```
 
-**Bloco 2/2 — Condições:**
+**Bloco 2/2. Condições:**
 ```
 Quais as formas de pagamento disponíveis?
 (ex: "Pix com desconto, cartão em até 12x, boleto")
@@ -56,27 +56,27 @@ Resumo:
 
 ---
 
-**PASSO 1 — CONEXÃO DOR-SOLUÇÃO**
+**PASSO 1. CONEXÃO DOR-SOLUÇÃO**
 
 Recapitule o que o lead disse durante o SPIN. Use as próprias palavras dele.
 
 Script:
-"[NOME], baseado em tudo que você me contou, sua principal dificuldade é [DOR PRINCIPAL — usar as palavras do lead, não as suas].
+"[NOME], baseado em tudo que você me contou, sua principal dificuldade é [DOR PRINCIPAL. usar as palavras do lead, não as suas].
 
-É exatamente isso que o [NOME DO PROGRAMA] resolve. Em [PRAZO], você vai [QUADRO — transformação principal].
+É exatamente isso que o [NOME DO PROGRAMA] resolve. Em [PRAZO], você vai [QUADRO. transformação principal].
 
 Você recebe: [entregáveis em 3 bullets rápidos]."
 
 ---
 
-**PASSO 2 — ANCORAGEM DE VALOR**
+**PASSO 2. ANCORAGEM DE VALOR**
 
 Compare com alternativas que o lead já conhece ou considerou.
 
-Script — opções de ancoragem:
+Script. opções de ancoragem:
 
 A) Comparação com alternativas:
-"Hoje, se você fosse resolver isso contratando [ALTERNATIVA 1] — já tentou isso antes? — você pagaria [VALOR MAIOR]. Com o [PROGRAMA], você tem [DIFERENCIAL] por [PREÇO MENOR]."
+"Hoje, se você fosse resolver isso contratando [ALTERNATIVA 1]. já tentou isso antes?. você pagaria [VALOR MAIOR]. Com o [PROGRAMA], você tem [DIFERENCIAL] por [PREÇO MENOR]."
 
 B) Comparação com o custo da inação:
 "Você me disse que está [perdendo/deixando de ganhar] cerca de [VALOR] por mês por conta disso. Em [X meses], são [VALOR ACUMULADO]. O investimento no programa é de [PREÇO]."
@@ -86,7 +86,7 @@ C) Comparação com o valor individual:
 
 ---
 
-**PASSO 3 — APRESENTAÇÃO DO PREÇO**
+**PASSO 3. APRESENTAÇÃO DO PREÇO**
 
 Script:
 "E tudo isso por [VALOR]. Acessível?"
@@ -98,7 +98,7 @@ Se objeção → acesse `/ht-objecoes`.
 
 ---
 
-**PASSO 4 — ENVIO DO LINK**
+**PASSO 4. ENVIO DO LINK**
 
 Regra C10X: nunca pergunte se quer comprar. Assuma o interesse e envie.
 
@@ -109,7 +109,7 @@ Script:
 
 ---
 
-**VARIAÇÃO — SE O LEAD HESITAR ANTES DO PREÇO**
+**VARIAÇÃO. SE O LEAD HESITAR ANTES DO PREÇO**
 
 Quando o lead perguntar "qual o preço?" antes do fim da apresentação:
 
@@ -121,20 +121,20 @@ Quando o lead perguntar "qual o preço?" antes do fim da apresentação:
 
 ---
 
-**VARIAÇÃO — DOWNSELL (se a venda não fechar)**
+**VARIAÇÃO. DOWNSELL (se a venda não fechar)**
 
 Quando o lead não fecha mas ainda tem interesse:
 
-"Entendo. Antes de a gente encerrar — tem uma forma de começar com um investimento menor. [OFERTA DE ENTRADA]. Faz sentido como próximo passo?"
+"Entendo. Antes de a gente encerrar. tem uma forma de começar com um investimento menor. [OFERTA DE ENTRADA]. Faz sentido como próximo passo?"
 
 ---
 
 **REGRAS DO FECHAMENTO C10X:**
-- O silêncio após o preço é parte do script — não o quebre
-- Nunca pergunte "quer comprar?" — assuma e envie o link
+- O silêncio após o preço é parte do script. não o quebre
+- Nunca pergunte "quer comprar?". assuma e envie o link
 - Nunca reduza o preço antes de esgotar as quebras de objeção
 - Nunca mencione desconto antes que o lead peça
-- O link vai junto com a confirmação verbal — não espere o lead pedir
+- O link vai junto com a confirmação verbal. não espere o lead pedir
 
 ### 4. Aprovação
 ```
@@ -143,7 +143,7 @@ Quando o lead não fecha mas ainda tem interesse:
 ```
 
 ### 5. Salvar
-`produtos/{ativo}/entregas/c10x/fechamento-[produto].md`
+`entregas/{ativo}/c10x/fechamento-[produto].md`
 
 ### 6. Próximo Passo
 "Fechamento pronto. Próximo: `/ht-objecoes` para as respostas quando o lead hesitar."

@@ -1,9 +1,9 @@
 ---
 name: workshop-marketing:ht-follow-up
-description: Criar sequência de follow-up pós-evento C10X para quem participou mas não comprou — mensagens D+1, D+3 e D+7 com abordagens diferentes (prova social, urgência, downsell).
+description: Criar sequência de follow-up pós-evento C10X para quem participou mas não comprou. mensagens D+1, D+3 e D+7 com abordagens diferentes (prova social, urgência, downsell).
 ---
 
-# HT — Follow-Up Pós-Evento
+# HT. Follow-Up Pós-Evento
 
 Cria a sequência de follow-up para participantes que assistiram ao evento mas não compraram durante o pitch.
 
@@ -16,27 +16,27 @@ Cria a sequência de follow-up para participantes que assistiram ao evento mas n
 ## O Que Fazer
 
 ### 1. Contexto
-Leia `produtos/.ativo`, depois `produtos/{ativo}/perfil.md`.
+Leia `entregas/.ativo`, depois `entregas/{ativo}/perfil.md`.
 
 ### 2. Entrevista (UMA pergunta por vez)
 
-**Bloco 1/3 — Produto e Prazo:**
+**Bloco 1/3. Produto e Prazo:**
 ```
 Qual o produto vendido no evento e até quando as vagas estão abertas?
-(ex: "Mentoria de 3 meses — vagas abertas por 5 dias após o evento")
+(ex: "Mentoria de 3 meses. vagas abertas por 5 dias após o evento")
 ```
 
-**Bloco 2/3 — Tem Downsell:**
+**Bloco 2/3. Tem Downsell:**
 ```
 Tem alguma oferta menor para quem não comprar o produto principal?
 (ex: "Sim, tenho um curso gravado por R$297", "Não tenho")
 ```
 
-**Bloco 3/3 — Canal:**
+**Bloco 3/3. Canal:**
 ```
 O follow-up vai ser por:
 
-1. WhatsApp (recomendado — maior taxa de resposta)
+1. WhatsApp (recomendado. maior taxa de resposta)
 2. Email
 3. Ambos
 
@@ -59,7 +59,7 @@ Canal: [WhatsApp/Email/ambos]
 
 ---
 
-**D+1 — PROVA SOCIAL**
+**D+1. PROVA SOCIAL**
 
 Objetivo: mostrar que outras pessoas já decidiram e reforçar a transformação prometida.
 
@@ -77,7 +77,7 @@ Corpo: Mencione 1 resultado rápido de quem já entrou (se possível), reforce a
 
 ---
 
-**D+3 — ARGUMENTO E OBJEÇÃO**
+**D+3. ARGUMENTO E OBJEÇÃO**
 
 Objetivo: abordar a objeção mais comum sem que o lead precise trazer.
 
@@ -98,7 +98,7 @@ Corpo: Aborde a objeção principal + história de aluno que tinha a mesma dúvi
 
 ---
 
-**D+5 — URGÊNCIA**
+**D+5. URGÊNCIA**
 
 Objetivo: criar urgência real baseada em escassez ou prazo.
 
@@ -116,7 +116,7 @@ Corpo: Curto e direto. Lembrete do prazo + o que perde quem não entrar + link +
 
 ---
 
-**D+7 — ÚLTIMA MENSAGEM / DOWNSELL**
+**D+7. ÚLTIMA MENSAGEM / DOWNSELL**
 
 Objetivo: fechar com dignidade. Se tiver downsell, oferecer. Se não, encerrar.
 
@@ -139,8 +139,8 @@ Quando abrir a próxima turma, você é o primeiro que vou avisar. Pode ser?"
 ---
 
 **REGRAS DO FOLLOW-UP:**
-- Máximo 1 mensagem por dia — não sobrecarregue
-- Nunca diga "só vim verificar" — sempre traga algo de valor ou urgência concreta
+- Máximo 1 mensagem por dia. não sobrecarregue
+- Nunca diga "só vim verificar". sempre traga algo de valor ou urgência concreta
 - Se o lead pedir para não ser mais contatado, respeite imediatamente
 - Após D+7, encerrar o ciclo de follow-up desse evento
 
@@ -151,7 +151,7 @@ Quando abrir a próxima turma, você é o primeiro que vou avisar. Pode ser?"
 ```
 
 ### 5. Salvar
-`produtos/{ativo}/entregas/c10x/follow-up-[evento].md`
+`entregas/{ativo}/c10x/follow-up-[evento].md`
 
 ### 6. Próximo Passo
 "Follow-up pronto. Se vai trabalhar com consultoria também, próximo: `/ht-diagnostico` para a call de descoberta."

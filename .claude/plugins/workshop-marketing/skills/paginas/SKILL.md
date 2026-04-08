@@ -2,48 +2,51 @@
 name: paginas
 description: >
   Base de conhecimento para criação de páginas web profissionais.
-  Inclui estrutura 8D de página de vendas, biblioteca de 28 templates HTML/DESIGN
-  e padrões visuais. Acionada automaticamente pelo command /pagina-de-vendas.
+  Inclui estrutura 8D de página de vendas, biblioteca de 65+ templates HTML
+  cobrindo todas as 13 seções da estrutura em 5 estilos visuais
+  e padrões visuais. Acionada automaticamente pelo command /copy-pagina.
 ---
 
-# Páginas — Base de Conhecimento
+# Páginas. Base de Conhecimento
 
 ## Regras de Fluxo para Páginas
 
 1. **Coletar TUDO antes de gerar copy.** Tudo o que for necessário para a página deve ser perguntado ANTES de gerar qualquer copy. Não gerar copy assumindo dados que não foram coletados ou confirmados.
 2. **Validar a copy com o usuário ANTES de gerar o HTML.** Mostrar toda a copy textual, pedir aprovação, e só depois gerar o arquivo HTML.
-3. **Revisão e correção automática SEMPRE.** Após gerar a copy ou o HTML, ler `.claude/commands/feedback-de-pv.md`, aplicar todos os critérios e corrigir o que for necessário. Informar ao usuário o número de ajustes feitos. Só então entregar ou salvar.
+3. **Revisão e correção automática SEMPRE.** Após gerar a copy ou o HTML, ler `.claude/commands/feedback-pagina.md`, aplicar todos os critérios e corrigir o que for necessário. Informar ao usuário o número de ajustes feitos. Só então entregar ou salvar.
 4. **Exceção de exibição:** O HTML não é mostrado ao usuário (seria confuso). Salvar direto e informar o caminho do arquivo.
 
 ## Estrutura 8D (Página de Vendas VTSD)
 
-1. **Header** — Logotipo + CTA pequeno (opcional)
-2. **Primeira Dobra (Hero)** — Premissa (headline) + subheadline + 3 bullets (Urgência Oculta + Decorado) + vídeo + CTA
-3. **Problema/Dor** — Dor amplificada com cenas do cotidiano
-4. **Paliativo** — O que já tentaram e por que falhou
-5. **Solução/Método** — Apresentação da Furadeira (macroetapas + microetapas)
-6. **Para Quem É / Não É** — Listas com ícones check/X
-7. **Entregáveis** — Lista completa com metáforas de valor (grid 2 colunas)
-8. **Bônus** — 3 bônus estratégicos com valor individual
-9. **Stack de Valor** — Ancoragem visual (valor total vs preço real)
-10. **Prova Social** — Depoimentos com foto e resultado específico
-11. **Garantia** — Tipo + prazo + selo visual
-12. **FAQ** — Accordion funcional (5-8 objeções da persona)
-13. **Oferta Final (CTA)** — Ancoragem de valor + preço + parcelamento + CTA grande
-14. **Rodapé** — Termos, privacidade, copyright
+1. **Header**. Logotipo + CTA pequeno (opcional)
+2. **Primeira Dobra (Hero)**. Premissa (headline) + subheadline + 3 bullets (Urgência Oculta + Decorado) + vídeo + CTA
+3. **Problema/Dor**. Dor amplificada com cenas do cotidiano
+4. **Paliativo**. O que já tentaram e por que falhou
+5. **Prova Social (1º bloco)**. 2-3 depoimentos curtos de resultado rápido. Objetivo: validar que o problema é real e que tem gente resolvendo. Vem ANTES do método para ancorar credibilidade cedo.
+6. **CTA intermediário**. Seção curta com botão
+7. **Solução/Método**. Apresentação da Furadeira (macroetapas + microetapas). O nome do produto/método aparece aqui pela primeira vez. **Diagrama visual (recomendado):** sempre que possível, acionar a skill `furadeira-visual` ANTES de gerar o HTML para criar um PNG do método (linear, roadmap, pirâmide, hub ou fluxograma) e embutir nesta seção como imagem ilustrativa. Diagrama visual aumenta percepção de método estruturado e diferencia a página de concorrentes que usam só texto.
+8. **Para Quem É / Não É**. Listas com ícones check/X
+9. **Entregáveis**. Lista completa com metáforas de valor (grid 2 colunas)
+10. **Bônus**. 3 bônus estratégicos com valor individual
+11. **Stack de Valor**. Ancoragem visual (valor total vs preço real)
+12. **Prova Social (2º bloco)**. 3-5 depoimentos completos com foto, situação antes e resultado depois. Agora o leitor já conhece o método e os depoimentos confirmam.
+13. **Garantia**. Tipo + prazo + selo visual
+14. **FAQ**. Accordion funcional (5-8 objeções da persona)
+15. **Oferta Final (CTA)**. Ancoragem de valor + preço + parcelamento + CTA grande
+16. **Rodapé**. Termos, privacidade, copyright
 
 ## Regras Universais
 
 - **Texto SEMPRE em pt-BR com acentos** (Módulos, não Modulos)
 - **Header com logotipo obrigatório** em toda página
-- **TODAS as fontes DEVEM ser sans-serif** — heading E body. Fontes serifadas são PROIBIDAS em qualquer parte da página (heading, body, labels, tudo). Serifadas dão cara de template genérico de IA e prejudicam leitura em telas.
+- **TODAS as fontes DEVEM ser sans-serif**. heading E body. Fontes serifadas são PROIBIDAS em qualquer parte da página (heading, body, labels, tudo). Serifadas dão cara de template genérico de IA e prejudicam leitura em telas.
 - **Biblioteca de fontes aprovadas** (todas do Google Fonts CDN, todas sans-serif):
 
 ### Fontes Sans-Serif Aprovadas (Google Fonts CDN)
 
-**PROIBIDO usar fontes serifadas** — Playfair Display, Fraunces, Noto Serif, Lora, Merriweather, Source Serif, Instrument Serif, Cormorant, Libre Baskerville, EB Garamond, Crimson Text e qualquer outra serif estão BANIDAS.
+**PROIBIDO usar fontes serifadas**. Playfair Display, Fraunces, Noto Serif, Lora, Merriweather, Source Serif, Instrument Serif, Cormorant, Libre Baskerville, EB Garamond, Crimson Text e qualquer outra serif estão BANIDAS.
 
-#### Heading (display/títulos) — Escolher 1
+#### Heading (display/títulos). Escolher 1
 
 | Fonte | Estilo | Ideal para | Pesos |
 |---|---|---|---|
@@ -65,7 +68,7 @@ description: >
 | **Clash Display** (Fontshare) | Display bold | Headlines de impacto | 400, 500, 600, 700 |
 | **Cabinet Grotesk** (Fontshare) | Geométrica moderna | Tech, startup | 400, 500, 700, 800 |
 
-#### Body (texto corrido) — Escolher 1
+#### Body (texto corrido). Escolher 1
 
 | Fonte | Estilo | Ideal para | Pesos |
 |---|---|---|---|
@@ -106,23 +109,27 @@ description: >
 
 **Regra**: Heading e body podem ser a mesma fonte (variando peso) ou fontes diferentes. Ambas DEVEM ser sans-serif.
 
-- **Grids de 2 colunas** para entregáveis (NÃO 3 — evita texto apertado)
+**⛔ Restrição da fonte Inter (padrão "neutro de IA"):** Inter é a fonte mais usada por geradores de IA (v0, Lovable, Bolt, Figma defaults). Quando aparece em nichos emocionais, comunica "template genérico". Use Inter APENAS em nichos técnicos/racionais: **Tech/Produtividade**, **Finanças com dashboards/dados**, **SaaS B2B**. **PROIBIDA em:** Coaching, Dev Pessoal, Beleza, Feminino, Artesanato, Saúde emocional, Gastronomia, Pet. Para esses, usar DM Sans, Manrope, Figtree, Plus Jakarta Sans ou Nunito como body.
+
+**⛔ Poppins também tem restrição.** Poppins é a segunda fonte mais genérica de IA (padrão de templates free do Canva e Figma). Evitar em Premium/High Ticket. Permitida em Saúde/Bem-estar e Educação popular, mas prefira Figtree ou Plus Jakarta Sans quando o produto for premium.
+
+- **Grids de 2 colunas** para entregáveis (NÃO 3. evita texto apertado)
 - **Cards com min-width 320px**, padding 28px+, font-size 0.95rem+
 - **4+ tipos de fundo** alternando entre seções (claro, escuro, imagem+overlay, gradiente, textura)
-- **2+ seções com imagem de fundo** (Picsum + overlay ou CSS artístico)
-- **NÃO parecer Lovable/v0** — sem cards brancos idênticos em fundo bege
+- **2+ seções com fundo forte** (CSS gradient artístico ou Unsplash com ID específico + overlay. Picsum proibido, ver "Imagens Contextuais")
+- **NÃO parecer Lovable/v0**. sem cards brancos idênticos em fundo bege
 
 ## Vícios Proibidos na Copy da Página
 
-> ⛔ BLOQUEIO OBRIGATÓRIO — Esta etapa não é opcional. Nenhum HTML pode ser salvo e nenhuma copy pode ser entregue sem passar por esta revisão completa. Sem exceção.
+> ⛔ BLOQUEIO OBRIGATÓRIO. Esta etapa não é opcional. Nenhum HTML pode ser salvo e nenhuma copy pode ser entregue sem passar por esta revisão completa. Sem exceção.
 
-**ETAPA 0 — Varredura Anti-Vícios (executar ANTES de salvar ou mostrar qualquer coisa):**
+**ETAPA 0. Varredura Anti-Vícios (executar ANTES de salvar ou mostrar qualquer coisa):**
 
 Percorra TODO o texto gerado e elimine cada item abaixo. Se encontrar, corrija na hora antes de continuar:
 
 | Vício | Ação obrigatória |
 |---|---|
-| Travessão (—) em qualquer frase | Reescreva a frase inteira sem ele. Não substitua por vírgula se a frase ficar estranha — refaça a construção. |
+| Travessão (. ) em qualquer frase | Reescreva a frase inteira sem ele. Não substitua por vírgula se a frase ficar estranha. refaça a construção. |
 | Estrutura "Não é X. É Y." | Desenvolva o argumento de outra forma. Nunca use essa construção. |
 | Ponto de exclamação | Remova. A frase deve ser impactante sem ele. |
 | Pergunta no gancho ou headline | Transforme em afirmação com tensão. |
@@ -130,7 +137,7 @@ Percorra TODO o texto gerado e elimine cada item abaixo. Se encontrar, corrija n
 | Promessa vaga sem número ou situação | Especifique: prazo, quantidade, situação real. |
 | "mesmo que" ou "sem precisar" como muletas | Reescreva o argumento sem essas muletas. |
 | Bullets que não seguem padrão urgência oculta + decorado | Reescreva no padrão correto. |
-| Produto mencionado nos primeiros parágrafos da hero | Reescreva focando no leitor, não no produto. |
+| Produto mencionado nos primeiros parágrafos da hero | Reescreva focando no leitor, não no produto. INCLUI: nome do produto, nome do método, nome do curso, sigla do programa. A primeira dobra fala APENAS sobre o leitor e o problema/transformação dele. O nome do produto/método só aparece a partir da seção Solução/Método (seção 7). Sem exceção, mesmo que o nome pareça um "posicionamento de identidade". |
 | Emojis | Remova sem substituição. |
 
 Após a varredura, confirme internamente: "Não há nenhum travessão, exclamação, pergunta no gancho ou estrutura proibida neste texto." Só então salve ou entregue.
@@ -138,7 +145,7 @@ Após a varredura, confirme internamente: "Não há nenhum travessão, exclamaç
 - [ ] Nenhum travessão no texto
 - [ ] Nenhuma estrutura "Não é X. É Y."
 - [ ] Nenhuma frase genérica de vendedor
-- [ ] Produto não mencionado no hero/lead
+- [ ] Produto não mencionado no hero/lead (inclui nome do produto, nome do método, nome do curso ou sigla)
 - [ ] Nenhum emoji
 - [ ] Headline sem imperativo ou pergunta no gancho
 
@@ -146,161 +153,327 @@ Após a varredura, confirme internamente: "Não há nenhum travessão, exclamaç
 
 ## Design System e Montagem
 
-### Fluxo de Geração (OTIMIZADO)
+### Fluxo de Geração (OBRIGATÓRIO. SEM EXCEÇÃO)
 
-1. Ler **`references/design-system-components.md`** — contém TODOS os padrões CSS pré-compilados (variáveis, componentes, animações, responsivo). Este arquivo ÚNICO substitui a leitura de templates individuais.
-2. Adaptar as CSS variables à paleta e fontes do nicho
-3. Montar a página seção por seção usando os componentes do design system
-4. Preencher a copy com dados do perfil do negócio e identidade do consumidor
+> ⛔ BLOQUEIO: Nenhuma página HTML pode ser gerada sem passar pelas 6 etapas abaixo. Pular qualquer etapa resulta em página genérica e será considerado erro de execução.
 
-**NÃO ler templates individuais em `references/templates/`.** Usar apenas o design system compilado. Os templates existem como arquivo de referência, mas o design system já contém todos os padrões extraídos.
+**Etapa 1. Escolher UM ÚNICO estilo visual para a página inteira**
+Consultar a **Tabela de Decisão de Estilo Visual (por nicho)** mais abaixo. Extrair do `perfil.md` o nicho do produto e pegar o estilo recomendado. A página inteira usa esse mesmo estilo do início ao fim. Exemplo: nicho "Pet/Animais" → `teal_claro` em TODAS as seções.
+
+> ⛔ PROIBIDO misturar estilos visuais diferentes na mesma página. Cada estilo (`flat_claro`, `teal_claro`, `glass_escuro`, `dark_solido`, `minimal_claro`) é um design system completo e independente. misturar quebra a consistência e faz a página parecer duas páginas grudadas. Uma página = um estilo.
+
+**Etapa 2. Mapear seções ao estilo único**
+Todas as seções (hero, dor, paliativo, método, entregáveis, bônus, stack, prova social, garantia, FAQ, CTA intermediário, oferta final) seguem o mesmo estilo visual escolhido na Etapa 1. O que varia é:
+- **Paleta de cores** aplicada sobre o estilo (cada nicho tem paleta própria. ver "Paletas por Nicho")
+- **Variantes internas do estilo** para dar ritmo visual (ex: no `flat_claro`, alternar `hero_flat_claro`, `hero_flat_claro_centralizado`, `hero_flat_claro_depoimentos`)
+- **Tom de fundo dentro do mesmo estilo** (ex: base `#fafafa` no hero, `#f3f4f6` no paliativo, ambos pertencentes ao mesmo estilo `flat_claro`)
+
+**Etapa 3. LER OS TEMPLATES REAIS DO ESTILO ESCOLHIDO (obrigatório)**
+Para cada seção da página, ler o arquivo `references/templates/{secao}_{estilo}/code.html`, usando SEMPRE o mesmo estilo da Etapa 1.
+
+**Seções com template (todas as 13 seções da estrutura 8D agora têm template em todos os estilos):**
+- `hero` (e variantes `_centralizado`, `_depoimentos` em flat/teal/glass/purple)
+- `dor`
+- `paliativo`
+- `provas_sociais` (depoimentos completos com foto, antes/depois)
+- `metodo` (Furadeira)
+- `entregaveis` (grid 2 colunas)
+- `bonus` (3 bônus estratégicos)
+- `garantia` (selo + prazo + texto confiante)
+- `oferta_final` (stack de valor + preço grande + CTA)
+- `autoridade` (criador do método)
+- `suporte` (canais de acompanhamento)
+- `cta` (CTA intermediário)
+- `faq` (accordion)
+
+**Estilos disponíveis:** `glass_escuro`, `flat_claro`, `teal_claro`, `dark_solido` (anteriormente `purple_escuro` no disco), `minimal_claro`. **Escolher apenas UM por página.**
+
+**Regra de leitura por seção (otimização contra os 10+ minutos):** ao gerar uma seção específica, ler APENAS o arquivo `references/templates/{secao}_{estilo}/code.html` correspondente. Não pré-carregar todos os 13 templates antes de começar. Carregar o template só na hora de gerar aquela seção. Isso é o que torna possível a geração seção por seção sem estourar tempo (ver "Geração por bloco com aprovação" no command `/copy-pagina`).
+
+**Fallback:** se uma combinação seção × estilo não existir em disco, usar `references/design-system-components.md` HERDANDO os tokens CSS (border-radius, border-width, shadow style, spacing) do estilo escolhido, para que a seção pareça nativa do mesmo design system.
+
+**Etapa 4. Extrair tokens do estilo e aplicar como design system mestre**
+Antes de montar as seções, extrair dos templates lidos os tokens visuais base do estilo:
+- `--border-width` (ex: `0` no teal/glass, `1.5px` no flat)
+- `--border-style` (sólida, soft cinza, glassmorphism, nenhuma)
+- `--radius` (ex: `0` no flat, `16px` no teal, `20px` no purple)
+- `--shadow` (nenhum, soft, glow, vibrante)
+- `--typography-scale` (tamanhos de heading e body)
+- `--spacing-scale`
+- Estilo de botão CTA (pill, flat retangular, glass, etc.)
+
+Esses tokens viram variáveis CSS mestres na raiz (`:root`) e TODAS as seções da página os usam. prova social, entregáveis, bônus, garantia, stack, footer, tudo. Nenhuma seção pode ter cantos arredondados se o estilo é flat. Nenhuma seção pode ter borda preta 1.5px se o estilo é teal.
+
+**Etapa 5. Copiar estrutura HTML+CSS dos templates e adaptar**
+Do HTML do template lido, copiar a estrutura da seção (grid, tipografia, espaçamento, decorações, animações). NÃO reescrever do zero. Adaptar apenas:
+- Cores → paleta do nicho (ver tabela "Paletas por Nicho")
+- Fontes → combinação do nicho (ver tabela "Combinações Recomendadas por Nicho")
+- Textos → copy aprovada pelo usuário
+- Imagens → URLs contextuais (ver "Imagens Contextuais")
+
+**Etapa 6. Consolidar em arquivo único com tokens mestres**
+Unificar `<style>` de todas as seções em um único bloco com os tokens mestres da Etapa 4 no `:root`. Normalizar todas as variáveis CSS conflitantes entre templates para os tokens mestres. se um template usa `border-radius: 16px` mas o estilo escolhido é `flat_claro` (radius 0), reescrever para `border-radius: 0`. Consistência visual acima de tudo.
+
+**Etapa 7. Consultar `references/design-system-components.md` apenas para gaps**
+Animações globais, scroll reveal, fonte global, responsivo. Nunca como substituto da leitura dos templates.
+
+**Checklist antes de salvar o HTML:**
+- [ ] Li pelo menos 4 arquivos `references/templates/*/code.html` do MESMO estilo
+- [ ] A página usa UM ÚNICO estilo visual do início ao fim
+- [ ] Extraí tokens mestres (`--radius`, `--border-width`, `--shadow`) do estilo e apliquei em TODAS as seções
+- [ ] Nenhuma seção tem cantos, bordas ou sombras que fogem do estilo escolhido
+- [ ] Paleta e fontes foram adaptadas ao nicho do produto
+- [ ] Cada seção tem estrutura copiada de um template real, não improvisada
 
 ### Padrões Visuais (aplicar a todas as seções)
 
-- **CSS puro com custom properties** — preferir CSS puro. Tailwind CDN apenas se necessário
-- **Material Symbols Outlined** para ícones
-- **No-Line Rule** — sem bordas 1px entre seções. Usar mudanças tonais e espaçamento
-- **Glassmorphism** — `backdrop-filter: blur() + rgba` para navs e cards sobrepostos
-- **Espaçamento como design** — separação por tom de fundo, não por linhas
-- **Hierarquia tipográfica dramática** — heading 48-56px vs body 15-16px
-- **NUNCA usar badges/tags** — Proibido usar elementos tipo pill/badge acima do headline
+- **CSS puro com custom properties**. preferir CSS puro. Tailwind CDN apenas se necessário
+- **Material Symbols Outlined** para ícones. Nunca usar emoji como ícone em seções de valor (depoimentos, entregáveis, garantia). Emoji só é permitido dentro do `img-placeholder` contextual
+- **No-Line Rule**. sem bordas 1px entre seções. Usar mudanças tonais e espaçamento
+- **Glassmorphism. USO RESTRITO.** `backdrop-filter: blur()` permitido APENAS em: (1) header fixo em tema escuro high-ticket, (2) cards flutuantes em página high-ticket acima de R$1.000. PROIBIDO em low ticket, mid ticket e cards comuns de conteúdo. Em low/mid, usar fundo sólido (`var(--surface-1)`)
+- **Sombras sem cor.** Box-shadow em estado repouso sempre em escala de cinza (`rgba(0,0,0,0.06)` a `rgba(0,0,0,0.12)`). Glow colorido (`box-shadow: 0 0 Xpx rgba(cor)`) PROIBIDO em estado repouso. Permitido só no hover e só em high ticket
+- **Gradiente de texto em headline.** PROIBIDO em qualquer página. Destacar palavra-chave com `<em>` e `color: var(--accent)`, não com `background-clip: text`
+- **Espaçamento como design**. separação por tom de fundo, não por linhas
+- **Hierarquia tipográfica dramática**. heading 48-56px vs body 15-16px
+- **NUNCA usar badges/tags**. Proibido usar elementos tipo pill/badge acima do headline
 
 ### Estilos Visuais Disponíveis (referência)
 
-| Estilo | Tema | Característica |
-|---|---|---|
-| glass_escuro | Escuro | Glassmorphism, shimmer, refinado |
-| flat_claro | Claro | Bordas flat, warm/dourado |
-| teal_claro | Claro | Teal/verde, botão pill verde |
-| purple_escuro | Escuro | Roxo, moderno |
-| minimal_claro | Claro | Minimalista, neutro |
+| Estilo | Tema | Característica | Ticket permitido |
+|---|---|---|---|
+| glass_escuro | Escuro | Glassmorphism sutil, bordas sólidas, sem glow colorido em repouso | **APENAS High Ticket (acima de R$1.000)**. Em low/mid, substituir por fundo sólido |
+| flat_claro | Claro | Bordas flat, warm/dourado | Qualquer ticket |
+| teal_claro | Claro | Teal/verde, botão pill verde | Qualquer ticket |
+| dark_solido | Escuro | Fundo preto/grafite sólido, bordas finas, sem blur, sem glow | Substitui o antigo `dark_solido` (roxo+azul era clichê de IA). Qualquer ticket |
+| minimal_claro | Claro | Minimalista, neutro | Qualquer ticket |
 
-Templates individuais em `references/templates/` servem como referência visual se precisar consultar um padrão específico. Mas para geração, usar o design system compilado.
+> ⛔ `glass_escuro` ficou restrito a high ticket premium. Para low e mid ticket, mesmo em nichos "premium", usar `dark_solido` ou `flat_claro`. Glassmorphism em página barata comunica "fake premium" e derruba conversão.
+>
+> ⛔ O antigo `dark_solido` (roxo + azul elétrico) foi descontinuado. Era a paleta padrão de Tailwind/v0/Lovable e virou assinatura de página de IA. Usar `dark_solido` no lugar.
+
+Os templates individuais em `references/templates/` são a FONTE PRIMÁRIA de geração. Ler os arquivos `code.html` correspondentes à combinação seção × estilo é passo obrigatório (ver Etapa 3 do fluxo acima).
+
+### Tabela de Decisão de Estilo Visual (por nicho)
+
+A decisão de estilo é **automática com base no nicho do produto** (lido de `perfil.md`). O aluno não escolhe template. só escolhe a cor preferida. UM estilo por página, aplicado em todas as seções.
+
+| Nicho | Estilo único da página | Por que |
+|---|---|---|
+| Finanças/Investimentos | glass_escuro | Sofisticação e credibilidade. Glassmorphism premium do início ao fim |
+| Coaching/Dev Pessoal | glass_escuro | Autoridade e peso visual. Dark premium transmite transformação |
+| Desenvolvimento Pessoal | teal_claro | Acolhedor e moderno. Clean com acentos vivos |
+| Marketing Digital | flat_claro | Direto e acessível. Brutalismo clean funciona para quem decide rápido |
+| Tech/Produtividade | dark_solido | Vibrante e inovador. Dark roxo comunica tecnologia |
+| Saúde/Bem-estar | teal_claro | Natural e fresco. Verdes e brancos transmitem bem-estar |
+| Educação/Concursos | flat_claro | Sério e confiável. Bordas definidas comunicam rigor |
+| Beleza/Skincare | minimal_claro | Elegante e delicado. Espaços amplos e suavidade |
+| Feminino/Lifestyle | minimal_claro | Suave e moderno. Base neutra deixa as cores do nicho protagonistas |
+| Artesanato/Handmade | flat_claro | Quente e artesanal. Bordas visíveis remetem a feito à mão |
+| Gastronomia | flat_claro | Aconchegante. Tons warm combinam com comida |
+| Pet/Animais | teal_claro | Natural e amigável. Teal remete a cuidado |
+| Imobiliário/Luxo | glass_escuro | Premium total. Dark glass comunica alto valor |
+| Viagens/Turismo | teal_claro | Aspiracional e fresco. Azuis e verdes lembram destinos |
+| Premium/High Ticket (qualquer nicho) | glass_escuro | Sofisticação máxima do início ao fim |
+| Low Ticket (qualquer nicho) | flat_claro ou teal_claro | Acessível e direto. Estilos claros passam leveza e baixo risco |
+
+Quando o nicho do produto não estiver na tabela, escolher o estilo mais próximo pela natureza do público (acolhedor → teal_claro, sério → flat_claro, premium → glass_escuro, inovador → dark_solido, delicado → minimal_claro).
+
+### Regra de Consistência Visual
+
+- **UM estilo visual por página inteira.** Nenhuma página pode combinar estilos diferentes (ex: hero glass + dor teal). Quebra a consistência e o olho percebe na hora.
+- **Para dar ritmo visual sem quebrar a consistência, variar:**
+  - Variante interna do mesmo estilo (ex: `hero_flat_claro`, `hero_flat_claro_centralizado`, `hero_flat_claro_depoimentos`)
+  - Tom de fundo dentro da paleta do estilo (claro → branco → cinza claro → branco)
+  - Direção de layout (grid 2 colunas vs grid 3 vs linha corrida)
+  - Tipografia dramática (heading 48-56px alternando com body 15-16px)
+  - Imagens de fundo com overlay
+- **Tokens mestres obrigatórios no `:root`:** `--radius`, `--border-width`, `--shadow`, `--accent`, `--bg`, `--text-primary`, `--text-secondary`. Nenhuma seção pode reescrever esses valores.
+- **Seções sem template próprio herdam os tokens.** Prova social, entregáveis, bônus, stack, garantia e "para quem é" precisam parecer nativas do estilo escolhido. mesmo raio de borda, mesma sombra, mesmo tratamento de botão.
 
 ## Paletas por Nicho
 
+> ⛔ **Paletas proibidas (clichê de IA):** Roxo `#6b46c1` + Azul `#3182ce` (padrão Tailwind/v0/Lovable), Azul elétrico `#667eea` + gradiente 135deg (padrão Figma/Stripe template), Verde `#38a169` sólido como CTA em nicho não-saúde (verde padrão Tailwind). Essas combinações aparecem em 80% das páginas geradas por IA e o olho do usuário reconhece em 2 segundos.
+>
+> **Regra do CTA:** CTA sempre usa a cor **principal da paleta do nicho** ou um contraste natural dela. Proibido "verde porque converte" ou "laranja porque é padrão". Se o nicho usa Terracota, o CTA é Terracota mais saturada ou Âmbar (cor complementar real), nunca um verde genérico descolado da marca.
+
 | Nicho | Principal | Secundária | CTA |
 |---|---|---|---|
-| Finanças | Azul escuro #1a365d | Dourado #d4a72c | Verde #38a169 |
-| Saúde | Verde #2f855a | Branco | Laranja #dd6b20 |
-| Marketing | Roxo #6b46c1 | Azul #3182ce | Amarelo #ecc94b |
-| Dev Pessoal | Azul #2b6cb0 | Branco | Laranja #ed8936 |
-| Educação | Azul #2c5282 | Verde #2f855a | Laranja #dd6b20 |
-| Beleza | Rosa #d53f8c | Dourado #d69e2e | Preto #1a202c |
-| Artesanato | Dourado #d4a574 | Marrom #2d1810 | Verde #38a169 |
-| Tech | Escuro #0c0c1d | Azul elétrico #667eea | Verde #38a169 |
-| Coaching | Terracota #c4603c | Creme #fdf6ec | Laranja #ed8936 |
-| Feminino | Rose #f5576c | Nude #fdf6ec | Dourado #d69e2e |
+| Finanças | Azul escuro #1a365d | Dourado #c6912b | Dourado forte #b8860b |
+| Saúde | Verde oliva #3f6d47 | Areia #e8e1d3 | Laranja queimado #c2410c |
+| Marketing | Grafite #1c1917 | Âmbar #d97706 | Âmbar forte #b45309 |
+| Dev Pessoal | Azul petróleo #1e3a4c | Creme #faf6ef | Terracota #c2410c |
+| Educação | Azul marinho #1e3a5f | Mostarda #ca8a04 | Mostarda forte #a16207 |
+| Beleza | Rosa antigo #b03a6b | Champanhe #e7c891 | Bordô #7c2d3e |
+| Artesanato | Terracota #b45a3a | Marrom café #3d2817 | Ocre #c2861f |
+| Tech | Carvão #18181b | Cobre #b85a2c | Cobre forte #9a4a24 |
+| Coaching | Terracota #c4603c | Creme #fdf6ec | Âmbar queimado #a8521e |
+| Feminino | Rose profundo #c73865 | Nude quente #f4e0d6 | Bordô #872e4a |
 
 ## Imagens Contextuais (OBRIGATÓRIO)
 
-**NUNCA usar imagens genéricas.** Toda imagem na página deve ter relação semântica direta com o conteúdo da seção onde está inserida. Imagens decorativas sem significado dão cara de template de IA.
+**Toda imagem na página precisa ter relação semântica direta com o conteúdo da seção onde está inserida.** Imagens que não conversam com a copy dão cara de template de IA e quebram a leitura persuasiva.
 
-### Processo de Seleção (3 Etapas)
+### PROIBIDO. Serviços de imagem aleatória
 
-**Etapa 1 — Análise Semântica do Conteúdo**
+Os serviços abaixo **NÃO entendem palavras**. eles devolvem fotos aleatórias (Lorem Ipsum de imagem), mesmo quando você passa um "seed" com keywords descritivas. Usá-los é a causa número 1 de imagens sem sentido na página.
 
-Antes de escolher qualquer imagem, analisar o texto da seção e extrair:
-- **Objeto central** — O que está sendo descrito? (ex: peça de crochê, feira, celular)
-- **Emoção dominante** — O que a pessoa sente? (ex: frustração, vergonha, esperança)
-- **Cenário físico** — Onde a cena acontece? (ex: mesa de trabalho, barraca de feira, sofá à noite)
+- ❌ `picsum.photos/...` (incluindo `picsum.photos/seed/qualquer-coisa/...`). o seed é só um hash, não faz busca semântica
+- ❌ `source.unsplash.com/...`. serviço descontinuado, imagens não carregam
+- ❌ `loremflickr.com`, `placeimg.com`, `placeholder.com/image` e similares
+- ❌ Qualquer URL de imagem "aleatória" ou "by keyword" que você não possa verificar manualmente
 
-**Etapa 2 — Mapeamento de Palavras-Chave**
+### Fonte obrigatória: placeholder visual gerado a partir da copy
 
-Traduzir a análise em 2-3 keywords em inglês para busca de imagens. Ser específico, não genérico.
+O padrão para 100% das imagens ilustrativas de cards, problemas, benefícios, ícones de método, etapas da jornada e capas de seção é um **placeholder visual em HTML/CSS** construído a partir do próprio texto da seção. Como ele é gerado da copy, **combina sempre**. não tem como errar.
 
-| Conteúdo da Seção | Errado (genérico) | Certo (contextual) |
-|---|---|---|
-| Postar no Instagram sem resultado | `phone` | `woman,phone,frustrated` |
-| Vender em feira de artesanato | `market` | `craft,fair,handmade,stall` |
-| Pedir para família divulgar | `friends` | `woman,sharing,phone,awkward` |
-| Baixar preço para competir | `coins` | `price,tag,discount,loss` |
-| Crochê de madrugada | `night` | `crochet,night,lamp,tired` |
-| Peças acumuladas sem vender | `storage` | `handmade,products,shelf,unsold` |
-| Síndrome do impostor em reunião | `office` | `meeting,room,anxious,silent` |
-| Salário estagnado | `money` | `paycheck,calculator,worried` |
-| Horas de trabalho por centavos | `work` | `hands,crafting,thread,table` |
+**Anatomia do placeholder:**
 
-**Etapa 3 — Construção da URL**
+1. Um `<div>` com gradiente de fundo na paleta do design system
+2. Um **emoji ou ícone SVG** escolhido a partir do objeto central da copy
+3. Uma **label curta** (2-4 palavras) tirada direto do título/texto do card
 
-**Opção principal — Picsum com seed descritivo (SEMPRE funciona):**
+**Exemplo. card "Horas de trabalho por centavos" (nicho crochê):**
+
+```html
+<div class="img-placeholder" role="img" aria-label="Mãos trabalhando crochê">
+  <span class="ph-icon">🧶</span>
+  <span class="ph-label">Horas de trabalho</span>
+</div>
 ```
-https://picsum.photos/seed/{keyword1-keyword2-keyword3}/{largura}/{altura}
+
+```css
+.img-placeholder{
+  aspect-ratio: 16/9;
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  gap:.5rem;
+  background: linear-gradient(135deg, var(--c-brand-soft), var(--c-brand));
+  color: var(--c-on-brand);
+  border-radius: var(--radius-lg);
+  text-align:center; padding:1.5rem;
+}
+.ph-icon{ font-size: clamp(2.5rem, 6vw, 4rem); line-height:1; }
+.ph-label{ font-weight:700; font-size: clamp(.9rem, 2vw, 1.1rem); letter-spacing:.02em; }
 ```
-Exemplo: `https://picsum.photos/seed/crochet-night-lamp/600/300`
 
-O seed é formado pelas keywords separadas por hífen. Mesma seed = mesma imagem (consistência entre reloads).
+### Biblioteca de emojis por tema
 
-**Opção alternativa — Unsplash com ID específico de foto:**
-```
-https://images.unsplash.com/photo-{ID}?w=600&h=300&fit=crop&q=80
-```
-Só usar quando souber o ID exato da foto. Exemplo: `photo-1601985705806-5b9a71f6004f`
+Ao montar o placeholder, escolher o emoji que representa o **objeto central da frase** (não uma vibe genérica).
 
-**PROIBIDO usar `source.unsplash.com`** — esse serviço foi descontinuado e as imagens não carregam.
+| Tema / nicho | Emojis úteis |
+|---|---|
+| Artesanato / crochê / costura | 🧶 🪡 🧵 ✂️ 🎀 |
+| Gastronomia / confeitaria | 👩‍🍳 🍰 🥖 🧁 🍳 🥘 |
+| Finanças / precificação | 💰 📊 🧮 💳 📈 📉 |
+| Tempo / cansaço / madrugada | ⏰ 🌙 🕯️ 😮‍💨 🛋️ |
+| Frustração / estagnação | 😔 🤦 📉 🚫 ⛔ |
+| Conquista / virada | 🎯 ✨ 🚀 🏆 ✅ |
+| Ensino / estudo | 📚 ✏️ 🎓 📝 🧠 |
+| Saúde / bem-estar | 🧘 🥗 💪 🫀 🌿 |
+| Tech / digital | 💻 📱 ⚙️ 🖥️ 🔌 |
+| Beleza / rotina | 💄 🪞 🧴 💅 ✨ |
+| Família / relacionamento | 👨‍👩‍👧 💬 🤝 ❤️ |
+| Vendas / cliente | 🛍️ 🏷️ 💬 📦 🚚 |
 
-### Regras de Uso de Imagens
+**Regra:** o emoji tem que vir do substantivo mais concreto da frase. Se a copy fala "crochê de madrugada", o emoji é 🌙 ou 🕯️, não 😔. Se fala "peças guardadas sem vender", é 📦, não 😢.
 
-1. **Mínimo 2 keywords por imagem** — nunca usar uma palavra só (ex: `phone`). Sempre combinar objeto + contexto (ex: `woman,phone,frustrated`)
+### Quando usar foto real em vez de placeholder
 
-2. **Keywords devem vir do texto da seção** — ler o parágrafo do card/bloco e extrair os substantivos e adjetivos mais descritivos
+Só usar foto real do Unsplash se:
 
-3. **Adaptar ao nicho do produto:**
-   - Artesanato → `handmade`, `craft`, `yarn`, `thread`, `hands`, `table`
-   - Gastronomia → `kitchen`, `baking`, `cake`, `ingredients`, `apron`
-   - Finanças → `calculator`, `spreadsheet`, `bills`, `wallet`
-   - Saúde → `wellness`, `exercise`, `tired`, `energy`
-   - Tech → `laptop`, `code`, `screen`, `developer`
-   - Educação → `classroom`, `books`, `studying`, `notebook`
-   - Beleza → `skincare`, `mirror`, `routine`, `products`
-
-4. **Tratamento visual conforme o design system:**
-
-   | Estilo da página | Filtro na imagem |
-   |---|---|
-   | Light/clean | `opacity: 0.85` ou sem filtro |
-   | Flat B&W | `filter: grayscale(100%); opacity: 0.6` |
-   | Dark mode | `filter: brightness(0.35-0.4)` + gradient overlay escuro |
-   | Warm/dourado | `filter: sepia(0.2) saturate(0.9)` |
-   | Teal/vibrante | `filter: saturate(1.15)` + gradient overlay branco na base |
-
-5. **Imagens de fundo de seção** — usar keywords mais amplas e emocionais (ex: `woman,workshop,creative,warm`), com overlay forte para legibilidade do texto
-
-6. **Imagens em cards** — usar keywords específicas do conteúdo daquele card individual
-
-### Exemplo Completo (Seção Problema/Dor — Crochê)
+1. O aluno enviou o ID específico de uma foto que ele quer usar, **ou**
+2. A foto vai num lugar onde o placeholder não funciona bem (hero de fundo inteiro, foto de depoimento, foto do produto físico), **e**
+3. Você consegue referenciar um ID exato do Unsplash:
 
 ```
-Card "Horas de trabalho por centavos":
-  Texto: "Você passa a tarde inteira fazendo uma peça e vende por menos do que gastou em linha"
-  Análise: mãos trabalhando crochê, mesa, linha, cansaço
-  Keywords: hands,crochet,yarn,table
-  URL: https://picsum.photos/seed/hands-crochet-yarn-table/600/300
-
-Card "A pechincha que dói":
-  Texto: "A cliente olha, elogia, pergunta o preço e some"
-  Análise: conversa de venda, celular com mensagem, desânimo
-  Keywords: phone,message,disappointed,woman
-  URL: https://picsum.photos/seed/phone-message-disappointed/600/300
-
-Card "Peças guardadas no armário":
-  Texto: "Peças lindas acumulando poeira na prateleira"
-  Análise: produtos handmade na estante, sem comprador
-  Keywords: handmade,shelf,products,unused
-  URL: https://picsum.photos/seed/handmade-shelf-products-unused/600/300
-
-Card "Crochê de madrugada":
-  Texto: "Trabalhando enquanto a família dorme"
-  Análise: noite, abajur, mãos cansadas, solidão
-  Keywords: night,lamp,hands,crafting
-  URL: https://picsum.photos/seed/night-lamp-hands-crafting/600/300
+https://images.unsplash.com/photo-{ID}?w=1200&q=80&fit=crop
 ```
+
+Se não souber um ID específico que comprovadamente combina com a copy, **use placeholder**. não invente ID, não chute, não use picsum como fallback.
+
+### Fotos de depoimento e avatar
+
+Para rostos de depoimentos:
+
+- **Opção padrão:** `https://i.pravatar.cc/150?img={1-70}` (banco de avatares genéricos, seed numérico estável)
+- **Alternativa sem rosto:** div circular com iniciais da pessoa e gradiente da marca
+
+Nunca usar picsum para rosto. volta bicicleta, praia, comida aleatória.
+
+### Exemplo completo. Seção Problema/Dor (nicho crochê)
+
+```html
+<div class="problema-card">
+  <div class="img-placeholder" role="img" aria-label="Horas de trabalho mal pagas">
+    <span class="ph-icon">🧶</span>
+    <span class="ph-label">Horas de trabalho</span>
+  </div>
+  <h3>Horas de trabalho por centavos</h3>
+  <p>Você passa a tarde inteira fazendo uma peça e vende por menos do que gastou em linha.</p>
+</div>
+
+<div class="problema-card">
+  <div class="img-placeholder" role="img" aria-label="Cliente que some depois de pedir preço">
+    <span class="ph-icon">💬</span>
+    <span class="ph-label">A pechincha que dói</span>
+  </div>
+  <h3>A pechincha que dói</h3>
+  <p>A cliente olha, elogia, pergunta o preço e some.</p>
+</div>
+
+<div class="problema-card">
+  <div class="img-placeholder" role="img" aria-label="Peças acumuladas sem vender">
+    <span class="ph-icon">📦</span>
+    <span class="ph-label">Peças guardadas</span>
+  </div>
+  <h3>Peças guardadas no armário</h3>
+  <p>Peças lindas acumulando poeira na prateleira.</p>
+</div>
+
+<div class="problema-card">
+  <div class="img-placeholder" role="img" aria-label="Crochê feito de madrugada">
+    <span class="ph-icon">🌙</span>
+    <span class="ph-label">Crochê de madrugada</span>
+  </div>
+  <h3>Crochê de madrugada</h3>
+  <p>Trabalhando enquanto a família dorme.</p>
+</div>
+```
+
+### Checklist antes de salvar a página
+
+Rodar essa varredura no HTML gerado. se falhar em qualquer item, corrigir antes de salvar:
+
+- [ ] Nenhuma ocorrência de `picsum.photos` no arquivo
+- [ ] Nenhuma ocorrência de `source.unsplash.com`
+- [ ] Todo `img-placeholder` tem emoji **E** label vinda da copy da mesma seção
+- [ ] Se há `<img>` de Unsplash, é um ID específico (não genérico) e combina com o texto do card
+- [ ] Fotos de depoimento usam `pravatar.cc` ou iniciais, nunca picsum
+
+### ⛔ Checklist Anti-Cara-de-IA (OBRIGATÓRIO antes de salvar)
+
+**LER E APLICAR** `references/anti-ia-design.md` antes de salvar qualquer HTML. O arquivo tem os 20 clichês visuais proibidos, o checklist rápido de 10 perguntas e a tabela de substituições prontas. Esse passo não é opcional, e não é substituído pelo checklist acima (que só cobre imagens).
+
+Pontos mínimos que a página TEM que passar:
+
+- [ ] Paleta NÃO tem roxo `#6b46c1` + azul `#3182ce` (padrão Tailwind/v0)
+- [ ] Nenhum `background: linear-gradient(135deg, roxo, azul)` em fundo grande
+- [ ] CTA usa cor primária do nicho, NÃO verde `#38a169` genérico
+- [ ] `backdrop-filter: blur` só em header dark OU em high-ticket premium
+- [ ] Nenhum `box-shadow: 0 0 Npx rgba(cor)` em estado repouso (glow proibido)
+- [ ] Headline NÃO usa `background-clip: text` com gradiente
+- [ ] Inter/Poppins NÃO usadas em coaching, beleza, artesanato (usar DM Sans, Manrope, Figtree ou Plus Jakarta Sans)
+- [ ] Cards têm hierarquia de `border-radius`, não tudo com `16px`
+- [ ] Hero NÃO é centralizado com gradiente atrás (usar assimetria ou fundo sólido)
+- [ ] Nenhuma foto de "pessoa sorrindo com laptop" ou emoji como ícone em seção de valor
+
+Se qualquer item falhar, voltar, corrigir e rodar o checklist de novo. Não salvar antes de passar em todos.
 
 ## Referências
 
-- **`references/design-system-components.md`** — **ARQUIVO PRINCIPAL** — CSS variables, componentes, animações, responsivo. Ler este arquivo substitui a leitura de todos os templates individuais.
-- `references/estruturas-pagina.md` — Seções por tipo de página, fundos por seção, paletas por nicho
-- `references/cdn-design-resources.md` — CDNs, fontes, ícones, animações, gradientes
-- `references/performance-otimizacao.md` — Auditoria e otimização (meta: 90+ mobile / 100 desktop)
-- `references/design-referencia-vtsd.md` — **REFERÊNCIA DE DESIGN VTSD.** Análise visual das páginas reais VTSD, Light Copy e Stories 10x: 3 estilos visuais (Light, Dark Premium, Dark Vibrante), paletas reais, padrões de seção, botões CTA, tabelas comparativas, seções recorrentes e lógica de alternância de fundos. Consultar SEMPRE ao gerar páginas para garantir nível de qualidade VTSD.
-- `references/templates/` — Templates HTML individuais por seção/estilo (referência visual, NÃO ler durante geração)
+- **`references/anti-ia-design.md`**. **OBRIGATÓRIO.** 20 clichês visuais proibidos, checklist rápido de 10 perguntas, tabela de substituições. Ler antes de salvar qualquer HTML.
+- **`references/design-system-components.md`**. **ARQUIVO PRINCIPAL**. CSS variables, componentes, animações, responsivo. Ler este arquivo substitui a leitura de todos os templates individuais.
+- `references/estruturas-pagina.md`. Seções por tipo de página, fundos por seção, paletas por nicho
+- `references/cdn-design-resources.md`. CDNs, fontes, ícones, animações, gradientes
+- `references/performance-otimizacao.md`. Auditoria e otimização (meta: 90+ mobile / 100 desktop)
+- `references/design-referencia-vtsd.md`. **REFERÊNCIA DE DESIGN VTSD.** Análise visual das páginas reais VTSD, Light Copy e Stories 10x: 3 estilos visuais (Light, Dark Premium, Dark Vibrante), paletas reais, padrões de seção, botões CTA, tabelas comparativas, seções recorrentes e lógica de alternância de fundos. Consultar SEMPRE ao gerar páginas para garantir nível de qualidade VTSD.
+- `references/templates/`. Templates HTML individuais por seção/estilo (referência visual, NÃO ler durante geração)

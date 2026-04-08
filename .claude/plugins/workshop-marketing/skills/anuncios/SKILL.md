@@ -3,10 +3,10 @@ name: anuncios
 description: >
   Base de conhecimento para criação de anúncios usando a Mandala de 18 Tipos VTSD.
   Inclui formatos Meta Ads, Google Ads, CTAs por fase e estrutura de campanha.
-  Acionada automaticamente pelo command /anuncio.
+  Acionada automaticamente pelo command /copy-anuncio.
 ---
 
-# Anúncios — Base de Conhecimento (Mandala de 18 Tipos)
+# Anúncios. Base de Conhecimento (Mandala de 18 Tipos)
 
 ## Estrutura da Mandala da Criatividade
 
@@ -27,24 +27,24 @@ description: >
 
 ### Os 18 Tipos de Anúncios
 
-1. **Comparação** — Comparar dois produtos ou soluções
-2. **Problema/Solução** — Apresentar problema comum e mostrar como o produto resolve
-3. **Explicação** — Explicar um conceito ou funcionamento do produto
-4. **Curiosidade** — Criar anúncios que despertam curiosidade
-5. **Reflexão** — Estimular reflexão sobre tema relacionado ao produto
-6. **Certo/Errado** — Mostrar erros comuns e a forma correta de fazer
-7. **Demonstração** — Demonstrar o uso ou resultado do produto
-8. **Procedimento** — Mostrar o passo a passo de como usar o produto
-9. **Impacto Visual** — Usar imagens ou vídeos impactantes para chamar atenção
-10. **Oportunidade** — Mostrar oportunidades únicas relacionadas ao produto
-11. **História** — Contar uma história que envolva o produto
-12. **Prova Social** — Usar depoimentos ou resultados de clientes
-13. **Clickbait** — Usar títulos e imagens que instigam o clique
-14. **Sensação** — Despertar emoções ou sensações no público
-15. **Contraste** — Mostrar contraste claro entre antes e depois ou dois cenários
-16. **Ensino** — Ensinar algo relacionado ao uso ou benefícios do produto
-17. **Revelação** — Revelar detalhes importantes ou desconhecidos sobre o produto
-18. **Dilema** — Apresentar dilema e mostrar como o produto pode resolvê-lo
+1. **Comparação**. Comparar dois produtos ou soluções
+2. **Problema/Solução**. Apresentar problema comum e mostrar como o produto resolve
+3. **Explicação**. Explicar um conceito ou funcionamento do produto
+4. **Curiosidade**. Criar anúncios que despertam curiosidade
+5. **Reflexão**. Estimular reflexão sobre tema relacionado ao produto
+6. **Certo/Errado**. Mostrar erros comuns e a forma correta de fazer
+7. **Demonstração**. Demonstrar o uso ou resultado do produto
+8. **Procedimento**. Mostrar o passo a passo de como usar o produto
+9. **Impacto Visual**. Usar imagens ou vídeos impactantes para chamar atenção
+10. **Oportunidade**. Mostrar oportunidades únicas relacionadas ao produto
+11. **História**. Contar uma história que envolva o produto
+12. **Prova Social**. Usar depoimentos ou resultados de clientes
+13. **Clickbait**. Usar títulos e imagens que instigam o clique
+14. **Sensação**. Despertar emoções ou sensações no público
+15. **Contraste**. Mostrar contraste claro entre antes e depois ou dois cenários
+16. **Ensino**. Ensinar algo relacionado ao uso ou benefícios do produto
+17. **Revelação**. Revelar detalhes importantes ou desconhecidos sobre o produto
+18. **Dilema**. Apresentar dilema e mostrar como o produto pode resolvê-lo
 
 ## Regras de Anúncio VTSD
 
@@ -68,16 +68,16 @@ Sempre que possível, criar nome próprio para o conceito, problema ou solução
 - Perguntas no gancho: nunca usar.
 - "Mesmo que" / "sem precisar" como muletas: nunca usar.
 - Promessas vagas: nunca usar.
-- Travessão longo (—): nunca usar. Substituir por vírgula, ponto ou reformulação.
+- Travessão longo (. ): nunca usar. Substituir por vírgula, ponto ou reformulação.
 - Estrutura "Não é X. É Y.": nunca usar. Reformular de forma mais elaborada.
 - Frases genéricas: "Transforme sua vida", "Descubra o segredo", "Isso pode mudar tudo."
 - Emojis: nunca usar.
 - Especificidade: usar números concretos, situações reais. "R$ 1.600" > "muito dinheiro".
 
-**Checklist obrigatório — revisar antes de entregar qualquer copy:**
+**Checklist obrigatório. revisar antes de entregar qualquer copy:**
 
 Antes de entregar, revise e substitua:
-- Travessão (—) → reescreva a frase sem ele
+- Travessão (. ) → reescreva a frase sem ele
 - Estrutura "Não é X. É Y." → desenvolva o argumento de outra forma
 - Frases genéricas de vendedor → substitua por dado ou situação concreta
 - Menção ao produto nos primeiros parágrafos → remova ou reescreva focando no leitor
@@ -87,9 +87,9 @@ Antes de entregar, revise e substitua:
 - [ ] Nenhuma estrutura "Não é X. É Y."
 - [ ] Nenhuma frase genérica de vendedor
 
-### Regra do Gancho — NUNCA pergunta, NUNCA óbvio
+### Regra do Gancho. NUNCA pergunta, NUNCA óbvio
 
-O gancho deve ser uma **premissa não óbvia** — afirmação que surpreende quem já está no nicho.
+O gancho deve ser uma **premissa não óbvia**. afirmação que surpreende quem já está no nicho.
 
 **ERRADO:**
 - "Sabe aquela sensação de não conseguir avançar?" ❌ (pergunta)
@@ -103,7 +103,7 @@ O gancho deve ser uma **premissa não óbvia** — afirmação que surpreende qu
 
 ## Plataforma
 
-O comando `/anuncio` gera anúncios para **Meta Ads por padrão**. Não perguntar sobre plataforma.
+O comando `/copy-anuncio` gera anúncios para **Meta Ads por padrão**. Não perguntar sobre plataforma.
 Nome do arquivo salvo: `anuncios-meta-[formato]-[objetivo]-[produto].md`.
 
 ## Fluxo de Entrevista (UMA pergunta por vez)
@@ -128,24 +128,24 @@ Nome do arquivo salvo: `anuncios-meta-[formato]-[objetivo]-[produto].md`.
 5. Resumo → confirmação → pode gerar
 
 **Confirmação antes de gerar:** resumir e pedir OK antes de escrever qualquer anúncio.
-**Se o formato for Vídeo, NÃO incluir duração no resumo** — a duração é definida após a pesquisa de tendências. Indicar apenas: `Vídeo (duração definida após pesquisa de tendências)`.
+**Se o formato for Vídeo, NÃO incluir duração no resumo**. a duração é definida após a pesquisa de tendências. Indicar apenas: `Vídeo (duração definida após pesquisa de tendências)`.
 
-## Estrutura do texto principal — seções explícitas
+## Estrutura do texto principal. seções explícitas
 
 O texto principal de cada anúncio deve ter as seções **explicitamente rotuladas**:
-- **GANCHO:** — premissa que para o scroll
-- **DESENVOLVIMENTO:** — argumento que aprofunda
-- **CTA:** — convite direto adequado à fase
+- **GANCHO:**. premissa que para o scroll
+- **DESENVOLVIMENTO:**. argumento que aprofunda
+- **CTA:**. convite direto adequado à fase
 
 Não entregar texto corrido sem identificar cada parte.
 
-## Estrutura do anúncio de imagem estática — o que vai onde
+## Estrutura do anúncio de imagem estática. o que vai onde
 
 Um anúncio de imagem estática no Meta Ads tem 4 campos distintos. Cada campo recebe um conteúdo diferente:
 
 | Campo | O que recebe | Limite |
 |---|---|---|
-| **Imagem** | Apenas o headline (5–7 palavras). O texto visual que para o scroll. Nada mais. | Visual |
+| **Imagem** | Apenas o headline (5. 7 palavras). O texto visual que para o scroll. Nada mais. | Visual |
 | **Texto principal (legenda)** | Texto completo: GANCHO + DESENVOLVIMENTO + CTA | Sem limite prático |
 | **Headline (Meta Ads)** | O mesmo headline que está na imagem | Máx 40 chars |
 | **Descrição (Meta Ads)** | Frase de apoio ao headline | Máx 90 chars |
@@ -153,7 +153,7 @@ Um anúncio de imagem estática no Meta Ads tem 4 campos distintos. Cada campo r
 **Regra de entrega:** ao gerar anúncios de imagem, sempre separar explicitamente com esses rótulos:
 
 ```
-NA IMAGEM: [headline curto — 5–7 palavras]
+NA IMAGEM: [headline curto. 5. 7 palavras]
 
 LEGENDA:
 [texto completo com GANCHO, DESENVOLVIMENTO e CTA]
@@ -167,16 +167,16 @@ Nunca entregar o texto corrido como se coubesse inteiro na imagem.
 ## Estrutura obrigatória para Descoberta + Vídeo
 
 ```
-[0–2s]   GANCHO      → Afirmação contra-intuitiva. Texto na tela + fala simultâneos.
-[3–5s]   TEASE       → Uma frase que expande o gancho e retém.
-[6–25s]  ENTREGA     → Ensina a técnica ou dá o insight real. Específico, concreto.
-[26–30s] REGANCHO    → Texto na tela sintetizando a ideia central.
-[31–35s] CTA         → Convite leve para seguir. Sem urgência forçada.
+[0. 2s]   GANCHO      → Afirmação contra-intuitiva. Texto na tela + fala simultâneos.
+[3. 5s]   TEASE       → Uma frase que expande o gancho e retém.
+[6. 25s]  ENTREGA     → Ensina a técnica ou dá o insight real. Específico, concreto.
+[26. 30s] REGANCHO    → Texto na tela sintetizando a ideia central.
+[31. 35s] CTA         → Convite leve para seguir. Sem urgência forçada.
 ```
 
-Vídeos de Descoberta devem **entregar conteúdo real** — ensinar algo concreto dentro do próprio vídeo. ERRADO: vídeo que só promete sem ensinar. CERTO: vídeo que dá uma técnica, insight ou passo prático.
+Vídeos de Descoberta devem **entregar conteúdo real**. ensinar algo concreto dentro do próprio vídeo. ERRADO: vídeo que só promete sem ensinar. CERTO: vídeo que dá uma técnica, insight ou passo prático.
 
-Tamanho alvo: ~130 palavras por roteiro (~35–45 segundos). Calibrar com os virais da pesquisa.
+Tamanho alvo: ~130 palavras por roteiro (~35. 45 segundos). Calibrar com os virais da pesquisa.
 
 ---
 
@@ -184,7 +184,7 @@ Tamanho alvo: ~130 palavras por roteiro (~35–45 segundos). Calibrar com os vir
 
 Antes de escrever qualquer anúncio, fazer **2 buscas na web**:
 
-### Busca 1 — Por formato
+### Busca 1. Por formato
 
 | Formato | O que pesquisar | O que extrair |
 |---|---|---|
@@ -192,7 +192,7 @@ Antes de escrever qualquer anúncio, fazer **2 buscas na web**:
 | Imagem | `posts imagem instagram viral [mês/ano]` + `trending static ads instagram [mês/ano]` | Estilo visual, uso de texto, proporção, paleta, elemento que para o scroll |
 | Carrossel | `carrossel instagram viral [mês/ano]` + `trending carousel instagram [mês/ano]` | Estrutura de slides, como começa/termina, progressão, continuidade visual, CTA final |
 
-### Busca 2 — Por objetivo
+### Busca 2. Por objetivo
 
 | Objetivo | O que pesquisar | O que extrair |
 |---|---|---|
@@ -202,14 +202,14 @@ Antes de escrever qualquer anúncio, fazer **2 buscas na web**:
 | RMKT | `remarketing anuncio instagram copy [mês/ano]` + `retargeting ad copy que converte [mês/ano]` | Abordagem para quem já viu, gatilhos, tom sem parecer perseguição |
 
 ### Calibrar 4 elementos com o que encontrou:
-1. **Formato do gancho** — como os virais estão abrindo nos primeiros 3 segundos
-2. **Estilo visual/edição** — o que está funcionando esteticamente agora
-3. **Tom** — o que está ressoando com o público nesse objetivo
-4. **CTA** — padrão de chamada que está gerando ação agora
+1. **Formato do gancho**. como os virais estão abrindo nos primeiros 3 segundos
+2. **Estilo visual/edição**. o que está funcionando esteticamente agora
+3. **Tom**. o que está ressoando com o público nesse objetivo
+4. **CTA**. padrão de chamada que está gerando ação agora
 
 O **conteúdo** (o que diz) segue VTSD + perfil do negócio. O **formato e estilo** (como diz) segue o que está funcionando agora.
 
-**Fazer essa pesquisa a cada geração — não reutilizar pesquisa anterior.**
+**Fazer essa pesquisa a cada geração. não reutilizar pesquisa anterior.**
 
 ---
 
@@ -245,9 +245,9 @@ A mandala funciona cruzando **objetivo** + **momento de consumo** + **tipo de an
 
 ## Estrutura de Campanha Meta Ads
 
-**Campanha 1 — Descoberta:** Alcance/Engajamento, público amplo, conteúdo para crescer base e seguidores
-**Campanha 2 — Conversão:** Conversões com foco em venda; engajados + lookalike quando fizer sentido
-**Campanha 3 — Remarketing:** Conversões, público que visitou a página (vendas/oferta); urgência + prova
+**Campanha 1. Descoberta:** Alcance/Engajamento, público amplo, conteúdo para crescer base e seguidores
+**Campanha 2. Conversão:** Conversões com foco em venda; engajados + lookalike quando fizer sentido
+**Campanha 3. Remarketing:** Conversões, público que visitou a página (vendas/oferta); urgência + prova
 
 ## Métricas de Referência
 
@@ -270,14 +270,26 @@ A mandala funciona cruzando **objetivo** + **momento de consumo** + **tipo de an
 
 ---
 
-## Fluxo completo do comando `/anuncio` (7 passos)
+## Aplicação interna de Elementos Literários (OBRIGATÓRIO. não exibir ao usuário)
+
+Depois que o tipo da Mandala estiver definido e ANTES de gerar a copy, acionar internamente a skill `elementos-literarios` e escolher de **1 a 3 elementos** que mais fizerem sentido com o tipo de anúncio escolhido, com a fase do funil, com o perfil do consumidor e com o tom do produto.
+
+Regras:
+- Esse processo acontece silenciosamente. **Não mencionar ao usuário** quais elementos foram escolhidos, nem que a skill foi consultada.
+- Os 1 a 3 elementos selecionados devem ser efetivamente aplicados na copy gerada (gancho, desenvolvimento ou CTA), não apenas listados.
+- A escolha precisa fazer sentido com o tipo da Mandala (ex.: Comparação combina com antítese; História combina com setup/punchline; Reflexão combina com aforismo; Curiosidade combina com neologismo ou jogo de palavras; Sensação combina com onomatopeia ou hipérbole controlada).
+- Continuar respeitando todas as proibições de Light Copy (sem travessão, sem exclamação, sem perguntas no gancho, etc.).
+- Não exibir rótulos como "elemento usado: X" no entregável final.
+
+## Fluxo completo do comando `/copy-anuncio` (8 passos)
 
 ```
-1. Contexto       → ler produtos/.ativo, produtos/{ativo}/perfil.md e produtos/{ativo}/idconsumidor.md
-2. Entrevista     → uma pergunta por vez, sem agrupar, com progresso visual
-3. Pesquisa       → 2 buscas na web (formato + objetivo) — a cada geração, não reutilizar
-4. Geração        → 3 variações da Mandala da Criatividade (VTSD + tendências)
-5. Aprovação      → mostrar conteúdo, aguardar ok do usuário
-6. Salvar         → somente após aprovação
-7. Próximo passo  → sugerir comando seguinte
+1. Contexto             → ler entregas/.ativo, entregas/{ativo}/perfil.md e entregas/{ativo}/idconsumidor.md
+2. Entrevista           → uma pergunta por vez, sem agrupar, com progresso visual
+3. Pesquisa             → 2 buscas na web (formato + objetivo). a cada geração, não reutilizar
+4. Elementos literários → INTERNO e silencioso: consultar skill elementos-literarios e escolher 1 a 3 elementos que combinem com o tipo da Mandala selecionado. Não mostrar ao usuário.
+5. Geração              → 3 variações da Mandala da Criatividade (VTSD + tendências + elementos literários aplicados)
+6. Aprovação            → mostrar conteúdo, aguardar ok do usuário
+7. Salvar               → somente após aprovação
+8. Próximo passo        → sugerir comando seguinte
 ```

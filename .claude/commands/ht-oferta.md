@@ -1,9 +1,9 @@
 ---
 name: workshop-marketing:ht-oferta
-description: Estruturar a oferta completa de um produto High Ticket C10X — entregáveis, bônus, preço, ancoragem de valor e garantia. Usada após definir a Big Idea.
+description: Estruturar a oferta completa de um produto High Ticket C10X. entregáveis, bônus, preço, ancoragem de valor e garantia. Usada após definir a Big Idea.
 ---
 
-# HT — Oferta High Ticket
+# HT. Oferta High Ticket
 
 Monta a estrutura completa da oferta do produto high ticket: o que o aluno recebe, bônus estratégicos, preço e garantia.
 
@@ -16,12 +16,12 @@ Monta a estrutura completa da oferta do produto high ticket: o que o aluno receb
 ## O Que Fazer
 
 ### 1. Contexto
-Leia `produtos/.ativo`, depois `produtos/{ativo}/perfil.md` e `produtos/{ativo}/idconsumidor.md`.
-Se existir `produtos/{ativo}/entregas/c10x/big-idea-*.md`, leia também para usar a transformação já definida.
+Leia `entregas/.ativo`, depois `entregas/{ativo}/perfil.md` e `entregas/{ativo}/idconsumidor.md`.
+Se existir `entregas/{ativo}/c10x/big-idea-*.md`, leia também para usar a transformação já definida.
 
 ### 2. Entrevista (UMA pergunta por vez, com progresso visual)
 
-**Bloco 1/4 — Formato da Oferta:**
+**Bloco 1/4. Formato da Oferta:**
 ```
 O que você está vendendo no evento?
 
@@ -41,7 +41,7 @@ Próximo: Entregáveis
 ---
 ```
 
-**Bloco 2/4 — Entregáveis Principais:**
+**Bloco 2/4. Entregáveis Principais:**
 ```
 O que o aluno/cliente recebe ao entrar?
 Liste tudo que vem com a oferta principal.
@@ -56,7 +56,7 @@ Próximo: Preço e prazo
 ---
 ```
 
-**Bloco 3/4 — Preço e Prazo:**
+**Bloco 3/4. Preço e Prazo:**
 ```
 Qual o investimento e a duração do programa?
 (ex: "R$5.000 à vista ou 12x R$497, programa de 3 meses")
@@ -71,7 +71,7 @@ Próximo: Objeções principais
 ---
 ```
 
-**Bloco 4/4 — Objeções Principais:**
+**Bloco 4/4. Objeções Principais:**
 ```
 Quais as 2 maiores objeções do seu público antes de comprar?
 (ex: "está caro" e "não tenho tempo")
@@ -107,7 +107,7 @@ Organize os entregáveis em categorias com descrição persuasiva (Light Copy):
 Para cada entregável, escreva:
 - Nome do entregável
 - O que é (1 linha)
-- Para que serve (benefício direto — decorado)
+- Para que serve (benefício direto. decorado)
 
 **3. Bônus Estratégicos (3 bônus)**
 
@@ -139,13 +139,13 @@ Formato:
 
 Escolha o tipo mais adequado ao contexto:
 
-Opção A — Garantia Incondicional:
+Opção A. Garantia Incondicional:
 "Se em [X dias] você não estiver satisfeito, devolvo 100% do investimento. Sem perguntas."
 
-Opção B — Garantia de Resultado:
+Opção B. Garantia de Resultado:
 "Se você implementar o método e não [resultado específico], analiso seu caso pessoalmente e ficamos juntos até funcionar."
 
-Opção C — Garantia Dupla (recomendada para high ticket):
+Opção C. Garantia Dupla (recomendada para high ticket):
 "[Incondicional em X dias] + [Resultado com suporte estendido]."
 
 **6. Resumo da Oferta (para o pitch)**
@@ -160,7 +160,7 @@ Bloco de fechamento em formato de script:
 ```
 
 ### 5. Salvar
-`produtos/{ativo}/entregas/c10x/oferta-[produto].md`
+`entregas/{ativo}/c10x/oferta-[produto].md`
 
 ### 6. Próximo Passo
 "Oferta estruturada. Próximo passo: `/ht-cronograma` para montar a agenda do evento, ou `/ht-pagina-inscricao` para criar a página de captação."

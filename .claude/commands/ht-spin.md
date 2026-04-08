@@ -1,9 +1,9 @@
 ---
 name: workshop-marketing:ht-spin
-description: Criar roteiro completo de call SPIN Selling para venda high ticket 1:1 — perguntas de Situação, Problema, Implicação e Necessidade adaptadas para o produto e público do C10X.
+description: Criar roteiro completo de call SPIN Selling para venda high ticket 1:1. perguntas de Situação, Problema, Implicação e Necessidade adaptadas para o produto e público do C10X.
 ---
 
-# HT — SPIN Selling (Call de Vendas 1:1)
+# HT. SPIN Selling (Call de Vendas 1:1)
 
 Cria o roteiro completo de call de vendas 1:1 usando SPIN Selling adaptado para high ticket.
 
@@ -16,14 +16,14 @@ Cria o roteiro completo de call de vendas 1:1 usando SPIN Selling adaptado para 
 ## O Que Fazer
 
 ### 1. Contexto
-Leia `produtos/.ativo`, depois `produtos/{ativo}/perfil.md` e `produtos/{ativo}/idconsumidor.md`.
+Leia `entregas/.ativo`, depois `entregas/{ativo}/perfil.md` e `entregas/{ativo}/idconsumidor.md`.
 
 ### 2. Entrevista (UMA pergunta por vez, com progresso visual)
 
-**Bloco 1/3 — Produto e Preço:**
+**Bloco 1/3. Produto e Preço:**
 ```
 Qual o produto e o investimento que vai oferecer nessa call?
-(ex: "Mentoria de marketing digital por 3 meses — R$5.000")
+(ex: "Mentoria de marketing digital por 3 meses. R$5.000")
 ```
 
 ```
@@ -33,7 +33,7 @@ Próximo: Canal da call
 ---
 ```
 
-**Bloco 2/3 — Canal:**
+**Bloco 2/3. Canal:**
 ```
 Como essa call acontece?
 
@@ -52,7 +52,7 @@ Próximo: Origem do lead
 ---
 ```
 
-**Bloco 3/3 — Origem do Lead:**
+**Bloco 3/3. Origem do Lead:**
 ```
 Como esse lead chegou até você?
 
@@ -78,7 +78,7 @@ Resumo:
 
 ### 3. Geração
 
-**ROTEIRO DE CALL SPIN SELLING — C10X**
+**ROTEIRO DE CALL SPIN SELLING. C10X**
 
 ---
 
@@ -87,13 +87,13 @@ Resumo:
 Objetivo: criar rapport e definir a estrutura da call.
 
 Script:
-"Olá, [NOME]. Obrigado por separar esse tempo. A call de hoje tem [DURAÇÃO] — vou te fazer algumas perguntas para entender melhor o seu momento, e aí te mostro se faz sentido a gente trabalhar juntos. Pode ser assim?"
+"Olá, [NOME]. Obrigado por separar esse tempo. A call de hoje tem [DURAÇÃO]. vou te fazer algumas perguntas para entender melhor o seu momento, e aí te mostro se faz sentido a gente trabalhar juntos. Pode ser assim?"
 
 Aguarde confirmação antes de continuar.
 
 ---
 
-**S — SITUAÇÃO (5-8 min)**
+**S. SITUAÇÃO (5-8 min)**
 
 Objetivo: mapear o cenário atual sem julgamento.
 
@@ -108,7 +108,7 @@ Dica: anote as respostas. Elas viram argumentos no fechamento.
 
 ---
 
-**P — PROBLEMA (5-8 min)**
+**P. PROBLEMA (5-8 min)**
 
 Objetivo: identificar a dor principal e fazer o lead verbalizá-la.
 
@@ -122,9 +122,9 @@ Dica: não interrompa. Quanto mais o lead fala da própria dor, mais próximo es
 
 ---
 
-**I — IMPLICAÇÃO (5-8 min)**
+**I. IMPLICAÇÃO (5-8 min)**
 
-Objetivo: amplificar o custo de não resolver. Não é manipulação — é fazer o lead enxergar o que já existe.
+Objetivo: amplificar o custo de não resolver. Não é manipulação. é fazer o lead enxergar o que já existe.
 
 Perguntas:
 1. "O que acontece se esse problema continuar por mais 6 meses?"
@@ -136,7 +136,7 @@ Dica: faça silêncio após a pergunta. Deixe o lead chegar nas conclusões.
 
 ---
 
-**N — NECESSIDADE DE SOLUÇÃO (3-5 min)**
+**N. NECESSIDADE DE SOLUÇÃO (3-5 min)**
 
 Objetivo: criar visão do resultado ideal e preparar terreno para a oferta.
 
@@ -152,7 +152,7 @@ Dica: a resposta a essas perguntas vira o gancho do fechamento.
 **TRANSIÇÃO PARA A OFERTA (1-2 min)**
 
 Script:
-"[NOME], baseado em tudo que você me contou — [resumo das dores em 2-3 frases] — eu tenho clareza do que você precisa.
+"[NOME], baseado em tudo que você me contou. [resumo das dores em 2-3 frases]. eu tenho clareza do que você precisa.
 
 Posso te apresentar como a gente pode trabalhar juntos?"
 
@@ -177,7 +177,7 @@ Ancoragem:
 Script padrão C10X:
 "[NOME], o investimento é de [VALOR]. Acessível?"
 
-[Pausa — aguarde resposta]
+[Pausa. aguarde resposta]
 
 Se sim: "Ótimo. Vou te enviar o link de pagamento agora. Me confirma quando finalizar que já libero seus acessos."
 
@@ -186,10 +186,10 @@ Se objeção: acesse `/ht-objecoes` para o script de resposta específico.
 ---
 
 **REGRAS DA CALL:**
-- Nunca pergunte "quer comprar?" — assuma o interesse
+- Nunca pergunte "quer comprar?". assuma o interesse
 - Nunca explique o preço antes de apresentar o valor
 - Nunca reduza o preço sem antes esgotar as respostas de objeção
-- O silêncio após o preço é parte do script — não quebre antes do lead
+- O silêncio após o preço é parte do script. não quebre antes do lead
 
 ### 4. Aprovação
 ```
@@ -198,7 +198,7 @@ Se objeção: acesse `/ht-objecoes` para o script de resposta específico.
 ```
 
 ### 5. Salvar
-`produtos/{ativo}/entregas/c10x/spin-[produto].md`
+`entregas/{ativo}/c10x/spin-[produto].md`
 
 ### 6. Próximo Passo
 "SPIN pronto. Próximo: `/ht-objecoes` para as respostas de quebra de objeção, ou `/ht-whatsapp` para o fluxo de vendas por mensagem."

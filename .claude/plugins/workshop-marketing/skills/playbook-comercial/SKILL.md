@@ -1,19 +1,19 @@
 ---
 name: playbook-comercial
 description: >
-  Base de conhecimento para vendas 1:1 — SPIN Selling adaptado, scripts de fechamento,
+  Base de conhecimento para vendas 1:1. SPIN Selling adaptado, scripts de fechamento,
   quebra de objeções e pitch comercial. Baseado na metodologia C10X do VTSD.
-  Acionada pelo command /playbook-comercial.
+  Acionada pelo command /comercial-playbook.
 ---
 
-# Playbook Comercial — Base de Conhecimento (C10X)
+# Playbook Comercial. Base de Conhecimento (C10X)
 
 ## SPIN Selling Adaptado
 
-**S — Situação:** Entender o cenário atual
-**P — Problema:** Identificar a dor principal
-**I — Implicação:** Amplificar o custo de não resolver
-**N — Necessidade de Solução:** Criar visão do resultado ideal
+**S. Situação:** Entender o cenário atual
+**P. Problema:** Identificar a dor principal
+**I. Implicação:** Amplificar o custo de não resolver
+**N. Necessidade de Solução:** Criar visão do resultado ideal
 
 ## Script de Fechamento
 
@@ -22,7 +22,7 @@ description: >
 3. Preço + confirmação: "Tudo isso por [VALOR]. Acessível, né?"
 4. Envio do link: "Vou te enviar o checkout. Me confirma a compra que libero seus acessos."
 
-⚠️ Nunca pergunte "quer comprar?" — assuma o interesse.
+⚠️ Nunca pergunte "quer comprar?". assuma o interesse.
 
 ## Quebra de Objeções
 

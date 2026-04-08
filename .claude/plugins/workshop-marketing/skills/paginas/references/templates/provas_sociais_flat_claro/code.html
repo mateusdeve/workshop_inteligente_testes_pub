@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Provas Sociais. Flat Claro</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            base: '#fafafa',
+            surface: '#f0f0f2',
+            ink: '#18181b',
+            accent: '#d4d4d8',
+            warm: '#c2956b',
+          },
+          fontFamily: { sans: ['Inter', 'sans-serif'] },
+        },
+      },
+    }
+  </script>
+  <style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+    body {
+      background-color: #fafafa;
+      background-image:
+        radial-gradient(ellipse 60% 50% at 20% 80%, rgba(194,149,107,0.07) 0%, transparent 70%),
+        radial-gradient(ellipse 50% 40% at 80% 20%, rgba(194,149,107,0.05) 0%, transparent 70%);
+    }
+    .flat-border { border: 1.5px solid #18181b; }
+    .warm-line { width: 48px; height: 2px; background-color: #c2956b; }
+
+    .fade-up {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+    .fade-up-delay-1 { transition-delay: 0.08s; }
+    .fade-up-delay-2 { transition-delay: 0.16s; }
+    .fade-up-delay-3 { transition-delay: 0.24s; }
+    .fade-up-delay-4 { transition-delay: 0.32s; }
+
+    .depo-card { transition: transform 0.25s ease, box-shadow 0.25s ease; }
+    .depo-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 24px rgba(24,24,27,0.06);
+    }
+    .depo-avatar {
+      width: 64px; height: 64px; border-radius: 9999px; object-fit: cover;
+    }
+    .divider-line {
+      height: 1px; background: rgba(24,24,27,0.1); margin: 18px 0;
+    }
+  </style>
+</head>
+<body class="text-ink font-sans antialiased">
+
+  <section class="w-full py-20 md:py-28 px-6">
+    <div class="max-w-6xl mx-auto">
+
+      <div class="fade-up max-w-2xl mx-auto text-center mb-14 md:mb-20">
+        <div class="warm-line mx-auto mb-6"></div>
+        <h2 class="text-3xl md:text-5xl font-extrabold leading-[1.1] tracking-tight">
+          Quem aplicou já está vendo resultado
+        </h2>
+        <p class="mt-6 text-base md:text-lg font-light text-gray-500 max-w-xl mx-auto leading-relaxed">
+          Histórias reais de artesãs que seguiram o método e transformaram o crochê em renda consistente.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+
+        <div class="depo-card fade-up fade-up-delay-1 flat-border rounded-2xl bg-white/70 backdrop-blur-sm p-7 md:p-8">
+          <div class="flex items-center gap-4 mb-5">
+            <img src="https://i.pravatar.cc/150?img=47" alt="" class="depo-avatar flat-border">
+            <div>
+              <p class="font-semibold text-base">Rosângela Pinheiro</p>
+              <p class="text-xs text-gray-500">Fortaleza, CE</p>
+            </div>
+          </div>
+          <div>
+            <p class="text-xs uppercase tracking-wider text-warm font-semibold mb-2">Antes</p>
+            <p class="text-sm font-light text-gray-500 leading-relaxed">
+              Fazia peça sob encomenda por R$ 35, gastava o dia inteiro e ainda ouvia que estava caro. Pensou em parar de crochetar várias vezes.
+            </p>
+          </div>
+          <div class="divider-line"></div>
+          <div>
+            <p class="text-xs uppercase tracking-wider text-warm font-semibold mb-2">Depois</p>
+            <p class="text-sm font-light text-ink leading-relaxed">
+              Em 60 dias passou a vender kits temáticos por R$ 280. Faturou R$ 4.200 no primeiro mês aplicando o posicionamento certo.
+            </p>
+          </div>
+        </div>
+
+        <div class="depo-card fade-up fade-up-delay-2 flat-border rounded-2xl bg-white/70 backdrop-blur-sm p-7 md:p-8">
+          <div class="flex items-center gap-4 mb-5">
+            <img src="https://i.pravatar.cc/150?img=32" alt="" class="depo-avatar flat-border">
+            <div>
+              <p class="font-semibold text-base">Marlene dos Santos</p>
+              <p class="text-xs text-gray-500">Belo Horizonte, MG</p>
+            </div>
+          </div>
+          <div>
+            <p class="text-xs uppercase tracking-wider text-warm font-semibold mb-2">Antes</p>
+            <p class="text-sm font-light text-gray-500 leading-relaxed">
+              Tinha estoque parado de mais de 40 peças na sala de casa. Postava no Instagram toda semana e não recebia nem mensagem direta.
+            </p>
+          </div>
+          <div class="divider-line"></div>
+          <div>
+            <p class="text-xs uppercase tracking-wider text-warm font-semibold mb-2">Depois</p>
+            <p class="text-sm font-light text-ink leading-relaxed">
+              Zerou o estoque em três semanas com uma campanha simples de aniversário do ateliê. Hoje trabalha por encomenda com dois meses de fila.
+            </p>
+          </div>
+        </div>
+
+        <div class="depo-card fade-up fade-up-delay-3 flat-border rounded-2xl bg-white/70 backdrop-blur-sm p-7 md:p-8">
+          <div class="flex items-center gap-4 mb-5">
+            <img src="https://i.pravatar.cc/150?img=49" alt="" class="depo-avatar flat-border">
+            <div>
+              <p class="font-semibold text-base">Vânia Albuquerque</p>
+              <p class="text-xs text-gray-500">Recife, PE</p>
+            </div>
+          </div>
+          <div>
+            <p class="text-xs uppercase tracking-wider text-warm font-semibold mb-2">Antes</p>
+            <p class="text-sm font-light text-gray-500 leading-relaxed">
+              Vivia competindo com peça industrializada de camelô. Baixava o preço, ficava sem margem, e no fim do mês não sobrava dinheiro.
+            </p>
+          </div>
+          <div class="divider-line"></div>
+          <div>
+            <p class="text-xs uppercase tracking-wider text-warm font-semibold mb-2">Depois</p>
+            <p class="text-sm font-light text-ink leading-relaxed">
+              Aprendeu a vender histórias no lugar de preços. O valor médio da peça triplicou e hoje tem cliente vindo de outro estado pedir encomenda.
+            </p>
+          </div>
+        </div>
+
+        <div class="depo-card fade-up fade-up-delay-4 flat-border rounded-2xl bg-white/70 backdrop-blur-sm p-7 md:p-8">
+          <div class="flex items-center gap-4 mb-5">
+            <img src="https://i.pravatar.cc/150?img=20" alt="" class="depo-avatar flat-border">
+            <div>
+              <p class="font-semibold text-base">Cristina Barcelos</p>
+              <p class="text-xs text-gray-500">Porto Alegre, RS</p>
+            </div>
+          </div>
+          <div>
+            <p class="text-xs uppercase tracking-wider text-warm font-semibold mb-2">Antes</p>
+            <p class="text-sm font-light text-gray-500 leading-relaxed">
+              Só vendia para amigas e vizinhas por pena. Sentia que o crochê era um passatempo que nunca ia virar renda de verdade.
+            </p>
+          </div>
+          <div class="divider-line"></div>
+          <div>
+            <p class="text-xs uppercase tracking-wider text-warm font-semibold mb-2">Depois</p>
+            <p class="text-sm font-light text-ink leading-relaxed">
+              Já tem oito clientes recorrentes fora do círculo de conhecidos. Fatura R$ 3.500 por mês trabalhando só meio período.
+            </p>
+          </div>
+        </div>
+
+        <div class="depo-card fade-up fade-up-delay-1 flat-border rounded-2xl bg-white/70 backdrop-blur-sm p-7 md:p-8">
+          <div class="flex items-center gap-4 mb-5">
+            <img src="https://i.pravatar.cc/150?img=45" alt="" class="depo-avatar flat-border">
+            <div>
+              <p class="font-semibold text-base">Eliete Fernandes</p>
+              <p class="text-xs text-gray-500">Salvador, BA</p>
+            </div>
+          </div>
+          <div>
+            <p class="text-xs uppercase tracking-wider text-warm font-semibold mb-2">Antes</p>
+            <p class="text-sm font-light text-gray-500 leading-relaxed">
+              Tinha vergonha de cobrar o preço justo. Descontava fio, trabalho e tempo até sobrar quase nada. Sentia culpa quando cliente reclamava.
+            </p>
+          </div>
+          <div class="divider-line"></div>
+          <div>
+            <p class="text-xs uppercase tracking-wider text-warm font-semibold mb-2">Depois</p>
+            <p class="text-sm font-light text-ink leading-relaxed">
+              Entendeu a matemática por trás da precificação. Dobrou os valores, perdeu duas clientes e ganhou cinco novas que pagam sem pestanejar.
+            </p>
+          </div>
+        </div>
+
+        <div class="depo-card fade-up fade-up-delay-2 flat-border rounded-2xl bg-white/70 backdrop-blur-sm p-7 md:p-8">
+          <div class="flex items-center gap-4 mb-5">
+            <img src="https://i.pravatar.cc/150?img=38" alt="" class="depo-avatar flat-border">
+            <div>
+              <p class="font-semibold text-base">Telma Ribeiro</p>
+              <p class="text-xs text-gray-500">Curitiba, PR</p>
+            </div>
+          </div>
+          <div>
+            <p class="text-xs uppercase tracking-wider text-warm font-semibold mb-2">Antes</p>
+            <p class="text-sm font-light text-gray-500 leading-relaxed">
+              Passava o dia inteiro em feira, chegava em casa exausta, e o lucro mal cobria o aluguel do stand e a passagem de ônibus.
+            </p>
+          </div>
+          <div class="divider-line"></div>
+          <div>
+            <p class="text-xs uppercase tracking-wider text-warm font-semibold mb-2">Depois</p>
+            <p class="text-sm font-light text-ink leading-relaxed">
+              Parou com feira e começou a vender pelo WhatsApp com catálogo simples. Hoje entrega peças premium e fez a primeira viagem em família.
+            </p>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.fade-up').forEach((el) => observer.observe(el));
+  </script>
+
+</body>
+</html>

@@ -1,4 +1,4 @@
-# Exemplos de Copy — Páginas de Venda VTSD
+# Exemplos de Copy. Páginas de Venda VTSD
 
 Transcrição e análise das headlines, argumentos e CTAs das páginas reais dos produtos
 Leandro Ladeira: VTSD (aula gratuita), Light Copy e Stories 10x.
@@ -6,7 +6,7 @@ Use como referência direta para criar copy de páginas de venda no estilo Light
 
 ---
 
-## Página VTSD — "Aprenda como criar um negócio digital lucrativo do zero com IA"
+## Página VTSD. "Aprenda como criar um negócio digital lucrativo do zero com IA"
 
 ### Headline e Subheadline
 **Headline:** "Aprenda como criar um negócio digital lucrativo do zero com IA"
@@ -42,7 +42,7 @@ Use como referência direta para criar copy de páginas de venda no estilo Light
 ### Prova Social (Estudos de Caso)
 **Headline:** "Pessoas comuns estão faturando muito, criando e vendendo produtos digitais"
 
-Exemplos de depoimentos reais no formato [nome] — [resultado]:
+Exemplos de depoimentos reais no formato [nome]. [resultado]:
 - "Eles quitaram uma dívida de mais de R$ 200 mil e hoje faturam 6x mais"
 - "Ela fatura entre R$12 a 15 mil por mês com o nicho de música"
 - "Ele achava que era impossível e faturou mais de R$ 100 mil no nicho de música"
@@ -54,17 +54,17 @@ Exemplos de depoimentos reais no formato [nome] — [resultado]:
 
 ### O Plano Detalhado (Metodologia CEE)
 **Headline:** "O plano detalhado que vai tirar sua ideia do papel e fazer a primeira venda"
-**Sub:** "Baseado na metodologia do CEE — Crescimento Exponencial Estruturado, que quebra uma caminhada longa e complexa em passos simples e possíveis, com o objetivo de sair do zero e começar um negócio lucrativo na internet."
+**Sub:** "Baseado na metodologia do CEE. Crescimento Exponencial Estruturado, que quebra uma caminhada longa e complexa em passos simples e possíveis, com o objetivo de sair do zero e começar um negócio lucrativo na internet."
 
 **6 Fases:**
 | Fase | Título | Objetivo | Prazo estimado |
 |---|---|---|---|
-| 01 | Ideias de produto e pesquisa de mercado, validação de produto | — | 7 dias |
-| 02 | Criação e/ou validação de produto BETA | — | 14 dias |
-| 03 | Primeira venda | — | 7 a 21 dias |
-| 04 | Estruturar funis de alta margem (faturamento médio de 10k por mês) | — | 35 a 60 dias |
-| 05 | Estruturar funis de escala (faturamento médio de 100k mês) | — | 60 a 100 dias |
-| 06 | Estruturar crescimento exponencial (mais de 2 milhões por ano) | — | 2 a 3 anos |
+| 01 | Ideias de produto e pesquisa de mercado, validação de produto |. | 7 dias |
+| 02 | Criação e/ou validação de produto BETA |. | 14 dias |
+| 03 | Primeira venda |. | 7 a 21 dias |
+| 04 | Estruturar funis de alta margem (faturamento médio de 10k por mês) |. | 35 a 60 dias |
+| 05 | Estruturar funis de escala (faturamento médio de 100k mês) |. | 60 a 100 dias |
+| 06 | Estruturar crescimento exponencial (mais de 2 milhões por ano) |. | 2 a 3 anos |
 
 ### Tabela Comparativa (Com vs Sem)
 **Headline:** "O melhor jeito de começar no digital"
@@ -93,15 +93,15 @@ Exemplos de depoimentos reais no formato [nome] — [resultado]:
 - "Investimento global no digital deve crescer 35% até 2027" (m&m)
 - "Pesquisa: 79% dos brasileiros compraram infoprodutos em 2023" (Estado de Minas)
 
-### Bio do Autor — Leandro Ladeira (versão light/curta)
+### Bio do Autor. Leandro Ladeira (versão light/curta)
 - Está entre os 25 maiores infoprodutores do mundo pelo Hotmart Galaxy
-- Prêmio iBest 2023 e 2024 — Influenciador de Marketing Digital
+- Prêmio iBest 2023 e 2024. Influenciador de Marketing Digital
 - Criador do Método VTSD, Light Copy e Stories 10x
 - +250 mil vendas de produtos digitais e um faturamento de mais de 120 milhões de reais
 
 ---
 
-## Página Light Copy — "Aprenda uma nova técnica de persuasão que vai te fazer vender muito mais"
+## Página Light Copy. "Aprenda uma nova técnica de persuasão que vai te fazer vender muito mais"
 
 ### Headline e Subheadline
 **Headline:** "Aprenda uma nova técnica de persuasão que vai te fazer vender muito mais"
@@ -124,19 +124,19 @@ Exemplos de depoimentos reais no formato [nome] — [resultado]:
 | ✅ | Garantia de 15 dias | Teste o curso sem risco. Se não estiver satisfeito, temos todo o seu dinheiro de volta |
 
 ### Para Quem É (5 perfis)
-**01 — Para quem já é Copywriter**
+**01. Para quem já é Copywriter**
 "Com a metodologia Light Copy você aprenderá que os textos podem ser divertidos, emocionantes, persuasivos e prazerosos de escrever."
 
-**02 — Se você quer ser Copywriter Profissional**
+**02. Se você quer ser Copywriter Profissional**
 "Essa é uma oportunidade apaixonante, que ganha bem e convence seu leitor com as técnicas certas."
 
-**03 — Quem gosta de escrever**
+**03. Quem gosta de escrever**
 "O LC também é para pessoas comuns, que têm facilidade com as palavras e querem melhor explorar esse talento."
 
-**04 — Influenciadores**
+**04. Influenciadores**
 "É para quem já tem um bom posicionamento e quer ser o que diferencia dos demais."
 
-**05 — Especialista**
+**05. Especialista**
 "Se você é especialista em um nicho específico e tem um produto para vender, o LC vai te ajudar a alcançar mais pessoas e vender mais."
 
 ### Autoridade de Mercado
@@ -181,11 +181,11 @@ Resultados em destaque:
 ### Currículo (Módulos)
 | Módulo | Título | Qtd. Aulas | Descrição |
 |---|---|---|---|
-| 1 | Conceitos criativos | 4 aulas | Criatividade é treinável — encontrar muitas ideias, se admirar com sua capacidade criativa |
+| 1 | Conceitos criativos | 4 aulas | Criatividade é treinável. encontrar muitas ideias, se admirar com sua capacidade criativa |
 | 2 | Fundamentos Estruturais da Persuasão e Copywriting | 33 aulas | Base da escrita persuasiva, estudo de avatar, temperatura de público, gatilhos mentais |
-| 3 | A diferença brutal entre o Light Copy | 36 aulas | O mundo mudou: redes sociais, TikTok, Reels — marketing com promessas não funciona mais |
+| 3 | A diferença brutal entre o Light Copy | 36 aulas | O mundo mudou: redes sociais, TikTok, Reels. marketing com promessas não funciona mais |
 | 4 | Os Formatos de Copy que mais vendem | 5 aulas | Padrões de textos e estruturas de formatos. Várias metodologias de estrutura para VSL, páginas de vendas, anúncios |
-| 5 | O Mercado de Trabalho de Copywriting | 5 aulas | Panorama do mercado — cobrar, quanto pagar, preços, modelos de trabalho, freelancer |
+| 5 | O Mercado de Trabalho de Copywriting | 5 aulas | Panorama do mercado. cobrar, quanto pagar, preços, modelos de trabalho, freelancer |
 
 ### Bônus Adicionais
 - **Grupo no Telegram exclusivo para alunos:** feedback de copies em tempo real por copywriters experientes, mostrar trabalho para empresas contratando, acesso a referências, networking
@@ -196,7 +196,7 @@ Resultados em destaque:
 
 ---
 
-## Página Stories 10x — "ESSE MÉTODO AUMENTA EM ATÉ 10X AS VISUALIZAÇÕES, INTERAÇÕES E VENDAS DO SEU INSTAGRAM"
+## Página Stories 10x. "ESSE MÉTODO AUMENTA EM ATÉ 10X AS VISUALIZAÇÕES, INTERAÇÕES E VENDAS DO SEU INSTAGRAM"
 
 ### Headline e Subheadline
 **Headline:** "ESSE MÉTODO AUMENTA EM ATÉ 10X AS VISUALIZAÇÕES, INTERAÇÕES E VENDAS DO SEU INSTAGRAM"
@@ -282,7 +282,7 @@ Profissional liberal | Infoprodutor | Loja virtual ou física | Influenciador de
 8. Meu perfil começou do zero, serve para mim?
 9. Funciona para quem é afiliado?
 
-### Bio do Autor — Leandro Ladeira (versão completa)
+### Bio do Autor. Leandro Ladeira (versão completa)
 **Badges/Tags de credencial:**
 - Criador do Método VTSD
 - Prêmio iBest 2023 e 2024 - Influenciador de Marketing Digital
@@ -325,19 +325,19 @@ Exemplos:
 - Usar clippings de mídia reconhecida (Valor, Forbes, FGV, Estado de Minas)
 - Formato: Dado + Fonte + Implication
 
-### Tabela Comparativa — Regras de Copy
+### Tabela Comparativa. Regras de Copy
 - Nome do produto fica na coluna positiva (direita)
 - A coluna negativa descreve dores reais sem atacar concorrentes específicos
 - Cada item negativo corresponde a um item positivo no mesmo row
 - Máximo 5-6 itens por coluna para não cansar
 
-### Seção Para Quem É — Estrutura
+### Seção Para Quem É. Estrutura
 - 5 perfis no máximo
 - Formato: número em destaque + título do perfil + 1-2 linhas explicando
 - Tom inclusivo: "também é para", "é para pessoas comuns"
 - Nunca restritivo: dizer quem O produto serve bem, não quem não pode usar
 
-### Garantia — Padrão de Copy
+### Garantia. Padrão de Copy
 Fórmula: "Teste o [produto] sem risco. Se não estiver satisfeito, [o que acontece]."
 - VTSD/Light Copy: "Garantia de 15 dias"
 - Stories 10x: "Garantia de 7 dias"

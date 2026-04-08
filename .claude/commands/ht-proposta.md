@@ -1,9 +1,9 @@
 ---
 name: workshop-marketing:ht-proposta
-description: Criar documento de proposta comercial formal para consultoria C10X — diagnóstico do problema, solução proposta, escopo, entregáveis, prazo, investimento e próximos passos.
+description: Criar documento de proposta comercial formal para consultoria C10X. diagnóstico do problema, solução proposta, escopo, entregáveis, prazo, investimento e próximos passos.
 ---
 
-# HT — Proposta Comercial (Consultoria)
+# HT. Proposta Comercial (Consultoria)
 
 Cria o documento de proposta comercial completo para ser enviado ao cliente após a call de diagnóstico.
 
@@ -16,14 +16,14 @@ Cria o documento de proposta comercial completo para ser enviado ao cliente apó
 ## O Que Fazer
 
 ### 1. Contexto
-Leia `produtos/.ativo`, depois `produtos/{ativo}/perfil.md`.
+Leia `entregas/.ativo`, depois `entregas/{ativo}/perfil.md`.
 
 ### 2. Entrevista (UMA pergunta por vez, com progresso visual)
 
-**Bloco 1/5 — Cliente:**
+**Bloco 1/5. Cliente:**
 ```
 Qual o nome do cliente e o nome da empresa (se houver)?
-(ex: "Carlos Mendes — Agência Vortex")
+(ex: "Carlos Mendes. Agência Vortex")
 ```
 
 ```
@@ -33,11 +33,11 @@ Próximo: Problema diagnosticado
 ---
 ```
 
-**Bloco 2/5 — Problema:**
+**Bloco 2/5. Problema:**
 ```
 Qual o problema principal que foi mapeado na call de diagnóstico?
 Use as palavras que o próprio cliente usou para descrever o problema.
-(ex: "não consegue converter leads em vendas — taxa de fechamento de 5%")
+(ex: "não consegue converter leads em vendas. taxa de fechamento de 5%")
 ```
 
 ```
@@ -47,10 +47,10 @@ Próximo: Solução proposta
 ---
 ```
 
-**Bloco 3/5 — Solução e Escopo:**
+**Bloco 3/5. Solução e Escopo:**
 ```
 O que você vai fazer por ele? Descreva o escopo da consultoria.
-(ex: "reestruturação do processo comercial em 60 dias — 8 sessões + auditoria + materiais")
+(ex: "reestruturação do processo comercial em 60 dias. 8 sessões + auditoria + materiais")
 ```
 
 ```
@@ -60,7 +60,7 @@ Próximo: Prazo e entregáveis
 ---
 ```
 
-**Bloco 4/5 — Prazo e Entregáveis:**
+**Bloco 4/5. Prazo e Entregáveis:**
 ```
 Qual a duração e quais os entregáveis concretos?
 (ex: "60 dias, 8 sessões semanais de 90 min, playbook comercial, treinamento da equipe")
@@ -73,7 +73,7 @@ Próximo: Investimento
 ---
 ```
 
-**Bloco 5/5 — Investimento:**
+**Bloco 5/5. Investimento:**
 ```
 Qual o investimento e as formas de pagamento?
 (ex: "R$8.000 à vista ou 50% na assinatura + 50% na entrega")
@@ -94,7 +94,7 @@ Resumo da proposta:
 
 ### 3. Geração
 
-**DOCUMENTO DE PROPOSTA COMERCIAL — C10X**
+**DOCUMENTO DE PROPOSTA COMERCIAL. C10X**
 
 ---
 
@@ -111,16 +111,16 @@ Válida até: [DATA + 7 dias]
 Com base em nossa conversa em [DATA DA CALL], identifiquei os seguintes pontos:
 
 **Situação atual:**
-[Resumo do que o cliente descreveu — em 3-4 linhas, usando as palavras dele]
+[Resumo do que o cliente descreveu. em 3-4 linhas, usando as palavras dele]
 
 **Problema central:**
 [O problema principal em uma frase direta]
 
 **Impacto atual:**
-[Custo do problema — financeiro e operacional — usando os números que ele citou]
+[Custo do problema. financeiro e operacional. usando os números que ele citou]
 
 **O que acontece se nada mudar:**
-[Consequência de não resolver — baseada no que ele disse na call]
+[Consequência de não resolver. baseada no que ele disse na call]
 
 ---
 
@@ -145,7 +145,7 @@ Com base em nossa conversa em [DATA DA CALL], identifiquei os seguintes pontos:
 | [Entregável 3] | [O que é] | [Quando] |
 
 **O que NÃO está incluído:**
-[Lista clara do que está fora do escopo — protege contra expansão não combinada]
+[Lista clara do que está fora do escopo. protege contra expansão não combinada]
 
 ---
 
@@ -161,9 +161,9 @@ Com base em nossa conversa em [DATA DA CALL], identifiquei os seguintes pontos:
 
 **5. RESULTADO ESPERADO**
 
-Ao final da consultoria, [NOME DO CLIENTE] terá [RESULTADO ESPECÍFICO — baseado na visão de sucesso que ele mesmo descreveu na call].
+Ao final da consultoria, [NOME DO CLIENTE] terá [RESULTADO ESPECÍFICO. baseado na visão de sucesso que ele mesmo descreveu na call].
 
-Métrica de sucesso: [INDICADOR CONCRETO — ex: "taxa de fechamento de 5% para 15% em 60 dias"]
+Métrica de sucesso: [INDICADOR CONCRETO. ex: "taxa de fechamento de 5% para 15% em 60 dias"]
 
 ---
 
@@ -179,7 +179,7 @@ Formas de pagamento:
 
 **7. GARANTIA**
 
-[GARANTIA — se aplicável]
+[GARANTIA. se aplicável]
 
 ---
 
@@ -200,8 +200,8 @@ Esta proposta é válida até [DATA].
 **Regras da proposta C10X:**
 - Use sempre as palavras exatas que o cliente usou na call
 - O diagnóstico deve soar como se você estivesse dentro da cabeça dele
-- Nunca prometa resultado garantido — prometa processo e esforço
-- O escopo claro protege ambos os lados — seja específico
+- Nunca prometa resultado garantido. prometa processo e esforço
+- O escopo claro protege ambos os lados. seja específico
 
 ### 4. Aprovação
 ```
@@ -210,7 +210,7 @@ Esta proposta é válida até [DATA].
 ```
 
 ### 5. Salvar
-`produtos/{ativo}/entregas/c10x/proposta-[cliente].md`
+`entregas/{ativo}/c10x/proposta-[cliente].md`
 
 ### 6. Próximo Passo
 "Proposta criada. Próximo: `/ht-apresentacao-proposta` para criar o script da call de apresentação."

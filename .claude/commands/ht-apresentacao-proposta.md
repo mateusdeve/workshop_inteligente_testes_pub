@@ -1,9 +1,9 @@
 ---
 name: workshop-marketing:ht-apresentacao-proposta
-description: Criar script da call de apresentação de proposta comercial C10X — como conduzir a reunião de apresentação, percorrer a proposta, quebrar objeções e fechar no final da call.
+description: Criar script da call de apresentação de proposta comercial C10X. como conduzir a reunião de apresentação, percorrer a proposta, quebrar objeções e fechar no final da call.
 ---
 
-# HT — Script de Apresentação de Proposta
+# HT. Script de Apresentação de Proposta
 
 Cria o roteiro da call onde você apresenta a proposta comercial e fecha a consultoria.
 
@@ -16,18 +16,18 @@ Cria o roteiro da call onde você apresenta a proposta comercial e fecha a consu
 ## O Que Fazer
 
 ### 1. Contexto
-Leia `produtos/.ativo`, depois `produtos/{ativo}/perfil.md`.
-Se existir `produtos/{ativo}/entregas/c10x/proposta-*.md`, leia para usar os detalhes da proposta.
+Leia `entregas/.ativo`, depois `entregas/{ativo}/perfil.md`.
+Se existir `entregas/{ativo}/c10x/proposta-*.md`, leia para usar os detalhes da proposta.
 
 ### 2. Entrevista (UMA pergunta por vez)
 
-**Bloco 1/2 — Investimento:**
+**Bloco 1/2. Investimento:**
 ```
 Qual o investimento da proposta?
 (ex: "R$8.000 à vista ou R$4.500 + R$4.500 em 30 dias")
 ```
 
-**Bloco 2/2 — Principal Objeção Esperada:**
+**Bloco 2/2. Principal Objeção Esperada:**
 ```
 Qual a maior objeção que você espera nessa call?
 
@@ -51,29 +51,29 @@ Objeção esperada: [tipo]
 
 ### 3. Geração
 
-**SCRIPT DE APRESENTAÇÃO DE PROPOSTA — C10X**
+**SCRIPT DE APRESENTAÇÃO DE PROPOSTA. C10X**
 
 ---
 
 **ABERTURA (2-3 min)**
 
-Objetivo: criar o ambiente certo — formal o suficiente para mostrar preparo, humano o suficiente para manter o rapport.
+Objetivo: criar o ambiente certo. formal o suficiente para mostrar preparo, humano o suficiente para manter o rapport.
 
 Script:
 "[NOME], obrigado por separar esse tempo. Desde nossa última conversa, fiz uma análise cuidadosa do que você me trouxe e montei algo que acredito que faz muito sentido para o seu momento.
 
-Vou te apresentar a proposta agora. Enquanto eu falo, anota qualquer dúvida que tiver — vou reservar tempo no final para responder tudo."
+Vou te apresentar a proposta agora. Enquanto eu falo, anota qualquer dúvida que tiver. vou reservar tempo no final para responder tudo."
 
 ---
 
 **RECAPITULAÇÃO DO DIAGNÓSTICO (3-5 min)**
 
-Objetivo: mostrar que você entendeu o problema — essa é a parte mais importante da call.
+Objetivo: mostrar que você entendeu o problema. essa é a parte mais importante da call.
 
 Script:
 "Antes de mostrar a proposta, quero confirmar meu entendimento do seu caso.
 
-Na nossa conversa, você me disse que [RESUMO DO PROBLEMA NAS PALAVRAS DELE]. Isso está gerando [IMPACTO] — você chegou a mencionar que isso está custando aproximadamente [VALOR] por mês.
+Na nossa conversa, você me disse que [RESUMO DO PROBLEMA NAS PALAVRAS DELE]. Isso está gerando [IMPACTO]. você chegou a mencionar que isso está custando aproximadamente [VALOR] por mês.
 
 O que você quer alcançar é [RESULTADO QUE ELE DESCREVEU].
 
@@ -91,7 +91,7 @@ Percorra a proposta em ordem:
 
 A lógica é simples: [EXPLICAÇÃO DA ABORDAGEM EM 2-3 frases].
 
-Você vai receber: [ENTREGÁVEIS — 1 de cada vez, com o benefício de cada um]
+Você vai receber: [ENTREGÁVEIS. 1 de cada vez, com o benefício de cada um]
 
 O prazo é de [PRAZO], e comeríamos na semana de [DATA]."
 
@@ -134,7 +134,7 @@ Temos [OPÇÃO DE PAGAMENTO 1] ou [OPÇÃO DE PAGAMENTO 2]."
 
 Quando o cliente sinaliza positivamente:
 
-"Ótimo. Para iniciarmos, preciso de: [PRÓXIMOS PASSOS — contrato / pagamento / data de início].
+"Ótimo. Para iniciarmos, preciso de: [PRÓXIMOS PASSOS. contrato / pagamento / data de início].
 
 Posso te enviar o contrato ainda hoje?"
 
@@ -148,15 +148,15 @@ Script para encerrar sem perder o cliente:
 A proposta é válida até [DATA]. Depois disso, posso não ter agenda disponível no prazo que você precisa."
 
 [Agende um follow-up explícito:]
-"Posso te contatar [DATA — 2 dias depois] para saber se surgiu alguma dúvida?"
+"Posso te contatar [DATA. 2 dias depois] para saber se surgiu alguma dúvida?"
 
 ---
 
 **REGRAS DA CALL DE APRESENTAÇÃO:**
-- Comece pelo diagnóstico, não pela proposta — mostre que entendeu antes de mostrar o que faz
+- Comece pelo diagnóstico, não pela proposta. mostre que entendeu antes de mostrar o que faz
 - Nunca peça desculpa pelo preço
 - Nunca ofereça desconto antes que o cliente peça
-- Se o cliente hesitar, não force — pergunte o que está pesando
+- Se o cliente hesitar, não force. pergunte o que está pesando
 - Termine toda call com um próximo passo definido (sim ou follow-up com data)
 
 ### 4. Aprovação
@@ -166,7 +166,7 @@ A proposta é válida até [DATA]. Depois disso, posso não ter agenda disponív
 ```
 
 ### 5. Salvar
-`produtos/{ativo}/entregas/c10x/apresentacao-proposta.md`
+`entregas/{ativo}/c10x/apresentacao-proposta.md`
 
 ### 6. Próximo Passo
 "Script pronto. Se fechar, próximo: `/ht-onboarding` para preparar a entrada do cliente."

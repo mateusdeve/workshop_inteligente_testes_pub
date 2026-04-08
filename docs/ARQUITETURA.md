@@ -1,4 +1,4 @@
-# Arquitetura do Repositorio — Guia Tecnico Completo
+# Arquitetura do Repositorio. Guia Tecnico Completo
 
 Este documento explica como o repositorio `workshop_inteligente` esta estruturado e como inserir novas capacidades (commands, agents, skills, ferramentas). Escrito para ser lido por humanos e LLMs que precisem entender, manter ou expandir o projeto.
 
@@ -6,7 +6,7 @@ Este documento explica como o repositorio `workshop_inteligente` esta estruturad
 
 ## 1. Visao Geral do Projeto
 
-Este repositorio e um **toolkit de marketing digital para infoprodutores** que roda dentro do **Claude Code** (extensao do VSCode). Nao e um projeto de software tradicional com codigo executavel — e um sistema de prompts estruturados que transforma o Claude em um consultor de marketing.
+Este repositorio e um **toolkit de marketing digital para infoprodutores** que roda dentro do **Claude Code** (extensao do VSCode). Nao e um projeto de software tradicional com codigo executavel. e um sistema de prompts estruturados que transforma o Claude em um consultor de marketing.
 
 **Stack:**
 - Claude Code (extensao VSCode) como runtime
@@ -44,14 +44,14 @@ workshop_inteligente/
 │   │   ├── idconsumidor.md                     ← /idconsumidor
 │   │   ├── pagina-de-vendas.md            ← /pagina-de-vendas
 │   │   ├── texto-de-venda.md              ← /texto-de-venda
-│   │   ├── anuncio.md                     ← /anuncio
-│   │   ├── conteudo-social.md             ← /conteudo-social
+│   │   ├── copy-anuncio.md                ← /copy-anuncio
+│   │   ├── copy-social.md                 ← /copy-social
 │   │   ├── roteiro-de-video.md            ← /roteiro-de-video
 │   │   ├── sequencia-de-emails.md         ← /sequencia-de-emails
 │   │   ├── lancamento.md                  ← /lancamento
-│   │   ├── funil-de-vendas.md             ← /funil-de-vendas
+│   │   ├── estrategia-funil.md            ← /estrategia-funil
 │   │   ├── playbook-comercial.md          ← /playbook-comercial
-│   │   ├── criativo-de-imagem.md          ← /criativo-de-imagem
+│   │   ├── img-anuncio.md                 ← /img-anuncio
 │   │   └── low-ticket.md                  ← /low-ticket
 │   │
 │   ├── agents/                            ← AGENTES AUTONOMOS (subprocessos)
@@ -131,7 +131,7 @@ workshop_inteligente/
 
 O sistema usa 5 tipos de componentes. Cada um tem um papel especifico:
 
-### 3.1 CLAUDE.md (Role — Persona do Assistente)
+### 3.1 CLAUDE.md (Role. Persona do Assistente)
 
 **O que e:** Arquivo raiz que define QUEM o Claude e neste projeto. E carregado automaticamente em TODA conversa.
 
@@ -140,7 +140,7 @@ O sistema usa 5 tipos de componentes. Cada um tem um papel especifico:
 - Persona (consultor de marketing, nao programador)
 - Regras de comportamento (perguntar antes de gerar, Light Copy, nunca mostrar codigo)
 - Padrao de UX da entrevista (perguntas numeradas, progresso visual, confirmacao)
-- Metodologia base (VTSD — Quadro, Furadeira, Decorados, etc.)
+- Metodologia base (VTSD. Quadro, Furadeira, Decorados, etc.)
 - Contexto persistente (onde ler perfil.md e idconsumidor.md)
 - Tabela de onde salvar cada tipo de entrega
 - Padrao de qualidade para HTML
@@ -149,11 +149,11 @@ O sistema usa 5 tipos de componentes. Cada um tem um papel especifico:
 
 **Impacto:** Tudo que esta aqui afeta TODOS os comandos e agentes. Alteracoes neste arquivo mudam o comportamento global.
 
-### 3.2 Commands (Slash Commands — `/comando`)
+### 3.2 Commands (Slash Commands. `/comando`)
 
-**O que sao:** Atalhos que o usuario digita no chat (ex: `/meu-produto`, `/anuncio`). Cada command e um arquivo `.md` na pasta `.claude/commands/`.
+**O que sao:** Atalhos que o usuario digita no chat (ex: `/meu-produto`, `/copy-anuncio`). Cada command e um arquivo `.md` na pasta `.claude/commands/`.
 
-**Como o Claude Code encontra:** Automaticamente — qualquer `.md` dentro de `.claude/commands/` vira um slash command. O nome do arquivo (sem extensao) e o nome do comando.
+**Como o Claude Code encontra:** Automaticamente. qualquer `.md` dentro de `.claude/commands/` vira um slash command. O nome do arquivo (sem extensao) e o nome do comando.
 
 **Como funciona na pratica:**
 1. Usuario digita `/idconsumidor` no chat
@@ -169,7 +169,7 @@ O sistema usa 5 tipos de componentes. Cada um tem um papel especifico:
 - **Command:** Conversa interativa. O Claude faz perguntas, espera respostas, gera o material passo a passo.
 - **Agent:** Autonomo. Recebe a tarefa, le os arquivos necessarios, executa tudo sozinho e entrega o resultado final.
 
-**Como o Claude Code encontra:** Automaticamente — qualquer `.md` dentro de `.claude/agents/` fica disponivel como agente.
+**Como o Claude Code encontra:** Automaticamente. qualquer `.md` dentro de `.claude/agents/` fica disponivel como agente.
 
 **Como funciona na pratica:**
 1. O CLAUDE.md ou outro command aciona o agente pelo nome
@@ -179,7 +179,7 @@ O sistema usa 5 tipos de componentes. Cada um tem um papel especifico:
 
 ### 3.4 Skills (Base de Conhecimento)
 
-**O que sao:** Documentos de referencia que contem conhecimento especializado. Ficam em `.claude/plugins/workshop-marketing/skills/`. NAO sao acionados diretamente pelo usuario — sao consultados pelos commands e agents.
+**O que sao:** Documentos de referencia que contem conhecimento especializado. Ficam em `.claude/plugins/workshop-marketing/skills/`. NAO sao acionados diretamente pelo usuario. sao consultados pelos commands e agents.
 
 **Estrutura de uma skill:**
 ```
@@ -244,21 +244,21 @@ USUARIO
 
 ## 5. Como Adicionar um Novo COMMAND (Slash Command)
 
-### Passo 1 — Criar o arquivo
+### Passo 1. Criar o arquivo
 
 Crie um arquivo `.md` em `.claude/commands/` com o nome do comando.
 
 **Exemplo:** Para criar o comando `/webinar`, crie `.claude/commands/webinar.md`.
 
-### Passo 2 — Estrutura obrigatoria do arquivo
+### Passo 2. Estrutura obrigatoria do arquivo
 
 ```markdown
 ---
 name: workshop-marketing:webinar
-description: Criar estrutura completa de webinar — roteiro, slides, CTA e follow-up.
+description: Criar estrutura completa de webinar. roteiro, slides, CTA e follow-up.
 ---
 
-# Webinar — Estrutura Completa
+# Webinar. Estrutura Completa
 
 Cria roteiro de webinar com [descricao do que faz].
 
@@ -275,7 +275,7 @@ Leia `meu-negocio/perfil.md`. Se nao existir, oriente a usar `/meu-produto` prim
 
 ### 2. Entrevista (UMA pergunta por vez, com progresso visual)
 
-**Bloco 1/N — [Tema]:**
+**Bloco 1/N. [Tema]:**
 
 Pergunta 1:
 ```
@@ -310,7 +310,7 @@ Salvar em `entregas/[pasta]/[nome-arquivo].md`
 "Material salvo em [caminho]. Use `/[proximo-comando]` para [proxima acao sugerida]."
 ```
 
-### Passo 3 — Frontmatter obrigatorio
+### Passo 3. Frontmatter obrigatorio
 
 O frontmatter YAML no topo do arquivo deve conter:
 
@@ -319,7 +319,7 @@ O frontmatter YAML no topo do arquivo deve conter:
 | `name` | `workshop-marketing:[nome]` | `workshop-marketing:webinar` |
 | `description` | Frase que descreve o que o comando faz | `Criar estrutura completa de webinar...` |
 
-### Passo 4 — Seguir o padrao de UX
+### Passo 4. Seguir o padrao de UX
 
 Conforme definido no CLAUDE.md, TODOS os commands devem seguir:
 - Perguntas com opcoes sempre numeradas
@@ -328,7 +328,7 @@ Conforme definido no CLAUDE.md, TODOS os commands devem seguir:
 - Confirmacao com resumo antes de gerar
 - UMA pergunta por mensagem (nunca duas)
 
-### Passo 5 — Referenciar skills quando necessario
+### Passo 5. Referenciar skills quando necessario
 
 Se o command precisa de conhecimento especializado, adicione no final:
 
@@ -338,11 +338,11 @@ ANTES de gerar, leia:
 - `.claude/plugins/workshop-marketing/skills/[skill-relevante]/SKILL.md`
 ```
 
-### Passo 6 — Registrar no CLAUDE.md
+### Passo 6. Registrar no CLAUDE.md
 
 Adicione o novo comando na lista de comandos disponiveis na secao "Primeira Interacao" do CLAUDE.md, na categoria adequada.
 
-### Passo 7 — Registrar no README.md e COMO-USAR.md
+### Passo 7. Registrar no README.md e COMO-USAR.md
 
 Adicione o comando nas tabelas de comandos disponiveis desses arquivos.
 
@@ -365,23 +365,23 @@ Adicione o comando nas tabelas de comandos disponiveis desses arquivos.
 
 ## 6. Como Adicionar um Novo AGENT (Agente Autonomo)
 
-### Passo 1 — Criar o arquivo
+### Passo 1. Criar o arquivo
 
 Crie um arquivo `.md` em `.claude/agents/` com o nome do agente (kebab-case).
 
 **Exemplo:** `.claude/agents/planejador-de-webinar.md`
 
-### Passo 2 — Estrutura obrigatoria do arquivo
+### Passo 2. Estrutura obrigatoria do arquivo
 
 ```markdown
 ---
 name: planejador-de-webinar
-description: Agente autonomo que cria estrutura completa de webinar — roteiro, slides, CTA e follow-up. Le o perfil do negocio e gera tudo sem intervencao.
+description: Agente autonomo que cria estrutura completa de webinar. roteiro, slides, CTA e follow-up. Le o perfil do negocio e gera tudo sem intervencao.
 tools: Read, Write, Edit
 model: sonnet
 ---
 
-# Planejador de Webinar — Agente Autonomo
+# Planejador de Webinar. Agente Autonomo
 
 Voce e um [especialidade]. Seu papel e [objetivo].
 
@@ -416,7 +416,7 @@ ANTES de gerar, leia:
 - `.claude/plugins/workshop-marketing/skills/[skill]/SKILL.md`
 ```
 
-### Passo 3 — Frontmatter obrigatorio
+### Passo 3. Frontmatter obrigatorio
 
 | Campo | Formato | Obrigatorio | Descricao |
 |---|---|---|---|
@@ -426,13 +426,13 @@ ANTES de gerar, leia:
 | `model` | `sonnet`, `opus`, `haiku` | Nao | Modelo a ser usado (padrao: herda do pai) |
 
 **Tools disponiveis para agents:**
-- `Read` — Ler arquivos do projeto
-- `Write` — Criar novos arquivos
-- `Edit` — Editar arquivos existentes
+- `Read`. Ler arquivos do projeto
+- `Write`. Criar novos arquivos
+- `Edit`. Editar arquivos existentes
 
 A maioria dos agents usa `tools: Read, Write, Edit`.
 
-### Passo 4 — Diferenca de design: Command vs Agent
+### Passo 4. Diferenca de design: Command vs Agent
 
 | Aspecto | Command | Agent |
 |---|---|---|
@@ -442,7 +442,7 @@ A maioria dos agents usa `tools: Read, Write, Edit`.
 | Complexidade | Tarefa unica e focada | Tarefa completa multi-etapa |
 | Quando usar | Usuario quer controle | Usuario quer resultado rapido |
 
-### Passo 5 — Registrar no CLAUDE.md
+### Passo 5. Registrar no CLAUDE.md
 
 Adicione o agente na secao "Agentes Especialistas" da lista de comandos no CLAUDE.md.
 
@@ -461,7 +461,7 @@ Adicione o agente na secao "Agentes Especialistas" da lista de comandos no CLAUD
 
 ## 7. Como Adicionar uma Nova SKILL (Base de Conhecimento)
 
-### Passo 1 — Criar a pasta e o arquivo
+### Passo 1. Criar a pasta e o arquivo
 
 Crie uma pasta em `.claude/plugins/workshop-marketing/skills/` com o nome da skill (kebab-case).
 Dentro dela, crie `SKILL.md` (obrigatorio, com esse nome exato).
@@ -474,7 +474,7 @@ Dentro dela, crie `SKILL.md` (obrigatorio, com esse nome exato).
     └── exemplos-webinar.md
 ```
 
-### Passo 2 — Estrutura do SKILL.md
+### Passo 2. Estrutura do SKILL.md
 
 ```markdown
 ---
@@ -485,7 +485,7 @@ description: >
   Acionada pelo command /webinar e agent planejador-de-webinar.
 ---
 
-# Webinars — Base de Conhecimento
+# Webinars. Base de Conhecimento
 
 ## [Topico 1]
 [Conteudo de referencia detalhado]
@@ -497,14 +497,14 @@ description: >
 [Conteudo de referencia detalhado]
 ```
 
-### Passo 3 — Frontmatter obrigatorio
+### Passo 3. Frontmatter obrigatorio
 
 | Campo | Formato | Descricao |
 |---|---|---|
 | `name` | kebab-case | Nome unico da skill |
-| `description` | Texto multi-linha (use `>`) | Descricao detalhada — IMPORTANTE: inclua palavras-chave que ativam a skill e quais commands/agents a usam |
+| `description` | Texto multi-linha (use `>`) | Descricao detalhada. IMPORTANTE: inclua palavras-chave que ativam a skill e quais commands/agents a usam |
 
-### Passo 4 — Pasta `references/` (opcional)
+### Passo 4. Pasta `references/` (opcional)
 
 Use para material de apoio volumoso que nao cabe no SKILL.md principal:
 - Exemplos de copy
@@ -514,7 +514,7 @@ Use para material de apoio volumoso que nao cabe no SKILL.md principal:
 
 **Convencao de nomes:** kebab-case, descritivo. Ex: `exemplos-criativos.md`, `formatos-meta-ads.md`.
 
-### Passo 5 — Conectar com commands/agents
+### Passo 5. Conectar com commands/agents
 
 Adicione referencia na secao `## Referencias` dos commands e agents que precisam dessa skill:
 
@@ -535,25 +535,25 @@ ANTES de gerar, leia:
 
 ## 8. Como Adicionar uma Nova Ferramenta/Integracao
 
-### Passo 1 — Adicionar chave no .env.example
+### Passo 1. Adicionar chave no .env.example
 
 Siga o padrao existente:
 
 ```bash
 # ══════════════════════════════════════════
-# NOME_DA_FERRAMENTA — Descricao curta
+# NOME_DA_FERRAMENTA. Descricao curta
 # ══════════════════════════════════════════
 # Usado por: /comando, agent nome-do-agente
 # Obter em: https://url-para-obter-chave
 NOME_DA_CHAVE=
 ```
 
-### Passo 2 — Documentar na skill de ferramentas
+### Passo 2. Documentar na skill de ferramentas
 
 Adicione a nova ferramenta em `.claude/plugins/workshop-marketing/skills/ferramentas/SKILL.md` seguindo o padrao:
 
 ```markdown
-### Nome da Ferramenta — Descricao
+### Nome da Ferramenta. Descricao
 
 **O que faz:** [descricao funcional]
 **Usada por:** [lista de commands e agents]
@@ -569,7 +569,7 @@ Adicione a nova ferramenta em `.claude/plugins/workshop-marketing/skills/ferrame
 **Sem a chave:** [comportamento fallback]
 ```
 
-### Passo 3 — Atualizar commands/agents que usam a ferramenta
+### Passo 3. Atualizar commands/agents que usam a ferramenta
 
 Adicione a logica de verificacao de chave no command ou agent:
 
@@ -580,7 +580,7 @@ Se existir, [acao automatizada].
 Se nao existir, informe: "[fallback manual]."
 ```
 
-### Passo 4 — Atualizar permissoes se necessario
+### Passo 4. Atualizar permissoes se necessario
 
 Se a ferramenta requer execucao de comandos bash, adicione a permissao em `.claude/settings.json`:
 
@@ -596,7 +596,7 @@ Se a ferramenta requer execucao de comandos bash, adicione a permissao em `.clau
 
 ---
 
-## 9. settings.json — Permissoes
+## 9. settings.json. Permissoes
 
 O arquivo `.claude/settings.json` controla quais acoes o Claude Code pode executar sem pedir confirmacao ao usuario.
 
@@ -622,9 +622,9 @@ O arquivo `.claude/settings.json` controla quais acoes o Claude Code pode execut
 Adicione uma nova linha no array `allow` com o padrao `"Bash(comando *)"`.
 
 **Padroes de permissao:**
-- `Write(pasta/**)` — Permite escrita recursiva na pasta
-- `Read(**)` — Permite leitura em qualquer lugar
-- `Bash(comando *)` — Permite executar o comando com qualquer argumento
+- `Write(pasta/**)`. Permite escrita recursiva na pasta
+- `Read(**)`. Permite leitura em qualquer lugar
+- `Bash(comando *)`. Permite executar o comando com qualquer argumento
 
 ---
 
@@ -715,7 +715,7 @@ Protegido pelo `.gitignore`:
 
 ---
 
-## 13. Relacao entre Componentes — Mapa de Dependencias
+## 13. Relacao entre Componentes. Mapa de Dependencias
 
 ```
 CLAUDE.md (regras globais)
@@ -725,14 +725,14 @@ CLAUDE.md (regras globais)
     │
     ├── /pagina-de-vendas ─► skill: paginas ────────────► salva: entregas/paginas/*.html
     ├── /texto-de-venda ───► skill: conteudo ───────────► salva: entregas/textos-de-venda/*.md
-    ├── /anuncio ──────────► skill: anuncios ───────────► salva: entregas/anuncios/*.md
-    ├── /conteudo-social ──► skill: conteudo ───────────► salva: entregas/conteudo-social/*.md
+    ├── /copy-anuncio ─────► skill: anuncios ───────────► salva: entregas/anuncios/*.md
+    ├── /copy-social ──────► skill: conteudo ───────────► salva: entregas/conteudo-social/*.md
     ├── /roteiro-de-video ─► skill: conteudo ───────────► salva: entregas/textos-de-venda/*.md
     ├── /sequencia-de-emails► skill: conteudo ──────────► salva: entregas/emails/*.md
     ├── /lancamento ───────► skill: vtsd-completo ──────► salva: entregas/textos-de-venda/*.md
-    ├── /funil-de-vendas ──► skill: trafego-pago ──────► salva: entregas/textos-de-venda/*.md
+    ├── /estrategia-funil ─► skill: trafego-pago ──────► salva: entregas/textos-de-venda/*.md
     ├── /playbook-comercial► skill: playbook-comercial ► salva: entregas/comercial/*.md
-    ├── /criativo-de-imagem► skill: anuncios ───────────► salva: entregas/criativos/*.md
+    ├── /img-anuncio ──────► skill: anuncios ───────────► salva: entregas/criativos/*.md
     ├── /low-ticket ───────► skill: vtsd-completo ──────► salva: entregas/ (multiplas pastas)
     │
     ├── agent: estrategista ► skill: concepcao-produto ► salva: meu-negocio/perfil.md
@@ -762,13 +762,13 @@ description: >
   Acionada pelo command /webinar e agent planejador-de-webinar.
 ---
 
-# Webinars — Base de Conhecimento
+# Webinars. Base de Conhecimento
 
 ## Estrutura do Roteiro (4 Atos)
-1. **Abertura** — Promessa + contexto + "por que ouvir"
-2. **Conteudo** — 3 blocos de valor (usar Furadeira)
-3. **Transicao** — Ponte valor → oferta
-4. **Pitch** — Oferta + stack de valor + CTA + garantia
+1. **Abertura**. Promessa + contexto + "por que ouvir"
+2. **Conteudo**. 3 blocos de valor (usar Furadeira)
+3. **Transicao**. Ponte valor → oferta
+4. **Pitch**. Oferta + stack de valor + CTA + garantia
 
 ## Formatos
 - Webinar ao vivo (90 min)
@@ -788,7 +788,7 @@ name: workshop-marketing:webinar
 description: Criar roteiro completo de webinar de vendas com estrutura de 4 atos, slides e follow-up.
 ---
 
-# Webinar — Roteiro Completo
+# Webinar. Roteiro Completo
 
 ## Usage
 ```
@@ -816,7 +816,7 @@ Salvar em `entregas/textos-de-venda/webinar-[produto].md`
 ## Referencias
 ANTES de gerar, leia:
 - `.claude/plugins/workshop-marketing/skills/webinars/SKILL.md`
-- `.claude/plugins/workshop-marketing/skills/vtsd-completo/SKILL.md` — Modulo sobre Light Copy
+- `.claude/plugins/workshop-marketing/skills/vtsd-completo/SKILL.md`. Modulo sobre Light Copy
 ```
 
 ### 14.3 Criar o agent (opcional)
@@ -826,12 +826,12 @@ ANTES de gerar, leia:
 ```markdown
 ---
 name: planejador-de-webinar
-description: Agente autonomo que cria webinar completo — roteiro, estrutura de slides, emails de follow-up e anuncios de divulgacao.
+description: Agente autonomo que cria webinar completo. roteiro, estrutura de slides, emails de follow-up e anuncios de divulgacao.
 tools: Read, Write, Edit
 model: sonnet
 ---
 
-# Planejador de Webinar — Agente Autonomo
+# Planejador de Webinar. Agente Autonomo
 
 [... instrucoes completas ...]
 
@@ -843,12 +843,12 @@ model: sonnet
 
 Na secao de comandos, adicionar:
 ```
-- `/webinar` — Criar roteiro completo de webinar de vendas
+- `/webinar`. Criar roteiro completo de webinar de vendas
 ```
 
 Na secao de agentes (se criou o agent):
 ```
-- `planejador-de-webinar` — Cria webinar completo com roteiro, slides e follow-up
+- `planejador-de-webinar`. Cria webinar completo com roteiro, slides e follow-up
 ```
 
 ### 14.5 Atualizar README.md e COMO-USAR.md
@@ -873,7 +873,7 @@ Adicionar o novo comando nas tabelas e fluxos recomendados.
 
 ### Skill nao e consultada
 
-- Skills NAO sao acionadas automaticamente — o command/agent precisa instruir explicitamente "Leia [caminho da skill]"
+- Skills NAO sao acionadas automaticamente. o command/agent precisa instruir explicitamente "Leia [caminho da skill]"
 - Verifique se o caminho referenciado no command/agent esta correto
 
 ### Arquivo nao e salvo
@@ -892,13 +892,13 @@ Adicionar o novo comando nas tabelas e fluxos recomendados.
 
 Se voce e um LLM lendo este arquivo para entender o projeto:
 
-1. **Leia `CLAUDE.md` primeiro** — contem todas as regras de comportamento, papel do assistente e fluxo padrao
-2. **Commands** estao em `.claude/commands/*.md` — sao slash commands interativos
-3. **Agents** estao em `.claude/agents/*.md` — sao subprocessos autonomos
-4. **Skills** estao em `.claude/plugins/workshop-marketing/skills/*/SKILL.md` — sao base de conhecimento
+1. **Leia `CLAUDE.md` primeiro**. contem todas as regras de comportamento, papel do assistente e fluxo padrao
+2. **Commands** estao em `.claude/commands/*.md`. sao slash commands interativos
+3. **Agents** estao em `.claude/agents/*.md`. sao subprocessos autonomos
+4. **Skills** estao em `.claude/plugins/workshop-marketing/skills/*/SKILL.md`. sao base de conhecimento
 5. **Dados do usuario** ficam em `meu-negocio/` (perfil.md e idconsumidor.md)
 6. **Output** vai para `entregas/` organizado por tipo
-7. **Tudo segue a metodologia VTSD** — Quadro, Furadeira, Decorados, Light Copy, 8D, Mandala
+7. **Tudo segue a metodologia VTSD**. Quadro, Furadeira, Decorados, Light Copy, 8D, Mandala
 8. **Idioma:** Sempre Portugues do Brasil para conteudo visivel ao usuario
-9. **Nunca mostre codigo HTML** ao usuario — salve silenciosamente e informe o caminho
+9. **Nunca mostre codigo HTML** ao usuario. salve silenciosamente e informe o caminho
 10. **Sempre leia perfil.md** antes de executar qualquer comando

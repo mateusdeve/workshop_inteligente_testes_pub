@@ -1,9 +1,9 @@
 ---
 name: workshop-marketing:ht-big-idea
-description: Criar a Big Idea completa de um evento C10X — promessa principal, mote memorável e posicionamento. Base de tudo no funil de High Ticket.
+description: Criar a Big Idea completa de um evento C10X. promessa principal, mote memorável e posicionamento. Base de tudo no funil de High Ticket.
 ---
 
-# HT — Big Idea do Evento
+# HT. Big Idea do Evento
 
 Cria a Big Idea completa do evento high ticket: promessa, mote e posicionamento estratégico.
 
@@ -16,11 +16,13 @@ Cria a Big Idea completa do evento high ticket: promessa, mote e posicionamento 
 ## O Que Fazer
 
 ### 1. Contexto
-Leia `produtos/.ativo`, depois `produtos/{ativo}/perfil.md` e `produtos/{ativo}/idconsumidor.md`.
+Leia `entregas/.ativo`, depois `entregas/{ativo}/perfil.md` e `entregas/{ativo}/idconsumidor.md`.
+
+Verifique `entregas/{ativo}/pesquisa-mercado.md`. Se não existir ou tiver mais de 90 dias, acione a skill `pesquisa-mercado` antes de criar a Big Idea. A pesquisa é obrigatória: ela traz concorrentes do nicho high ticket, faixa de preço praticada, promessas usadas no mercado (para você diferenciar a Big Idea do que já existe) e objeções reais que a Big Idea precisa antecipar.
 
 ### 2. Entrevista (UMA pergunta por vez, com progresso visual)
 
-**Bloco 1/4 — Formato do Evento:**
+**Bloco 1/4. Formato do Evento:**
 ```
 Qual o formato do evento?
 
@@ -38,10 +40,10 @@ Próximo: Transformação do evento
 ---
 ```
 
-**Bloco 2/4 — Transformação:**
+**Bloco 2/4. Transformação:**
 ```
 Qual a transformação específica que o participante alcança AO FINAL do evento?
-Não é o que vai aprender — é o que vai conseguir fazer ou ter.
+Não é o que vai aprender. é o que vai conseguir fazer ou ter.
 (ex: "sair com a estrutura do produto pronta", "fechar o primeiro cliente high ticket")
 ```
 
@@ -53,7 +55,7 @@ Próximo: Público e dor principal
 ---
 ```
 
-**Bloco 3/4 — Dor Principal:**
+**Bloco 3/4. Dor Principal:**
 ```
 Qual a maior dor ou obstáculo do público antes do evento?
 (ex: "não sabe como precificar", "tem medo de vender caro e assustar o cliente")
@@ -68,7 +70,7 @@ Próximo: Diferencial do evento
 ---
 ```
 
-**Bloco 4/4 — Diferencial:**
+**Bloco 4/4. Diferencial:**
 ```
 O que torna este evento diferente de tudo que já existe no mercado?
 (ex: "metodologia exclusiva testada em 300 alunos", "acesso direto ao especialista para revisar ao vivo")
@@ -90,7 +92,7 @@ Resumo do que vou criar:
 
 Gere os 3 elementos da Big Idea:
 
-**Elemento 1 — Promessa do Evento:**
+**Elemento 1. Promessa do Evento:**
 
 Use a fórmula:
 "Em [TEMPO], você vai [TRANSFORMAÇÃO ESPECÍFICA], mesmo que [OBJEÇÃO COMUM], através do [MÉTODO ÚNICO]"
@@ -103,13 +105,13 @@ Regras da promessa:
 - Objeção real do público (não genérica)
 - Método com nome próprio
 
-**Elemento 2 — Mote do Evento:**
+**Elemento 2. Mote do Evento:**
 
 Nome curto e memorável do evento (máx 5 palavras). Deve ser:
-- Emocional — gera desejo ou curiosidade
-- Claro — entendível sem contexto
-- Único — não usa palavras genéricas ("Imersão", "Masterclass", "Treinamento")
-- Compartilhável — fácil de falar e lembrar
+- Emocional. gera desejo ou curiosidade
+- Claro. entendível sem contexto
+- Único. não usa palavras genéricas ("Imersão", "Masterclass", "Treinamento")
+- Compartilhável. fácil de falar e lembrar
 
 Gere 5 opções de mote e indique a mais forte.
 
@@ -119,7 +121,7 @@ Frameworks para o mote:
 - Nome Exclusivo (ex: "Protocolo Elite")
 - Desafio/Movimento (ex: "O Primeiro Sim")
 
-**Elemento 3 — Posicionamento:**
+**Elemento 3. Posicionamento:**
 
 Para quem é e para quem NÃO é.
 
@@ -142,7 +144,7 @@ Mostrar os 3 elementos gerados e perguntar:
 ```
 
 ### 5. Salvar
-`produtos/{ativo}/entregas/c10x/big-idea-[evento].md`
+`entregas/{ativo}/c10x/big-idea-[evento].md`
 
 ### 6. Próximo Passo
 "Big Idea criada. Próximo passo: `/ht-oferta` para estruturar o que o aluno recebe e o preço."

@@ -6,7 +6,7 @@ description: >
   tecnicas para video ads. Focado em criativos que usam movimento e audio.
 ---
 
-# Anuncios em Video — Base de Conhecimento
+# Anuncios em Video. Base de Conhecimento
 
 Criativos em video: Reels, Stories, YouTube Ads, UGC. Para anuncios estaticos (imagem + copy), consulte a skill `anuncios-texto`.
 
@@ -28,15 +28,26 @@ Lista canonica (mesma da Mandala da Criatividade):
 16. Ensino, 17. Revelacao, 18. Dilema
 
 **Os que mais performam em video (ordem de eficacia):**
-1. **Demonstracao** — Mostre o produto/metodo funcionando ao vivo
-2. **Historia** — Narrativa pessoal com arco emocional
-3. **Prova Social** — Depoimento em video, resultado filmado
-4. **Problema/Solucao** — Comece pelo problema, mostre a virada
-5. **Certo/Errado** — Demonstre os dois caminhos
-6. **Curiosidade** — Comece com gancho e revele ao longo do video
-7. **Explicacao** — Tutorial rapido, passo a passo visual
-8. **Revelacao** — Comece com a crenca errada, quebre com prova
-9. **Comparacao** — Antes e depois com transicao visual
+1. **Demonstracao**. Mostre o produto/metodo funcionando ao vivo
+2. **Historia**. Narrativa pessoal com arco emocional
+3. **Prova Social**. Depoimento em video, resultado filmado
+4. **Problema/Solucao**. Comece pelo problema, mostre a virada
+5. **Certo/Errado**. Demonstre os dois caminhos
+6. **Curiosidade**. Comece com gancho e revele ao longo do video
+7. **Explicacao**. Tutorial rapido, passo a passo visual
+8. **Revelacao**. Comece com a crenca errada, quebre com prova
+9. **Comparacao**. Antes e depois com transicao visual
+
+## Aplicação interna de Elementos Literários (OBRIGATÓRIO. não exibir ao usuário)
+
+Depois que o tipo da Mandala estiver definido e ANTES de gerar o roteiro, acionar internamente a skill `elementos-literarios` e escolher de **1 a 3 elementos** que mais combinarem com o tipo de video, com o perfil do consumidor e com o tom do produto.
+
+Regras:
+- Esse processo é silencioso. **Não mencionar ao usuário** quais elementos foram escolhidos, nem que a skill foi consultada.
+- Os 1 a 3 elementos selecionados devem ser efetivamente aplicados no roteiro gerado (gancho, desenvolvimento, regancho ou CTA), não apenas listados.
+- A escolha precisa fazer sentido com o tipo da Mandala (ex.: Historia combina com setup/punchline; Demonstracao combina com triade comica; Revelacao combina com antitese; Curiosidade combina com neologismo).
+- Continuar respeitando todas as proibicoes de Light Copy.
+- Nao exibir rotulos como "elemento usado: X" no entregavel final.
 
 ## Estrutura de Roteiro para Video Ad
 
@@ -44,8 +55,8 @@ Lista canonica (mesma da Mandala da Criatividade):
 
 **Estrutura padrao (3 blocos):**
 
-**Bloco 1 — Gancho (0-3 segundos)**
-- Premissa forte que para o scroll — afirmacao NAO OBVIA para quem ja esta no nicho
+**Bloco 1. Gancho (0-3 segundos)**
+- Premissa forte que para o scroll. afirmacao NAO OBVIA para quem ja esta no nicho
 - ❌ NUNCA usar pergunta no gancho (regra VTSD)
 - ❌ NUNCA usar premissa obvia ("aprender X e dificil")
 - Texto na tela reforçando o gancho
@@ -59,20 +70,20 @@ Lista canonica (mesma da Mandala da Criatividade):
 - "A pessoa que mais trava raramente e a que sabe menos." ✓
 - "O caminho mais rapido para travar e estudar da forma que todo mundo ensina." ✓
 
-**Bloco 2 — Desenvolvimento (3-45 segundos)**
+**Bloco 2. Desenvolvimento (3-45 segundos)**
 - Conte a historia, mostre o problema, apresente a solucao
 - Mantenha ritmo rapido (cortes a cada 3-5 segundos)
 - Use texto na tela para reforcar pontos-chave
 - Mantenha o suspense ate o final
 
-**Bloco 3 — CTA (ultimos 5-10 segundos)**
+**Bloco 3. CTA (ultimos 5-10 segundos)**
 - CTA direto e claro
 - Texto na tela com a acao
 - Urgencia se aplicavel
 
 ### Formato Descoberta + Video (estrutura obrigatoria)
 
-Videos de Descoberta devem **entregar conteudo real** dentro do proprio video — ensinar uma tecnica, dar um insight, entregar valor concreto. ERRADO: video que so promete ("me segue que eu te mostro"). CERTO: video que ensina algo e o CTA vem como convite natural.
+Videos de Descoberta devem **entregar conteudo real** dentro do proprio video. ensinar uma tecnica, dar um insight, entregar valor concreto. ERRADO: video que so promete ("me segue que eu te mostro"). CERTO: video que ensina algo e o CTA vem como convite natural.
 
 ```
 [0-2s]   GANCHO      → Afirmacao contra-intuitiva. Texto na tela + fala simultaneos.
@@ -190,16 +201,16 @@ Antes de publicar, verifique:
 - Perguntas no gancho: nunca usar.
 - "Mesmo que" / "sem precisar" como muletas: nunca usar.
 - Promessas vagas: nunca usar.
-- Travessão longo (—): nunca usar no roteiro. Substituir por vírgula, ponto ou pausa [pausa].
+- Travessão longo (. ): nunca usar no roteiro. Substituir por vírgula, ponto ou pausa [pausa].
 - Estrutura "Não é X. É Y.": nunca usar. Reformular de forma mais elaborada.
 - Emojis: nunca usar.
 - Frases genéricas: "Transforme sua vida", "Descubra o segredo", "Método revolucionário."
 - Especificidade: usar números concretos, situações reais. "10 alunos em 30 dias" > "crescimento rápido".
 
-**Checklist obrigatório — revisar antes de entregar qualquer roteiro:**
+**Checklist obrigatório. revisar antes de entregar qualquer roteiro:**
 
 Antes de entregar, revise e substitua:
-- Travessão (—) → reescreva a frase sem ele
+- Travessão (. ) → reescreva a frase sem ele
 - Estrutura "Não é X. É Y." → desenvolva o argumento de outra forma
 - Frases genéricas de vendedor → substitua por dado ou situação concreta
 - Menção ao produto nos primeiros blocos → remova ou reescreva focando no leitor
@@ -211,7 +222,7 @@ Antes de entregar, revise e substitua:
 
 **Princípio central:**
 O roteiro não vende. Ele ensina, avisa ou revela. O produto não aparece nos primeiros blocos.
-Quem assiste até o fim aprende algo concreto — não apenas fica curioso sobre um produto.
+Quem assiste até o fim aprende algo concreto. não apenas fica curioso sobre um produto.
 
 **Nomear cria realidade:**
 Quando possível, dar nome próprio ao conceito ensinado no vídeo ("Método da Inversão", "Gatilho da Especificidade"). Nomes próprios criam autoridade sem exagero.
@@ -229,24 +240,24 @@ Quando possível, dar nome próprio ao conceito ensinado no vídeo ("Método da 
 
 Antes de escrever qualquer video ad, fazer 2 buscas na web:
 
-**Busca 1 — formato video:**
+**Busca 1. formato video:**
 - `reels instagram virais [mes e ano atual]`
 - `tiktok trends [mes e ano atual]`
 
 Extrair: estrutura dos 3 primeiros segundos, duracao ideal, estilo de edicao, tom predominante, padrao de CTA.
 
-**Busca 2 — objetivo especifico:**
+**Busca 2. objetivo especifico:**
 - Descoberta: `conteudo que vira seguidor instagram [mes e ano atual]`
 - Relacionamento: `conteudo que gera comentarios instagram [mes e ano atual]`
 - Conversao: `anuncio que converte instagram infoproduto [mes e ano atual]`
 - RMKT: `remarketing anuncio instagram copy [mes e ano atual]`
 
 Calibrar com o encontrado: gancho, estilo de edicao, tom, CTA.
-**Fazer essa pesquisa a cada geracao — nao reutilizar pesquisa anterior.**
+**Fazer essa pesquisa a cada geracao. nao reutilizar pesquisa anterior.**
 
 ## Geracao Automatica de Video (HeyGen Avatar IA)
 
-O comando `/anuncio` gera o roteiro e, se configurado, cria o video automaticamente via HeyGen.
+O comando `/copy-anuncio` gera o roteiro e, se configurado, cria o video automaticamente via HeyGen.
 
 ### Configuracao necessaria no `.env`
 
@@ -270,15 +281,15 @@ Para obter esses valores:
 
 ### Formatacao do roteiro para HeyGen
 
-O campo `input_text` deve conter apenas o texto que o avatar vai falar — sem colchetes de cena, sem indicacoes de edicao, sem marcacoes de tempo. Exemplo:
+O campo `input_text` deve conter apenas o texto que o avatar vai falar. sem colchetes de cena, sem indicacoes de edicao, sem marcacoes de tempo. Exemplo:
 
 ```
-O aluno que mais trava raramente e o que sabe menos. Isso acontece porque ele aprendeu a decorar conteudo antes de aprender a aplicar. O metodo nao e um manual. E uma pratica. E praticas nao se decoram, se executam. Se voce quer parar de travar, comeca pela execucao — nao pelo estudo. Me segue para o proximo passo.
+O aluno que mais trava raramente e o que sabe menos. Isso acontece porque ele aprendeu a decorar conteudo antes de aprender a aplicar. O metodo nao e um manual. E uma pratica. E praticas nao se decoram, se executam. Se voce quer parar de travar, comeca pela execucao. nao pelo estudo. Me segue para o proximo passo.
 ```
 
 ### Especificacoes de saida
 
-- Dimensao: 1080x1920 (vertical 9:16) — formato Reels/Stories
+- Dimensao: 1080x1920 (vertical 9:16). formato Reels/Stories
 - Formato: MP4
 - Avatar: falando para camera, fundo limpo
 - Legendas: ativar no proprio HeyGen ou adicionar no editor de video
