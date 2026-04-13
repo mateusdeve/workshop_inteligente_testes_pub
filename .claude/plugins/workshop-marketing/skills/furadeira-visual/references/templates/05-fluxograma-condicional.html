@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Furadeira Fluxograma: {{NOME_METODO}}</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #fff1f2;
+    --bg-alt: #ffe4e6;
+    --ink: #500724;
+    --accent: #e11d48;
+    --line: #9f1239;
+    --muted: #6b7280;
+    --decisao: #fbbf24;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1920px; height: 1080px; overflow: hidden; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Inter', sans-serif;
+    padding: 60px 80px;
+    display: flex;
+    flex-direction: column;
+  }
+  header { text-align: center; margin-bottom: 30px; }
+  header .label {
+    display: inline-block;
+    background: var(--accent);
+    color: #fff;
+    padding: 8px 22px;
+    border-radius: 999px;
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+  header h1 {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 52px;
+    font-weight: 800;
+    color: var(--line);
+    line-height: 1.1;
+  }
+  header p {
+    font-size: 22px;
+    color: var(--muted);
+    margin-top: 10px;
+  }
+  .canvas {
+    flex: 1;
+    position: relative;
+    margin-top: 20px;
+  }
+  .box {
+    position: absolute;
+    background: var(--bg-alt);
+    border: 3px solid var(--line);
+    border-radius: 16px;
+    padding: 18px 24px;
+    text-align: center;
+    box-shadow: 5px 5px 0 var(--line);
+    width: 280px;
+  }
+  .box h3 {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--line);
+    line-height: 1.15;
+    margin-bottom: 6px;
+  }
+  .box p {
+    font-size: 15px;
+    color: var(--muted);
+    line-height: 1.4;
+  }
+  .box.start { background: var(--accent); }
+  .box.start h3, .box.start p { color: #fff; }
+  .box.fim { background: var(--accent); }
+  .box.fim h3, .box.fim p { color: #fff; }
+  .decisao {
+    position: absolute;
+    width: 240px;
+    height: 160px;
+    background: var(--decisao);
+    border: 3px solid var(--line);
+    transform: rotate(45deg);
+    box-shadow: 5px 5px 0 var(--line);
+  }
+  .decisao-content {
+    position: absolute;
+    inset: 0;
+    transform: rotate(-45deg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 20px;
+  }
+  .decisao-content h3 {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 20px;
+    font-weight: 800;
+    color: var(--ink);
+    line-height: 1.15;
+  }
+  .label-arrow {
+    position: absolute;
+    background: var(--bg);
+    color: var(--line);
+    font-size: 16px;
+    font-weight: 700;
+    padding: 4px 12px;
+    border: 2px solid var(--line);
+    border-radius: 999px;
+    z-index: 10;
+  }
+  /* Posicionamentos exemplo. Ajustar conforme número de etapas e ramificações. */
+  .b-start { top: 40px; left: 820px; }
+  .d-1 { top: 200px; left: 840px; }
+  .b-sim { top: 460px; left: 360px; }
+  .b-nao { top: 460px; left: 1280px; }
+  .b-fim { top: 760px; left: 820px; }
+  .l-sim { top: 380px; left: 540px; }
+  .l-nao { top: 380px; left: 1320px; }
+  svg.linhas {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+  footer {
+    text-align: center;
+    margin-top: 20px;
+    color: var(--muted);
+    font-size: 18px;
+    letter-spacing: 1.2px;
+  }
+</style>
+</head>
+<body>
+  <header>
+    <span class="label">Método com lógica condicional</span>
+    <h1>{{NOME_METODO}}</h1>
+    <p>{{QUADRO}}</p>
+  </header>
+  <div class="canvas">
+    <svg class="linhas" viewBox="0 0 1760 880" preserveAspectRatio="none">
+      <line x1="960" y1="120" x2="960" y2="200" stroke="#9f1239" stroke-width="4"/>
+      <line x1="850" y1="280" x2="500" y2="460" stroke="#9f1239" stroke-width="4"/>
+      <line x1="1070" y1="280" x2="1420" y2="460" stroke="#9f1239" stroke-width="4"/>
+      <line x1="500" y1="540" x2="900" y2="760" stroke="#9f1239" stroke-width="4"/>
+      <line x1="1420" y1="540" x2="1020" y2="760" stroke="#9f1239" stroke-width="4"/>
+    </svg>
+    <div class="box start b-start">
+      <h3>{{ETAPA_1_NOME}}</h3>
+      <p>{{ETAPA_1_DESC}}</p>
+    </div>
+    <div class="decisao d-1">
+      <div class="decisao-content">
+        <h3>{{PERGUNTA_DECISAO}}</h3>
+      </div>
+    </div>
+    <div class="label-arrow l-sim">SIM</div>
+    <div class="label-arrow l-nao">NÃO</div>
+    <div class="box b-sim">
+      <h3>{{CAMINHO_SIM_NOME}}</h3>
+      <p>{{CAMINHO_SIM_DESC}}</p>
+    </div>
+    <div class="box b-nao">
+      <h3>{{CAMINHO_NAO_NOME}}</h3>
+      <p>{{CAMINHO_NAO_DESC}}</p>
+    </div>
+    <div class="box fim b-fim">
+      <h3>{{QUADRO}}</h3>
+      <p>{{TRANSFORMACAO_FINAL}}</p>
+    </div>
+  </div>
+  <footer>{{NOME_PRODUTO}}</footer>
+</body>
+</html>

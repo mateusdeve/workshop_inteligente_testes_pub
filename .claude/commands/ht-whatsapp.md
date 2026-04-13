@@ -1,11 +1,11 @@
 ---
 name: workshop-marketing:ht-whatsapp
-description: Criar fluxo completo de vendas high ticket por WhatsApp — da abordagem inicial ao fechamento com link, incluindo SPIN adaptado por mensagem e follow-up.
+description: Criar fluxo completo de vendas high ticket por WhatsApp. da abordagem inicial ao fechamento com link, incluindo SPIN adaptado por mensagem e follow-up.
 ---
 
-# HT — Fluxo de Vendas por WhatsApp
+# HT. Fluxo de Vendas por WhatsApp
 
-Cria o fluxo completo de vendas high ticket por mensagem — do primeiro contato ao link de pagamento.
+Cria o fluxo completo de vendas high ticket por mensagem. do primeiro contato ao link de pagamento.
 
 ## Usage
 
@@ -16,17 +16,17 @@ Cria o fluxo completo de vendas high ticket por mensagem — do primeiro contato
 ## O Que Fazer
 
 ### 1. Contexto
-Leia `produtos/.ativo`, depois `produtos/{ativo}/perfil.md` e `produtos/{ativo}/idconsumidor.md`.
+Leia `entregas/.ativo`, depois `entregas/{ativo}/perfil.md` e `entregas/{ativo}/idconsumidor.md`.
 
 ### 2. Entrevista (UMA pergunta por vez)
 
-**Bloco 1/3 — Produto e Preço:**
+**Bloco 1/3. Produto e Preço:**
 ```
 Qual o produto e o investimento?
-(ex: "Mentoria de 3 meses — R$5.000")
+(ex: "Mentoria de 3 meses. R$5.000")
 ```
 
-**Bloco 2/3 — Origem do Lead:**
+**Bloco 2/3. Origem do Lead:**
 ```
 Como esse lead chegou até o WhatsApp?
 
@@ -39,7 +39,7 @@ Como esse lead chegou até o WhatsApp?
 Digite o número:
 ```
 
-**Bloco 3/3 — Quanto tempo disponível:**
+**Bloco 3/3. Quanto tempo disponível:**
 ```
 Qual o prazo para fechar essa venda?
 (ex: "durante o evento até amanhã", "sem prazo definido", "vagas fecham em X dias")
@@ -57,11 +57,11 @@ Prazo: [urgência]
 
 ### 3. Geração
 
-**FLUXO COMPLETO DE VENDAS POR WHATSAPP — C10X**
+**FLUXO COMPLETO DE VENDAS POR WHATSAPP. C10X**
 
 ---
 
-**MENSAGEM 1 — ABERTURA**
+**MENSAGEM 1. ABERTURA**
 
 Objetivo: conectar pelo contexto de origem, sem vender ainda.
 
@@ -81,7 +81,7 @@ D) Anúncio/Stories:
 
 ---
 
-**MENSAGEM 2 — PERGUNTA DE SITUAÇÃO (SPIN adaptado)**
+**MENSAGEM 2. PERGUNTA DE SITUAÇÃO (SPIN adaptado)**
 
 Após a resposta do lead:
 
@@ -89,7 +89,7 @@ Após a resposta do lead:
 
 ---
 
-**MENSAGEM 3 — PROBLEMA E IMPLICAÇÃO**
+**MENSAGEM 3. PROBLEMA E IMPLICAÇÃO**
 
 "O que você me disse faz sentido. Qual a sua maior dificuldade com isso hoje? O que está impedindo de [RESULTADO QUE QUER]?"
 
@@ -99,7 +99,7 @@ Após a resposta do lead:
 
 ---
 
-**MENSAGEM 4 — TRANSIÇÃO PARA A SOLUÇÃO**
+**MENSAGEM 4. TRANSIÇÃO PARA A SOLUÇÃO**
 
 "Baseado em tudo que você me contou, tenho clareza do que você precisa. Posso te apresentar como trabalho e ver se faz sentido para o seu caso?"
 
@@ -107,7 +107,7 @@ Após a resposta do lead:
 
 ---
 
-**MENSAGEM 5 — APRESENTAÇÃO DA SOLUÇÃO**
+**MENSAGEM 5. APRESENTAÇÃO DA SOLUÇÃO**
 
 "[NOME], o [NOME DO PROGRAMA] foi criado para quem está exatamente na situação que você me descreveu.
 
@@ -128,7 +128,7 @@ Faz sentido para o seu momento?"
 
 ---
 
-**MENSAGEM 6 — FECHAMENTO**
+**MENSAGEM 6. FECHAMENTO**
 
 [Se resposta positiva:]
 "Ótimo. Vou te enviar o link agora. Me confirma quando finalizar o pagamento que já libero seus acessos / te contato para iniciarmos."
@@ -137,7 +137,7 @@ Faz sentido para o seu momento?"
 
 ---
 
-**MENSAGEM 7 — FOLLOW-UP (se não responder após o link)**
+**MENSAGEM 7. FOLLOW-UP (se não responder após o link)**
 
 D+1:
 "[NOME], vi que você ainda não finalizou. Ficou alguma dúvida? Me fala."
@@ -151,10 +151,10 @@ D+7:
 ---
 
 **REGRAS DO FLUXO DE WHATSAPP C10X:**
-- Uma pergunta por mensagem — nunca duas
-- Espere a resposta antes de avançar — não antecipe
+- Uma pergunta por mensagem. nunca duas
+- Espere a resposta antes de avançar. não antecipe
 - Nunca envie o preço sem antes ter apresentado o valor
-- Nunca pergunte "quer comprar?" — assuma e envie o link
+- Nunca pergunte "quer comprar?". assuma e envie o link
 - Máximo 3 follow-ups antes de encerrar o contato
 
 ### 4. Aprovação
@@ -164,7 +164,7 @@ D+7:
 ```
 
 ### 5. Salvar
-`produtos/{ativo}/entregas/c10x/whatsapp-[produto].md`
+`entregas/{ativo}/c10x/whatsapp-[produto].md`
 
 ### 6. Próximo Passo
 "Fluxo de WhatsApp pronto. Próximo: `/ht-follow-up` para a sequência de quem não comprou após o evento."

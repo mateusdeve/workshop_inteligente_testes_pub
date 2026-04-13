@@ -1,4 +1,4 @@
-# Design System Compilado — Componentes CSS por Seção
+# Design System Compilado. Componentes CSS por Seção
 
 Referência rápida com todos os padrões CSS pré-extraídos dos templates.
 **Ler este arquivo UMA VEZ substitui a leitura de todos os templates individuais.**
@@ -71,7 +71,7 @@ body {
 ```
 
 ```js
-// IntersectionObserver — adicionar no final do body
+// IntersectionObserver. adicionar no final do body
 const observer = new IntersectionObserver((entries) => {
   entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }});
 }, { threshold: 0.15 });
@@ -157,7 +157,7 @@ document.querySelectorAll('.scroll-reveal').forEach(el => observer.observe(el));
 .cta-button:hover span { color: var(--bg); }
 ```
 
-**Botão CTA (verde/conversão — para seções claras):**
+**Botão CTA (verde/conversão. para seções claras):**
 ```css
 .cta-verde {
   display: inline-flex; align-items: center; gap: 10px;
@@ -464,7 +464,7 @@ document.querySelectorAll('.faq-question').forEach(btn => {
 ```
 
 ```js
-// Floating CTA — aparece após hero, some perto do CTA final
+// Floating CTA. aparece após hero, some perto do CTA final
 const floatingCta = document.querySelector('.floating-cta');
 const ctaFinal = document.querySelector('.cta-final-section');
 if (floatingCta) {
@@ -532,22 +532,30 @@ if (floatingCta) {
 
 ---
 
-## Seção com Imagem de Fundo
+## Seção com Fundo Artístico (sem foto)
+
+Para seções com fundo forte sem usar foto de banco de imagens (picsum/unsplash genérico são proibidos. ver `SKILL.md` → Imagens Contextuais), usar gradientes radiais sobrepostos. Dá profundidade sem imagem aleatória.
 
 ```css
-.section-img-bg {
-  background: linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.75)),
-    url('https://picsum.photos/seed/KEYWORD/1920/1080');
-  background-size: cover; background-position: center;
-  background-attachment: fixed; color: #fff;
-  padding: 96px 24px;
-}
-/* Fallback se imagem não carregar — gradiente artístico */
 .section-artistica {
   background-color: #0a0a0a;
   background-image:
     radial-gradient(at 20% 50%, hsla(28,100%,74%,0.15) 0px, transparent 50%),
     radial-gradient(at 80% 20%, hsla(189,100%,56%,0.08) 0px, transparent 50%);
+  color: #fff;
+  padding: 96px 24px;
+}
+```
+
+Se for obrigatório usar foto de fundo real, só é permitido um ID específico de Unsplash comprovadamente ligado à copy:
+
+```css
+.section-img-bg {
+  background: linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.75)),
+    url('https://images.unsplash.com/photo-ID-ESPECIFICO?w=1920&q=80');
+  background-size: cover; background-position: center;
+  background-attachment: fixed; color: #fff;
+  padding: 96px 24px;
 }
 ```
 

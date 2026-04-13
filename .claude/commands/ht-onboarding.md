@@ -1,9 +1,9 @@
 ---
 name: workshop-marketing:ht-onboarding
-description: Criar material completo de onboarding para novos alunos ou clientes high ticket — boas-vindas, alinhamento de expectativas, cronograma, canais de comunicação e primeiros passos.
+description: Criar material completo de onboarding para novos alunos ou clientes high ticket. boas-vindas, alinhamento de expectativas, cronograma, canais de comunicação e primeiros passos.
 ---
 
-# HT — Onboarding de Aluno/Cliente High Ticket
+# HT. Onboarding de Aluno/Cliente High Ticket
 
 Cria o material de onboarding completo para receber um novo aluno ou cliente após fechar o high ticket.
 
@@ -16,11 +16,11 @@ Cria o material de onboarding completo para receber um novo aluno ou cliente ap�
 ## O Que Fazer
 
 ### 1. Contexto
-Leia `produtos/.ativo`, depois `produtos/{ativo}/perfil.md`.
+Leia `entregas/.ativo`, depois `entregas/{ativo}/perfil.md`.
 
 ### 2. Entrevista (UMA pergunta por vez)
 
-**Bloco 1/3 — Formato do Programa:**
+**Bloco 1/3. Formato do Programa:**
 ```
 Qual o formato do programa que o aluno/cliente comprou?
 
@@ -32,7 +32,7 @@ Qual o formato do programa que o aluno/cliente comprou?
 Digite o número:
 ```
 
-**Bloco 2/3 — Canal Principal:**
+**Bloco 2/3. Canal Principal:**
 ```
 Qual o canal principal de comunicação com os alunos/clientes?
 
@@ -45,7 +45,7 @@ Qual o canal principal de comunicação com os alunos/clientes?
 Digite o número:
 ```
 
-**Bloco 3/3 — Data de Início:**
+**Bloco 3/3. Data de Início:**
 ```
 Quando começa o programa?
 (ex: "segunda-feira que vem", "dia 15 de abril")
@@ -67,11 +67,11 @@ Início: [data]
 
 ---
 
-**MENSAGEM DE BOAS-VINDAS (WhatsApp — imediata após o pagamento)**
+**MENSAGEM DE BOAS-VINDAS (WhatsApp. imediata após o pagamento)**
 
 "[NOME], seja bem-vindo ao [NOME DO PROGRAMA].
 
-Você tomou uma decisão importante. A partir de agora, vou te acompanhar de perto para garantir que você chegue em [RESULTADO — Quadro do produto].
+Você tomou uma decisão importante. A partir de agora, vou te acompanhar de perto para garantir que você chegue em [RESULTADO. Quadro do produto].
 
 Nos próximos minutos vou te enviar tudo que precisa para começarmos. Qualquer dúvida, me chama aqui."
 
@@ -79,7 +79,7 @@ Nos próximos minutos vou te enviar tudo que precisa para começarmos. Qualquer 
 
 **EMAIL DE BOAS-VINDAS (enviado em até 2h após o pagamento)**
 
-Assunto: Bem-vindo ao [NOME DO PROGRAMA] — seus próximos passos
+Assunto: Bem-vindo ao [NOME DO PROGRAMA]. seus próximos passos
 
 Corpo:
 1. Parabéns e confirmação do que comprou
@@ -93,10 +93,10 @@ Corpo:
 
 **DOCUMENTO DE ALINHAMENTO (enviado antes da primeira sessão)**
 
-**[NOME DO PROGRAMA] — Alinhamento Inicial**
+**[NOME DO PROGRAMA]. Alinhamento Inicial**
 
 **O que você vai alcançar:**
-[Quadro — transformação principal]
+[Quadro. transformação principal]
 
 **Como vamos trabalhar juntos:**
 [Descrição do método em 3-4 linhas]
@@ -113,12 +113,12 @@ Corpo:
 [Data, horário e formato de cada sessão]
 
 **Canal de comunicação:**
-[Canal] — disponível [dias/horários]
+[Canal]. disponível [dias/horários]
 
 **O que preciso de você:**
 - Presença nas sessões (ou aviso com [X horas] de antecedência)
 - Conclusão das tarefas entre sessões
-- Dúvidas e bloqueios: me comunique assim que aparecer — não espere a próxima sessão
+- Dúvidas e bloqueios: me comunique assim que aparecer. não espere a próxima sessão
 
 **O que você pode esperar de mim:**
 - Resposta em até [X horas] no período de [dias úteis]
@@ -130,7 +130,7 @@ O resultado do programa depende da sua implementação. Meu compromisso é estar
 
 ---
 
-**CHECKLIST DO ONBOARDING (para você — consultor/mentor):**
+**CHECKLIST DO ONBOARDING (para você. consultor/mentor):**
 
 - [ ] Pagamento confirmado
 - [ ] Acesso à plataforma liberado (se houver)
@@ -146,8 +146,8 @@ O resultado do programa depende da sua implementação. Meu compromisso é estar
 **ROTEIRO DA PRIMEIRA SESSÃO:**
 
 1. Boas-vindas e conexão (5 min)
-2. Revisão do alinhamento — confirmar expectativas (10 min)
-3. Diagnóstico aprofundado — entender o ponto de partida real (20 min)
+2. Revisão do alinhamento. confirmar expectativas (10 min)
+3. Diagnóstico aprofundado. entender o ponto de partida real (20 min)
 4. Definição do plano das primeiras 2 semanas (15 min)
 5. Próximos passos e tarefa até a próxima sessão (10 min)
 
@@ -158,7 +158,7 @@ O resultado do programa depende da sua implementação. Meu compromisso é estar
 ```
 
 ### 5. Salvar
-`produtos/{ativo}/entregas/c10x/onboarding-[produto].md`
+`entregas/{ativo}/c10x/onboarding-[produto].md`
 
 ### 6. Próximo Passo
 "Onboarding pronto. Você agora tem o kit completo de High Ticket C10X. Use `estrategista-ht` para planejar sua próxima campanha do início ao fim."

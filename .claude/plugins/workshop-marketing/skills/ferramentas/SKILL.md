@@ -1,4 +1,4 @@
-# Ferramentas do Workshop — Guia de Integracoes
+# Ferramentas do Workshop. Guia de Integracoes
 
 Base de conhecimento sobre as ferramentas externas usadas no Workshop Marketing IA e como o toolkit se conecta com cada uma.
 
@@ -8,10 +8,10 @@ O toolkit funciona 100% sem nenhuma ferramenta externa (nivel basico). As integr
 
 ## Ferramentas e Como Usar
 
-### Vercel — Publicacao de Paginas
+### Vercel. Publicacao de Paginas
 
 **O que faz:** Publica paginas HTML na internet com URL propria.
-**Usada por:** `/pagina-de-vendas`, agent `construtor-de-paginas`
+**Usada por:** `/copy-pagina`, agent `construtor-de-paginas`
 **Chave necessaria:** `VERCEL_TOKEN`, `VERCEL_PROJECT_ID`
 
 **Como configurar:**
@@ -27,10 +27,10 @@ Apos gerar o HTML, o Claude Code executa `vercel deploy` e retorna a URL publica
 
 ---
 
-### Freepik — Geracao de Imagens com IA
+### Freepik. Geracao de Imagens com IA
 
 **O que faz:** Gera imagens a partir de prompts de texto (text-to-image).
-**Usada por:** `/criativo-de-imagem`
+**Usada por:** `/img-anuncio`
 **Chave necessaria:** `FREEPIK_API_KEY`
 
 **Como configurar:**
@@ -44,16 +44,16 @@ Apos gerar os prompts de imagem, o Claude Code envia cada prompt para a API do F
 **Sem a chave:** Os prompts sao salvos em arquivo. O aluno copia e cola no site do Freepik, Midjourney ou DALL-E manualmente.
 
 **Formatos suportados:**
-- Square (1:1) — Feed do Instagram, anuncios
-- Portrait (9:16) — Stories, Reels
-- Landscape (16:9) — YouTube, banners
+- Square (1:1). Feed do Instagram, anuncios
+- Portrait (9:16). Stories, Reels
+- Landscape (16:9). YouTube, banners
 
 ---
 
-### HeyGen — Videos com Avatar IA
+### HeyGen. Videos com Avatar IA
 
 **O que faz:** Cria videos com avatares virtuais a partir de scripts de texto.
-**Usada por:** `/roteiro-de-video` (formato avatar)
+**Usada por:** `/copy-roteiro` (formato avatar)
 **Chave necessaria:** `HEYGEN_API_KEY`
 
 **Como configurar:**
@@ -62,7 +62,7 @@ Apos gerar os prompts de imagem, o Claude Code envia cada prompt para a API do F
 3. Copie a chave para o arquivo `.env`
 
 **Como o toolkit usa:**
-Quando o aluno escolhe o formato "Avatar" no `/roteiro-de-video`, o Claude Code envia o script para a API do HeyGen. O video e gerado em segundo plano e o link e informado quando pronto.
+Quando o aluno escolhe o formato "Avatar" no `/copy-roteiro`, o Claude Code envia o script para a API do HeyGen. O video e gerado em segundo plano e o link e informado quando pronto.
 
 **Sem a chave:** O roteiro e salvo em arquivo. O aluno copia o script e cola no app.heygen.com para gravar manualmente.
 
@@ -74,10 +74,10 @@ Quando o aluno escolhe o formato "Avatar" no `/roteiro-de-video`, o Claude Code 
 
 ---
 
-### Meta Ads — Gerenciamento de Campanhas
+### Meta Ads. Gerenciamento de Campanhas
 
 **O que faz:** Cria e gerencia campanhas de anuncios no Facebook e Instagram.
-**Usada por:** `/anuncio`, agent `criador-de-campanhas`
+**Usada por:** `/copy-anuncio`, agent `criador-de-campanhas`
 **Chaves necessarias:** `META_ACCESS_TOKEN`, `META_AD_ACCOUNT_ID`
 
 **Como configurar:**
@@ -94,10 +94,10 @@ OPCIONAL e AVANCADO. O toolkit gera a copy e a estrutura de campanha em arquivo.
 
 ---
 
-### Facebook Pixel — Rastreamento de Conversoes
+### Facebook Pixel. Rastreamento de Conversoes
 
 **O que faz:** Rastreia acoes dos visitantes nas paginas (cadastros, compras, visualizacoes).
-**Usada por:** `/pagina-de-vendas`, agent `construtor-de-paginas`
+**Usada por:** `/copy-pagina`, agent `construtor-de-paginas`
 **Chave necessaria:** `META_PIXEL_ID`
 
 **Como configurar:**
@@ -116,10 +116,10 @@ Ao gerar qualquer pagina HTML, o Claude Code insere automaticamente o snippet do
 
 ---
 
-### Google Ads — Campanhas de Pesquisa
+### Google Ads. Campanhas de Pesquisa
 
 **O que faz:** Cria campanhas de anuncios na rede de pesquisa do Google.
-**Usada por:** `/anuncio`, agent `criador-de-campanhas`
+**Usada por:** `/copy-anuncio`, agent `criador-de-campanhas`
 **Chaves necessarias:** `GOOGLE_ADS_DEVELOPER_TOKEN`, `GOOGLE_ADS_CUSTOMER_ID`
 
 **Como configurar:**
@@ -131,10 +131,10 @@ Ao gerar qualquer pagina HTML, o Claude Code insere automaticamente o snippet do
 
 ---
 
-### Hotmart — Checkout e Vendas
+### Hotmart. Checkout e Vendas
 
 **O que faz:** Gera links de checkout para produtos digitais.
-**Usada por:** `/pagina-de-vendas`, `/low-ticket`
+**Usada por:** `/copy-pagina`, `/lt-funil`
 **Chaves necessarias:** `HOTMART_TOKEN`, `HOTMART_PRODUCT_ID`
 
 **Como configurar:**
@@ -150,10 +150,10 @@ Ao gerar paginas de vendas, o Claude Code pode inserir automaticamente o link co
 
 ---
 
-### WhatsApp Business — Automacoes
+### WhatsApp Business. Automacoes
 
 **O que faz:** Envia mensagens automaticas (lembretes, confirmacoes, abertura de carrinho).
-**Usada por:** `/sequencia-de-emails`, `/lancamento`
+**Usada por:** `/copy-emails`, `/estrategia-lancamento`
 **Chaves necessarias:** `WHATSAPP_PHONE_ID`, `WHATSAPP_ACCESS_TOKEN`
 
 **Como configurar:**
@@ -167,10 +167,79 @@ Ao gerar paginas de vendas, o Claude Code pode inserir automaticamente o link co
 
 ---
 
-### Lovable — Criacao de Quiz
+### OpenRouter. Geracao de Imagens para Anuncios
+
+**O que faz:** Acessa dezenas de modelos de IA para gerar imagens reais de anuncios (feed, stories, banners).
+**Usada por:** `/img-anuncio`
+**Chaves necessarias:** `OPENROUTER_API_KEY`, `OPENROUTER_IMAGE_MODEL` (opcional)
+
+**Como configurar:**
+1. Acesse openrouter.ai e crie uma conta
+2. Va em Settings > API Keys > Create Key
+3. Copie a chave para o arquivo `.env`
+4. Opcionalmente, defina o modelo preferido em `OPENROUTER_IMAGE_MODEL`
+
+**Como o toolkit usa:**
+Quando o aluno usa `/img-anuncio` e aprova o prompt gerado, o Claude Code envia o prompt para a API do OpenRouter e salva a imagem em `entregas/criativos/`. A imagem fica pronta para usar diretamente no Meta Ads ou Google Ads.
+
+**Fluxo de chamada (curl):**
+```
+POST https://openrouter.ai/api/v1/images/generations
+Authorization: Bearer $OPENROUTER_API_KEY
+{
+  "model": "$OPENROUTER_IMAGE_MODEL",
+  "prompt": "[prompt gerado]",
+  "size": "1024x1024"
+}
+```
+
+**Formatos e tamanhos suportados:**
+- `1024x1024`. Feed quadrado (Instagram, Facebook)
+- `1024x1792`. Stories e Reels (vertical 9:16)
+- `1792x1024`. Banner horizontal (YouTube, Google Display)
+
+**Modelos disponiveis no OpenRouter (por uso):**
+
+| Modelo | Uso Ideal | Velocidade | Custo |
+|---|---|---|---|
+| `black-forest-labs/flux-schnell` | Testes rapidos, variações | Muito rapido | Baixo |
+| `black-forest-labs/flux-1.1-pro` | Anuncios finais, alta qualidade | Rapido | Medio |
+| `openai/dall-e-3` | Conceitos criativos, texto na imagem | Medio | Medio |
+| `stability-ai/stable-diffusion-3.5-large` | Fotos realistas, pessoas | Medio | Medio |
+
+**Para anuncios de video:**
+O OpenRouter nao gera video diretamente. Para videos, use o fluxo:
+1. `/copy-roteiro` → gera o roteiro completo do video
+2. O aluno grava o video com o roteiro, ou usa HeyGen (se configurado) para avatar IA
+3. OpenRouter pode ser usado para gerar a **miniatura do video** (thumbnail) como imagem
+
+**Sem a chave:** Os prompts de imagem sao salvos em arquivo `.md`. O aluno copia e cola manualmente no Midjourney, Leonardo.ai, Freepik ou qualquer gerador de imagem.
+
+---
+
+### OpenRouter. Mesma chave para imagens da landing (HTML)
+
+**O que faz:** Grava PNG em `entregas/{slug}/paginas/assets/` para ilustrar secoes da pagina (hero, dor, autoridade, OG, etc.), usando modelo de imagem via API (ver script).
+**Quando usar:** No fluxo **`/pagina-ajuste`**, quando o aluno escolher **gerar imagens com IA** em vez de enviar arquivos.
+**Chave:** a mesma `OPENROUTER_API_KEY` no `.env` na raiz do repositorio (ver `.env.example`).
+
+**Script:** `scripts/generate-openrouter-nano-banana-images.py` na raiz do projeto. O arquivo lista `JOBS` com nome do PNG, proporcao e `prompt` (em ingles costuma funcionar melhor). Saida direta em `entregas/{slug}/paginas/assets/`.
+
+**Comando tipico (na raiz):** `py -3 scripts/generate-openrouter-nano-banana-images.py --slug nome-do-produto`  
+Opcoes uteis: `--skip N` e `--max M` para gerar so parte da lista (ver cabecalho do script).
+
+**Referencias para o assistente e o aluno:**  
+`skills/paginas/references/playbook-evolucao-visual-html-landing.md` (estilo corporativo, prompts, o que evitar).  
+Depois de gerar, o assistente atualiza `src` e `alt` no HTML como no fluxo de upload.
+
+**Sem a chave:** Indicar prompts e proporcoes para o aluno gerar fora (Canva, outro gerador) e subir manualmente para `paginas/assets/`.
+
+---
+
+### Lovable. Criacao de Quiz
 
 **O que faz:** Cria paginas interativas de quiz com logica condicional.
-**Usada por:** `/low-ticket` (funil D48)
+**Usada por:** `/lt-funil` (funil low ticket)
 **Integracao:** Manual (sem API no toolkit)
 
 **Como usar:**
@@ -191,8 +260,9 @@ Anuncio -> Quiz (Lovable) -> Pagina Final do Quiz (toolkit) -> Checkout (Hotmart
 | Ferramenta | Chave .env | Nivel | Automacao |
 | --- | --- | --- | --- |
 | Vercel | VERCEL_TOKEN | Intermediario | Deploy de paginas |
-| Freepik | FREEPIK_API_KEY | Intermediario | Geracao de imagens |
-| HeyGen | HEYGEN_API_KEY | Intermediario | Criacao de videos |
+| OpenRouter | OPENROUTER_API_KEY | Intermediario | Anuncios (`/img-anuncio`) e assets de landing (`generate-openrouter-nano-banana-images.py`, ver playbook) |
+| Freepik | FREEPIK_API_KEY | Intermediario | Geracao de imagens (alternativa) |
+| HeyGen | HEYGEN_API_KEY | Intermediario | Criacao de videos com avatar IA |
 | Meta Pixel | META_PIXEL_ID | Intermediario | Tracking nas paginas |
 | Hotmart | HOTMART_TOKEN | Intermediario | Links de checkout |
 | Meta Ads | META_ACCESS_TOKEN | Avancado | Criacao de campanhas |

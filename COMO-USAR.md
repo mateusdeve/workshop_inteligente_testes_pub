@@ -2,15 +2,29 @@
 
 ## Antes de comecar
 
+### Opcao A. Claude Code (VS Code)
+
 1. VSCode instalado
 2. Extensao Claude Code instalada
 3. Pasta do projeto aberta no VSCode
 
+### Opcao B. Cursor
+
+1. Cursor instalado ([cursor.com](https://cursor.com))
+2. **File → Open Folder** e escolha a pasta `workshop_inteligente` (ou o nome da sua copia do repo)
+3. Pronto. As regras em `.cursor/rules/` e o `CLAUDE.md` passam a orientar o chat. Veja também `AGENTS.md` para um mapa rapido de pastas.
+
+**Comandos `/alguma-coisa` no Cursor:** a barra `/` nao e a mesma do Claude Code. Para seguir um fluxo (ex.: copy-pagina), diga no chat **"segue o comando copy-pagina"** ou anexe o arquivo **`.claude/commands/copy-pagina.md`** com `@`. O assistente executa o mesmo roteiro do `.md`.
+
+---
+
 ## Seu primeiro uso
 
-### 1. Abra o chat do Claude Code
+### 1. Abra o chat do assistente
 
-No VSCode, procure o icone do Claude Code na barra lateral.
+**No VSCode:** procure o icone do Claude Code na barra lateral.
+
+**No Cursor:** use o chat do agente (Composer ou Chat) com o projeto aberto.
 
 ### 2. Cadastre seu produto
 
@@ -49,7 +63,7 @@ Use os comandos na ordem que fizer sentido para voce.
 2. `/idconsumidor` — Perfil do cliente ideal
 3. `/texto-de-venda` — Criar copy
 4. `/pagina-de-vendas` — Criar pagina profissional
-5. `/anuncio` — Criar anuncios para trafego
+5. `/copy-anuncio` — Criar anuncios para trafego
 
 ### Para quem vai lancar
 
@@ -58,25 +72,25 @@ Use os comandos na ordem que fizer sentido para voce.
 3. `/lancamento` — Planejar o evento completo
 4. `/pagina-de-vendas` — Criar pagina do evento + pagina de vendas
 5. `/sequencia-de-emails` — Criar emails do pico de vendas
-6. `/anuncio` — Criar anuncios de captacao
-7. `/conteudo-social` — Criar conteudo pre-lancamento
+6. `/copy-anuncio` — Criar anuncios de captacao
+7. `/copy-social` — Criar conteudo pre-lancamento
 
 ### Para quem quer vender no perpetuo
 
 1. `/meu-produto` — Cadastrar produto
 2. `/idconsumidor` — Perfil do cliente ideal
-3. `/funil-de-vendas` — Mapear funil perpetuo
+3. `/estrategia-funil` — Mapear funil perpetuo
 4. `/pagina-de-vendas` — Criar paginas (captura + vendas + obrigado)
 5. `/sequencia-de-emails` — Criar email de nutricao
-6. `/anuncio` — Criar anuncios para cada fase do funil
+6. `/copy-anuncio` — Criar anuncios para cada fase do funil
 
-### Para quem quer vender low ticket (D48)
+### Para quem quer vender low ticket (low ticket)
 
 1. `/meu-produto` — Cadastrar produto
 2. `/idconsumidor` — Perfil do cliente ideal
 3. `/low-ticket` — Criar produto de entrada (quiz, desafio, ebook)
-4. `/anuncio` — Criar anuncios caixa rapido para o quiz
-5. `/funil-de-vendas` — Mapear funil D48 com upsell
+4. `/copy-anuncio` — Criar anuncios low ticket para o quiz
+5. `/estrategia-funil` — Mapear funil low ticket com upsell
 
 ### Para quem quer vender high ticket
 
@@ -114,13 +128,13 @@ Cria a copy completa da pagina de vendas com todas as 16 secoes (estrutura 8D ex
 
 Resultado: `entregas/copy-pagina/copy-[produto].md`
 
-### /anuncio
+### /copy-anuncio
 
 Cria pacotes de anuncios usando a Mandala de 18 Tipos. Inclui copy, direcao criativa e estrategia de campanha.
 
 Resultado: `entregas/anuncios/anuncios-[plataforma]-[produto].md`
 
-### /conteudo-social
+### /copy-social
 
 Cria carrosseis, captions, roteiros de Reels, linha editorial e calendario de publicacao.
 
@@ -144,9 +158,9 @@ Planeja lancamento ou evento completo: Big Idea, cronograma, materiais necessari
 
 Resultado: `entregas/textos-de-venda/lancamento-[evento].md`
 
-### /funil-de-vendas
+### /estrategia-funil
 
-Mapeia funil completo: perpetuo, lancamento ou D48 (low ticket com quiz). Inclui todas as etapas e metricas.
+Mapeia funil completo: perpetuo, lancamento ou low ticket (low ticket com quiz). Inclui todas as etapas e metricas.
 
 Resultado: `entregas/textos-de-venda/funil-[tipo]-[produto].md`
 
@@ -154,9 +168,9 @@ Resultado: `entregas/textos-de-venda/funil-[tipo]-[produto].md`
 
 Cria scripts de venda 1:1 usando SPIN Selling: roteiro de call, pitch, quebra de objecoes, script de WhatsApp.
 
-Resultado: `entregas/comercial/playbook-[produto].md`
+Resultado: `entregas/comercial/playbook-[produto].html` (abrir no navegador; Imprimir → Salvar como PDF)
 
-### /criativo-de-imagem
+### /img-anuncio
 
 Gera prompts detalhados para Midjourney, DALL-E ou Freepik AI. Inclui direcao criativa e especificacoes tecnicas.
 
@@ -164,7 +178,7 @@ Resultado: `entregas/criativos/prompts-[tipo]-[produto].md`
 
 ### /low-ticket
 
-Cria produto de entrada usando a metodologia D48 (R$37-97): pagina final do quiz (12 blocos), anuncios caixa rapido, produto desafio, agente GPT vendavel e copy para Hotmart/Kiwify.
+Cria produto de entrada usando a metodologia low ticket (R$37-97): pagina final do quiz (12 blocos), anuncios low ticket, produto desafio, agente GPT vendavel e copy para Hotmart/Kiwify.
 
 Resultado: `entregas/paginas/quiz-[produto].html`, `entregas/anuncios/caixa-rapido-[produto].md`, `entregas/textos-de-venda/desafio-[produto].md`
 

@@ -1,6 +1,6 @@
 ---
 name: vtsd-completo
-description: "Metodologia completa Venda Todo Santo Dia (VTSD), D48 (Low Ticket), C10X (High Ticket) e Light Copy de Leandro Ladeira para infoprodutores. Use esta skill SEMPRE que o usuário quiser criar copy, anúncios, páginas de vendas, vídeos de vendas, e-mails, ofertas, estrutura de cursos, conteúdo para redes sociais, eventos, vendas high ticket, produtos low ticket, quiz, elementos literários, ou qualquer material de marketing para infoprodutos. Acione também quando mencionar: quadro, furadeira, decorados, urgência oculta, 3 Is, identidade do comunicador/consumidor/produto, mandala de anúncios, pico de vendas, perpétuo, VVV, página 8D, light copy, C10X, SPIN selling, fechamento de venda, retiro online, mentoria, consultoria, D48, low ticket, quiz, caixa rápido, hipérbole, metáfora, setup punchline, ou termos da metodologia VTSD/Fluxo."
+description: "Metodologia completa Venda Todo Santo Dia (VTSD), low ticket (Low Ticket), C10X (High Ticket) e Light Copy de Leandro Ladeira para infoprodutores. Use esta skill SEMPRE que o usuário quiser criar copy, anúncios, páginas de vendas, vídeos de vendas, e-mails, ofertas, estrutura de cursos, conteúdo para redes sociais, eventos, vendas high ticket, produtos low ticket, quiz, elementos literários, ou qualquer material de marketing para infoprodutos. Acione também quando mencionar: quadro, furadeira, decorados, urgência oculta, 3 Is, identidade do comunicador/consumidor/produto, mandala de anúncios, pico de vendas, perpétuo, VVV, página 8D, light copy, C10X, SPIN selling, fechamento de venda, retiro online, mentoria, consultoria, low ticket, low ticket, quiz, low ticket, hipérbole, metáfora, setup punchline, ou termos da metodologia VTSD/Fluxo."
 ---
 
 # VTSD - Venda Todo Santo Dia (Metodologia Completa)
@@ -12,10 +12,10 @@ Metodologia de Leandro Ladeira para infoprodutores venderem no perpétuo com cla
 ## Princípios Fundamentais do VTSD
 
 ### Estilo de Copy (Light Copy)
-- **Argumentativo, objetivo e lógico** — baseado em premissas, não promessas
-- **Conversacional** — parece conversa natural, não venda forçada
-- **Não óbvio** — gera curiosidade a cada linha
-- **Sem exageros** — foco em fatos e transformações reais
+- **Argumentativo, objetivo e lógico**. baseado em premissas, não promessas
+- **Conversacional**. parece conversa natural, não venda forçada
+- **Não óbvio**. gera curiosidade a cada linha
+- **Sem exageros**. foco em fatos e transformações reais
 
 ### Proibições da Copy VTSD
 - ❌ Não usar ponto de exclamação
@@ -36,9 +36,9 @@ O Quadro é a frase que comunica o resultado principal do produto. É o que o al
 - Até 10 palavras
 - Inicia com verbo no infinitivo
 - Único resultado (sem "e" aditivo)
-- Atrativo — gera desejo imediato
-- Claro — tangível e fácil de entender
-- Específico — com números ou tempo quando possível
+- Atrativo. gera desejo imediato
+- Claro. tangível e fácil de entender
+- Específico. com números ou tempo quando possível
 
 **O que NÃO é Quadro:**
 - Slogan ou frase motivacional
@@ -79,10 +79,10 @@ A Furadeira é o método único, claro e replicável que leva o aluno do ponto A
 - Exclusivo e autoral
 - Nome memorável para o método
 
-**Exemplo — Protocolo Anticoceira (para cachorros):**
-1. **Raiz do Problema** — identificar causa e tratamento
-2. **Pele Blindada** — higienização correta + produtos
-3. **Nutrição Antialérgica** — alimentação preventiva
+**Exemplo. Protocolo Anticoceira (para cachorros):**
+1. **Raiz do Problema**. identificar causa e tratamento
+2. **Pele Blindada**. higienização correta + produtos
+3. **Nutrição Antialérgica**. alimentação preventiva
 
 **Como criar:**
 1. Colete o Quadro do usuário
@@ -96,14 +96,14 @@ A Furadeira é o método único, claro e replicável que leva o aluno do ponto A
 
 ### 1.3 DECORADOS (50 Benefícios)
 
-Decorados são os benefícios diretos e indiretos que decorrem do Quadro — as "consequências positivas" de alcançar o resultado.
+Decorados são os benefícios diretos e indiretos que decorrem do Quadro. as "consequências positivas" de alcançar o resultado.
 
 **Categorias de Decorados:**
-- **Financeiro** — ganhos, economia, investimentos
-- **Tempo** — liberdade, flexibilidade, produtividade
-- **Autoestima** — confiança, orgulho, realização
-- **Reputação** — reconhecimento, autoridade, status
-- **Crescimento** — evolução, aprendizado, oportunidades
+- **Financeiro**. ganhos, economia, investimentos
+- **Tempo**. liberdade, flexibilidade, produtividade
+- **Autoestima**. confiança, orgulho, realização
+- **Reputação**. reconhecimento, autoridade, status
+- **Crescimento**. evolução, aprendizado, oportunidades
 
 **Como criar:**
 1. Parta do Quadro definido
@@ -114,23 +114,24 @@ Decorados são os benefícios diretos e indiretos que decorrem do Quadro — as 
 
 ---
 
-### 1.4 URGÊNCIA OCULTA (Dores e Desejos)
+### 1.4 URGÊNCIA OCULTA (Dores, Desejos e Ângulos)
 
-Urgências Ocultas são as dores, desejos, dúvidas e assuntos relacionados que atraem o público — a "isca" para conteúdos e anúncios.
+Urgências Ocultas são as dores, dúvidas, desejos, assuntos relacionados e ângulos de urgência que atraem o público (a "isca" para conteúdos e anúncios).
 
-**4 Tipos de Urgência Oculta:**
-1. **Dores** — problemas que incomodam
-2. **Desejos** — sonhos e aspirações
-3. **Dúvidas** — perguntas frequentes
-4. **Assuntos relacionados** — temas adjacentes que interessam
+**Estrutura oficial: 7 categorias com exatamente 10 itens cada (totalizando 70 itens):**
+
+1. **Dores** (problemas que incomodam): 10 itens
+2. **Dúvidas** (perguntas frequentes do público): 10 itens
+3. **Desejos** (sonhos e aspirações): 10 itens
+4. **Assuntos Relacionados** (temas adjacentes ao nicho): 10 itens
+5. **Urgências Quentes** (alta intenção, ligadas direto à compra): 10 itens
+6. **Urgências Frias** (baixa intenção, alto volume, atração): 10 itens
+7. **Urgências Inusitadas** (ângulo inesperado que chama atenção): 10 itens
 
 **Como criar:**
 1. Defina nicho e público
-2. Liste 10+ dores do público
-3. Liste 10+ desejos do público
-4. Liste 10+ dúvidas comuns
-5. Liste 10+ assuntos relacionados
-6. Use para criar conteúdos e ganchos de anúncios
+2. Gere as 7 categorias acima com 10 itens em cada (não mais, não menos)
+3. Use cada categoria para criar conteúdos, ganchos de anúncios e copy
 
 ---
 
@@ -216,37 +217,37 @@ Posicionamento único do produto no mercado.
 
 ### 2.2 PÁGINA DE VENDAS (Estrutura 8D)
 
-**Seção 1 — Primeira Dobra:**
+**Seção 1. Primeira Dobra:**
 - Premissa (headline principal)
 - Subheadline
 - 3 Bullet points (Urgência Oculta + Decorado cada)
 - Vídeo de vendas
 
-**Seção 2 — Paliativo:**
+**Seção 2. Paliativo:**
 - O que o cliente já tentou e não funcionou
 - Por que essas soluções falham
 
-**Seção 3 — Método:**
+**Seção 3. Método:**
 - Apresentação da Furadeira
 - Macroetapas e microetapas
 
-**Seção 4 — Entregáveis:**
+**Seção 4. Entregáveis:**
 - Lista completa do que recebe
 - Descrição com metáforas de valor
 
-**Seção 5 — Bônus:**
+**Seção 5. Bônus:**
 - 3 bônus estratégicos
 - Valor de cada bônus
 
-**Seção 6 — Prova Social:**
+**Seção 6. Prova Social:**
 - Depoimentos (imagens, não texto)
 - Resultados de alunos
 
-**Seção 7 — Garantia:**
+**Seção 7. Garantia:**
 - Tipo de garantia
 - Prazo
 
-**Seção 8 — Oferta Final:**
+**Seção 8. Oferta Final:**
 - Ancoragem de valor
 - Preço
 - Formas de pagamento
@@ -292,14 +293,14 @@ Identifique e quebre as principais objeções do público.
 
 ### Estrutura do VVV
 
-1. **Abertura** — gancho que prende atenção
-2. **Conexão** — história ou situação que gera identificação
-3. **Problema** — dor do público amplificada
-4. **Paliativo** — o que já tentaram e não funcionou
-5. **Solução** — apresentação do método
-6. **Prova** — resultados e depoimentos
-7. **Oferta** — entregáveis, bônus, garantia
-8. **CTA** — chamada para ação
+1. **Abertura**. gancho que prende atenção
+2. **Conexão**. história ou situação que gera identificação
+3. **Problema**. dor do público amplificada
+4. **Paliativo**. o que já tentaram e não funcionou
+5. **Solução**. apresentação do método
+6. **Prova**. resultados e depoimentos
+7. **Oferta**. entregáveis, bônus, garantia
+8. **CTA**. chamada para ação
 
 ### Checklist de VVV
 - [ ] Gancho nos primeiros 5 segundos
@@ -331,35 +332,35 @@ Identifique e quebre as principais objeções do público.
 
 ### Os 18 Tipos de Anúncios
 
-1. **Comparação** — Compare duas situações mostrando qual é melhor
-2. **Apelo Emocional** — Histórias que tocam sentimentos
-3. **Certo vs Errado** — Erros comuns vs forma correta
-4. **Curiosidade** — Informação surpreendente
-5. **Demonstração** — Mostre funcionando na prática
-6. **Oportunidade** — Revele algo não percebido
-7. **Visual** — Apelo visual forte para parar scroll
-8. **Dilema** — Opções onde nenhuma parece ideal
-9. **Clickbait** — Frase chamativa que revela depois
-10. **Prova** — Evidência concreta (prints, troféus)
-11. **Contraste** — Comparação "preto no branco"
-12. **História** — Narrativa com moral
-13. **Ultra Segmentado** — Fale direto com público específico
-14. **Reflexão** — Provoque pensamento profundo
-15. **Explicação** — Ensine de forma lógica
-16. **Problema-Solução** — Identifique problema e dê solução
-17. **Sensação** — Crie experiência sensorial
-18. **Mito** — Quebre crenças erradas do mercado
+1. **Comparação**. Compare duas situações mostrando qual é melhor
+2. **Apelo Emocional**. Histórias que tocam sentimentos
+3. **Certo vs Errado**. Erros comuns vs forma correta
+4. **Curiosidade**. Informação surpreendente
+5. **Demonstração**. Mostre funcionando na prática
+6. **Oportunidade**. Revele algo não percebido
+7. **Visual**. Apelo visual forte para parar scroll
+8. **Dilema**. Opções onde nenhuma parece ideal
+9. **Clickbait**. Frase chamativa que revela depois
+10. **Prova**. Evidência concreta (prints, troféus)
+11. **Contraste**. Comparação "preto no branco"
+12. **História**. Narrativa com moral
+13. **Ultra Segmentado**. Fale direto com público específico
+14. **Reflexão**. Provoque pensamento profundo
+15. **Explicação**. Ensine de forma lógica
+16. **Problema-Solução**. Identifique problema e dê solução
+17. **Sensação**. Crie experiência sensorial
+18. **Mito**. Quebre crenças erradas do mercado
 
 ---
 
 ## MÓDULO 5: Conteúdo para Redes
 
-### Reels — Pergunta, Resposta e Objeção
+### Reels. Pergunta, Resposta e Objeção
 1. Apresente pergunta comum do público
 2. Responda de forma direta
 3. Quebre objeção relacionada
 
-### Reels — Problema-Solução
+### Reels. Problema-Solução
 1. Apresente problema específico
 2. Amplifique a dor
 3. Apresente solução prática
@@ -375,25 +376,25 @@ Identifique e quebre as principais objeções do público.
 
 ### Sequência de E-mails
 
-**Fase 1 — Convite (antes do evento):**
+**Fase 1. Convite (antes do evento):**
 - E-mail 1: Convite principal
 - E-mail 2: Reforço com curiosidade
 - E-mail 3: Urgência (vagas limitadas)
 
-**Fase 2 — Confirmação (pós-cadastro):**
+**Fase 2. Confirmação (pós-cadastro):**
 - E-mail 1: Confirmação + próximos passos
 - E-mail 2: Preparação + expectativa
 
-**Fase 3 — Lembrete (dia do evento):**
+**Fase 3. Lembrete (dia do evento):**
 - E-mail 1: Lembrete manhã
 - E-mail 2: Lembrete 1h antes
 - E-mail 3: "Começou agora"
 
-**Fase 4 — Pré-Abertura:**
+**Fase 4. Pré-Abertura:**
 - E-mail 1: Bastidores da oferta
 - E-mail 2: Antecipação de bônus
 
-**Fase 5 — Carrinho Aberto:**
+**Fase 5. Carrinho Aberto:**
 - E-mail 1: Abertura oficial
 - E-mail 2: Prova social
 - E-mail 3: Objeções
@@ -434,17 +435,17 @@ Identifique e quebre as principais objeções do público.
 
 ### Estrutura de Campanha Meta Ads
 
-**Campanha 1 — Descoberta:**
+**Campanha 1. Descoberta:**
 - Objetivo: Alcance/Engajamento
 - Público: Interesses amplos
 - Criativos: Conteúdo de valor
 
-**Campanha 2 — Conversão:**
+**Campanha 2. Conversão:**
 - Objetivo: Conversões
 - Público: Engajados + Lookalike
 - Criativos: Anúncios de conversão
 
-**Campanha 3 — Remarketing:**
+**Campanha 3. Remarketing:**
 - Objetivo: Conversões
 - Público: Visitantes + Carrinho abandonado
 - Criativos: Urgência e prova
@@ -463,16 +464,16 @@ Identifique e quebre as principais objeções do público.
 
 ### Fluxo Recomendado para Novo Produto
 
-1. **Defina o Quadro** — transformação principal
-2. **Crie a Furadeira** — método estruturado
-3. **Gere Decorados** — 50 benefícios
-4. **Mapeie Urgências Ocultas** — dores, desejos, dúvidas
-5. **Defina os 3 Is** — comunicador, consumidor, produto
-6. **Monte a Oferta** — entregáveis, bônus, garantia, preço
-7. **Crie a Página de Vendas** — estrutura 8D
-8. **Grave o VVV** — seguindo a estrutura
-9. **Crie Anúncios** — usando a mandala
-10. **Configure Campanhas** — descoberta, conversão, remarketing
+1. **Defina o Quadro**. transformação principal
+2. **Crie a Furadeira**. método estruturado
+3. **Gere Decorados**. 50 benefícios
+4. **Mapeie Urgências Ocultas** (7 categorias com 10 itens cada): dores, dúvidas, desejos, assuntos relacionados, urgências quentes, urgências frias e urgências inusitadas
+5. **Defina os 3 Is**. comunicador, consumidor, produto
+6. **Monte a Oferta**. entregáveis, bônus, garantia, preço
+7. **Crie a Página de Vendas**. estrutura 8D
+8. **Grave o VVV**. seguindo a estrutura
+9. **Crie Anúncios**. usando a mandala
+10. **Configure Campanhas**. descoberta, conversão, remarketing
 
 ### Comandos Rápidos
 
@@ -492,13 +493,13 @@ Peça ao Claude:
 
 ---
 
-## MÓDULO 9: C10X — High Ticket e Eventos
+## MÓDULO 9: C10X. High Ticket e Eventos
 
 Metodologia para vender produtos de alto valor através de eventos (online ou presenciais).
 
 ### 9.1 BIG IDEA DO EVENTO
 
-**Etapa 1 — Promessa do Evento:**
+**Etapa 1. Promessa do Evento:**
 
 Fórmula: "Em [TEMPO], você vai [TRANSFORMAÇÃO ESPECÍFICA] para [RESULTADO DESEJADO], mesmo que [OBJEÇÃO COMUM], através do [SEU MÉTODO ÚNICO]"
 
@@ -510,7 +511,7 @@ Perguntas para definir:
 - Qual seu diferencial único?
 - Que resultado mensurável pode esperar?
 
-**Etapa 2 — Mote do Evento:**
+**Etapa 2. Mote do Evento:**
 
 Frameworks para criar mote:
 1. Ação + Resultado
@@ -521,7 +522,7 @@ Frameworks para criar mote:
 
 Mote ideal: memorável, emocional, claro, único, compartilhável (máx 5 palavras)
 
-**Etapa 3 — Oferta do Evento:**
+**Etapa 3. Oferta do Evento:**
 - Entregáveis (somente pré e durante evento)
 - Transformação oferecida
 - Bônus
@@ -617,35 +618,35 @@ Usar gatilhos da etapa de Prontidão (Mandala):
 
 **Estrutura de campanha Meta Ads:**
 
-**Campanha 1 — Aquisição:**
+**Campanha 1. Aquisição:**
 - Objetivo: Conversões (cadastro)
 - Público: Interesses + Lookalike
 - Criativos: Foco na transformação
 
-**Campanha 2 — Remarketing:**
+**Campanha 2. Remarketing:**
 - Objetivo: Conversões
 - Público: Visitantes página + Engajados
 - Criativos: Urgência + Prova social
 
 ---
 
-### 9.8 VENDAS 1:1 — MÉTODO SPIN
+### 9.8 VENDAS 1:1. MÉTODO SPIN
 
 **SPIN Selling adaptado:**
 
-**S — Situação:**
+**S. Situação:**
 - Qual é o seu cenário atual?
 - Como está seu [área do problema] hoje?
 
-**P — Problema:**
+**P. Problema:**
 - O que está te impedindo de [resultado]?
 - Qual sua maior dificuldade com [tema]?
 
-**I — Implicação:**
+**I. Implicação:**
 - O que acontece se continuar assim?
 - Quanto isso está te custando?
 
-**N — Necessidade de Solução:**
+**N. Necessidade de Solução:**
 - Como seria se você conseguisse [resultado]?
 - O que mudaria na sua vida?
 
@@ -676,7 +677,7 @@ Compare com outras soluções do mercado.
 4. **Envio do link:**
 "Vou te enviar o checkout. Me confirma a compra que já libero seus acessos."
 
-⚠️ Nunca pergunte "quer comprar?" — assuma o interesse.
+⚠️ Nunca pergunte "quer comprar?". assuma o interesse.
 
 ---
 
@@ -754,7 +755,7 @@ Conteúdos que aproveitam momentos específicos:
 | Quadro | Transformação principal (até 10 palavras) |
 | Furadeira | Método estruturado em etapas |
 | Decorados | Benefícios que decorrem do quadro |
-| Urgência Oculta | Dores, desejos e dúvidas do público |
+| Urgência Oculta | 7 categorias com 10 itens cada (dores, dúvidas, desejos, assuntos relacionados, urgências quentes, frias e inusitadas) |
 | 3 Is | Identidade do Comunicador, Consumidor e Produto |
 | Perpétuo | Venda contínua (vs lançamento) |
 | Pico de Vendas | Evento de vendas com prazo |
@@ -768,13 +769,13 @@ Conteúdos que aproveitam momentos específicos:
 | SPIN | Situação, Problema, Implicação, Necessidade |
 | Big Idea | Promessa + Mote + Oferta do evento |
 | Retiro | Evento imersivo de 1-3 dias |
-| D48 | Metodologia de produtos Low Ticket (R$37-97) |
-| Caixa Rápido | Estratégia de venda via quiz |
+| low ticket | Metodologia de produtos Low Ticket (R$37-97) |
+| Low Ticket | Estratégia de venda via quiz |
 | Elementos Literários | Técnicas de escrita para Light Copy |
 
 ---
 
-## MÓDULO 10: D48 — Low Ticket (R$37 a R$97)
+## MÓDULO 10: low ticket. Low Ticket (R$37 a R$97)
 
 Metodologia para criar e vender produtos de entrada rápidos e lucrativos.
 
@@ -817,9 +818,9 @@ Mesmas regras do quadro perpétuo, mas com foco em:
 
 **Estrutura obrigatória (12 blocos):**
 
-1. **Headline com premissa** — gancho principal
-2. **Subheadline** — reforço de dor ou desejo
-3. **Print de Resultado** — Antes e Depois visual
+1. **Headline com premissa**. gancho principal
+2. **Subheadline**. reforço de dor ou desejo
+3. **Print de Resultado**. Antes e Depois visual
 4. **Valor + Botão #1**
 5. **Entregáveis detalhados:**
    - Nome do entregável
@@ -841,14 +842,14 @@ Mesmas regras do quadro perpétuo, mas com foco em:
 
 ---
 
-### 10.4 ANÚNCIOS CAIXA RÁPIDO
+### 10.4 ANÚNCIOS LOW TICKET
 
 **Estrutura do anúncio para quiz:**
 
-1. **Abertura** — pergunta ou situação familiar
-2. **Problema** — dor do público
-3. **Solução** — o que o quiz revela
-4. **CTA** — convite para fazer o quiz
+1. **Abertura**. pergunta ou situação familiar
+2. **Problema**. dor do público
+3. **Solução**. o que o quiz revela
+4. **CTA**. convite para fazer o quiz
 
 **Regras:**
 - Não mencionar preço no anúncio
@@ -906,7 +907,7 @@ Mesmas regras do quadro perpétuo, mas com foco em:
 
 ---
 
-## MÓDULO 11: Light Copy — Elementos Literários
+## MÓDULO 11: Light Copy. Elementos Literários
 
 Técnicas de escrita criativa para tornar a copy mais envolvente, memorável e persuasiva.
 
@@ -1066,7 +1067,7 @@ Trocadilhos e duplos sentidos.
    - Qual o objetivo?
 
 2. **Escolher elementos:**
-   - Selecionar 1-3 elementos que combinam
+   - Selecionar 1 a 3 elementos que combinam
    - Não exagerar na quantidade
 
 3. **Criar versões:**

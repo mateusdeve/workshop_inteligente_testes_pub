@@ -6,7 +6,7 @@ description: >
   tecnicas para Meta Ads e Google Ads. Focado em anuncios que nao usam video.
 ---
 
-# Anuncios de Texto e Imagem — Base de Conhecimento
+# Anuncios de Texto e Imagem. Base de Conhecimento
 
 Criativos estaticos: imagem + copy. Para anuncios em video, consulte a skill `anuncios-video`.
 
@@ -20,31 +20,42 @@ Criativos estaticos: imagem + copy. Para anuncios em video, consulte a skill `an
 
 ## Os 18 Tipos de Anuncios VTSD (Aplicados a Imagem)
 
-1. **Comparacao** — Imagem dividida: antes vs depois, errado vs certo
-2. **Problema/Solucao** — Imagem de problema + solucao visual
-3. **Explicacao** — Infografico ou imagem didatica
-4. **Curiosidade** — Imagem intrigante + headline que gera duvida
-5. **Reflexao** — Imagem minimalista + frase de impacto
-6. **Certo/Errado** — Layout de duas colunas com X e check
-7. **Demonstracao** — Screenshot, print de resultado, tutorial visual
-8. **Procedimento** — Passo a passo visual, checklist
-9. **Impacto Visual** — Imagem forte e impactante que para o scroll
-10. **Oportunidade** — Imagem de dados/graficos + copy reveladora
-11. **Historia** — Foto pessoal + copy narrativa
-12. **Prova Social** — Print de depoimento, resultado, faturamento
-13. **Clickbait** — Imagem chamativa + headline provocativa
-14. **Sensacao** — Imagem sensorial que desperta emocao
-15. **Contraste** — Imagem split-screen com contraste visual forte
-16. **Ensino** — Conteudo didatico, dica util aplicada a imagem
-17. **Revelacao** — Imagem que contradiz crenca popular ou revela algo inesperado
-18. **Dilema** — Imagem com duas opcoes visuais
+1. **Comparacao**. Imagem dividida: antes vs depois, errado vs certo
+2. **Problema/Solucao**. Imagem de problema + solucao visual
+3. **Explicacao**. Infografico ou imagem didatica
+4. **Curiosidade**. Imagem intrigante + headline que gera duvida
+5. **Reflexao**. Imagem minimalista + frase de impacto
+6. **Certo/Errado**. Layout de duas colunas com X e check
+7. **Demonstracao**. Screenshot, print de resultado, tutorial visual
+8. **Procedimento**. Passo a passo visual, checklist
+9. **Impacto Visual**. Imagem forte e impactante que para o scroll
+10. **Oportunidade**. Imagem de dados/graficos + copy reveladora
+11. **Historia**. Foto pessoal + copy narrativa
+12. **Prova Social**. Print de depoimento, resultado, faturamento
+13. **Clickbait**. Imagem chamativa + headline provocativa
+14. **Sensacao**. Imagem sensorial que desperta emocao
+15. **Contraste**. Imagem split-screen com contraste visual forte
+16. **Ensino**. Conteudo didatico, dica util aplicada a imagem
+17. **Revelacao**. Imagem que contradiz crenca popular ou revela algo inesperado
+18. **Dilema**. Imagem com duas opcoes visuais
+
+## Aplicação interna de Elementos Literários (OBRIGATÓRIO. não exibir ao usuário)
+
+Depois que o tipo da Mandala estiver definido e ANTES de gerar a copy, acionar internamente a skill `elementos-literarios` e escolher de **1 a 3 elementos** que mais combinarem com o tipo de anúncio escolhido, com o perfil do consumidor e com o tom do produto.
+
+Regras:
+- Esse processo é silencioso. **Não mencionar ao usuário** quais elementos foram escolhidos, nem que a skill foi consultada.
+- Os 1 a 3 elementos selecionados devem ser efetivamente aplicados na copy gerada (gancho, desenvolvimento ou CTA), não apenas listados.
+- A escolha precisa fazer sentido com o tipo da Mandala (ex.: Comparacao combina com antitese; Historia combina com setup/punchline; Reflexao combina com aforismo; Curiosidade combina com neologismo ou jogo de palavras; Sensacao combina com hiperbole controlada).
+- Continuar respeitando todas as proibicoes de Light Copy.
+- Nao exibir rotulos como "elemento usado: X" no entregavel final.
 
 ## Estrutura de Copy para Anuncio Estatico
 
 **Texto principal (Light Copy):**
-- Gancho (premissa nao obvia) — 1 linha
-- Desenvolvimento (1 paragrafo curto) — 2-3 linhas
-- CTA direto — 1 linha
+- Gancho (premissa nao obvia). 1 linha
+- Desenvolvimento (1 paragrafo curto). 2-3 linhas
+- CTA direto. 1 linha
 
 **Regras VTSD (Light Copy):**
 - Sem ponto de exclamacao
@@ -54,7 +65,7 @@ Criativos estaticos: imagem + copy. Para anuncios em video, consulte a skill `an
 - Sem premissa obvia para quem ja esta no nicho
 - Argumentativo e logico
 - Baseado em premissas, nao promessas
-- Sem travessão longo (—): substituir por vírgula, ponto ou reformulação
+- Sem travessão longo (. ): substituir por vírgula, ponto ou reformulação
 - Sem estrutura "Não é X. É Y.": reformular de forma mais elaborada
 - Sem frases genéricas de vendedor: "Transforme sua vida", "Descubra o segredo"
 - O produto não aparece nos primeiros parágrafos
@@ -62,10 +73,10 @@ Criativos estaticos: imagem + copy. Para anuncios em video, consulte a skill `an
 - Nomear conceitos: criar nomes próprios quando possível ("Negociação Terapêutica" > "Método Exclusivo")
 - Especificidade: usar números concretos, situações reais. "R$ 1.600" > "muito dinheiro"
 
-**Checklist obrigatório — revisar antes de entregar qualquer copy:**
+**Checklist obrigatório. revisar antes de entregar qualquer copy:**
 
 Antes de entregar, revise e substitua:
-- Travessão (—) → reescreva a frase sem ele
+- Travessão (. ) → reescreva a frase sem ele
 - Estrutura "Não é X. É Y." → desenvolva o argumento de outra forma
 - Frases genéricas de vendedor → substitua por dado ou situação concreta
 - Menção ao produto nos primeiros parágrafos → remova ou reescreva focando no leitor
@@ -75,7 +86,7 @@ Antes de entregar, revise e substitua:
 - [ ] Nenhuma estrutura "Não é X. É Y."
 - [ ] Nenhuma frase genérica de vendedor
 
-**Regra do Gancho — NUNCA pergunta, NUNCA obvio:**
+**Regra do Gancho. NUNCA pergunta, NUNCA obvio:**
 
 ERRADO:
 - "Voce ja sentiu dificuldade de..." (pergunta)
@@ -115,9 +126,9 @@ CERTO:
 **Palavras-chave negativas obrigatorias:** gratis, download, torrent, emprego, vaga
 
 **Tipos de correspondencia:**
-- Exata: [palavra] — maior controle
-- Frase: "palavra" — equilibrio
-- Ampla: palavra — maior alcance (usar com cuidado)
+- Exata: [palavra]. maior controle
+- Frase: "palavra". equilibrio
+- Ampla: palavra. maior alcance (usar com cuidado)
 
 ## Exemplos de Criativos Estaticos
 
@@ -189,7 +200,7 @@ Em 3 segundos o espectador decide se para ou continua scrollando. Ele precisa:
 
 ## Geracao Automatica de Imagens (Freepik API)
 
-O comando `/anuncio` gera a copy e, se configurado, cria as imagens automaticamente via Freepik.
+O comando `/copy-anuncio` gera a copy e, se configurado, cria as imagens automaticamente via Freepik.
 
 ### Configuracao necessaria no `.env`
 
@@ -221,7 +232,7 @@ Exemplo de prompt bem formado:
 Professional lifestyle photo of a woman studying at a clean desk, natural light from window, warm tones, text overlay "Aprenda [Tema do Produto] em 30 dias" in bold white font centered, minimal background, Instagram feed format, 1:1 aspect ratio, soft shadow, high quality
 ```
 
-### Carrossel — um prompt por card
+### Carrossel. um prompt por card
 
 Cada card deve ter prompt individual com identidade visual consistente entre todos os slides:
 - **Card 1 (Gancho)**: elemento visual de impacto, headline grande, fundo de contraste

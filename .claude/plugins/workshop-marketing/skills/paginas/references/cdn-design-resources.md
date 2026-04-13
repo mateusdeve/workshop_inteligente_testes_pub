@@ -1,7 +1,7 @@
 # Recursos CDN Gratuitos para Páginas HTML Profissionais
 
 Referência completa de recursos que funcionam em ARQUIVO HTML ÚNICO, sem build tools.
-**Atenção:** Este arquivo complementa a skill `/pagina-de-vendas`. As Regras Críticas de Qualidade (#1 a #6) da skill têm precedência.
+**Atenção:** Este arquivo complementa a skill `/copy-pagina`. As Regras Críticas de Qualidade (#1 a #6) da skill têm precedência.
 
 ---
 
@@ -26,7 +26,7 @@ Referência completa de recursos que funcionam em ARQUIVO HTML ÚNICO, sem build
 - Versão estável e amplamente testada
 - Permite configuração inline via `tailwind.config`
 
-### Pico CSS (~7KB gzipped) — Classless
+### Pico CSS (~7KB gzipped). Classless
 
 ```html
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
@@ -37,7 +37,7 @@ Referência completa de recursos que funcionam em ARQUIVO HTML ÚNICO, sem build
 - Temas claro/escuro automáticos
 - Ideal para páginas simples e rápidas
 
-### Water.css (~2KB gzipped) — Classless
+### Water.css (~2KB gzipped). Classless
 
 ```html
 <!-- Tema automático (claro/escuro) -->
@@ -107,13 +107,13 @@ Uso: `<i class="fa-solid fa-house"></i>`
 
 ### Recomendação para páginas de vendas:
 
-1. **Phosphor Icons** — mais versátil, 6 estilos, excelente qualidade
-2. **Lucide** — moderno, leve, combina com Tailwind
-3. **Tabler Icons** — maior quantidade, estilo consistente
+1. **Phosphor Icons**. mais versátil, 6 estilos, excelente qualidade
+2. **Lucide**. moderno, leve, combina com Tailwind
+3. **Tabler Icons**. maior quantidade, estilo consistente
 
 ---
 
-## 3. GOOGLE FONTS — COMBINAÇÕES POR NICHO
+## 3. GOOGLE FONTS. COMBINAÇÕES POR NICHO
 
 **REGRA CRÍTICA: Body text SEMPRE sans-serif.** Fontes serifadas são apenas para headings em nichos específicos.
 
@@ -243,44 +243,41 @@ Body: Manrope (400, 500, 600)
 - Source Serif 4 / Source Serif Pro
 - Merriweather
 - Libre Baskerville (body)
-- Inter (como heading — é a fonte padrão de IA)
+- Inter (como heading. é a fonte padrão de IA)
 - Roboto (cara de template genérico)
 - Arial (sem personalidade)
 
 ---
 
-## 4. IMAGENS — CDNs E SERVIÇOS GRATUITOS
+## 4. IMAGENS. REGRAS OBRIGATÓRIAS
 
-### Lorem Picsum (Placeholder de alta qualidade)
+**LER `SKILL.md` → seção "Imagens Contextuais" antes de qualquer página.** Regra curta:
 
-```
-Imagem aleatória:     https://picsum.photos/800/600
-Imagem específica:    https://picsum.photos/id/237/800/600
-Com blur:             https://picsum.photos/800/600?blur=2
-Escala de cinza:      https://picsum.photos/800/600?grayscale
-```
+- ❌ `picsum.photos` (qualquer variante, incluindo `/seed/...`) é **proibido**. devolve imagem aleatória
+- ❌ `source.unsplash.com` é proibido. serviço desligado
+- ✅ Placeholder visual em HTML/CSS (gradiente + emoji + label da copy) é o padrão
+- ✅ Unsplash com **ID específico** (`images.unsplash.com/photo-{ID}?...`) só quando o ID comprovadamente combina com a copy
+- ✅ `i.pravatar.cc` para rostos de depoimento
 
-Uso direto em `<img src="https://picsum.photos/800/600" loading="lazy">` — sem API key
-
-### Imagens de Fundo para Seções (obrigatório — mínimo 2 seções)
+### Fundos de Seção (sem foto aleatória)
 
 ```css
-/* Opção 1: Picsum com overlay escuro */
+/* Opção 1: Overlay escuro sobre foto de Unsplash com ID específico */
 .section-com-imagem {
   background:
     linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
-    url('https://picsum.photos/1920/1080?random=1');
+    url('https://images.unsplash.com/photo-ID-ESPECIFICO?w=1920&q=80');
   background-size: cover;
   background-position: center;
-  background-attachment: fixed; /* efeito parallax */
+  background-attachment: fixed;
   color: #fff;
 }
 
-/* Opção 2: Overlay com cor da paleta */
+/* Opção 2: Overlay de marca sobre foto com ID específico */
 .section-com-imagem-colorida {
   background:
     linear-gradient(135deg, rgba(45,24,16,0.85), rgba(74,44,26,0.9)),
-    url('https://picsum.photos/1920/1080?random=2');
+    url('https://images.unsplash.com/photo-ID-ESPECIFICO?w=1920&q=80');
   background-size: cover;
   background-position: center;
   color: #fff;
@@ -326,7 +323,7 @@ https://api.dicebear.com/7.x/initials/svg?seed=VM
 
 ## 5. ANIMAÇÕES (CSS/JS via CDN)
 
-### AOS — Animate on Scroll (~5.7KB)
+### AOS. Animate on Scroll (~5.7KB)
 
 ```html
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css">
@@ -337,7 +334,7 @@ https://api.dicebear.com/7.x/initials/svg?seed=VM
 Uso em elementos: `<div data-aos="fade-up">Conteúdo</div>`
 Animações disponíveis: fade-up, fade-down, fade-left, fade-right, zoom-in, zoom-out, flip-up, slide-up
 
-### GSAP (Animações profissionais — gratuito para uso pessoal)
+### GSAP (Animações profissionais. gratuito para uso pessoal)
 
 ```html
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
@@ -348,9 +345,9 @@ O mais poderoso, usado em sites premiados.
 
 ### Recomendação para páginas de vendas:
 
-1. **AOS** — Melhor custo-benefício. Fácil de usar, leve, efeito profissional
-2. **CSS puro com IntersectionObserver** — Zero dependência, máximo controle
-3. **GSAP + ScrollTrigger** — Para páginas que precisam impressionar muito
+1. **AOS**. Melhor custo-benefício. Fácil de usar, leve, efeito profissional
+2. **CSS puro com IntersectionObserver**. Zero dependência, máximo controle
+3. **GSAP + ScrollTrigger**. Para páginas que precisam impressionar muito
 
 ### Animação CSS Pura (sem bibliotecas):
 
@@ -382,7 +379,7 @@ document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
 ## 6. UTILITÁRIOS CSS
 
-### Modern CSS Reset (Josh Comeau — inline)
+### Modern CSS Reset (Josh Comeau. inline)
 
 ```css
 *, *::before, *::after { box-sizing: border-box; }
@@ -414,7 +411,7 @@ html { scroll-behavior: smooth; }
   --space-4xl: 80px;
   --space-5xl: 120px;
 
-  /* Tipografia — BODY SEMPRE SANS-SERIF */
+  /* Tipografia. BODY SEMPRE SANS-SERIF */
   --font-heading: 'Playfair Display', serif;
   --font-body: 'DM Sans', sans-serif;
 
@@ -465,35 +462,35 @@ html { scroll-behavior: smooth; }
 
 ---
 
-## 7. PADRÕES DE DESIGN — O QUE EVITAR E O QUE APLICAR
+## 7. PADRÕES DE DESIGN. O QUE EVITAR E O QUE APLICAR
 
-### PROIBIDO — Cara de IA/Lovable/v0 (EVITAR):
+### PROIBIDO. Cara de IA/Lovable/v0 (EVITAR):
 
-1. **Fonte serifada no body** — Lora, Source Serif no texto corrido
-2. **Inter/Roboto como heading** — são as fontes padrão que toda IA usa
-3. **Gradiente roxo-azul em fundo branco** — o clichê #1 de IA
-4. **Cards brancos idênticos em fundo bege/cinza** — padrão Lovable
-5. **Ícones em quadrados arredondados com fundo pastel** — padrão Lovable
-6. **Espaçamento uniforme e previsível** — sem ritmo visual
-7. **Todas as seções com mesmo padrão visual** — fundo claro → card → fundo claro → card
-8. **Tudo flat sem texturas** — sem imagens de fundo, sem profundidade
-9. **Paleta pastel sem contraste** — cores tímidas, sem personalidade
-10. **Layout simétrico e genérico** — sem surpresa visual
+1. **Fonte serifada no body**. Lora, Source Serif no texto corrido
+2. **Inter/Roboto como heading**. são as fontes padrão que toda IA usa
+3. **Gradiente roxo-azul em fundo branco**. o clichê #1 de IA
+4. **Cards brancos idênticos em fundo bege/cinza**. padrão Lovable
+5. **Ícones em quadrados arredondados com fundo pastel**. padrão Lovable
+6. **Espaçamento uniforme e previsível**. sem ritmo visual
+7. **Todas as seções com mesmo padrão visual**. fundo claro → card → fundo claro → card
+8. **Tudo flat sem texturas**. sem imagens de fundo, sem profundidade
+9. **Paleta pastel sem contraste**. cores tímidas, sem personalidade
+10. **Layout simétrico e genérico**. sem surpresa visual
 
-### OBRIGATÓRIO — Cara de profissional (APLICAR):
+### OBRIGATÓRIO. Cara de profissional (APLICAR):
 
-1. **Body SEMPRE sans-serif** — DM Sans, Nunito, Source Sans 3, Outfit, Manrope
-2. **Heading com personalidade** — Playfair, Fraunces, Bebas Neue, Fjalla One (conforme nicho)
-3. **Paleta com cor dominante forte** — regra 60-30-10 (base-suporte-destaque)
-4. **Seções visualmente DIFERENTES** — alternar 4+ tipos de fundo
-5. **Imagens de fundo em 2+ seções** — Picsum + overlay ou CSS artístico
-6. **Espaçamento generoso e irregular** — seções com 80-120px de gap, ritmo variado
-7. **Texturas e profundidade** — sombras suaves, gradientes em camadas
-8. **Hierarquia tipográfica dramática** — 15px body vs 48-56px heading
-9. **Hover states que surpreendem** — não só mudar cor (mover, escalar, revelar)
-10. **CTA com contraste máximo** — botão que se destaca contra o fundo
-11. **Header com logo** — toda página começa com logotipo
-12. **Texto em pt-BR com acentos** — SEMPRE
+1. **Body SEMPRE sans-serif**. DM Sans, Nunito, Source Sans 3, Outfit, Manrope
+2. **Heading com personalidade**. Playfair, Fraunces, Bebas Neue, Fjalla One (conforme nicho)
+3. **Paleta com cor dominante forte**. regra 60-30-10 (base-suporte-destaque)
+4. **Seções visualmente DIFERENTES**. alternar 4+ tipos de fundo
+5. **Imagens de fundo em 2+ seções**. Picsum + overlay ou CSS artístico
+6. **Espaçamento generoso e irregular**. seções com 80-120px de gap, ritmo variado
+7. **Texturas e profundidade**. sombras suaves, gradientes em camadas
+8. **Hierarquia tipográfica dramática**. 15px body vs 48-56px heading
+9. **Hover states que surpreendem**. não só mudar cor (mover, escalar, revelar)
+10. **CTA com contraste máximo**. botão que se destaca contra o fundo
+11. **Header com logo**. toda página começa com logotipo
+12. **Texto em pt-BR com acentos**. SEMPRE
 
 ### Divisores entre Seções (usar pelo menos 2 tipos):
 
@@ -531,7 +528,7 @@ html { scroll-behavior: smooth; }
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Nome do Produto — Transformação Principal</title>
+  <title>Nome do Produto. Transformação Principal</title>
 
   <!-- Fonts (escolher combinação por nicho) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -561,7 +558,7 @@ html { scroll-behavior: smooth; }
   <header class="site-header">
     <div class="container">
       <span class="logo-text">Nome do Produto</span>
-      <!-- [Insira seu logotipo aqui — 180x50px] -->
+      <!-- [Insira seu logotipo aqui. 180x50px] -->
     </div>
   </header>
 

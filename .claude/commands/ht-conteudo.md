@@ -1,9 +1,9 @@
 ---
 name: workshop-marketing:ht-conteudo
-description: Criar o roteiro de conteúdo dos blocos de ensino do evento C10X — o que ensinar, em que ordem e como conduzir cada bloco para preparar o terreno para o pitch.
+description: Criar o roteiro de conteúdo dos blocos de ensino do evento C10X. o que ensinar, em que ordem e como conduzir cada bloco para preparar o terreno para o pitch.
 ---
 
-# HT — Roteiro de Conteúdo do Evento
+# HT. Roteiro de Conteúdo do Evento
 
 Cria o roteiro completo dos blocos de ensino do Retiro Online ou webinar, alinhando o conteúdo ensinado com a oferta que será feita ao final.
 
@@ -16,12 +16,12 @@ Cria o roteiro completo dos blocos de ensino do Retiro Online ou webinar, alinha
 ## O Que Fazer
 
 ### 1. Contexto
-Leia `produtos/.ativo`, depois `produtos/{ativo}/perfil.md` e `produtos/{ativo}/idconsumidor.md`.
-Se existir `produtos/{ativo}/entregas/c10x/cronograma-*.md`, leia para alinhar com a agenda.
+Leia `entregas/.ativo`, depois `entregas/{ativo}/perfil.md` e `entregas/{ativo}/idconsumidor.md`.
+Se existir `entregas/{ativo}/c10x/cronograma-*.md`, leia para alinhar com a agenda.
 
 ### 2. Entrevista (UMA pergunta por vez, com progresso visual)
 
-**Bloco 1/3 — Temas do Evento:**
+**Bloco 1/3. Temas do Evento:**
 ```
 Quais os temas/blocos de conteúdo do evento?
 Liste em ordem de apresentação.
@@ -35,7 +35,7 @@ Próximo: Oferta final
 ---
 ```
 
-**Bloco 2/3 — Oferta Final:**
+**Bloco 2/3. Oferta Final:**
 ```
 O que será vendido ao final do evento?
 (ex: "Mentoria de 3 meses para escalar o negócio", "Consultoria de posicionamento")
@@ -49,7 +49,7 @@ Próximo: Nível do público
 ---
 ```
 
-**Bloco 3/3 — Nível do Público:**
+**Bloco 3/3. Nível do Público:**
 ```
 Qual o nível de conhecimento do público que vai participar?
 
@@ -89,10 +89,10 @@ Como este bloco planta uma semente para a oferta final.
 
 **Estrutura do bloco (roteiro em 4 partes):**
 
-1. **Abertura (5 min)** — Gancho ou pergunta que conecta com a dor do participante
-2. **Conteúdo principal (40-50 min)** — O que ensinar, em que ordem, com quais exemplos
-3. **Ativação (10 min)** — Exercício prático que o participante faz durante o evento
-4. **Fechamento do bloco (5 min)** — Resumo + gancho para o próximo bloco
+1. **Abertura (5 min)**. Gancho ou pergunta que conecta com a dor do participante
+2. **Conteúdo principal (40-50 min)**. O que ensinar, em que ordem, com quais exemplos
+3. **Ativação (10 min)**. Exercício prático que o participante faz durante o evento
+4. **Fechamento do bloco (5 min)**. Resumo + gancho para o próximo bloco
 
 **Pontos de prova social a inserir:**
 Momentos onde citar casos de alunos ou resultados reais reforça a credibilidade.
@@ -105,7 +105,7 @@ O erro mais comum ao ensinar este tema que diminui a conversão.
 **Regras para o roteiro de conteúdo do C10X:**
 
 - O conteúdo deve ser suficiente para gerar transformação real (não pode ser teaser vazio)
-- Cada bloco deve abrir uma "ferida" (problema) e entregar uma "bandagem" (solução parcial) — o remédio completo vem com a oferta
+- Cada bloco deve abrir uma "ferida" (problema) e entregar uma "bandagem" (solução parcial). o remédio completo vem com a oferta
 - Não ensine tudo: entregue resultado real no evento, mas deixe claro que há mais a percorrer
 - A última hora antes do pitch deve subir a energia: depoimentos, perguntas ao público, celebração de pequenas vitórias
 
@@ -121,7 +121,7 @@ Texto de ligação entre o último bloco de conteúdo e o momento de apresentar 
 ```
 
 ### 5. Salvar
-`produtos/{ativo}/entregas/c10x/conteudo-[evento].md`
+`entregas/{ativo}/c10x/conteudo-[evento].md`
 
 ### 6. Próximo Passo
 "Roteiro de conteúdo pronto. Próximo: `/ht-pitch-palco` para criar o script completo do momento de venda."

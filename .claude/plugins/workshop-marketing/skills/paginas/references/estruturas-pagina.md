@@ -1,7 +1,7 @@
 # Estruturas de Página por Tipo
 
 Referência de estrutura, seções e regras para cada tipo de página.
-**Atenção:** Este arquivo complementa a skill `/pagina-de-vendas`. As Regras Críticas de Qualidade (#1 a #6) da skill têm precedência.
+**Atenção:** Este arquivo complementa a skill `/copy-pagina`. As Regras Críticas de Qualidade (#1 a #6) da skill têm precedência.
 
 ---
 
@@ -15,7 +15,7 @@ Referência de estrutura, seções e regras para cada tipo de página.
 ### Header Obrigatório
 Toda página começa com header contendo logotipo:
 - Logo texto estilizado (fonte heading) quando não houver imagem
-- Placeholder instrucional: `[Insira seu logotipo aqui — 180x50px]`
+- Placeholder instrucional: `[Insira seu logotipo aqui. 180x50px]`
 - Fundo transparente ou cor sólida que combine com o hero
 - Logo à esquerda + CTA pequeno à direita (opcional)
 - No mobile, centralizar o logo
@@ -43,12 +43,12 @@ Toda página começa com header contendo logotipo:
 
 ---
 
-## Página de Vendas (Sales Page — Estrutura 8D Expandida)
+## Página de Vendas (Sales Page. Estrutura 8D Expandida)
 
 ### Objetivo
 Convencer e converter o visitante em comprador.
 
-### Seções (ordem recomendada — 15 seções)
+### Seções (ordem recomendada. 16 seções)
 
 | # | Seção | Fundo sugerido | Detalhes |
 |---|---|---|---|
@@ -56,17 +56,18 @@ Convencer e converter o visitante em comprador.
 | 2 | **Hero** | Escuro com gradiente | Headline + subheadline + 3 bullets + CTA + vídeo |
 | 3 | **Problema/Dor** | Claro + cards com borda | Dor amplificada com cenas do cotidiano |
 | 4 | **Paliativo** | **Imagem + overlay escuro** | O que já tentaram e por que falhou |
-| 5 | **CTA intermediário** | Cor vibrante (CTA color) | Seção curta + botão |
-| 6 | **Solução/Método** | Claro com textura sutil | Furadeira com macroetapas visuais |
-| 7 | **Para quem é / não é** | Escuro sólido | Listas com ícones check/X |
-| 8 | **Entregáveis** | Claro + cards grandes | Grid **2 colunas** com listas |
-| 9 | **Bônus** | Gradiente sutil | Cards com valor individual em R$ |
-| 10 | **Stack de Valor** | Escuro premium | Ancoragem: valor total vs preço real |
-| 11 | **Depoimentos** | **Imagem + overlay** | Cards flutuantes com avatar e resultado |
-| 12 | **Garantia** | Claro com destaque central | Selo visual + texto confiante |
-| 13 | **FAQ** | Neutro alternado | Accordion funcional (5-8 perguntas) |
-| 14 | **CTA Final** | Escuro com gradiente | Preço, parcelamento, botão grande, urgência |
-| 15 | **Rodapé** | Escuro sólido | Copyright, termos, privacidade |
+| 5 | **Depoimentos (1º bloco)** | Claro com cards flutuantes | 2-3 depoimentos curtos de resultado rápido. Ancora credibilidade ANTES do método. |
+| 6 | **CTA intermediário** | Cor vibrante (CTA color) | Seção curta + botão |
+| 7 | **Solução/Método** | Claro com textura sutil | Furadeira com macroetapas visuais. Nome do produto aparece aqui pela 1ª vez. |
+| 8 | **Para quem é / não é** | Escuro sólido | Listas com ícones check/X |
+| 9 | **Entregáveis** | Claro + cards grandes | Grid **2 colunas** com listas |
+| 10 | **Bônus** | Gradiente sutil | Cards com valor individual em R$ |
+| 11 | **Stack de Valor** | Escuro premium | Ancoragem: valor total vs preço real |
+| 12 | **Depoimentos (2º bloco)** | **Imagem + overlay** | 3-5 depoimentos completos com foto, antes/depois e resultado específico |
+| 13 | **Garantia** | Claro com destaque central | Selo visual + texto confiante |
+| 14 | **FAQ** | Neutro alternado | Accordion funcional (5-8 perguntas) |
+| 15 | **CTA Final** | Escuro com gradiente | Preço, parcelamento, botão grande, urgência |
+| 16 | **Rodapé** | Escuro sólido | Copyright, termos, privacidade |
 
 ### Regras de Conversão
 - Múltiplos CTAs ao longo da página (mínimo 3)
@@ -82,15 +83,24 @@ Convencer e converter o visitante em comprador.
 - **Depoimentos:** Foto que transmite autenticidade (ex: pessoas reais, ambiente do nicho)
 - **CTA Final:** Imagem de impacto com overlay escuro forte
 
-Implementação:
+Implementação (ver `SKILL.md` → Imagens Contextuais. picsum é proibido porque devolve foto aleatória):
 ```css
 .section-com-imagem {
   background:
     linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
-    url('https://picsum.photos/1920/1080?random=1');
+    url('https://images.unsplash.com/photo-ID-ESPECIFICO?w=1920&q=80');
   background-size: cover;
   background-position: center;
   background-attachment: fixed; /* parallax */
+  color: #fff;
+}
+
+/* Sem foto: gradiente artístico. padrão seguro quando não há ID validado */
+.section-atmosferica {
+  background-color: #0a0a0a;
+  background-image:
+    radial-gradient(at 20% 50%, hsla(28,100%,74%,0.15) 0px, transparent 50%),
+    radial-gradient(at 80% 20%, hsla(189,100%,56%,0.08) 0px, transparent 50%);
   color: #fff;
 }
 ```
@@ -111,12 +121,12 @@ Implementação:
 Coletar o contato (email ou WhatsApp) em troca de um material gratuito.
 
 ### Seções Essenciais
-1. **Header** — Logo centralizado
-2. **Hero** — Headline com promessa clara + formulário simples (nome + email)
-3. **Benefícios** — 3-4 pontos do que vai aprender/receber (ícones + texto)
-4. **Conteúdo** — Detalhamento do material (tópicos, páginas, etc.)
-5. **Autoridade** — Mini bio do autor com foto
-6. **CTA Final** — Repetição do formulário com urgência
+1. **Header**. Logo centralizado
+2. **Hero**. Headline com promessa clara + formulário simples (nome + email)
+3. **Benefícios**. 3-4 pontos do que vai aprender/receber (ícones + texto)
+4. **Conteúdo**. Detalhamento do material (tópicos, páginas, etc.)
+5. **Autoridade**. Mini bio do autor com foto
+6. **CTA Final**. Repetição do formulário com urgência
 
 ### Regras
 - Máximo 1 página de scroll no mobile
@@ -136,12 +146,12 @@ Coletar o contato (email ou WhatsApp) em troca de um material gratuito.
 Captar inscrições para evento online (ao vivo ou gravado).
 
 ### Seções Essenciais
-1. **Header** — Logo + data do evento
-2. **Hero** — Tema da aula + data/hora + formulário de inscrição
-3. **O que vai aprender** — 3-5 pontos específicos
-4. **Para quem é** — Perfil ideal do participante
-5. **Sobre o professor** — Bio com credenciais
-6. **CTA final** — Reforço da inscrição
+1. **Header**. Logo + data do evento
+2. **Hero**. Tema da aula + data/hora + formulário de inscrição
+3. **O que vai aprender**. 3-5 pontos específicos
+4. **Para quem é**. Perfil ideal do participante
+5. **Sobre o professor**. Bio com credenciais
+6. **CTA final**. Reforço da inscrição
 
 ### Regras
 - Data e hora em destaque visual (badge ou countdown)
@@ -159,13 +169,13 @@ Captar inscrições para evento online (ao vivo ou gravado).
 Confirmar a ação e direcionar para o próximo passo.
 
 ### Seções Essenciais
-1. **Header** — Logo
-2. **Confirmação** — Mensagem clara do que aconteceu (compra, cadastro, inscrição)
-3. **Próximos passos** — Instruções objetivas e numeradas
-4. **CTA secundário** — Grupo WhatsApp, redes sociais, outro produto
+1. **Header**. Logo
+2. **Confirmação**. Mensagem clara do que aconteceu (compra, cadastro, inscrição)
+3. **Próximos passos**. Instruções objetivas e numeradas
+4. **CTA secundário**. Grupo WhatsApp, redes sociais, outro produto
 
 ### Regras
-- Não deixar a pessoa "perdida" — sempre ter próximo passo claro
+- Não deixar a pessoa "perdida". sempre ter próximo passo claro
 - Pode incluir vídeo de boas-vindas
 - Pode incluir upsell ou order bump
 

@@ -1,6 +1,6 @@
 # Frameworks de Copywriting
 
-## 1. AIDA — Atenção, Interesse, Desejo, Ação
+## 1. AIDA. Atenção, Interesse, Desejo, Ação
 O framework mais clássico do copywriting.
 
 ### Estrutura:
@@ -16,7 +16,7 @@ O framework mais clássico do copywriting.
 
 ---
 
-## 2. PAS — Problema, Agitação, Solução
+## 2. PAS. Problema, Agitação, Solução
 O framework mais eficaz para textos curtos.
 
 ### Estrutura:
@@ -31,7 +31,7 @@ O framework mais eficaz para textos curtos.
 
 ---
 
-## 3. BAB — Before, After, Bridge (Antes, Depois, Ponte)
+## 3. BAB. Before, After, Bridge (Antes, Depois, Ponte)
 Perfeito para mostrar transformação.
 
 ### Estrutura:
@@ -46,7 +46,7 @@ Perfeito para mostrar transformação.
 
 ---
 
-## 4. 4Ps — Problema, Promessa, Prova, Proposta
+## 4. 4Ps. Problema, Promessa, Prova, Proposta
 Framework completo para vendas diretas.
 
 ### Estrutura:

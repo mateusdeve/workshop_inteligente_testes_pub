@@ -1,13 +1,13 @@
-# Performance — Otimização para Páginas HTML Puras
+# Performance. Otimização para Páginas HTML Puras
 
 Referência completa para auditoria e otimização de performance em páginas HTML estáticas (arquivo único, sem framework).
 **Meta: 90+ no mobile e 100 no desktop no PageSpeed Insights / Lighthouse.**
 
-**Atenção:** Este arquivo complementa a skill `/pagina-de-vendas`. O visual da página NÃO pode ser alterado — layout, ordem de elementos, cores e espaçamentos devem permanecer intactos.
+**Atenção:** Este arquivo complementa a skill `/copy-pagina`. O visual da página NÃO pode ser alterado. layout, ordem de elementos, cores e espaçamentos devem permanecer intactos.
 
 ---
 
-## FASE 1 — Auditoria Completa
+## FASE 1. Auditoria Completa
 
 Ler o arquivo HTML indicado por completo. **Não alterar nada ainda.** Mapear todos os problemas nas categorias abaixo:
 
@@ -35,7 +35,7 @@ Ler o arquivo HTML indicado por completo. **Não alterar nada ainda.** Mapear to
 ### JavaScript e Carregamento
 
 - Scripts no `<head>` sem `defer` ou `async`
-- Tailwind CDN (`cdn.tailwindcss.com`) — é um compilador JS de ~300KB que roda no browser
+- Tailwind CDN (`cdn.tailwindcss.com`). é um compilador JS de ~300KB que roda no browser
 - Bibliotecas JS carregando antes do conteúdo (AOS, GSAP, Lucide)
 - Scripts inline pesados executando no parse do HTML
 - Event listeners em excesso sem delegação
@@ -51,7 +51,7 @@ Ler o arquivo HTML indicado por completo. **Não alterar nada ainda.** Mapear to
 ### Mobile Específico
 
 - Elementos com largura > `100vw` (overflow horizontal)
-- `background-attachment: fixed` — não funciona bem no iOS, causa jank
+- `background-attachment: fixed`. não funciona bem no iOS, causa jank
 - Animações usando propriedades que causam repaint: `top`, `left`, `width`, `height`, `box-shadow`
 - Touch targets menores que 48x48px
 - Fontes abaixo de 16px (força zoom automático no iOS)
@@ -68,7 +68,7 @@ Ler o arquivo HTML indicado por completo. **Não alterar nada ainda.** Mapear to
 
 ---
 
-## FASE 2 — Diagnóstico Priorizado
+## FASE 2. Diagnóstico Priorizado
 
 Antes de qualquer alteração, apresentar:
 
@@ -90,7 +90,7 @@ Critérios de severidade:
 
 ---
 
-## FASE 3 — Implementação (CRÍTICO → ALTO → MÉDIO)
+## FASE 3. Implementação (CRÍTICO → ALTO → MÉDIO)
 
 ### Tailwind CDN → CSS Puro Inline
 
@@ -119,10 +119,10 @@ O problema mais comum nas páginas do workshop. O Tailwind CDN é um compilador 
 3. Manter o visual 100% idêntico
 4. Remover a tag `<script src="https://cdn.tailwindcss.com">` e qualquer `<script>` de config do Tailwind
 
-### Imagens — Otimização Completa
+### Imagens. Otimização Completa
 
 ```html
-<!-- HERO (above-the-fold) — carrega com prioridade -->
+<!-- HERO (above-the-fold). carrega com prioridade -->
 <img
   src="imagem.webp"
   alt="Descrição da imagem"
@@ -132,7 +132,7 @@ O problema mais comum nas páginas do workshop. O Tailwind CDN é um compilador 
   decoding="async"
 >
 
-<!-- BELOW-THE-FOLD — carrega sob demanda -->
+<!-- BELOW-THE-FOLD. carrega sob demanda -->
 <img
   src="imagem.webp"
   alt="Descrição da imagem"
@@ -155,7 +155,7 @@ O problema mais comum nas páginas do workshop. O Tailwind CDN é um compilador 
 >
 ```
 
-### YouTube/Vimeo — Facade Pattern (HTML Puro)
+### YouTube/Vimeo. Facade Pattern (HTML Puro)
 
 Substituir iframes por thumbnail clicável que carrega o player sob demanda:
 
@@ -209,7 +209,7 @@ Substituir iframes por thumbnail clicável que carrega o player sob demanda:
 </div>
 ```
 
-### Fontes — Carregamento Otimizado
+### Fontes. Carregamento Otimizado
 
 ```html
 <!-- OBRIGATÓRIO: preconnect ANTES do link da fonte -->
@@ -221,11 +221,11 @@ Substituir iframes por thumbnail clicável que carrega o player sob demanda:
 ```
 
 **Regras:**
-- Sempre incluir `display=swap` na URL (evita FOIT — texto invisível enquanto a fonte carrega)
+- Sempre incluir `display=swap` na URL (evita FOIT. texto invisível enquanto a fonte carrega)
 - Carregar apenas os pesos efetivamente usados (cada peso extra = ~20-50KB)
 - Preconnect DEVE vir antes do `<link>` da fonte no `<head>`
 
-### CSS Não-Crítico — Carregamento Assíncrono
+### CSS Não-Crítico. Carregamento Assíncrono
 
 Para bibliotecas de ícones e animações usadas abaixo da dobra:
 
@@ -268,7 +268,7 @@ Para bibliotecas de ícones e animações usadas abaixo da dobra:
 </script>
 ```
 
-### Scripts — Carregamento Correto
+### Scripts. Carregamento Correto
 
 ```html
 <!-- ANTES: scripts bloqueiam parsing -->
@@ -303,7 +303,7 @@ Adicionar no `<head>`, antes de qualquer recurso externo:
 <link rel="dns-prefetch" href="//i.pravatar.cc">
 ```
 
-### CLS — Estabilidade Visual
+### CLS. Estabilidade Visual
 
 ```css
 /* Imagens: SEMPRE com aspect-ratio ou width/height */
@@ -331,10 +331,10 @@ body {
 }
 ```
 
-### Mobile — Fixes Específicos
+### Mobile. Fixes Específicos
 
 ```css
-/* PROIBIDO no mobile — causa jank e scroll travado */
+/* PROIBIDO no mobile. causa jank e scroll travado */
 /* background-attachment: fixed; */
 
 /* CORRETO: remover parallax no mobile */
@@ -381,13 +381,13 @@ html, body {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Nome do Produto — Transformação Principal</title>
+  <title>Nome do Produto. Transformação Principal</title>
   <meta name="description" content="Descrição de até 160 caracteres com a promessa principal do produto.">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://seudominio.com/pagina">
 
   <!-- Open Graph (Facebook, WhatsApp, LinkedIn) -->
-  <meta property="og:title" content="Nome do Produto — Transformação Principal">
+  <meta property="og:title" content="Nome do Produto. Transformação Principal">
   <meta property="og:description" content="Descrição curta da oferta.">
   <meta property="og:image" content="https://seudominio.com/imagem-og.jpg">
   <meta property="og:url" content="https://seudominio.com/pagina">
@@ -406,15 +406,15 @@ html, body {
 
 ## Restrições Absolutas
 
-1. **Visual intacto** — Proibido mudar layout, ordem de elementos, cores, espaçamentos ou tipografia. Se uma otimização exigir mudança visual, NÃO aplicar e documentar o motivo.
+1. **Visual intacto**. Proibido mudar layout, ordem de elementos, cores, espaçamentos ou tipografia. Se uma otimização exigir mudança visual, NÃO aplicar e documentar o motivo.
 
-2. **Arquivo único** — A página deve continuar sendo um arquivo HTML único e autocontido. Não criar arquivos CSS/JS externos separados.
+2. **Arquivo único**. A página deve continuar sendo um arquivo HTML único e autocontido. Não criar arquivos CSS/JS externos separados.
 
-3. **Sem build tools** — Não exigir npm, webpack, vite ou qualquer ferramenta de build. Tudo funciona abrindo o HTML no navegador.
+3. **Sem build tools**. Não exigir npm, webpack, vite ou qualquer ferramenta de build. Tudo funciona abrindo o HTML no navegador.
 
 ---
 
-## FASE 4 — Checklist Final
+## FASE 4. Checklist Final
 
 ### Imagens e Mídia
 - [ ] Todas as `<img>` com `width` e `height` explícitos

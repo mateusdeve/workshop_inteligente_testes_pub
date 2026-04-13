@@ -21,12 +21,12 @@
 ## Boas Práticas
 
 ### O que funciona em 2024/2025:
-1. **Gancho nos primeiros 3 segundos** — Se não parar o scroll, nada mais importa
-2. **UGC (User Generated Content)** — Conteúdo que parece orgânico converte mais
-3. **Prova social visual** — Screenshots de resultados, depoimentos em vídeo
-4. **Texto na imagem** — Headlines curtas e impactantes diretamente na arte
-5. **Carrossel de dores** — Cada slide uma dor, último slide é o CTA
-6. **Antes x Depois** — Transformação visual (quando aplicável)
+1. **Gancho nos primeiros 3 segundos**. Se não parar o scroll, nada mais importa
+2. **UGC (User Generated Content)**. Conteúdo que parece orgânico converte mais
+3. **Prova social visual**. Screenshots de resultados, depoimentos em vídeo
+4. **Texto na imagem**. Headlines curtas e impactantes diretamente na arte
+5. **Carrossel de dores**. Cada slide uma dor, último slide é o CTA
+6. **Antes x Depois**. Transformação visual (quando aplicável)
 
 ### Estrutura de Copy que Converte:
 

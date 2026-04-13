@@ -8,11 +8,11 @@ Para criar uma identidade do consumidor convincente, imagine um dia completo na 
 - O que faz antes de dormir? Pesquisa soluções?
 
 ## Os 5 Níveis de Consciência (Eugene Schwartz)
-1. **Inconsciente** — Não sabe que tem um problema
-2. **Consciente do problema** — Sabe que algo está errado, mas não sabe a solução
-3. **Consciente da solução** — Sabe que existem soluções, mas não conhece a sua
-4. **Consciente do produto** — Conhece seu produto, mas ainda não comprou
-5. **Totalmente consciente** — Já sabe tudo, só precisa de um empurrão (oferta)
+1. **Inconsciente**. Não sabe que tem um problema
+2. **Consciente do problema**. Sabe que algo está errado, mas não sabe a solução
+3. **Consciente da solução**. Sabe que existem soluções, mas não conhece a sua
+4. **Consciente do produto**. Conhece seu produto, mas ainda não comprou
+5. **Totalmente consciente**. Já sabe tudo, só precisa de um empurrão (oferta)
 
 ## Perguntas de Aprofundamento por Categoria
 

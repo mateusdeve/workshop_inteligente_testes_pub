@@ -6,9 +6,9 @@ description: >
   de estilo, profundidade, especificidade e tom ao gerar qualquer copy de abertura.
 ---
 
-# Exemplos de Leads — As 4 Categorias de Copy
+# Exemplos de Leads. As 4 Categorias de Copy
 
-Estes são exemplos validados das 4 categorias de lead. Usá-los como referência de estilo, tamanho, nível de especificidade e tom — não como templates a copiar.
+Estes são exemplos validados das 4 categorias de lead. Usá-los como referência de estilo, tamanho, nível de especificidade e tom. não como templates a copiar.
 
 **O que observar em cada exemplo:**
 - Especificidade (números concretos, situações reais)
@@ -22,7 +22,7 @@ Estes são exemplos validados das 4 categorias de lead. Usá-los como referênci
 
 ## Nicho: Skincare / Beleza
 
-### Lead 1 — Inadequação
+### Lead 1. Inadequação
 
 Aquele sérum anti-idade que você passa toda noite? Se você não preparou sua pele antes, ele não penetra quase nada. É como passar hidratante em cima de uma parede.
 
@@ -36,7 +36,7 @@ Existe uma etapa simples que leva 5 minutos, custa menos de R$ 40, e faz os seus
 
 ---
 
-### Lead 2 — Identificação com o Problema
+### Lead 2. Identificação com o Problema
 
 Você abre o Instagram, vê uma mulher da sua idade com a pele lisa, luminosa, sem manchas. Pensa: "deve ser filtro." Aí vê outra. E outra. E começa a se perguntar o que essas mulheres estão fazendo que você não está.
 
@@ -52,7 +52,7 @@ Só que a questão nunca foi a sua pele. Skincare sem a etapa certa de renovaç�
 
 ---
 
-### Lead 3 — Plug & Play
+### Lead 3. Plug & Play
 
 3 produtos. Menos de R$ 120 os três. Você usa em casa, à noite, 2 vezes por semana.
 
@@ -62,7 +62,7 @@ O kit completo com nome de cada produto, marca, onde comprar, e a ordem exata de
 
 ---
 
-### Lead 4 — Promessa Boa Demais (Específica)
+### Lead 4. Promessa Boa Demais (Específica)
 
 Eu gastava mais de R$ 500 por mês em clínica de estética. Peeling, laser, microagulhamento. Minha pele ficava bonita por umas semanas e depois voltava ao normal. Era como alugar um resultado.
 
@@ -76,7 +76,7 @@ Nessa página eu mostro os 3 produtos, quanto custam, onde compro, e exatamente 
 
 ## Nicho: Saúde / Imunidade
 
-### Lead 1 — Inadequação
+### Lead 1. Inadequação
 
 Quantas vezes você ficou gripado nos últimos 6 meses?
 
@@ -92,7 +92,7 @@ Existe uma sequência específica de ajustes na alimentação que os nutricionis
 
 ---
 
-### Lead 2 — Identificação com o Problema
+### Lead 2. Identificação com o Problema
 
 Mudou o tempo, você já sabe: vai ficar doente.
 
@@ -108,7 +108,7 @@ Só que quando você vê o que essa pessoa come de verdade no dia a dia, percebe
 
 ---
 
-### Lead 3 — Plug & Play
+### Lead 3. Plug & Play
 
 Um protocolo de 30 dias. Lista de compras pronta. Cardápio montado. Suplementos com nome, dosagem e horário.
 
@@ -118,7 +118,7 @@ Você não precisa estudar nutrição nem entender como o sistema imunológico f
 
 ---
 
-### Lead 4 — Promessa Boa Demais (Específica)
+### Lead 4. Promessa Boa Demais (Específica)
 
 Eu ficava doente a cada 40 dias, como um relógio. Gripe, sinusite, infecção de garganta. Minha mesa do trabalho tinha uma farmácia em miniatura: antigripal, pastilha, spray nasal, vitamina C efervescente. Eu já nem reclamava mais, achava que era assim mesmo. "Minha imunidade é baixa" virou a frase que eu mais repetia.
 
@@ -132,9 +132,9 @@ Nesse ebook eu detalho o que ela me fez mudar, o que eu passei a comer, quais su
 
 ---
 
-## Nicho: Psicologia / Saúde Mental (B2B — psicólogo como público)
+## Nicho: Psicologia / Saúde Mental (B2B. psicólogo como público)
 
-### Lead 1 — Inadequação
+### Lead 1. Inadequação
 
 Você já teve uma sessão onde explicou um conceito pro paciente, ele concordou com tudo, e na semana seguinte voltou como se aquela conversa nunca tivesse existido?
 
@@ -150,7 +150,7 @@ A maioria dos psicólogos nunca usou esse tipo de recurso porque na graduação 
 
 ---
 
-### Lead 2 — Identificação com o Problema
+### Lead 2. Identificação com o Problema
 
 Seu paciente senta, você começa a sessão. Ele fala, você escuta, intervém nos momentos certos. Faz uma boa devolutiva, conecta padrões, oferece uma perspectiva nova. Ele sai dizendo que foi uma ótima sessão.
 
@@ -168,7 +168,7 @@ O problema não é a sua abordagem. É que a sessão inteira acontece no ar. As 
 
 ---
 
-### Lead 3 — Plug & Play
+### Lead 3. Plug & Play
 
 Templates prontos pra usar na sessão. Você imprime ou abre no tablet, preenche junto com o paciente, e ele leva pra casa.
 
@@ -178,7 +178,7 @@ São materiais visuais organizados por tema: regulação emocional, crenças cen
 
 ---
 
-### Lead 4 — Promessa Boa Demais (Específica)
+### Lead 4. Promessa Boa Demais (Específica)
 
 Eu atendia 7 pacientes por dia e no final do expediente tinha a sensação de que metade das sessões foi retomar o que já tinha sido trabalhado. Meus pacientes gostavam da terapia, me indicavam, mas o processo era lento. Alguns ficavam 2 anos comigo e eu me perguntava se não deveria ser mais rápido.
 
@@ -198,14 +198,14 @@ Nesse kit eu disponibilizo os mesmos templates que uso no meu consultório, orga
 
 **Inadequação:**
 1. Afirmação inicial que desconforta (você está fazendo errado / está desatualizado)
-2. Contextualização — o que mudou, por que o jeito antigo não funciona
+2. Contextualização. o que mudou, por que o jeito antigo não funciona
 3. Nome próprio para o conceito ou solução
 4. Parágrafo técnico em itálico
 
 **Identificação com o Problema:**
 1. Cena vívida e específica do cotidiano do público (4-6 parágrafos)
-2. Amplificação — dor aprofundada ou cenário ideal que não chegou
-3. Revelação — o que está errado de verdade (não é culpa da pessoa)
+2. Amplificação. dor aprofundada ou cenário ideal que não chegou
+3. Revelação. o que está errado de verdade (não é culpa da pessoa)
 4. Parágrafo técnico em itálico
 
 **Plug & Play:**
@@ -215,19 +215,19 @@ Nesse kit eu disponibilizo os mesmos templates que uso no meu consultório, orga
 
 **Promessa Boa Demais (Específica):**
 1. Situação de antes com números concretos e detalhes reais
-2. O que mudou e como — alguém externo ensinou (inimigo concreto ou mentora)
+2. O que mudou e como. alguém externo ensinou (inimigo concreto ou mentora)
 3. Resultado específico com tempo e detalhe verificável
 4. Convite a ver os detalhes ("nessa página eu mostro")
 5. Parágrafo técnico em itálico
 
 ### Padrões de especificidade a modelar
 
-- "R$ 200, R$ 300 num ácido hialurônico importado" — não "produto caro"
-- "leva 5 minutos, custa menos de R$ 40" — não "rápido e barato"
-- "a cada 40 dias, como um relógio" — não "com frequência"
-- "Faz 14 meses que eu não tomo antigripal" — não "faz muito tempo"
-- "dois pacientes que estavam estagnados há quase um ano" — não "vários pacientes"
-- "Em 4 semanas / Em 8" — não "em pouco tempo"
+- "R$ 200, R$ 300 num ácido hialurônico importado". não "produto caro"
+- "leva 5 minutos, custa menos de R$ 40". não "rápido e barato"
+- "a cada 40 dias, como um relógio". não "com frequência"
+- "Faz 14 meses que eu não tomo antigripal". não "faz muito tempo"
+- "dois pacientes que estavam estagnados há quase um ano". não "vários pacientes"
+- "Em 4 semanas / Em 8". não "em pouco tempo"
 
 ### Inimigos concretos presentes nos exemplos
 

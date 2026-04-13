@@ -1,39 +1,39 @@
 ---
 name: trafego-pago
 description: >
-  Base de conhecimento para tráfego pago — estrutura de campanhas Meta Ads e Google Ads,
-  métricas, pixel, API de conversão e otimização. Usado pelos commands /anuncio e /lancamento.
+  Base de conhecimento para tráfego pago. estrutura de campanhas Meta Ads e Google Ads,
+  métricas, pixel, API de conversão e otimização. Usado pelos commands /copy-anuncio e /estrategia-lancamento.
   Inclui segurança e boas práticas de investimento em mídia paga.
 ---
 
-# Tráfego Pago — Base de Conhecimento
+# Tráfego Pago. Base de Conhecimento
 
 ## Estrutura de Campanhas (VTSD)
 
-### Meta Ads — 3 Campanhas Base
+### Meta Ads. 3 Campanhas Base
 
-**Campanha 1 — Descoberta (Topo de Funil):**
+**Campanha 1. Descoberta (Topo de Funil):**
 - Objetivo: Alcance ou Engajamento
 - Público: Interesses amplos do nicho
 - Criativos: Conteúdo de valor (educar, entreter)
 - Orçamento: 20-30% do total
 - Métrica principal: CPM e alcance
 
-**Campanha 2 — Conversão (Meio de Funil):**
+**Campanha 2. Conversão (Meio de Funil):**
 - Objetivo: Conversões (cadastro ou venda)
 - Público: Engajados (7-30 dias) + Lookalike de compradores
 - Criativos: Anúncios focados em resultado
 - Orçamento: 50-60% do total
 - Métrica principal: CPA e taxa de conversão
 
-**Campanha 3 — Remarketing (Fundo de Funil):**
+**Campanha 3. Remarketing (Fundo de Funil):**
 - Objetivo: Conversões
 - Público: Visitantes do site (30-90 dias) + Carrinho abandonado
 - Criativos: Urgência, prova social, objeções
 - Orçamento: 10-20% do total
 - Métrica principal: ROAS
 
-### Google Ads — Rede de Pesquisa
+### Google Ads. Rede de Pesquisa
 
 - Campanhas por intenção de busca
 - Palavras-chave: exata > frase > ampla
@@ -77,4 +77,4 @@ description: >
 1. **Criativo não converte?** Teste novo gancho (primeiros 3 segundos)
 2. **CTR baixo?** Problema no criativo ou segmentação
 3. **CTR alto mas CPA alto?** Problema na landing page
-4. **CPA subindo?** Fadiga de criativo — criar novos
+4. **CPA subindo?** Fadiga de criativo. criar novos

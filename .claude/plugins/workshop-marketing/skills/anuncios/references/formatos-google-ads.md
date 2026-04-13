@@ -3,8 +3,8 @@
 ## Especificações Técnicas
 
 ### Anúncio Responsivo de Pesquisa
-- **Títulos**: até 15 títulos (máx. 30 caracteres cada) — mínimo 3
-- **Descrições**: até 4 descrições (máx. 90 caracteres cada) — mínimo 2
+- **Títulos**: até 15 títulos (máx. 30 caracteres cada). mínimo 3
+- **Descrições**: até 4 descrições (máx. 90 caracteres cada). mínimo 2
 - **URL final**: página de destino
 - **Caminho de exibição**: 2 campos de 15 caracteres (ex: /curso/marketing)
 
@@ -36,9 +36,9 @@
 4. Oferta + bônus + condição especial
 
 ### Pesquisa de Palavras-chave:
-- **Exata**: [palavra-chave] — maior controle, menor volume
-- **Frase**: "palavra-chave" — equilíbrio entre controle e alcance
-- **Ampla**: palavra-chave — maior alcance, menor controle
+- **Exata**: [palavra-chave]. maior controle, menor volume
+- **Frase**: "palavra-chave". equilíbrio entre controle e alcance
+- **Ampla**: palavra-chave. maior alcance, menor controle
 
 ### Palavras-chave Negativas Comuns:
 - grátis, gratuito, de graça

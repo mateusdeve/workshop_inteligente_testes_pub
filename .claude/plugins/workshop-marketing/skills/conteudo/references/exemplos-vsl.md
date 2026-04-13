@@ -2,7 +2,7 @@
 
 ## Estrutura Clássica de VSL (8 Blocos)
 
-### Bloco 1 — Gancho (0:00 - 0:30)
+### Bloco 1. Gancho (0:00 - 0:30)
 Capture a atenção nos primeiros 5 segundos.
 
 **Fórmulas de abertura:**
@@ -11,7 +11,7 @@ Capture a atenção nos primeiros 5 segundos.
 - "Você sabia que [estatística chocante]?"
 - Pergunta provocadora que o público responde "sim"
 
-### Bloco 2 — Problema (0:30 - 2:00)
+### Bloco 2. Problema (0:30 - 2:00)
 Mostre que você entende a dor profundamente.
 
 - Descreva o problema em detalhes vividos
@@ -19,7 +19,7 @@ Mostre que você entende a dor profundamente.
 - Faça o espectador pensar "é exatamente isso que eu sinto"
 - Mencione as tentativas frustradas comuns
 
-### Bloco 3 — Agitação (2:00 - 3:30)
+### Bloco 3. Agitação (2:00 - 3:30)
 Amplifique o custo de não resolver o problema.
 
 - "Se você não resolver isso agora, daqui a 6 meses..."
@@ -27,7 +27,7 @@ Amplifique o custo de não resolver o problema.
 - "Quanto mais tempo passa, pior fica"
 - Crie desconforto com a situação atual
 
-### Bloco 4 — História/Credibilidade (3:30 - 6:00)
+### Bloco 4. História/Credibilidade (3:30 - 6:00)
 Conte sua história ou a de um cliente.
 
 - "Eu estava exatamente onde você está"
@@ -35,7 +35,7 @@ Conte sua história ou a de um cliente.
 - Elementos de vulnerabilidade (erros, vergonha, dúvida)
 - Momento de virada: como descobriu a solução
 
-### Bloco 5 — Solução/Mecanismo (6:00 - 8:00)
+### Bloco 5. Solução/Mecanismo (6:00 - 8:00)
 Apresente o "como" funciona.
 
 - Revele o mecanismo ou método
@@ -43,7 +43,7 @@ Apresente o "como" funciona.
 - Use analogias simples para conceitos complexos
 - "O problema não é [o que pensam], é [revelação]"
 
-### Bloco 6 — Oferta (8:00 - 10:00)
+### Bloco 6. Oferta (8:00 - 10:00)
 Apresente o produto com todos os componentes.
 
 - Liste módulos/conteúdos com benefícios (não características)
@@ -52,7 +52,7 @@ Apresente o produto com todos os componentes.
 - Preço real com desconto ou condição especial
 - Parcelamento acessível
 
-### Bloco 7 — Prova Social (10:00 - 12:00)
+### Bloco 7. Prova Social (10:00 - 12:00)
 Mostre que funciona para pessoas reais.
 
 - 3-5 depoimentos variados
@@ -60,7 +60,7 @@ Mostre que funciona para pessoas reais.
 - Perfis diferentes de clientes (para o espectador se identificar)
 - Screenshots, fotos, vídeos de clientes
 
-### Bloco 8 — Fechamento (12:00 - 15:00)
+### Bloco 8. Fechamento (12:00 - 15:00)
 CTA + urgência + garantia.
 
 - Resuma a transformação

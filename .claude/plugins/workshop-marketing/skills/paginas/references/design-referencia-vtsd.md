@@ -1,4 +1,4 @@
-# Design de Referência — Páginas VTSD
+# Design de Referência. Páginas VTSD
 
 Análise visual das páginas reais dos produtos do Leandro Ladeira (VTSD, Light Copy e Stories 10x).
 Use esses padrões como referência direta ao gerar páginas profissionais.
@@ -7,7 +7,7 @@ Use esses padrões como referência direta ao gerar páginas profissionais.
 
 ## 3 Estilos Visuais do Ecossistema VTSD
 
-### Estilo 1 — Light (Claro e Profissional)
+### Estilo 1. Light (Claro e Profissional)
 **Referência:** Página de vendas do VTSD / Aula gratuita
 
 **Paleta:**
@@ -18,8 +18,8 @@ Use esses padrões como referência direta ao gerar páginas profissionais.
 - Ícones de feature: coloridos por função (verde, azul, laranja, roxo)
 
 **Tipografia:**
-- Heading: Poppins ou Plus Jakarta Sans, peso 700–800
-- Body: DM Sans ou Inter, peso 400–500
+- Heading: Poppins ou Plus Jakarta Sans, peso 700. 800
+- Body: DM Sans ou Inter, peso 400. 500
 - Destaques na headline: `<span>` com cor de accent, itálico opcional
 
 **Padrões estruturais:**
@@ -53,7 +53,7 @@ Use esses padrões como referência direta ao gerar páginas profissionais.
 
 ---
 
-### Estilo 2 — Dark Premium (Escuro e Sofisticado)
+### Estilo 2. Dark Premium (Escuro e Sofisticado)
 **Referência:** Página de vendas do Light Copy
 
 **Paleta:**
@@ -65,7 +65,7 @@ Use esses padrões como referência direta ao gerar páginas profissionais.
 - Botão CTA: amarelo/dourado com texto preto
 
 **Tipografia:**
-- Heading: Montserrat ou Space Grotesk, peso 700–800
+- Heading: Montserrat ou Space Grotesk, peso 700. 800
 - Body: DM Sans ou Manrope
 - Destaques: cor dourada em `<span>` dentro dos títulos
 
@@ -100,7 +100,7 @@ Use esses padrões como referência direta ao gerar páginas profissionais.
 
 ---
 
-### Estilo 3 — Dark Vibrante (Escuro com Acento de Cor Forte)
+### Estilo 3. Dark Vibrante (Escuro com Acento de Cor Forte)
 **Referência:** Página de vendas do Stories 10x
 
 **Paleta:**
@@ -117,7 +117,7 @@ Use esses padrões como referência direta ao gerar páginas profissionais.
 - Destaques em COR FORTE com uppercase
 
 **Padrões estruturais:**
-- Headline all-caps com 2–3 palavras em cor vibrante (rosa ou amarelo)
+- Headline all-caps com 2. 3 palavras em cor vibrante (rosa ou amarelo)
 - "ESSE MÉTODO AUMENTA EM ATÉ 10X AS [MÉTRICA] DO SEU [CANAL]"
 - Bullets de resultado em 2x2 grid (Ter ideias de / Criar stories de / Fazer as pessoas / Aumentar o alcance)
 - Vídeo centralizado com play button colorido
@@ -125,8 +125,8 @@ Use esses padrões como referência direta ao gerar páginas profissionais.
 - Badge de prova social: "+20 mil alunos" acima de headline de autoridade
 - Headline de autoridade: all-caps com outline-text ou cor forte
 - Fases do método em 3 círculos ou setas horizontais
-- "ESSE É O EFEITO DO S10X EM DIVERSOS PERFIS" — grid 2x2 de before/after screenshots
-- "OS RESULTADOS SÃO ABSURDOS" — carrossel de estudos de caso com screenshots de conversas
+- "ESSE É O EFEITO DO S10X EM DIVERSOS PERFIS". grid 2x2 de before/after screenshots
+- "OS RESULTADOS SÃO ABSURDOS". carrossel de estudos de caso com screenshots de conversas
 - Creators influentes: grid com foto, nome, seguidores e resultado específico
 - Tabela comparativa: método tradicional (X vermelhos) vs método novo (checks coloridos)
 - Grid de nichos com screenshots de resultados reais (Estética, Advocacia, Culinária, etc.)
@@ -164,8 +164,8 @@ Toda página VTSD tem:
 
 ### Tabela Comparativa (Com vs Sem / Tradicional vs Novo)
 Elemento de conversão poderoso. Sempre 2 colunas:
-- **Coluna negativa** (esquerda): o método antigo/sem o produto — fundo cinza/neutro, ícones X vermelho
-- **Coluna positiva** (direita): com o produto — fundo na cor de destaque do produto, checks verdes/coloridos
+- **Coluna negativa** (esquerda): o método antigo/sem o produto. fundo cinza/neutro, ícones X vermelho
+- **Coluna positiva** (direita): com o produto. fundo na cor de destaque do produto, checks verdes/coloridos
 - Título da coluna positiva = nome do produto
 
 ### Seção "Para Quem É"
@@ -176,8 +176,8 @@ Cards numerados (01, 02, 03, 04, 05) com:
 
 ### Estudos de Caso (Prova Social)
 Dois formatos:
-1. **Cards de resultado** — nome + foto + resultado em R$ ou métrica + depoimento
-2. **Screenshots de conversa** (WhatsApp/DM) — imagem do print + contexto em texto
+1. **Cards de resultado**. nome + foto + resultado em R$ ou métrica + depoimento
+2. **Screenshots de conversa** (WhatsApp/DM). imagem do print + contexto em texto
 
 ### Seção "Quem é [Autor]"
 - Foto profissional à direita (ou esquerda, alternando com grid de mídia)
@@ -213,7 +213,7 @@ Seguindo o padrão das páginas VTSD, a alternância correta é:
 
 ```
 Seção 1: Hero (escuro com gradiente ou claro com imagem)
-Seção 2: Features rápidas (fundo diferente do hero — claro se hero escuro)
+Seção 2: Features rápidas (fundo diferente do hero. claro se hero escuro)
 Seção 3: Produto/Agentes (escuro com mockup)
 Seção 4: Prova social / depoimentos (claro com cards)
 Seção 5: Autoridade / método (fundo médio ou escuro)
