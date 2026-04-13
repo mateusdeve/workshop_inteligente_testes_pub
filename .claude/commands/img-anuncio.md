@@ -266,65 +266,81 @@ Conceito: [explicacao em portugues]
 3. Quero ajustar os prompts
 ```
 
-### 5. Geracao das Imagens via API
+### 5. Geracao Hibrida de Criativos (IA + HTML + Screenshot)
 
-**Mapeamento de tamanho por formato escolhido:**
-- Feed retrato (1080x1350) → `1024x1024` (API nao suporta 4:5 exato. sera a melhor aproximacao)
-- Stories/Reels (1080x1920) → `1024x1792`
-- Quadrado (1080x1080) → `1024x1024`
-- Carrossel → `1024x1024`
+O sistema usa abordagem hibrida em 3 camadas:
+1. **IA gera o visual de fundo** (foto, textura, ilustracao) via OpenRouter
+2. **Template HTML compoe** texto + layout + cores por cima
+3. **Chrome/Edge headless exporta** PNG final
 
-**Se OPENROUTER_API_KEY disponivel:**
+Isso funciona para qualquer formato (carrossel, estatico, stories) e qualquer produto.
 
-Leia o modelo definido em `OPENROUTER_IMAGE_MODEL` no `.env` (padrao: `black-forest-labs/flux-schnell`).
+**REGRA ABSOLUTA:** Todo JSON de config DEVE ter textos em portugues com acentos corretos (UTF-8). "não", "padrão", "você", "mês", "saída", "número". Nunca "nao", "padrao", "voce". Os prompts de IA (em ingles) nao precisam de acentos.
 
-Para cada prompt aprovado, execute:
+#### Router inteligente de modelos
 
-```bash
-curl -s -X POST "https://openrouter.ai/api/v1/images/generations" \
-  -H "Authorization: Bearer $OPENROUTER_API_KEY" \
-  -H "Content-Type: application/json" \
-  -d "{\"model\": \"$OPENROUTER_IMAGE_MODEL\", \"prompt\": \"PROMPT_AQUI\", \"size\": \"TAMANHO_AQUI\", \"n\": 1}"
-```
+O router (`scripts/openrouter_model_router.py`) analisa cada prompt e escolhe o melhor modelo:
 
-Da resposta, extraia o campo `data[0].url` ou `data[0].b64_json`.
+| Categoria | Modelo escolhido | Quando usar |
+|---|---|---|
+| photorealistic | Flux 2 Pro (`black-forest-labs/flux.2-pro`) | Fotos reais, retratos, produtos |
+| complex_scene | GPT-5 Image Mini (`openai/gpt-5-image-mini`) | Composicoes complexas, mockups, marketing |
+| infographic | GPT-5 Image Mini (`openai/gpt-5-image-mini`) | Infograficos, dashboards, comparativos |
+| clean_minimal | Gemini 3.1 Flash (`google/gemini-3.1-flash-image-preview`) | Backgrounds, texturas, CTAs |
+| abstract_mood | Gemini 3.1 Flash (`google/gemini-3.1-flash-image-preview`) | Gradientes, vidro, 3D |
+| artistic | Flux 2 Flex (`black-forest-labs/flux.2-flex`) | Arte digital, colagens, estilos ousados |
 
-Se for URL: baixe a imagem com `curl -s -o "CAMINHO_ARQUIVO" "URL_IMAGEM"`.
-Se for b64_json: decodifique e salve com `echo "BASE64" | base64 -d > "CAMINHO_ARQUIVO"`.
+#### Como usar
 
-Salve em: `entregas/{ativo}/criativos/img-anuncio-v[N]-{produto}.png`
-
-**Se FREEPIK_API_KEY disponivel (e nao tiver OpenRouter):**
+Gerar um arquivo JSON de config com os slides (o assistente gera automaticamente apos aprovacao da copy). Depois rodar:
 
 ```bash
-curl -s -X POST "https://api.freepik.com/v1/ai/text-to-image" \
-  -H "x-freepik-api-key: $FREEPIK_API_KEY" \
-  -H "Content-Type: application/json" \
-  -d "{\"prompt\": \"PROMPT_AQUI\", \"num_images\": 1, \"image\": {\"size\": \"square_1_1\"}}"
+py -3 scripts/generate-creative.py --config entregas/{ativo}/anuncios/{arquivo}.json --dry-run
+py -3 scripts/generate-creative.py --config entregas/{ativo}/anuncios/{arquivo}.json
+py -3 scripts/generate-creative.py --config entregas/{ativo}/anuncios/{arquivo}.json --force-model google/gemini-3.1-flash-image-preview
+py -3 scripts/generate-creative.py --config entregas/{ativo}/anuncios/{arquivo}.json --skip-ai
 ```
 
-Mapeamento de tamanho Freepik:
-- Quadrado/Feed → `square_1_1`
-- Stories/Reels → `portrait_9_16`
-- Banner → `landscape_16_9`
+Compativel com Windows (Edge/Chrome), Mac (Chrome/Edge) e Linux (Chrome/Chromium).
 
-Salve em: `entregas/{ativo}/criativos/img-anuncio-v[N]-{produto}.png`
+#### Cores customizaveis por produto
 
-**Se nenhuma API configurada:**
+No JSON, use `theme-custom` e defina cores no campo `colors`:
 
-Salve apenas os prompts em `entregas/{ativo}/criativos/prompts-anuncio-{produto}.md` e informe:
-
+```json
+{
+  "colors": {"bg": "#0f7937", "text": "#ffffff", "accent": "#fbbf24"},
+  "slides": [
+    {"theme": "theme-custom", "layout": "layout-gancho", "headline": "..."}
+  ]
+}
 ```
-Prompts salvos em entregas/{ativo}/criativos/prompts-anuncio-{produto}.md
 
-Copie e cole em qualquer gerador de imagem:
-- Leonardo.ai (gratuito)
-- Midjourney (Discord)
-- Freepik AI (freepik.com)
-- ChatGPT com DALL-E
+Temas prontos disponiveis: `theme-dark`, `theme-light`, `theme-blue`, `theme-green`, `theme-warm`, `theme-red-soft`, `theme-green-soft`, `theme-custom`.
 
-Para gerar automaticamente na proxima vez, configure sua API:
-Veja o guia em docs/setup-imagens.md
+#### Layouts disponiveis
+
+| Layout | Uso |
+|---|---|
+| `layout-gancho` | Slide de abertura, headline grande |
+| `layout-conteudo` | Headline + corpo de texto |
+| `layout-dado` | Numero em destaque + headline |
+| `layout-checklist` | Lista com checkboxes |
+| `layout-comparacao` | Dois blocos lado a lado (certo vs errado) |
+| `layout-cta` | Call to action final |
+
+**Para usar o router em outros scripts:**
+
+```python
+from openrouter_model_router import route_model, classify_prompt
+
+# Retorna o model_id ideal
+model_id = route_model("photorealistic portrait of a woman")
+# → "black-forest-labs/flux.2-pro"
+
+# Retorna classificacao completa
+result = classify_prompt("minimalist infographic with icons")
+# → {"category": "infographic", "confidence": 0.6, "model_id": "google/gemini-3.1-flash-image-preview", ...}
 ```
 
 ### 6. Entrega e Proximo Passo
