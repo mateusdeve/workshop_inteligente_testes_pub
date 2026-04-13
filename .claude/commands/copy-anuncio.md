@@ -109,8 +109,22 @@ Qual a promessa do evento?
 
 ```
 Qual a data do evento?
-(ex: "dia 15 de abril")
+(ex: "dia 15 de abril", "de 21 a 25 de maio")
 ```
+
+```
+Você tem uma foto sua (expert/criador) para usar no anúncio?
+A foto aparece no criativo para gerar autoridade e conexão.
+
+1. Sim, está em entregas/{ativo}/paginas/assets/ (informar nome do arquivo)
+2. Sim, vou colar o caminho completo
+3. Não tenho agora (seguir sem foto)
+
+Digite o número:
+```
+
+Se o usuário informar a foto, guardar o caminho para usar no JSON como `expert_photo`.
+Se não tiver, seguir sem foto (o layout-evento funciona com e sem).
 
 **Se Venda ou Remarketing. perguntar:**
 
@@ -363,14 +377,25 @@ Só salvar após aprovação do usuário.
 
 ### 7. Geração Visual (imagem, vídeo ou carrossel)
 
-Após salvar a copy, gere automaticamente os visuais de cada variação aprovada.
+Após salvar a copy, gere automaticamente os visuais usando `scripts/generate-creative.py`.
+
+**Gerar o JSON de config** com os slides/imagens e rodar o script. O texto vem do HTML template, a IA gera apenas o BACKGROUND visual.
+
+**REGRA ABSOLUTA PARA PROMPTS DE IA (backgrounds):**
+- NUNCA pedir texto, números, letras, datas ou caracteres legíveis no prompt
+- NUNCA pedir calendários, relógios com números, telas com texto visível
+- SEMPRE incluir no final: "no text, no numbers, no readable characters, no logos"
+- O background deve ser uma CENA, TEXTURA ou ATMOSFERA, nunca um design com informação
+- Todo texto visível no criativo final vem do template HTML, nunca da IA
+
+**Para fase Captura/Aquecimento:** usar `layout-evento` no JSON. Inclui foto do expert (campo `expert_photo`), data em destaque, nome do evento e botão CTA.
 
 ---
 
-**Se Imagem Estática:**
+**Se Imagem Estática ou Stories:**
 
-Para cada variação, monte um prompt de imagem baseado no tipo de anúncio (ex: Comparação, Prova Social, Revelação) e no nicho do produto. O prompt deve descrever:
-- Cena ou composição visual que reforça o gancho da copy
+Para cada variação, monte um prompt de background baseado no tipo de anúncio e no nicho do produto. O prompt deve descrever:
+- Cena ou atmosfera visual que reforça o clima da copy
 - Estilo fotográfico (foto real, clean, minimalista, etc.)
 - Paleta de cores alinhada ao produto
 - Texto overlay com o headline da variação (quando aplicável)
