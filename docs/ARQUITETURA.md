@@ -8,8 +8,10 @@ Este documento explica como o repositorio `workshop_inteligente` esta estruturad
 
 Este repositorio e um **toolkit de marketing digital para infoprodutores** que roda dentro do **Claude Code** (extensao do VSCode). Nao e um projeto de software tradicional com codigo executavel. e um sistema de prompts estruturados que transforma o Claude em um consultor de marketing.
 
+**Cursor:** o mesmo toolkit funciona no **Cursor** com a pasta do projeto aberta. O runtime e o chat do Cursor; regras em `.cursor/rules/*.mdc` e `CLAUDE.md` substituem a extensao. Os arquivos em `.claude/commands/` **nao** viram slash automaticamente no Cursor: o agente deve **ler o `.md`** correspondente quando o usuario pedir o fluxo (ou usar `@` no arquivo).
+
 **Stack:**
-- Claude Code (extensao VSCode) como runtime
+- Claude Code (extensao VSCode) ou Cursor como runtime do chat
 - Arquivos Markdown como instrucoes (prompts)
 - HTML/CSS como output (paginas de vendas)
 - Metodologia VTSD (Venda Todo Santo Dia) como base de conhecimento
@@ -31,6 +33,8 @@ Este repositorio e um **toolkit de marketing digital para infoprodutores** que r
 workshop_inteligente/
 │
 ├── CLAUDE.md                              ← ARQUIVO CENTRAL: papel do assistente, regras e comportamento
+├── AGENTS.md                              ← Mapa rapido para agentes (Cursor / IDEs)
+├── .cursor/rules/                         ← Regras Cursor (.mdc, alwaysApply ou globs)
 ├── README.md                              ← Documentacao publica para o usuario final
 ├── COMO-USAR.md                           ← Guia passo a passo para o usuario
 ├── .env.example                           ← Modelo de chaves API (opcional)
@@ -640,7 +644,7 @@ Esta tabela e definida no CLAUDE.md e deve ser respeitada por TODOS os commands 
 | Anuncios (Meta, Google) | `entregas/anuncios/` | `.md` | `anuncios-meta-curso-ingles.md` |
 | Conteudo para redes sociais | `entregas/conteudo-social/` | `.md` | `carrossel-curso-ingles.md` |
 | Criativos e prompts de imagem | `entregas/criativos/` | `.md` | `prompts-midjourney-curso-ingles.md` |
-| Scripts comerciais | `entregas/comercial/` | `.md` | `playbook-curso-ingles.md` |
+| Scripts comerciais | `entregas/comercial/` | `.html` | `playbook-curso-ingles.html` |
 
 **Se precisar de uma nova pasta de entrega:**
 1. Crie a pasta em `entregas/`
@@ -731,7 +735,7 @@ CLAUDE.md (regras globais)
     ├── /sequencia-de-emails► skill: conteudo ──────────► salva: entregas/emails/*.md
     ├── /lancamento ───────► skill: vtsd-completo ──────► salva: entregas/textos-de-venda/*.md
     ├── /estrategia-funil ─► skill: trafego-pago ──────► salva: entregas/textos-de-venda/*.md
-    ├── /playbook-comercial► skill: playbook-comercial ► salva: entregas/comercial/*.md
+    ├── /playbook-comercial► skill: playbook-comercial ► salva: entregas/comercial/*.html
     ├── /img-anuncio ──────► skill: anuncios ───────────► salva: entregas/criativos/*.md
     ├── /low-ticket ───────► skill: vtsd-completo ──────► salva: entregas/ (multiplas pastas)
     │
@@ -739,7 +743,7 @@ CLAUDE.md (regras globais)
     ├── agent: construtor ──► skill: paginas ───────────► salva: entregas/paginas/*.html
     ├── agent: campanhas ───► skill: anuncios + trafego ► salva: entregas/anuncios/*.md
     ├── agent: conteudo ────► skill: conteudo ──────────► salva: entregas/conteudo-social/*.md
-    └── agent: comercial ──► skill: playbook-comercial ► salva: entregas/comercial/*.md
+    └── agent: comercial ──► skill: playbook-comercial ► salva: entregas/comercial/*.html
 ```
 
 ---

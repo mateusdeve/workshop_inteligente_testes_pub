@@ -367,7 +367,7 @@ Essa tabela mostra exatamente quem faz o que, usando qual ferramenta, e entrega 
 |---|---|---|---|---|---|---|
 | Plano de lancamento | `/lancamento` |. | vtsd-completo (C10X) | Nenhuma | Cronograma + materiais | `entregas/textos-de-venda/lancamento-*.md` |
 | Funil completo | `/funil-de-vendas` |. | vtsd-completo + trafego-pago | Nenhuma | Mapa de funil | `entregas/textos-de-venda/funil-*.md` |
-| Playbook comercial | `/playbook-comercial` | consultor-comercial | playbook-comercial | Nenhuma | Scripts SPIN + fechamento | `entregas/comercial/playbook-*.md` |
+| Playbook comercial | `/playbook-comercial` | consultor-comercial | playbook-comercial | Nenhuma | Scripts SPIN + fechamento (HTML, PDF via navegador) | `entregas/comercial/playbook-*.html` |
 
 ---
 

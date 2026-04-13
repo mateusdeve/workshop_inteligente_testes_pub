@@ -45,18 +45,20 @@ Digite o número:
 ```
 Para página de vendas do produto principal, use a skill:
 
-→ /copy-pagina  Gera a página HTML 8D seção por seção, com aprovação por bloco
+→ /copy-pagina  Gera a página HTML 8D bloco a bloco (melhor custo-benefício), depois merge automático
 
-Como funciona agora (atualizado 31/03/2026):
-• A página é montada incrementalmente. Você aprova cada uma das 13 seções antes da próxima
-• Cada seção lê apenas seu próprio template (hero, dor, paliativo, provas_sociais, metodo, entregaveis, bonus, garantia, autoridade, suporte, oferta_final, faq, cta)
-• A cada seção aprovada, o arquivo HTML é atualizado e você recarrega no navegador para ver
-• Se quiser ir direto até o fim sem aprovações, basta dizer "ir direto à versão final"
+Como funciona (padrão atual):
+• A copy aprovada fica em `copy-pagina/copy-{produto}.md` com `## Bloco 01` … `## Bloco 16` (template `template-copy-pagina-vendas.md`). Cada bloco HTML usa **só** o texto desse arquivo
+• **Primeiro** copiar o tema para a entrega: `python scripts/workshop-copy-template-tema.py --tema {estilo}` → pasta `entregas/{slug}/paginas/templates-{estilo}/`
+• Cada bloco edita **só** o `code.html` atômico **nessa cópia** (não o plugin): **preserva o layout** e **troca só a copy** (texto, links, mídia). **Não** redesenha o bloco. **Não** cola tudo em um único arquivo em `entregas/` até o merge
+• Ao final: `python scripts/workshop-merge-pagina.py --tema {estilo} --templates-root entregas/{slug}/paginas/templates-{estilo} --copiar-entregas` (ou `build_merge.py` dentro da pasta `pagina_completa_{estilo}` **da cópia**)
+• Você pode aprovar bloco a bloco ou dizer "ir direto à versão final"
+• Segunda prova social: em flat/minimal o merge duplica provas; em glass/teal/purple use `hero_{estilo}_depoimentos`
 
 A skill já aplica:
-• Estrutura 8D completa nas 13 seções
+• Estrutura 8D completa (ordem alinhada ao `build_merge.py` de cada tema)
 • Light Copy (sem travessão, sem "Não é X. É Y.", sem promessa vaga)
-• Paleta e templates do design system modular (5 estilos × 13 seções)
+• Cinco temas visuais (`pagina_completa_*`)
 • Placeholders de imagem e vídeo
 • Pixel do Meta se configurado no .env
 

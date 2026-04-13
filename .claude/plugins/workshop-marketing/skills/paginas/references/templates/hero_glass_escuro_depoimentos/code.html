@@ -51,115 +51,250 @@
         .logo { font-size: 1.25rem; font-weight: 700; letter-spacing: -0.02em; text-transform: uppercase; }
         .logo span { color: var(--accent); }
 
-        main {
-            max-width: 1280px; margin: 0 auto; padding: 96px 32px;
-            flex-grow: 1; width: 100%;
+        /* Escopo: só o main desta seção (evita conflito com outras páginas / hero) */
+        .depoimentos-wrap main {
+            max-width: 1320px;
+            margin: 0 auto;
+            padding: clamp(72px, 9vw, 120px) clamp(20px, 4vw, 48px);
+            flex-grow: 1;
+            width: 100%;
         }
 
-        .section-header { text-align: center; margin-bottom: 64px; }
+        .depoimentos-layout {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: clamp(40px, 5vw, 56px);
+            align-items: start;
+        }
+
+        @media (min-width: 1024px) {
+            .depoimentos-layout {
+                grid-template-columns: minmax(280px, 380px) minmax(0, 1fr);
+                gap: clamp(48px, 6vw, 80px);
+            }
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 0;
+        }
+
+        @media (min-width: 1024px) {
+            .section-header {
+                text-align: left;
+                padding-right: 8px;
+            }
+        }
 
         .section-header h2 {
             font-family: 'Inter', sans-serif;
-            font-size: 3rem; font-weight: 800; line-height: 1.05;
+            font-size: clamp(1.85rem, 4vw, 2.75rem);
+            font-weight: 800;
+            line-height: 1.12;
             letter-spacing: -0.03em;
             background: linear-gradient(to bottom right, #ffffff 30%, rgba(255, 255, 255, 0.5));
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-            margin-bottom: 16px;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 20px;
+            max-width: 20ch;
+        }
+
+        @media (min-width: 1024px) {
+            .section-header h2 {
+                margin-left: -2px;
+            }
         }
 
         .section-header p {
-            font-size: 1.0625rem; color: var(--text-secondary); font-weight: 400; max-width: 520px; margin: 0 auto;
+            font-size: 1.0625rem;
+            line-height: 1.65;
+            color: var(--text-secondary);
+            font-weight: 400;
+            max-width: 38ch;
+            margin: 0 auto;
         }
 
-        .carousel-wrapper { overflow: hidden; width: 100%; }
+        @media (min-width: 1024px) {
+            .section-header p {
+                margin: 0;
+            }
+        }
+
+        .depoimentos-carousel-col {
+            min-width: 0;
+        }
+
+        .carousel-wrapper {
+            overflow: hidden;
+            width: 100%;
+        }
 
         .carousel-track {
             display: flex;
             transition: transform 0.5s cubic-bezier(0.36, 0.66, 0.6, 1);
         }
 
-        .carousel-slide { min-width: 100%; padding: 0 8px; }
+        .carousel-slide {
+            min-width: 100%;
+            padding: 0 clamp(4px, 1.5vw, 12px);
+        }
 
         .card-grid {
-            display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: clamp(20px, 3vw, 32px);
         }
 
         .testimonial-card {
-            border-radius: 16px;
+            border-radius: 18px;
             border: 1px solid var(--border);
             background: var(--surface-1);
-            padding: 28px;
-            display: flex; flex-direction: column; gap: 18px;
+            padding: clamp(26px, 3vw, 36px) clamp(22px, 2.5vw, 32px);
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
             position: relative;
+            min-height: 0;
             transition: transform 0.2s ease, border-color 0.2s ease;
         }
+
         .testimonial-card:hover {
             transform: translateY(-2px);
             border-color: rgba(255, 255, 255, 0.12);
         }
+
         .testimonial-card::before {
             content: '';
-            position: absolute; top: 0; left: 50%; transform: translateX(-50%);
-            width: 50%; max-width: 120px; height: 1px;
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50%;
+            max-width: 120px;
+            height: 1px;
             background: linear-gradient(90deg, transparent, rgba(143, 143, 143, 0.4), transparent);
         }
 
-        .stars { display: flex; gap: 2px; }
-        .stars .material-symbols-outlined { font-size: 16px; color: var(--accent); font-variation-settings: 'FILL' 1; }
+        .stars {
+            display: flex;
+            gap: 4px;
+            margin-bottom: 2px;
+        }
 
-        .testimonial-card .quote {
-            font-size: 0.9375rem; color: var(--text-secondary); line-height: 1.6; font-weight: 400;
+        .stars .material-symbols-outlined {
+            font-size: 17px;
+            color: var(--accent);
+            font-variation-settings: 'FILL' 1;
+        }
+
+        .quote-highlight {
+            font-size: 0.9375rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            line-height: 1.45;
+            letter-spacing: -0.01em;
+        }
+
+        .testimonial-card .quote-body {
+            font-size: 0.9375rem;
+            color: var(--text-secondary);
+            line-height: 1.72;
+            font-weight: 400;
         }
 
         .testimonial-card .author {
-            display: flex; align-items: center; gap: 12px; margin-top: auto;
-            padding-top: 16px; border-top: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-top: auto;
+            padding-top: 22px;
+            border-top: 1px solid var(--border);
         }
 
         .avatar {
-            width: 40px; height: 40px; border-radius: 10px;
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            flex-shrink: 0;
             background: linear-gradient(135deg, var(--surface-2), var(--surface-3));
             border: 1px solid var(--border);
-            display: flex; align-items: center; justify-content: center;
-            font-size: 0.8125rem; font-weight: 600; color: var(--accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8125rem;
+            font-weight: 600;
+            color: var(--accent);
         }
 
-        .author-name { font-size: 0.875rem; font-weight: 600; color: var(--text-primary); }
-        .author-role { font-size: 0.75rem; color: var(--text-tertiary); }
+        .author-name { font-size: 0.9rem; font-weight: 600; color: var(--text-primary); line-height: 1.35; }
+        .author-role { font-size: 0.8125rem; color: var(--text-tertiary); margin-top: 4px; line-height: 1.4; }
 
         .controls {
-            display: flex; align-items: center; justify-content: center; gap: 24px; margin-top: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 28px;
+            margin-top: clamp(36px, 5vw, 52px);
         }
 
         .nav-btn {
-            width: 44px; height: 44px; border-radius: 12px;
+            width: 48px;
+            height: 48px;
+            border-radius: 14px;
             border: 1px solid var(--border);
             background: var(--surface-1);
-            display: flex; align-items: center; justify-content: center;
-            cursor: pointer; color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: var(--text-secondary);
             transition: all 0.2s ease;
         }
+
         .nav-btn:hover {
-            background: rgba(255, 255, 255, 0.92); color: #000; border-color: transparent;
+            background: rgba(255, 255, 255, 0.92);
+            color: #000;
+            border-color: transparent;
             box-shadow: 0 0 4px rgba(255,255,255,0.06), 0 1px 14px rgba(255,255,255,0.12);
         }
 
-        .dots { display: flex; gap: 6px; }
+        .dots { display: flex; gap: 8px; align-items: center; }
         .dot {
-            width: 6px; height: 6px; border-radius: 50%;
-            background: var(--text-tertiary); transition: all 0.3s ease; cursor: pointer;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--text-tertiary);
+            transition: all 0.3s ease;
+            cursor: pointer;
         }
-        .dot.active { background: var(--text-primary); width: 20px; border-radius: 3px; }
+        .dot.active { background: var(--text-primary); width: 22px; border-radius: 3px; }
 
         @keyframes fadeUpIn { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
         .anim { animation: fadeUpIn 0.8s cubic-bezier(0.36, 0.66, 0.6, 1) forwards; opacity: 0; }
         .delay-1 { animation-delay: 0.1s; }
         .delay-2 { animation-delay: 0.2s; }
 
+        @media (min-width: 640px) and (max-width: 1023px) {
+            .card-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 24px;
+                max-width: 720px;
+                margin: 0 auto;
+            }
+        }
+
+        @media (max-width: 639px) {
+            .card-grid {
+                grid-template-columns: 1fr;
+                max-width: 520px;
+                margin: 0 auto;
+            }
+        }
+
         @media (max-width: 768px) {
-            main { padding: 64px 20px; }
-            .card-grid { grid-template-columns: 1fr; }
-            .section-header h2 { font-size: 2rem; }
+            .depoimentos-wrap main { padding: 64px 18px 80px; }
+            .section-header h2 { font-size: 1.75rem; }
         }
     </style>
 </head>
@@ -170,15 +305,16 @@
     </header>
 
     <main>
-        <div class="section-header anim delay-1">
-            <h2>O que nossas alunas dizem</h2>
-            <p>Historias reais de quem transformou o croche em renda com o metodo Atelier.</p>
-        </div>
+        <div class="depoimentos-layout">
+            <div class="section-header anim delay-1">
+                <h2>O que nossas alunas dizem</h2>
+                <p>Historias reais de quem transformou o croche em renda com o metodo Atelier.</p>
+            </div>
 
-        <div class="carousel-wrapper anim delay-2">
-            <div class="carousel-track" id="carousel">
+            <div class="depoimentos-carousel-col">
+                <div class="carousel-wrapper anim delay-2">
+                    <div class="carousel-track" id="carousel">
 
-                <!-- Slide 1 -->
                 <div class="carousel-slide">
                     <div class="card-grid">
                         <div class="testimonial-card">
@@ -189,8 +325,8 @@
                                 <span class="material-symbols-outlined">star</span>
                                 <span class="material-symbols-outlined">star</span>
                             </div>
-                            <p class="quote" style="font-weight: 600; color: var(--text-primary); font-size: 0.875rem;">"Faturei mais do que no meu emprego"</p>
-                            <p class="quote">"Eu fazia croche ha 8 anos e nunca consegui viver disso. Em 3 meses aplicando o metodo, faturei mais do que no meu emprego anterior. Mudou minha vida."</p>
+                            <p class="quote-highlight">"Faturei mais do que no meu emprego"</p>
+                            <p class="quote-body">"Eu fazia croche ha 8 anos e nunca consegui viver disso. Em 3 meses aplicando o metodo, faturei mais do que no meu emprego anterior. Mudou minha vida."</p>
                             <div class="author">
                                 <div class="avatar">MC</div>
                                 <div>
@@ -208,8 +344,8 @@
                                 <span class="material-symbols-outlined">star</span>
                                 <span class="material-symbols-outlined">star</span>
                             </div>
-                            <p class="quote" style="font-weight: 600; color: var(--text-primary); font-size: 0.875rem;">"Hoje tenho lista de espera"</p>
-                            <p class="quote">"A parte de precificacao foi o divisor de aguas. Eu cobrava R$30 em pecas que valiam R$150. Hoje tenho lista de espera e consigo planejar meu mes."</p>
+                            <p class="quote-highlight">"Hoje tenho lista de espera"</p>
+                            <p class="quote-body">"A parte de precificacao foi o divisor de aguas. Eu cobrava R$30 em pecas que valiam R$150. Hoje tenho lista de espera e consigo planejar meu mes."</p>
                             <div class="author">
                                 <div class="avatar">AF</div>
                                 <div>
@@ -227,8 +363,8 @@
                                 <span class="material-symbols-outlined">star</span>
                                 <span class="material-symbols-outlined">star</span>
                             </div>
-                            <p class="quote" style="font-weight: 600; color: var(--text-primary); font-size: 0.875rem;">"Em 2 semanas ja tinha encomendas"</p>
-                            <p class="quote">"Montei minha vitrine no Instagram seguindo o passo a passo e em 2 semanas ja tinha encomendas. O metodo e simples e funciona de verdade."</p>
+                            <p class="quote-highlight">"Em 2 semanas ja tinha encomendas"</p>
+                            <p class="quote-body">"Montei minha vitrine no Instagram seguindo o passo a passo e em 2 semanas ja tinha encomendas. O metodo e simples e funciona de verdade."</p>
                             <div class="author">
                                 <div class="avatar">RL</div>
                                 <div>
@@ -240,7 +376,6 @@
                     </div>
                 </div>
 
-                <!-- Slide 2 -->
                 <div class="carousel-slide">
                     <div class="card-grid">
                         <div class="testimonial-card">
@@ -251,8 +386,8 @@
                                 <span class="material-symbols-outlined">star</span>
                                 <span class="material-symbols-outlined">star</span>
                             </div>
-                            <p class="quote" style="font-weight: 600; color: var(--text-primary); font-size: 0.875rem;">"Vendo pelo WhatsApp todos os dias"</p>
-                            <p class="quote">"Sempre tive medo de vender online. O modulo de vitrine digital me deu a confianca que eu precisava. Hoje vendo pelo WhatsApp e Instagram todos os dias."</p>
+                            <p class="quote-highlight">"Vendo pelo WhatsApp todos os dias"</p>
+                            <p class="quote-body">"Sempre tive medo de vender online. O modulo de vitrine digital me deu a confianca que eu precisava. Hoje vendo pelo WhatsApp e Instagram todos os dias."</p>
                             <div class="author">
                                 <div class="avatar">PS</div>
                                 <div>
@@ -270,8 +405,8 @@
                                 <span class="material-symbols-outlined">star</span>
                                 <span class="material-symbols-outlined">star</span>
                             </div>
-                            <p class="quote" style="font-weight: 600; color: var(--text-primary); font-size: 0.875rem;">"Minha renda triplicou em 4 meses"</p>
-                            <p class="quote">"Minha renda triplicou em 4 meses. O segredo foi entender quais pecas dao lucro e focar nelas. Parece obvio, mas ninguem tinha me ensinado isso antes."</p>
+                            <p class="quote-highlight">"Minha renda triplicou em 4 meses"</p>
+                            <p class="quote-body">"Minha renda triplicou em 4 meses. O segredo foi entender quais pecas dao lucro e focar nelas. Parece obvio, mas ninguem tinha me ensinado isso antes."</p>
                             <div class="author">
                                 <div class="avatar">JO</div>
                                 <div>
@@ -289,8 +424,8 @@
                                 <span class="material-symbols-outlined">star</span>
                                 <span class="material-symbols-outlined">star</span>
                             </div>
-                            <p class="quote" style="font-weight: 600; color: var(--text-primary); font-size: 0.875rem;">"Do zero ao primeiro cliente em 60 dias"</p>
-                            <p class="quote">"Sai do zero e em 60 dias ja tinha meu primeiro cliente recorrente. O metodo Atelier e direto ao ponto, sem enrolacao. Recomendo para todas as artesas."</p>
+                            <p class="quote-highlight">"Do zero ao primeiro cliente em 60 dias"</p>
+                            <p class="quote-body">"Sai do zero e em 60 dias ja tinha meu primeiro cliente recorrente. O metodo Atelier e direto ao ponto, sem enrolacao. Recomendo para todas as artesas."</p>
                             <div class="author">
                                 <div class="avatar">CM</div>
                                 <div>
@@ -302,17 +437,19 @@
                     </div>
                 </div>
 
-            </div>
-        </div>
+                    </div>
+                </div>
 
-        <div class="controls anim delay-2">
-            <button class="nav-btn" onclick="moveCarousel(-1)">
-                <span class="material-symbols-outlined">arrow_back</span>
-            </button>
-            <div class="dots" id="dots"></div>
-            <button class="nav-btn" onclick="moveCarousel(1)">
-                <span class="material-symbols-outlined">arrow_forward</span>
-            </button>
+                <div class="controls anim delay-2">
+                    <button type="button" class="nav-btn" onclick="moveCarousel(-1)" aria-label="Depoimentos anteriores">
+                        <span class="material-symbols-outlined">arrow_back</span>
+                    </button>
+                    <div class="dots" id="dots"></div>
+                    <button type="button" class="nav-btn" onclick="moveCarousel(1)" aria-label="Proximos depoimentos">
+                        <span class="material-symbols-outlined">arrow_forward</span>
+                    </button>
+                </div>
+            </div>
         </div>
     </main>
 

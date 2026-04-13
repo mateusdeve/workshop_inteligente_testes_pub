@@ -217,6 +217,25 @@ O OpenRouter nao gera video diretamente. Para videos, use o fluxo:
 
 ---
 
+### OpenRouter. Mesma chave para imagens da landing (HTML)
+
+**O que faz:** Grava PNG em `entregas/{slug}/paginas/assets/` para ilustrar secoes da pagina (hero, dor, autoridade, OG, etc.), usando modelo de imagem via API (ver script).
+**Quando usar:** No fluxo **`/pagina-ajuste`**, quando o aluno escolher **gerar imagens com IA** em vez de enviar arquivos.
+**Chave:** a mesma `OPENROUTER_API_KEY` no `.env` na raiz do repositorio (ver `.env.example`).
+
+**Script:** `scripts/generate-openrouter-nano-banana-images.py` na raiz do projeto. O arquivo lista `JOBS` com nome do PNG, proporcao e `prompt` (em ingles costuma funcionar melhor). Saida direta em `entregas/{slug}/paginas/assets/`.
+
+**Comando tipico (na raiz):** `py -3 scripts/generate-openrouter-nano-banana-images.py --slug nome-do-produto`  
+Opcoes uteis: `--skip N` e `--max M` para gerar so parte da lista (ver cabecalho do script).
+
+**Referencias para o assistente e o aluno:**  
+`skills/paginas/references/playbook-evolucao-visual-html-landing.md` (estilo corporativo, prompts, o que evitar).  
+Depois de gerar, o assistente atualiza `src` e `alt` no HTML como no fluxo de upload.
+
+**Sem a chave:** Indicar prompts e proporcoes para o aluno gerar fora (Canva, outro gerador) e subir manualmente para `paginas/assets/`.
+
+---
+
 ### Lovable. Criacao de Quiz
 
 **O que faz:** Cria paginas interativas de quiz com logica condicional.
@@ -241,7 +260,7 @@ Anuncio -> Quiz (Lovable) -> Pagina Final do Quiz (toolkit) -> Checkout (Hotmart
 | Ferramenta | Chave .env | Nivel | Automacao |
 | --- | --- | --- | --- |
 | Vercel | VERCEL_TOKEN | Intermediario | Deploy de paginas |
-| OpenRouter | OPENROUTER_API_KEY | Intermediario | Geracao de imagens para anuncios |
+| OpenRouter | OPENROUTER_API_KEY | Intermediario | Anuncios (`/img-anuncio`) e assets de landing (`generate-openrouter-nano-banana-images.py`, ver playbook) |
 | Freepik | FREEPIK_API_KEY | Intermediario | Geracao de imagens (alternativa) |
 | HeyGen | HEYGEN_API_KEY | Intermediario | Criacao de videos com avatar IA |
 | Meta Pixel | META_PIXEL_ID | Intermediario | Tracking nas paginas |

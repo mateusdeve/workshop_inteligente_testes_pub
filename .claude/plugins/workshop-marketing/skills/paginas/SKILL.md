@@ -4,7 +4,9 @@ description: >
   Base de conhecimento para criação de páginas web profissionais.
   Inclui estrutura 8D de página de vendas, biblioteca de 65+ templates HTML
   cobrindo todas as 13 seções da estrutura em 5 estilos visuais
-  e padrões visuais. Acionada automaticamente pelo command /copy-pagina.
+  e padrões visuais. Inclui etapa de ajustes pós-merge (checkout, SEO, placeholders).
+  Fluxo padrão: copiar tema com workshop-copy-template-tema.py, preencher cópia em entregas, merge com --templates-root.
+  Acionada automaticamente pelo command /copy-pagina.
 ---
 
 # Páginas. Base de Conhecimento
@@ -13,8 +15,12 @@ description: >
 
 1. **Coletar TUDO antes de gerar copy.** Tudo o que for necessário para a página deve ser perguntado ANTES de gerar qualquer copy. Não gerar copy assumindo dados que não foram coletados ou confirmados.
 2. **Validar a copy com o usuário ANTES de gerar o HTML.** Mostrar toda a copy textual, pedir aprovação, e só depois gerar o arquivo HTML.
-3. **Revisão e correção automática SEMPRE.** Após gerar a copy ou o HTML, ler `.claude/commands/feedback-pagina.md`, aplicar todos os critérios e corrigir o que for necessário. Informar ao usuário o número de ajustes feitos. Só então entregar ou salvar.
+3. **Revisão e correção automática SEMPRE.** Após gerar a copy ou o HTML, aplicar a **Etapa 0 (vícios proibidos)** deste SKILL no texto visível e corrigir o que for necessário. Informar ao usuário o número de ajustes feitos. Só então entregar ou salvar.
 4. **Exceção de exibição:** O HTML não é mostrado ao usuário (seria confuso). Salvar direto e informar o caminho do arquivo.
+5. **Custo-benefício (geração de HTML):** **Primeiro** copiar o tema para `entregas/{slug}/paginas/templates-{estilo}/` com `scripts/workshop-copy-template-tema.py` (command `copy-pagina`, B1.5). **Depois** preencher os `code.html` **nessa cópia** e fechar com `scripts/workshop-merge-pagina.py --tema {estilo} --templates-root entregas/{slug}/paginas/templates-{estilo} --copiar-entregas` (ou `build_merge.py` dentro da pasta `pagina_completa_{estilo}` **da mesma cópia**). **Não** reproduzir no chat o `pagina_completa_*/code.html` inteiro. **Não** montar um único HTML em `entregas/` colando seções, salvo exceção pedida pelo usuário. Auditoria Nav: `/feedback-pagina`; não carregar esse arquivo longo em toda gravação.
+5a. **Preservar o template (só trocar a copy):** cada `code.html` atômico já é o layout final daquele tema. **Proibido** “reinventar” a página: alterar estrutura de markup, sistema de grid, blocos de estilo, `<style>` do arquivo, paleta ou fontes do tema, ou substituir o template por HTML novo gerado do zero. **Permitido:** colar a copy aprovada nos nós de texto, ajustar `href`, `src`, `alt`, textos de botão e placeholders. **Exceção:** fluxo de exceção do command `copy-pagina` (HTML customizado) com custo explícito, ou ajustes **depois** do merge (`/pagina-ajuste`, playbook de visual) quando o aluno pedir evolução visual pontual.
+6. **Copy fiel na página de vendas:** antes de preencher cada bloco HTML, ler a seção correspondente `## Bloco NN` em `entregas/{ativo}/copy-pagina/copy-{produto}.md` (estrutura obrigatória em `references/template-copy-pagina-vendas.md`). **Proibido** inventar preço, garantia ou depoimento que não estejam na copy aprovada. Se o arquivo não existir, seguir B0 do command `copy-pagina`.
+7. **Etapa de ajustes (pós-merge), antes de “página pronta”:** depois que existir `entregas/{ativo}/paginas/vendas-{slug}.html`, conduzir ajustes via comando **`/pagina-ajuste`** (diagnóstico, **pergunta sobre cor ou cores predominantes para layout**, menu de escolhas com **incrementar copy**, **headline**, **placeholders de imagem**, **análise de imagens para enriquecer**, **imagens: upload ou geração com IA** com referências em `references/playbook-evolucao-visual-html-landing.md` e script `scripts/generate-openrouter-nano-banana-images.py` quando o aluno quiser gerar, depois edição). A lista técnica completa está em `references/etapa-ajustes-pagina.md`. Em resumo o que pode ser fechado: checkout, preço, vídeo, autoridade, SEO, segunda prova social se duplicada, rodapé, paleta alinhada com o aluno, copy e hero, revisão de imagens, imagens em `paginas/assets/`. Não substitui `/feedback-pagina` nem `/pagina-performance`.
 
 ## Estrutura 8D (Página de Vendas VTSD)
 
@@ -470,6 +476,7 @@ Se qualquer item falhar, voltar, corrigir e rodar o checklist de novo. Não salv
 
 ## Referências
 
+- **`references/etapa-ajustes-pagina.md`**. **OBRIGATÓRIO após merge.** Checklist da etapa de ajustes: checkout, SEO básico, placeholders, duplicata de provas, rodapé. Diferente de feedback profundo (`/feedback-pagina`) e de performance (`/pagina-performance`).
 - **`references/anti-ia-design.md`**. **OBRIGATÓRIO.** 20 clichês visuais proibidos, checklist rápido de 10 perguntas, tabela de substituições. Ler antes de salvar qualquer HTML.
 - **`references/design-system-components.md`**. **ARQUIVO PRINCIPAL**. CSS variables, componentes, animações, responsivo. Ler este arquivo substitui a leitura de todos os templates individuais.
 - `references/estruturas-pagina.md`. Seções por tipo de página, fundos por seção, paletas por nicho

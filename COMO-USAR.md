@@ -2,15 +2,29 @@
 
 ## Antes de comecar
 
+### Opcao A. Claude Code (VS Code)
+
 1. VSCode instalado
 2. Extensao Claude Code instalada
 3. Pasta do projeto aberta no VSCode
 
+### Opcao B. Cursor
+
+1. Cursor instalado ([cursor.com](https://cursor.com))
+2. **File → Open Folder** e escolha a pasta `workshop_inteligente` (ou o nome da sua copia do repo)
+3. Pronto. As regras em `.cursor/rules/` e o `CLAUDE.md` passam a orientar o chat. Veja também `AGENTS.md` para um mapa rapido de pastas.
+
+**Comandos `/alguma-coisa` no Cursor:** a barra `/` nao e a mesma do Claude Code. Para seguir um fluxo (ex.: copy-pagina), diga no chat **"segue o comando copy-pagina"** ou anexe o arquivo **`.claude/commands/copy-pagina.md`** com `@`. O assistente executa o mesmo roteiro do `.md`.
+
+---
+
 ## Seu primeiro uso
 
-### 1. Abra o chat do Claude Code
+### 1. Abra o chat do assistente
 
-No VSCode, procure o icone do Claude Code na barra lateral.
+**No VSCode:** procure o icone do Claude Code na barra lateral.
+
+**No Cursor:** use o chat do agente (Composer ou Chat) com o projeto aberto.
 
 ### 2. Cadastre seu produto
 
@@ -154,7 +168,7 @@ Resultado: `entregas/textos-de-venda/funil-[tipo]-[produto].md`
 
 Cria scripts de venda 1:1 usando SPIN Selling: roteiro de call, pitch, quebra de objecoes, script de WhatsApp.
 
-Resultado: `entregas/comercial/playbook-[produto].md`
+Resultado: `entregas/comercial/playbook-[produto].html` (abrir no navegador; Imprimir → Salvar como PDF)
 
 ### /img-anuncio
 

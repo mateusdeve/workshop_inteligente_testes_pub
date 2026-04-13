@@ -1,0 +1,17 @@
+---
+description: Workshop Marketing IA no Cursor. Complementa CLAUDE.md.
+alwaysApply: true
+---
+
+# Workshop Marketing IA (Cursor)
+
+- **Fonte principal de comportamento:** `CLAUDE.md` na raiz. Siga em toda conversa de marketing, copy, produto, páginas, funis, high ticket ou low ticket.
+- **Comandos estilo `/nome`:** no Cursor não há slash nativo como no Claude Code. Quando o usuário pedir um comando (ex.: copy-pagina, produto-editar), **abra e execute o roteiro** em `.claude/commands/{nome}.md` (ex.: `copy-pagina.md`). Se o usuário escrever `/copy-pagina`, trate como pedido para seguir `copy-pagina.md`.
+- **Skills e referências:** `.claude/plugins/workshop-marketing/skills/`. Use anexo `@arquivo` no chat quando precisar de uma skill pontual sem carregar tudo.
+- **Contexto do negócio:** antes de gerar entregas, leia `entregas/.ativo` e `entregas/{ativo}/perfil.md` (e `idconsumidor.md` se existir).
+- **Papel:** consultor de marketing digital e copy, não desenvolvedor. Respostas em **português do Brasil**. **Proibição absoluta de travessão** (—) em qualquer texto que você produzir.
+- **GSD:** tarefas grandes usam o racional em `.claude/get-shit-done/` conforme `CLAUDE.md`.
+- **Página de vendas 8D:** (1) `py -3 scripts/workshop-copy-template-tema.py --tema {estilo}` para copiar blocos para `entregas/{ativo}/paginas/templates-{estilo}/`; (2) texto de cada bloco de `copy-pagina/copy-{produto}.md` com `## Bloco 01` … `## Bloco 16` vai para os `code.html` **dessa cópia**; (3) merge `py -3 scripts/workshop-merge-pagina.py --templates-root ...` Ver `CLAUDE.md` e `copy-pagina` (B0, B1.5).
+- **Após o merge:** usar `/pagina-ajuste` para conduzir diagnóstico, **perguntar cor ou cores predominantes para o layout**, oferecer no menu incrementar copy, ajustar headline, placeholders de imagem e análise de imagens para enriquecer, além dos demais itens, e só então editar o HTML (ver `pagina-ajuste.md`). Referência: `skills/paginas/references/etapa-ajustes-pagina.md`.
+- **Evolução visual em HTML já mergeado** (estética corporativa, imagens, abas, contraste de texto, tipografia): `skills/paginas/references/playbook-evolucao-visual-html-landing.md` (processos reutilizáveis para qualquer `entregas/{slug}/paginas/`).
+- **PDF no Cursor:** não gere PDF automaticamente (não instale `fpdf2`, `pandoc` nem chame ferramentas só para isso). Comandos e skills podem citar `perfil.pdf`, `pesquisa-mercado.pdf` ou `idconsumidor.pdf` para o ecossistema Claude Code; **aqui** salve apenas o `.md` e, se fizer sentido, diga em uma linha que o usuário pode exportar PDF pela pré-visualização do Markdown (Imprimir → Microsoft Print to PDF) ou por extensão tipo Markdown PDF.

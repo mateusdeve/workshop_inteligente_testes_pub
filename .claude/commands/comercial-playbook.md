@@ -1,11 +1,11 @@
 ---
 name: workshop-marketing:comercial-playbook
-description: Criar scripts de venda 1:1 usando SPIN Selling adaptado, scripts de fechamento, quebra de objeções e pitch comercial. Baseado na metodologia C10X do VTSD.
+description: Criar scripts de venda 1:1 usando SPIN Selling adaptado, scripts de fechamento, quebra de objeções e pitch comercial. Entrega em HTML único, formatado para leitura e exportação em PDF. Baseado na metodologia C10X do VTSD.
 ---
 
 # Playbook Comercial. Scripts de Venda 1:1
 
-Cria scripts de vendas consultivas usando SPIN Selling adaptado (C10X).
+Cria scripts de vendas consultivas usando SPIN Selling adaptado (C10X). **Produto final:** arquivo **HTML** único, bem formatado, com CSS para tela e impressão, convertível em PDF pelo navegador (Imprimir → Salvar como PDF). Siga a skill `playbook-comercial` para estrutura e requisitos do HTML.
 
 ## Usage
 
@@ -80,6 +80,8 @@ Resumo do que vou criar:
 
 ### 3. Geração
 
+Monte o conteúdo abaixo **dentro do HTML** (seções com títulos, listas, tabelas). Use `perfil.md` e, se existir, `idconsumidor.md` para personalizar perguntas, objeções e tom.
+
 **Script SPIN (C10X):**
 
 **S. Situação:**
@@ -105,7 +107,7 @@ Resumo do que vou criar:
 3. Preço + confirmação: "Tudo isso por [VALOR]. Acessível, né?"
 4. Envio do link: "Vou te enviar o checkout. Me confirma a compra que libero seus acessos."
 
-⚠️ Nunca pergunte "quer comprar?". assuma o interesse.
+⚠️ Nunca pergunte "quer comprar?". Assuma o interesse.
 
 **Quebra de Objeções:**
 - "Preciso pensar" → "O que especificamente precisa pensar? Talvez eu esclareça agora."
@@ -113,8 +115,15 @@ Resumo do que vou criar:
 - "Preciso falar com [pessoa]" → "O que acha que [pessoa] diria?"
 - "Não é o momento" → "Quando seria? O que precisa acontecer?"
 
-### 4. Salvar
-`entregas/{ativo}/comercial/playbook-[produto].md`
+**Pitch, WhatsApp e playbook completo:** expandir com roteiro linear (pitch) ou mensagens em blocos (WhatsApp) conforme o tipo escolhido na entrevista, sempre no mesmo HTML.
+
+### 4. Salvar (HTML obrigatório)
+
+- Caminho: `entregas/{ativo}/comercial/playbook-[slug].html`
+- `[slug]`: nome do produto em kebab-case (ex.: `mentoria-marketing-digital`).
+- Aplicar checklist da skill `playbook-comercial` (CSS embutido, `@media print`, capa, seções, tabelas).
+
+**Para o usuário:** não colar o código HTML no chat. Informar o caminho do arquivo e, em uma linha, como gerar PDF (abrir no navegador, Ctrl+P, Salvar como PDF, retrato).
 
 ### 5. Próximo Passo
-"Playbook salvo. Use `/estrategia-lancamento` para planejar o evento que vai gerar esses leads, ou `/copy-anuncio` para trazer tráfego."
+"Playbook salvo em HTML. Abra no navegador para revisar ou exportar PDF. Use `/estrategia-lancamento` para planejar o evento que vai gerar esses leads, ou `/copy-anuncio` para trazer tráfego."

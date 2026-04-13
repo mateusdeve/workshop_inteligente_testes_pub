@@ -1,11 +1,12 @@
 # Workshop Inteligente. Assistente de Marketing IA
 
-Assistente de marketing digital, copy e infoprodutos baseado nas metodologias VTSD, Light Copy, C10X e Low Ticket. Roda dentro do Claude Code com agentes, comandos e skills próprios.
+Assistente de marketing digital, copy e infoprodutos baseado nas metodologias VTSD, Light Copy, C10X e Low Ticket. Roda no **Claude Code** (VS Code) ou no **Cursor** com a pasta do projeto aberta, usando `CLAUDE.md`, regras em `.cursor/rules/` e roteiros em `.claude/commands/`.
 
 ## Por onde começar
 
-- **`COMO-USAR.md`**. Guia rápido para o usuário final (instalação, primeiros passos, comandos).
-- **`CLAUDE.md`**. Instruções e regras do assistente. Tudo que o Claude precisa saber para operar o projeto. Leitura obrigatória antes de mexer em qualquer skill ou comando.
+- **`COMO-USAR.md`**. Guia rápido para o usuário final (instalação, primeiros passos, comandos). Inclui secção **Usando no Cursor**.
+- **`CLAUDE.md`**. Instruções e regras do assistente. Tudo que o assistente precisa saber para operar o projeto. Leitura obrigatória antes de mexer em qualquer skill ou comando.
+- **`AGENTS.md`**. Ponte rápida para agentes no Cursor (caminhos de pastas).
 - **`docs/ARQUITETURA.md`**. Visão técnica da arquitetura.
 - **`docs/diagnostico-projeto.md`**. Diagnóstico e decisões de evolução.
 
@@ -41,11 +42,15 @@ workshop_inteligente/
 │       ├── low-ticket-v1/      (familia-viajante) versão 1 do funil low ticket
 │       ├── low-ticket-v2/      (familia-viajante) versão 2 do funil low ticket
 │       └── funil/              HTML de funil completo
+├── scripts/                    Utilitários (ex.: merge da página completa VTSD)
+│   └── workshop-merge-pagina.py
 ├── server.js                   Servidor mínimo para preview local
 ├── package.json
 ├── vercel.json
 └── .env.example                Modelo de variáveis (chaves de API opcionais)
 ```
+
+**Merge da página de vendas (após preencher os blocos atômicos):** na raiz do repo, `py -3 scripts/workshop-merge-pagina.py --tema flat_claro --copiar-entregas` (ou `python3` no Linux/macOS). Detalhes em `CLAUDE.md` e no command `copy-pagina`.
 
 ## Comandos principais
 

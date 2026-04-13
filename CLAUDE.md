@@ -126,7 +126,7 @@ Em seguida, liste os comandos disponíveis organizados por categoria:
 - `/estrategia-funil`. Mapear funil perpétuo ou de lançamento
 
 **Comercial:**
-- `/comercial-playbook`. Criar scripts de venda 1:1 (SPIN Selling)
+- `/comercial-playbook`. Criar scripts de venda 1:1 (SPIN Selling), entrega em HTML pronto para PDF
 
 **Vídeo:**
 - `/video-heygen`. Criar vídeo com avatar IA
@@ -134,6 +134,7 @@ Em seguida, liste os comandos disponíveis organizados por categoria:
 - `/video-editar`. Editar vídeos existentes com FFmpeg
 
 **Infraestrutura de Página (rodam após gerar a página):**
+- `/pagina-ajuste`. Ajustes pós-merge guiados por perguntas (diagnóstico, cores para layout, menu: copy, headline, placeholders e ideias de imagens, conversão, SEO, imagens, depois edição)
 - `/pagina-performance`. Auditar e corrigir performance da página HTML
 - `/pagina-pixel`. Instalar Meta Pixel na página
 - `/pagina-checkout`. Conectar a página ao checkout (Hotmart, Kiwify, etc.)
@@ -338,7 +339,7 @@ Todas as entregas ficam dentro da pasta do produto ativo: `entregas/{ativo}/`
 | Anúncios (Meta, Google) | `entregas/{ativo}/anuncios/` | `.md` |
 | Conteúdo para redes sociais | `entregas/{ativo}/conteudo-social/` | `.md` |
 | Criativos e prompts de imagem | `entregas/{ativo}/criativos/` | `.md` |
-| Scripts comerciais | `entregas/{ativo}/comercial/` | `.md` |
+| Scripts comerciais | `entregas/{ativo}/comercial/` | `.html` (playbook comercial; PDF via navegador) |
 | Vídeos (HeyGen, Remotion) | `entregas/{ativo}/videos/` | `.mp4` + `.md` |
 
 ## Padrão de Qualidade para Páginas HTML
@@ -350,6 +351,16 @@ Todas as entregas ficam dentro da pasta do produto ativo: `entregas/{ativo}/`
 - **Estrutura 8D**: Seguir as 11 seções padrão definidas na Metodologia Base quando for página de vendas
 - **Pronto para usar**: Abre no navegador e está profissional imediatamente
 - **Placeholder de imagens**: Divs com instrução "[Sua foto aqui]" onde o aluno coloca suas imagens
+
+### Custo-benefício na página de vendas (padrão obrigatório)
+
+- **Ordem de trabalho (recomendado):** (1) **Copiar** o tema inteiro para a pasta do produto com `py -3 scripts/workshop-copy-template-tema.py --tema {estilo}` (lê `entregas/.ativo` ou use `--slug`). Isso cria `entregas/{ativo}/paginas/templates-{estilo}/` com todos os `*_{estilo}` e `pagina_completa_{estilo}`. (2) **Só então** trocar textos nos `code.html` **dessa cópia**, nunca editar o original do plugin por padrão. (3) **Merge** com `py -3 scripts/workshop-merge-pagina.py --tema {estilo} --templates-root entregas/{ativo}/paginas/templates-{estilo} --copiar-entregas`. Sem `--templates-root`, o merge usa os arquivos dentro do plugin (útil para quem mantém o repositório do workshop, não para entrega do aluno).
+- **Não** gerar no chat o HTML mergeado completo (`pagina_completa_*/code.html`). **Não** montar um único arquivo em `entregas/` colando seções manualmente, salvo pedido explícito do aluno fora dos templates.
+- **Sim** preencher os `code.html` dos blocos atômicos (na **cópia** em `entregas/.../templates-{estilo}/` ou, só em exceção, no plugin). Ao final, rodar o merge como acima. Alternativa manual: `build_merge.py` dentro da pasta `pagina_completa_{estilo}` correspondente à mesma raiz de templates.
+- **Não redesenhar o template:** o layout já está pronto em cada bloco atômico. O trabalho é **substituir textos** pela copy aprovada e preencher links, placeholders de mídia e atributos necessários. **Proibido** reescrever estrutura (HTML, CSS do bloco, classes, grids), trocar fontes ou paleta do tema, ou gerar uma página “nova” no lugar do template. Quem quiser visual outro usa o fluxo de exceção do command `copy-pagina` (montagem manual) ou evolução **depois** do merge (`/pagina-ajuste`, playbook de visual).
+- **Após o merge:** etapa de ajustes obrigatória no HTML em `entregas/` conforme `skills/paginas/references/etapa-ajustes-pagina.md` (checkout, title e meta, placeholders de autoridade e vídeo, rodapé; revisar segunda prova social se o tema duplicar o bloco). Cada novo merge pode exigir reaplicar esses ajustes.
+- **Revisão:** Etapa 0 (vícios proibidos) do SKILL `paginas` no texto visível. Auditoria completa com Nav fica para `/feedback-pagina` ou pedido explícito, não para cada salvamento.
+- **Copy aprovada:** para página de vendas 8D, o texto de cada bloco HTML deve vir do arquivo `entregas/{ativo}/copy-pagina/copy-{produto}.md` com os títulos `## Bloco 01` a `## Bloco 16` (ver `template-copy-pagina-vendas.md` no plugin de páginas). Sem isso, o fluxo exige gerar a copy antes do HTML ou o usuário aceita exceção explícita no command `copy-pagina` (B0).
 
 ## Fluxo Padrão de Todo Comando (6 Passos)
 

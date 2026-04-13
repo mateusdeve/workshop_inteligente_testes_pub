@@ -48,7 +48,7 @@ Digite o número:
 ```
 Playbook completo reúne todos os scripts em um documento único.
 
-→ /comercial-playbook   Gera script SPIN, pitch curto, quebra de objeções,
+→ /comercial-playbook   Gera script SPIN, pitch curto, quebra de objeções (HTML pronto para PDF),
                         fluxo WhatsApp, follow-up e script de fechamento.
                         Entrega um único arquivo pronto para equipe comercial.
 

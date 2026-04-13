@@ -1,6 +1,6 @@
 ---
 name: workshop-marketing:copy-pagina
-description: Criar copy completa e/ou página HTML profissional de vendas, captura ou obrigado. Gera texto persuasivo (Light Copy, estrutura 8D) e/ou página com design responsivo baseado na metodologia VTSD.
+description: Criar copy completa e/ou página HTML de vendas, captura ou obrigado. Para vendas 8D, preenche blocos atômicos do repositório com a copy aprovada (preserva layout do tema; não redesenha o template). Light Copy e metodologia VTSD.
 ---
 
 # Página de Vendas. Copy e HTML
@@ -27,8 +27,8 @@ Leia `entregas/{ativo}/perfil.md` e `entregas/{ativo}/idconsumidor.md` se existi
 O que você quer criar?
 
 1. Só a copy (texto completo da página de vendas em markdown)
-2. Só a página HTML (usa copy já salva ou gera durante a criação)
-3. Copy + página HTML (gera o texto primeiro, depois monta a página)
+2. Só a página HTML (para vendas 8D: precisa da copy em 16 blocos já salva ou aceitar exceção no passo B0)
+3. Copy + página HTML (gera o texto primeiro com ## Bloco 01…16, depois monta a página)
 
 Digite o número:
 ```
@@ -124,89 +124,49 @@ Antes de entregar, revise e substitua:
 
 Use os 26 elementos literários quando apropriado (consulte skill vtsd-completo para lista completa).
 
-### A3. Geração em 2 Partes
+### A2.5 Estrutura do arquivo de copy (obrigatória para vendas 8D)
 
-Para garantir qualidade, SEMPRE gere em duas partes separadas.
+A copy da página de vendas **deve** ser salva com **títulos fixos** alinhados aos blocos HTML (16 blocos). Consulte o modelo:
 
-#### PARTE 1. Persuasão (Seções 1 a 8)
+- `.claude/plugins/workshop-marketing/skills/paginas/references/template-copy-pagina-vendas.md`
 
-Gere as seções 1 a 8 completas e salve no arquivo. Cada seção narrativa deve ter parágrafos desenvolvidos com linguagem da persona, cenas do cotidiano e elementos literários.
+**Regras:**
 
-**Seção 1. Primeira Dobra (Hero)**
-- Headline principal (premissa matadora baseada no Quadro)
-- Subheadline (expansão da promessa, focada no leitor e na transformação)
-- PROIBIDO: nome do produto, nome do método, nome do curso ou sigla na headline ou subheadline. O hero fala APENAS do leitor. Sem exceção, mesmo que o nome pareça "posicionamento de identidade".
-- 3 bullet points (cada um = Urgência Oculta + Decorado)
-- Indicação de vídeo de vendas
-- Botão de Vendas
+- Cada bloco = um título `## Bloco NN — Nome` **exatamente** como no template (numeração com dois dígitos: 01, 02, … 16).
+- Não renomeie, não una dois blocos num só, não pule número. Isso garante que a página HTML use **a mesma copy** bloco a bloco.
+- O conteúdo persuasivo segue as regras das seções abaixo, mas **sempre** sob esses títulos.
 
-**Seção 2. Problema/Dor**
-- Dor amplificada com cenas do cotidiano do leitor
+### A3. Geração em 2 Partes (16 blocos)
 
-**Seção 3. Paliativo**
-- O que o leitor já tentou e por que falhou
+Para garantir qualidade, SEMPRE gere em **duas partes** no **mesmo arquivo** `entregas/{ativo}/copy-pagina/copy-[produto].md`.
 
-**Seção 4. Prova Social (1o bloco)**
-- 2-3 depoimentos curtos de resultado rápido (nome, resultado concreto)
-- Objetivo: ancorar credibilidade ANTES de apresentar o método
-- Se não tiver reais, gere modelos marcados: "[Depoimento modelo, substituir por depoimento real]"
+#### PARTE 1. Blocos 01 a 09
 
-**Seção 5. Solução (Apresentação do Método)**
-- Apresente o produto como a resposta lógica de forma visual
-- Mostre a Furadeira: macroetapas + o que cada uma resolve
-- Nome do método em destaque (aqui sim, primeira vez que o nome aparece)
-- Mínimo 3 parágrafos
+Gere e salve no arquivo, com parágrafos desenvolvidos (persona, cenas, elementos literários onde couber):
 
-**Seção 6. Para Quem É**
-- Use os baldes de "pra quem é" da identidade do consumidor
-- O público se reconhece aqui
+- **Bloco 01 — Hero:** headline, subheadline, PROIBIDO nome do produto/método/curso/sigla no hero; 3 bullets (UO + decorado); indicação de vídeo; texto do botão.
+- **Bloco 02 — Dor:** dor amplificada, cotidiano.
+- **Bloco 03 — Paliativo:** tentativas antigas e por que falharam.
+- **Bloco 04 — Prova social (primeiro bloco):** 2 a 3 depoimentos curtos; modelos marcados se não houver reais.
+- **Bloco 05 — CTA intermediário:** frase + botão.
+- **Bloco 06 — Método (Furadeira):** primeira vez com nome do método em destaque; macroetapas; mínimo 3 parágrafos de argumentação.
+- **Bloco 07 — Para quem é / não é:** baldes da identidade do consumidor.
+- **Bloco 08 — Entregáveis:** lista com nome + valor de cada item.
+- **Bloco 09 — Bônus:** 3 bônus com nome, descrição e R$ cada.
 
-**Seção 7. Entregáveis (Módulos/Conteúdo)**
-- Lista completa do que está incluso
-- Cada item com nome + descrição de valor (não só o nome)
-- Use metáforas de valor para tangibilizar
+Ao terminar a Parte 1, informe: `Parte 1 pronta (Blocos 01 a 09). Gerando a Parte 2 agora...`
 
-**Seção 8. Bônus**
-- 3 bônus estratégicos (gere com base no perfil e persona se o aluno não tiver)
-- Cada bônus com: nome, descrição completa e valor individual em R$
-- Bônus devem resolver objeções ou complementar o produto
+#### PARTE 2. Blocos 10 a 16
 
-**Seção 9. Stack de Valor (Ancoragem)**
-- Liste tudo que está incluso com valor individual
-- Some o valor total
-- Mostre o preço real como fração do valor total
+Continue no **mesmo arquivo**, mesmo nível de detalhe:
 
-Ao terminar a Parte 1, salve no arquivo e informe:
-"Parte 1 pronta (seções 1 a 9). Gerando a Parte 2 agora..."
-
-#### PARTE 2. Conversão (Seções 10 a 16)
-
-
-Continue no mesmo arquivo. Mesmo nível de detalhe da Parte 1.
-
-**Seção 10. Prova Social (2o bloco)**
-- 3-5 depoimentos completos (nome, situação antes, resultado depois, foto)
-- Agora o leitor já conhece o método e os depoimentos confirmam
-- Se não tiver reais, gere modelos marcados: "[Depoimento modelo, substituir por depoimento real]"
-
-**Seção 11. Garantia**
-- Tipo de garantia (7, 15 ou 30 dias)
-- Texto que elimina o risco
-- Tom confiante, não defensivo
-
-**Seção 12. Autoridade do Criador**
-- Pequena apresentação do criador do método
-
-**Seção 13. FAQ**
-- 5-8 perguntas frequentes baseadas nas objeções da persona
-- Respostas curtas, diretas, que quebram a objeção
-
-**Seção 14. Último CTA**
-- Reforço de urgência ou escassez (se houver)
-- Frase de fechamento + botão final
-
-**Seção 15. Rodapé**
-- Indicações de termos de uso e política de privacidade
+- **Bloco 10 — Stack de valor:** itens, valores, total, preço real, parcelamento.
+- **Bloco 11 — Prova social (segundo bloco) ou Depoimentos:** 3 a 5 depoimentos completos (antes/depois); modelos se necessário.
+- **Bloco 12 — Suporte**
+- **Bloco 13 — Garantia:** prazo (7/15/30), texto de risco zero.
+- **Bloco 14 — Autoridade do criador**
+- **Bloco 15 — FAQ:** 5 a 8 Q&A com objeções da persona.
+- **Bloco 16 — Oferta final:** reprise de valor, preço, último CTA, urgência se houver; linha sobre termos/privacidade se aplicável.
 
 ### A4. Revisão e Correção Automática (OBRIGATÓRIO antes de entregar)
 
@@ -242,6 +202,8 @@ Só então apresente a copy corrigida e pergunte:
 
 `entregas/{ativo}/copy-pagina/copy-[produto].md`
 
+**Obrigatório:** o arquivo deve conter os **16** títulos `## Bloco NN — …` (dois dígitos), na ordem do `template-copy-pagina-vendas.md`. Sem isso, a página HTML não pode ser preenchida de forma fiel à copy.
+
 ### A6. Próximo Passo
 
 ```
@@ -262,6 +224,30 @@ Se escolher 1, execute o Fluxo B usando a copy recém-gerada.
 ## FLUXO B. Página HTML
 
 > Ativar quando o usuário escolher a opção 2 ou 3, ou quando aceitar montar a HTML após o Fluxo A.
+
+### B0. Fonte da copy (vendas 8D). Obrigatório para copy correta
+
+**Se o tipo for página de vendas (8D):**
+
+1. Verificar se existe `entregas/{ativo}/copy-pagina/copy-{slug}.md` (slug = produto ativo ou nome acordado) **com** as seções `## Bloco 01` até `## Bloco 16` conforme `.claude/plugins/workshop-marketing/skills/paginas/references/template-copy-pagina-vendas.md`.
+2. **Se o arquivo existir e tiver os 16 blocos:** esse arquivo é a **única fonte de texto** para preencher os templates HTML. Não inventar ofertas, preços, depoimentos ou argumentos que não estejam na copy aprovada. Só é permitido adaptar à estrutura do HTML (quebras, listas, negrito) e placeholders de mídia (`[Sua foto aqui]`, URL de vídeo, etc.).
+3. **Se não existir ou faltar bloco numerado:**
+
+```
+Para a página sair com a copy correta, preciso da copy aprovada nos 16 blocos (template com títulos ## Bloco 01 … ## Bloco 16).
+
+1. Gerar e aprovar a copy agora (Fluxo A) e depois continuo o HTML
+2. O arquivo está em outro caminho (você informa o caminho completo)
+3. Exceção: montar HTML sem esse arquivo (uso perfil.md e entrevista; pode divergir da copy ideal)
+
+Digite o número:
+```
+
+- Se **1:** executar o Fluxo A até salvar `copy-[produto].md` com os 16 blocos e aprovação do usuário, **depois** retomar o Fluxo B a partir deste ponto.
+- Se **2:** ler o arquivo indicado; se também não tiver os 16 `## Bloco NN`, tratar como caso 3 ou pedir correção.
+- Se **3:** avisar que a página pode não refletir uma copy única aprovada; preencher a partir de `perfil.md` + respostas da entrevista B1, mantendo Etapa 0 anti-vícios.
+
+**Captura e obrigado:** B0 não se aplica da mesma forma; use copy específica do fluxo da entrevista B1.
 
 ### B1. Entrevista (UMA pergunta por vez, com progresso visual)
 
@@ -404,103 +390,95 @@ Resumo do que vou criar:
 2. Quero ajustar algo
 ```
 
-### 3. Geração SEÇÃO POR SEÇÃO com Aprovação por Bloco
+### B1.5 Melhor custo-benefício (padrão para vendas 8D)
 
-> ⛔ NUNCA gere a página inteira de uma vez. O fluxo é seção por seção, com aprovação do usuário entre cada uma. Isso é obrigatório (decisão Vitor 31/03/2026: gerar tudo junto demora 10+ minutos e o usuário fica sem controle. Seção por seção é mais dinâmico, mais rápido perceptualmente e o aluno pode ajustar antes de propagar erro para o resto da página).
+**Objetivo:** máxima qualidade visual estável com **menor gasto de tokens**. O repositório já tem páginas completas montadas por **script**, não por texto gigante no chat.
 
-**Como funciona:**
-- A página é montada incrementalmente em `entregas/{ativo}/paginas/[tipo]-[produto].html`
-- A cada seção: lê APENAS o template daquela seção, gera o HTML daquela seção, salva o arquivo parcial, mostra progresso visual ao usuário e pede aprovação
-- Após aprovação, segue para a próxima seção. Se o usuário pedir ajuste, regera SÓ aquela seção.
-- No final, todas as seções já estão montadas e o arquivo está pronto.
+**Proibido:** pedir ao modelo que **escreva do zero** o arquivo monolítico `pagina_completa_*/code.html` (milhares de linhas). Esse arquivo é **saída do merge**, não rascunho no chat.
 
-**Sequência das 13 seções da estrutura 8D (em ordem de geração):**
+**Regra de ouro (template fixo, copy variável):** o template já existe nos blocos atômicos. O agente **preserva o arquivo** (estrutura, classes, CSS do bloco) e **só substitui conteúdo textual** e dados de integração (checkout, vídeo, imagens). **Não** transformar o bloco em outro layout, **não** trocar fontes ou cores do tema, **não** apagar seções para “simplificar”. Se o aluno quiser outro design de página inteira, usar o fluxo **3-alt** (exceção) ou evoluir **depois** do merge com `/pagina-ajuste` e o playbook de visual.
 
-| # | Seção | Template lido |
-|---|---|---|
-| 1 | Primeira Dobra (Hero) | `hero_{estilo}` ou variante |
-| 2 | Problema/Dor | `dor_{estilo}` |
-| 3 | Paliativo | `paliativo_{estilo}` |
-| 4 | Provas Sociais (1º bloco) | `provas_sociais_{estilo}` |
-| 5 | Solução/Método (Furadeira) | `metodo_{estilo}` |
-| 6 | Entregáveis | `entregaveis_{estilo}` |
-| 7 | Bônus | `bonus_{estilo}` |
-| 8 | Garantia | `garantia_{estilo}` |
-| 9 | Provas Sociais (2º bloco) | `provas_sociais_{estilo}` (variação) |
-| 10 | Autoridade do Criador | `autoridade_{estilo}` |
-| 11 | Suporte | `suporte_{estilo}` |
-| 12 | Oferta Final (Stack + Preço + CTA) | `oferta_final_{estilo}` |
-| 13 | FAQ | `faq_{estilo}` |
+**Fluxo preferido (vendas 8D): copiar template, depois copy na cópia**
 
-**Passo 3a. Setup inicial (antes da primeira seção):**
-
-1. Determinar o estilo único da página pela tabela de nicho em `skills/paginas/SKILL.md` (Etapa 1 do Fluxo de Geração)
-2. Criar o esqueleto do arquivo HTML em `entregas/{ativo}/paginas/[tipo]-[produto].html` com:
-   - `<!DOCTYPE html>`, `<head>` com fontes do nicho, Material Symbols, meta tags
-   - `:root` com tokens mestres do estilo (`--radius`, `--border-width`, `--shadow`, paleta, tipografia)
-   - `<body>` vazio com header (logotipo) e placeholder `<main id="page-sections"></main>`
-3. Anunciar ao usuário:
+1. **Copiar o tema para a entrega** (antes de editar qualquer `code.html`): na raiz do repo, `py -3 scripts/workshop-copy-template-tema.py --tema {estilo}` (`{estilo}` = um dos cinco: `flat_claro`, `minimal_claro`, `glass_escuro`, `teal_claro`, `purple_escuro`). Usa `entregas/.ativo` ou `--slug nome-do-produto`. Saída: `entregas/{slug}/paginas/templates-{estilo}/` com todas as pastas `*_{estilo}` e `pagina_completa_{estilo}`. Se a pasta já existir, `--force` recopia do zero (**apaga** a cópia local já editada).
+2. **Trabalhar só nos blocos atômicos da cópia:** editar **apenas** `entregas/{slug}/paginas/templates-{estilo}/{nome_do_bloco}_{estilo}/code.html`. O texto vem de **`## Bloco NN`** em `copy-pagina/copy-{slug}.md` (B0). **Não** editar por padrão `.claude/plugins/.../references/templates/` (original do workshop; exceção: manutenção do plugin).
+3. **Segunda prova social (atenção):**
+   - Temas **flat_claro** e **minimal_claro:** o merge usa **duas vezes** o mesmo tipo de bloco de provas (`provas2` = mesma família do primeiro bloco). Conteúdo pode ser diferente, **formato** é o mesmo.
+   - Temas **glass_escuro**, **teal_claro** e **purple_escuro:** o segundo bloco **não** é cópia do primeiro. Preencher também `hero_{estilo}_depoimentos/code.html` quando o `build_merge.py` do tema exigir.
+4. **Fechar a página (merge):** na raiz do repositório (com a cópia já preenchida):
+   ```bash
+   py -3 scripts/workshop-merge-pagina.py --tema {estilo} --templates-root entregas/{slug}/paginas/templates-{estilo} --copiar-entregas
    ```
-   Vou montar sua página seção por seção. Você aprova cada uma antes da próxima.
-   Estilo escolhido para o nicho [nicho]: [estilo]
-   Total: 13 seções. Vamos lá.
-   ```
+   No Linux/macOS pode ser `python3` em vez de `py -3`. Usa `entregas/.ativo` como slug do `vendas-{slug}.html`, salvo `--slug`.  
+   **Sem cópia em entregas:** omitir `--templates-root` para mergear a partir do plugin (fluxo alternativo, não o padrão de entrega).  
+   **Alternativa manual:** em `entregas/.../templates-{estilo}/pagina_completa_{estilo}/`, rodar `py -3 build_merge.py`, depois copiar `code.html` se não usar `--copiar-entregas`.
+5. **Entrega ao aluno:** com `--copiar-entregas`, o HTML final vai para `entregas/{slug}/paginas/vendas-{slug}.html`. Ajustes finais (título, meta, checkout, pixel) como na etapa de ajustes.
 
-**Passo 3b. Loop. Para CADA seção (1 a 13):**
+**Revisão de texto:** em cada bloco aplicar a **Etapa 0 (vícios proibidos)** do SKILL `paginas`. **Não** abrir o arquivo inteiro `.claude/commands/feedback-pagina.md` a cada seção (ele é pesado). Auditoria completa com Nav fica para quando o usuário usar `/feedback-pagina` ou pedir revisão profunda.
 
-**3b.1. Anunciar progresso visual:**
-```
-[Seção N/13] Gerando: [nome da seção]
+### 3. Geração (vendas 8D). Modo padrão: blocos atômicos + merge
 
-Progresso geral:
-[██████░░░░░░░] N de 13
-```
+> ⛔ **Não** montar um único HTML em `entregas/` colando seções em `<main id="page-sections">` (salvo exceção no §3-alt). **Não** gerar no chat o `pagina_completa_*/code.html` inteiro.  
+> ⛔ **NUNCA** gere a página inteira de uma vez no chat. Trabalhe **bloco a bloco**, com aprovação opcional entre blocos (o usuário pode dizer "ir direto à versão final" para pular pausas).
 
-**3b.2. Ler APENAS o template daquela seção:**
-- `references/templates/{secao}_{estilo}/code.html`
-- NÃO ler templates de outras seções. Otimização crítica para evitar os 10 minutos por página.
+**Base de caminhos (padrão):** `entregas/{slug}/paginas/templates-{estilo}/` após `workshop-copy-template-tema.py`. **Original do plugin (só manutenção):** `.claude/plugins/workshop-marketing/skills/paginas/references/templates/`
 
-**3b.3. Gerar o HTML da seção** seguindo Etapas 4-5 do Fluxo de Geração do SKILL.md (extrair tokens, copiar estrutura, adaptar copy/cores/imagens). Aplicar varredura anti-vícios da Etapa 0 do SKILL.md ANTES de salvar.
+**Ordem dos blocos** (igual ao `build_merge.py` do tema `pagina_completa_{estilo}`). Substitua `{estilo}` pelo sufixo escolhido (ex.: `flat_claro`):
 
-**3b.4. Salvar parcialmente:** inserir o HTML da seção no `<main id="page-sections">` do arquivo, mantendo o que já estava. Salvar o arquivo a cada seção (snapshot incremental).
+| # | Fonte da copy (`copy-*.md`) | Pasta do bloco na **cópia** (`entregas/{slug}/paginas/templates-{estilo}/{pasta}/code.html`) |
+|---|-----------------------------|--------------------------------------------------------|
+| 1 | `## Bloco 01 — Hero` | `hero_{estilo}` |
+| 2 | `## Bloco 02 — Dor` | `dor_{estilo}` |
+| 3 | `## Bloco 03 — Paliativo` | `paliativo_{estilo}` |
+| 4 | `## Bloco 04 — Prova social (primeiro bloco)` | `provas_sociais_{estilo}` |
+| 5 | `## Bloco 05 — CTA intermediário` | `cta_{estilo}` |
+| 6 | `## Bloco 06 — Método (Furadeira)` | `metodo_{estilo}` |
+| 7 | `## Bloco 07 — Para quem é / não é` | `para_quem_{estilo}` |
+| 8 | `## Bloco 08 — Entregáveis` | `entregaveis_{estilo}` |
+| 9 | `## Bloco 09 — Bônus` | `bonus_{estilo}` |
+| 10 | `## Bloco 10 — Stack de valor` | `stack_valor_{estilo}` |
+| 11 | `## Bloco 11 — Prova social (segundo bloco) ou Depoimentos` | **flat/minimal:** segundo `provas_sociais_{estilo}` · **glass/teal/purple:** `hero_{estilo}_depoimentos` |
+| 12 | `## Bloco 12 — Suporte` | `suporte_{estilo}` |
+| 13 | `## Bloco 13 — Garantia` | `garantia_{estilo}` |
+| 14 | `## Bloco 14 — Autoridade do criador` | `autoridade_{estilo}` |
+| 15 | `## Bloco 15 — FAQ` | `faq_{estilo}` |
+| 16 | `## Bloco 16 — Oferta final` | `oferta_final_{estilo}` |
 
-**3b.5. NÃO mostrar código no chat.** Apresentar ao usuário um resumo curto da seção em texto:
-```
-Seção [N/13] pronta: [Nome da seção]
+**Passo 3a. Antes do primeiro bloco:** garantir que existe `entregas/{slug}/paginas/templates-{estilo}/` (rodar `workshop-copy-template-tema.py` se ainda não existir). Escolher o tema e anunciar: `Vou preencher os blocos na cópia em entregas/.../templates-[estilo], um por vez. Total: 16 blocos. Depois rodo o merge com --templates-root e entrego vendas-{slug}.html.`
 
-Headline: "[primeira frase ou título principal]"
-Conteúdo: [resumo de 1 a 2 linhas do que essa seção contém]
+**Passo 3b. Loop para cada bloco (1 a 16):**
 
-Arquivo atualizado em: entregas/{ativo}/paginas/[arquivo].html
-Abra/recarregue no navegador para ver visualmente.
+1. Abrir `entregas/{ativo}/copy-pagina/copy-{slug}.md` e localizar **`## Bloco NN — …`** com o mesmo número do bloco atual (01 a 16). **Exceção B0 opção 3:** usar só `perfil.md` + entrevista, sem arquivo de 16 blocos.
+2. Abrir o `code.html` **da cópia** em `entregas/{slug}/paginas/templates-{estilo}/{pasta}/code.html` (tabela abaixo com nomes de pasta). Manter o **mesmo** HTML e CSS do arquivo; não reescrever o esqueleto.
+3. Preencher o template com o **texto daquela seção da copy**, sem acrescentar promessas, preços ou depoimentos que não estejam na copy aprovada. Etapas 4 e 5 do SKILL `paginas` só para encaixe visual. Etapa 0 (anti-vícios) **antes** de salvar.
+4. **Salvar só esse arquivo atômico** (não um arquivo grande em `entregas/` ainda).
+5. Resumo curto ao usuário (sem colar HTML no chat). **1. Aprovar próximo bloco** / **2. Ajustar este bloco** (ou "ir direto à versão final" para não pausar mais).
 
-1. Aprovar e ir para a próxima seção
-2. Quero ajustar essa seção
-```
+**Passo 3c. Após o bloco 16 salvo:**
 
-**3b.6. Tratar a resposta:**
-- **Se "1. Aprovar"**: ir para a próxima seção do loop.
-- **Se "2. Ajustar"**: perguntar O QUE ajustar (texto, cor, layout, foto, ordem dos elementos), regerar APENAS aquela seção, sobrescrever no arquivo parcial e voltar ao 3b.5.
-- O usuário também pode digitar "ir direto à versão final" ou "não precisa aprovar mais" para pular as aprovações restantes e gerar tudo até o fim sem pausa. Nesse caso, continuar o loop até a seção 13 sem perguntar mais.
+1. Rodar o merge e copiar para entregas (ver B1.5, passos 4 e 5). Preferir: `py -3 scripts/workshop-merge-pagina.py --tema {estilo} --templates-root entregas/{slug}/paginas/templates-{estilo} --copiar-entregas`
+2. **Etapa de ajustes (pós-merge):** seguir `references/etapa-ajustes-pagina.md` no SKILL `paginas` (checkout, preço, vídeo, autoridade, `<title>` e meta description no HTML em `entregas/`, segunda prova social se duplicada pelo tema, rodapé). O merge pode recolocar placeholders do shell do tema; reaplicar ajustes sempre que rodar o merge de novo.
+3. Checklist anti-vícios (Etapa 0 do SKILL `paginas`) no texto visível do arquivo em `entregas/`. Pixel só se o fluxo pedir (`/pagina-pixel`).
 
-**Passo 3c. Após a seção 13 aprovada:**
-- Rodar o Checklist final do SKILL.md (estilo único, tokens consistentes, sem vícios proibidos, acentos corretos, grid 2 colunas, fontes sans-serif)
-- Confirmar que `<head>` e `<body>` estão fechados corretamente
-- Confirmar que o arquivo abre limpo no navegador
+### 3-alt. Exceção (só se o usuário pedir layout fora dos cinco temas)
+
+Montagem manual de um único arquivo em `entregas/` ou HTML totalmente customizado. **Custo de tokens maior.** Evitar se um dos temas `pagina_completa_*` servir.
 
 ### 4. Confirmação Final
 
-Após as 13 seções aprovadas e checklist passado:
+Após merge, etapa de ajustes e confirmação em `entregas/`:
 
 ```
-Página completa pronta.
+Página entregue no arquivo abaixo.
 
-✅ 13 seções aprovadas uma a uma
-✅ Estilo [estilo] aplicado do início ao fim
-✅ Tokens mestres consistentes em todas as seções
-✅ Acentos, grids, fontes e checklist anti-vícios revisados
+✅ Blocos atômicos preenchidos + merge (custo-benefício)
+✅ Estilo [estilo] aplicado
+✅ Etapa de ajustes pós-merge (etapa-ajustes-pagina.md): checkout, SEO básico, placeholders críticos
+✅ Checklist anti-vícios (Etapa 0) no HTML final
 
-Arquivo final: entregas/{ativo}/paginas/[tipo]-[produto].html
+Arquivo: entregas/{ativo}/paginas/vendas-[produto].html (ou nome acordado)
+
+Próximos passos opcionais: /feedback-pagina (auditoria), /pagina-performance, /pagina-pixel, /pagina-checkout
 ```
 
 ### 5. Deploy na Vercel (se configurado)
@@ -560,9 +538,11 @@ npx vercel entregas/{ativo}/paginas --prod --yes --name {slug-do-produto}
 
 ## B4. Revisão e Correção Automática da Copy no HTML (OBRIGATÓRIO antes de salvar)
 
-Antes de salvar o arquivo HTML, percorra todo o texto visível da página e aplique a revisão completa.
+Antes de salvar o arquivo HTML, percorra o **texto visível** da página (ou de cada bloco, se estiver em modo seção a seção) e corrija vícios.
 
-Leia `.claude/commands/feedback-pagina.md` e aplique todos os critérios. Corrija diretamente no HTML:
+**Economia de tokens:** use **este checklist** e a Etapa 0 do SKILL `paginas`. **Não** carregue o arquivo inteiro `.claude/commands/feedback-pagina.md` só para salvar uma página (esse documento é longo e serve à **auditoria** quando o usuário chama `/feedback-pagina` ou pede análise tipo Nav). Se o usuário pedir revisão profunda no mesmo fluxo, aí sim use `feedback-pagina.md` com critério.
+
+Corrija diretamente no HTML:
 
 **Checklist de revisão. corrigir automaticamente cada item:**
 

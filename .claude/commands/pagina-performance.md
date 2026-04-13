@@ -31,6 +31,7 @@ Acione a skill `pagina-performance` do plugin `workshop-marketing` e siga o rote
 
 ## Regras Resumidas
 
+- Imagens costumam estar em `entregas/{ativo}/paginas/assets/` (referência no HTML: `assets/...`). Se o gargalo for peso ou formato, combinar com `/pagina-ajuste` para trocar arquivos ou gerar variantes antes de otimizar o HTML.
 - Não chamar API externa, auditoria é offline lendo o HTML.
 - Não alterar copy, só estrutura e atributos técnicos.
 - Sempre criar backup antes de sobrescrever.
