@@ -1,0 +1,1143 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Desafio RECONECTA — 7 Dias</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap');
+
+  :root {
+    --verde: #2d6a4f;
+    --verde-claro: #52b788;
+    --verde-suave: #d8f3dc;
+    --terracota: #bc6c25;
+    --terracota-suave: #fdebd0;
+    --creme: #fdf8f0;
+    --cinza: #6b7280;
+    --cinza-claro: #f3f4f6;
+    --texto: #1f2937;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--creme);
+    color: var(--texto);
+    line-height: 1.7;
+  }
+
+  /* CAPA */
+  .capa {
+    background: linear-gradient(135deg, var(--verde) 0%, #1b4332 100%);
+    color: white;
+    padding: 80px 40px;
+    text-align: center;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .capa::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle at 30% 70%, rgba(82,183,136,0.15) 0%, transparent 50%),
+                radial-gradient(circle at 70% 30%, rgba(188,108,37,0.1) 0%, transparent 50%);
+    pointer-events: none;
+  }
+
+  .logo-placeholder {
+    border: 2px dashed rgba(255,255,255,0.4);
+    padding: 16px 32px;
+    border-radius: 8px;
+    font-size: 13px;
+    color: rgba(255,255,255,0.6);
+    margin-bottom: 60px;
+    letter-spacing: 0.05em;
+  }
+
+  .badge {
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.3);
+    padding: 6px 20px;
+    border-radius: 100px;
+    font-size: 12px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+    color: var(--verde-suave);
+  }
+
+  .capa h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.2rem, 5vw, 3.5rem);
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 16px;
+  }
+
+  .capa h1 span {
+    color: var(--verde-suave);
+  }
+
+  .capa .subtitulo {
+    font-size: 1.1rem;
+    color: rgba(255,255,255,0.8);
+    max-width: 480px;
+    margin: 0 auto 48px;
+    font-weight: 300;
+  }
+
+  .capa .info-grid {
+    display: flex;
+    gap: 32px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 60px;
+  }
+
+  .info-item {
+    text-align: center;
+  }
+
+  .info-numero {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    color: var(--verde-suave);
+    font-weight: 700;
+  }
+
+  .info-label {
+    font-size: 12px;
+    color: rgba(255,255,255,0.6);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  .autora {
+    font-size: 13px;
+    color: rgba(255,255,255,0.5);
+    letter-spacing: 0.05em;
+  }
+
+  /* PROGRESSO */
+  .progresso-container {
+    background: white;
+    padding: 40px;
+    border-bottom: 1px solid #e5e7eb;
+  }
+
+  .progresso-titulo {
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--cinza);
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  .progresso-dias {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .dia-bolinha {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--cinza-claro);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--cinza);
+    cursor: default;
+    transition: all 0.2s;
+    border: 2px solid transparent;
+  }
+
+  .dia-bolinha.ativo {
+    background: var(--verde-suave);
+    color: var(--verde);
+    border-color: var(--verde-claro);
+  }
+
+  /* INTRO */
+  .intro {
+    max-width: 720px;
+    margin: 60px auto;
+    padding: 0 40px;
+  }
+
+  .intro h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    color: var(--verde);
+    margin-bottom: 20px;
+  }
+
+  .intro p {
+    color: var(--cinza);
+    margin-bottom: 16px;
+    font-size: 1rem;
+  }
+
+  .como-usar {
+    background: var(--verde-suave);
+    border-left: 4px solid var(--verde-claro);
+    padding: 24px 28px;
+    border-radius: 0 8px 8px 0;
+    margin-top: 32px;
+  }
+
+  .como-usar h3 {
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--verde);
+    margin-bottom: 12px;
+  }
+
+  .como-usar ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .como-usar li {
+    font-size: 14px;
+    color: var(--texto);
+    padding-left: 20px;
+    position: relative;
+  }
+
+  .como-usar li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--verde-claro);
+  }
+
+  /* DIAS */
+  .dias-container {
+    max-width: 760px;
+    margin: 0 auto 80px;
+    padding: 0 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  .dia-card {
+    background: white;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.04);
+  }
+
+  .dia-header {
+    padding: 28px 36px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    border-bottom: 1px solid #f3f4f6;
+  }
+
+  .dia-numero {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--verde) 0%, var(--verde-claro) 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .dia-num-texto {
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: rgba(255,255,255,0.7);
+    line-height: 1;
+  }
+
+  .dia-num-valor {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    color: white;
+    font-weight: 700;
+    line-height: 1;
+  }
+
+  .dia-info h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    color: var(--texto);
+  }
+
+  .dia-info .dia-subtitulo {
+    font-size: 13px;
+    color: var(--cinza);
+    margin-top: 2px;
+  }
+
+  .dia-tempo {
+    margin-left: auto;
+    background: var(--cinza-claro);
+    padding: 6px 14px;
+    border-radius: 100px;
+    font-size: 12px;
+    color: var(--cinza);
+    white-space: nowrap;
+  }
+
+  .dia-body {
+    padding: 32px 36px;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+
+  .boas-vindas {
+    font-size: 15px;
+    color: #374151;
+    font-style: italic;
+    border-left: 3px solid var(--verde-suave);
+    padding-left: 20px;
+    line-height: 1.8;
+  }
+
+  .secao-titulo {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--terracota);
+    font-weight: 600;
+    margin-bottom: 14px;
+  }
+
+  .instrucoes ol {
+    padding-left: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .instrucoes li {
+    font-size: 14px;
+    color: var(--texto);
+    line-height: 1.6;
+  }
+
+  .instrucoes strong {
+    color: var(--verde);
+  }
+
+  .sub-secao {
+    background: var(--cinza-claro);
+    border-radius: 10px;
+    padding: 18px 22px;
+    margin-top: 12px;
+  }
+
+  .sub-secao-titulo {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--verde);
+    margin-bottom: 10px;
+  }
+
+  .sub-secao ol {
+    padding-left: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .sub-secao li {
+    font-size: 13px;
+    color: #374151;
+    line-height: 1.6;
+  }
+
+  .dica {
+    background: var(--terracota-suave);
+    border-radius: 10px;
+    padding: 18px 22px;
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+  }
+
+  .dica-icone {
+    font-size: 1.2rem;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .dica-texto {
+    font-size: 14px;
+    color: #7c4a1e;
+    line-height: 1.6;
+  }
+
+  .anotacoes {
+    border: 1.5px dashed #d1d5db;
+    border-radius: 10px;
+    padding: 20px 24px;
+    background: #fafafa;
+  }
+
+  .anotacoes .secao-titulo {
+    margin-bottom: 16px;
+  }
+
+  .campo-anotacao {
+    margin-bottom: 14px;
+  }
+
+  .campo-label {
+    font-size: 13px;
+    color: var(--cinza);
+    margin-bottom: 6px;
+  }
+
+  .campo-linha {
+    border: none;
+    border-bottom: 1.5px solid #e5e7eb;
+    width: 100%;
+    padding: 6px 0;
+    font-size: 14px;
+    font-family: 'Inter', sans-serif;
+    background: transparent;
+    color: var(--texto);
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .campo-linha:focus {
+    border-bottom-color: var(--verde-claro);
+  }
+
+  .gancho {
+    background: linear-gradient(135deg, var(--verde) 0%, #1b4332 100%);
+    border-radius: 10px;
+    padding: 18px 22px;
+    color: white;
+    font-size: 14px;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+
+  .gancho-icone {
+    font-size: 1rem;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  /* DIA 7 ESPECIAL */
+  .dia-card.dia-7 .dia-header {
+    background: linear-gradient(135deg, var(--verde-suave) 0%, #b7e4c7 100%);
+  }
+
+  .ritual-card {
+    background: white;
+    border: 2px solid var(--verde-claro);
+    border-radius: 12px;
+    padding: 24px 28px;
+  }
+
+  .ritual-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    color: var(--verde);
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  .ritual-passo {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    margin-bottom: 16px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #f3f4f6;
+  }
+
+  .ritual-passo:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+
+  .ritual-badge {
+    background: var(--verde);
+    color: white;
+    border-radius: 6px;
+    padding: 4px 10px;
+    font-size: 11px;
+    font-weight: 600;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .ritual-descricao {
+    font-size: 13px;
+    color: var(--texto);
+    line-height: 1.6;
+  }
+
+  .ritual-input {
+    border: 1.5px dashed #d1d5db;
+    border-radius: 6px;
+    padding: 8px 12px;
+    width: 100%;
+    font-size: 13px;
+    font-family: 'Inter', sans-serif;
+    background: var(--creme);
+    color: var(--texto);
+    margin-top: 8px;
+    outline: none;
+  }
+
+  .mensagem-final {
+    background: linear-gradient(135deg, var(--verde) 0%, #1b4332 100%);
+    color: white;
+    border-radius: 16px;
+    padding: 40px 36px;
+    text-align: center;
+    margin-top: 12px;
+  }
+
+  .mensagem-final h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    margin-bottom: 16px;
+    color: var(--verde-suave);
+  }
+
+  .mensagem-final p {
+    font-size: 15px;
+    color: rgba(255,255,255,0.85);
+    line-height: 1.7;
+    max-width: 520px;
+    margin: 0 auto;
+  }
+
+  /* RODAPÉ */
+  footer {
+    background: #1b4332;
+    color: rgba(255,255,255,0.5);
+    text-align: center;
+    padding: 32px 24px;
+    font-size: 12px;
+  }
+
+  footer p {
+    margin-bottom: 6px;
+  }
+
+  footer .instrucao-pdf {
+    background: rgba(255,255,255,0.1);
+    display: inline-block;
+    padding: 8px 20px;
+    border-radius: 6px;
+    margin-top: 12px;
+    font-size: 11px;
+    color: rgba(255,255,255,0.7);
+  }
+
+  @media (max-width: 600px) {
+    .dia-header { padding: 20px 20px; flex-wrap: wrap; }
+    .dia-body { padding: 24px 20px; }
+    .dia-tempo { margin-left: 0; }
+    .capa { padding: 60px 24px; }
+    .intro { padding: 0 24px; }
+  }
+
+  @media print {
+    .dia-card { break-inside: avoid; }
+    .capa { min-height: auto; padding: 40px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- CAPA -->
+<section class="capa">
+  <div class="logo-placeholder">[Seu nome ou logo aqui]</div>
+  <div class="badge">Protocolo RECONECTA</div>
+  <h1>Desafio de <span>7 Dias</span> para Recuperar o Equilíbrio entre o Corpo e as Emoções</h1>
+  <p class="subtitulo">Uma sequência de práticas guiadas que une fisioterapia pélvica e escuta emocional — 10 a 15 minutos por dia</p>
+  <div class="info-grid">
+    <div class="info-item">
+      <div class="info-numero">7</div>
+      <div class="info-label">Dias</div>
+    </div>
+    <div class="info-item">
+      <div class="info-numero">15min</div>
+      <div class="info-label">Por dia</div>
+    </div>
+    <div class="info-item">
+      <div class="info-numero">0</div>
+      <div class="info-label">Equipamentos</div>
+    </div>
+  </div>
+  <div class="autora">Criado por [Seu nome] — Fisioterapeuta Pélvica e Psicanalista</div>
+</section>
+
+<!-- PROGRESSO VISUAL -->
+<div class="progresso-container">
+  <div class="progresso-titulo">Sua jornada de 7 dias</div>
+  <div class="progresso-dias">
+    <div class="dia-bolinha ativo">D1</div>
+    <div class="dia-bolinha ativo">D2</div>
+    <div class="dia-bolinha ativo">D3</div>
+    <div class="dia-bolinha ativo">D4</div>
+    <div class="dia-bolinha ativo">D5</div>
+    <div class="dia-bolinha ativo">D6</div>
+    <div class="dia-bolinha ativo">D7</div>
+  </div>
+</div>
+
+<!-- INTRO -->
+<section class="intro">
+  <h2>Bem-vinda ao Desafio RECONECTA</h2>
+  <p>Este desafio foi criado para mulheres que sentem o peso do dia no corpo mas não sabem exatamente o que está carregando. Cada dia tem uma prática com começo, meio e fim. Você não precisa de experiência prévia com meditação, yoga ou terapia.</p>
+  <p>O que você precisa é de 10 a 15 minutos por dia e de disposição para prestar atenção em si mesma.</p>
+  <div class="como-usar">
+    <h3>Como usar este caderno</h3>
+    <ul>
+      <li>Faça um dia por vez, na ordem proposta</li>
+      <li>Preencha os espaços de anotação ao final de cada prática</li>
+      <li>Guarde os registros: eles se conectam ao longo dos dias</li>
+      <li>Se precisar repetir um dia, repita. Não há prazo para seguir</li>
+    </ul>
+  </div>
+</section>
+
+<!-- DIAS -->
+<div class="dias-container">
+
+  <!-- DIA 1 -->
+  <div class="dia-card">
+    <div class="dia-header">
+      <div class="dia-numero">
+        <span class="dia-num-texto">DIA</span>
+        <span class="dia-num-valor">1</span>
+      </div>
+      <div class="dia-info">
+        <h2>Escuta</h2>
+        <div class="dia-subtitulo">Aprender a perceber onde a tensão vive no corpo</div>
+      </div>
+      <div class="dia-tempo">10 min</div>
+    </div>
+    <div class="dia-body">
+      <div class="boas-vindas">
+        Antes de qualquer prática, existe uma habilidade que a maioria das pessoas perdeu ao longo dos anos de vida acelerada: a capacidade de simplesmente ouvir o próprio corpo. Não para consertar nada. Só para perceber o que está lá. Hoje você vai fazer exatamente isso. Dez minutos de atenção para si mesma, talvez pela primeira vez em muito tempo.
+      </div>
+
+      <div class="instrucoes">
+        <div class="secao-titulo">Prática do dia — Escaneamento Corporal</div>
+        <ol>
+          <li>Escolha um lugar tranquilo onde possa deitar ou sentar sem ser interrompida por pelo menos 10 minutos</li>
+          <li>Feche os olhos e faça três respirações lentas e naturais, sem forçar nada</li>
+          <li>Comece pelos pés. Observe se há peso, formigamento, tensão ou qualquer sensação. Não julgue. Só perceba.</li>
+          <li>Suba lentamente a atenção: panturrilhas, joelhos, coxas, quadril</li>
+          <li>Ao chegar no assoalho pélvico, pause por 30 segundos. Ele está contraído ou relaxado?</li>
+          <li>Continue subindo: barriga, diafragma (abaixo do peito), peito, ombros</li>
+          <li>Pescoço e mandíbula. Atenção especial aqui: muitas pessoas carregam tensão nessas regiões sem perceber.</li>
+          <li>Finalize pela cabeça e pelo rosto</li>
+          <li>Ao terminar, abra os olhos e anote as 3 regiões onde sentiu mais tensão, peso ou desconforto</li>
+        </ol>
+      </div>
+
+      <div class="dica">
+        <div class="dica-icone">💡</div>
+        <div class="dica-texto"><strong>Dica do Dia 1:</strong> Não tente relaxar durante o escaneamento. O objetivo hoje não é liberar a tensão, é localizá-la. O corpo só libera o que foi reconhecido primeiro.</div>
+      </div>
+
+      <div class="anotacoes">
+        <div class="secao-titulo">Suas anotações</div>
+        <div class="campo-anotacao">
+          <div class="campo-label">Região 1 de maior tensão:</div>
+          <input class="campo-linha" type="text" placeholder="ex: pescoço, ombro direito, mandíbula...">
+        </div>
+        <div class="campo-anotacao">
+          <div class="campo-label">Região 2:</div>
+          <input class="campo-linha" type="text" placeholder="">
+        </div>
+        <div class="campo-anotacao">
+          <div class="campo-label">Região 3:</div>
+          <input class="campo-linha" type="text" placeholder="">
+        </div>
+      </div>
+
+      <div class="gancho">
+        <div class="gancho-icone">→</div>
+        <div>Agora que você sabe onde a tensão mora, o Dia 2 vai te dar a ferramenta mais subestimada para começar a mudá-la: a respiração.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DIA 2 -->
+  <div class="dia-card">
+    <div class="dia-header">
+      <div class="dia-numero">
+        <span class="dia-num-texto">DIA</span>
+        <span class="dia-num-valor">2</span>
+      </div>
+      <div class="dia-info">
+        <h2>Respiração</h2>
+        <div class="dia-subtitulo">Usar a respiração como ferramenta de autorregulação</div>
+      </div>
+      <div class="dia-tempo">10 min</div>
+    </div>
+    <div class="dia-body">
+      <div class="boas-vindas">
+        Ontem você mapeou onde o corpo guarda a tensão. Hoje você vai aprender a usar algo que já carrega com você o tempo todo, mas provavelmente nunca usou de forma consciente: a respiração. Não como técnica espiritual. Como ferramenta fisiológica. A respiração é o único sistema do corpo que funciona tanto no automático quanto no manual. Quando você assume o controle, manda um sinal direto para o sistema nervoso de que pode diminuir o estado de alerta.
+      </div>
+
+      <div class="instrucoes">
+        <div class="secao-titulo">Prática do dia — Técnica 4-7-8 Adaptada</div>
+        <p style="font-size:14px; color:#374151; margin-bottom:14px;">Faça esta sequência 4 vezes seguidas:</p>
+        <ol>
+          <li><strong>Inspire</strong> pelo nariz contando mentalmente até 4. Sinta o ar expandir a barriga primeiro, depois o peito.</li>
+          <li><strong>Segure</strong> o ar contando até 7. Relaxe os ombros enquanto segura.</li>
+          <li><strong>Expire</strong> pela boca contando até 8, como se estivesse soprando levemente uma vela. Solte tudo.</li>
+          <li>No final da expiração, deixe um segundo de pausa natural antes de inspirar novamente.</li>
+        </ol>
+        <p style="font-size:14px; color:#374151; margin-top:14px;">Após as 4 rodadas, respire normalmente por 1 minuto e observe o corpo. Depois repita o ciclo completo mais uma vez.</p>
+      </div>
+
+      <div class="dica">
+        <div class="dica-icone">💡</div>
+        <div class="dica-texto"><strong>Dica do Dia 2:</strong> Se sentir tontura nas primeiras rodadas, diminua a contagem: 3-5-6 funciona da mesma forma. O objetivo não é aguentar a contagem máxima. É ativar o nervo vago, responsável pelo estado de calma do sistema nervoso.</div>
+      </div>
+
+      <div class="anotacoes">
+        <div class="secao-titulo">Suas anotações</div>
+        <div class="campo-anotacao">
+          <div class="campo-label">Uma palavra que descreve como seu corpo está agora, depois da prática:</div>
+          <input class="campo-linha" type="text" placeholder="ex: leveza, calma, ainda agitada...">
+        </div>
+      </div>
+
+      <div class="gancho">
+        <div class="gancho-icone">→</div>
+        <div>Amanhã você vai usar a respiração de hoje como preparação para algo mais profundo: a liberação muscular nas regiões que você mapeou no Dia 1.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DIA 3 -->
+  <div class="dia-card">
+    <div class="dia-header">
+      <div class="dia-numero">
+        <span class="dia-num-texto">DIA</span>
+        <span class="dia-num-valor">3</span>
+      </div>
+      <div class="dia-info">
+        <h2>Liberação</h2>
+        <div class="dia-subtitulo">Relaxamento muscular guiado nas regiões de tensão</div>
+      </div>
+      <div class="dia-tempo">12 min</div>
+    </div>
+    <div class="dia-body">
+      <div class="boas-vindas">
+        Nos dois primeiros dias você localizou a tensão e aprendeu a respirar para sinalizar ao sistema nervoso que é seguro relaxar. Hoje você vai fazer a liberação muscular nas três regiões que identificou no Dia 1. A sequência une técnicas de fisioterapia pélvica com relaxamento muscular progressivo. Pode parecer simples. Mas esse tipo de trabalho, feito de forma consciente e na ordem certa, produz uma soltura que massagem nenhuma entrega, porque parte de dentro.
+      </div>
+
+      <div class="instrucoes">
+        <div class="secao-titulo">Prática do dia — Sequência de Liberação em 3 Regiões</div>
+        <p style="font-size:14px; color:#374151; margin-bottom:16px;">Antes de começar: faça 2 rodadas da respiração 4-7-8 do Dia 2 para preparar o sistema nervoso.</p>
+
+        <div class="sub-secao">
+          <div class="sub-secao-titulo">Região 1 — Assoalho Pélvico</div>
+          <ol>
+            <li>Deite de costas com os joelhos dobrados e os pés apoiados no chão</li>
+            <li>Inspire profundamente e, na expiração, imagine que o assoalho pélvico está descendo, abrindo, se soltando para baixo</li>
+            <li>Não force nada. Só observe se consegue perceber algum relaxamento nessa região</li>
+            <li>Repita 5 vezes. Na última expiração, deixe a região completamente entregue por 30 segundos</li>
+          </ol>
+        </div>
+
+        <div class="sub-secao">
+          <div class="sub-secao-titulo">Região 2 — Diafragma e Barriga</div>
+          <ol>
+            <li>Mantenha a posição deitada. Coloque uma mão sobre a barriga, logo abaixo do umbigo</li>
+            <li>Inspire e empurre a mão com a barriga. Expire e deixe a barriga afundar completamente.</li>
+            <li>Repita 6 vezes, sem pressa</li>
+            <li>Na última expiração, deixe os ombros caírem para o lado e a barriga completamente relaxada</li>
+          </ol>
+        </div>
+
+        <div class="sub-secao">
+          <div class="sub-secao-titulo">Região 3 — Pescoço e Mandíbula</div>
+          <ol>
+            <li>Sente-se ou fique em pé</li>
+            <li>Deixe a cabeça cair lentamente para a frente, como se o queixo fosse em direção ao peito. Segure por 5 segundos.</li>
+            <li>Role lentamente para o lado direito. Segure 5 segundos. Volte ao centro. Role para o lado esquerdo. Segure 5 segundos.</li>
+            <li>Abra e feche a boca devagar 3 vezes, como se estivesse bocejando</li>
+            <li>Aperte os dentes levemente por 3 segundos e solte tudo de uma vez</li>
+          </ol>
+        </div>
+      </div>
+
+      <div class="dica">
+        <div class="dica-icone">💡</div>
+        <div class="dica-texto"><strong>Dica do Dia 3:</strong> Se em algum momento sentir desconforto além de tensão normal, pare. Esta sequência é de soltura, não de esforço. Se uma região não responde hoje, está tudo bem. O corpo libera no próprio tempo.</div>
+      </div>
+
+      <div class="anotacoes">
+        <div class="secao-titulo">Suas anotações</div>
+        <div class="campo-anotacao">
+          <div class="campo-label">A região que mais respondeu hoje:</div>
+          <input class="campo-linha" type="text" placeholder="">
+        </div>
+        <div class="campo-anotacao">
+          <div class="campo-label">O que percebi nela:</div>
+          <input class="campo-linha" type="text" placeholder="">
+        </div>
+      </div>
+
+      <div class="gancho">
+        <div class="gancho-icone">→</div>
+        <div>Amanhã a pergunta muda. Saímos do corpo e vamos até o que o corpo está guardando: a emoção por trás da tensão que você mapeou.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DIA 4 -->
+  <div class="dia-card">
+    <div class="dia-header">
+      <div class="dia-numero">
+        <span class="dia-num-texto">DIA</span>
+        <span class="dia-num-valor">4</span>
+      </div>
+      <div class="dia-info">
+        <h2>Emoção</h2>
+        <div class="dia-subtitulo">Identificar a emoção por trás da tensão física</div>
+      </div>
+      <div class="dia-tempo">15 min</div>
+    </div>
+    <div class="dia-body">
+      <div class="boas-vindas">
+        Chegamos à metade do desafio. Nos três primeiros dias você trabalhou o corpo: localizou onde a tensão vive, aprendeu a regular o sistema nervoso pela respiração e fez a liberação muscular. Hoje o trabalho muda de camada. Vamos usar a escrita como ferramenta para chegar à emoção que está por trás da tensão que você mapeou no Dia 1. Este exercício vem da psicanálise somática e não exige que você saiba de antemão o que vai encontrar. A escrita revela. Você só precisa escrever.
+      </div>
+
+      <div class="instrucoes">
+        <div class="secao-titulo">Prática do dia — Escrita Guiada em 3 Movimentos</div>
+        <p style="font-size:14px; color:#374151; margin-bottom:16px;">Pegue um caderno ou abra uma folha em branco. Escreva à mão, se possível. Separe 15 minutos sem interrupção.</p>
+
+        <div class="sub-secao">
+          <div class="sub-secao-titulo">Movimento 1 — Localizar (3 minutos)</div>
+          <p style="font-size:13px; color:#374151;">Olhe para o mapa que fez no Dia 1. Escolha a região que teve mais tensão. Escreva livremente completando:</p>
+          <p style="font-size:14px; color:var(--verde); font-style:italic; margin-top:10px; padding:12px 16px; background:var(--verde-suave); border-radius:6px;">"Quando sinto tensão em [região], meu corpo parece estar me dizendo que..."</p>
+          <p style="font-size:12px; color:var(--cinza); margin-top:8px;">Não edite. Não releia enquanto escreve. Deixe sair o que vier.</p>
+        </div>
+
+        <div class="sub-secao">
+          <div class="sub-secao-titulo">Movimento 2 — Nomear (3 minutos)</div>
+          <p style="font-size:13px; color:#374151;">Releia o Movimento 1. Circule uma palavra ou frase que chamou atenção. Agora complete:</p>
+          <p style="font-size:14px; color:var(--verde); font-style:italic; margin-top:10px; padding:12px 16px; background:var(--verde-suave); border-radius:6px;">"Essa sensação se parece com [emoção ou situação] que aparece na minha vida quando..."</p>
+        </div>
+
+        <div class="sub-secao">
+          <div class="sub-secao-titulo">Movimento 3 — Reconhecer (2 minutos)</div>
+          <p style="font-size:13px; color:#374151;">Sem se preocupar em resolver nada, complete com a primeira coisa que vier:</p>
+          <p style="font-size:14px; color:var(--verde); font-style:italic; margin-top:10px; padding:12px 16px; background:var(--verde-suave); border-radius:6px;">"O que essa emoção mais precisa de mim agora é..."</p>
+        </div>
+      </div>
+
+      <div class="dica">
+        <div class="dica-icone">💡</div>
+        <div class="dica-texto"><strong>Dica do Dia 4:</strong> Se nada vir na escrita, comece pela sensação física. "Meu pescoço está tenso e pesado como uma pedra." Continue a partir daí. O corpo sempre tem o que dizer. A escrita só transforma isso em linguagem.</div>
+      </div>
+
+      <div class="anotacoes">
+        <div class="secao-titulo">Suas anotações</div>
+        <div class="campo-anotacao">
+          <div class="campo-label">A emoção por trás da minha tensão principal (guarde este registro para o Dia 6):</div>
+          <input class="campo-linha" type="text" placeholder="ex: ansiedade, medo de decepcionar, sobrecarga...">
+        </div>
+      </div>
+
+      <div class="gancho">
+        <div class="gancho-icone">→</div>
+        <div>Amanhã você vai mover o corpo a partir do que descobriu hoje. Não como exercício. Como resposta ao que a emoção pediu.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DIA 5 -->
+  <div class="dia-card">
+    <div class="dia-header">
+      <div class="dia-numero">
+        <span class="dia-num-texto">DIA</span>
+        <span class="dia-num-valor">5</span>
+      </div>
+      <div class="dia-info">
+        <h2>Movimento</h2>
+        <div class="dia-subtitulo">Mover o corpo a partir do que foi revelado</div>
+      </div>
+      <div class="dia-tempo">12 min</div>
+    </div>
+    <div class="dia-body">
+      <div class="boas-vindas">
+        Ontem você nomeou a emoção. Hoje você vai mover o corpo a partir dela. O movimento que vem neste dia não é exercício físico no sentido convencional. É uma resposta somática: o corpo se expressa pelo movimento o que a mente ainda está processando. A sequência foi pensada para ser leve, sem exigência de preparo físico ou flexibilidade. O que importa não é a forma do movimento, é a intenção com que você o faz.
+      </div>
+
+      <div class="instrucoes">
+        <div class="secao-titulo">Prática do dia — Sequência de Movimento Intencional</div>
+        <p style="font-size:14px; color:#374151; margin-bottom:16px;">Antes de começar, releia a emoção que você registrou no Dia 4. Coloque música instrumental suave ou fique no silêncio.</p>
+
+        <div class="sub-secao">
+          <div class="sub-secao-titulo">Parte 1 — Aquecimento com intenção (3 minutos)</div>
+          <ol>
+            <li>Fique em pé com os pés na largura do quadril</li>
+            <li>Comece balançando os braços levemente para os lados, sem forçar</li>
+            <li>Deixe os joelhos flexionarem um pouco para soltar as articulações</li>
+            <li>Enquanto balança, pense na emoção que identificou. Deixe ela estar presente enquanto o corpo se aquece.</li>
+          </ol>
+        </div>
+
+        <div class="sub-secao">
+          <div class="sub-secao-titulo">Parte 2 — Movimento livre na região de tensão (5 minutos)</div>
+          <ol>
+            <li>Leve a atenção para a região de maior tensão do seu mapa (Dia 1)</li>
+            <li>Comece a mover essa região de forma espontânea. Pode ser pequeno, pode ser lento.</li>
+            <li>Não existe certo ou errado. Se for o pescoço, gire devagar. Se for o quadril, balance.</li>
+            <li>Deixe o movimento ser guiado pelo que a região pede, não pelo que parece certo de fora.</li>
+          </ol>
+        </div>
+
+        <div class="sub-secao">
+          <div class="sub-secao-titulo">Parte 3 — Finalização no chão (4 minutos)</div>
+          <ol>
+            <li>Deite de costas no chão com os braços levemente afastados do corpo</li>
+            <li>Feche os olhos e faça 3 respirações longas (use a técnica do Dia 2)</li>
+            <li>Observe como o corpo está agora comparado ao início da prática</li>
+            <li>Fique assim até o tempo terminar. Sem pressa para levantar.</li>
+          </ol>
+        </div>
+      </div>
+
+      <div class="dica">
+        <div class="dica-icone">💡</div>
+        <div class="dica-texto"><strong>Dica do Dia 5:</strong> Se sentir vontade de chorar, deixe. Se sentir vontade de rir, deixe também. O corpo tem respostas que a mente ainda não processou. As duas são formas de liberação.</div>
+      </div>
+
+      <div class="anotacoes">
+        <div class="secao-titulo">Suas anotações</div>
+        <div class="campo-anotacao">
+          <div class="campo-label">Como meu corpo respondeu ao movimento hoje:</div>
+          <input class="campo-linha" type="text" placeholder="">
+        </div>
+        <div class="campo-anotacao">
+          <div class="campo-label">Alguma coisa mudou em relação à emoção do Dia 4:</div>
+          <input class="campo-linha" type="text" placeholder="">
+        </div>
+      </div>
+
+      <div class="gancho">
+        <div class="gancho-icone">→</div>
+        <div>Amanhã você vai unir tudo que aprendeu nos cinco dias anteriores em uma única sequência. É o dia onde tudo se conecta.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DIA 6 -->
+  <div class="dia-card">
+    <div class="dia-header">
+      <div class="dia-numero">
+        <span class="dia-num-texto">DIA</span>
+        <span class="dia-num-valor">6</span>
+      </div>
+      <div class="dia-info">
+        <h2>Integração</h2>
+        <div class="dia-subtitulo">Unir corpo e emoções em uma sequência completa</div>
+      </div>
+      <div class="dia-tempo">15 min</div>
+    </div>
+    <div class="dia-body">
+      <div class="boas-vindas">
+        Você chegou até aqui. Cinco dias de atenção real para si mesma. Hoje não tem nova técnica para aprender. O Dia 6 é o dia onde os pedaços se juntam. Você vai fazer uma sequência que une respiração, liberação e escuta corporal em uma prática contínua de 15 minutos. O objetivo é sentir, talvez pela primeira vez neste desafio, que o corpo e as emoções estão no mesmo lugar ao mesmo tempo.
+      </div>
+
+      <div class="instrucoes">
+        <div class="secao-titulo">Prática do dia — Sequência de Integração</div>
+
+        <div class="sub-secao">
+          <div class="sub-secao-titulo">Etapa 1 — Respiração de chegada (2 minutos)</div>
+          <p style="font-size:13px; color:#374151;">Faça 4 rodadas da respiração 4-7-8. Enquanto respira, diga mentalmente: "Estou aqui. Estou presente."</p>
+        </div>
+
+        <div class="sub-secao">
+          <div class="sub-secao-titulo">Etapa 2 — Escaneamento rápido (3 minutos)</div>
+          <p style="font-size:13px; color:#374151;">Repita o escaneamento do Dia 1, de forma mais rápida. Dois ou três segundos por região. O objetivo é verificar: o que mudou desde o Dia 1?</p>
+        </div>
+
+        <div class="sub-secao">
+          <div class="sub-secao-titulo">Etapa 3 — Liberação na região principal (5 minutos)</div>
+          <p style="font-size:13px; color:#374151;">Vá direto para a região que ainda carrega mais tensão. Faça a sequência de liberação do Dia 3 apenas nessa região. Três rodadas lentas, com atenção total.</p>
+        </div>
+
+        <div class="sub-secao">
+          <div class="sub-secao-titulo">Etapa 4 — Escuta final (5 minutos)</div>
+          <p style="font-size:13px; color:#374151;">Deite de costas, olhos fechados, braços relaxados ao lado do corpo. Faça uma respiração longa e, ao expirar, complete mentalmente:</p>
+          <p style="font-size:14px; color:var(--verde); font-style:italic; margin-top:10px; padding:12px 16px; background:var(--verde-suave); border-radius:6px;">"Depois desses seis dias, meu corpo me disse que..."</p>
+          <p style="font-size:12px; color:var(--cinza); margin-top:8px;">Fique com essa resposta pelo tempo que restar. Não precisa anotar agora. Só receber.</p>
+        </div>
+      </div>
+
+      <div class="dica">
+        <div class="dica-icone">💡</div>
+        <div class="dica-texto"><strong>Dica do Dia 6:</strong> A integração não é um clímax. Não espere uma revelação dramática. Às vezes ela chega como silêncio, como leveza, como um ombro que baixou meio centímetro. Isso já é integração.</div>
+      </div>
+
+      <div class="anotacoes">
+        <div class="secao-titulo">Suas anotações</div>
+        <div class="campo-anotacao">
+          <div class="campo-label">O que meu corpo me disse hoje:</div>
+          <input class="campo-linha" type="text" placeholder="">
+        </div>
+        <div class="campo-anotacao">
+          <div class="campo-label">Como estou agora comparada ao Dia 1:</div>
+          <input class="campo-linha" type="text" placeholder="">
+        </div>
+      </div>
+
+      <div class="gancho">
+        <div class="gancho-icone">→</div>
+        <div>Amanhã é o último dia do desafio. E o mais importante: você vai criar o seu próprio ritual de 5 minutos para levar tudo isso para a vida real.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DIA 7 -->
+  <div class="dia-card dia-7">
+    <div class="dia-header">
+      <div class="dia-numero" style="background: linear-gradient(135deg, var(--terracota) 0%, #e07b39 100%);">
+        <span class="dia-num-texto">DIA</span>
+        <span class="dia-num-valor">7</span>
+      </div>
+      <div class="dia-info">
+        <h2>Ancoragem</h2>
+        <div class="dia-subtitulo">Criar seu ritual diário de 5 minutos</div>
+      </div>
+      <div class="dia-tempo">15 min</div>
+    </div>
+    <div class="dia-body">
+      <div class="boas-vindas">
+        Você chegou ao último dia do Desafio RECONECTA. Sete dias de atenção ao próprio corpo, de escuta, de movimento e de nomeação. Hoje o trabalho não é aprender mais uma técnica. É montar o seu ritual pessoal de 5 minutos para que tudo que você descobriu aqui não fique esquecido. O ritual é a forma de transformar uma experiência de 7 dias em um hábito que dura a vida inteira.
+      </div>
+
+      <div class="instrucoes">
+        <div class="secao-titulo">Prática do dia — Construção do Ritual Pessoal</div>
+        <p style="font-size:14px; color:#374151; margin-bottom:16px;">Olhe para os registros dos dias anteriores e responda às três perguntas abaixo:</p>
+
+        <div class="sub-secao">
+          <div class="sub-secao-titulo">Pergunta 1</div>
+          <p style="font-size:13px; color:#374151; margin-bottom:10px;">Qual foi a prática que trouxe mais resposta no seu corpo ao longo da semana?</p>
+          <input class="campo-linha" type="text" placeholder="respiração / liberação muscular / escrita / movimento...">
+        </div>
+
+        <div class="sub-secao">
+          <div class="sub-secao-titulo">Pergunta 2</div>
+          <p style="font-size:13px; color:#374151; margin-bottom:10px;">Qual é o melhor momento do dia para você parar por 5 minutos?</p>
+          <input class="campo-linha" type="text" placeholder="manhã antes de sair da cama / almoço / antes de dormir...">
+        </div>
+
+        <div class="sub-secao">
+          <div class="sub-secao-titulo">Pergunta 3</div>
+          <p style="font-size:13px; color:#374151; margin-bottom:10px;">Qual é a região do corpo que mais precisa de atenção regular? (use o mapa do Dia 1)</p>
+          <input class="campo-linha" type="text" placeholder="">
+        </div>
+      </div>
+
+      <div class="ritual-card">
+        <h3>Meu Ritual de 5 Minutos</h3>
+
+        <div class="ritual-passo">
+          <div class="ritual-badge">Quando</div>
+          <div class="ritual-descricao">
+            <input class="ritual-input" type="text" placeholder="ex: toda manhã antes de levantar da cama">
+          </div>
+        </div>
+
+        <div class="ritual-passo">
+          <div class="ritual-badge">1 min</div>
+          <div class="ritual-descricao">Respiração 4-7-8 — 3 rodadas</div>
+        </div>
+
+        <div class="ritual-passo">
+          <div class="ritual-badge">2 min</div>
+          <div class="ritual-descricao">
+            <input class="ritual-input" type="text" placeholder="a prática que mais funcionou para você esta semana...">
+          </div>
+        </div>
+
+        <div class="ritual-passo">
+          <div class="ritual-badge">1 min</div>
+          <div class="ritual-descricao">Complete mentalmente: "Hoje meu corpo está me dizendo que..."</div>
+        </div>
+
+        <div class="ritual-passo">
+          <div class="ritual-badge">1 min</div>
+          <div class="ritual-descricao">Fique em silêncio com a resposta. Só isso.</div>
+        </div>
+      </div>
+
+      <div class="dica">
+        <div class="dica-icone">💡</div>
+        <div class="dica-texto"><strong>Dica do Dia 7:</strong> Ritual não precisa ser todos os dias para funcionar. Precisa ser consistente o suficiente para que o corpo reconheça. Três vezes por semana, feito de verdade, vale mais do que sete vezes por semana feito pela metade.</div>
+      </div>
+
+      <div class="anotacoes">
+        <div class="secao-titulo">Suas anotações</div>
+        <div class="campo-anotacao">
+          <div class="campo-label">Meu ritual está definido para:</div>
+          <input class="campo-linha" type="text" placeholder="">
+        </div>
+        <div class="campo-anotacao">
+          <div class="campo-label">Data para revisitar meu mapa de tensão:</div>
+          <input class="campo-linha" type="text" placeholder="ex: daqui a 30 dias, dia ___/___">
+        </div>
+      </div>
+
+      <div class="mensagem-final">
+        <h3>Você fez os sete dias.</h3>
+        <p>Isso por si só já é mais do que a maioria das pessoas faz por si mesma em meses. O caminho que você abriu esta semana é seu. O Agente GPT RECONECTA está disponível para continuar essa jornada com você: use quando precisar de uma prática específica, quando surgir uma dúvida ou quando quiser adaptar o ritual para um momento diferente da vida.</p>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<!-- RODAPÉ -->
+<footer>
+  <p>Desafio RECONECTA — Protocolo FS Equilíbrio e Bem-Estar</p>
+  <p>[Seu nome] — Fisioterapeuta Pélvica e Psicanalista</p>
+  <div class="instrucao-pdf">Para salvar como PDF: Ctrl+P → Salvar como PDF → Layout: Retrato → Margens: Mínimas</div>
+</footer>
+
+</body>
+</html>

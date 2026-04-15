@@ -212,17 +212,25 @@ Gere HTML como "caderno do desafio" com:
 
 **Objetivo:** assistente de IA configurado para ajudar o comprador com o tema do produto, disponível 24h.
 
+### Antes de começar — Leitura obrigatória
+
+Leia **obrigatoriamente** os dois arquivos abaixo antes de gerar qualquer coisa:
+- `produtos/{ativo}/perfil.md` — para extrair: Quadro, Furadeira (cada etapa do método), Tom de voz, Vocabulário do comunicador
+- `produtos/{ativo}/idconsumidor.md` — para extrair: frases que o público diria, palavras que conectam, palavras que afastam, objeções de compra
+
+Esses dados são insumos diretos do prompt. Sem eles, o agente ficará genérico.
+
 ### Fluxo
 
 **Passo 1. Escopo do agente**
 
-Proponha:
+Com base no que leu dos dois arquivos, proponha:
 - Nome do agente (deve soar como um assistente pessoal, não uma ferramenta genérica)
-- Função principal em 1 frase (o que ele faz de melhor)
-- Tom de voz (formal, descontraído, motivacional, técnico. baseado no público)
-- Lista do que o agente FAZ (5-8 capacidades)
-- Lista do que o agente NÃO FAZ (3-5 limitações claras)
-- 3 exemplos de como o comprador usaria o agente no dia a dia
+- Função principal em 1 frase (o que ele faz de melhor, baseada no Quadro do produto)
+- Tom de voz (extraído do perfil.md e do idconsumidor.md — nunca genérico)
+- Lista do que o agente FAZ (5 a 8 capacidades, derivadas da Furadeira/método)
+- Lista do que o agente NÃO FAZ (3 a 5 limitações claras, incluindo não diagnosticar, não substituir profissional)
+- 3 exemplos de como o comprador usaria o agente no dia a dia (use frases reais do idconsumidor.md)
 
 Mostre e pergunte:
 ```
@@ -232,14 +240,71 @@ Mostre e pergunte:
 
 **Passo 2. Prompt completo**
 
-Gere o prompt de configuração com:
-- **Identidade:** quem é o agente, qual seu papel, como se chama
-- **Comportamento:** tom de voz, como responde, o que faz e não faz
-- **Conhecimento base:** principais conceitos, terminologia do nicho, abordagem preferida
-- **Regras absolutas:** o que nunca deve fazer (inventar dados, recomendar substitutos ao produto principal, etc.)
-- **Formato de resposta:** como estrutura as respostas (bullets, passo a passo, perguntas de clarificação, etc.)
+Gere o prompt de configuração. O prompt DEVE conter obrigatoriamente todas as seções abaixo:
 
-Mostre e pergunte:
+**2.1 Identidade**
+- Nome do agente sem placeholder — nunca deixar `[nome]` ou `[produto]` no texto final
+- Nome real da criadora (extraído do perfil.md — campo Identidade do Comunicador)
+- Credencial real (anos de experiência, formação)
+- Propósito em 1 frase clara
+
+**2.2 O que FAZ e o que NÃO FAZ**
+- Lista numerada do que faz (ações concretas baseadas no método)
+- Lista numerada do que não faz (limitações, incluindo não diagnosticar e não substituir profissional de saúde se for nicho de saúde)
+- Para temas fora do escopo: incluir frase de redirecionamento gentil pronta para o agente usar
+
+**2.3 Tom de voz**
+- Adjetivos do tom (extraídos do perfil.md)
+- Proibições absolutas de estilo: nunca usar ponto de exclamação, nunca usar travessão, nunca usar perguntas retóricas como gancho, nunca usar "Não é X. É Y."
+- **Vocabulário que conecta:** extrair do idconsumidor.md (campo "Palavras que conectam")
+- **Vocabulário proibido:** extrair do idconsumidor.md (campo "Palavras que afastam")
+
+**2.4 Reconhecer o vocabulário do público**
+- Lista de frases que o público usa (extraídas do idconsumidor.md, campo "Frases que essa pessoa diria")
+- Para cada frase: instrução de como o agente deve reagir (validar, acolher, perguntar, etc.)
+- Esta seção torna o agente capaz de identificar o estado emocional da usuária pelo vocabulário, não só pelo conteúdo
+
+**2.5 Conhecimento base**
+- Principais conceitos do nicho (extraídos do perfil.md)
+- Para produtos com método em etapas (desafio, mini-curso): detalhar CADA etapa com:
+  - Quando usar após o produto (situação que indica essa prática)
+  - Duração e o que a usuária precisa (posição, material, ambiente)
+  - Adaptações para uso no dia a dia (versão reduzida, variação discreta)
+  - Regras de sequência (ex: respiração sempre antes da liberação)
+
+**2.6 Mapeamento situação → prática (obrigatório para produtos com método em etapas)**
+Formato de tabela ou lista:
+- O que a usuária relata → prática indicada → razão clínica ou lógica em 1 frase
+- Cobrir pelo menos 6 a 8 situações distintas, incluindo casos de urgência aguda
+
+**2.7 Regras absolutas**
+- Nunca inventar dados clínicos ou estatísticas
+- Nunca minimizar sintomas físicos
+- Nunca diagnosticar ("seu problema é X")
+- Nunca prometer resultados específicos
+- Protocolo para crises (CVV, encaminhar para profissional)
+- Repetir as proibições de estilo (travessão, ponto de exclamação, etc.)
+
+**2.8 Formato de resposta**
+- Tamanho conforme tipo de pergunta (curta vs. passo a passo)
+- Quando fazer pergunta de clarificação antes vs. agir direto (ex: urgência aguda = agir direto)
+- O que incluir ao sugerir uma prática (nome, duração, o que precisa, o que vai sentir)
+- Perguntas abertas para continuar a conversa
+
+**2.9 Exemplos de resposta dentro do prompt (mínimo 3)**
+- Incluir pares Usuária/Agente diretamente no prompt, não só no arquivo .md
+- Os exemplos devem cobrir: pergunta sobre prática, crise leve, frase do idconsumidor.md
+
+**Verificação obrigatória antes de salvar o prompt:**
+Antes de mostrar para aprovação, passe por este checklist:
+- [ ] Nenhum placeholder do tipo `[nome]`, `[produto]`, `[especialidade]` foi deixado no texto
+- [ ] O nome real da criadora está no primeiro parágrafo
+- [ ] O vocabulário proibido do idconsumidor.md não aparece no corpo do prompt
+- [ ] O próprio texto do prompt não usa travessão, ponto de exclamação ou perguntas retóricas
+- [ ] Há pelo menos 6 situações mapeadas na tabela situação → prática
+- [ ] Há pelo menos 3 exemplos de resposta com pares Usuária/Agente
+
+Mostre o prompt completo e pergunte:
 ```
 1. Aprovar e salvar
 2. Quero ajustar algo
@@ -247,10 +312,11 @@ Mostre e pergunte:
 
 **Passo 3. Instruções de configuração**
 
-Inclua no arquivo salvo um bloco de instruções:
-- Como configurar no ChatGPT (GPTs customizados): passo a passo com imagens textuais
-- Como configurar no Claude (Projects): passo a passo
-- Sugestão de ícone e nome de exibição
+Inclua no arquivo salvo um bloco de instruções com:
+- Como configurar no ChatGPT (GPTs customizados): passo a passo numerado
+- Como configurar no Claude (Projects): passo a passo numerado
+- Sugestão de ícone com prompt de geração pronto
+- 4 iniciadores de conversa sugeridos (use frases do idconsumidor.md como base)
 
 **Onde salvar:** `entregas/{ativo}/produto/agente-gpt-[slug-produto].md`
 

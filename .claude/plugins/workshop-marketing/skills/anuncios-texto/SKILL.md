@@ -16,7 +16,35 @@ Criativos estaticos: imagem + copy. Para anuncios em video, consulte a skill `an
 - Anuncios de carrossel (multiplas imagens)
 - Anuncios da rede de pesquisa do Google (somente texto)
 - Banners e criativos para remarketing
+- Thumb chamativa (estilo YouTube thumbnail, expressao exagerada)
+- Criativo estatico com design (peca grafica estruturada — headline + visual + CTA)
 - Qualquer anuncio que NAO envolva video
+
+## Tres Caminhos de Execucao para Imagens
+
+**Caminho 1 — Geracao via Freepik AI (API automatica)**
+Requer `FREEPIK_API_KEY` no `.env`.
+O sistema gera o prompt e chama a API automaticamente apos aprovacao.
+
+**Caminho 2 — Geracao via prompt em ferramenta externa**
+O sistema gera o prompt no formato nativo da ferramenta escolhida.
+Ferramentas suportadas: Midjourney (premium), DALL·E via Bing (gratis), Whisk, Ideogram, ImageFX, Leonardo, Krea.
+Redirecionar para `/imagem-prompt` com o contexto ja preenchido.
+
+**Caminho 3 — Direcao criativa para designer ou Canva**
+O sistema entrega: briefing completo (conceito + composicao + paleta HEX + tipografia + instrucoes passo a passo para o Canva).
+Inclui prompt de IA para gerar o visual de fundo separadamente, se necessario.
+
+## Tipos de Criativo de Imagem
+
+| Tipo | Descricao | Quando Usar |
+|---|---|---|
+| **Imagem para anuncio** | Feed (1:1 ou 4:5), Stories (9:16) | Anuncio pago Meta Ads |
+| **Post Instagram** | Feed ou carrossel com identidade visual | Conteudo organico ou patrocinado |
+| **Capa de conteudo** | YouTube, blog, modulo de produto | Thumbnails e capas digitais |
+| **Banner de pagina** | Hero, secao especifica, CTA visual | Pagina de vendas |
+| **Thumb chamativa** | Expressao exagerada, fundo colorido, texto bold curto | Thumbnail YouTube ou post de alto impacto |
+| **Criativo estatico com design** | Peca grafica estruturada com hierarquia visual completa | Anuncio de alta qualidade |
 
 ## Os 18 Tipos de Anuncios VTSD (Aplicados a Imagem)
 
@@ -53,9 +81,9 @@ Regras:
 ## Estrutura de Copy para Anuncio Estatico
 
 **Texto principal (Light Copy):**
-- Gancho (premissa nao obvia). 1 linha
-- Desenvolvimento (1 paragrafo curto). 2-3 linhas
-- CTA direto. 1 linha
+- Gancho (premissa nao obvia) — 1 a 2 linhas fortes
+- Desenvolvimento — MINIMO 2 paragrafos substanciais. Cada paragrafo deve aprofundar o argumento com especificidade, dado concreto ou insight nao obvio. O leitor precisa aprender ou se reconhecer so de ler o texto, mesmo sem clicar. Raso, curto e generico sao proibidos.
+- CTA direto — 1 linha
 
 **Regras VTSD (Light Copy):**
 - Sem ponto de exclamacao
@@ -81,10 +109,12 @@ Antes de entregar, revise e substitua:
 - Frases genéricas de vendedor → substitua por dado ou situação concreta
 - Menção ao produto nos primeiros parágrafos → remova ou reescreva focando no leitor
 - Emojis → remova sem substituição
+- Desenvolvimento com menos de 2 parágrafos → expanda com argumento concreto e valor real
 
 - [ ] Nenhum travessão no texto
 - [ ] Nenhuma estrutura "Não é X. É Y."
 - [ ] Nenhuma frase genérica de vendedor
+- [ ] Desenvolvimento tem mínimo 2 parágrafos com valor real entregado
 
 **Regra do Gancho. NUNCA pergunta, NUNCA obvio:**
 
@@ -166,6 +196,20 @@ CERTO:
 - Coluna 1: "O jeito comum" (X com problemas)
 - Coluna 2: "O [Seu Metodo]" (check com beneficios)
 - Headline: "Ainda fazendo do jeito antigo?"
+
+### Thumb Chamativa (alto impacto)
+- Expressao facial exagerada (surpresa, choque, incredulidade)
+- Fundo solido de cor forte (amarelo, vermelho, azul-eletrico)
+- Texto maximo 5 palavras em bold, fonte sem serifa, tamanho gigante
+- Elemento de atencao: seta, circulo, ponto de interrogacao grande
+- Rosto em close ou 3/4
+
+### Criativo Estatico com Design (peca grafica estruturada)
+- Hierarquia visual clara: headline principal + subhead + CTA
+- Composicao definida (ex: "60% imagem a esquerda, 40% texto fundo escuro a direita")
+- Paleta consistente com identidade do produto (HEX definido)
+- Texto overlay com fonte bold, contraste alto
+- Indicacao de montagem no Canva ou Adobe Express
 
 ## Diretrizes de Design
 

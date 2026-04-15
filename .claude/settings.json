@@ -4,11 +4,16 @@
       "Write(entregas/**)",
       "Write(meu-negocio/**)",
       "Write(docs/**)",
+      "Write(produtos/**)",
       "Read(**)",
+      "WebFetch(*)",
+      "WebSearch(*)",
       "Bash(ls *)",
       "Bash(cat .env)",
       "Bash(vercel *)",
-      "Bash(curl *)"
+      "Bash(curl *)",
+      "Bash(python3)",
+      "Bash(python3 -c ':*)"
     ]
   },
   "hooks": {

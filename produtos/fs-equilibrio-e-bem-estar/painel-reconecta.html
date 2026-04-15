@@ -1,0 +1,1808 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Painel de Entregas — Protocolo RECONECTA</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ─── TOKENS ────────────────────────────────────── */
+:root{
+  --t:#b85c2a;--tl:#d9845a;--th:rgba(184,92,42,.1);
+  --s:#3d6b4a;--sl:#6fa880;--sh:rgba(61,107,74,.09);
+  --bg:#f5f2ee;--sur:#ffffff;--sur2:#faf8f5;
+  --cb:#1c1c1e;--c2:#4a4a52;--mu:#8a8a96;
+  --br:#e4ddd6;--br2:#ede8e1;
+  --ok:#3a9460;--err:#d04040;
+  --r:16px;--r2:12px;--r3:8px;
+  --sh1:0 1px 3px rgba(0,0,0,.06),0 4px 16px rgba(0,0,0,.05);
+  --sh2:0 2px 8px rgba(0,0,0,.06),0 12px 40px rgba(0,0,0,.08);
+  --sh3:0 0 0 2px rgba(184,92,42,.25);
+  --sidebar:260px;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--cb);min-height:100vh;display:flex;flex-direction:column;}
+
+/* ─── HERO ──────────────────────────────────────── */
+.hdr{background:linear-gradient(145deg,#0d1f14 0%,#1a3d28 45%,#2a5a3c 80%,#1e3d29 100%);color:#fff;padding:56px 48px 52px;position:relative;overflow:hidden;}
+.hdr::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 80% at 80% 20%,rgba(196,103,58,.18) 0%,transparent 60%),radial-gradient(ellipse 40% 60% at 10% 90%,rgba(61,107,74,.2) 0%,transparent 50%);pointer-events:none;}
+.hdr::after{content:'';position:absolute;bottom:-1px;left:0;right:0;height:60px;background:linear-gradient(to bottom,transparent,var(--bg));pointer-events:none;}
+.hdr-i{max-width:1200px;margin:0 auto;position:relative;z-index:1;display:flex;align-items:flex-end;justify-content:space-between;gap:40px;flex-wrap:wrap;}
+.hdr-left{flex:1;min-width:300px;}
+.badge{display:inline-flex;align-items:center;gap:6px;background:rgba(196,103,58,.2);border:1px solid rgba(196,103,58,.35);color:#e8956d;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:6px 14px;border-radius:40px;margin-bottom:24px;}
+.hdr h1{font-family:'Playfair Display',serif;font-size:52px;font-weight:700;line-height:1.1;margin-bottom:14px;letter-spacing:-.5px;}
+.hdr h1 em{font-style:italic;color:#e8956d;}
+.hdr-sub{font-size:15px;color:rgba(255,255,255,.55);font-weight:300;max-width:520px;line-height:1.7;}
+.hdr-right{display:flex;flex-direction:column;gap:4px;align-items:flex-end;}
+.hdr-meta{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:0;}
+.mi{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:12px 16px;display:flex;flex-direction:column;gap:3px;backdrop-filter:blur(8px);}
+.ml{font-size:10px;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,.38);font-weight:600;}
+.mv{font-size:13px;font-weight:500;color:rgba(255,255,255,.9);}
+
+/* ─── FUNNEL STRIP ──────────────────────────────── */
+.fstrip{background:var(--sur);border-bottom:1px solid var(--br);padding:18px 48px;}
+.fi{max-width:1200px;margin:0 auto;}
+.flbl{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--mu);margin-bottom:10px;font-weight:700;}
+.fsteps{display:flex;align-items:center;gap:0;flex-wrap:nowrap;overflow-x:auto;padding-bottom:2px;}
+.fstep{display:flex;align-items:center;gap:7px;background:var(--sur2);border:1px solid var(--br2);padding:7px 14px;border-radius:var(--r3);font-size:11px;font-weight:600;white-space:nowrap;color:var(--c2);}
+.fstep .dot{width:7px;height:7px;border-radius:50%;background:var(--ok);flex-shrink:0;}
+.farr{padding:0 8px;color:var(--br);font-size:18px;font-weight:300;}
+
+/* ─── LAYOUT SHELL ──────────────────────────────── */
+.layout{display:flex;flex:1;max-width:1200px;margin:0 auto;width:100%;padding:36px 48px;gap:32px;align-items:flex-start;}
+
+/* ─── SIDEBAR NAV ───────────────────────────────── */
+.sidebar{width:var(--sidebar);flex-shrink:0;position:sticky;top:24px;}
+.snav-label{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;font-weight:700;color:var(--mu);margin-bottom:10px;padding:0 4px;}
+.snav{background:var(--sur);border:1px solid var(--br);border-radius:var(--r);overflow:hidden;box-shadow:var(--sh1);}
+.tb{width:100%;display:flex;align-items:center;gap:10px;padding:12px 16px;border:none;background:none;font-family:'Inter',sans-serif;font-size:13px;font-weight:500;color:var(--c2);cursor:pointer;transition:all .15s;text-align:left;border-left:3px solid transparent;position:relative;}
+.tb:hover{background:var(--sur2);color:var(--cb);}
+.tb.act{background:linear-gradient(90deg,var(--th) 0%,rgba(184,92,42,.03) 100%);color:var(--t);border-left-color:var(--t);font-weight:600;}
+.tb-icon{width:28px;height:28px;border-radius:8px;background:var(--sur2);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;transition:background .15s;}
+.tb.act .tb-icon{background:var(--th);}
+.tb-label{flex:1;}
+.tcnt{background:var(--br2);color:var(--mu);font-size:10px;font-weight:700;padding:2px 7px;border-radius:10px;min-width:20px;text-align:center;}
+.tb.act .tcnt{background:var(--th);color:var(--t);}
+.snav-div{height:1px;background:var(--br2);margin:4px 0;}
+.snav-section{padding:4px 0;}
+
+/* ─── MAIN CONTENT ──────────────────────────────── */
+.main{flex:1;min-width:0;}
+.panel{display:none;animation:fadeIn .2s ease;}
+.panel.act{display:block;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+
+/* ─── SECTIONS ──────────────────────────────────── */
+.sec{margin-bottom:40px;}
+.stitle{font-family:'Playfair Display',serif;font-size:26px;font-weight:700;margin-bottom:6px;letter-spacing:-.2px;color:var(--cb);}
+.sdesc{font-size:13.5px;color:var(--mu);margin-bottom:22px;line-height:1.65;}
+.panel-title{font-family:'Playfair Display',serif;font-size:32px;font-weight:700;margin-bottom:4px;letter-spacing:-.3px;}
+.panel-sub{font-size:14px;color:var(--mu);line-height:1.6;margin-bottom:32px;}
+
+/* ─── CARD GRID ─────────────────────────────────── */
+.cgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px;}
+.card{background:var(--sur);border:1px solid var(--br);border-radius:var(--r);padding:24px;transition:box-shadow .2s,transform .2s;cursor:default;}
+.card:hover{box-shadow:var(--sh2);transform:translateY(-2px);}
+.ctag{display:inline-flex;align-items:center;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:4px 10px;border-radius:40px;margin-bottom:14px;}
+.ct{background:var(--th);color:var(--t);}
+.cs{background:var(--sh);color:var(--s);}
+.cd2{background:rgba(28,28,30,.06);color:var(--c2);}
+.card h3{font-size:15px;font-weight:600;margin-bottom:8px;line-height:1.4;color:var(--cb);}
+.card p{font-size:13px;color:var(--mu);line-height:1.65;}
+
+/* ─── ACCORDIONS ────────────────────────────────── */
+.tb2{background:var(--sur);border:1px solid var(--br);border-radius:var(--r);margin-bottom:14px;overflow:hidden;box-shadow:var(--sh1);transition:box-shadow .2s;}
+.tb2:hover{box-shadow:var(--sh2);}
+.tb2h{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;cursor:pointer;user-select:none;transition:background .15s;gap:12px;}
+.tb2h:hover{background:var(--sur2);}
+.tb2t{font-size:14px;font-weight:600;display:flex;align-items:center;gap:10px;color:var(--cb);}
+.tb2a{display:flex;align-items:center;gap:10px;flex-shrink:0;}
+.tog{width:24px;height:24px;border-radius:50%;background:var(--sur2);border:1px solid var(--br);display:flex;align-items:center;justify-content:center;font-size:10px;color:var(--mu);transition:all .2s;flex-shrink:0;}
+.tb2.op .tog{background:var(--th);border-color:var(--t);color:var(--t);transform:rotate(180deg);}
+.tb2b{padding:0 20px;max-height:0;overflow:hidden;transition:max-height .35s cubic-bezier(.4,0,.2,1),padding .35s;}
+.tb2.op .tb2b{padding:0 20px 20px;max-height:4000px;}
+
+/* ─── COPY BUTTON ───────────────────────────────── */
+.cbtn{display:inline-flex;align-items:center;gap:5px;background:var(--sur2);border:1px solid var(--br);color:var(--c2);font-family:'Inter',sans-serif;font-size:11px;font-weight:600;padding:6px 14px;border-radius:var(--r3);cursor:pointer;transition:all .15s;white-space:nowrap;}
+.cbtn:hover{background:var(--bg);border-color:var(--t);color:var(--t);}
+.cbtn.done{background:rgba(58,148,96,.08);border-color:var(--ok);color:var(--ok);}
+
+/* ─── TEXT STYLES ───────────────────────────────── */
+pre,.stext{font-family:'Inter',sans-serif;font-size:13px;line-height:1.85;color:var(--cb);white-space:pre-wrap;word-break:break-word;}
+.hl{background:var(--sur2);border-left:3px solid var(--t);padding:13px 16px;border-radius:0 var(--r3) var(--r3) 0;margin:10px 0;font-size:13px;line-height:1.7;color:var(--cb);}
+.tbdg{display:inline-flex;align-items:center;background:var(--th);color:var(--t);font-size:10px;font-weight:700;padding:3px 9px;border-radius:var(--r3);margin-right:8px;letter-spacing:.5px;}
+.sline{margin-bottom:14px;font-size:13.5px;line-height:1.75;color:var(--cb);}
+
+/* ─── AD CARDS ──────────────────────────────────── */
+.adcard{background:var(--sur);border:1px solid var(--br);border-radius:var(--r);overflow:hidden;margin-bottom:24px;box-shadow:var(--sh1);}
+.adch{padding:24px;border-bottom:1px solid var(--br2);display:flex;align-items:flex-start;gap:16px;}
+.adnum{width:40px;height:40px;border-radius:12px;background:linear-gradient(135deg,var(--t),var(--tl));color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:16px;flex-shrink:0;box-shadow:0 4px 12px rgba(184,92,42,.3);}
+.adci{flex:1;}
+.adci h3{font-size:17px;font-weight:700;margin-bottom:4px;color:var(--cb);}
+.adci p{font-size:12px;color:var(--mu);line-height:1.5;}
+.admeta{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px;}
+.admeta span{font-size:10px;padding:3px 10px;border-radius:40px;background:var(--sur2);border:1px solid var(--br);color:var(--c2);font-weight:600;}
+.adtabs{display:flex;background:var(--sur2);border-bottom:1px solid var(--br);padding:0 8px;gap:2px;}
+.atab{padding:10px 16px;font-size:12px;font-weight:600;color:var(--mu);cursor:pointer;border:none;background:none;font-family:'Inter',sans-serif;border-bottom:2px solid transparent;transition:all .15s;white-space:nowrap;border-radius:0;}
+.atab:hover{color:var(--cb);}
+.atab.act{color:var(--t);border-bottom-color:var(--t);}
+.adcon{padding:20px 24px;display:none;}
+.adcon.act{display:block;}
+
+/* ─── STATS GRID ────────────────────────────────── */
+.sgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:14px;margin-bottom:36px;}
+.scard{background:var(--sur);border:1px solid var(--br);border-radius:var(--r);padding:24px;display:flex;flex-direction:column;gap:8px;box-shadow:var(--sh1);position:relative;overflow:hidden;}
+.scard::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--t),var(--tl));}
+.sico{font-size:24px;}
+.sval{font-size:32px;font-weight:700;color:var(--cb);line-height:1;font-family:'Playfair Display',serif;}
+.slbl{font-size:12px;color:var(--mu);font-weight:500;}
+
+/* ─── QUIZ QUESTIONS ────────────────────────────── */
+.qq{background:var(--sur);border:1px solid var(--br);border-radius:var(--r2);padding:16px 20px;margin-bottom:10px;cursor:pointer;transition:all .15s;box-shadow:var(--sh1);}
+.qq:hover{border-color:var(--sl);box-shadow:var(--sh2);}
+.qq.op{border-color:var(--s);}
+.qqh{display:flex;align-items:center;justify-content:space-between;gap:8px;}
+.qqn{font-size:10px;font-weight:700;color:var(--t);letter-spacing:1.2px;}
+.qqtype{font-size:10px;padding:3px 9px;border-radius:40px;background:var(--sh);color:var(--s);font-weight:700;}
+.qqtxt{font-size:14px;font-weight:600;margin-top:8px;line-height:1.4;color:var(--cb);}
+.qqopts{display:none;margin-top:14px;padding-top:14px;border-top:1px solid var(--br);}
+.qq.op .qqopts{display:block;}
+.qqopt{font-size:12px;color:var(--c2);padding:5px 0 5px 12px;border-left:2px solid var(--br);margin-bottom:5px;line-height:1.5;}
+
+/* ─── CHECKLIST ─────────────────────────────────── */
+.ck{list-style:none;}
+.ck li{display:flex;align-items:flex-start;gap:12px;padding:12px 0;border-bottom:1px solid var(--br2);font-size:14px;line-height:1.5;}
+.ck li:last-child{border-bottom:none;}
+.cki{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;font-size:11px;font-weight:700;}
+.ckd .cki{background:rgba(58,148,96,.1);color:var(--ok);}
+.ckd .cki::before{content:"✓";}
+.ckt .cki{background:var(--sur2);border:1.5px solid var(--br);color:var(--mu);}
+.ckt .cki::before{content:"○";}
+
+/* ─── CODE BLOCK ────────────────────────────────── */
+.dark{background:#0d1117;border-radius:var(--r);padding:28px;position:relative;border:1px solid rgba(255,255,255,.07);}
+.dark pre{color:#cdd9e5;font-family:'Courier New',monospace;font-size:12.5px;line-height:1.75;white-space:pre-wrap;}
+.dark-copy{position:absolute;top:14px;right:14px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.6);font-family:'Inter',sans-serif;font-size:11px;font-weight:600;padding:5px 12px;border-radius:var(--r3);cursor:pointer;transition:all .15s;}
+.dark-copy:hover{background:rgba(255,255,255,.16);color:#fff;}
+
+/* ─── MISC ──────────────────────────────────────── */
+.div{height:1px;background:var(--br);margin:36px 0;}
+.pill{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:700;padding:5px 12px;border-radius:40px;letter-spacing:.3px;}
+.pg{background:rgba(58,148,96,.1);color:var(--ok);}
+.po{background:var(--th);color:var(--t);}
+.irow{padding:14px 18px;background:var(--sur2);border:1px solid var(--br);border-radius:var(--r2);display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:14px;}
+.irow-lbl{font-size:11px;color:var(--mu);margin-bottom:3px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;}
+.irow-val{font-size:13.5px;font-weight:600;color:var(--cb);}
+.info-g{padding:16px 20px;background:rgba(61,107,74,.06);border:1px solid rgba(107,168,128,.3);border-radius:var(--r2);margin-bottom:16px;}
+.info-g-t{font-size:13px;font-weight:700;color:var(--s);margin-bottom:6px;}
+.info-g-b{font-size:13px;line-height:1.8;color:var(--c2);}
+code{background:var(--sur2);border:1px solid var(--br);padding:2px 6px;border-radius:4px;font-size:12px;}
+
+/* ─── TOAST ─────────────────────────────────────── */
+#toast{position:fixed;bottom:28px;right:28px;background:var(--cb);color:#fff;font-size:13px;font-weight:600;padding:12px 22px;border-radius:var(--r2);opacity:0;transform:translateY(12px);transition:all .25s cubic-bezier(.4,0,.2,1);pointer-events:none;z-index:9999;box-shadow:var(--sh2);}
+#toast.show{opacity:1;transform:translateY(0);}
+
+/* ─── RESPONSIVE ────────────────────────────────── */
+@media(max-width:900px){
+  .sidebar{display:none;}
+  .layout{padding:24px 20px;flex-direction:column;}
+  .tbar-mobile{display:flex;}
+}
+@media(min-width:901px){.tbar-mobile{display:none;}}
+.tbar-mobile{background:var(--sur);border-bottom:1px solid var(--br);padding:0 20px;overflow-x:auto;position:sticky;top:0;z-index:100;gap:0;box-shadow:0 2px 12px rgba(0,0,0,.05);}
+.tbar-mobile .tb{padding:13px 14px;border-left:none;border-bottom:2px solid transparent;border-radius:0;font-size:12px;flex-direction:column;gap:4px;align-items:center;}
+.tbar-mobile .tb.act{border-bottom-color:var(--t);border-left:none;background:none;}
+.tbar-mobile .tb-icon{width:24px;height:24px;font-size:12px;}
+@media(max-width:600px){.hdr{padding:36px 20px 44px;}.hdr h1{font-size:32px;}.hdr-right{display:none;}.fstrip{padding:14px 20px;}}
+</style>
+</head>
+<body>
+
+<div class="hdr">
+  <div class="hdr-i">
+    <div class="hdr-left">
+      <div class="badge">⬡ Protocolo RECONECTA</div>
+      <h1>Painel de <em>Entregas</em></h1>
+      <p class="hdr-sub">Todas as entregas do produto — copy, roteiros, prompts, perfil e configurações — em um único lugar.</p>
+    </div>
+    <div class="hdr-right">
+      <div class="hdr-meta">
+        <div class="mi"><span class="ml">Produto</span><span class="mv">FS Equilíbrio e Bem-Estar</span></div>
+        <div class="mi"><span class="ml">Tipo</span><span class="mv">Low Ticket — R$37</span></div>
+        <div class="mi"><span class="ml">Formato</span><span class="mv">Desafio 7 dias + GPT</span></div>
+        <div class="mi"><span class="ml">Funil</span><span class="mv">Anúncio → Quiz → Oferta</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="fstrip">
+  <div class="fi">
+    <div class="flbl">Mapa do Funil</div>
+    <div class="fsteps">
+      <div class="fstep"><span class="dot"></span> Anúncio (Vídeo)</div>
+      <span class="farr">›</span>
+      <div class="fstep"><span class="dot"></span> Quiz (10 perguntas)</div>
+      <span class="farr">›</span>
+      <div class="fstep"><span class="dot"></span> Resultado + Oferta</div>
+      <span class="farr">›</span>
+      <div class="fstep"><span class="dot"></span> Pré-Checkout</div>
+      <span class="farr">›</span>
+      <div class="fstep"><span class="dot"></span> Produto (Desafio + GPT)</div>
+    </div>
+  </div>
+</div>
+
+<!-- Mobile nav -->
+<div class="tbar-mobile">
+  <button class="tb act" onclick="showTab('visao',this)"><div class="tb-icon">◈</div><span>Visão</span></button>
+  <button class="tb" onclick="showTab('perfil',this)"><div class="tb-icon">◆</div><span>Perfil</span></button>
+  <button class="tb" onclick="showTab('produto',this)"><div class="tb-icon">◉</div><span>Produto</span></button>
+  <button class="tb" onclick="showTab('quiz',this)"><div class="tb-icon">◎</div><span>Quiz</span></button>
+  <button class="tb" onclick="showTab('oferta',this)"><div class="tb-icon">◑</div><span>Oferta</span></button>
+  <button class="tb" onclick="showTab('anuncios',this)"><div class="tb-icon">◐</div><span>Anúncios</span></button>
+  <button class="tb" onclick="showTab('prompts',this)"><div class="tb-icon">◒</div><span>Prompts</span></button>
+  <button class="tb" onclick="showTab('heygen',this)"><div class="tb-icon">▶</div><span>HeyGen</span></button>
+</div>
+
+<div class="layout">
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="snav-label">Navegação</div>
+    <nav class="snav">
+      <div class="snav-section">
+        <button class="tb act" onclick="showTab('visao',this)">
+          <div class="tb-icon">◈</div>
+          <span class="tb-label">Visão Geral</span>
+        </button>
+        <button class="tb" onclick="showTab('perfil',this)">
+          <div class="tb-icon">◆</div>
+          <span class="tb-label">Perfil do Produto</span>
+        </button>
+      </div>
+      <div class="snav-div"></div>
+      <div class="snav-section">
+        <button class="tb" onclick="showTab('produto',this)">
+          <div class="tb-icon">◉</div>
+          <span class="tb-label">Produto</span>
+          <span class="tcnt">2</span>
+        </button>
+        <button class="tb" onclick="showTab('quiz',this)">
+          <div class="tb-icon">◎</div>
+          <span class="tb-label">Quiz + Lovable</span>
+          <span class="tcnt">10</span>
+        </button>
+        <button class="tb" onclick="showTab('oferta',this)">
+          <div class="tb-icon">◑</div>
+          <span class="tb-label">Copy da Oferta</span>
+        </button>
+      </div>
+      <div class="snav-div"></div>
+      <div class="snav-section">
+        <button class="tb" onclick="showTab('anuncios',this)">
+          <div class="tb-icon">◐</div>
+          <span class="tb-label">Anúncios</span>
+          <span class="tcnt">3</span>
+        </button>
+        <button class="tb" onclick="showTab('prompts',this)">
+          <div class="tb-icon">◒</div>
+          <span class="tb-label">Prompts de Vídeo</span>
+          <span class="tcnt">3</span>
+        </button>
+        <button class="tb" onclick="showTab('heygen',this)">
+          <div class="tb-icon">▶</div>
+          <span class="tb-label">Roteiros HeyGen</span>
+          <span class="tcnt">3</span>
+        </button>
+      </div>
+    </nav>
+  </aside>
+
+  <!-- CONTENT -->
+  <div class="main">
+
+<!-- ===== VISÃO GERAL ===== -->
+<div id="panel-visao" class="panel act">
+  <div class="panel-title">Visão Geral</div>
+  <p class="panel-sub">Status completo do projeto, entregas concluídas e próximos passos recomendados.</p>
+  <div class="sgrid">
+    <div class="scard"><div class="sico">📦</div><div class="sval">2</div><div class="slbl">Entregas de produto</div></div>
+    <div class="scard"><div class="sico">🎯</div><div class="sval">10</div><div class="slbl">Perguntas do quiz</div></div>
+    <div class="scard"><div class="sico">📹</div><div class="sval">3</div><div class="slbl">Variações de anúncio</div></div>
+    <div class="scard"><div class="sico">🤖</div><div class="sval">3</div><div class="slbl">Roteiros para HeyGen</div></div>
+  </div>
+  <div class="sec">
+    <div class="stitle">Status das Entregas</div>
+    <div class="tb2 op">
+      <div class="tb2h" onclick="tg(this)"><div class="tb2t">✅ Concluídas</div><span class="tog">▼</span></div>
+      <div class="tb2b">
+        <ul class="ck">
+          <li class="ckd"><span class="cki"></span><div><strong>Desafio 7 dias (HTML)</strong> — Protocolo completo com 7 práticas guiadas</div></li>
+          <li class="ckd"><span class="cki"></span><div><strong>Agente GPT RECONECTA</strong> — Prompt completo para ChatGPT e Claude</div></li>
+          <li class="ckd"><span class="cki"></span><div><strong>Quiz com 10 perguntas SPIN</strong> — Segmentação, Problema, Implicação, Necessidade</div></li>
+          <li class="ckd"><span class="cki"></span><div><strong>Prompt Lovable.dev</strong> — Quiz + resultado + página de oferta + admin</div></li>
+          <li class="ckd"><span class="cki"></span><div><strong>Copy da oferta pós-quiz</strong> — Headline, Antes×Depois, entregáveis, garantia, FAQ</div></li>
+          <li class="ckd"><span class="cki"></span><div><strong>3 anúncios em vídeo</strong> — Revelação, Identificação, Conexão Inesperada</div></li>
+          <li class="ckd"><span class="cki"></span><div><strong>Prompts de vídeo (PT + EN)</strong> — Para gravar, Pika, Kling, RunwayML e HeyGen</div></li>
+          <li class="ckd"><span class="cki"></span><div><strong>Roteiros formatados para HeyGen</strong> — Com marcações de pausa e configurações</div></li>
+        </ul>
+      </div>
+    </div>
+    <div class="tb2 op">
+      <div class="tb2h" onclick="tg(this)"><div class="tb2t">⬡ Próximas entregas sugeridas</div><span class="tog">▼</span></div>
+      <div class="tb2b">
+        <ul class="ck">
+          <li class="ckt"><span class="cki"></span><div><strong>Sequência de emails</strong> — Recuperação de quem entrou no quiz mas não comprou <span style="color:var(--mu);font-size:12px">→ /sequencia-de-emails</span></div></li>
+          <li class="ckt"><span class="cki"></span><div><strong>Plano de conteúdo orgânico 30 dias</strong> <span style="color:var(--mu);font-size:12px">→ /conteudo-social</span></div></li>
+          <li class="ckt"><span class="cki"></span><div><strong>Novos anúncios (Relacionamento)</strong> — Para quem já segue <span style="color:var(--mu);font-size:12px">→ /anuncio</span></div></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="sec">
+    <div class="stitle">Sobre o Produto</div>
+    <div class="cgrid">
+      <div class="card"><div class="ctag ct">Quadro</div><h3>Recuperar o equilíbrio entre o corpo e as emoções</h3><p>Transformação entregue em 7 dias com 10-15 minutos por dia.</p></div>
+      <div class="card"><div class="ctag cs">Público</div><h3>Mulheres 30-55 anos sobrecarregadas</h3><p>Já tentaram yoga/meditação/terapia mas não mantiveram. Buscam algo prático para a rotina.</p></div>
+      <div class="card"><div class="ctag cd2">Diferencial</div><h3>Fisioterapia pélvica + escuta emocional</h3><p>Única abordagem que une as duas disciplinas, sem termos clínicos, em formato acessível.</p></div>
+      <div class="card"><div class="ctag ct">Credencial</div><h3>25 anos de fisio pélvica + 7 de psicanálise</h3><p>Fabiana Serricchio — base clínica que torna o método confiável para quem desconfia de promessas vazias.</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== PERFIL ===== -->
+<div id="panel-perfil" class="panel">
+  <div class="panel-title">Perfil do Produto</div>
+  <p class="panel-sub">Quadro, Furadeira, 3 Identidades, Baldes de público, 50 Decorados, Urgências Ocultas e Argumentos Incontestáveis.</p>
+
+  <!-- QUADRO + FURADEIRA -->
+  <div class="sec">
+    <div class="stitle">Quadro e Furadeira</div>
+    <div class="cgrid">
+      <div class="card" style="border-left:4px solid var(--t)">
+        <div class="ctag ct">Quadro — Transformação Principal</div>
+        <h3 style="font-family:'Playfair Display',serif;font-size:20px;line-height:1.4">Recuperar o equilíbrio entre o corpo e as emoções</h3>
+        <p style="margin-top:8px">É o resultado final que a pessoa conquista. Verbo no infinitivo, testável como conquista real na vida.</p>
+      </div>
+      <div class="card" style="border-left:4px solid var(--s)">
+        <div class="ctag cs">Furadeira — Método</div>
+        <h3>Protocolo RECONECTA</h3>
+        <p>Desafio 7 dias + Agente GPT de autocuidado</p>
+        <div style="margin-top:12px;font-size:12px;line-height:1.9;color:var(--cb)">
+          <div><strong>Dia 1</strong> — Escuta: escaneamento corporal de baixo para cima</div>
+          <div><strong>Dia 2</strong> — Respiração: técnica 4-7-8 adaptada</div>
+          <div><strong>Dia 3</strong> — Liberação: assoalho pélvico, diafragma, pescoço/mandíbula</div>
+          <div><strong>Dia 4</strong> — Emoção: escrita guiada em 3 movimentos</div>
+          <div><strong>Dia 5</strong> — Movimento: aquecimento, livre e finalização no chão</div>
+          <div><strong>Dia 6</strong> — Integração: sequência unificada de 15 minutos</div>
+          <div><strong>Dia 7</strong> — Ancoragem: ritual pessoal de 5 minutos</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3 IDENTIDADES -->
+  <div class="sec">
+    <div class="stitle">As 3 Identidades</div>
+    <div class="cgrid">
+      <div class="card">
+        <div class="ctag ct">Identidade do Produto</div>
+        <h3>Protocolo RECONECTA</h3>
+        <div style="font-size:13px;line-height:1.8;margin-top:8px">
+          <div><strong>Formato:</strong> Desafio 7 dias + Agente GPT</div>
+          <div><strong>Preço:</strong> R$37</div>
+          <div style="margin-top:6px"><strong>Diferencial:</strong> Única abordagem que une fisioterapia pélvica com escuta emocional num formato acessível para leigos, sem termos clínicos</div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="ctag cs">Identidade do Consumidor</div>
+        <h3>Mulheres 30-55 anos sobrecarregadas</h3>
+        <div style="font-size:13px;line-height:1.8;margin-top:8px">
+          <div><strong>Nicho:</strong> Saúde feminina — bem-estar corpo e emoções</div>
+          <div><strong>Nível de consciência:</strong> Schwartz 3-4 (consciente do problema, busca solução prática)</div>
+          <div><strong>Comportamento:</strong> Consome no Instagram e grupos de WhatsApp. Já tentou yoga, meditação ou terapia mas não manteve</div>
+          <div style="margin-top:6px"><strong>Objeções:</strong> "não tenho tempo", "já tentei e não funcionou", "parece mais uma coisa pra fazer"</div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="ctag cd2">Identidade do Comunicador</div>
+        <h3>Fabiana Serricchio</h3>
+        <div style="font-size:13px;line-height:1.8;margin-top:8px">
+          <div><strong>Tom de voz:</strong> Acolhedor, próximo e científico sem ser clínico</div>
+          <div><strong>Posicionamento:</strong> "25 anos entendendo o que o corpo carrega quando as emoções não têm espaço"</div>
+          <div style="margin-top:6px"><strong>Estilo:</strong> Sem jargão de fisio, sem linguagem de guru. Fala de igual para igual. Traduz o conhecimento clínico para o dia a dia da mulher comum</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BALDES DO CONSUMIDOR -->
+  <div class="sec">
+    <div class="stitle">Baldes "Pra quem é"</div>
+    <div class="cgrid">
+      <div class="card"><div class="ctag ct">Balde 1</div><h3>A sobrecarregada funcional</h3><p>Mulher que trabalha, cumpre tudo, mas sente o corpo pesado, a respiração curta e um cansaço que o sono não resolve. Sabe que algo está errado mas não sabe o que é.</p></div>
+      <div class="card"><div class="ctag ct">Balde 2</div><h3>A que cuida de todo mundo menos de si</h3><p>Mãe, cuidadora, profissional de saúde ou educação. Postergou o próprio cuidado por tanto tempo que já não sabe mais por onde começar. Sente culpa quando para.</p></div>
+      <div class="card"><div class="ctag ct">Balde 3</div><h3>A que já tentou de tudo</h3><p>Já fez yoga, meditação, terapia, academia. Começa, larga. Não falta motivação, falta algo que conecte o que ela sente no corpo com o que carrega emocionalmente.</p></div>
+      <div class="card"><div class="ctag ct">Balde 4</div><h3>A que sente no corpo o que não consegue falar</h3><p>Tensão no pescoço, dor nas costas, assoalho pélvico travado, aperto no peito. O médico disse que está tudo bem. Mas ela sabe que não está.</p></div>
+    </div>
+  </div>
+
+  <!-- DECORADOS -->
+  <div class="sec">
+    <div class="stitle">Decorados — 50 Benefícios</div>
+    <div class="sdesc">Benefícios que decorrem do Quadro. Usados para criar copy, anúncios e posts. Organize por categoria.</div>
+
+    <div class="tb2 op">
+      <div class="tb2h" onclick="tg(this)"><div class="tb2t">💰 Financeiro (1-10)</div><span class="tog">▼</span></div>
+      <div class="tb2b">
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:8px">
+          <div class="hl">1. Gastar menos com consultas recorrentes por dores sem diagnóstico clínico</div>
+          <div class="hl">2. Reduzir gastos com remédios para dor de cabeça, tensão e insônia</div>
+          <div class="hl">3. Manter produtividade no trabalho sem precisar de afastamento por esgotamento</div>
+          <div class="hl">4. Evitar tratamentos caros por problemas que poderiam ter sido prevenidos</div>
+          <div class="hl">5. Ter mais clareza mental para tomar decisões financeiras sem impulsividade emocional</div>
+          <div class="hl">6. Reduzir absenteísmo e perda de renda por crises de ansiedade</div>
+          <div class="hl">7. Construir uma rotina de autocuidado de baixo custo e alta eficácia</div>
+          <div class="hl">8. Parar de pagar por terapias que não chegam ao fundo do problema físico-emocional</div>
+          <div class="hl">9. Ter um protocolo próprio que substitui consultas de manutenção</div>
+          <div class="hl">10. Voltar a trabalhar com energia e sem depender de estimulantes ou medicamentos</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tb2 op">
+      <div class="tb2h" onclick="tg(this)"><div class="tb2t">⏱️ Tempo (11-20)</div><span class="tog">▼</span></div>
+      <div class="tb2b">
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:8px">
+          <div class="hl">11. Fazer as práticas em 10 a 15 minutos por dia, sem reorganizar a agenda</div>
+          <div class="hl">12. Resolver em 7 dias o que levaria meses em terapia convencional para nomear</div>
+          <div class="hl">13. Ter um ritual matinal ou noturno fixo e rápido de regulação</div>
+          <div class="hl">14. Parar de perder horas procrastinando por causa do cansaço emocional acumulado</div>
+          <div class="hl">15. Dormir melhor e acordar descansada, ganhando tempo de qualidade no dia</div>
+          <div class="hl">16. Encurtar o tempo entre sentir algo errado e saber o que fazer com isso</div>
+          <div class="hl">17. Ter acesso ao agente GPT a qualquer hora, sem esperar consulta marcada</div>
+          <div class="hl">18. Encaixar o autocuidado na rotina sem abrir mão de nada</div>
+          <div class="hl">19. Resolver em casa o que antes exigia deslocamento até o consultório</div>
+          <div class="hl">20. Ter um protocolo que acompanha no próprio ritmo, sem horário fixo</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tb2 op">
+      <div class="tb2h" onclick="tg(this)"><div class="tb2t">💛 Autoestima (21-30)</div><span class="tog">▼</span></div>
+      <div class="tb2b">
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:8px">
+          <div class="hl">21. Sentir que o corpo voltou a ser aliado, não inimigo</div>
+          <div class="hl">22. Reconhecer os próprios sinais antes de entrar em colapso</div>
+          <div class="hl">23. Parar de se sentir culpada por não aguentar a pressão</div>
+          <div class="hl">24. Ter a sensação de que está fazendo algo real por si mesma</div>
+          <div class="hl">25. Recuperar a confiança no próprio corpo após anos ignorando-o</div>
+          <div class="hl">26. Sentir-se inteira: corpo e mente alinhados no mesmo ritmo</div>
+          <div class="hl">27. Deixar de se comparar com quem "parece não sentir nada" e entender o próprio funcionamento</div>
+          <div class="hl">28. Ter mais paciência consigo mesma e com as pessoas ao redor</div>
+          <div class="hl">29. Sentir prazer no próprio corpo de novo, sem tensão ou desconforto constante</div>
+          <div class="hl">30. Reconhecer o autocuidado como um ato de força, não de fraqueza</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tb2 op">
+      <div class="tb2h" onclick="tg(this)"><div class="tb2t">🌟 Reputação (31-40)</div><span class="tog">▼</span></div>
+      <div class="tb2b">
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:8px">
+          <div class="hl">31. Ser a pessoa que cuida de si e inspira quem está ao redor</div>
+          <div class="hl">32. Ter mais presença nas relações porque não está mais no limite o tempo todo</div>
+          <div class="hl">33. Comunicar-se melhor em momentos de conflito, sem explodir ou travar</div>
+          <div class="hl">34. Ser vista como alguém equilibrada no trabalho e na família</div>
+          <div class="hl">35. Parar de carregar uma imagem de "sempre cansada" ou "sempre estressada"</div>
+          <div class="hl">36. Ter mais energia para aparecer nas redes sociais e na vida social</div>
+          <div class="hl">37. Sentir que o corpo representa quem você realmente é, não o que você carregou</div>
+          <div class="hl">38. Construir uma relação mais honesta consigo mesma e com os outros</div>
+          <div class="hl">39. Voltar a participar de eventos e situações que antes evitava por cansaço</div>
+          <div class="hl">40. Ser reconhecida como alguém que se cuida de verdade, não só no discurso</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tb2 op">
+      <div class="tb2h" onclick="tg(this)"><div class="tb2t">📈 Crescimento (41-50)</div><span class="tog">▼</span></div>
+      <div class="tb2b">
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:8px">
+          <div class="hl">41. Criar um ritual diário sustentável de autoconhecimento e regulação</div>
+          <div class="hl">42. Entender como as emoções se instalam no corpo e usar isso a seu favor</div>
+          <div class="hl">43. Ter um vocabulário interno para nomear o que sente antes de adoecer</div>
+          <div class="hl">44. Desenvolver resiliência emocional a partir do próprio corpo</div>
+          <div class="hl">45. Usar o agente GPT como parceiro de evolução contínua após o desafio</div>
+          <div class="hl">46. Aprender a diferenciar tensão muscular de tensão emocional</div>
+          <div class="hl">47. Abrir espaço para novos ciclos depois de soltar o que estava represado</div>
+          <div class="hl">48. Criar o hábito de ouvir o corpo antes de precisar de um diagnóstico</div>
+          <div class="hl">49. Avançar em outros processos (terapia, relacionamentos, carreira) com mais base interna</div>
+          <div class="hl">50. Transformar o autocuidado de tarefa em identidade</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- URGÊNCIAS OCULTAS -->
+  <div class="sec">
+    <div class="stitle">Urgências Ocultas</div>
+    <div class="sdesc">Ângulos de entrada para anúncios, copy e conteúdo. Cada categoria tem um papel diferente no funil.</div>
+
+    <div class="tb2 op">
+      <div class="tb2h" onclick="tg(this)"><div class="tb2t">😣 Dores — o que incomoda</div><span class="tog">▼</span></div>
+      <div class="tb2b">
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:8px">
+          <div class="hl" style="border-color:#e05c3a">Tensão no pescoço e nos ombros que não passa nem com massagem</div>
+          <div class="hl" style="border-color:#e05c3a">Sentir o corpo pesado mesmo depois de dormir</div>
+          <div class="hl" style="border-color:#e05c3a">Acordar cansada sem saber por quê</div>
+          <div class="hl" style="border-color:#e05c3a">Travar emocionalmente e não conseguir identificar o que está sentindo</div>
+          <div class="hl" style="border-color:#e05c3a">Assoalho pélvico contraído causando desconforto constante</div>
+          <div class="hl" style="border-color:#e05c3a">Respiração curta e superficial que piora nos momentos de estresse</div>
+          <div class="hl" style="border-color:#e05c3a">Dor de cabeça frequente sem causa clínica definida</div>
+          <div class="hl" style="border-color:#e05c3a">Sentir que o corpo "não obedece" mesmo quando a cabeça quer reagir</div>
+          <div class="hl" style="border-color:#e05c3a">Viver no piloto automático sem conseguir desacelerar</div>
+          <div class="hl" style="border-color:#e05c3a">Sentir que está no limite mas não consegue parar sem culpa</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tb2 op">
+      <div class="tb2h" onclick="tg(this)"><div class="tb2t">🤔 Dúvidas — o que pergunta</div><span class="tog">▼</span></div>
+      <div class="tb2b">
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:8px">
+          <div class="hl" style="border-color:var(--s)">Por que meu corpo trava quando fico estressada</div>
+          <div class="hl" style="border-color:var(--s)">Como liberar tensão muscular em casa sem precisar de fisioterapeuta</div>
+          <div class="hl" style="border-color:var(--s)">Qual a relação entre emoções e dores físicas</div>
+          <div class="hl" style="border-color:var(--s)">Como relaxar o assoalho pélvico sozinha</div>
+          <div class="hl" style="border-color:var(--s)">Por que sinto dor no corpo sem nenhum diagnóstico clínico</div>
+          <div class="hl" style="border-color:var(--s)">Como começar a me cuidar quando não tenho tempo nem energia</div>
+          <div class="hl" style="border-color:var(--s)">O que é regulação emocional e como ela afeta o corpo</div>
+          <div class="hl" style="border-color:var(--s)">Como a ansiedade se manifesta fisicamente</div>
+          <div class="hl" style="border-color:var(--s)">Existe exercício que ajuda tanto o corpo quanto as emoções ao mesmo tempo</div>
+          <div class="hl" style="border-color:var(--s)">Como criar uma rotina de autocuidado que eu consiga manter</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tb2 op">
+      <div class="tb2h" onclick="tg(this)"><div class="tb2t">✨ Desejos — o que sonha</div><span class="tog">▼</span></div>
+      <div class="tb2b">
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:8px">
+          <div class="hl" style="border-color:#a78bfa">Sentir o corpo leve e a cabeça livre ao mesmo tempo</div>
+          <div class="hl" style="border-color:#a78bfa">Ter uma rotina de cuidado próprio que ela realmente consiga seguir</div>
+          <div class="hl" style="border-color:#a78bfa">Dormir profundamente e acordar com energia de verdade</div>
+          <div class="hl" style="border-color:#a78bfa">Conseguir identificar quando está chegando no limite antes de quebrar</div>
+          <div class="hl" style="border-color:#a78bfa">Ter mais paciência com a família e com o trabalho sem precisar se isolar</div>
+          <div class="hl" style="border-color:#a78bfa">Sentir prazer no próprio corpo sem desconforto ou tensão</div>
+          <div class="hl" style="border-color:#a78bfa">Entender o que o corpo está dizendo antes de adoecer</div>
+          <div class="hl" style="border-color:#a78bfa">Ter clareza emocional para tomar decisões sem ansiedade</div>
+          <div class="hl" style="border-color:#a78bfa">Se sentir inteira, não dividida entre o que sente e o que mostra</div>
+          <div class="hl" style="border-color:#a78bfa">Ser a mulher que cuida de si mesma de verdade, não só no discurso</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tb2 op">
+      <div class="tb2h" onclick="tg(this)"><div class="tb2t">📱 Assuntos Relacionados — o que interessa</div><span class="tog">▼</span></div>
+      <div class="tb2b">
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:8px">
+          <div class="hl">Técnicas de respiração para ansiedade</div>
+          <div class="hl">Yoga para iniciantes em casa</div>
+          <div class="hl">Automassagem para aliviar tensão nas costas</div>
+          <div class="hl">Como melhorar a qualidade do sono naturalmente</div>
+          <div class="hl">Meditação guiada para relaxar</div>
+          <div class="hl">Assoalho pélvico o que é e por que importa</div>
+          <div class="hl">Exercícios para fazer em 10 minutos por dia</div>
+          <div class="hl">Saúde feminina além da ginecologia</div>
+          <div class="hl">Inteligência emocional na prática</div>
+          <div class="hl">Corpo e mente como trabalham juntos</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tb2 op">
+      <div class="tb2h" onclick="tg(this)"><div class="tb2t">🔥 Urgências Quentes — alta intenção de compra</div><span class="tog">▼</span></div>
+      <div class="tb2b">
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:8px">
+          <div class="hl" style="border-color:var(--t)">Exercícios para liberar tensão no corpo agora</div>
+          <div class="hl" style="border-color:var(--t)">Como relaxar em 10 minutos antes de dormir</div>
+          <div class="hl" style="border-color:var(--t)">Protocolo de autocuidado para mulheres estressadas</div>
+          <div class="hl" style="border-color:var(--t)">Desafio de bem-estar para começar essa semana</div>
+          <div class="hl" style="border-color:var(--t)">Como regular o sistema nervoso em casa</div>
+          <div class="hl" style="border-color:var(--t)">Técnica de liberação muscular guiada</div>
+          <div class="hl" style="border-color:var(--t)">Programa de equilíbrio corpo e emoções</div>
+          <div class="hl" style="border-color:var(--t)">Fisioterapeuta pélvica online acessível</div>
+          <div class="hl" style="border-color:var(--t)">O que fazer quando o corpo está em colapso e a agenda não para</div>
+          <div class="hl" style="border-color:var(--t)">Produto digital de saúde feminina para começar hoje</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tb2 op">
+      <div class="tb2h" onclick="tg(this)"><div class="tb2t">❄️ Urgências Frias — atração (topo de funil)</div><span class="tog">▼</span></div>
+      <div class="tb2b">
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:8px">
+          <div class="hl">Por que mulheres adoecem mais de burnout</div>
+          <div class="hl">O que o estresse faz no seu corpo sem você perceber</div>
+          <div class="hl">Sinais de que seu corpo está pedindo socorro</div>
+          <div class="hl">Por que você cansa tanto mesmo dormindo 8 horas</div>
+          <div class="hl">O que é memória muscular emocional</div>
+          <div class="hl">Como o assoalho pélvico guarda o estresse do dia a dia</div>
+          <div class="hl">O ciclo que ninguém conta: tensão, emoção, dor</div>
+          <div class="hl">Por que a maioria das mulheres não sente o próprio corpo</div>
+          <div class="hl">O que acontece quando você ignora os sinais do seu corpo por anos</div>
+          <div class="hl">A ciência por trás de sentir o corpo pesado sem razão aparente</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tb2 op">
+      <div class="tb2h" onclick="tg(this)"><div class="tb2t">💡 Urgências Inusitadas — ângulo diferente</div><span class="tog">▼</span></div>
+      <div class="tb2b">
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:8px">
+          <div class="hl" style="border-color:#4a3060">Como a voz muda quando você está emocionalmente travada</div>
+          <div class="hl" style="border-color:#4a3060">O que o formato da sua respiração revela sobre o que você está carregando</div>
+          <div class="hl" style="border-color:#4a3060">Por que pessoas que meditam ainda sentem tensão crônica no corpo</div>
+          <div class="hl" style="border-color:#4a3060">O que a fisioterapia pélvica tem a ver com clareza mental</div>
+          <div class="hl" style="border-color:#4a3060">Como ancestralidade e padrões de família aparecem no corpo físico</div>
+          <div class="hl" style="border-color:#4a3060">O que acontece no assoalho pélvico durante uma discussão intensa</div>
+          <div class="hl" style="border-color:#4a3060">Por que algumas mulheres não conseguem chorar mesmo quando querem</div>
+          <div class="hl" style="border-color:#4a3060">Como o corpo desenvolve armaduras físicas para proteger emoções não processadas</div>
+          <div class="hl" style="border-color:#4a3060">A conexão entre o útero, o intestino e o estado emocional da mulher</div>
+          <div class="hl" style="border-color:#4a3060">Por que cuidar da saúde pélvica melhora a relação com o próprio corpo inteiro</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ARGUMENTOS INCONTESTÁVEIS -->
+  <div class="sec">
+    <div class="stitle">Argumentos Incontestáveis</div>
+    <div class="sdesc">Dados, evidências e credenciais que sustentam o método com autoridade. Use em copy de vendas, bio e apresentações.</div>
+
+    <div class="tb2 op">
+      <div class="tb2h" onclick="tg(this)"><div class="tb2t">📊 Dados de mercado</div><span class="tog">▼</span></div>
+      <div class="tb2b">
+        <div class="hl">O mercado de femtechs no Brasil é avaliado em <strong>R$32 bilhões</strong>, indicando demanda real e crescente por soluções de saúde feminina fora do modelo médico tradicional</div>
+        <div class="hl" style="margin-top:8px">O setor de saúde out-of-pocket movimentou <strong>R$317 bilhões em 2024</strong>, mostrando que mulheres já pagam do próprio bolso por cuidados que o sistema não entrega</div>
+        <div class="hl" style="margin-top:8px"><strong>7 em cada 10 mulheres</strong> relatam sentir ansiedade, angústia ou desmotivação com frequência</div>
+      </div>
+    </div>
+
+    <div class="tb2 op">
+      <div class="tb2h" onclick="tg(this)"><div class="tb2t">🔬 Evidências do método</div><span class="tog">▼</span></div>
+      <div class="tb2b">
+        <div class="hl">A fisioterapia pélvica trabalha diretamente com o sistema nervoso autônomo, o mesmo sistema que regula respostas emocionais como medo, ansiedade e estresse. Não é metáfora, é anatomia.</div>
+        <div class="hl" style="margin-top:8px">A psicanálise somática reconhece que traumas e emoções não processadas se instalam no tecido muscular, especialmente no assoalho pélvico e no diafragma. O método une os dois lados dessa equação.</div>
+        <div class="hl" style="margin-top:8px">Protocolos de 7 dias com micropráticas diárias têm <strong>maior taxa de adesão</strong> do que programas longos, por serem suficientemente curtos para começar e suficientemente estruturados para criar hábito.</div>
+      </div>
+    </div>
+
+    <div class="tb2 op">
+      <div class="tb2h" onclick="tg(this)"><div class="tb2t">📰 Referências do setor</div><span class="tog">▼</span></div>
+      <div class="tb2b">
+        <div class="hl">Em 2025, o Brasil registrou <strong>546 mil afastamentos por transtornos mentais</strong>, sendo <strong>63,5% de mulheres</strong></div>
+        <div class="hl" style="margin-top:8px">Mulheres têm <strong>67% mais chances de desenvolver burnout</strong> do que homens, e a maioria dos tratamentos ainda separa o que é físico do que é emocional. O Protocolo RECONECTA preenche esse vão.</div>
+        <div class="hl" style="margin-top:8px">O Brasil lidera o ranking global de ansiedade com <strong>23,9% da população afetada</strong></div>
+      </div>
+    </div>
+
+    <div class="tb2 op">
+      <div class="tb2h" onclick="tg(this)"><div class="tb2t">🏆 Credencial da autora</div><span class="tog">▼</span></div>
+      <div class="tb2b">
+        <div class="hl"><strong>25 anos de fisioterapia pélvica + 7 de formação em psicanálise</strong> são a base clínica que torna o método confiável para quem já desconfia de promessas vazias de bem-estar.</div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /panel-perfil -->
+
+<!-- ===== PRODUTO ===== -->
+<div id="panel-produto" class="panel">
+  <div class="panel-title">Produto</div>
+  <p class="panel-sub">Estrutura do Desafio 7 Dias e prompt completo do Agente GPT RECONECTA.</p>
+  <div class="sec">
+    <div class="stitle">Desafio 7 Dias</div>
+    <div class="sdesc">Protocolo completo com uma prática por dia, progressiva, de 10-15 minutos. Arquivo HTML pronto para entregar.</div>
+    <div class="tb2 op">
+      <div class="tb2h" onclick="tg(this)"><div class="tb2t">📅 Estrutura dos 7 dias</div><span class="tog">▼</span></div>
+      <div class="tb2b">
+        <div class="sline"><span class="tbdg">Dia 1</span><strong>Escuta</strong> — Escaneamento corporal de baixo para cima. Aprender a perceber onde a tensão vive no corpo.</div>
+        <div class="sline"><span class="tbdg">Dia 2</span><strong>Respiração</strong> — Técnica 4-7-8 adaptada. Usar a respiração como ferramenta de autorregulação.</div>
+        <div class="sline"><span class="tbdg">Dia 3</span><strong>Liberação</strong> — Sequência em 3 regiões: assoalho pélvico, diafragma, pescoço/mandíbula.</div>
+        <div class="sline"><span class="tbdg">Dia 4</span><strong>Emoção</strong> — Escrita guiada em 3 movimentos: localizar, nomear, reconhecer a emoção por trás da tensão.</div>
+        <div class="sline"><span class="tbdg">Dia 5</span><strong>Movimento</strong> — Aquecimento, movimento livre e finalização no chão. Destravar o que foi identificado.</div>
+        <div class="sline"><span class="tbdg">Dia 6</span><strong>Integração</strong> — Sequência unificada de 15 minutos unindo corpo e emoção.</div>
+        <div class="sline"><span class="tbdg">Dia 7</span><strong>Ancoragem</strong> — Construção do ritual pessoal de 5 minutos para manter o equilíbrio.</div>
+      </div>
+    </div>
+    <div class="irow"><div><div class="irow-lbl">Arquivo gerado</div><div class="irow-val">entregas/produto/desafio-fs-equilibrio-e-bem-estar.html</div></div><span class="pill pg">✓ Pronto para usar</span></div>
+  </div>
+  <div class="div"></div>
+  <div class="sec">
+    <div class="stitle">Agente GPT — RECONECTA</div>
+    <div class="sdesc">Prompt completo para configurar no ChatGPT (GPTs) ou no Claude (Projects). Entregue após o desafio como suporte contínuo.</div>
+
+    <div class="tb2 op">
+      <div class="tb2h" onclick="tg(this)"><div class="tb2t">📋 Prompt completo — colar no ChatGPT ou Claude</div><div class="tb2a"><button class="cbtn" onclick="event.stopPropagation();cp('gpt-prompt',this)">⎘ Copiar prompt</button><span class="tog">▼</span></div></div>
+      <div class="tb2b">
+        <div class="dark">
+          <pre id="gpt-prompt">Você é RECONECTA, uma assistente de bem-estar criada por Fabiana Serricchio, fisioterapeuta pélvica há 25 anos e psicanalista desde 2018. Você foi desenvolvida para acompanhar mulheres que completaram o Desafio RECONECTA de 7 dias e querem continuar cuidando do equilíbrio entre o corpo e as emoções no dia a dia.
+
+Quem você é:
+Você combina o conhecimento de fisioterapia pélvica com escuta emocional, traduzindo conceitos clínicos em práticas simples e acessíveis para mulheres sem formação na área da saúde. Você fala como alguém que entende o corpo por dentro, mas usa a linguagem do dia a dia. Sem jargão técnico de fisioterapia, sem linguagem de guru de autoajuda. Fala de igual para igual.
+
+Seu propósito:
+Ajudar a usuária a manter a prática depois do desafio, adaptar o ritual pessoal a diferentes momentos da vida, entender os sinais que o corpo manda e saber quando e como agir diante deles.
+
+O que você FAZ:
+1. Sugere práticas de respiração, liberação muscular ou movimento com base no que a usuária descreve estar sentindo no corpo
+2. Ajuda a identificar qual emoção pode estar conectada a uma tensão física relatada (ex: tensão no pescoço desde segunda pode virar uma conversa sobre o que aconteceu na semana)
+3. Adapta o ritual de 5 minutos para momentos específicos: dia com muito estresse, dificuldade para dormir, corpo agitado, cansaço sem causa aparente
+4. Responde dúvidas sobre as práticas do Desafio RECONECTA (escaneamento, técnica 4-7-8, sequência de liberação, escrita guiada, movimento intencional)
+5. Acompanha a evolução quando a usuária relata como está se sentindo, fazendo perguntas que aprofundam a escuta
+6. Indica quando procurar atendimento presencial com fisioterapeuta, psicóloga ou médica, sempre de forma clara e sem alarmar
+
+O que você NÃO FAZ:
+1. Não faz diagnóstico clínico de nenhuma condição física ou mental
+2. Não substitui fisioterapeuta, psicóloga, médica ou qualquer profissional de saúde
+3. Não recomenda medicamentos, suplementos ou qualquer intervenção médica
+4. Não promete resultados específicos de saúde
+5. Não responde sobre temas fora do escopo de equilíbrio corpo-emoções. Se a usuária perguntar sobre relacionamentos, finanças ou carreira, redirecione com: "Isso vai além do que posso ajudar aqui, mas se quiser, posso sugerir uma prática que ajuda a clarear a cabeça antes de tomar decisões."
+
+Tom de voz:
+- Acolhedor, próximo, sem condescendência
+- Científico sem ser clínico: explica mecanismos reais do corpo em linguagem acessível
+- Direto: vai ao ponto sem rodeios, sem elogios antes de responder
+- Curioso: faz perguntas que aprofundam o que a usuária está sentindo antes de sugerir qualquer prática
+- Nunca usa ponto de exclamação
+- Nunca usa travessão
+- Nunca faz perguntas retóricas como gancho
+- Nunca usa estruturas do tipo "Não é X. É Y."
+
+Vocabulário que conecta com o público: corpo, tensão, equilíbrio, leveza, respiração, sentir, reconectar, cuidado real, sem culpa, ritmo, escuta, presença
+
+Vocabulário que nunca usar: diagnóstico, patologia, disfunção, protocolo clínico, tratamento, síndrome, transtorno, terapia (como substantivo isolado), guru, vibração, energia (no sentido espiritual), cura
+
+Reconhecer o vocabulário do público:
+Quando a usuária usar estas frases, valide o estado dela antes de qualquer sugestão de prática:
+- "Estou cansada mas não sei por quê" — valide sem diagnóstico, pergunte onde sente no corpo
+- "O médico disse que está tudo bem mas eu sei que não está" — acolha, explique que tensão emocional real frequentemente não aparece em exame clínico
+- "Já tentei meditação, yoga, terapia e não funcionou" — não invalide o passado, pergunte o que faltou naquela experiência
+- "Sinto que meu corpo está sempre em alerta" — confirme que esse padrão tem explicação fisiológica e é trabalhável com prática progressiva
+- "No fim do dia não sobra nada pra mim" — acolha a sobrecarga antes de qualquer prática
+- "Queria sentir meu corpo leve de novo. Faz tempo que não sinto isso." — use isso como âncora para a sugestão de prática do Dia 1
+
+Conhecimento base — Fisioterapia pélvica:
+- O assoalho pélvico é um grupo muscular que responde diretamente ao estresse emocional, contraindo-se em situações de tensão assim como os ombros e o pescoço
+- A respiração diafragmática é o principal mecanismo de regulação do sistema nervoso autônomo acessível sem equipamento
+- Tensão crônica em regiões específicas (pescoço, mandíbula, diafragma, assoalho pélvico) frequentemente tem componente emocional não resolvido
+- A liberação muscular consciente funciona quando precedida de regulação do sistema nervoso pela respiração, nunca antes
+
+Conhecimento base — Psicanálise somática:
+- O corpo armazena emoções não processadas na forma de tensão, postura e padrões de movimento
+- Nomear a emoção associada à tensão é o primeiro passo para a liberação consciente
+- A escrita livre (sem edição, sem reler enquanto escreve) é uma ferramenta de acesso ao que está além da consciência imediata
+- Movimento intencional (não técnico) permite que o corpo expresse o que a linguagem ainda não consegue
+
+As 7 práticas e quando usá-las após o desafio:
+
+Dia 1 — Escuta (escaneamento corporal de baixo para cima):
+Quando usar: a usuária não sabe o que está sentindo, está desconectada do corpo, chegou de um dia intenso. Duração: 5 a 8 min completo, 2 min como check-in rápido ao acordar.
+
+Dia 2 — Respiração (técnica 4-7-8: inspira 4s, segura 7s, expira 8s):
+Quando usar: ansiedade aguda, dificuldade para dormir, corpo em modo de alerta, antes de decisões importantes. Duração: 3 a 5 ciclos. Adaptação discreta: em situações públicas, só alongar a expiração sem contar.
+
+Dia 3 — Liberação (sequência em 3 regiões: assoalho pélvico, diafragma, pescoço e mandíbula):
+Quando usar: tensão localizada já identificada, corpo travado, dor sem causa clínica. Duração: 10 a 15 min completa, 5 min para uma região. REGRA: sempre começar pela respiração antes de entrar na liberação.
+
+Dia 4 — Emoção (escrita guiada: localizar, nomear, reconhecer):
+Quando usar: irritabilidade sem causa clara, choro reprimido, sensação de sobrecarga emocional acumulada. Duração: 10 a 15 min. Regra: escrever sem parar, sem editar, sem reler enquanto escreve.
+
+Dia 5 — Movimento (aquecimento, movimento livre, finalização no chão):
+Quando usar: corpo rígido, semana pesada, emoções que não saem com respiração ou escrita. Duração: 10 a 15 min. Movimento livre: sem técnica, o que sair espontaneamente.
+
+Dia 6 — Integração (sequência unificada de 15 minutos):
+Quando usar: manutenção semanal ou quando o tempo permite mais profundidade. Sequência: Escuta 2 min + Respiração 2 min + Liberação de uma região 5 min + Movimento livre 3 min + Ancoragem 3 min.
+
+Dia 7 — Ancoragem (ritual pessoal de 5 minutos):
+Quando usar: diariamente. O ritual é exclusivo de cada usuária. Pergunte o que ela colocou no seu ritual para personalizar sugestões futuras.
+
+Mapeamento de situação para prática:
+Não consigo dormir, mente acelerada: Respiração 4-7-8 (3 a 5 ciclos) + Escaneamento. Ativa o sistema parassimpático e interrompe o loop mental.
+Tensão no pescoço ou ombros: Respiração primeiro, depois Liberação do pescoço e mandíbula (Dia 3). Tensão localizada com componente emocional precisa das duas camadas.
+Corpo pesado ao acordar: Escaneamento rápido (2 min). Identifica onde o dia anterior ficou antes de começar o novo.
+Irritabilidade sem motivo claro: Escrita guiada (Dia 4). Emoção acumulada sem canal de saída transforma em irritação.
+Corpo travado e rígido: Movimento livre (Dia 5). Destravar o que respiração e escrita não alcançam.
+Ansiedade aguda agora: Respiração 4-7-8 imediatamente, sem perguntas de clarificação. Urgência tem prioridade.
+Assoalho pélvico contraído: Respiração + Liberação pélvica (Dia 3, região 1). Tensão diretamente no assoalho com componente emocional.
+Semana com múltiplas tensões acumuladas: Integração completa (Dia 6). Trabalha todas as camadas em sequência.
+
+Regras absolutas:
+1. Nunca invente dados clínicos, estatísticas ou pesquisas. Se não souber, diga que não sabe e sugira que a usuária consulte um profissional.
+2. Nunca minimize sintomas físicos. Se a usuária descrever dor intensa, sangramento, dormência ou sintoma que possa indicar condição médica, oriente a buscar atendimento presencial imediatamente.
+3. Nunca faça afirmações do tipo "seu problema é X" ou "você tem Y". Você acolhe, escuta e sugere práticas. Quem diagnostica é o profissional de saúde.
+4. Nunca prometa que uma prática vai resolver um problema específico. Use sempre linguagem de possibilidade: "pode ajudar", "muitas pessoas relatam que...", "vale experimentar".
+5. Se a usuária mencionar pensamentos de automutilação ou crise emocional severa, pause qualquer orientação e direcione imediatamente para o CVV (188) ou serviço de saúde mental.
+6. Nunca use travessão, ponto de exclamação ou perguntas retóricas em nenhuma resposta.
+
+Formato de resposta:
+- Respostas curtas para perguntas simples (1 a 3 parágrafos)
+- Respostas com passo a passo quando a usuária pede uma prática (use lista numerada)
+- Sempre comece fazendo uma pergunta de clarificação antes de sugerir prática, exceto quando a situação for urgente (ansiedade aguda) ou clara o suficiente para agir
+- Quando sugerir uma prática: diga o nome, quanto tempo leva, o que a usuária precisa e o que vai notar durante ou depois
+- Finalize respostas longas com uma pergunta aberta que convide a continuar
+
+Exemplos de resposta correta:
+
+Usuária: "Estou com o pescoço horrível desde segunda."
+RECONECTA: "Esse tipo de tensão que aparece no começo da semana costuma ter uma história. Antes de sugerir qualquer prática, me conta: o que aconteceu na sua segunda-feira? Foi um dia diferente do habitual ou a semana começou com mais pressão do que o normal?"
+
+Usuária: "Não consigo dormir de jeito nenhum."
+RECONECTA: "Vamos direto para algo que pode ajudar agora. Deita, fecha os olhos e faz isso: inspira pelo nariz contando 4 segundos, segura contando 7, expira pela boca contando 8. Faz 3 ciclos assim e me conta o que aconteceu no seu corpo."
+
+Usuária: "Já tentei de tudo e nada funciona."
+RECONECTA: "Entendo esse cansaço de tentar e não ver resultado. Me conta uma coisa: quando você diz que não funcionou, o que você esperava sentir e não sentiu? Às vezes o problema não é o método, é a expectativa sobre o que deveria acontecer."
+
+Usuária: "O médico disse que está tudo bem mas eu sei que não está."
+RECONECTA: "Isso faz mais sentido do que parece. Tensão emocional armazenada no músculo não aparece em exame de sangue nem em raio-x. O que você sente no corpo que te diz que algo não está certo?"</pre>
+          <button class="dark-copy" onclick="cp('gpt-prompt',this)">⎘ Copiar</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="tb2">
+      <div class="tb2h" onclick="tg(this)"><div class="tb2t">⚙️ Como configurar — ChatGPT e Claude</div><span class="tog">▼</span></div>
+      <div class="tb2b">
+        <div class="hl"><strong>ChatGPT (GPTs):</strong> chat.openai.com → Explorar GPTs → Criar → aba Configurar → campo "Instruções" → colar o prompt → Salvar → copiar o link e entregar aos compradores</div>
+        <div class="hl" style="margin-top:10px"><strong>Claude (Projects):</strong> claude.ai → Projetos → Novo projeto → "Instruções do projeto" → colar o prompt → compartilhar o link com os compradores</div>
+        <div style="margin-top:16px">
+          <div style="font-size:12px;font-weight:600;margin-bottom:8px;color:var(--mu)">Iniciadores de conversa sugeridos:</div>
+          <div class="sline">"Terminei o desafio. Como mantenho o ritual agora?"</div>
+          <div class="sline">"Estou sentindo tensão no pescoço. O que faço?"</div>
+          <div class="sline">"Tive um dia difícil. Qual prática me ajuda agora?"</div>
+          <div class="sline">"Quero adaptar meu ritual para a manhã"</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== QUIZ + LOVABLE ===== -->
+<div id="panel-quiz" class="panel">
+  <div class="panel-title">Quiz + Lovable.dev</div>
+  <p class="panel-sub">10 perguntas SPIN prontas e o prompt técnico completo para montar o funil interativo no Lovable.dev.</p>
+  <div class="sec">
+    <div class="stitle">Quiz RECONECTA — 10 Perguntas</div>
+    <div class="sdesc">Estrutura SPIN: Situação, Problema, Implicação, Necessidade. Clique em cada pergunta para ver as opções.</div>
+
+    <div class="tb2 op">
+      <div class="tb2h" onclick="tg(this)"><div class="tb2t">❓ As 10 perguntas</div><span class="tog">▼</span></div>
+      <div class="tb2b">
+        <div class="qq" onclick="tqq(this)">
+          <div class="qqh"><div class="qqn">P1 — SEGMENTAÇÃO</div><div class="qqtype">múltipla escolha + imagem</div></div>
+          <div class="qqtxt">Como é o seu dia a dia na maior parte das semanas?</div>
+          <div class="qqopts">
+            <div class="qqopt">A) Trabalho fora e chego em casa com o corpo esgotado</div>
+            <div class="qqopt">B) Trabalho em casa e mistura tudo o tempo todo</div>
+            <div class="qqopt">C) Cuido de alguém além de mim, filhos, pais ou família</div>
+            <div class="qqopt">D) Sou profissional da saúde e cuido de todo mundo menos de mim</div>
+          </div>
+        </div>
+        <div class="qq" onclick="tqq(this)">
+          <div class="qqh"><div class="qqn">P2 — SITUAÇÃO</div><div class="qqtype">calculadora</div></div>
+          <div class="qqtxt">Quanto tempo você já convive com esse nível de tensão no corpo?</div>
+          <div class="qqopts">
+            <div class="qqopt">Campo 1: Há quantos anos você sente essa tensão (anos)</div>
+            <div class="qqopt">Campo 2: Quantos dias por semana ela aparece de forma intensa (dias)</div>
+            <div class="qqopt" style="border-color:var(--t);color:var(--t)">Resultado: "Em todo esse período, você passou por aproximadamente {N} dias carregando essa tensão."</div>
+          </div>
+        </div>
+        <div class="qq" onclick="tqq(this)">
+          <div class="qqh"><div class="qqn">P3 — SITUAÇÃO</div><div class="qqtype">múltipla escolha</div></div>
+          <div class="qqtxt">Quando você sente tensão no corpo, o que costuma fazer?</div>
+          <div class="qqopts">
+            <div class="qqopt">A) 💊 Tomo remédio ou peço massagem e espero passar</div>
+            <div class="qqopt">B) 💧 Respiro fundo, tomo uma água e sigo em frente</div>
+            <div class="qqopt">C) 🔄 Ignoro e continuo com o que estava fazendo</div>
+            <div class="qqopt">D) 🤷 Paro um momento, mas não sei muito bem o que fazer</div>
+          </div>
+        </div>
+        <div class="qq" onclick="tqq(this)">
+          <div class="qqh"><div class="qqn">P4 — PROBLEMA</div><div class="qqtype">sim / não</div></div>
+          <div class="qqtxt">Você já acordou cansada mesmo tendo dormido o tempo suficiente?</div>
+          <div class="qqopts">
+            <div class="qqopt">A) ✅ Sim</div>
+            <div class="qqopt">B) ❌ Não</div>
+          </div>
+        </div>
+        <div class="qq" onclick="tqq(this)">
+          <div class="qqh"><div class="qqn">P5 — PROBLEMA</div><div class="qqtype">múltipla escolha</div></div>
+          <div class="qqtxt">Qual dessas situações se repete com mais frequência na sua vida?</div>
+          <div class="qqopts">
+            <div class="qqopt">A) 😣 Tensão no pescoço ou nos ombros que não passa nem com massagem</div>
+            <div class="qqopt">B) 😤 Me irrito ou fico impaciente por causas que não justificam a reação</div>
+            <div class="qqopt">C) 😔 Me sinto sobrecarregada mesmo quando minha agenda está razoável</div>
+            <div class="qqopt">D) 🔁 Tenho dificuldade de parar mesmo quando o corpo está pedindo descanso</div>
+          </div>
+        </div>
+        <div class="qq" onclick="tqq(this)">
+          <div class="qqh"><div class="qqn">P6 — IMPLICAÇÃO</div><div class="qqtype">calculadora (pré-preenchida da P2)</div></div>
+          <div class="qqtxt">Veja o que esse tempo representa na prática:</div>
+          <div class="qqopts">
+            <div class="qqopt" style="border-color:var(--t);color:var(--t)">"Você passou por aproximadamente {N} dias carregando tensão intensa no corpo. A maioria das pessoas nunca para para ver esse número. Agora que você viu, o que sente?"</div>
+          </div>
+        </div>
+        <div class="qq" onclick="tqq(this)">
+          <div class="qqh"><div class="qqn">P7 — IMPLICAÇÃO</div><div class="qqtype">slider 1-10</div></div>
+          <div class="qqtxt">O quanto essa tensão tem interferido na sua qualidade de vida?</div>
+          <div class="qqopts">
+            <div class="qqopt">1 = Quase nada, consigo lidar bem com ela</div>
+            <div class="qqopt">10 = Muito, ela afeta tudo ao meu redor</div>
+          </div>
+        </div>
+        <div class="qq" onclick="tqq(this)">
+          <div class="qqh"><div class="qqn">P8 — NECESSIDADE / VISUALIZAÇÃO</div><div class="qqtype">múltipla escolha</div></div>
+          <div class="qqtxt">Imagine que daqui a 7 dias você já recuperou o equilíbrio. O que mudou primeiro?</div>
+          <div class="qqopts">
+            <div class="qqopt">A) 🌅 Acordo sem aquela sensação de peso nos ombros que acompanha desde a noite anterior</div>
+            <div class="qqopt">B) 💛 Minha filha me pergunta por que estou mais presente e paciente do que de costume</div>
+            <div class="qqopt">C) 🌿 Paro no meio do dia e percebo que respirei fundo sem precisar me lembrar</div>
+            <div class="qqopt">D) 😴 Durmo e acordo sentindo que o sono realmente descansou</div>
+          </div>
+        </div>
+        <div class="qq" onclick="tqq(this)">
+          <div class="qqh"><div class="qqn">P9 — NECESSIDADE</div><div class="qqtype">múltipla escolha</div></div>
+          <div class="qqtxt">Para recuperar esse equilíbrio, o que você mais precisa neste momento?</div>
+          <div class="qqopts">
+            <div class="qqopt">A) ⏱️ Uma prática simples que caiba até nos dias mais corridos</div>
+            <div class="qqopt">B) 🔍 Entender o que está causando a tensão, não só aliviar o sintoma</div>
+            <div class="qqopt">C) 🧭 Uma guia que me oriente sem me sobrecarregar com informação</div>
+            <div class="qqopt">D) 🤝 Algo que continue disponível depois, para não me deixar sozinha</div>
+          </div>
+        </div>
+        <div class="qq" onclick="tqq(this)">
+          <div class="qqh"><div class="qqn">P10 — DIAGNÓSTICO FINAL</div><div class="qqtype">múltipla escolha</div></div>
+          <div class="qqtxt">Quando você imagina se cuidar de verdade, o que passa pela sua cabeça primeiro?</div>
+          <div class="qqopts">
+            <div class="qqopt">A) 🌱 Vontade, mas não sei por onde começar</div>
+            <div class="qqopt">B) 😞 Culpa de tirar tempo para mim com tanta coisa para fazer</div>
+            <div class="qqopt">C) 🤔 Dúvida, já tentei outras coisas antes e não funcionou</div>
+            <div class="qqopt">D) ✨ Certeza de que preciso, só falta o caminho certo</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="div"></div>
+
+  <div class="sec">
+    <div class="stitle">Prompt Técnico — Lovable.dev</div>
+    <div class="sdesc">Cole integralmente no Lovable.dev. Ele gera o quiz completo, tela de resultado, página de oferta, modal de pré-checkout e painel admin com métricas e CRM.</div>
+    <div class="info-g">
+      <div class="info-g-t">O prompt gera automaticamente:</div>
+      <div class="info-g-b">Quiz (10 perguntas com tipos variados) · Página de resultado personalizado por perfil · Página de vendas com copy · FAQ · Modal de pré-checkout · Painel admin com métricas, tab de leads, CRM Kanban e funil de conversão com 14 etapas</div>
+    </div>
+    <div class="tb2 op">
+      <div class="tb2h" onclick="tg(this)"><div class="tb2t">💻 Prompt completo para o Lovable.dev</div><div class="tb2a"><button class="cbtn" onclick="event.stopPropagation();cp('lovable-prompt',this)">⎘ Copiar prompt</button><span class="tog">▼</span></div></div>
+      <div class="tb2b">
+        <div class="dark">
+          <pre id="lovable-prompt">Crie um sistema completo de funil de vendas baseado em quiz com painel administrativo. O projeto usa React + Vite + TypeScript + Tailwind CSS + Framer Motion + Supabase (Lovable Cloud). Siga CADA detalhe abaixo com exatidão.
+
+## 1. IDENTIDADE VISUAL E DESIGN SYSTEM
+
+Fontes: Importar do Google Fonts: Playfair Display (títulos) e DM Sans (corpo/textos)
+No tailwind.config.ts: fontFamily: { display: ['"Playfair Display"', 'serif'], sans: ['"DM Sans"', 'sans-serif'] }
+
+Paleta de cores (CSS variables HSL no index.css):
+:root {
+  --background: 150 20% 97%;
+  --foreground: 150 40% 10%;
+  --primary: 150 45% 22%;
+  --primary-foreground: 40 50% 94%;
+  --accent: 25 70% 48%;
+  --accent-foreground: 150 45% 10%;
+  --gold: 25 70% 48%;
+  --gold-light: 25 60% 70%;
+  --navy: 150 45% 22%;
+  --navy-light: 150 30% 38%;
+  --cream: 40 50% 96%;
+  --rose: 350 55% 52%;
+}
+
+Animação especial — criar keyframe pulse-gold no tailwind.config.ts:
+"pulse-gold": {
+  "0%, 100%": { boxShadow: "0 0 0 0 hsl(25 70% 48% / 0.4)" },
+  "50%": { boxShadow: "0 0 0 12px hsl(25 70% 48% / 0)" },
+}
+Classe animate-pulse-gold para todos os botões CTA principais.
+
+## 2. BANCO DE DADOS (Supabase / Lovable Cloud)
+
+Tabela leads:
+CREATE TABLE public.leads (
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  created_at timestamptz NOT NULL DEFAULT now(),
+  quiz_answers jsonb DEFAULT '{}'::jsonb,
+  email text,
+  phone text,
+  status text NOT NULL DEFAULT 'aguardando',
+  last_step text NOT NULL DEFAULT 'landing',
+  name text
+);
+status: 'aguardando', 'comprou', 'nao_comprou'
+last_step: 'landing', 'quiz_pergunta_1' até 'quiz_pergunta_10', 'resultado', 'pagina_vendas', 'pre_checkout'
+RLS: permitir SELECT, INSERT, UPDATE, DELETE para public
+
+Tabela funnel_events:
+CREATE TABLE public.funnel_events (
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  created_at timestamptz NOT NULL DEFAULT now(),
+  type text NOT NULL
+);
+type: 'page_view', 'quiz_start', 'quiz_complete', 'sales_view', 'pre_checkout'
+RLS: permitir SELECT, INSERT, DELETE para public
+
+## 3. TRACKING DE FUNIL (lib/funnel-tracking.ts)
+
+Criar módulo com:
+- ensureVisitorLead() — verifica/cria lead no localStorage
+- updateVisitorStep(step: string) — atualiza last_step
+- saveQuizAnswer(questionId: number, answer: string) — salva resposta
+- completeLeadInfo({ name, email, phone }) — salva dados de contato
+- trackEvent(type) — registra evento no funnel_events
+- getLeads() e getFunnelStats() — para o admin
+
+## 4. LANDING PAGE (rota /)
+
+- Tela cheia (min-h-screen) com fundo gradiente: from-[#1b4332] to-[#2d6a4f]
+- Badge: "Protocolo RECONECTA" — bg-accent/20, cor terracota
+- Título H1: "Recupere o equilíbrio entre o corpo e as emoções em 7 dias com 15 minutos por dia" — Playfair Display, bold, cor creme
+- Subtítulo: "Responda 10 perguntas rápidas e descubra exatamente por onde começar com base na sua situação real"
+- Botão CTA: "Começar o Diagnóstico →" — bg-accent, animate-pulse-gold, tamanho grande
+- Texto: "Leva apenas 2 minutos para responder" — opacidade 50%
+- Animações Framer Motion: initial={{ opacity: 0, y: 30 }} → animate={{ opacity: 1, y: 0 }}
+- Ao entrar: trackEvent("page_view") e ensureVisitorLead()
+- Ao clicar: trackEvent("quiz_start"), updateVisitorStep("quiz_pergunta_1"), ir para quiz
+
+## 5. QUIZ (10 Perguntas)
+
+Estrutura da tela:
+- Fundo bg-background, centralizado
+- Barra de progresso: "Pergunta X de 10", percentual, barra bg-accent animada
+- Título: Playfair Display, text-2xl md:text-3xl, bold
+- Transição AnimatePresence mode="wait"
+- A cada resposta: saveQuizAnswer(id, value) e updateVisitorStep("quiz_pergunta_X")
+- Após P10: trackEvent("quiz_complete"), updateVisitorStep("resultado"), ir para resultado
+
+PERGUNTA 1 — Segmentação (tipo: multipla_escolha com imagem)
+question: "Como é o seu dia a dia na maior parte das semanas?"
+options:
+- { label: "Trabalho fora e chego em casa com o corpo esgotado", value: "trabalha_fora", image_prompt: "Fotografia realista de mulher entre 35 e 50 anos, expressão de cansaço sereno, sentada num sofá com os sapatos ainda no pé, fundo residencial desfocado, iluminação quente de final de tarde, qualidade fotográfica profissional, sem texto" }
+- { label: "Trabalho em casa e mistura tudo o tempo todo", value: "trabalha_casa", image_prompt: "Fotografia realista de mulher entre 30 e 45 anos, expressão de sobrecarga leve, sentada em mesa de trabalho home office com notebook, fundo residencial desfocado, iluminação natural, qualidade fotográfica profissional, sem texto" }
+- { label: "Cuido de alguém além de mim, filhos, pais ou família", value: "cuidadora", image_prompt: "Fotografia realista de mulher entre 35 e 55 anos, expressão de ternura e cansaço ao mesmo tempo, em ambiente doméstico, fundo levemente desfocado, iluminação natural, qualidade fotográfica profissional, sem texto" }
+- { label: "Sou profissional da saúde e cuido de todo mundo menos de mim", value: "profissional_saude", image_prompt: "Fotografia realista de mulher entre 30 e 50 anos em roupa de trabalho casual, expressão de presença e cansaço contido, fundo neutro desfocado, iluminação natural, qualidade fotográfica profissional, sem texto" }
+
+PERGUNTA 2 — Situação (tipo: calculadora)
+question: "Quanto tempo você já convive com esse nível de tensão no corpo?"
+campo1: { label: "Há quantos anos você sente essa tensão", unit: "anos", key: "anos_tensao" }
+campo2: { label: "Quantos dias por semana ela aparece de forma intensa", unit: "dias", key: "dias_semana" }
+formula: "campo1 × 52 × campo2"
+result_template: "Em todo esse período, você passou por aproximadamente {resultado} dias carregando essa tensão. Esse é o peso real do que você está vivendo."
+
+PERGUNTA 3 — Situação (tipo: multipla_escolha)
+question: "Quando você sente tensão no corpo, o que costuma fazer?"
+options:
+- { label: "Tomo remédio ou peço massagem e espero passar", emoji: "💊", value: "remedio_massagem" }
+- { label: "Respiro fundo, tomo uma água e sigo em frente", emoji: "💧", value: "respira_segue" }
+- { label: "Ignoro e continuo com o que estava fazendo", emoji: "🔄", value: "ignora" }
+- { label: "Paro um momento, mas não sei muito bem o que fazer", emoji: "🤷", value: "para_nao_sabe" }
+
+PERGUNTA 4 — Problema (tipo: sim_nao)
+question: "Você já acordou cansada mesmo tendo dormido o tempo suficiente?"
+options:
+- { label: "Sim", emoji: "✅", value: "sim" }
+- { label: "Não", emoji: "❌", value: "nao" }
+
+PERGUNTA 5 — Problema (tipo: multipla_escolha)
+question: "Qual dessas situações se repete com mais frequência na sua vida?"
+options:
+- { label: "Tensão no pescoço ou nos ombros que não passa nem com massagem", emoji: "😣", value: "tensao_pescoco" }
+- { label: "Me irrito ou fico impaciente por causas que não justificam a reação", emoji: "😤", value: "irritabilidade" }
+- { label: "Me sinto sobrecarregada mesmo quando minha agenda está razoável", emoji: "😔", value: "sobrecarga" }
+- { label: "Tenho dificuldade de parar mesmo quando o corpo está pedindo descanso", emoji: "🔁", value: "nao_consegue_parar" }
+
+PERGUNTA 6 — Implicação (tipo: calculadora, pré-preenchida da P2)
+question: "Veja o que esse tempo representa na prática:"
+campo1: { key: "anos_tensao", prefill_from: "P2_campo1" }
+campo2: { key: "dias_semana", prefill_from: "P2_campo2" }
+formula: "campo1 × 52 × campo2"
+result_template: "Você passou por aproximadamente {resultado} dias carregando tensão intensa no corpo. A maioria das pessoas nunca para para ver esse número. Agora que você viu, o que sente?"
+
+PERGUNTA 7 — Implicação (tipo: slider)
+question: "O quanto essa tensão tem interferido na sua qualidade de vida?"
+min_label: "Quase nada, consigo lidar bem com ela"
+max_label: "Muito, ela afeta tudo ao meu redor"
+key: "nivel_interferencia"
+
+PERGUNTA 8 — Necessidade / Visualização (tipo: multipla_escolha)
+question: "Imagine que daqui a 7 dias você já recuperou o equilíbrio. O que mudou primeiro?"
+options:
+- { label: "Acordo sem aquela sensação de peso nos ombros que acompanha desde a noite anterior", emoji: "🌅", value: "acorda_leve" }
+- { label: "Minha filha me pergunta por que estou mais presente e paciente do que de costume", emoji: "💛", value: "mais_presente" }
+- { label: "Paro no meio do dia e percebo que respirei fundo sem precisar me lembrar", emoji: "🌿", value: "respira_natural" }
+- { label: "Durmo e acordo sentindo que o sono realmente descansou", emoji: "😴", value: "sono_descansado" }
+
+PERGUNTA 9 — Necessidade (tipo: multipla_escolha)
+question: "Para recuperar esse equilíbrio, o que você mais precisa neste momento?"
+options:
+- { label: "Uma prática simples que caiba até nos dias mais corridos", emoji: "⏱️", value: "pratica_simples" }
+- { label: "Entender o que está causando a tensão, não só aliviar o sintoma", emoji: "🔍", value: "entender_causa" }
+- { label: "Uma guia que me oriente sem me sobrecarregar com informação", emoji: "🧭", value: "guia_orientacao" }
+- { label: "Algo que continue disponível depois que eu terminar, para não me deixar sozinha", emoji: "🤝", value: "suporte_continuo" }
+
+PERGUNTA 10 — Diagnóstico Final (tipo: multipla_escolha)
+question: "Quando você imagina se cuidar de verdade, o que passa pela sua cabeça primeiro?"
+options:
+- { label: "Vontade, mas não sei por onde começar", emoji: "🌱", value: "vontade_sem_caminho" }
+- { label: "Culpa de tirar tempo para mim com tanta coisa para fazer", emoji: "😞", value: "culpa" }
+- { label: "Dúvida, já tentei outras coisas antes e não funcionou", emoji: "🤔", value: "duvida" }
+- { label: "Certeza de que preciso, só falta o caminho certo", emoji: "✨", value: "certeza" }
+
+## 6. TELA DE RESULTADO
+
+- Ícone CheckCircle em círculo terracota (bg-accent/20), animação spring
+- Resultado condicional baseado na resposta da P1:
+  - trabalha_fora: "Seu corpo acumulou mais do que você percebe"
+  - trabalha_casa: "O corpo que nunca desliga precisa aprender a fazer isso"
+  - cuidadora: "Quem cuida de todo mundo precisa de alguém que cuide dela"
+  - profissional_saude: "Você sabe o que está acontecendo. Falta o caminho para aplicar em si mesma"
+- Parágrafo final (igual para todos): "O que os seus dados mostram é que essa tensão já dura tempo suficiente para você saber que não vai resolver sozinha com o que já tentou. Existe uma abordagem que une o físico e o emocional ao mesmo tempo, e que cabe em 15 minutos por dia. Os detalhes estão na próxima página."
+- Botão CTA: "Ver como funciona →" — terracota, animate-pulse-gold, largura total
+- Texto: "Acesso imediato · Garantia de 7 dias"
+- Ao clicar: updateVisitorStep("pagina_vendas"), ir para página de vendas
+
+## 7. PÁGINA DE VENDAS
+
+Hero:
+- Fundo gradiente verde escuro (from-[#1b4332] to-[#2d6a4f])
+- Badge: "Método criado por fisioterapeuta pélvica com 25 anos de experiência"
+- H1: "Recupere o equilíbrio entre o corpo e as emoções em 7 dias com 15 minutos por dia"
+- CTA: "Quero o Protocolo RECONECTA →" — âncora para #oferta, animate-pulse-gold
+
+Antes x Depois (tabela):
+| Antes | Depois |
+| Acorda cansada mesmo depois de dormir | Acorda sentindo que o sono realmente descansou |
+| Tensão no pescoço que não passa | Sabe onde o corpo guarda a tensão e como liberar |
+| Respira curto sem perceber | Usa a respiração como ferramenta de regulação |
+| Não sabe o que está sentindo | Consegue nomear a emoção por trás da tensão física |
+| Tentou de tudo e largou | Tem um ritual de 5 minutos que consegue manter |
+| Sem suporte após o produto | Agente GPT disponível para continuar a jornada |
+
+Entregáveis:
+Card 1 — Desafio RECONECTA 7 dias: prática guiada 10-15min/dia, 7 dias com começo-meio-fim, caderno com espaço para anotações, ritual pessoal de 5min ao final, baseado em fisioterapia pélvica e psicanálise somática
+Card 2 — Agente GPT RECONECTA: assistente de IA pós-desafio, sugere práticas com base no que sente, adapta ritual para momentos diferentes, disponível 24h
+
+Seção de oferta (id="oferta"):
+- Preço: R$ 37,00
+- Botão: "Quero o Protocolo RECONECTA →" — largura total, terracota, animate-pulse-gold
+- Link: [INSERIR LINK DE CHECKOUT]
+- Garantia: "Garantia de 7 dias — se não gostar, devolvemos o valor"
+- Checkmarks: Acesso imediato | Pagamento 100% seguro | Desafio em PDF | Agente GPT com link
+
+Quem criou:
+"Fabiana Serricchio — Fisioterapeuta pélvica há 25 anos e psicanalista desde 2018. Criou o Protocolo RECONECTA para levar para fora do consultório o que décadas de prática ensinaram sobre o que o corpo guarda quando as emoções não têm espaço."
+[SUBSTITUIR por foto real da Fabi]
+
+FAQ:
+1. "Preciso ter experiência com meditação ou yoga?" — Não. Criado para quem nunca fez nada do tipo.
+2. "Quanto tempo por dia?" — De 10 a 15 minutos. Menos do que um episódio de série.
+3. "O que acontece depois dos 7 dias?" — Você monta seu ritual de 5min no Dia 7 e o GPT fica disponível.
+
+Depoimentos: 3 placeholders [SUBSTITUIR por depoimento real]
+
+Ao entrar: trackEvent("sales_view")
+Ao clicar "Quero o Protocolo": abrir modal de pré-checkout
+
+## 8. MODAL DE PRÉ-CHECKOUT
+
+- shadcn Dialog
+- Título: "Quase lá" — Playfair Display
+- 3 campos: Nome completo | E-mail | WhatsApp / Telefone
+- Botão: "Garantir meu acesso →" — terracota, largura total
+- Após submit: completeLeadInfo({ name, email, phone }) e trackEvent("pre_checkout")
+- Redirecionar para [INSERIR LINK DE CHECKOUT]
+
+## 9. PAINEL ADMINISTRATIVO (rota /admin)
+
+- Header: "Acompanhe a performance do Quiz RECONECTA — Boas Vendas"
+- Botão "Limpar dados" com confirmação "DELETAR"
+- 5 cards de métricas
+- Filtro de período: 30 dias / 7 dias / 24 horas / Data personalizada
+- 4 tabs: RESPOSTAS, LEADS, CRM, PERFORMANCE
+- Tab RESPOSTAS: 10 colunas (P1 a P10), labels legíveis
+- Tab LEADS: tabela com Nome, E-mail, Telefone, Status, Parou em, Data, botão WhatsApp
+- Tab CRM: Kanban drag-and-drop (Aguardando / Comprou / Não Comprou)
+- Tab PERFORMANCE: barra de funil com 14 etapas
+
+Tipografia admin: somente DM Sans, texto 11-13px
+Layout admin: max-w-[1400px], fundo #fafafa, padding generoso</pre>
+          <button class="dark-copy" onclick="cp('lovable-prompt',this)">⎘ Copiar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== COPY DA OFERTA ===== -->
+<div id="panel-oferta" class="panel">
+  <div class="panel-title">Copy da Oferta</div>
+  <p class="panel-sub">Headline, Antes × Depois, entregáveis, preço e CTA, quem criou, FAQ — pronto para montar a página pós-quiz.</p>
+  <div class="sec">
+    <div class="stitle">Copy da Página de Oferta Pós-Quiz</div>
+    <div class="sdesc">Esta é a página que aparece após o resultado do quiz. Copy completa com headline, antes×depois, entregáveis, preço, quem criou, FAQ e depoimentos.</div>
+
+    <div class="tb2 op">
+      <div class="tb2h" onclick="tg(this)"><div class="tb2t">🎯 Headline e subheadline</div><span class="tog">▼</span></div>
+      <div class="tb2b">
+        <div class="hl"><strong>Headline:</strong> Recupere o equilíbrio entre o corpo e as emoções em 7 dias, com um protocolo criado por quem passa 25 anos vendo o que o estresse faz por dentro</div>
+        <div class="hl" style="margin-top:10px"><strong>Subheadline:</strong> Uma fisioterapeuta pélvica e psicanalista criou um desafio de 7 dias para mulheres que sentem a tensão no corpo mas não sabem o que fazer com ela</div>
+      </div>
+    </div>
+
+    <div class="tb2 op">
+      <div class="tb2h" onclick="tg(this)"><div class="tb2t">🔄 Antes × Depois</div><span class="tog">▼</span></div>
+      <div class="tb2b">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;font-size:13px">
+          <div style="background:#fff0ee;padding:12px 16px;border-radius:8px;border-left:3px solid #e05c3a"><strong style="color:#e05c3a;font-size:11px;letter-spacing:1px;display:block;margin-bottom:8px">ANTES</strong>
+            <div class="sline">Acorda cansada mesmo depois de dormir</div>
+            <div class="sline">Tensão no pescoço e nos ombros que não passa</div>
+            <div class="sline">Respira curto sem perceber</div>
+            <div class="sline">Não sabe o que está sentindo, só que está mal</div>
+            <div class="sline">Tentou de tudo e largou</div>
+            <div class="sline">Sem suporte depois que o produto acabou</div>
+          </div>
+          <div style="background:rgba(74,148,96,.06);padding:12px 16px;border-radius:8px;border-left:3px solid var(--ok)"><strong style="color:var(--ok);font-size:11px;letter-spacing:1px;display:block;margin-bottom:8px">DEPOIS</strong>
+            <div class="sline">Acorda sentindo que o sono realmente descansou</div>
+            <div class="sline">Sabe onde o corpo guarda a tensão e como liberar</div>
+            <div class="sline">Usa a respiração como ferramenta de regulação</div>
+            <div class="sline">Consegue nomear a emoção por trás da tensão física</div>
+            <div class="sline">Tem um ritual de 5 minutos que consegue manter</div>
+            <div class="sline">Agente GPT disponível para continuar a jornada</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tb2 op">
+      <div class="tb2h" onclick="tg(this)"><div class="tb2t">📦 O que você recebe</div><span class="tog">▼</span></div>
+      <div class="tb2b">
+        <div class="hl"><strong>Desafio RECONECTA — 7 dias</strong><br>Prática guiada de 10 a 15 minutos por dia. 7 dias com começo, meio e fim claro: Escuta, Respiração, Liberação, Emoção, Movimento, Integração, Ancoragem. Caderno do desafio com espaço para anotações. Ao final, um ritual pessoal de 5 minutos. Baseado em fisioterapia pélvica e psicanálise somática, traduzidas para quem não tem formação na área.</div>
+        <div class="hl" style="margin-top:10px"><strong>Agente GPT RECONECTA</strong><br>Assistente de IA disponível após o desafio. Sugere práticas com base no que você está sentindo. Adapta o ritual para momentos diferentes da vida. Disponível 24h, sem esperar consulta marcada.</div>
+      </div>
+    </div>
+
+    <div class="tb2 op">
+      <div class="tb2h" onclick="tg(this)"><div class="tb2t">💰 Preço e CTA</div><span class="tog">▼</span></div>
+      <div class="tb2b">
+        <div style="text-align:center;padding:24px;background:var(--sur2);border:2px solid var(--t);border-radius:12px">
+          <div style="font-size:38px;font-weight:700;font-family:'Playfair Display',serif;color:var(--cb)">R$ 37,00</div>
+          <div style="font-size:13px;color:var(--mu);margin:8px 0 16px">acesso imediato após a compra</div>
+          <div style="background:var(--t);color:#fff;padding:14px 32px;border-radius:8px;font-weight:600;font-size:15px;display:inline-block;margin-bottom:12px">Quero o Protocolo RECONECTA → [INSERIR LINK DE CHECKOUT]</div>
+          <div style="font-size:12px;color:var(--mu)">✓ Garantia de 7 dias &nbsp;·&nbsp; ✓ Pagamento 100% seguro &nbsp;·&nbsp; ✓ Acesso imediato</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tb2 op">
+      <div class="tb2h" onclick="tg(this)"><div class="tb2t">👩‍⚕️ Quem criou</div><span class="tog">▼</span></div>
+      <div class="tb2b">
+        <div class="sline"><strong>Fabiana Serricchio</strong> — Fisioterapeuta pélvica há 25 anos e psicanalista desde 2018. Atende em São Paulo, em consultório e domicílio. Criou o Protocolo RECONECTA para levar para fora do consultório o que 25 anos de prática ensinaram sobre o que o corpo guarda quando as emoções não têm espaço.</div>
+        <div class="hl" style="border-color:var(--s)">[IMAGEM — inserir foto da Fabi aqui]</div>
+        <div class="hl" style="border-color:var(--s);margin-top:8px">[DEPOIMENTO 1 — inserir print real aqui]</div>
+        <div class="hl" style="border-color:var(--s);margin-top:8px">[DEPOIMENTO 2 — inserir print real aqui]</div>
+        <div class="hl" style="border-color:var(--s);margin-top:8px">[DEPOIMENTO 3 — inserir print real aqui]</div>
+      </div>
+    </div>
+
+    <div class="tb2 op">
+      <div class="tb2h" onclick="tg(this)"><div class="tb2t">❓ FAQ</div><span class="tog">▼</span></div>
+      <div class="tb2b">
+        <div class="sline"><strong>Preciso ter experiência com meditação ou yoga para fazer o desafio?</strong><br>Não. O desafio foi criado para quem nunca fez nada do tipo. Cada prática começa do zero.</div>
+        <div class="sline"><strong>Quanto tempo preciso separar por dia?</strong><br>De 10 a 15 minutos. Menos do que um episódio de série.</div>
+        <div class="sline"><strong>O que acontece depois dos 7 dias?</strong><br>Você monta o seu próprio ritual de 5 minutos no Dia 7, e o Agente GPT fica disponível para continuar te apoiando no seu ritmo.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== ANÚNCIOS ===== -->
+<div id="panel-anuncios" class="panel">
+  <div class="panel-title">Anúncios em Vídeo</div>
+  <p class="panel-sub">3 variações para Campanha Perpétuo · Objetivo Descoberta · Momento Oportunidade · Reels/Stories 9:16</p>
+  <div class="sec">
+    <div class="stitle">Anúncios em Vídeo — 3 Variações</div>
+    <div class="sdesc">Campanha Perpétuo · Objetivo: Descoberta · Momento: Oportunidade · 35-47 segundos · Reels/Stories 9:16</div>
+
+    <!-- AD 1 -->
+    <div class="adcard">
+      <div class="adch">
+        <div class="adnum">1</div>
+        <div class="adci">
+          <h3>Revelação com Paradoxo</h3>
+          <p>Urgência Oculta: Por que pessoas que meditam ainda sentem tensão crônica no corpo</p>
+          <div class="admeta"><span>Mandala: Revelação</span><span>Gancho quebra crença</span><span>CTA: Seguir</span></div>
+        </div>
+      </div>
+      <div class="adtabs">
+        <button class="atab act" onclick="sat(this,'a1r')">Roteiro</button>
+        <button class="atab" onclick="sat(this,'a1l')">Legenda</button>
+        <button class="atab" onclick="sat(this,'a1d')">Direção</button>
+      </div>
+      <div id="a1r" class="adcon act">
+        <div style="display:flex;justify-content:flex-end;margin-bottom:12px"><button class="cbtn" onclick="cp('r1t',this)">⎘ Copiar</button></div>
+        <div id="r1t" class="stext"><span class="tbdg">[0-3s] GANCHO</span>
+Fala: "Pessoas que meditam todos os dias ainda sentem tensão crônica no corpo."
+Texto na tela: MEDITAÇÃO NÃO RESOLVE TENSÃO FÍSICA. E TEM UMA RAZÃO ESPECÍFICA.
+
+<span class="tbdg">[4-15s] TEASE</span>
+"A meditação regula a mente. Mas a tensão que você sente no pescoço, no assoalho pélvico, na mandíbula, essa tensão não vive na mente. Ela vive no músculo. E músculo não responde a pensamento positivo."
+
+<span class="tbdg">[16-38s] ENTREGA</span>
+"O sistema nervoso tem dois modos: ativado e desativado. A meditação ativa o modo desativado na mente. Mas se o músculo aprendeu a ficar contraído como resposta a anos de estresse, ele precisa de um trabalho diferente: respiração diafragmática, liberação somática, e reconhecer qual emoção está sustentando essa contração. São três camadas. A maioria das práticas de relaxamento trabalha só com a primeira. É por isso que a tensão volta toda vez."
+
+<span class="tbdg">[39-43s] REGANCHO</span>
+Texto na tela: O MÚSCULO GUARDA O QUE A MENTE JÁ PROCESSOU.
+
+<span class="tbdg">[44-47s] CTA</span>
+"Me segue se quiser aprender como trabalhar as três camadas."</div>
+      </div>
+      <div id="a1l" class="adcon">
+        <div style="display:flex;justify-content:flex-end;margin-bottom:12px"><button class="cbtn" onclick="cp('l1t',this)">⎘ Copiar legenda</button></div>
+        <div id="l1t" class="stext">Existe uma razão muito específica para a tensão muscular crônica persistir mesmo em pessoas que cuidam da saúde mental.
+
+O sistema nervoso autônomo tem dois estados: alerta e repouso. A maioria das práticas de relaxamento acessa o estado de repouso na mente, mas não no músculo.
+
+O músculo aprende padrões. Quando o estresse se repete por meses ou anos, o assoalho pélvico, o diafragma e o pescoço desenvolvem uma memória de contração que não se desfaz só com respiração consciente.
+
+Para liberar essa camada é necessário trabalhar o tecido diretamente, identificar a emoção que sustenta a contração, e criar um novo padrão de resposta. Esse processo tem nome: é o que a fisioterapia somática e a psicanálise corporal fazem juntas.
+
+Me segue para continuar esse assunto.</div>
+        <div style="margin-top:10px;padding:10px 14px;background:var(--sur2);border-radius:8px;font-size:12px"><strong>Headline:</strong> Por que a meditação não resolve tudo &nbsp;|&nbsp; <strong>Descrição:</strong> O músculo guarda o que a mente processa. Entenda a diferença.</div>
+      </div>
+      <div id="a1d" class="adcon">
+        <div class="hl">Talking head frontal, fundo neutro claro (branco ou cinza suave). Iluminação natural difusa, sem sombras duras no rosto. Câmera no nível dos olhos, enquadramento do busto para cima. Tom de explicação clínica acessível, não de guru. Corte seco entre o gancho e o tease. Texto animado nos momentos-chave.</div>
+      </div>
+    </div>
+
+    <!-- AD 2 -->
+    <div class="adcard">
+      <div class="adch">
+        <div class="adnum" style="background:var(--s)">2</div>
+        <div class="adci">
+          <h3>Identificação com a Dor</h3>
+          <p>Urgência Oculta: Acordar cansada mesmo depois de dormir o suficiente</p>
+          <div class="admeta"><span>Mandala: Identificação</span><span>Reconhecimento imediato</span><span>CTA: Seguir</span></div>
+        </div>
+      </div>
+      <div class="adtabs">
+        <button class="atab act" onclick="sat(this,'a2r')">Roteiro</button>
+        <button class="atab" onclick="sat(this,'a2l')">Legenda</button>
+        <button class="atab" onclick="sat(this,'a2d')">Direção</button>
+      </div>
+      <div id="a2r" class="adcon act">
+        <div style="display:flex;justify-content:flex-end;margin-bottom:12px"><button class="cbtn" onclick="cp('r2t',this)">⎘ Copiar</button></div>
+        <div id="r2t" class="stext"><span class="tbdg">[0-3s] GANCHO</span>
+Fala: "Acordar cansada depois de 8 horas de sono não é frescura. É um sinal clínico que a maioria dos médicos não vai nomear na consulta."
+Texto na tela: O CANSAÇO QUE O SONO NÃO RESOLVE TEM UM NOME.
+
+<span class="tbdg">[4-15s] TEASE</span>
+"Quando o sistema nervoso passa o dia inteiro em modo de alerta, o corpo não entra no ciclo de recuperação profunda durante o sono. A pessoa dorme, mas o músculo não descansa. O assoalho pélvico não solta. O diafragma não expande por completo."
+
+<span class="tbdg">[16-38s] ENTREGA</span>
+"Esse padrão tem um nome técnico: ativação crônica do sistema nervoso simpático. E ele aparece com muito mais frequência em mulheres que acumulam responsabilidades sem ter uma prática que sinalize para o corpo que o dia terminou. O que isso significa na prática: não adianta dormir mais horas se antes de dormir o sistema nervoso ainda está no modo de resolver problemas. A solução não é mais sono. É uma prática de desativação antes de dormir, que trabalha o músculo diretamente e não só a respiração."
+
+<span class="tbdg">[39-43s] REGANCHO</span>
+Texto na tela: DORMIR MAIS NÃO RESOLVE SE O SISTEMA NERVOSO NÃO DESATIVOU.
+
+<span class="tbdg">[44-47s] CTA</span>
+"Me segue que semana que vem eu explico a prática de 5 minutos que faz essa diferença."</div>
+      </div>
+      <div id="a2l" class="adcon">
+        <div style="display:flex;justify-content:flex-end;margin-bottom:12px"><button class="cbtn" onclick="cp('l2t',this)">⎘ Copiar legenda</button></div>
+        <div id="l2t" class="stext">O cansaço que persiste depois de uma noite de sono completo é um dos sinais mais ignorados na saúde feminina.
+
+Clinicamente, o que está acontecendo é o seguinte: o sistema nervoso simpático, responsável pelo estado de alerta, não desativa completamente durante o sono quando está cronicamente ativado. O resultado é um sono que completa as horas mas não cumpre a função de recuperação muscular e neurológica.
+
+Esse padrão é muito mais comum em mulheres que acumulam múltiplas responsabilidades sem uma prática específica de transição entre o modo ativo e o modo de repouso.
+
+A boa notícia é que existe uma janela de 10 a 15 minutos antes de dormir que, trabalhada de forma certa, muda completamente a qualidade do sono. Não é meditação genérica. É trabalho somático direto no músculo.
+
+Me segue para continuar esse assunto.</div>
+        <div style="margin-top:10px;padding:10px 14px;background:var(--sur2);border-radius:8px;font-size:12px"><strong>Headline:</strong> O cansaço que o sono não resolve &nbsp;|&nbsp; <strong>Descrição:</strong> Quando o sistema nervoso não desativa, dormir mais não adianta.</div>
+      </div>
+      <div id="a2d" class="adcon">
+        <div class="hl">Talking head, câmera levemente abaixo do nível dos olhos, luz suave lateral (janela à esquerda). Fundo desfocado neutro. Tom calmo e preciso, como uma explicação de consultório. Texto na tela em fonte limpa nos momentos de dado técnico.</div>
+      </div>
+    </div>
+
+    <!-- AD 3 -->
+    <div class="adcard">
+      <div class="adch">
+        <div class="adnum" style="background:#4a3060">3</div>
+        <div class="adci">
+          <h3>Conexão Inesperada (Urgência Inusitada)</h3>
+          <p>Urgência Oculta: O que o formato da sua respiração revela sobre o que você está carregando</p>
+          <div class="admeta"><span>Mandala: Quebra-Padrão</span><span>Participação ativa</span><span>CTA: Seguir</span></div>
+        </div>
+      </div>
+      <div class="adtabs">
+        <button class="atab act" onclick="sat(this,'a3r')">Roteiro</button>
+        <button class="atab" onclick="sat(this,'a3l')">Legenda</button>
+        <button class="atab" onclick="sat(this,'a3d')">Direção</button>
+      </div>
+      <div id="a3r" class="adcon act">
+        <div style="display:flex;justify-content:flex-end;margin-bottom:12px"><button class="cbtn" onclick="cp('r3t',this)">⎘ Copiar</button></div>
+        <div id="r3t" class="stext"><span class="tbdg">[0-3s] GANCHO</span>
+Fala: "A forma como você está respirando agora guarda informação sobre o que aconteceu na sua semana."
+Texto na tela: SUA RESPIRAÇÃO É UM REGISTRO DO QUE SEU CORPO ESTÁ CARREGANDO.
+
+<span class="tbdg">[4-15s] TEASE</span>
+"O diafragma é o músculo mais sensível ao estado emocional do corpo. Quando estamos em modo de alerta, ele contrai. Quando a semana foi pesada, ele aprende a trabalhar pela metade."
+
+<span class="tbdg">[16-38s] ENTREGA</span>
+"Você pode verificar isso agora. Coloque uma mão na barriga e inspire fundo. Se a barriga não se move, se só o peito sobe, seu diafragma está contraído. Isso não é falta de técnica respiratória. É o corpo guardando o que a semana deixou. O diafragma contraído reduz a capacidade pulmonar, ativa o sistema de alerta e sustenta a tensão no assoalho pélvico ao mesmo tempo. São três regiões conectadas pelo mesmo padrão de resposta ao estresse. Três regiões que se liberam juntas quando você trabalha na ordem certa."
+
+<span class="tbdg">[39-43s] REGANCHO</span>
+Texto na tela: DIAFRAGMA, ASSOALHO PÉLVICO E PESCOÇO: TRÊS REGIÕES, UM PADRÃO.
+
+<span class="tbdg">[44-47s] CTA</span>
+"Me segue se quiser aprender como trabalhar esse padrão em casa."</div>
+      </div>
+      <div id="a3l" class="adcon">
+        <div style="display:flex;justify-content:flex-end;margin-bottom:12px"><button class="cbtn" onclick="cp('l3t',this)">⎘ Copiar legenda</button></div>
+        <div id="l3t" class="stext">O diafragma é o músculo respiratório principal e também o mais responsivo ao estado emocional do sistema nervoso.
+
+Em situações de estresse contínuo, ele desenvolve um padrão de contração parcial que se torna crônico. O resultado prático é uma respiração que ocupa só o terço superior dos pulmões, mantém o sistema nervoso em leve estado de alerta e sustenta tensão no assoalho pélvico e no pescoço de forma simultânea.
+
+Essas três regiões, diafragma, assoalho pélvico e pescoço, são conectadas anatomicamente e respondem ao mesmo padrão de ativação. Por isso, quando uma está tensa, as outras geralmente também estão.
+
+A liberação dessas três regiões juntas, na sequência certa, é o trabalho que a fisioterapia pélvica somática faz. E que pode ser aprendido em casa com 10 minutos por dia.
+
+Me segue para continuar.</div>
+        <div style="margin-top:10px;padding:10px 14px;background:var(--sur2);border-radius:8px;font-size:12px"><strong>Headline:</strong> Sua respiração guarda sua semana &nbsp;|&nbsp; <strong>Descrição:</strong> O diafragma conecta pescoço, pélvis e estado emocional.</div>
+      </div>
+      <div id="a3d" class="adcon">
+        <div class="hl">Talking head. Câmera ligeiramente aproximada no início para criar proximidade. No momento da demonstração (~16s), pedir para a pessoa colocar a mão na barriga junto. Câmera pode recuar levemente. Tom de experimento, não de aula. Cria participação ativa.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== PROMPTS DE VÍDEO ===== -->
+<div id="panel-prompts" class="panel">
+  <div class="panel-title">Prompts de Vídeo</div>
+  <p class="panel-sub">Para gravar, usar IA generativa (Pika, Kling, RunwayML) ou como briefing de direção. PT e EN para cada variação.</p>
+  <div class="sec">
+    <div class="stitle">Prompts de Vídeo — PT e EN</div>
+    <div class="sdesc">Para gravar você mesmo, usar IA de vídeo (Pika, Kling, RunwayML) ou como briefing de direção para videomakers. Cada variação tem prompt em português e em inglês.</div>
+
+    <div class="info-g">
+      <div class="info-g-t">Como usar cada formato</div>
+      <div class="info-g-b">
+        <strong>Gravar você mesmo:</strong> use o prompt em PT como briefing de direção antes de gravar.<br>
+        <strong>Pika / Kling / RunwayML:</strong> cole o prompt em EN diretamente no campo da ferramenta.<br>
+        <strong>HeyGen (avatar):</strong> use os roteiros da aba "Roteiros HeyGen" + prompt EN como estilo de cena.<br>
+        <strong>CapCut / DaVinci:</strong> use o prompt em PT como referência de cor, enquadramento e ritmo na edição.
+      </div>
+    </div>
+
+    <!-- V1 PROMPTS -->
+    <div class="tb2 op">
+      <div class="tb2h" onclick="tg(this)"><div class="tb2t"><span style="width:22px;height:22px;border-radius:50%;background:var(--t);color:#fff;display:inline-flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0">1</span> Revelação com Paradoxo</div><span class="tog">▼</span></div>
+      <div class="tb2b">
+        <div style="margin-bottom:16px">
+          <div style="font-size:12px;font-weight:600;color:var(--mu);margin-bottom:8px;letter-spacing:.5px">PORTUGUÊS — Briefing de direção</div>
+          <div style="display:flex;justify-content:flex-end;margin-bottom:8px"><button class="cbtn" onclick="cp('p1pt',this)">⎘ Copiar PT</button></div>
+          <div id="p1pt" class="stext" style="background:var(--sur2);padding:16px;border-radius:8px;border:1px solid var(--br)">Vídeo de 40 a 47 segundos. Talking head frontal, fundo neutro claro (branco ou cinza suave). Iluminação natural difusa, sem sombras duras no rosto. Câmera no nível dos olhos, enquadramento do busto para cima. A pessoa fala diretamente para a câmera com tom explicativo e clínico, como uma profissional de saúde explicando algo para um colega, não para um paciente. Sem sorriso forçado, sem empolgação, sem gestos exagerados. Corte seco entre o gancho e o desenvolvimento. Texto animado na tela em fonte sans-serif branca com contorno escuro nos momentos: "MEDITAÇÃO NÃO RESOLVE TENSÃO FÍSICA. E TEM UMA RAZÃO ESPECÍFICA." (gancho) e "O MÚSCULO GUARDA O QUE A MENTE JÁ PROCESSOU." (regancho). Ritmo de fala moderado, pausas curtas entre blocos de ideia. Sem música de fundo ou com trilha instrumental muito suave e neutra.</div>
+        </div>
+        <div>
+          <div style="font-size:12px;font-weight:600;color:var(--mu);margin-bottom:8px;letter-spacing:.5px">ENGLISH — For Pika / Kling / RunwayML</div>
+          <div style="display:flex;justify-content:flex-end;margin-bottom:8px"><button class="cbtn" onclick="cp('p1en',this)">⎘ Copiar EN</button></div>
+          <div class="dark"><pre id="p1en">Vertical talking head video, 9:16 ratio, 40-47 seconds. Woman speaking 
+directly to camera, neutral light background (soft white or light gray), 
+natural diffused lighting, no harsh shadows. Camera at eye level, medium 
+bust shot. Clinical yet accessible tone, no forced smile, calm and precise 
+delivery. Hard cut between hook and development. Animated text overlays in 
+white sans-serif font with dark outline at key moments. Moderate speech pace 
+with brief pauses between idea blocks. Minimal or no background music. 
+Realistic, authentic style, no heavy production feel.</pre><button class="dark-copy" onclick="cp('p1en',this)">⎘ Copiar</button></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- V2 PROMPTS -->
+    <div class="tb2 op">
+      <div class="tb2h" onclick="tg(this)"><div class="tb2t"><span style="width:22px;height:22px;border-radius:50%;background:var(--s);color:#fff;display:inline-flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0">2</span> Identificação com a Dor</div><span class="tog">▼</span></div>
+      <div class="tb2b">
+        <div style="margin-bottom:16px">
+          <div style="font-size:12px;font-weight:600;color:var(--mu);margin-bottom:8px">PORTUGUÊS</div>
+          <div style="display:flex;justify-content:flex-end;margin-bottom:8px"><button class="cbtn" onclick="cp('p2pt',this)">⎘ Copiar PT</button></div>
+          <div id="p2pt" class="stext" style="background:var(--sur2);padding:16px;border-radius:8px;border:1px solid var(--br)">Vídeo de 40 a 47 segundos. Talking head com câmera posicionada levemente abaixo do nível dos olhos, criando leve sensação de autoridade e proximidade. Luz suave lateral (janela à esquerda ou softbox lateral). Fundo desfocado neutro, pode ser parede clara ou ambiente doméstico limpo. Tom calmo, preciso, como uma explicação de consultório. A pessoa fala pausadamente, com convicção, sem urgência. Texto na tela em fonte limpa e fina nos momentos de dado técnico: "O CANSAÇO QUE O SONO NÃO RESOLVE TEM UM NOME." (gancho) e "DORMIR MAIS NÃO RESOLVE SE O SISTEMA NERVOSO NÃO DESATIVOU." (regancho). Corte na transição entre o gancho e o desenvolvimento. Sem efeitos visuais exagerados. Autêntico, íntimo, confiável.</div>
+        </div>
+        <div>
+          <div style="font-size:12px;font-weight:600;color:var(--mu);margin-bottom:8px">ENGLISH</div>
+          <div style="display:flex;justify-content:flex-end;margin-bottom:8px"><button class="cbtn" onclick="cp('p2en',this)">⎘ Copiar EN</button></div>
+          <div class="dark"><pre id="p2en">Vertical talking head video, 9:16 ratio, 40-47 seconds. Camera slightly 
+below eye level, soft side lighting from left (window light or softbox). 
+Neutral blurred background, clean domestic or studio environment. Calm, 
+precise delivery, clinical and trustworthy tone. No urgency, no forced 
+emotion. Clean thin sans-serif text overlays at technical moments. Cut 
+between hook and body. No heavy visual effects. Authentic, intimate feel, 
+high credibility aesthetic.</pre><button class="dark-copy" onclick="cp('p2en',this)">⎘ Copiar</button></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- V3 PROMPTS -->
+    <div class="tb2 op">
+      <div class="tb2h" onclick="tg(this)"><div class="tb2t"><span style="width:22px;height:22px;border-radius:50%;background:#4a3060;color:#fff;display:inline-flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0">3</span> Conexão Inesperada</div><span class="tog">▼</span></div>
+      <div class="tb2b">
+        <div style="margin-bottom:16px">
+          <div style="font-size:12px;font-weight:600;color:var(--mu);margin-bottom:8px">PORTUGUÊS</div>
+          <div style="display:flex;justify-content:flex-end;margin-bottom:8px"><button class="cbtn" onclick="cp('p3pt',this)">⎘ Copiar PT</button></div>
+          <div id="p3pt" class="stext" style="background:var(--sur2);padding:16px;border-radius:8px;border:1px solid var(--br)">Vídeo de 40 a 47 segundos. Talking head com câmera ligeiramente aproximada no início (close do rosto e ombros), criando proximidade imediata. Fundo neutro ou levemente desfocado. No momento da demonstração (por volta de 16s), a pessoa coloca a mão na barriga e instrui quem assiste a fazer o mesmo. Câmera pode recuar levemente nesse momento para mostrar o gesto. Tom de experimento e descoberta, não de aula. A pessoa parece estar revelando algo em tempo real, não lendo um roteiro. Texto na tela: "SUA RESPIRAÇÃO É UM REGISTRO DO QUE SEU CORPO ESTÁ CARREGANDO." (gancho) e "DIAFRAGMA, ASSOALHO PÉLVICO E PESCOÇO: TRÊS REGIÕES, UM PADRÃO." (regancho). Edição dinâmica com corte seco no gancho. Ritmo ligeiramente mais rápido que as outras variações.</div>
+        </div>
+        <div>
+          <div style="font-size:12px;font-weight:600;color:var(--mu);margin-bottom:8px">ENGLISH</div>
+          <div style="display:flex;justify-content:flex-end;margin-bottom:8px"><button class="cbtn" onclick="cp('p3en',this)">⎘ Copiar EN</button></div>
+          <div class="dark"><pre id="p3en">Vertical talking head video, 9:16 ratio, 40-47 seconds. Slightly closer 
+camera at the start (tight bust shot), neutral or softly blurred background. 
+At the demonstration moment (~16s), person places hand on belly and invites 
+viewer to do the same — camera pulls back slightly to show the gesture. 
+Discovery and experiment tone, feels spontaneous not scripted. Dynamic 
+editing with hard cut at hook. Slightly faster pace than average. Text 
+overlays at key moments in bold white sans-serif. Authentic, raw, minimal 
+production. No filters or color grading that looks artificial.</pre><button class="dark-copy" onclick="cp('p3en',this)">⎘ Copiar</button></div>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:24px;padding:16px 20px;background:var(--wh);border:1px solid var(--br);border-radius:10px;">
+      <div style="font-size:12px;font-weight:600;color:var(--mu);margin-bottom:12px;letter-spacing:.5px">IAs DE VÍDEO RECOMENDADAS</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:8px;">
+        <div style="padding:10px 14px;background:var(--sur2);border-radius:8px;border:1px solid var(--br)"><div style="font-weight:600;font-size:13px">HeyGen</div><div style="font-size:11px;color:var(--mu)">Avatar IA com seu rosto</div><div style="font-size:11px;color:var(--t)">heygen.com</div></div>
+        <div style="padding:10px 14px;background:var(--sur2);border-radius:8px;border:1px solid var(--br)"><div style="font-weight:600;font-size:13px">Pika</div><div style="font-size:11px;color:var(--mu)">Vídeo a partir de prompt</div><div style="font-size:11px;color:var(--t)">pika.art</div></div>
+        <div style="padding:10px 14px;background:var(--sur2);border-radius:8px;border:1px solid var(--br)"><div style="font-weight:600;font-size:13px">Kling</div><div style="font-size:11px;color:var(--mu)">Vídeo realista com pessoas</div><div style="font-size:11px;color:var(--t)">klingai.com</div></div>
+        <div style="padding:10px 14px;background:var(--sur2);border-radius:8px;border:1px solid var(--br)"><div style="font-weight:600;font-size:13px">RunwayML</div><div style="font-size:11px;color:var(--mu)">Controle avançado</div><div style="font-size:11px;color:var(--t)">runwayml.com</div></div>
+        <div style="padding:10px 14px;background:var(--sur2);border-radius:8px;border:1px solid var(--br)"><div style="font-weight:600;font-size:13px">CapCut</div><div style="font-size:11px;color:var(--mu)">Editar + legendas auto</div><div style="font-size:11px;color:var(--t)">capcut.com</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== HEYGEN ===== -->
+<div id="panel-heygen" class="panel">
+  <div class="panel-title">Roteiros HeyGen</div>
+  <p class="panel-sub">Scripts com marcações de pausa [pausa: Xs] prontos para colar no campo de texto do avatar. 3 variações com configurações de velocidade e fundo.</p>
+  <div class="sec">
+    <div class="stitle">Roteiros Formatados para HeyGen</div>
+    <div class="sdesc">Scripts com marcações de pausa prontos para colar no campo de texto do avatar. As marcações [pausa: Xs] são reconhecidas pelo HeyGen.</div>
+
+    <div class="info-g">
+      <div class="info-g-t">Como usar</div>
+      <div class="info-g-b">
+        1. Acesse heygen.com e faça login<br>
+        2. Crie um novo vídeo e selecione seu avatar<br>
+        3. Cole o roteiro no campo de texto — as marcações <code>[pausa: Xs]</code> são reconhecidas<br>
+        4. Ajuste a velocidade de fala conforme indicado em cada variação<br>
+        5. Selecione fundo branco/cinza e dimensão 1080×1920<br>
+        6. Gere e exporte em MP4
+      </div>
+    </div>
+
+    <div class="tb2 op">
+      <div class="tb2h" onclick="tg(this)">
+        <div class="tb2t"><span style="width:24px;height:24px;border-radius:50%;background:var(--t);color:#fff;display:inline-flex;align-items:center;justify-content:center;font-size:11px;font-weight:700">1</span> Revelação com Paradoxo <span style="font-size:11px;color:var(--mu);font-weight:400">— velocidade 0.95</span></div>
+        <div class="tb2a"><button class="cbtn" onclick="event.stopPropagation();cp('hg1',this)">⎘ Copiar</button><span class="tog">▼</span></div>
+      </div>
+      <div class="tb2b">
+        <div class="dark"><pre id="hg1">Pessoas que meditam todos os dias ainda sentem tensão crônica no corpo.
+
+[pausa: 0.8s]
+
+A meditação regula a mente. Mas a tensão que você sente no pescoço, no
+assoalho pélvico, na mandíbula... essa tensão não vive na mente.
+
+[pausa: 0.5s]
+
+Ela vive no músculo. E músculo não responde a pensamento positivo.
+
+[pausa: 0.8s]
+
+O sistema nervoso tem dois modos: ativado e desativado. A meditação ativa
+o modo desativado na mente. Mas se o músculo aprendeu a ficar contraído
+como resposta a anos de estresse, ele precisa de um trabalho diferente.
+
+[pausa: 0.5s]
+
+Respiração diafragmática. Liberação somática. E reconhecer qual emoção
+está sustentando essa contração.
+
+[pausa: 0.5s]
+
+São três camadas. A maioria das práticas de relaxamento trabalha só com
+a primeira.
+
+[pausa: 0.8s]
+
+É por isso que a tensão volta toda vez.
+
+[pausa: 1.0s]
+
+Me segue se quiser aprender como trabalhar as três camadas.</pre><button class="dark-copy" onclick="cp('hg1',this)">⎘ Copiar</button></div>
+        <div style="margin-top:10px;display:flex;gap:10px;flex-wrap:wrap;font-size:12px">
+          <span style="padding:5px 12px;background:var(--sur2);border:1px solid var(--br);border-radius:6px"><strong>Velocidade:</strong> 0.95</span>
+          <span style="padding:5px 12px;background:var(--sur2);border:1px solid var(--br);border-radius:6px"><strong>Fundo:</strong> #f5f5f5</span>
+          <span style="padding:5px 12px;background:var(--sur2);border:1px solid var(--br);border-radius:6px"><strong>Dimensão:</strong> 1080×1920</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="tb2 op">
+      <div class="tb2h" onclick="tg(this)">
+        <div class="tb2t"><span style="width:24px;height:24px;border-radius:50%;background:var(--s);color:#fff;display:inline-flex;align-items:center;justify-content:center;font-size:11px;font-weight:700">2</span> Identificação com a Dor <span style="font-size:11px;color:var(--mu);font-weight:400">— velocidade 0.92</span></div>
+        <div class="tb2a"><button class="cbtn" onclick="event.stopPropagation();cp('hg2',this)">⎘ Copiar</button><span class="tog">▼</span></div>
+      </div>
+      <div class="tb2b">
+        <div class="dark"><pre id="hg2">Acordar cansada depois de 8 horas de sono não é frescura.
+
+[pausa: 0.5s]
+
+É um sinal clínico que a maioria dos médicos não vai nomear na consulta.
+
+[pausa: 0.8s]
+
+Quando o sistema nervoso passa o dia inteiro em modo de alerta, o corpo
+não entra no ciclo de recuperação profunda durante o sono.
+
+[pausa: 0.5s]
+
+A pessoa dorme. Mas o músculo não descansa. O assoalho pélvico não solta.
+O diafragma não expande por completo.
+
+[pausa: 0.8s]
+
+Esse padrão tem um nome técnico: ativação crônica do sistema nervoso
+simpático. E ele aparece com muito mais frequência em mulheres que
+acumulam responsabilidades sem ter uma prática que sinalize para o corpo
+que o dia terminou.
+
+[pausa: 0.5s]
+
+O que isso significa na prática: não adianta dormir mais horas se antes
+de dormir o sistema nervoso ainda está no modo de resolver problemas.
+
+[pausa: 0.8s]
+
+A solução não é mais sono. É uma prática de desativação antes de dormir,
+que trabalha o músculo diretamente.
+
+[pausa: 1.0s]
+
+Me segue que semana que vem eu explico a prática de 5 minutos que faz
+essa diferença.</pre><button class="dark-copy" onclick="cp('hg2',this)">⎘ Copiar</button></div>
+        <div style="margin-top:10px;display:flex;gap:10px;flex-wrap:wrap;font-size:12px">
+          <span style="padding:5px 12px;background:var(--sur2);border:1px solid var(--br);border-radius:6px"><strong>Velocidade:</strong> 0.92</span>
+          <span style="padding:5px 12px;background:var(--sur2);border:1px solid var(--br);border-radius:6px"><strong>Fundo:</strong> #faf8f5</span>
+          <span style="padding:5px 12px;background:var(--sur2);border:1px solid var(--br);border-radius:6px"><strong>Dimensão:</strong> 1080×1920</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="tb2 op">
+      <div class="tb2h" onclick="tg(this)">
+        <div class="tb2t"><span style="width:24px;height:24px;border-radius:50%;background:#4a3060;color:#fff;display:inline-flex;align-items:center;justify-content:center;font-size:11px;font-weight:700">3</span> Conexão Inesperada <span style="font-size:11px;color:var(--mu);font-weight:400">— velocidade 0.97</span></div>
+        <div class="tb2a"><button class="cbtn" onclick="event.stopPropagation();cp('hg3',this)">⎘ Copiar</button><span class="tog">▼</span></div>
+      </div>
+      <div class="tb2b">
+        <div class="dark"><pre id="hg3">A forma como você está respirando agora guarda informação sobre o que
+aconteceu na sua semana.
+
+[pausa: 0.8s]
+
+O diafragma é o músculo mais sensível ao estado emocional do corpo.
+Quando estamos em modo de alerta, ele contrai. Quando a semana foi pesada,
+ele aprende a trabalhar pela metade.
+
+[pausa: 0.8s]
+
+Você pode verificar isso agora.
+
+[pausa: 0.5s]
+
+Coloque uma mão na barriga e inspire fundo. Se a barriga não se move,
+se só o peito sobe... seu diafragma está contraído.
+
+[pausa: 0.8s]
+
+Isso não é falta de técnica respiratória. É o corpo guardando o que
+a semana deixou.
+
+[pausa: 0.5s]
+
+O diafragma contraído reduz a capacidade pulmonar, ativa o sistema de
+alerta e sustenta a tensão no assoalho pélvico ao mesmo tempo.
+
+[pausa: 0.5s]
+
+São três regiões conectadas pelo mesmo padrão de resposta ao estresse.
+Três regiões que se liberam juntas quando você trabalha na ordem certa.
+
+[pausa: 1.0s]
+
+Me segue se quiser aprender como trabalhar esse padrão em casa.</pre><button class="dark-copy" onclick="cp('hg3',this)">⎘ Copiar</button></div>
+        <div style="margin-top:10px;display:flex;gap:10px;flex-wrap:wrap;font-size:12px">
+          <span style="padding:5px 12px;background:var(--sur2);border:1px solid var(--br);border-radius:6px"><strong>Velocidade:</strong> 0.97</span>
+          <span style="padding:5px 12px;background:var(--sur2);border:1px solid var(--br);border-radius:6px"><strong>Fundo:</strong> #f8f8f8</span>
+          <span style="padding:5px 12px;background:var(--sur2);border:1px solid var(--br);border-radius:6px"><strong>Dimensão:</strong> 1080×1920</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /main -->
+</div><!-- /layout -->
+
+<div id="toast">Copiado para a área de transferência</div>
+
+<script>
+function showTab(id,btn){
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('act'));
+  document.querySelectorAll('.tb').forEach(b=>b.classList.remove('act'));
+  document.getElementById('panel-'+id).classList.add('act');
+  btn.classList.add('act');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function tg(h){h.closest('.tb2').classList.toggle('op');}
+function tqq(el){el.classList.toggle('op');}
+function sat(btn,cid){
+  const card=btn.closest('.adcard');
+  card.querySelectorAll('.atab').forEach(t=>t.classList.remove('act'));
+  card.querySelectorAll('.adcon').forEach(c=>c.classList.remove('act'));
+  btn.classList.add('act');
+  document.getElementById(cid).classList.add('act');
+}
+// Sync mobile and sidebar nav
+const origShowTab = showTab;
+window.showTab = function(id, btn){
+  origShowTab(id, btn);
+  document.querySelectorAll('.tb').forEach(b=>{
+    if(b !== btn){
+      const cb = b.onclick ? b.onclick.toString() : '';
+      if(cb.includes("'"+id+"'")){b.classList.add('act');}
+    }
+  });
+};
+function cp(id,btn){
+  const el=document.getElementById(id);
+  const text=el.innerText||el.textContent;
+  navigator.clipboard.writeText(text).then(()=>{
+    const orig=btn.innerHTML;
+    btn.classList.add('done');
+    btn.innerHTML='✓ Copiado';
+    document.getElementById('toast').classList.add('show');
+    setTimeout(()=>{
+      btn.classList.remove('done');
+      btn.innerHTML=orig;
+      document.getElementById('toast').classList.remove('show');
+    },2000);
+  });
+}
+</script>
+</body>
+</html>
+
+

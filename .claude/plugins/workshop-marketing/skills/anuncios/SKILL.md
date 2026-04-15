@@ -50,7 +50,8 @@ description: >
 
 - Estilo argumentativo e lógico (Light Copy)
 - Baseado em premissas, não promessas
-- Estrutura: Gancho + Desenvolvimento (1 parágrafo) + CTA
+- Estrutura: Gancho + Desenvolvimento (mínimo 2 parágrafos) + CTA
+- O Desenvolvimento deve entregar valor real: ensinar algo concreto, revelar um insight ou aprofundar o argumento. Raso, curto e genérico são proibidos. A pessoa deve aprender ou se reconhecer só de ler o texto, mesmo sem clicar em nada.
 - ❌ Sem ponto de exclamação
 - ❌ Sem perguntas no gancho
 - ❌ Gancho óbvio para quem já está no nicho
@@ -82,10 +83,12 @@ Antes de entregar, revise e substitua:
 - Frases genéricas de vendedor → substitua por dado ou situação concreta
 - Menção ao produto nos primeiros parágrafos → remova ou reescreva focando no leitor
 - Emojis → remova sem substituição
+- Desenvolvimento com menos de 2 parágrafos → expanda com argumento concreto e valor real
 
 - [ ] Nenhum travessão no texto
 - [ ] Nenhuma estrutura "Não é X. É Y."
 - [ ] Nenhuma frase genérica de vendedor
+- [ ] Desenvolvimento tem mínimo 2 parágrafos com valor real entregado
 
 ### Regra do Gancho. NUNCA pergunta, NUNCA óbvio
 

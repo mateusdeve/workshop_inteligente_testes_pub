@@ -41,7 +41,25 @@ O quiz é a ponte entre o anúncio e a venda do produto de entrada (Low Ticket).
 
 ---
 
-## FASE 1. PERGUNTAS DO QUIZ
+## FASE 0 — VERIFICAÇÃO: QUIZ É O FORMATO CERTO?
+
+Antes de começar, aplique o framework de decisão com base no perfil do produto. Leia `entregas/.ativo` e `entregas/{ativo}/perfil.md`.
+
+| Critério | Aponta para QUIZ | Aponta para PÁGINA |
+|---|---|---|
+| Tipo de produto | Emocional / dor / identificação | Prático / ferramenta / direto ao ponto |
+| Nível de consciência do lead | Não sabe que tem problema | Já sabe o que quer |
+| Complexidade da decisão | Precisa diagnosticar / explicar | Decisão simples e direta |
+| Faixa de preço | Até R$47 | Acima de R$97 |
+| Tipo de público | Emocional | Analítico / pragmático |
+
+**Regra:** 2 ou mais critérios para PÁGINA — informe o usuário e sugira `/paginas-low-ticket` antes de continuar. Desempate: seguir com QUIZ.
+
+Se o quiz for confirmado como formato correto (ou o usuário insistir), continue para a Fase 1.
+
+---
+
+## FASE 1 — PERGUNTAS DO QUIZ
 
 ### 1. Contexto
 

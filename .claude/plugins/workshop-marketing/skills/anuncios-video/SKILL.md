@@ -17,7 +17,28 @@ Criativos em video: Reels, Stories, YouTube Ads, UGC. Para anuncios estaticos (i
 - YouTube Ads (pre-roll, bumper)
 - Videos UGC (User Generated Content)
 - Anuncios com avatar IA (HeyGen)
+- Videos com cenas reais (stock footage ou filmagem propria)
+- Videos de motion/animacao (Remotion, CapCut, Canva)
+- Videos hibridos (avatar + b-roll intercalado)
 - Qualquer anuncio que envolva MOVIMENTO e/ou AUDIO
+
+## Tres Caminhos de Execucao
+
+Todo video ad pode ser executado de tres formas distintas:
+
+**Caminho 1 — Geracao via API (HeyGen)**
+Requer `HEYGEN_API_KEY`, `HEYGEN_AVATAR_ID` e `HEYGEN_VOICE_ID` no `.env`.
+O sistema gera o roteiro e, apos aprovacao, envia automaticamente para o HeyGen.
+Ideal para: Avatar IA simples e Hibrido (avatar + b-roll).
+
+**Caminho 2 — Roteiro para gravacao propria**
+O sistema gera o roteiro completo com timecodes e notas de edicao.
+O usuario grava com o celular ou edita com stock footage.
+Ideal para: Reels, YouTube, Cenas Reais, UGC.
+
+**Caminho 3 — Direcao criativa para editor**
+O sistema entrega: roteiro + shot list + paleta HEX + sugestao de musica + referencias visuais por cena + instrucoes de montagem.
+Ideal para: producoes mais elaboradas, producoes terceirizadas, Motion/Remotion.
 
 ## Os 18 Tipos de Anuncios VTSD (Aplicados a Video)
 
@@ -70,8 +91,10 @@ Regras:
 - "A pessoa que mais trava raramente e a que sabe menos." ✓
 - "O caminho mais rapido para travar e estudar da forma que todo mundo ensina." ✓
 
-**Bloco 2. Desenvolvimento (3-45 segundos)**
+**Bloco 2 — Desenvolvimento (3-45 segundos)**
+- Minimo 2 blocos de conteudo distinto: o primeiro aprofunda o argumento do gancho, o segundo traz a virada, o insight ou a solucao concreta
 - Conte a historia, mostre o problema, apresente a solucao
+- Cada bloco deve entregar valor real — ensinar algo especifico, revelar um dado ou detalhar um mecanismo. Nao apenas prometer
 - Mantenha ritmo rapido (cortes a cada 3-5 segundos)
 - Use texto na tela para reforcar pontos-chave
 - Mantenha o suspense ate o final
@@ -215,10 +238,12 @@ Antes de entregar, revise e substitua:
 - Frases genéricas de vendedor → substitua por dado ou situação concreta
 - Menção ao produto nos primeiros blocos → remova ou reescreva focando no leitor
 - Emojis → remova sem substituição
+- Desenvolvimento com menos de 2 blocos de conteúdo distinto → expanda com insight ou mecanismo concreto
 
 - [ ] Nenhum travessão no texto
 - [ ] Nenhuma estrutura "Não é X. É Y."
 - [ ] Nenhuma frase genérica de vendedor
+- [ ] Desenvolvimento tem mínimo 2 blocos de conteúdo com valor real entregado
 
 **Princípio central:**
 O roteiro não vende. Ele ensina, avisa ou revela. O produto não aparece nos primeiros blocos.
@@ -294,6 +319,29 @@ O aluno que mais trava raramente e o que sabe menos. Isso acontece porque ele ap
 - Avatar: falando para camera, fundo limpo
 - Legendas: ativar no proprio HeyGen ou adicionar no editor de video
 
+## Formatos de Video Suportados
+
+| Formato | Descricao | Caminho Ideal |
+|---|---|---|
+| **Avatar IA simples** | Avatar falando direto para camera, fundo limpo | Caminho 1 (API HeyGen) |
+| **Avatar + voz customizada** | Avatar com voz clonada ou ajustada no HeyGen | Caminho 1 (API HeyGen) |
+| **Reels gravado** | Pessoa real ou roteiro para camera propria | Caminho 2 |
+| **UGC** | Estilo organico, pessoa real, iluminacao natural | Caminho 2 |
+| **Cenas reais + stock** | Narrativa com imagens/clips de stock footage | Caminho 2 ou 3 |
+| **Motion / Animacao** | Remotion, CapCut, Canva animado | Caminho 3 |
+| **Hibrido** | Avatar + b-roll intercalado | Caminho 1 ou 3 |
+| **YouTube Pre-Roll** | 15-30s, gancho forte nos 5 primeiros segundos | Caminho 2 ou 3 |
+
+## Estruturas de Roteiro Baseadas em Virais 2026
+
+| Estrutura | Quando Usar | Logica de Retencao |
+|---|---|---|
+| **Loop Perfeito** | Revelacao, insights | Final conecta ao gancho, incentiva replay |
+| **Tutorial de 3 Passos** | Procedimento, ensino | Cada passo avanca a narrativa ate o fim |
+| **Quebra-Padrao** | Contraste, paradoxo | Abertura inesperada, forca pausa no scroll |
+
+Usar estruturas diferentes nas 3 variacoes sempre que possivel.
+
 ## Boas Praticas Atuais
 
 - **UGC** (conteudo gerado por usuario) tem maior CTR que producoes profissionais
@@ -302,3 +350,5 @@ O aluno que mais trava raramente e o que sabe menos. Isso acontece porque ele ap
 - **Primeiros 3 segundos** definem se o anuncio funciona
 - **Legendas** sao obrigatorias (nao opcionais)
 - **Avatar IA** funciona bem para escala rapida de criativos
+- **Conteudo entregado dentro do video** performa mais que teaser que promete sem entregar
+- **Hibrido avatar + b-roll** aumenta retencao em relacao ao avatar estatico simples

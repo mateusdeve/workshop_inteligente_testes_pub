@@ -1,7 +1,6 @@
-# ══════════════════════════════════════════
-# Prompts originais (referência interna, não distribui)
-# ══════════════════════════════════════════
-_prompts-gpt/
+# Arquivos binários grandes do Whisper
+.claude/tools/whisper/Release/
+.claude/tools/whisper/models/
 
 # ══════════════════════════════════════════
 # Chaves de API (NUNCA subir para repositorio)
@@ -46,9 +45,8 @@ entregas/
 !.cursor/rules/
 !.cursor/rules/**
 
-# Outputs e feedback de sessão
-outputs/
-feedback/
+# Node
+node_modules/
 
 # ══════════════════════════════════════════
 # Arquivos de teste (nao subir)

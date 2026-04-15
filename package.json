@@ -1,0 +1,10 @@
+{
+  "name": "paginas-marketing",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "docx": "^9.6.1",
+    "pdf-lib": "^1.17.1",
+    "pdfkit": "^0.18.0"
+  }
+}

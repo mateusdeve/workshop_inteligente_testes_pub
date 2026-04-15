@@ -56,14 +56,37 @@ Digite o número:
 
 Leia `.claude/plugins/workshop-marketing/skills/criacao-produto-low-ticket/SKILL.md` e siga o fluxo do formato escolhido.
 
-### 4. Próximo passo
+### 4. Próximo passo — Aplicar Framework Quiz vs. Página
 
-Após salvar o produto, sugira:
+Após salvar o produto, aplique OBRIGATORIAMENTE o framework abaixo para recomendar o próximo passo. Nunca sugira /pagina-de-vendas ou /quiz sem antes passar por esse framework.
+
+**Framework de Decisão: Quiz vs. Página de Vendas**
+
+| Critério | Aponta para QUIZ | Aponta para PÁGINA |
+|---|---|---|
+| Tipo de produto | Emocional / dor / identificação | Prático / ferramenta / direto ao ponto |
+| Nível de consciência do lead | Não sabe que tem problema | Já sabe o que quer |
+| Complexidade da decisão | Precisa diagnosticar / explicar | Decisão simples e direta |
+| Faixa de preço | Até R$47 | Acima de R$97 |
+| Tipo de público | Emocional | Analítico / pragmático |
+
+**Regra:** 2 ou mais critérios para o mesmo lado — siga ele. Desempate: recomendar QUIZ.
+
+Apresente a recomendação assim:
 
 ```
 Produto criado e salvo.
 
-Próximo passo sugerido:
-- Use /copy-pagina para criar a página de vendas do produto
-- Use /copy-anuncio para criar anúncios que levam tráfego à página
+Com base no seu produto e público, o próximo passo recomendado é:
+
+→ [QUIZ ou PÁGINA DE VENDAS]
+
+Por quê:
+• [Critério 1]: [explicação com dado real do produto]
+• [Critério 2]: [explicação com dado real do produto]
+• [Critério 3]: [explicação com dado real do produto]
+
+1. Concordo, seguir com [recomendação] → use /quiz ou /paginas-low-ticket
+2. Prefiro o outro formato
+3. Criar anúncios primeiro → use /anuncio
 ```

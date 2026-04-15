@@ -5,7 +5,13 @@ description: Criar identidade do consumidor (cliente ideal) usando as 3 Identida
 
 # Identidade do consumidor. Cliente ideal (3 Identidades)
 
-Cria o documento de **identidade do consumidor** (VTSD): perfil detalhado, paliativos, objeções e comunicação. As Urgências Ocultas já devem existir no `perfil.md` (geradas pelo `/produto-editar`).
+Cria o documento de **identidade do consumidor** (VTSD): perfil detalhado, objeções e comunicação. As Urgências Ocultas já devem existir no `perfil.md` (geradas pelo `/meu-produto`).
+
+**REGRA — Paliativos:**
+- **Middle Ticket:** gerar paliativos (ferramentas dentro do produto que resolvem dores específicas do consumidor)
+- **Low Ticket:** NÃO gerar paliativos. Produto de entrada não tem profundidade suficiente para mapear paliativos internos
+
+Para verificar o tipo do produto, leia `entregas/{ativo}/tipo.md`.
 
 ## Usage
 
@@ -23,6 +29,10 @@ Você já tem o `perfil.md` com Quadro, Furadeira, Identidades, Decorados, Urgê
 - **Gere e sugira o resto**. paliativos, objeções, canais, tom de voz, frases da persona
 - **Apresente para validação**. o aluno aprova, ajusta ou complementa
 - **"Não sei" = você sugere**. use dados do perfil e pesquisa de mercado para propor a resposta
+- **Pergunte o mínimo** — só dados que apenas o aluno sabe (gênero, idade, profissão)
+- **Gere e sugira o resto** — objeções, canais, tom de voz, frases da persona (paliativos apenas se Middle Ticket)
+- **Apresente para validação** — o aluno aprova, ajusta ou complementa
+- **"Não sei" = você sugere** — use dados do perfil e pesquisa de mercado para propor a resposta
 
 ### Pesquisa de mercado como apoio
 
@@ -67,9 +77,9 @@ Próximo: Comportamento
 
 Com base nos dados demográficos + Urgências Ocultas + Identidade do Consumidor do perfil + pesquisa de mercado, GERE automaticamente:
 
-- **Paliativos**. o que essa pessoa já tentou e não funcionou (baseado nas dores e no nicho)
-- **Sonho**. a frase que ela diria para uma amiga se alcançasse o resultado (baseado nos desejos)
-- **Canais**. onde essa pessoa busca informação (baseado no perfil demográfico e no nicho)
+- **Paliativos** *(somente Middle Ticket)* — ferramentas dentro do produto que resolvem dores específicas do consumidor (baseado nas dores mapeadas nas Urgências Ocultas e na Furadeira)
+- **Sonho** — a frase que ela diria para uma amiga se alcançasse o resultado (baseado nos desejos)
+- **Canais** — onde essa pessoa busca informação (baseado no perfil demográfico e no nicho)
 
 Apresente tudo gerado de uma vez para o aluno validar e ajustar. Não peça item por item.
 
@@ -86,7 +96,7 @@ Apresente tudo para validação. O aluno aprova, ajusta, adiciona ou remove.
 Resumo da identidade do consumidor:
 - Perfil: [gênero], [idade], [profissão]
 - Renda: [renda]
-- Paliativos: [o que já tentou]
+- Paliativos: [ferramentas do produto que resolvem dores específicas — incluir apenas se Middle Ticket]
 - Sonho: [resultado mágico]
 - Canais: [onde busca info]
 - Objeções: [principais objeções]
@@ -113,9 +123,10 @@ Não é para: [exclusões que ajudam a posicionar. quem NÃO é o público]
 - **Nível de consciência:** [inconsciente → totalmente consciente]
 - **Onde busca informação:** [canais]
 
-## Paliativos (o que já tentou)
-- [soluções que tentou e não funcionaram]
-- [por que falharam]
+## Paliativos (somente Middle Ticket — ferramentas do produto que resolvem dores específicas)
+- [ferramenta/recurso do produto] → [dor específica que resolve]
+
+*Se Low Ticket: omitir esta seção inteiramente.*
 
 ## Objeções de Compra
 - [objeção] → [como quebrar]

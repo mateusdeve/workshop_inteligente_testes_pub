@@ -1,342 +1,540 @@
 ---
 name: furadeira-visual
-description: Gerar a Furadeira (método VTSD) como diagrama visual em HTML estatico pronto para virar imagem. 5 layouts (linear, circular, piramidal, hub, fluxograma), paleta editavel e conversao automatica para PNG via Edge headless. Use sempre que o usuario pedir furadeira em imagem, diagrama do metodo, mapa do metodo, infografico do metodo ou furadeira visual.
+description: >
+  Gera representação visual da Furadeira (método do produto) como uma trilha de aprendizado em HTML
+  com design de caminho progressivo — macroetapas como marcos da jornada e microetapas como checkpoints.
+  Salva HTML em entregas/{ativo}/entregas/furadeira-visual.html e captura PNG se Chrome disponível.
+  Acionada automaticamente pelo /produto-concepcao após validação do Bloco 2 (Furadeira).
 ---
 
-# Furadeira Visual
+# Furadeira Visual — Trilha de Método
 
-Gera a Furadeira (método estruturado do produto, em macroetapas e microetapas) como **diagrama visual em HTML estático**, pronto para ser convertido em imagem. Resolve o problema de diagramas nativos da IA ficarem ruins.
+Gera uma página HTML de alta qualidade que visualiza o método (Furadeira) do produto ativo como uma trilha de jornada progressiva, com macroetapas como marcos e microetapas como checkpoints.
 
-## Quando usar esta skill
+---
 
-Use SEMPRE que o usuário pedir uma das coisas abaixo:
-- "Quero a furadeira em imagem"
-- "Gera um diagrama do método"
-- "Faz um visual da furadeira"
-- "Quero mostrar o método em formato visual"
-- "Mapa do método", "infográfico do método"
-- "Furadeira para postar no Instagram / colocar na página de vendas"
+## Quando Acionar
 
-NÃO use para:
-- Apenas listar as etapas em texto (isso é o `produto-editar`)
-- Criar a furadeira do zero quando ela ainda não existe (use `produto-editar` antes)
+- Automaticamente após validação da Furadeira no `/produto-concepcao` (Bloco 2)
+- Diretamente via `/furadeira-visual`
+- Quando o aluno pedir uma visualização, infográfico ou mapa do método
 
-## O que é a Furadeira (referência VTSD)
+---
 
-**Furadeira = mecanismo único** que liga o problema do consumidor ao Quadro (transformação prometida). É a forma de tornar visível e comunicável a **eficiência** do método (eficaz cumpre o prometido, eficiente cumpre melhor: mais rápido, mais barato, com menos esforço, menos dor, mais adesão, etc.).
+## O Que Fazer
 
-A furadeira é composta por:
+### 1. Coletar Dados
 
-- **Nome próprio.** Acrônimo (ex: CAVE), sigla (VTSD), nome do autor, curioso (Furadeira, Aperta e Solta), impactante (Escudo do Comportamento), benefício (Fluência em 90 Dias) ou mistério (Tecnologia de Alinhamento Postural Titanium).
-- **Macroetapas:** os grandes blocos do método (3 a 7 normalmente).
-- **Microetapas:** os passos dentro de cada macroetapa (opcional).
-- **Mecânicas internas:** as 6 mecânicas que dão sensação de método ao produto digital (lógica condicional, enquadramento, listas, fases e sequências, identificando empecilhos, dinâmica de entrega). Não precisa ter as 6, escolha as que combinam com o método.
-- **Replicabilidade:** outra pessoa do nicho consegue executar o método e chegar a um resultado próximo. Se só o criador consegue, é talento, não é método (história do bombeiro).
+Leia `entregas/.ativo` e depois `entregas/{ativo}/perfil.md`.
 
-A furadeira não é só uma lista. É a peça central que faz o aluno enxergar como vai sair do ponto A ao ponto B. Quando virar visual, precisa transmitir **clareza, lógica, progressão e sensação de método**.
+Extraia:
+- **Nome do Método** (ex: "Protocolo Anticoceira")
+- **Quadro** (transformação principal)
+- **Macroetapas** com seus nomes e descrições de 1 linha
+- **Microetapas** de cada macroetapa
+- **Produto** (nome do produto/curso)
 
-Por isso, antes de gerar o visual, garanta que a furadeira do produto ativo tenha:
-1. Um nome próprio e memorável (não genérico, não bobinho, não copiado)
-2. De 3 a 7 macroetapas com nome curto (até 4 palavras cada)
-3. Uma frase de 1 linha por macroetapa explicando o que acontece ali
-4. (Opcional) Microetapas, ícone sugerido ou número de cada etapa
+Se algum desses dados estiver ausente no perfil, pergunte ao aluno antes de gerar.
 
-Se faltar algo, **complete junto com o usuário antes de partir pro visual**. Não invente etapa que não existe.
+### 2. Escolher Paleta de Cores
 
-**Disclaimer (sempre alertar):**
-- Cuidado com furadeira mirabolante e complexa demais. Se virar 9 etapas e 3 fluxogramas, está gerando complexidade no lugar de facilidade. Quando o nicho exige profundidade, quebre em fases.
-- Não paralise achando que "ainda não ficou bom". A furadeira evolui com cada turma.
-- Integridade: não invente "enzima da Tailândia". Mecanismo único é descobrir e nomear o que **existe** ou o que você **realmente faz** de diferente. O teste é: você consegue defender isso diante de um especialista do nicho?
-
-Para o conteúdo completo das 6 mecânicas, formas de eficiência, técnicas de naming, autores clássicos e disclaimers, consulte `references/6-mecanicas.md`.
-
-## Fluxo da skill (6 passos)
-
-### Passo 1. Ler contexto
-
-1. Ler `entregas/.ativo` para descobrir o produto ativo.
-2. Ler `entregas/{ativo}/perfil.md` e extrair:
-   - Nome do produto
-   - Quadro (transformação)
-   - Furadeira (nome do método + macroetapas + microetapas se houver)
-   - Nicho
-3. Se a furadeira não existir ou estiver vaga (sem macroetapas nomeadas), pare e oriente:
-   > "Sua furadeira ainda não está estruturada com macroetapas. Vamos primeiro estruturar com `/produto-editar` e depois voltar aqui."
-
-### Passo 2. Entrevista (UMA pergunta por vez, sempre numerada)
-
-**Pergunta 1. Estilo visual.** Mostre as 5 opções com descrição curta:
+Pergunte ao aluno (UMA pergunta, numerada):
 
 ```
-Qual estilo de visual você quer para sua furadeira?
+Qual estilo visual você prefere para a trilha do método?
 
-1. Linear horizontal. As macroetapas em sequência da esquerda pra direita, com setas conectando. Bom para mostrar progressão clara. Funciona em página de vendas e em post de feed horizontal.
-
-2. Roadmap vertical (timeline). As macroetapas empilhadas de cima para baixo, conectadas por uma linha do tempo. Bom para Reels, Story e post vertical.
-
-3. Pirâmide invertida. Começa com o problema (base larga) e vai afunilando até o Quadro no topo. Bom para mostrar transformação.
-
-4. Hub central. O Quadro no centro, as macroetapas em volta como satélites. Bom quando as etapas não têm ordem rígida.
-
-5. Fluxograma com lógica condicional. Cada etapa tem ponto de decisão (se A então B, se não C). Bom para método com diagnóstico, perfis ou trilhas diferentes.
+1. Escuro moderno (fundo preto, detalhes coloridos — estilo tech/premium)
+2. Claro minimalista (fundo branco/creme, linhas limpas — estilo educacional)
+3. Colorido vibrante (fundo gradiente colorido — estilo motivacional/coaching)
+4. Usar cor do meu produto (me diga a cor principal)
 
 Digite o número:
 ```
 
-**Pergunta 2. Formato e dimensão.**
-```
-Onde você vai usar essa imagem?
+### 3. Gerar HTML da Trilha Visual
 
-1. Quadrado 1080x1080. Post de feed Instagram, carrossel.
-2. Vertical 1080x1920. Story, Reels, capa de WhatsApp.
-3. Horizontal 1920x1080. Página de vendas, slide de apresentação, capa de YouTube.
-4. Horizontal 1200x630. Capa de blog, link preview de redes sociais.
+Gere um arquivo HTML completo com o design de trilha progressiva seguindo TODAS as regras abaixo.
 
-Digite o número:
-```
+#### Estrutura Visual Obrigatória
 
-**Pergunta 3. Paleta de cores.**
-```
-Qual paleta de cores combina com sua marca?
+O visual deve conter:
 
-1. Amarelo handwritten (estilo workshop, igual ao mapa mental do VTSD)
-2. Azul corporativo (sério, profissional, ideal para infoproduto B2B)
-3. Roxo premium (para ticket alto, autoridade, mentoria)
-4. Verde natureza (saúde, bem-estar, sustentabilidade)
-5. Rosa feminino (autoestima, beleza, relacionamentos)
-6. Personalizado. Cole abaixo a cor primária em hex (ex: #2b6cb0)
+**Cabeçalho:**
+- Nome do método em destaque (tipografia grande, bold)
+- Quadro como subtítulo (a transformação que o aluno alcança)
+- Nome do produto menor abaixo
 
-Digite o número (ou cole o hex):
-```
+**Trilha Principal:**
+- Uma linha/caminho visual que conecta todas as macroetapas
+- Cada macroetapa = um NODO PRINCIPAL na trilha (círculo grande numerado)
+- O nodo tem: número, nome da macroetapa, descrição de 1 linha
+- Abaixo de cada nodo: microetapas como badges/pills menores conectados
+- A trilha vai do início (Ponto de Partida) até o fim (o Quadro conquistado)
 
-**Pergunta 4. Incluir o nome do método e o Quadro como título?**
-```
-Quer incluir título e subtítulo na imagem?
+**Ponto de Partida e Chegada:**
+- Início: badge "Ponto de Partida" com ícone de pessoa/início
+- Chegada: badge especial com o Quadro e ícone de troféu/estrela
 
-1. Sim. Nome do método em destaque + Quadro como subtítulo (recomendado)
-2. Só o nome do método
-3. Só as macroetapas, sem cabeçalho
-```
+**Layout:**
+- Orientação: VERTICAL (trilha de cima para baixo, ou em zigzag)
+- Largura fixa: 1080px (formato para imagem/post)
+- Altura: automática conforme quantidade de etapas
+- Padding generoso: min 60px nas laterais
 
-### Passo 3. Confirmação
-
-Mostre um resumo curto antes de gerar:
-
-```
-Resumo do que vou criar:
-
-- Produto: {nome}
-- Método: {nome da furadeira}
-- Estilo: {nome do estilo escolhido}
-- Formato: {dimensão}
-- Paleta: {paleta}
-- Macroetapas: {N} etapas
-- Cabeçalho: {sim/não}
-
-1. Tudo certo, pode gerar
-2. Quero ajustar algo
-```
-
-### Passo 4. Geração do HTML
-
-Gere um arquivo HTML standalone seguindo as **regras técnicas obrigatórias**:
-
-#### Regras técnicas
-
-1. **Dimensão fixa**. O `<body>` tem `width` e `height` exatos da escolha. Sem scroll, sem responsivo. O HTML é uma "tela" pronta pra print.
-2. **Tudo embutido**. CSS dentro de `<style>`, sem dependências externas exceto Google Fonts.
-3. **Fontes**:
-   - Para paleta amarelo handwritten: `Caveat` (heading) + `Patrick Hand` (body). Usa tamanhos generosos.
-   - Para azul, roxo, verde, rosa, personalizado: `Plus Jakarta Sans` (heading) + `Inter` (body).
-4. **Sem emoji**. Use formas geométricas, números dentro de círculos, ícones SVG inline simples (chevron, check, seta). Emoji distorce em conversão para PNG.
-5. **Contraste alto** entre fundo e texto. Mínimo 4.5:1.
-6. **Margem segura interna**. Padding mínimo de 60px nas bordas pra não cortar nada no print.
-7. **Regra do travessão**. Em nenhum texto da imagem (títulos, subtítulos, descrições, labels) pode aparecer travessão (—). Substitua por dois pontos, ponto final ou vírgula.
-8. **Sem placeholder do tipo `[Sua imagem aqui]`**. A imagem é o entregável final, não um template.
-9. **Texto NÃO pode estourar o container**. Se uma macroetapa tem nome longo, quebre em duas linhas ou reduza a fonte. Teste mentalmente: "esse texto cabe?".
-
-#### Templates por estilo
-
-Cada estilo tem uma estrutura HTML diferente. Os templates de referência estão em `references/templates/`. Use o template do estilo escolhido como base e preencha com os dados da furadeira.
-
-**Linear horizontal:** Grid CSS com N colunas (uma por macroetapa), setas SVG conectando. Número grande no topo de cada coluna, nome da etapa em destaque, descrição curta abaixo.
-
-**Roadmap vertical:** Linha vertical no centro, marcadores (círculos numerados) na linha, conteúdo alternando esquerda/direita.
-
-**Pirâmide invertida:** N camadas trapezoidais empilhadas. Base maior (problema) no rodapé, topo (Quadro) no topo. Cada camada com nome e descrição.
-
-**Hub central:** Círculo grande no centro com Quadro/Quadrado da transformação. N círculos menores em torno (posicionados via `position: absolute` ou `transform: rotate`), conectados por linhas SVG ao centro.
-
-**Fluxograma condicional:** Caixas com setas SVG, losangos para decisões. Estilo Mermaid mas escrito à mão em HTML/CSS.
-
-#### Paletas (variáveis CSS)
-
-```css
-/* Amarelo handwritten */
---bg: #fde68a;
---bg-alt: #fef3c7;
---ink: #1f2937;
---accent: #f59e0b;
---line: #1f2937;
-
-/* Azul corporativo */
---bg: #f8fafc;
---bg-alt: #e0f2fe;
---ink: #0f172a;
---accent: #2563eb;
---line: #1e40af;
-
-/* Roxo premium */
---bg: #faf5ff;
---bg-alt: #f3e8ff;
---ink: #1e1b4b;
---accent: #7c3aed;
---line: #4c1d95;
-
-/* Verde natureza */
---bg: #f0fdf4;
---bg-alt: #dcfce7;
---ink: #14532d;
---accent: #16a34a;
---line: #166534;
-
-/* Rosa feminino */
---bg: #fff1f2;
---bg-alt: #ffe4e6;
---ink: #500724;
---accent: #e11d48;
---line: #9f1239;
-```
-
-Para paleta personalizada, gere as variações automaticamente a partir do hex primário:
-- `--bg`: lighten(primary, 90%)
-- `--bg-alt`: lighten(primary, 80%)
-- `--ink`: darken(primary, 70%)
-- `--accent`: o hex original
-- `--line`: darken(primary, 30%)
-
-#### Estrutura mínima do HTML
+#### Template HTML Base
 
 ```html
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<title>Furadeira: {nome do método}</title>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>[NOME_METODO] — Trilha do Método</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
-  :root { /* paleta */ }
+  /* === VARIÁVEIS — ADAPTAR CONFORME PALETA ESCOLHIDA === */
+  :root {
+    /* PALETA ESCURO */
+    --bg: #0a0a0f;
+    --surface: #12121a;
+    --surface-2: #1a1a28;
+    --border: rgba(255,255,255,0.08);
+    --text-primary: #f0f0f8;
+    --text-secondary: #8888aa;
+    --accent-1: #7c6fff; /* cor principal das macroetapas */
+    --accent-2: #ff6fb0; /* cor de destaque/chegada */
+    --accent-glow: rgba(124,111,255,0.25);
+    --step-bg: #1e1e30;
+    --micro-bg: rgba(124,111,255,0.12);
+    --micro-border: rgba(124,111,255,0.3);
+    --line-color: rgba(124,111,255,0.4);
+    --start-color: #38a169;
+    --end-color: #f6ad55;
+  }
+
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  html, body { width: {LARGURA}px; height: {ALTURA}px; overflow: hidden; }
+
   body {
     background: var(--bg);
-    color: var(--ink);
     font-family: 'Inter', sans-serif;
-    padding: 80px;
+    color: var(--text-primary);
+    min-height: 100vh;
+    padding: 0;
+  }
+
+  .canvas {
+    width: 1080px;
+    margin: 0 auto;
+    padding: 60px 80px 80px;
+    position: relative;
+  }
+
+  /* === CABEÇALHO === */
+  .header {
+    text-align: center;
+    margin-bottom: 60px;
+    padding-bottom: 40px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .product-label {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    margin-bottom: 16px;
+  }
+
+  .method-name {
+    font-size: 42px;
+    font-weight: 900;
+    line-height: 1.1;
+    background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 16px;
+  }
+
+  .quadro-badge {
+    display: inline-block;
+    background: var(--micro-bg);
+    border: 1px solid var(--micro-border);
+    border-radius: 100px;
+    padding: 10px 24px;
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--text-secondary);
+  }
+
+  /* === TRILHA === */
+  .trail {
+    position: relative;
     display: flex;
     flex-direction: column;
+    align-items: center;
+    gap: 0;
   }
-  h1, h2, h3 { font-family: 'Plus Jakarta Sans', sans-serif; }
-  /* ... estilos específicos do template ... */
+
+  /* Linha central da trilha */
+  .trail::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--start-color), var(--accent-1) 40%, var(--accent-2) 70%, var(--end-color));
+    transform: translateX(-50%);
+    z-index: 0;
+  }
+
+  /* === PONTO DE PARTIDA === */
+  .trail-start {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--start-color);
+    color: #fff;
+    border-radius: 100px;
+    padding: 12px 28px;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 40px;
+    box-shadow: 0 0 20px rgba(56,161,105,0.4);
+  }
+
+  .trail-start svg { width: 18px; height: 18px; }
+
+  /* === NODO DA MACROETAPA === */
+  .step-wrapper {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    margin-bottom: 8px;
+  }
+
+  /* Alternância esquerda/direita */
+  .step-wrapper:nth-child(odd) .step-card { margin-left: 0; margin-right: calc(50% + 40px); }
+  .step-wrapper:nth-child(even) .step-card { margin-left: calc(50% + 40px); margin-right: 0; }
+
+  /* Conector ao centro */
+  .step-wrapper::after {
+    content: '';
+    position: absolute;
+    top: 44px;
+    width: 40px;
+    height: 2px;
+    background: var(--accent-1);
+    z-index: 1;
+  }
+  .step-wrapper:nth-child(odd)::after { right: calc(50% - 40px); left: auto; }
+  .step-wrapper:nth-child(even)::after { left: calc(50% - 40px); right: auto; }
+
+  .step-card {
+    background: var(--step-bg);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 24px 28px;
+    max-width: 380px;
+    position: relative;
+    transition: all 0.3s ease;
+  }
+
+  .step-card:hover {
+    border-color: var(--accent-1);
+    box-shadow: 0 0 30px var(--accent-glow);
+    transform: translateY(-2px);
+  }
+
+  .step-number-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+    border-radius: 50%;
+    font-size: 14px;
+    font-weight: 800;
+    color: #fff;
+    margin-bottom: 12px;
+    box-shadow: 0 0 16px var(--accent-glow);
+  }
+
+  .step-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 6px;
+    line-height: 1.3;
+  }
+
+  .step-desc {
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin-bottom: 16px;
+    line-height: 1.6;
+  }
+
+  /* Microetapas */
+  .microsteps {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .micro-pill {
+    background: var(--micro-bg);
+    border: 1px solid var(--micro-border);
+    border-radius: 100px;
+    padding: 5px 12px;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .micro-pill::before {
+    content: '◆';
+    font-size: 6px;
+    color: var(--accent-1);
+  }
+
+  /* === PONTO DE CHEGADA === */
+  .trail-end {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    margin-top: 40px;
+    padding: 32px 40px;
+    background: linear-gradient(135deg, rgba(246,173,85,0.12), rgba(246,173,85,0.06));
+    border: 1px solid rgba(246,173,85,0.3);
+    border-radius: 24px;
+    max-width: 500px;
+    box-shadow: 0 0 40px rgba(246,173,85,0.15);
+  }
+
+  .end-icon {
+    font-size: 36px;
+    margin-bottom: 12px;
+    display: block;
+  }
+
+  .end-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--end-color);
+    margin-bottom: 8px;
+  }
+
+  .end-quadro {
+    font-size: 20px;
+    font-weight: 800;
+    color: var(--text-primary);
+    line-height: 1.3;
+  }
+
+  /* === RODAPÉ === */
+  .footer {
+    margin-top: 60px;
+    padding-top: 32px;
+    border-top: 1px solid var(--border);
+    text-align: center;
+    font-size: 11px;
+    color: var(--text-secondary);
+    letter-spacing: 1px;
+  }
+
+  /* === PALETA CLARO (classe no body) === */
+  body.tema-claro {
+    --bg: #fafafa;
+    --surface: #ffffff;
+    --surface-2: #f0f0f2;
+    --border: rgba(0,0,0,0.08);
+    --text-primary: #18181b;
+    --text-secondary: #52525b;
+    --accent-1: #6d28d9;
+    --accent-2: #db2777;
+    --accent-glow: rgba(109,40,217,0.15);
+    --step-bg: #ffffff;
+    --micro-bg: rgba(109,40,217,0.06);
+    --micro-border: rgba(109,40,217,0.2);
+    --line-color: rgba(109,40,217,0.3);
+  }
+
+  /* === PALETA VIBRANTE === */
+  body.tema-vibrante {
+    --bg: linear-gradient(135deg, #1a0533, #0a1628, #0d2818);
+    --surface: rgba(255,255,255,0.05);
+    --surface-2: rgba(255,255,255,0.08);
+    --border: rgba(255,255,255,0.12);
+    --text-primary: #ffffff;
+    --text-secondary: rgba(255,255,255,0.6);
+    --accent-1: #a855f7;
+    --accent-2: #06b6d4;
+    --accent-glow: rgba(168,85,247,0.3);
+    --step-bg: rgba(255,255,255,0.05);
+    --micro-bg: rgba(168,85,247,0.15);
+    --micro-border: rgba(168,85,247,0.35);
+  }
+  body.tema-vibrante { background: linear-gradient(135deg, #1a0533, #0a1628, #0d2818) !important; }
+
 </style>
 </head>
 <body>
-  <header>
-    <h1>{nome do método}</h1>
-    <p class="quadro">{Quadro}</p>
-  </header>
-  <main class="furadeira-{estilo}">
-    <!-- macroetapas -->
-  </main>
-  <footer>
-    <small>{nome do produto}</small>
-  </footer>
+<!-- Adicionar classe: tema-claro | tema-vibrante conforme escolha -->
+
+<div class="canvas">
+
+  <!-- CABEÇALHO -->
+  <div class="header">
+    <div class="product-label">MÉTODO DE</div>
+    <h1 class="method-name">[NOME_DO_METODO]</h1>
+    <div class="quadro-badge">Transformação: [QUADRO]</div>
+  </div>
+
+  <!-- TRILHA -->
+  <div class="trail">
+
+    <!-- INÍCIO -->
+    <div class="trail-start">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/>
+      </svg>
+      Ponto de Partida
+    </div>
+
+    <!-- MACROETAPA 1 — Alternância automática: odd=esquerda, even=direita -->
+    <div class="step-wrapper">
+      <div class="step-card">
+        <div class="step-number-badge">1</div>
+        <div class="step-title">[NOME_MACROETAPA_1]</div>
+        <div class="step-desc">[DESCRICAO_MACROETAPA_1]</div>
+        <div class="microsteps">
+          <span class="micro-pill">[microetapa 1.1]</span>
+          <span class="micro-pill">[microetapa 1.2]</span>
+          <span class="micro-pill">[microetapa 1.3]</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- MACROETAPA 2 -->
+    <div class="step-wrapper">
+      <div class="step-card">
+        <div class="step-number-badge">2</div>
+        <div class="step-title">[NOME_MACROETAPA_2]</div>
+        <div class="step-desc">[DESCRICAO_MACROETAPA_2]</div>
+        <div class="microsteps">
+          <span class="micro-pill">[microetapa 2.1]</span>
+          <span class="micro-pill">[microetapa 2.2]</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- MACROETAPA 3 -->
+    <div class="step-wrapper">
+      <div class="step-card">
+        <div class="step-number-badge">3</div>
+        <div class="step-title">[NOME_MACROETAPA_3]</div>
+        <div class="step-desc">[DESCRICAO_MACROETAPA_3]</div>
+        <div class="microsteps">
+          <span class="micro-pill">[microetapa 3.1]</span>
+          <span class="micro-pill">[microetapa 3.2]</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Repetir padrão para cada macroetapa adicional -->
+
+    <!-- CHEGADA / RESULTADO FINAL -->
+    <div class="trail-end">
+      <span class="end-icon">🏆</span>
+      <div class="end-label">Resultado Final Conquistado</div>
+      <div class="end-quadro">[QUADRO_COMPLETO]</div>
+    </div>
+
+  </div>
+
+  <!-- RODAPÉ -->
+  <div class="footer">
+    [NOME_DO_PRODUTO] · Metodologia exclusiva · [ANO]
+  </div>
+
+</div>
+
 </body>
 </html>
 ```
 
-### Passo 5. Salvar e converter
+#### Regras de Preenchimento do Template
 
-1. Criar pasta se necessário: `entregas/{ativo}/furadeira/`
-2. Salvar HTML em `entregas/{ativo}/furadeira/furadeira-{estilo}-{timestamp}.html`
-3. **Tentar converter automaticamente para PNG via Edge headless** (Windows):
+1. Substitua TODOS os placeholders com os dados reais do produto ativo
+2. Gere um `<div class="step-wrapper">` para cada macroetapa (3 a 7)
+3. Gere uma `<span class="micro-pill">` para cada microetapa da macroetapa
+4. A alternância esquerda/direita acontece automaticamente pelo CSS `nth-child(odd/even)`
+5. Ajuste as cores `--accent-1` e `--accent-2` conforme paleta escolhida pelo aluno:
+   - Escuro moderno (padrão): roxo `#7c6fff` + rosa `#ff6fb0`
+   - Claro minimalista: adicione `class="tema-claro"` no `<body>`
+   - Colorido vibrante: adicione `class="tema-vibrante"` no `<body>`
+   - Cor do produto: use a cor informada no `--accent-1`, derive variante escura no `--accent-2`
 
-```bash
-"C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe" \
-  --headless \
-  --disable-gpu \
-  --screenshot="entregas/{ativo}/furadeira/furadeira-{estilo}-{timestamp}.png" \
-  --window-size={LARGURA},{ALTURA} \
-  --hide-scrollbars \
-  "file:///{caminho-absoluto}/furadeira-{estilo}-{timestamp}.html"
+#### VERIFICAÇÃO OBRIGATÓRIA antes de salvar
+
+Percorra o HTML gerado e confirme:
+- [ ] Nenhum placeholder `[...]` restou no código
+- [ ] O nome do método está correto
+- [ ] O Quadro está completo
+- [ ] Todas as macroetapas estão presentes
+- [ ] Cada macroetapa tem pelo menos 2 microetapas
+- [ ] A paleta de cores está aplicada corretamente
+
+### 4. Salvar HTML
+
+Salve em: `entregas/{ativo}/furadeira-visual.html`
+
+**Não mostre o código HTML ao usuário.**
+
+### 5. Capturar PNG (se Chrome disponível)
+
+Após salvar o HTML, tente capturar o PNG usando `mcp__Claude_in_Chrome__navigate` para abrir o arquivo local e `mcp__Claude_in_Chrome__computer` para tirar a screenshot.
+
+- Caminho do arquivo: `file:///[caminho_absoluto]/entregas/{ativo}/furadeira-visual.html`
+- Se a captura funcionar: salve o PNG em `entregas/{ativo}/furadeira-visual.png` e informe o caminho
+- Se a captura falhar ou o Chrome não estiver disponível: informe apenas o HTML e oriente o aluno a abrir no navegador e usar Ctrl+Shift+P > "Screenshot" ou imprimir como PDF
+
+### 6. Confirmar ao Aluno
+
+```
+Trilha visual do método gerada.
+
+HTML: entregas/{ativo}/furadeira-visual.html
+[PNG: entregas/{ativo}/furadeira-visual.png  (se capturado)]
+
+Abra o arquivo HTML no navegador para visualizar.
+Para salvar como imagem: clique com o botão direito > Imprimir > Salvar como PDF,
+ou use a extensão "Full Page Screen Capture" do Chrome.
 ```
 
-Se Edge não estiver no caminho padrão, tentar:
-- `"C:\Program Files\Microsoft\Edge\Application\msedge.exe"`
-- `"C:\Program Files\Google\Chrome\Application\chrome.exe"`
-
-Use Bash para executar. Espere terminar (timeout 30s). Verifique se o PNG foi criado.
-
-4. Se a conversão automática falhar, NÃO travar a entrega. Apenas avise:
-   > "Não consegui converter automaticamente para PNG aqui (Edge/Chrome não respondeu). Mas o HTML está pronto. Abra `{caminho}` no navegador e tire um print da tela inteira (Win+Shift+S), ou clique direito e 'Salvar como imagem'."
-
-### Passo 6. Entrega
-
-Mostre ao usuário (sem nunca colar o código HTML, conforme regra do CLAUDE.md):
+### 7. Próximo Passo Sugerido
 
 ```
-Pronto. Sua furadeira visual foi gerada.
-
-Arquivos:
-- HTML: entregas/{ativo}/furadeira/furadeira-{estilo}-{timestamp}.html
-- PNG: entregas/{ativo}/furadeira/furadeira-{estilo}-{timestamp}.png  (se conversão deu certo)
-
-Como usar:
-- Para postar no Instagram, use o PNG diretamente.
-- Para colocar na página de vendas, use o PNG ou incorpore o HTML inline.
-- Se quiser ajustar algo (cor, ordem, texto de uma etapa), me diga o que mudar.
-
-Próximo passo sugerido:
-- Quer que eu coloque essa furadeira na seção "Método" da sua página de vendas? Use `/copy-pagina` ou edite a página existente.
+Agora que o método está visualizado, o próximo passo é criar sua página de vendas.
+Use /pagina-de-vendas para construir a página completa com estrutura 8D.
 ```
 
-## Regras de qualidade (checklist antes de entregar)
-
-Antes de salvar, verifique mentalmente:
-
-- [ ] Todas as N macroetapas aparecem na imagem (nada cortado).
-- [ ] O nome de cada etapa está legível (fonte >= 24px no design).
-- [ ] Há contraste forte entre texto e fundo.
-- [ ] Não tem travessão em lugar nenhum.
-- [ ] Não tem texto em inglês (a não ser que o nicho exija).
-- [ ] Não tem placeholder visível tipo "Lorem ipsum" ou "[texto aqui]".
-- [ ] O HTML tem dimensões fixas (largura e altura definidas no body).
-- [ ] As fontes do Google Fonts foram carregadas no `<link>`.
-- [ ] O título da página HTML reflete o nome do método.
-- [ ] Não há scroll. Tudo cabe dentro da tela.
-
-## Erros comuns a evitar
-
-1. **Texto estourando container.** Se a macroetapa se chama "Estruturação Estratégica do Diagnóstico Inicial", isso não cabe num card pequeno. Reduza para "Diagnóstico" ou "Diagnóstico Inicial".
-2. **Inventar macroetapas que não existem no perfil.** Se o usuário tem 4 etapas, gere com 4. Não infle pra 6 só porque o template tem 6 colunas.
-3. **Criar HTML responsivo.** Esse HTML não é uma página, é uma "captura de tela". Dimensões fixas, sem media queries.
-4. **Esquecer da regra do travessão.** Faça uma busca de texto antes de salvar.
-5. **Mostrar o código HTML para o usuário.** Salve direto e diga só o caminho.
-6. **Usar Picsum ou imagem de banco aleatória.** Esse visual é geométrico, não tem foto.
-7. **Ignorar o estilo escolhido pelo usuário.** Se ele pediu hub central, não entregue linear horizontal.
-
-## Onde salvar
-
-`entregas/{ativo}/furadeira/`
-
-Convenção de nome:
-- `furadeira-{estilo}-{YYYYMMDD-HHMM}.html`
-- `furadeira-{estilo}-{YYYYMMDD-HHMM}.png`
-
-Exemplo: `furadeira-linear-20260408-1530.html`
+---
 
 ## Referências
 
-- `references/templates/` — 5 templates HTML base, um por estilo.
-- Mecânicas do método (PDF "Mecânica de um Produto"): lógica condicional, enquadramento, listas, fases e sequências, encontrando empecilhos, dinâmica de entrega. Use essa terminologia se o usuário pedir um visual mais técnico-explicativo da mecânica do método.
-- Estrutura 8D da página de vendas: a furadeira aparece na seção "Método" (seção 3 do hero). O visual gerado aqui é o que vai nessa seção.
+- Mecânicas de Furadeira: `.claude/plugins/workshop-marketing/skills/furadeira-visual/references/6-mecanicas.md`
+- Design base: `.claude/plugins/workshop-marketing/skills/paginas/references/design-system-components.md`

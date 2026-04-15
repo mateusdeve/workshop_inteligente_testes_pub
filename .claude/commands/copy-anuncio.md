@@ -15,9 +15,58 @@ Cria pacotes de anúncios usando os 18 tipos da Mandala VTSD + estrutura de camp
 
 ## O Que Fazer
 
-### 1. Contexto
+### 1. Contexto e Escolha do Produto
 
-Leia `entregas/{ativo}/perfil.md` e `entregas/{ativo}/idconsumidor.md` se existir.
+**Passo 1 — Identificar produtos disponíveis:**
+
+Leia `entregas/.ativo` para saber o produto ativo atual. Liste também todas as pastas existentes em `entregas/` (exceto `.ativo`) para mostrar as opções disponíveis.
+
+**Passo 2 — Perguntar qual base usar:**
+
+```
+Para criar os anúncios, qual base de informações você quer usar?
+
+1. Produto ativo: [nome do produto ativo]
+[se existirem outros produtos cadastrados, listar aqui, ex:]
+2. [nome do produto 2]
+3. [nome do produto 3]
+[última opção sempre:]
+N. Informar nicho, público e quadro agora (sem produto cadastrado)
+
+Digite o número:
+```
+
+**Se escolher um produto cadastrado (opções 1, 2, 3...):**
+- Leia `entregas/{ativo}/perfil.md` e `entregas/{ativo}/idconsumidor.md` se existir
+- Se não for o produto ativo, use o slug escolhido como base para todos os caminhos de arquivo desta sessão (sem alterar o `.ativo`)
+- Extraia internamente: Decorados, Urgências Ocultas, Quadro, público, preço, tom
+
+**Se escolher "Informar nicho, público e quadro agora":**
+Fazer as seguintes perguntas, UMA por vez:
+
+```
+Qual o nicho ou tema do produto?
+(ex: "Tarô", "Emagrecimento", "Finanças para autônomos")
+```
+
+```
+Quem é o público que vai ver esse anúncio?
+(ex: "Mulheres de 30 a 50 anos que estudam tarô há 1 a 3 anos")
+```
+
+```
+Qual a transformação principal que o produto entrega? (o Quadro)
+(ex: "Fazer leituras de tarô com confiança e cobrar por isso")
+```
+
+```
+Qual o preço do produto?
+(ex: "R$ 497", "gratuito", "R$ 97/mês")
+```
+
+Após coletar essas informações, prosseguir o fluxo usando esses dados no lugar do perfil.md. Salvar os anúncios gerados em `entregas/{ativo}/anuncios/` (criar a pasta se não existir).
+
+---
 
 **Extraia e liste internamente (não precisa mostrar ao usuário):**
 - Todos os **Decorados** do perfil. esses são os benefícios que podem virar tema central de anúncio
@@ -401,10 +450,134 @@ Para cada variação, monte um prompt de background baseado no tipo de anúncio 
 - Texto overlay com o headline da variação (quando aplicável)
 - Proporção: 1:1 para feed, 9:16 para stories
 
-Leia o `.env` do projeto e verifique se existe `FREEPIK_API_KEY`.
+Antes de gerar qualquer prompt, pergunte qual ferramenta a pessoa vai usar. Monte a lista de opções de acordo com o formato escolhido na Pergunta 1.
 
-**Se existir**, gere cada imagem via API:
+**Se o formato for Imagem Estática, Carrossel ou Stories:**
+
+```
+Qual IA você vai usar para gerar a imagem?
+
+1. Midjourney
+2. ChatGPT (DALL-E)
+3. Leonardo AI
+4. Adobe Firefly
+5. Canva AI (Magic Media)
+6. Stable Diffusion / ComfyUI
+7. Outra — me diga qual
+
+Sugestão: para anúncios com pessoas reais e estética fotográfica, o Midjourney
+e o Leonardo AI costumam entregar os melhores resultados. Para quem já usa o
+Canva no dia a dia, o Canva AI é a opção mais prática.
+
+Digite o número:
+```
+
+**Se o formato for Vídeo:**
+
+```
+Qual IA você vai usar para gerar o vídeo?
+
+1. HeyGen (avatar com seu rosto ou avatar pronto — melhor para talking head)
+2. Pika (geração de vídeo a partir de prompt — rápido e gratuito para começar)
+3. Kling (vídeo realista, ótimo para cenas com pessoas)
+4. RunwayML (controle avançado de edição e geração)
+5. Luma Dream Machine (realismo alto, bom para ambientes e produtos)
+6. Vou gravar eu mesmo — preciso do prompt como briefing de direção
+7. Outra — me diga qual
+
+Sugestão: se você quer um talking head com script lido por avatar, o HeyGen é
+o mais indicado — ele aceita o roteiro direto. Se quiser gerar o vídeo a
+partir de uma descrição visual, Pika ou Kling entregam resultados mais rápidos
+sem precisar de configuração.
+
+Digite o número:
+```
+
+---
+
+**Geração do prompt adaptado para a IA escolhida:**
+
+Após o usuário informar a IA, gere os prompts de cada variação otimizados para aquela ferramenta específica. Use a sintaxe, estrutura e vocabulário que aquela IA melhor interpreta. Referências por ferramenta:
+
+**Midjourney:**
+- Estrutura: `[descrição da cena], [estilo], [iluminação], [câmera/ângulo], [paleta], [referência de fotógrafo ou artista se aplicável] --ar 1:1 --v 6 --style raw`
+- Para 9:16: `--ar 9:16`
+- Evitar verbos de ação — descrever o estado visual resultante
+- Incluir termos técnicos de fotografia: `shallow depth of field`, `soft side lighting`, `editorial photography`
+
+**ChatGPT (DALL-E):**
+- Estrutura em parágrafo descritivo: "Create a photorealistic image of [cena]. The style is [estilo]. Lighting is [iluminação]. The composition shows [enquadramento]. Color palette: [paleta]. Aspect ratio: [proporção]."
+- Linguagem mais direta e instrucional
+- DALL-E não aceita parâmetros técnicos — tudo vai no texto corrido
+
+**Leonardo AI:**
+- Estrutura similar ao Midjourney mas sem parâmetros `--`
+- Indicar o modelo a usar: `Leonardo Diffusion XL` para fotos realistas, `PhotoReal` para pessoas
+- Separar elementos por vírgula: `[cena], [estilo fotográfico], [iluminação], [enquadramento], [paleta de cores]`
+- Adicionar negative prompt separado: listar o que não deve aparecer
+
+**Adobe Firefly:**
+- Estrutura em inglês descritivo e simples, sem sintaxe especial
+- Enfatizar o estilo com termos reconhecidos: `professional photography`, `studio light`, `clean background`
+- Indicar proporção no campo de configuração, não no prompt
+
+**Canva AI (Magic Media):**
+- Prompts curtos e diretos em português ou inglês
+- Descrever a cena principal + estilo visual em 1-2 frases
+- Não suporta parâmetros técnicos — manter simples
+
+**Stable Diffusion / ComfyUI:**
+- Estrutura: `[qualidade: masterpiece, best quality, photorealistic], [cena], [estilo], [iluminação], [câmera]`
+- Incluir negative prompt obrigatório: `(worst quality, low quality, blurry, distorted face:1.4), watermark, text`
+- Indicar sampler e steps recomendados se relevante
+
+**HeyGen:**
+- Não gerar prompt de imagem — gerar o roteiro formatado para colar no campo de texto do avatar
+- Incluir instruções de velocidade de fala, pausas e ênfases
+- Formato: texto corrido com `[pausa]` e `[ênfase]` marcados no roteiro
+
+**Pika:**
+- Prompt em inglês descrevendo a ação e o visual da cena em movimento
+- Estrutura: `[personagem/sujeito] [ação], [ambiente], [estilo cinematográfico], [iluminação], [câmera: movimento e ângulo]`
+- Adicionar Motion Guidance se disponível: descrever o movimento específico esperado
+
+**Kling:**
+- Similar ao Pika — descrever cena em movimento
+- Estrutura: `[cena inicial], [movimento da câmera], [ação do sujeito], [ambiente], [estilo], [iluminação]`
+- Kling performa melhor com descrições de pessoas em ação realista
+
+**RunwayML:**
+- Estrutura: `[sujeito + ação], [ambiente detalhado], [estilo de câmera], [iluminação cinematográfica]`
+- Indicar se é geração a partir de imagem (Image to Video) ou texto puro (Text to Video)
+- Termos que funcionam bem: `cinematic`, `smooth camera movement`, `natural lighting`
+
+**Luma Dream Machine:**
+- Prompt focado na cena e atmosfera visual
+- Estrutura: `[descrição da cena], [movimento da câmera], [iluminação], [atmosfera/humor visual]`
+- Funciona melhor com descrições de ambientes e produtos — menos preciso com pessoas falando
+
+**Se for gravar o próprio vídeo:**
+- Gerar um briefing de direção completo em português
+- Incluir: enquadramento, iluminação, postura, tom de voz, ritmo de fala, gestos, fundo, roupas recomendadas, texto na tela e momento de inserção
+
+---
+
+Apresente os prompts prontos para copiar e colar, um por variação.
+
+Salve em: `produtos/{ativo}/entregas/anuncios/prompts-visuais-[formato]-[ia-escolhida]-[produto].md`
+
+---
+
+#### Opção 1 — Geração via API
+
+**Se Imagem Estática ou Carrossel:**
+
+Monte o prompt de imagem para cada variação (mesma lógica descrita acima). Leia o `.env` do projeto e verifique se existe `FREEPIK_API_KEY`.
+
+**Se existir**, gere via API:
+
 ```bash
+# Imagem estática — para cada variação (substituir N pelo número):
 curl -X POST "https://api.freepik.com/v1/ai/text-to-image" \
   -H "x-freepik-api-key: $FREEPIK_API_KEY" \
   -H "Content-Type: application/json" \
@@ -412,10 +585,25 @@ curl -X POST "https://api.freepik.com/v1/ai/text-to-image" \
 ```
 Salve cada imagem em: `entregas/{ativo}/anuncios/img-variacao-[N]-[produto].png`
 
-**Se não existir**, ensine o a fazer a conta no freepik, gerar a chave api.
+Para stories: substitua `"size": "square_1_1"` por `"size": "portrait_9_16"`.
+Para carrossel: repita para cada card, salvando `carrossel-card[N]-[produto].png`.
+
+Salve em: `produtos/{ativo}/entregas/anuncios/img-variacao-[N]-[produto].png`
+
+**Se não existir**, informe como configurar e ofereça a opção de prompt como alternativa imediata:
+
+```
+Não encontrei a chave do Freepik no .env. Você tem duas opções:
+
+1. Configurar agora (leva 2 minutos) — eu te explico o passo a passo
+2. Gerar os prompts para você colar em outra IA
+
+Digite o número:
+```
+
+Se escolher opção 2: siga o fluxo da **Opção 2 — Gerar prompts para colar em IA** acima (perguntar qual IA antes de gerar).
 
 **Como configurar o Freepik AI (gratuito para começar):**
-
 1. Acesse freepik.com e crie uma conta gratuita (ou faça login)
 2. Vá em: perfil > API Keys > Create API Key
 3. Copie a chave gerada
@@ -423,14 +611,11 @@ Salve cada imagem em: `entregas/{ativo}/anuncios/img-variacao-[N]-[produto].png`
 5. Adicione a linha: `FREEPIK_API_KEY=sua_chave_aqui`
 6. Salve o arquivo
 
-Quando o usuário colocar a chave API, gere as imagens. 
-
-
----
+Quando o usuário configurar, gere as imagens automaticamente.
 
 ---
 
-**Se Vídeo (Avatar IA):**
+**Se Vídeo:**
 
 Use o roteiro aprovado de cada variação. Verifique no `.env` se existem as três variáveis:
 - `HEYGEN_API_KEY`
@@ -438,6 +623,7 @@ Use o roteiro aprovado de cada variação. Verifique no `.env` se existem as tr�
 - `HEYGEN_VOICE_ID`
 
 **Se todas existirem**, gere o vídeo via HeyGen:
+
 ```bash
 curl -X POST "https://api.heygen.com/v2/video/generate" \
   -H "X-Api-Key: $HEYGEN_API_KEY" \
@@ -465,6 +651,7 @@ curl -X POST "https://api.heygen.com/v2/video/generate" \
 ```
 
 A API retorna um `video_id`. Faça polling a cada 30 segundos:
+
 ```bash
 curl "https://api.heygen.com/v1/video_status.get?video_id=VIDEO_ID" \
   -H "X-Api-Key: $HEYGEN_API_KEY"
@@ -473,12 +660,20 @@ curl "https://api.heygen.com/v1/video_status.get?video_id=VIDEO_ID" \
 Quando status for `completed`, faça download do `video_url` e salve em:
 `entregas/{ativo}/anuncios/video-variacao-[N]-[produto].mp4`
 
-**Se faltar alguma variável**, ensine o usuário como configurar, com esta mensagem exata:
+**Se faltar alguma variável**, informe e ofereça alternativa imediata:
 
----
-Seu roteiro está pronto acima. Para gerar o vídeo com avatar automaticamente, você precisa configurar o HeyGen. Siga estes passos:
+```
+Não encontrei as chaves do HeyGen no .env. Você tem duas opções:
 
-**Como configurar o HeyGen (gerador de vídeo com avatar IA):**
+1. Configurar agora — eu te explico o passo a passo (leva 5 minutos)
+2. Gerar os prompts para você usar em outra IA de vídeo
+
+Digite o número:
+```
+
+Se escolher opção 2: siga o fluxo da **Opção 2 — Gerar prompts para colar em IA** acima (perguntar qual IA antes de gerar).
+
+**Como configurar o HeyGen:**
 
 **Passo 1. Criar conta e pegar a chave da API:**
 1. Acesse heygen.com e crie uma conta (plano gratuito tem créditos de teste)
@@ -488,7 +683,7 @@ Seu roteiro está pronto acima. Para gerar o vídeo com avatar automaticamente, 
 **Passo 2. Pegar o ID do seu avatar:**
 1. No painel HeyGen, vá em Avatars (menu lateral)
 2. Escolha um avatar ou crie o seu com sua foto
-3. Clique no avatar > copie o "Avatar ID" exibido nos detalhes
+3. Clique no avatar e copie o "Avatar ID" exibido nos detalhes
 
 **Passo 3. Pegar o ID da voz:**
 1. No painel HeyGen, vá em Voices (menu lateral)
@@ -506,8 +701,7 @@ HEYGEN_VOICE_ID=id_da_voz_aqui
 ```
 3. Salve o arquivo
 
-Em seguida, gere o vídeo para o usuário. 
----
+Quando o usuário configurar, gere os vídeos automaticamente.
 
 ---
 
