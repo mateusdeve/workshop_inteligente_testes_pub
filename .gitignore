@@ -59,6 +59,14 @@ scripts/*.log
 .continue-here.md
 
 # ══════════════════════════════════════════
+# docs/ é área local de desenvolvimento (plans, rascunhos)
+# A documentação permanente foi internalizada: ARQUITETURA.md fica
+# na raiz; guias de setup viraram commands em .claude/commands/;
+# docs/processo-criativos.md virou scripts/README-creative.md.
+# ══════════════════════════════════════════
+docs/
+
+# ══════════════════════════════════════════
 # Sistema operacional
 # ══════════════════════════════════════════
 .DS_Store

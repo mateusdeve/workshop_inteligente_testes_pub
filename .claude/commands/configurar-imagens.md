@@ -1,3 +1,8 @@
+---
+name: workshop-marketing:configurar-imagens
+description: Guia para conectar uma API de geração de imagens (OpenRouter/Nano Banana) ao projeto. Salva OPENROUTER_API_KEY no .env, usado pelas skills /img-anuncio e /criativo-de-imagem.
+---
+
 # Como Configurar a Geracao de Imagens com IA
 
 Guia completo para conectar uma API de geracao de imagens ao Workshop Marketing IA.

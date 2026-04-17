@@ -41,12 +41,12 @@ Quer que eu te guie na configuracao agora?
 2. Prefiro so gerar os prompts (sem API, uso manual)
 ```
 
-Se escolher 1: exiba um resumo dos passos principais do guia `docs/setup-imagens.md` de forma conversacional, orientando o usuario a:
+Se escolher 1: exiba um resumo dos passos principais do guia `/configurar-imagens` de forma conversacional, orientando o usuario a:
 - Criar conta no openrouter.ai
 - Adicionar creditos (minimo US$ 5)
 - Gerar a chave de API (openrouter.ai/settings/keys)
 - Colar no arquivo `.env` na linha `OPENROUTER_API_KEY=`
-- Informar que o guia completo esta em `docs/setup-imagens.md`
+- Informar que o guia completo esta no command `/configurar-imagens`
 
 Apos o usuario informar que configurou, verifique lendo o `.env` novamente. Se a chave estiver la, confirme: "Conexao configurada. Vamos criar suas imagens." e siga para o passo 1.
 
