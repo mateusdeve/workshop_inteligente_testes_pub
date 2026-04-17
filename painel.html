@@ -253,11 +253,9 @@
     </div>
   </main>
 
+<script src="meus-produtos/index.js" onerror="window.__MANIFEST_FALTANDO = true"></script>
 <script>
 (function () {
-  const INDEX_URL = 'meus-produtos/index.json';
-  const PAINEL_PADRAO = 'painel-entregas.html';
-
   const $select = document.getElementById('select-produto');
   const $frame = document.getElementById('painel-frame');
   const $aviso = document.getElementById('aviso');
@@ -265,9 +263,6 @@
   const $avisoTexto = document.getElementById('aviso-texto');
   const $avisoPassos = document.getElementById('aviso-passos');
   const $subtitle = document.getElementById('subtitle');
-
-  const FILE_PROTOCOL = location.protocol === 'file:';
-  let produtos = [];
 
   function mostrarAviso(titulo, texto, passos) {
     $avisoTitulo.textContent = titulo;
@@ -293,107 +288,83 @@
     $frame.src = 'about:blank';
   }
 
-  function avisoServidorLocal() {
-    mostrarAviso(
-      'Precisa abrir com um servidor local',
-      'O navegador bloqueia a leitura de arquivos quando você abre o painel direto pelo explorador. Escolha um dos caminhos abaixo, é rápido.',
-      [
-        {
-          titulo: 'Live Server no VS Code (mais fácil)',
-          desc: 'Instale a extensão <strong>Live Server</strong> e clique com o botão direito no arquivo <code>painel.html</code> no VS Code. Escolha <strong>Open with Live Server</strong>. O navegador abre sozinho no endereço certo.',
-        },
-        {
-          titulo: 'Python (se já tem Python instalado)',
-          desc: 'Abra o terminal nesta pasta e rode o comando abaixo. Depois acesse <code>http://localhost:8080/painel.html</code>.',
-          cmd: 'py -3 -m http.server 8080'
-        },
-        {
-          titulo: 'Node (se já tem Node instalado)',
-          desc: 'No terminal desta pasta, rode o comando abaixo. Ele abre o painel automaticamente.',
-          cmd: 'npx serve .'
-        }
-      ]
-    );
-  }
-
-  function mostrarIframe(url) {
-    $aviso.classList.add('hidden');
-    $frame.classList.remove('hidden');
-    $frame.src = url;
-  }
-
-  async function verificaExistencia(url) {
-    try {
-      const res = await fetch(url, { method: 'HEAD' });
-      return res.ok;
-    } catch (e) {
-      return false;
-    }
-  }
-
-  async function trocarProduto(slug) {
-    const produto = produtos.find(p => p.slug === slug);
+  function trocarProduto(slug) {
+    const produto = (window.MEUS_PRODUTOS.produtos || []).find(p => p.slug === slug);
     if (!produto) {
       mostrarAviso('Produto não encontrado', 'O produto selecionado não está no manifest.');
       return;
     }
-    const painel = produto.painel || PAINEL_PADRAO;
-    const url = 'meus-produtos/' + slug + '/' + painel;
-    const existe = await verificaExistencia(url);
-    if (!existe) {
+    $subtitle.textContent = produto.nome || slug;
+    if (!produto.url) {
       mostrarAviso(
         'Este produto ainda não tem painel',
-        'O arquivo <code>' + painel + '</code> não foi encontrado. Rode <code>/produto-consumidor</code> no produto <strong>' + (produto.nome || slug) + '</strong> para gerar o painel.'
+        'O produto <strong>' + (produto.nome || slug) + '</strong> ainda não tem um <code>painel-entregas.html</code> gerado.',
+        [
+          {
+            titulo: 'Gerar o painel do produto',
+            desc: 'No assistente de marketing, rode o comando abaixo. Ele cria o painel de entregas desse produto.',
+            cmd: '/produto-consumidor'
+          },
+          {
+            titulo: 'Depois, atualizar o manifest',
+            desc: 'Assim que o painel for criado, rode o script abaixo no terminal (ou <code>/painel-atualizar</code> no assistente).',
+            cmd: 'py -3 scripts/painel-atualizar.py'
+          }
+        ]
       );
       return;
     }
-    mostrarIframe(url);
-    $subtitle.textContent = produto.nome || slug;
+    $aviso.classList.add('hidden');
+    $frame.classList.remove('hidden');
+    $frame.src = produto.url;
   }
 
-  async function carregar() {
-    try {
-      const res = await fetch(INDEX_URL);
-      if (!res.ok) throw new Error('index.json não acessível');
-      const data = await res.json();
-      produtos = Array.isArray(data.produtos) ? data.produtos : [];
-      if (produtos.length === 0) {
-        mostrarAviso(
-          'Nenhum produto cadastrado ainda',
-          'Rode <code>/produto-novo</code> no assistente para criar o primeiro produto.'
-        );
-        $select.innerHTML = '<option>Sem produtos</option>';
-        return;
-      }
-      $select.innerHTML = produtos
-        .map(p => '<option value="' + p.slug + '">' + (p.nome || p.slug) + '</option>')
-        .join('');
-      $select.disabled = false;
-      const inicial = data.ativo && produtos.some(p => p.slug === data.ativo)
-        ? data.ativo
-        : produtos[0].slug;
-      $select.value = inicial;
-      $select.addEventListener('change', e => trocarProduto(e.target.value));
-      await trocarProduto(inicial);
-    } catch (err) {
-      $select.innerHTML = '<option>Sem produtos</option>';
-      if (FILE_PROTOCOL) {
-        avisoServidorLocal();
-      } else {
-        mostrarAviso(
-          'Manifest não encontrado',
-          'O arquivo <code>meus-produtos/index.json</code> ainda não existe. Rode <code>/produto-novo</code> ou <code>/produto-trocar</code> no assistente para gerar o manifest.'
-        );
-      }
+  function iniciar() {
+    if (window.__MANIFEST_FALTANDO || !window.MEUS_PRODUTOS) {
+      $select.innerHTML = '<option>Sem manifest</option>';
+      mostrarAviso(
+        'Manifest de produtos ainda não foi gerado',
+        'O arquivo <code>meus-produtos/index.js</code> não existe ou não pôde ser lido. Gere o manifest rodando um dos comandos abaixo.',
+        [
+          {
+            titulo: 'Pelo terminal',
+            desc: 'Na raiz do projeto, rode o script abaixo. Ele varre <code>meus-produtos/</code> e atualiza o manifest automaticamente.',
+            cmd: 'py -3 scripts/painel-atualizar.py'
+          },
+          {
+            titulo: 'Pelo assistente de marketing',
+            desc: 'No chat, rode <code>/painel-atualizar</code>. Ele chama o mesmo script pra você.',
+          }
+        ]
+      );
+      return;
     }
+
+    const produtos = window.MEUS_PRODUTOS.produtos || [];
+    if (produtos.length === 0) {
+      $select.innerHTML = '<option>Sem produtos</option>';
+      mostrarAviso(
+        'Nenhum produto cadastrado ainda',
+        'Rode <code>/produto-novo</code> no assistente de marketing para criar seu primeiro produto.'
+      );
+      return;
+    }
+
+    $select.innerHTML = produtos
+      .map(p => '<option value="' + p.slug + '">' + (p.nome || p.slug) + '</option>')
+      .join('');
+    $select.disabled = false;
+
+    const ativoDoManifest = window.MEUS_PRODUTOS.ativo;
+    const inicial = ativoDoManifest && produtos.some(p => p.slug === ativoDoManifest)
+      ? ativoDoManifest
+      : produtos[0].slug;
+    $select.value = inicial;
+    $select.addEventListener('change', e => trocarProduto(e.target.value));
+    trocarProduto(inicial);
   }
 
-  if (FILE_PROTOCOL) {
-    avisoServidorLocal();
-    $select.innerHTML = '<option>Aguardando servidor local</option>';
-  } else {
-    carregar();
-  }
+  iniciar();
 })();
 </script>
 </body>
