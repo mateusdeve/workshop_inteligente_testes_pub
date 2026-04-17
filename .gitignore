@@ -55,6 +55,13 @@ test-*
 scripts/__pycache__/
 
 # ══════════════════════════════════════════
+# Arquivos efêmeros (lock, logs, notas de sessão)
+# ══════════════════════════════════════════
+.claude/scheduled_tasks.lock
+scripts/*.log
+.continue-here.md
+
+# ══════════════════════════════════════════
 # Sistema operacional
 # ══════════════════════════════════════════
 .DS_Store
