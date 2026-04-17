@@ -17,7 +17,7 @@ Transforma uma ideia de aplicativo interno ou SaaS simples em especificação t�
 
 Acione a skill `app-saas` do plugin `workshop-marketing` e siga o roteiro:
 
-1. Ler `entregas/.ativo` e `entregas/{ativo}/perfil.md` pra pegar contexto do negócio.
+1. Ler `meus-produtos/.ativo` e `meus-produtos/{ativo}/perfil.md` pra pegar contexto do negócio.
 2. Coletar (uma pergunta por vez):
    1. Qual problema esse SaaS resolve? (ex: "perco tempo respondendo as mesmas dúvidas dos alunos", "não tenho onde centralizar leads")
    2. Quem usa? (só você, seu time, seus alunos, seus clientes)
@@ -32,7 +32,7 @@ Acione a skill `app-saas` do plugin `workshop-marketing` e siga o roteiro:
    - **Regras de negócio** importantes
    - **Prompt técnico pronto pro Lovable.dev**, já formatado com stack sugerida (React + Tailwind + Supabase), estrutura de páginas e instruções de UX em português. Incluir esquema de cores baseado na identidade do produto ativo.
 4. Mostrar o conteúdo gerado e pedir aprovação.
-5. Salvar em `entregas/{ativo}/apps/{nome-do-app}.md`.
+5. Salvar em `meus-produtos/{ativo}/entregas/apps/{nome-do-app}.md`.
 6. Sugerir próximo passo: copiar o prompt técnico e colar no Lovable.dev (lovable.dev > New Project).
 
 ## Regras Resumidas

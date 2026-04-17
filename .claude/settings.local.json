@@ -44,7 +44,14 @@
       "Bash(head -5 find C:/Users/Elen/.claude -path *anthropic*)",
       "Bash(find C:/Users/Elen -path *anthropic-skills* -name SKILL.md)",
       "WebFetch(domain:prontapratudo.hotmart.host)",
-      "WebFetch(domain:drasamiracotta.com.br)"
+      "WebFetch(domain:drasamiracotta.com.br)",
+      "Skill(schedule)",
+      "Skill(ads-relatorio)",
+      "Bash(rm scripts/relatorio-ads.py)",
+      "Bash(powershell.exe -ExecutionPolicy Bypass -File \"scripts/relatorio-ads.ps1\")",
+      "Skill(gsd:pause-work)",
+      "Skill(configurar-apify)",
+      "Bash(powershell.exe -ExecutionPolicy Bypass -File \"C:/Users/gabri/Documents/GitHub/workshop_inteligente/entregas/instagram-dashboard/atualizar.ps1\")"
     ]
   }
 }

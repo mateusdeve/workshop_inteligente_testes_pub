@@ -231,7 +231,7 @@ Esse foi o feedback de copy e estrutura. Quer continuar para o feedback de desig
 - [ ] Grid de entregáveis empilha corretamente?
 - [ ] Botões com tamanho adequado para toque?
 
-**Anti-IA (ler `.claude/plugins/workshop-marketing/skills/paginas/references/anti-ia-design.md`)**
+**Anti-IA (ler `.claude/skills/paginas/references/anti-ia-design.md`)**
 
 Low ticket é o nicho onde "cara de IA" mais afeta conversão: o visitante decide em segundos, e se bater o olho e reconhecer "isso é Lovable/v0", sai sem clicar. Marcar cada clichê presente:
 
@@ -331,11 +331,11 @@ Após entregar a copy, pergunte:
 
 Primeiro entregar a copy corrigida (Opção 1), pedir aprovação. Depois gerar o HTML.
 
-**Para gerar o HTML, seguir o Fluxo de Geração Obrigatório de 7 etapas** definido em `.claude/plugins/workshop-marketing/skills/paginas/SKILL.md` (seção "Fluxo de Geração"):
+**Para gerar o HTML, seguir o Fluxo de Geração Obrigatório de 7 etapas** definido em `.claude/skills/paginas/SKILL.md` (seção "Fluxo de Geração"):
 
-1. Ler `.claude/plugins/workshop-marketing/skills/paginas/SKILL.md` PRIMEIRO. fluxo completo, tabela de estilo por nicho, checklist final.
+1. Ler `.claude/skills/paginas/SKILL.md` PRIMEIRO. fluxo completo, tabela de estilo por nicho, checklist final.
 2. Escolher **UM ÚNICO estilo visual** para a página inteira pela tabela de nicho (ver regra automática de low ticket logo abaixo). PROIBIDO misturar estilos diferentes na mesma página.
-3. **LER OS TEMPLATES REAIS DO ESTILO ESCOLHIDO** (OBRIGATÓRIO): para cada seção da página, abrir `.claude/plugins/workshop-marketing/skills/paginas/references/templates/{secao}_{estilo}/code.html`. todos no mesmo estilo. Mínimo 4 templates lidos por geração. Seções com template próprio: hero, dor, paliativo, metodo, cta, faq.
+3. **LER OS TEMPLATES REAIS DO ESTILO ESCOLHIDO** (OBRIGATÓRIO): para cada seção da página, abrir `.claude/skills/paginas/references/templates/{secao}_{estilo}/code.html`. todos no mesmo estilo. Mínimo 4 templates lidos por geração. Seções com template próprio: hero, dor, paliativo, metodo, cta, faq.
 4. Extrair tokens mestres do estilo (`--radius`, `--border-width`, `--shadow`, tipografia, estilo de botão) e colocar no `:root`. TODAS as seções (inclusive entregáveis, bônus, stack, oferta, garantia) herdam esses tokens e parecem nativas do estilo escolhido.
 5. Copiar a estrutura HTML+CSS dos templates lidos e adaptar cores/fontes/textos ao nicho. NÃO reescrever do zero.
 6. Usar `references/estruturas-pagina.md` para ordem de seções e `references/design-system-components.md` apenas como fallback para seções sem template próprio e para utilitários globais (animações, responsivo, CDNs).
@@ -375,9 +375,9 @@ Primeiro entregar a copy corrigida (Opção 1), pedir aprovação. Depois gerar 
 **Varredura final antes de salvar o HTML:**
 Executar a varredura de vícios proibidos em todo o texto visível da página. Nenhum HTML pode ser salvo sem passar por essa revisão.
 
-Salvar em: `entregas/{ativo}/paginas/low-ticket-corrigida-[produto].html`
+Salvar em: `meus-produtos/{ativo}/entregas/paginas/low-ticket-corrigida-[produto].html`
 
-Após salvar: "Pronto. Sua página corrigida foi salva em `entregas/{ativo}/paginas/low-ticket-corrigida-[produto].html`. Abra no navegador para visualizar."
+Após salvar: "Pronto. Sua página corrigida foi salva em `meus-produtos/{ativo}/entregas/paginas/low-ticket-corrigida-[produto].html`. Abra no navegador para visualizar."
 
 ---
 

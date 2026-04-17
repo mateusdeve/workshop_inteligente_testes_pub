@@ -16,8 +16,8 @@ Cria a copy e página HTML da página de inscrição do evento high ticket. Estr
 ## O Que Fazer
 
 ### 1. Contexto
-Leia `entregas/.ativo`, depois `entregas/{ativo}/perfil.md` e `entregas/{ativo}/idconsumidor.md`.
-Se existir `entregas/{ativo}/c10x/big-idea-*.md`, leia para usar a promessa e o mote.
+Leia `meus-produtos/.ativo`, depois `meus-produtos/{ativo}/perfil.md` e `meus-produtos/{ativo}/idconsumidor.md`.
+Se existir `meus-produtos/{ativo}/entregas/c10x/big-idea-*.md`, leia para usar a promessa e o mote.
 
 ### 2. Entrevista (UMA pergunta por vez, com progresso visual)
 
@@ -127,11 +127,11 @@ Quer que eu também crie a página HTML completa com design profissional?
 2. Não, só a copy em texto
 ```
 
-Se sim, ANTES de gerar o HTML, seguir o **Fluxo de Geração Obrigatório de 7 etapas** definido em `.claude/plugins/workshop-marketing/skills/paginas/SKILL.md` (seção "Fluxo de Geração"):
+Se sim, ANTES de gerar o HTML, seguir o **Fluxo de Geração Obrigatório de 7 etapas** definido em `.claude/skills/paginas/SKILL.md` (seção "Fluxo de Geração"):
 
-1. Ler `.claude/plugins/workshop-marketing/skills/paginas/SKILL.md` PRIMEIRO. fluxo completo, tabela de estilo por nicho, checklist final.
+1. Ler `.claude/skills/paginas/SKILL.md` PRIMEIRO. fluxo completo, tabela de estilo por nicho, checklist final.
 2. Escolher **UM ÚNICO estilo visual** para a página inteira pela tabela de nicho (eventos high ticket normalmente usam `glass_escuro` do início ao fim). PROIBIDO misturar estilos diferentes na mesma página.
-3. **LER OS TEMPLATES REAIS DO ESTILO ESCOLHIDO** (OBRIGATÓRIO): para cada seção, abrir `.claude/plugins/workshop-marketing/skills/paginas/references/templates/{secao}_{estilo}/code.html`. todos no mesmo estilo. Mínimo 4 templates lidos por geração. Seções disponíveis: hero, dor, paliativo, metodo, cta, faq.
+3. **LER OS TEMPLATES REAIS DO ESTILO ESCOLHIDO** (OBRIGATÓRIO): para cada seção, abrir `.claude/skills/paginas/references/templates/{secao}_{estilo}/code.html`. todos no mesmo estilo. Mínimo 4 templates lidos por geração. Seções disponíveis: hero, dor, paliativo, metodo, cta, faq.
 4. Extrair tokens mestres do estilo (`--radius`, `--border-width`, `--shadow`, tipografia, estilo de botão) e colocar no `:root`. TODAS as seções (inclusive formulário de inscrição, contador, autoridade) herdam esses tokens.
 5. Copiar estrutura HTML+CSS dos templates lidos e adaptar cores, fontes, textos e imagens ao nicho + ao contexto do evento. NÃO reescrever do zero.
 6. Consultar `references/estruturas-pagina.md` para ordem de seções da página de inscrição e `references/design-system-components.md` apenas para gaps (formulário, animações globais, responsivo).
@@ -146,8 +146,8 @@ Criar página HTML responsiva, arquivo único, sem dependências externas (excet
 ```
 
 ### 5. Salvar
-Copy: `entregas/{ativo}/c10x/copy-inscricao-[evento].md`
-HTML: `entregas/{ativo}/paginas/inscricao-[evento].html`
+Copy: `meus-produtos/{ativo}/entregas/c10x/copy-inscricao-[evento].md`
+HTML: `meus-produtos/{ativo}/entregas/paginas/inscricao-[evento].html`
 
 ### 6. Próximo Passo
 "Página de inscrição pronta. Próximo: `/ht-anuncios` para criar os anúncios que vão trazer inscritos, ou `/ht-comunicacao-pre` para preparar a comunicação antes do evento."

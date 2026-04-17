@@ -19,7 +19,7 @@ Cria pacotes de anúncios usando os 18 tipos da Mandala VTSD + estrutura de camp
 
 **Passo 1 — Identificar produtos disponíveis:**
 
-Leia `entregas/.ativo` para saber o produto ativo atual. Liste também todas as pastas existentes em `entregas/` (exceto `.ativo`) para mostrar as opções disponíveis.
+Leia `meus-produtos/.ativo` para saber o produto ativo atual. Liste também todas as pastas existentes em `entregas/` (exceto `.ativo`) para mostrar as opções disponíveis.
 
 **Passo 2 — Perguntar qual base usar:**
 
@@ -37,7 +37,7 @@ Digite o número:
 ```
 
 **Se escolher um produto cadastrado (opções 1, 2, 3...):**
-- Leia `entregas/{ativo}/perfil.md` e `entregas/{ativo}/idconsumidor.md` se existir
+- Leia `meus-produtos/{ativo}/perfil.md` e `meus-produtos/{ativo}/idconsumidor.md` se existir
 - Se não for o produto ativo, use o slug escolhido como base para todos os caminhos de arquivo desta sessão (sem alterar o `.ativo`)
 - Extraia internamente: Decorados, Urgências Ocultas, Quadro, público, preço, tom
 
@@ -64,7 +64,7 @@ Qual o preço do produto?
 (ex: "R$ 497", "gratuito", "R$ 97/mês")
 ```
 
-Após coletar essas informações, prosseguir o fluxo usando esses dados no lugar do perfil.md. Salvar os anúncios gerados em `entregas/{ativo}/anuncios/` (criar a pasta se não existir).
+Após coletar essas informações, prosseguir o fluxo usando esses dados no lugar do perfil.md. Salvar os anúncios gerados em `meus-produtos/{ativo}/entregas/anuncios/` (criar a pasta se não existir).
 
 ---
 
@@ -72,7 +72,7 @@ Após coletar essas informações, prosseguir o fluxo usando esses dados no luga
 - Todos os **Decorados** do perfil. esses são os benefícios que podem virar tema central de anúncio
 - Todas as **Urgências Ocultas** do perfil, organizadas em 7 categorias com 10 itens cada (dores, dúvidas, desejos, assuntos relacionados, urgências quentes, frias e inusitadas). Cada item é um ângulo de entrada possível para um anúncio.
 
-**Verifique o histórico:** leia todos os arquivos em `entregas/{ativo}/anuncios/`. Identifique quais urgências ocultas e decorados já foram explorados nos anúncios anteriores.
+**Verifique o histórico:** leia todos os arquivos em `meus-produtos/{ativo}/entregas/anuncios/`. Identifique quais urgências ocultas e decorados já foram explorados nos anúncios anteriores.
 
 **Regra de não repetição:** nas novas variações, priorize urgências ocultas e decorados ainda não usados. Se todos já foram usados, escolha os de maior potencial e anote que está retomando esse tema.
 
@@ -165,7 +165,7 @@ Qual a data do evento?
 Você tem uma foto sua (expert/criador) para usar no anúncio?
 A foto aparece no criativo para gerar autoridade e conexão.
 
-1. Sim, está em entregas/{ativo}/paginas/assets/ (informar nome do arquivo)
+1. Sim, está em meus-produtos/{ativo}/entregas/paginas/assets/ (informar nome do arquivo)
 2. Sim, vou colar o caminho completo
 3. Não tenho agora (seguir sem foto)
 
@@ -422,7 +422,7 @@ Após mostrar os anúncios gerados, perguntar:
 Só salvar após aprovação do usuário.
 
 ### 6. Salvar Copy
-`entregas/{ativo}/anuncios/anuncios-meta-[formato]-[objetivo]-[produto].md`
+`meus-produtos/{ativo}/entregas/anuncios/anuncios-meta-[formato]-[objetivo]-[produto].md`
 
 ### 7. Geração Visual (imagem, vídeo ou carrossel)
 
@@ -564,7 +564,7 @@ Após o usuário informar a IA, gere os prompts de cada variação otimizados pa
 
 Apresente os prompts prontos para copiar e colar, um por variação.
 
-Salve em: `produtos/{ativo}/entregas/anuncios/prompts-visuais-[formato]-[ia-escolhida]-[produto].md`
+Salve em: `meus-produtos/{ativo}/entregas/anuncios/prompts-visuais-[formato]-[ia-escolhida]-[produto].md`
 
 ---
 
@@ -583,12 +583,12 @@ curl -X POST "https://api.freepik.com/v1/ai/text-to-image" \
   -H "Content-Type: application/json" \
   -d '{"prompt": "PROMPT_VARIACAO_N", "num_images": 1, "image": {"size": "square_1_1"}}'
 ```
-Salve cada imagem em: `entregas/{ativo}/anuncios/img-variacao-[N]-[produto].png`
+Salve cada imagem em: `meus-produtos/{ativo}/entregas/anuncios/img-variacao-[N]-[produto].png`
 
 Para stories: substitua `"size": "square_1_1"` por `"size": "portrait_9_16"`.
 Para carrossel: repita para cada card, salvando `carrossel-card[N]-[produto].png`.
 
-Salve em: `produtos/{ativo}/entregas/anuncios/img-variacao-[N]-[produto].png`
+Salve em: `meus-produtos/{ativo}/entregas/anuncios/img-variacao-[N]-[produto].png`
 
 **Se não existir**, informe como configurar e ofereça a opção de prompt como alternativa imediata:
 
@@ -658,7 +658,7 @@ curl "https://api.heygen.com/v1/video_status.get?video_id=VIDEO_ID" \
 ```
 
 Quando status for `completed`, faça download do `video_url` e salve em:
-`entregas/{ativo}/anuncios/video-variacao-[N]-[produto].mp4`
+`meus-produtos/{ativo}/entregas/anuncios/video-variacao-[N]-[produto].mp4`
 
 **Se faltar alguma variável**, informe e ofereça alternativa imediata:
 
@@ -723,7 +723,7 @@ curl -X POST "https://api.freepik.com/v1/ai/text-to-image" \
   -H "Content-Type: application/json" \
   -d '{"prompt": "PROMPT_CARD_N", "num_images": 1, "image": {"size": "square_1_1"}}'
 ```
-Salve cada card em: `entregas/{ativo}/anuncios/carrossel-[N]-[produto].png`
+Salve cada card em: `meus-produtos/{ativo}/entregas/anuncios/carrossel-[N]-[produto].png`
 
 **Se não existir**, ensine como configurar, com esta mensagem exata:
 

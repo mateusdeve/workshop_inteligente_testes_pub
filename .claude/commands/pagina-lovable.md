@@ -17,10 +17,10 @@ Publica uma página HTML local diretamente no Lovable e devolve o link público 
 
 Acione a skill `pagina-lovable` do plugin `workshop-marketing` e siga o roteiro:
 
-1. Ler `entregas/.ativo`. Se não houver produto, oriente a usar `/produto-novo`.
+1. Ler `meus-produtos/.ativo`. Se não houver produto, oriente a usar `/produto-novo`.
 2. Verificar `LOVABLE_API_KEY` no `.env`. Se não existir, mostrar setup guiado (cadastro em lovable.dev > Settings > API Keys, colar a chave no chat). O assistente salva no `.env` automaticamente, nunca pede pro usuário abrir o arquivo.
 3. Coletar (uma pergunta por vez): qual página, nome no Lovable, subdomínio (auto ou escolhido), modo (nova ou atualizar página existente).
-4. Se já existe `entregas/{ativo}/.lovable` com `project_id`, oferecer atualizar a versão anterior.
+4. Se já existe `meus-produtos/{ativo}/entregas/.lovable` com `project_id`, oferecer atualizar a versão anterior.
 5. Mostrar resumo e pedir confirmação:
    ```
    1. Publicar
@@ -28,7 +28,7 @@ Acione a skill `pagina-lovable` do plugin `workshop-marketing` e siga o roteiro:
    ```
 6. Publicar via `curl` POST/PATCH na API do Lovable. Usar arquivo de payload temporário pra evitar problema de tamanho. Apagar depois.
 7. Tratar erros de API (até 3 tentativas com ajuste). Se persistir, mostrar erro completo e perguntar como prosseguir.
-8. Salvar histórico em `entregas/{ativo}/.lovable` e atualizar `entregas/{ativo}/paginas/.lovable-link.md` com o link público.
+8. Salvar histórico em `meus-produtos/{ativo}/entregas/.lovable` e atualizar `meus-produtos/{ativo}/entregas/paginas/.lovable-link.md` com o link público.
 9. Mostrar resumo final com URL pública e sugerir próximos passos: usar o link no `/copy-anuncio` e em `/copy-emails`.
 
 ## Regras Resumidas

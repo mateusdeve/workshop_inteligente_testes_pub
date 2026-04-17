@@ -18,12 +18,12 @@ Cria um agente GPT personalizado para melhorar a entrega do produto do infoprodu
 ### 1. Contexto
 
 Tente ler:
-- `entregas/.ativo` → se existir, leia `entregas/{ativo}/perfil.md` como base
+- `meus-produtos/.ativo` → se existir, leia `meus-produtos/{ativo}/perfil.md` como base
 - Se nao existir produto ativo, peca ao usuario um texto sobre o produto/servico
 
 ### 2. Gerar ideias
 
-Leia `.claude/plugins/workshop-marketing/skills/agente-gpt/SKILL.md` e siga o fluxo completo:
+Leia `.claude/skills/agente-gpt/SKILL.md` e siga o fluxo completo:
 
 - **Passo 0:** Coletar dados (do produto ativo ou texto do usuario)
 - **Passo 1:** Gerar 10 ideias de agentes em tabela. Usuario escolhe 1.
@@ -32,7 +32,7 @@ Leia `.claude/plugins/workshop-marketing/skills/agente-gpt/SKILL.md` e siga o fl
 
 ### 3. Salvar
 
-- Com produto ativo: `entregas/{ativo}/produto/agente-gpt-[slug].md`
+- Com produto ativo: `meus-produtos/{ativo}/entregas/produto/agente-gpt-[slug].md`
 - Sem produto ativo: `entregas/agente-gpt-[slug].md`
 
 ### 4. Finalizar

@@ -16,8 +16,8 @@ Cria a sequência completa de mensagens de WhatsApp e emails para os inscritos d
 ## O Que Fazer
 
 ### 1. Contexto
-Leia `entregas/.ativo`, depois `entregas/{ativo}/perfil.md`.
-Se existir `entregas/{ativo}/c10x/big-idea-*.md`, leia para usar o mote e a promessa.
+Leia `meus-produtos/.ativo`, depois `meus-produtos/{ativo}/perfil.md`.
+Se existir `meus-produtos/{ativo}/entregas/c10x/big-idea-*.md`, leia para usar o mote e a promessa.
 
 ### 2. Entrevista (UMA pergunta por vez, com progresso visual)
 
@@ -200,7 +200,7 @@ Link direto para a sala. Texto mínimo. CTA único.
 ```
 
 ### 5. Salvar
-`entregas/{ativo}/c10x/comunicacao-pre-[evento].md`
+`meus-produtos/{ativo}/entregas/c10x/comunicacao-pre-[evento].md`
 
 ### 6. Próximo Passo
 "Sequência de aquecimento pronta. Próximo: `/ht-pitch-palco` para criar o script do momento de venda no evento."

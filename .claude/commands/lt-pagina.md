@@ -49,8 +49,8 @@ A copy nunca vende. Ela informa, avisa ou ensina. O produto não existe nos prim
 
 ### 1. Contexto
 
-Leia `entregas/.ativo` e `entregas/{ativo}/perfil.md`. Se não existir, oriente a usar `/produto-editar` primeiro.
-Leia também `entregas/{ativo}/idconsumidor.md` se existir.
+Leia `meus-produtos/.ativo` e `meus-produtos/{ativo}/perfil.md`. Se não existir, oriente a usar `/produto-editar` primeiro.
+Leia também `meus-produtos/{ativo}/idconsumidor.md` se existir.
 
 ### 1.5. Framework de Decisão: Página vs. Quiz
 
@@ -211,7 +211,7 @@ As 4 copies estão prontas.
 3. Salvar só a copy [número]
 ```
 
-Salvar em: `entregas/{ativo}/copy-pagina/copies-low-ticket-[produto].md`
+Salvar em: `meus-produtos/{ativo}/entregas/copy-pagina/copies-low-ticket-[produto].md`
 
 Após salvar, pergunte:
 ```
@@ -287,7 +287,7 @@ Objetivo: a logo fica centralizada no topo da página, sobre fundo branco.
 1. Tenho, vou informar o caminho do arquivo
 2. Não tenho logo
 ```
-Se tiver: pedir o caminho. Copiar para `entregas/{ativo}/paginas/`.
+Se tiver: pedir o caminho. Copiar para `meus-produtos/{ativo}/entregas/paginas/`.
 Se não tiver: usar o nome do produto como texto no header.
 
 **Pergunta 2. Depoimentos:**
@@ -299,7 +299,7 @@ Objetivo: a página mostra os depoimentos como imagens reais, não como texto.
 1. Tenho prints, vou informar a pasta
 2. Não tenho depoimentos ainda
 ```
-Se tiver: pedir o caminho da pasta. Copiar todas as imagens para `entregas/{ativo}/paginas/`.
+Se tiver: pedir o caminho da pasta. Copiar todas as imagens para `meus-produtos/{ativo}/entregas/paginas/`.
 Se NÃO tiver: buscar notícias e estatísticas via WebSearch. Criar uma seção "Argumentos" com cards contendo os dados encontrados, com fonte citada.
 
 **Pergunta 3. História do criador:**
@@ -316,7 +316,7 @@ Quer usar uma foto sua na seção "Quem sou eu" ou prefere uma imagem que gere i
 1. Quero usar minha foto
 2. Prefiro uma imagem que represente o público
 ```
-Copiar o arquivo escolhido para `entregas/{ativo}/paginas/`.
+Copiar o arquivo escolhido para `meus-produtos/{ativo}/entregas/paginas/`.
 
 **Pergunta 5. Suporte:**
 ```
@@ -372,7 +372,7 @@ Resumo do que vou criar:
 
 #### REGRA DE OURO #1: Toda a página converge para o Quadro
 
-O Quadro é o resultado final que a pessoa conquista usando o produto (lido em `entregas/{ativo}/perfil.md`). Isso significa:
+O Quadro é o resultado final que a pessoa conquista usando o produto (lido em `meus-produtos/{ativo}/perfil.md`). Isso significa:
 
 - **TODOS os botões de CTA** usam o Quadro como texto do botão (adaptado para "Quero + [Quadro]"). NUNCA usar "Comprar agora", "Saiba mais" ou "Quero descobrir".
 - **A conclusão da seção "Quem Sou"** termina reforçando o Quadro como motivo da criação do produto.
@@ -395,7 +395,7 @@ Exemplo (Quadro = "Ter lucratividade real em todos os procedimentos da agenda"):
 
 #### Design Rules (aplicar obrigatoriamente)
 
-Antes de gerar, leia `.claude/plugins/workshop-marketing/skills/paginas/SKILL.md` e `.claude/plugins/workshop-marketing/skills/paginas/references/cdn-design-resources.md`.
+Antes de gerar, leia `.claude/skills/paginas/SKILL.md` e `.claude/skills/paginas/references/cdn-design-resources.md`.
 
 **Regras críticas:**
 - **TODAS as fontes sans-serif** (heading E body). Serifadas são PROIBIDAS.
@@ -446,7 +446,7 @@ Os templates de `skills/paginas/references/templates/` servem como inspiração 
 
 **11. CTA Flutuante Mobile**: barra fixa no rodapé apenas em mobile, texto = Quadro adaptado.
 
-Salvar em: `entregas/{ativo}/paginas/pagina-low-ticket-[produto].html`
+Salvar em: `meus-produtos/{ativo}/entregas/paginas/pagina-low-ticket-[produto].html`
 
 ---
 
@@ -489,7 +489,7 @@ Exemplos ruins: "Ter clareza financeira", "Saber o custo real de cada procedimen
 
 **11. CTA Flutuante Mobile**: texto = Quadro adaptado.
 
-Salvar em: `entregas/{ativo}/paginas/pagina-inadequacao-[produto].html`
+Salvar em: `meus-produtos/{ativo}/entregas/paginas/pagina-inadequacao-[produto].html`
 
 ---
 
@@ -523,7 +523,7 @@ A página inteira soa como alguém contando o que aconteceu. "Deixa eu te contar
 
 **11. CTA Flutuante Mobile**: mesmo padrão.
 
-Salvar em: `entregas/{ativo}/paginas/pagina-promessa-boa-demais-[produto].html`
+Salvar em: `meus-produtos/{ativo}/entregas/paginas/pagina-promessa-boa-demais-[produto].html`
 
 ---
 
@@ -545,7 +545,7 @@ Página mais curta e direta. O valor é praticidade imediata. Mesmo assim, TODAS
 **10. CTA Final + Footer**: headline = Quadro, ancoragem, footer.
 **11. CTA Flutuante Mobile**: texto = Quadro adaptado.
 
-Salvar em: `entregas/{ativo}/paginas/pagina-plug-play-[produto].html`
+Salvar em: `meus-produtos/{ativo}/entregas/paginas/pagina-plug-play-[produto].html`
 
 ---
 

@@ -17,9 +17,9 @@ Pega um pitch que já rodou em um evento, call ou WhatsApp e gera uma versão co
 
 Acione a skill `ht-repitch` do plugin `workshop-marketing` e siga o roteiro:
 
-1. Ler `entregas/.ativo` e `entregas/{ativo}/perfil.md`.
+1. Ler `meus-produtos/.ativo` e `meus-produtos/{ativo}/perfil.md`.
 2. Coletar (uma pergunta por vez):
-   1. Qual pitch vamos revisar? (palco, call 1:1, WhatsApp, outro). Se já existe em `entregas/{ativo}/comercial/`, oferecer a lista.
+   1. Qual pitch vamos revisar? (palco, call 1:1, WhatsApp, outro). Se já existe em `meus-produtos/{ativo}/entregas/comercial/`, oferecer a lista.
    2. Pedir pro aluno colar o pitch original ou apontar o caminho do arquivo.
    3. Quais foram os resultados reais? (quantas pessoas, quantas venderam, principais objeções ouvidas, onde a plateia ou lead esfriou)
    4. O que o aluno sente que falhou? (ancoragem, preço, bônus, urgência, CTA, autoridade)
@@ -30,7 +30,7 @@ Acione a skill `ht-repitch` do plugin `workshop-marketing` e siga o roteiro:
 4. Mostrar o diagnóstico e pedir aprovação antes de reescrever.
 5. Gerar a versão nova do pitch aplicando os ajustes. Manter a voz do aluno, só corrigir estrutura, ancoragem, quebra de objeção e CTA.
 6. Mostrar a versão nova e pedir aprovação.
-7. Salvar em `entregas/{ativo}/comercial/repitch-{data}.md` com 3 seções: diagnóstico, versão antiga (referência) e versão nova.
+7. Salvar em `meus-produtos/{ativo}/entregas/comercial/repitch-{data}.md` com 3 seções: diagnóstico, versão antiga (referência) e versão nova.
 8. Sugerir próximo passo: rodar a versão nova e usar `/ht-objecoes` pra mapear as objeções residuais.
 
 ## Regras Resumidas

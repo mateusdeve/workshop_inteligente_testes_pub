@@ -33,7 +33,7 @@ def main() -> int:
     ap = argparse.ArgumentParser(description="Gera video avatar falante (foto + audio)")
     ap.add_argument("--foto", required=True, help="Caminho da foto do expert (jpg/png)")
     ap.add_argument("--audio", required=True, help="Caminho do audio gravado (mp3/wav/m4a)")
-    ap.add_argument("--output", default="", help="Caminho do video de saida (padrao: entregas/{ativo}/videos/)")
+    ap.add_argument("--output", default="", help="Caminho do video de saida (padrao: meus-produtos/{ativo}/entregas/videos/)")
     ap.add_argument("--model", default="kwaivgi/kling-avatar-v2", help="Modelo Replicate")
     args = ap.parse_args()
 
@@ -64,12 +64,12 @@ def main() -> int:
             output = ROOT / args.output
     else:
         # Salvar na pasta de videos do produto ativo
-        ativo_file = ROOT / "entregas" / ".ativo"
+        ativo_file = ROOT / "meus-produtos" / ".ativo"
         if ativo_file.exists():
             slug = ativo_file.read_text(encoding="utf-8").strip()
         else:
             slug = "geral"
-        output_dir = ROOT / "entregas" / slug / "videos"
+        output_dir = ROOT / "meus-produtos" / slug / "entregas" / "videos"
         output_dir.mkdir(parents=True, exist_ok=True)
         output = output_dir / f"avatar-{foto.stem}.mp4"
 

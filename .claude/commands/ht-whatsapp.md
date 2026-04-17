@@ -16,7 +16,7 @@ Cria o fluxo completo de vendas high ticket por mensagem. do primeiro contato ao
 ## O Que Fazer
 
 ### 1. Contexto
-Leia `entregas/.ativo`, depois `entregas/{ativo}/perfil.md` e `entregas/{ativo}/idconsumidor.md`.
+Leia `meus-produtos/.ativo`, depois `meus-produtos/{ativo}/perfil.md` e `meus-produtos/{ativo}/idconsumidor.md`.
 
 ### 2. Entrevista (UMA pergunta por vez)
 
@@ -164,7 +164,7 @@ D+7:
 ```
 
 ### 5. Salvar
-`entregas/{ativo}/c10x/whatsapp-[produto].md`
+`meus-produtos/{ativo}/entregas/c10x/whatsapp-[produto].md`
 
 ### 6. Próximo Passo
 "Fluxo de WhatsApp pronto. Próximo: `/ht-follow-up` para a sequência de quem não comprou após o evento."

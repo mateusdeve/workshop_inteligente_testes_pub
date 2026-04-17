@@ -778,7 +778,7 @@ def process_slides(config: dict[str, Any], slug: str, skip_ai: bool = False,
 
     slides = config.get("slides", [])
     total = len(slides)
-    out_dir = ROOT / "entregas" / slug / "anuncios"
+    out_dir = ROOT / "meus-produtos" / slug / "entregas" / "anuncios"
     out_dir.mkdir(parents=True, exist_ok=True)
     temp_dir = Path(tempfile.mkdtemp(prefix="creative-"))
 
@@ -880,7 +880,7 @@ def main() -> int:
 
     ap = argparse.ArgumentParser(description="Gerador hibrido de criativos (IA + HTML + Screenshot)")
     ap.add_argument("--config", required=True, help="Arquivo JSON com definicao dos slides")
-    ap.add_argument("--slug", default="", help="Pasta em entregas/{slug}")
+    ap.add_argument("--slug", default="", help="Pasta em meus-produtos/{slug}")
     ap.add_argument("--force-model", default="", help="Forca um modelo especifico (ignora router)")
     ap.add_argument("--provider", default="auto", choices=["auto", "openrouter", "freepik", "replicate"],
                     help="Provider de imagem: auto (detecta .env), openrouter, replicate, freepik")
@@ -889,11 +889,11 @@ def main() -> int:
     args = ap.parse_args()
 
     if not args.slug:
-        ativo_file = ROOT / "entregas" / ".ativo"
+        ativo_file = ROOT / "meus-produtos" / ".ativo"
         if ativo_file.exists():
             args.slug = ativo_file.read_text(encoding="utf-8").strip()
         else:
-            print("Informe --slug ou crie entregas/.ativo", file=sys.stderr)
+            print("Informe --slug ou crie meus-produtos/.ativo", file=sys.stderr)
             return 1
 
     config_path = Path(args.config)

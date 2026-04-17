@@ -16,7 +16,7 @@ Cria o material de onboarding completo para receber um novo aluno ou cliente ap�
 ## O Que Fazer
 
 ### 1. Contexto
-Leia `entregas/.ativo`, depois `entregas/{ativo}/perfil.md`.
+Leia `meus-produtos/.ativo`, depois `meus-produtos/{ativo}/perfil.md`.
 
 ### 2. Entrevista (UMA pergunta por vez)
 
@@ -158,7 +158,7 @@ O resultado do programa depende da sua implementação. Meu compromisso é estar
 ```
 
 ### 5. Salvar
-`entregas/{ativo}/c10x/onboarding-[produto].md`
+`meus-produtos/{ativo}/entregas/c10x/onboarding-[produto].md`
 
 ### 6. Próximo Passo
 "Onboarding pronto. Você agora tem o kit completo de High Ticket C10X. Use `estrategista-ht` para planejar sua próxima campanha do início ao fim."

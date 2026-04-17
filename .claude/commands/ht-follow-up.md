@@ -16,7 +16,7 @@ Cria a sequência de follow-up para participantes que assistiram ao evento mas n
 ## O Que Fazer
 
 ### 1. Contexto
-Leia `entregas/.ativo`, depois `entregas/{ativo}/perfil.md`.
+Leia `meus-produtos/.ativo`, depois `meus-produtos/{ativo}/perfil.md`.
 
 ### 2. Entrevista (UMA pergunta por vez)
 
@@ -151,7 +151,7 @@ Quando abrir a próxima turma, você é o primeiro que vou avisar. Pode ser?"
 ```
 
 ### 5. Salvar
-`entregas/{ativo}/c10x/follow-up-[evento].md`
+`meus-produtos/{ativo}/entregas/c10x/follow-up-[evento].md`
 
 ### 6. Próximo Passo
 "Follow-up pronto. Se vai trabalhar com consultoria também, próximo: `/ht-diagnostico` para a call de descoberta."

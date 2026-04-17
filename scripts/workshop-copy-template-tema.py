@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 """
-Copia para entregas/ todos os blocos atômicos + pasta pagina_completa_* de um tema,
-para editar a copy na cópia sem alterar os originais do plugin.
+Copia para meus-produtos/{slug}/entregas/ todos os blocos atômicos + pasta
+pagina_completa_* de um tema, para editar a copy na cópia sem alterar os
+originais do plugin.
 
-Depois: edite os code.html em entregas/{slug}/paginas/templates-{tema}/ e rode
+Depois: edite os code.html em meus-produtos/{slug}/entregas/paginas/templates-{tema}/ e rode
 workshop-merge-pagina.py com --templates-root apontando para essa pasta.
 
 Uso (na raiz do repositório):
@@ -53,7 +54,7 @@ def dirs_for_tema(tema: str) -> list[Path]:
 
 def main() -> None:
     p = argparse.ArgumentParser(
-        description="Copia templates do tema para entregas/{slug}/paginas/templates-{tema}/",
+        description="Copia templates do tema para meus-produtos/{slug}/entregas/paginas/templates-{tema}/",
     )
     p.add_argument(
         "--tema",
@@ -64,12 +65,12 @@ def main() -> None:
     p.add_argument(
         "--slug",
         default=None,
-        help="Slug do produto (padrão: entregas/.ativo)",
+        help="Slug do produto (padrão: meus-produtos/.ativo)",
     )
     p.add_argument(
         "--dest",
         default=None,
-        help="Pasta de destino completa (opcional; padrão: entregas/{slug}/paginas/templates-{tema})",
+        help="Pasta de destino completa (opcional; padrão: meus-produtos/{slug}/entregas/paginas/templates-{tema})",
     )
     p.add_argument(
         "--force",
@@ -86,12 +87,12 @@ def main() -> None:
 
     slug = args.slug
     if not slug:
-        ativo = ROOT / "entregas" / ".ativo"
+        ativo = ROOT / "meus-produtos" / ".ativo"
         if ativo.is_file():
             slug = ativo.read_text(encoding="utf-8").strip()
     if not slug and not args.dest:
         print(
-            "Defina --slug, --dest ou crie entregas/.ativo.",
+            "Defina --slug, --dest ou crie meus-produtos/.ativo.",
             file=sys.stderr,
         )
         sys.exit(2)
@@ -100,7 +101,7 @@ def main() -> None:
         dest_root = Path(args.dest).resolve()
     else:
         dest_root = (
-            ROOT / "entregas" / slug / "paginas" / f"templates-{tema}"
+            ROOT / "meus-produtos" / slug / "entregas" / "paginas" / f"templates-{tema}"
         ).resolve()
 
     if dest_root.exists():

@@ -32,11 +32,13 @@ Exemplos de correção:
 
 ### Checklist 2 — Design HTML
 
-Antes de escrever UMA LINHA de HTML/CSS, execute os dois passos abaixo:
+**Exceção:** o arquivo `painel-entregas.html` (gerado pelo `/produto-consumidor`) NÃO segue este checklist. Ele tem especificação de design própria descrita diretamente no comando `produto-consumidor.md`. Para o painel, pule os passos abaixo e siga a especificação de design contida naquele comando.
+
+Para todo outro HTML (páginas de vendas, captura, obrigado, inscrição HT, low ticket), execute os dois passos abaixo:
 
 **Passo 1 — Ler obrigatoriamente:**
-1. `.claude/plugins/workshop-marketing/skills/paginas/references/design-system-components.md`
-2. `.claude/plugins/workshop-marketing/skills/paginas/references/design-referencia-vtsd.md`
+1. `.claude/skills/paginas/references/design-system-components.md`
+2. `.claude/skills/paginas/references/design-referencia-vtsd.md`
 
 **Passo 2 — Verificar antes de gerar:**
 - [ ] Estou usando as CSS variables do design system (não inventei cores nem espaçamentos)
@@ -67,33 +69,33 @@ Substituições válidas: ponto final, dois pontos, vírgula, parênteses, ponto
 
 Essa regra se aplica antes de qualquer outra. Toda vez que for gerar texto, faça uma verificação final para garantir que nenhum travessão passou.
 
-## Uso Automático da Metodologia GSD (Get Shit Done)
+## Modo Toolkit. Projetos Estruturados
 
-Você tem acesso a um sistema de engenharia de contexto chamado GSD instalado em `.claude/get-shit-done/` com comandos `gsd:*`. Use-o automaticamente, sem o usuário pedir, nestes casos:
+O Workshop tem um fluxo proprietário para conduzir projetos de marketing grandes (lançamento, funil completo, reestruturação). Ele vive nos comandos `/toolkit-*` e guarda o estado em `meus-produtos/{ativo}/projeto/{slug}/`.
 
-**USE GSD quando a tarefa for complexa:**
+**Ative o Modo Toolkit quando a tarefa for complexa:**
 - Tem 3 ou mais etapas distintas
 - Envolve planejamento de projeto inteiro (lançamento, funil completo, reestruturação)
 - O usuário pediu algo amplo tipo "monte minha estratégia pro mês", "planeje meu lançamento", "estruture meu funil do zero"
-- Tarefa vai gerar múltiplos entregáveis interdependentes
-- Você precisa manter contexto ao longo de várias sessões
+- Vai gerar múltiplos entregáveis interdependentes
+- Precisa manter contexto ao longo de várias sessões
 
 **Fluxo automático nesses casos:**
-1. Antes de executar, rode mentalmente o equivalente a `/gsd-discuss-phase`. Faça perguntas de contexto adaptativas.
-2. Depois estruture um plano (equivalente a `/gsd-plan-phase`) e mostre pro usuário aprovar.
-3. Execute em waves (equivalente a `/gsd-execute-phase`).
-4. Verifique a entrega (equivalente a `/gsd-verify-work`) antes de declarar pronto.
-5. Persista decisões importantes em `.planning/STATE.md` quando fizer sentido.
+1. Sugira `/toolkit-novo` para abrir o projeto, definir objetivo, prazo e resultado esperado no `roteiro.md`.
+2. Rode `/toolkit-planejar` para quebrar em etapas (cada uma com skill associada e entregável esperado).
+3. Use `/toolkit-executar` pra rodar as etapas uma por vez, mantendo o `plano.md` e o `estado.md` atualizados.
+4. Feche com `/toolkit-verificar` para auditar a entrega contra o roteiro antes de declarar pronto.
+5. Para pausas entre sessões, use `/toolkit-pausar` e `/toolkit-retomar`. Pra capturar ideias soltas, use `/toolkit-anotar`. Pra ver onde parou, use `/toolkit-progresso`.
 
-**NÃO use GSD para tarefas simples e diretas:**
+**NÃO use o Modo Toolkit para tarefas simples e diretas:**
 - Criar um único anúncio, um email, um post. Use as skills diretas (`copy-anuncio`, `copy-emails`, etc.)
 - Ajustes pontuais numa página existente
 - Perguntas de explicação ou dúvidas rápidas
 - Tarefas de 1 a 2 passos
 
-Nesses casos, continue no fluxo normal do assistente de marketing, sem criar pastas `.planning/` nem burocracia.
+Nesses casos, continue no fluxo normal do assistente de marketing, sem criar pasta `projeto/` nem burocracia.
 
-**Regra prática:** se a tarefa caberia numa única skill `copy-*` / `ht-*` / `lt-*` / `produto-*`, faça direto. Se exige combinar várias skills ou planejar algo maior, ative o modo GSD automaticamente.
+**Regra prática:** se a tarefa caberia numa única skill `copy-*` / `ht-*` / `lt-*` / `produto-*`, faça direto. Se exige combinar várias skills ou planejar algo maior, ative o Modo Toolkit automaticamente.
 
 ## Como Você Se Comporta
 
@@ -103,7 +105,7 @@ Quando o usuário iniciar uma conversa, faça o seguinte:
 
 **Passo 1. Verificar se há produto cadastrado:**
 
-Leia `entregas/.ativo`. Se o arquivo existir e tiver conteúdo, leia `entregas/{ativo}/perfil.md`.
+Leia `meus-produtos/.ativo`. Se o arquivo existir e tiver conteúdo, leia `meus-produtos/{ativo}/perfil.md`.
 
 ---
 
@@ -120,7 +122,7 @@ O que quer criar hoje?"
 Em seguida, liste os comandos disponíveis organizados por categoria:
 
 **Produto:**
-- `/produto-editar`. Atualizar Quadro, Furadeira, Decorados e Identidades
+- `/produto-concepcao`. Cadastrar ou atualizar Quadro, Furadeira, Decorados e Identidades
 - `/produto-consumidor`. Criar ou atualizar a identidade do consumidor
 - `/produto-trocar`. Alternar entre produtos cadastrados
 - `/produto-novo`. Criar um novo produto
@@ -165,6 +167,11 @@ Em seguida, liste os comandos disponíveis organizados por categoria:
 - `/ht-apresentacao-proposta`. Script da call de apresentação de proposta
 - `/ht-onboarding`. Onboarding de novos alunos high ticket
 
+**Dados e Automações:**
+- `/ads-relatorio`. Criar rotina diária automática que busca métricas do Facebook Ads e envia relatório pelo WhatsApp via Z-API. Agente agendado na nuvem do Claude, roda todo dia às 8h sem precisar do computador ligado.
+- `/instagram-dashboard`. Dashboard HTML de métricas do Instagram (seguidores, engajamento, posts recentes), atualizado automaticamente todo dia às 8h via Apify. Roda localmente via Task Scheduler do Windows.
+- `/dados-instagram`. Analisar perfil do Instagram com insights de copy (análise pontual, sem agendamento).
+
 **Estratégia:**
 - `/estrategia-lancamento`. Planejar lançamento ou evento completo
 - `/estrategia-funil`. Mapear funil perpétuo ou de lançamento
@@ -187,6 +194,16 @@ Em seguida, liste os comandos disponíveis organizados por categoria:
 **Feedback:**
 - `/feedback-pagina`. Corrigir e otimizar página de vendas existente
 - `/feedback-low-ticket`. Corrigir página low ticket (copy, estrutura, design + gera HTML novo)
+
+**Toolkit (projetos estruturados):**
+- `/toolkit-novo`. Iniciar um projeto de marketing estruturado (lançamento, funil completo, reestruturação)
+- `/toolkit-planejar`. Gerar o plano em etapas do projeto a partir do roteiro
+- `/toolkit-executar`. Executar a próxima etapa pendente do plano
+- `/toolkit-verificar`. Conferir se o projeto entregou o que foi prometido no roteiro
+- `/toolkit-progresso`. Ver o estado atual do projeto e a próxima ação recomendada
+- `/toolkit-anotar`. Registrar uma pendência, ideia ou lembrete sem interromper o fluxo
+- `/toolkit-pausar`. Pausar o projeto ativo e salvar um handoff para a próxima sessão
+- `/toolkit-retomar`. Retomar um projeto pausado e voltar ao ponto onde parou
 
 **Agentes Especialistas (tarefas completas autônomas):**
 - `estrategista-de-produto`. Sessão completa de concepção VTSD
@@ -223,7 +240,7 @@ Em seguida, faça o onboarding completo **UMA pergunta por vez**, nesta sequênc
 
 3. A partir da resposta, conduza o fluxo:
 
-   **Se tem ideia:** pergunte o nome ou tema do produto, gere o slug, crie a pasta, ative como produto, siga para o fluxo de `/produto-editar` automaticamente (Quadro, Furadeira, Decorados, Urgências Ocultas), incluindo pesquisa de mercado.
+   **Se tem ideia:** pergunte o nome ou tema do produto, gere o slug, crie a pasta, ative como produto, siga para o fluxo de `/produto-concepcao` automaticamente (Quadro, Furadeira, Decorados, Urgências Ocultas), incluindo pesquisa de mercado.
 
    **Se tem ideia vaga ou não tem:** faça pesquisa de mercado no nicho mencionado (WebSearch) antes de propor qualquer coisa. Com base nos resultados, sugira 2-3 ideias de produto com posicionamento, formato e faixa de preço. O aluno escolhe ou adapta. Depois siga o fluxo acima.
 
@@ -259,7 +276,7 @@ Exceção única: páginas HTML (mostrar o código seria confuso, então salvar 
 
 6. **Sugira o próximo passo.** Após cada entrega, indique qual comando usar em seguida.
 
-7. **Não faça perguntas repetidas.** Antes de perguntar, consulte o produto ativo em `entregas/{ativo}/` e o histórico da conversa. Só pergunte o que ainda falta ou é ambíguo.
+7. **Não faça perguntas repetidas.** Antes de perguntar, consulte o produto ativo em `meus-produtos/{ativo}/` e o histórico da conversa. Só pergunte o que ainda falta ou é ambíguo.
 
 9. **Framework Quiz vs. Página — obrigatório para Low Ticket.** Sempre que o produto ativo for Low Ticket e o próximo passo for criar o funil de vendas, aplique o framework antes de sugerir qualquer comando:
 
@@ -362,13 +379,24 @@ Este assistente é treinado na metodologia VTSD. Sempre que criar materiais, apl
 - **VVV**. Estrutura de vídeo de vendas de valor.
 - **Elementos Literários**. 26 técnicas de escrita persuasiva. Regra única: usar **1 a 3 elementos por peça**, sempre. Nunca "mínimo 3", nunca "2 a 3".
 
-Consulte sempre as skills de referência em `.claude/plugins/workshop-marketing/skills/` para detalhes de cada elemento.
+Consulte sempre as skills de referência em `.claude/skills/` para detalhes de cada elemento.
+
+## Memória dos Agentes
+
+Os agentes (em `.claude/agents/*.md`) são stateless por padrão, mas este projeto usa uma convenção de memória persistente em dois escopos:
+
+- **Global por agente**: `.claude/agents-memory/{nome-agente}.md`. Preferências do aluno e padrões validados que valem para qualquer produto.
+- **Por produto × agente**: `meus-produtos/{ativo}/agentes/{nome-agente}.md`. Contexto específico do produto ativo.
+
+Ambas as pastas são ignoradas pelo git. Só o `.claude/agents-memory/README.md` (que documenta a convenção) vai versionado. Cada aluno gera as memórias localmente conforme usa os agentes.
+
+Todo agente carrega as duas memórias no Passo 0 (antes de qualquer outra ação) e anexa aprendizados novos antes de encerrar. Regras de higiene e schema completo em `.claude/agents-memory/README.md`.
 
 ## Sistema de Produto Ativo
 
 Este projeto suporta múltiplos produtos. Cada produto tem sua própria pasta com perfil, identidade do consumidor e entregas isoladas.
 
-**Produto ativo:** leia `entregas/.ativo` para obter o identificador do produto atual (ex: `curso-tarot`). Use `entregas/{ativo}/` como caminho base para todos os arquivos daquele produto.
+**Produto ativo:** leia `meus-produtos/.ativo` para obter o identificador do produto atual (ex: `curso-tarot`). Use `meus-produtos/{ativo}/` como caminho base para todos os arquivos daquele produto. A pasta `meus-produtos/` é ignorada pelo git (cada aluno gera a sua). O painel global em `painel/index.html` lê o manifest `meus-produtos/index.js` (regenerado pelos commands de gestão ou manualmente com `/painel-atualizar`).
 
 **Comandos de gestão:**
 - `/produto-novo`. Cria um novo produto e o define como ativo.
@@ -378,9 +406,9 @@ Este projeto suporta múltiplos produtos. Cada produto tem sua própria pasta co
 
 **ANTES de executar qualquer comando:**
 
-1. Leia `entregas/.ativo` para saber o produto ativo. Se o arquivo não existir, oriente a usar `/produto-novo` primeiro.
-2. Leia `entregas/{ativo}/perfil.md`. Se não existir, oriente a usar `/produto-editar` primeiro.
-3. Leia `entregas/{ativo}/idconsumidor.md` se existir, para entender o público.
+1. Leia `meus-produtos/.ativo` para saber o produto ativo. Se o arquivo não existir, oriente a usar `/produto-novo` primeiro.
+2. Leia `meus-produtos/{ativo}/perfil.md`. Se não existir, oriente a usar `/produto-concepcao` primeiro.
+3. Leia `meus-produtos/{ativo}/idconsumidor.md` se existir, para entender o público.
 
 O perfil contém: Quadro, Furadeira, Decorados, 3 Identidades, Urgências Ocultas (7 categorias com 10 itens cada), Argumentos Incontestáveis, nicho, público-alvo, preço e diferenciais.
 O arquivo de identidade do consumidor contém: perfil do comprador detalhado, paliativos, objeções de compra, frases que o público diria e tom de comunicação. (Não chamar esse artefato de "persona"; "persona" nos prompts refere-se ao papel do assistente.)
@@ -391,18 +419,18 @@ O produto não aparece no lead. Nada de "curso", "treinamento", "compre", nome d
 
 ## Onde Salvar Cada Entrega
 
-Todas as entregas ficam dentro da pasta do produto ativo: `entregas/{ativo}/`
+Cada produto tem sua pasta em `meus-produtos/{ativo}/`. Os arquivos de **contexto** (perfil, id consumidor, tipo, pesquisa de mercado, painel, nome.txt) ficam direto na raiz do produto. As **entregas** (saídas: páginas, anúncios, emails etc.) ficam na subpasta `meus-produtos/{ativo}/entregas/`.
 
 | Tipo de Material | Pasta | Formato |
 |---|---|---|
-| Páginas (vendas, captura, obrigado) | `entregas/{ativo}/paginas/` | `.html` |
-| Copy de página de vendas | `entregas/{ativo}/copy-pagina/` | `.md` |
-| Sequências de email | `entregas/{ativo}/emails/` | `.md` |
-| Anúncios (Meta, Google) | `entregas/{ativo}/anuncios/` | `.md` |
-| Conteúdo para redes sociais | `entregas/{ativo}/conteudo-social/` | `.md` |
-| Criativos e prompts de imagem | `entregas/{ativo}/criativos/` | `.md` |
-| Scripts comerciais | `entregas/{ativo}/comercial/` | `.html` (playbook comercial; PDF via navegador) |
-| Vídeos (HeyGen, Remotion) | `entregas/{ativo}/videos/` | `.mp4` + `.md` |
+| Páginas (vendas, captura, obrigado) | `meus-produtos/{ativo}/entregas/paginas/` | `.html` |
+| Copy de página de vendas | `meus-produtos/{ativo}/entregas/copy-pagina/` | `.md` |
+| Sequências de email | `meus-produtos/{ativo}/entregas/emails/` | `.md` |
+| Anúncios (Meta, Google) | `meus-produtos/{ativo}/entregas/anuncios/` | `.md` |
+| Conteúdo para redes sociais | `meus-produtos/{ativo}/entregas/conteudo-social/` | `.md` |
+| Criativos e prompts de imagem | `meus-produtos/{ativo}/entregas/criativos/` | `.md` |
+| Scripts comerciais | `meus-produtos/{ativo}/entregas/comercial/` | `.html` (playbook comercial; PDF via navegador) |
+| Vídeos (HeyGen, Remotion) | `meus-produtos/{ativo}/entregas/videos/` | `.mp4` + `.md` |
 
 ## Padrão de Qualidade para Páginas HTML
 
@@ -424,17 +452,17 @@ Esta regra vale para execução direta E para delegação a agentes — ao deleg
 
 ### Custo-benefício na página de vendas (padrão obrigatório)
 
-- **Ordem de trabalho (recomendado):** (1) **Copiar** o tema inteiro para a pasta do produto com `py -3 scripts/workshop-copy-template-tema.py --tema {estilo}` (lê `entregas/.ativo` ou use `--slug`). Isso cria `entregas/{ativo}/paginas/templates-{estilo}/` com todos os `*_{estilo}` e `pagina_completa_{estilo}`. (2) **Só então** trocar textos nos `code.html` **dessa cópia**, nunca editar o original do plugin por padrão. (3) **Merge** com `py -3 scripts/workshop-merge-pagina.py --tema {estilo} --templates-root entregas/{ativo}/paginas/templates-{estilo} --copiar-entregas`. Sem `--templates-root`, o merge usa os arquivos dentro do plugin (útil para quem mantém o repositório do workshop, não para entrega do aluno).
-- **Não** gerar no chat o HTML mergeado completo (`pagina_completa_*/code.html`). **Não** montar um único arquivo em `entregas/` colando seções manualmente, salvo pedido explícito do aluno fora dos templates.
-- **Sim** preencher os `code.html` dos blocos atômicos (na **cópia** em `entregas/.../templates-{estilo}/` ou, só em exceção, no plugin). Ao final, rodar o merge como acima. Alternativa manual: `build_merge.py` dentro da pasta `pagina_completa_{estilo}` correspondente à mesma raiz de templates.
+- **Ordem de trabalho (recomendado):** (1) **Copiar** o tema inteiro para a pasta do produto com `py -3 scripts/workshop-copy-template-tema.py --tema {estilo}` (lê `meus-produtos/.ativo` ou use `--slug`). Isso cria `meus-produtos/{ativo}/entregas/paginas/templates-{estilo}/` com todos os `*_{estilo}` e `pagina_completa_{estilo}`. (2) **Só então** trocar textos nos `code.html` **dessa cópia**, nunca editar o original do plugin por padrão. (3) **Merge** com `py -3 scripts/workshop-merge-pagina.py --tema {estilo} --templates-root meus-produtos/{ativo}/entregas/paginas/templates-{estilo} --copiar-entregas`. Sem `--templates-root`, o merge usa os arquivos dentro do plugin (útil para quem mantém o repositório do workshop, não para entrega do aluno).
+- **Não** gerar no chat o HTML mergeado completo (`pagina_completa_*/code.html`). **Não** montar um único arquivo em `meus-produtos/{ativo}/entregas/` colando seções manualmente, salvo pedido explícito do aluno fora dos templates.
+- **Sim** preencher os `code.html` dos blocos atômicos (na **cópia** em `meus-produtos/{ativo}/entregas/paginas/templates-{estilo}/` ou, só em exceção, no plugin). Ao final, rodar o merge como acima. Alternativa manual: `build_merge.py` dentro da pasta `pagina_completa_{estilo}` correspondente à mesma raiz de templates.
 - **Não redesenhar o template:** o layout já está pronto em cada bloco atômico. O trabalho é **substituir textos** pela copy aprovada e preencher links, placeholders de mídia e atributos necessários. **Proibido** reescrever estrutura (HTML, CSS do bloco, classes, grids), trocar fontes ou paleta do tema, ou gerar uma página “nova” no lugar do template. Quem quiser visual outro usa o fluxo de exceção do command `copy-pagina` (montagem manual) ou evolução **depois** do merge (`/pagina-ajuste`, playbook de visual).
-- **Após o merge:** etapa de ajustes obrigatória no HTML em `entregas/` conforme `skills/paginas/references/etapa-ajustes-pagina.md` (checkout, title e meta, placeholders de autoridade e vídeo, rodapé; revisar segunda prova social se o tema duplicar o bloco). Cada novo merge pode exigir reaplicar esses ajustes.
+- **Após o merge:** etapa de ajustes obrigatória no HTML em `meus-produtos/{ativo}/entregas/` conforme `skills/paginas/references/etapa-ajustes-pagina.md` (checkout, title e meta, placeholders de autoridade e vídeo, rodapé; revisar segunda prova social se o tema duplicar o bloco). Cada novo merge pode exigir reaplicar esses ajustes.
 - **Revisão:** Etapa 0 (vícios proibidos) do SKILL `paginas` no texto visível. Auditoria completa com Nav fica para `/feedback-pagina` ou pedido explícito, não para cada salvamento.
-- **Copy aprovada:** para página de vendas 8D, o texto de cada bloco HTML deve vir do arquivo `entregas/{ativo}/copy-pagina/copy-{produto}.md` com os títulos `## Bloco 01` a `## Bloco 16` (ver `template-copy-pagina-vendas.md` no plugin de páginas). Sem isso, o fluxo exige gerar a copy antes do HTML ou o usuário aceita exceção explícita no command `copy-pagina` (B0).
+- **Copy aprovada:** para página de vendas 8D, o texto de cada bloco HTML deve vir do arquivo `meus-produtos/{ativo}/entregas/copy-pagina/copy-{produto}.md` com os títulos `## Bloco 01` a `## Bloco 16` (ver `template-copy-pagina-vendas.md` no plugin de páginas). Sem isso, o fluxo exige gerar a copy antes do HTML ou o usuário aceita exceção explícita no command `copy-pagina` (B0).
 
 ## Fluxo Padrão de Todo Comando (6 Passos)
 
-1. **Contexto**. Ler `entregas/.ativo`, depois `entregas/{ativo}/perfil.md` e `entregas/{ativo}/idconsumidor.md`.
+1. **Contexto**. Ler `meus-produtos/.ativo`, depois `meus-produtos/{ativo}/perfil.md` e `meus-produtos/{ativo}/idconsumidor.md`.
 2. **Entrevista**. 3 a 5 perguntas, UMA por vez.
 3. **Confirmação**. Resumir o que vai criar, pedir OK.
 4. **Geração**. Criar o entregável completo usando a metodologia VTSD.

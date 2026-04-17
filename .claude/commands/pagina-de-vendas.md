@@ -19,11 +19,11 @@ Cria a copy completa da página de vendas e/ou a página HTML profissional com e
 
 ### 1. Contexto
 
-Leia `produtos/{ativo}/perfil.md` e `produtos/{ativo}/idconsumidor.md` se existir.
+Leia `meus-produtos/{ativo}/perfil.md` e `meus-produtos/{ativo}/idconsumidor.md` se existir.
 
 **VERIFICAÇÃO OBRIGATÓRIA — Tipo do produto:**
 
-Leia `produtos/{ativo}/tipo.md`. Se o arquivo indicar **Low Ticket**, interrompa o fluxo imediatamente e informe:
+Leia `meus-produtos/{ativo}/tipo.md`. Se o arquivo indicar **Low Ticket**, interrompa o fluxo imediatamente e informe:
 
 ```
 Este comando é para produtos Middle Ticket e High Ticket (estrutura 8D completa).
@@ -252,12 +252,12 @@ Só então apresente a copy corrigida e pergunte:
 
 ### A5. Salvar
 
-`produtos/{ativo}/entregas/copy-pagina/copy-[produto].md`
+`meus-produtos/{ativo}/entregas/copy-pagina/copy-[produto].md`
 
 ### A6. Próximo Passo
 
 ```
-Copy completa salva em produtos/{ativo}/entregas/copy-pagina/copy-[produto].md
+Copy completa salva em meus-produtos/{ativo}/entregas/copy-pagina/copy-[produto].md
 
 Quer que eu monte a página HTML agora com essa copy?
 
@@ -335,7 +335,7 @@ Tem um vídeo de vendas para a primeira dobra?
 (ex: "https://www.youtube.com/watch?v=XXXX" — ou "ainda não tenho" para usar placeholder)
 ```
 
-Se escolheu **2. Captura** ou **3. Obrigado**, verificar ANTES se já existem páginas criadas em `produtos/{ativo}/entregas/paginas/`. Se existirem, perguntar:
+Se escolheu **2. Captura** ou **3. Obrigado**, verificar ANTES se já existem páginas criadas em `meus-produtos/{ativo}/entregas/paginas/`. Se existirem, perguntar:
 
 ```
 Encontrei estas páginas já criadas:
@@ -534,11 +534,11 @@ São 3 passos — leva menos de 5 minutos:
 
 Quando o usuário colar o token:
 - Salvar em `.env`: `VERCEL_TOKEN=<token>`
-- Executar: `npx vercel --token <token> produtos/{ativo}/entregas/paginas --prod --yes --name {slug-do-produto}`
+- Executar: `npx vercel --token <token> meus-produtos/{ativo}/entregas/paginas --prod --yes --name {slug-do-produto}`
 
 **Se conta conectada:**
 ```bash
-npx vercel produtos/{ativo}/entregas/paginas --prod --yes --name {slug-do-produto}
+npx vercel meus-produtos/{ativo}/entregas/paginas --prod --yes --name {slug-do-produto}
 ```
 
 Informar ao usuário:
@@ -551,7 +551,7 @@ studio.youtube.com → Conteúdo → editar o vídeo → Mais opções → Permi
 
 #### Atualizar a página (nova versão após edições)
 ```bash
-npx vercel produtos/{ativo}/entregas/paginas --prod --yes --name {slug-do-produto}
+npx vercel meus-produtos/{ativo}/entregas/paginas --prod --yes --name {slug-do-produto}
 ```
 
 ## B4. Revisão e Correção Automática da Copy no HTML (OBRIGATÓRIO antes de salvar)
@@ -584,9 +584,9 @@ Leia `.env` e verifique `META_PIXEL_ID`. Se existir, insira o snippet do Faceboo
 
 ## B6. Salvar
 
-- `produtos/{ativo}/entregas/paginas/vendas-[produto].html`
-- `produtos/{ativo}/entregas/paginas/captura-[produto].html`
-- `produtos/{ativo}/entregas/paginas/obrigado-[produto].html`
+- `meus-produtos/{ativo}/entregas/paginas/vendas-[produto].html`
+- `meus-produtos/{ativo}/entregas/paginas/captura-[produto].html`
+- `meus-produtos/{ativo}/entregas/paginas/obrigado-[produto].html`
 
 **SEMPRE** criar também `index.html` como cópia do arquivo gerado na mesma pasta.
 

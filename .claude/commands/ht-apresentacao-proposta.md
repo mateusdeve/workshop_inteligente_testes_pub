@@ -16,8 +16,8 @@ Cria o roteiro da call onde você apresenta a proposta comercial e fecha a consu
 ## O Que Fazer
 
 ### 1. Contexto
-Leia `entregas/.ativo`, depois `entregas/{ativo}/perfil.md`.
-Se existir `entregas/{ativo}/c10x/proposta-*.md`, leia para usar os detalhes da proposta.
+Leia `meus-produtos/.ativo`, depois `meus-produtos/{ativo}/perfil.md`.
+Se existir `meus-produtos/{ativo}/entregas/c10x/proposta-*.md`, leia para usar os detalhes da proposta.
 
 ### 2. Entrevista (UMA pergunta por vez)
 
@@ -166,7 +166,7 @@ A proposta é válida até [DATA]. Depois disso, posso não ter agenda disponív
 ```
 
 ### 5. Salvar
-`entregas/{ativo}/c10x/apresentacao-proposta.md`
+`meus-produtos/{ativo}/entregas/c10x/apresentacao-proposta.md`
 
 ### 6. Próximo Passo
 "Script pronto. Se fechar, próximo: `/ht-onboarding` para preparar a entrada do cliente."

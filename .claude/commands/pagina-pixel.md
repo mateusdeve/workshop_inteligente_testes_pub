@@ -17,7 +17,7 @@ Instala Meta Pixel num arquivo HTML existente, sem mexer na copy. Configura Page
 
 Acione a skill `pagina-pixel` do plugin `workshop-marketing` e siga o roteiro:
 
-1. Ler `entregas/.ativo` e checar se existe `entregas/{ativo}/.pixel-id` salvo.
+1. Ler `meus-produtos/.ativo` e checar se existe `meus-produtos/{ativo}/entregas/.pixel-id` salvo.
 2. Coletar (uma pergunta por vez): qual página, Pixel ID, tipo de página, se quer Conversions API.
 3. Tipos de página suportados:
    - Vendas: PageView + ViewContent + InitiateCheckout no clique do CTA.
@@ -27,8 +27,8 @@ Acione a skill `pagina-pixel` do plugin `workshop-marketing` e siga o roteiro:
    - Inscrição C10X: PageView + Lead no submit.
 4. Verificar se já existe pixel instalado. Se existir, perguntar antes de substituir.
 5. Editar o HTML: bloco principal logo após `<head>`, eventos extras antes de `</body>`.
-6. Salvar Pixel ID em `entregas/{ativo}/.pixel-id` para próximas páginas.
-7. Backup em `entregas/{ativo}/paginas/.backup-pixel-{timestamp}.html` antes de sobrescrever.
+6. Salvar Pixel ID em `meus-produtos/{ativo}/entregas/.pixel-id` para próximas páginas.
+7. Backup em `meus-produtos/{ativo}/entregas/paginas/.backup-pixel-{timestamp}.html` antes de sobrescrever.
 8. Mostrar resumo final + instruções de teste com Meta Pixel Helper.
 9. Sugerir próximos passos: `/pagina-checkout`, `/pagina-lovable`, `/copy-anuncio`.
 

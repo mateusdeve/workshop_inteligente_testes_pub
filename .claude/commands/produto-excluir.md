@@ -17,13 +17,13 @@ Exclui permanentemente um produto e toda a sua pasta, incluindo perfil, identida
 
 ### 1. Ler produto ativo atual
 
-Leia `entregas/.ativo` para saber qual produto está ativo agora.
+Leia `meus-produtos/.ativo` para saber qual produto está ativo agora.
 
 ### 2. Listar produtos disponíveis
 
-Liste todas as subpastas dentro de `entregas/` (ignorar arquivos como `.ativo` e `.gitkeep`).
+Liste todas as subpastas dentro de `meus-produtos/` (ignorar arquivos como `.ativo`, `index.js` e pastas que começam com `_` como `_legado`).
 
-Para cada pasta, verifique se existe `entregas/{slug}/perfil.md` e mostre:
+Para cada pasta, verifique se existe `meus-produtos/{slug}/perfil.md` e mostre:
 - Nome do produto (leia a linha do Quadro do `perfil.md` se existir, senão mostre só o slug)
 - Indicador se é o produto ativo atual
 
@@ -42,7 +42,7 @@ Digite o número:
 
 ### 3. Se não houver produtos
 
-Se `entregas/` estiver vazio (só tem `.ativo` ou está vazia), informe:
+Se `meus-produtos/` estiver sem subpastas de produto (só tem `.ativo`, `index.js` ou `_legado/`), informe:
 ```
 Você ainda não tem produtos cadastrados.
 Use /produto-novo para criar seu primeiro produto.
@@ -91,12 +91,12 @@ Se o usuário cancelar (opção 2 ou digitar 0), encerre sem fazer nada.
 
 Após confirmação:
 
-1. Apague toda a pasta `entregas/{slug}/` e seu conteúdo recursivamente usando o Bash:
+1. Apague toda a pasta do produto (contexto + entregas) recursivamente usando o Bash:
    ```bash
-   rm -rf "entregas/{slug}"
+   rm -rf "meus-produtos/{slug}"
    ```
 
-2. **Se o produto excluído era o produto ativo** (slug igual ao conteúdo de `entregas/.ativo`):
+2. **Se o produto excluído era o produto ativo** (slug igual ao conteúdo de `meus-produtos/.ativo`):
 
    - Liste os produtos restantes em `entregas/`
    - **Se ainda houver outros produtos:** pergunte qual ativar:
@@ -108,11 +108,19 @@ Após confirmação:
 
      Digite o número:
      ```
-     Após a escolha, salve o slug em `entregas/.ativo`.
+     Após a escolha, salve o slug em `meus-produtos/.ativo`.
 
-   - **Se não houver mais produtos:** apague o conteúdo de `entregas/.ativo` (deixe o arquivo vazio).
+   - **Se não houver mais produtos:** apague o conteúdo de `meus-produtos/.ativo` (deixe o arquivo vazio).
 
-### 6. Confirmar e sugerir próximo passo
+### 6. Atualizar o manifest do painel
+
+Rode no terminal para regenerar `meus-produtos/index.js` (remove o produto excluído da lista do painel global):
+
+```
+py -3 scripts/painel-atualizar.py
+```
+
+### 7. Confirmar e sugerir próximo passo
 
 **Se havia outros produtos e um foi ativado:**
 ```

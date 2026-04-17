@@ -16,7 +16,7 @@ Cria scripts de vendas consultivas usando SPIN Selling adaptado (C10X). **Produt
 ## O Que Fazer
 
 ### 1. Contexto
-Leia `entregas/{ativo}/perfil.md`.
+Leia `meus-produtos/{ativo}/perfil.md`.
 
 ### 2. Entrevista (UMA pergunta por vez, com progresso visual)
 
@@ -119,7 +119,7 @@ Monte o conteúdo abaixo **dentro do HTML** (seções com títulos, listas, tabe
 
 ### 4. Salvar (HTML obrigatório)
 
-- Caminho: `entregas/{ativo}/comercial/playbook-[slug].html`
+- Caminho: `meus-produtos/{ativo}/entregas/comercial/playbook-[slug].html`
 - `[slug]`: nome do produto em kebab-case (ex.: `mentoria-marketing-digital`).
 - Aplicar checklist da skill `playbook-comercial` (CSS embutido, `@media print`, capa, seções, tabelas).
 

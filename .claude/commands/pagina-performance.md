@@ -26,12 +26,12 @@ Acione a skill `pagina-performance` do plugin `workshop-marketing` e siga o rote
    2. Aplicar só algumas (eu escolho)
    3. Só o relatório, não corrigir agora
    ```
-5. Aplicar correções editando o arquivo, mantendo a copy. Salvar backup antes em `entregas/{ativo}/paginas/.backup-perf-{timestamp}.html`.
+5. Aplicar correções editando o arquivo, mantendo a copy. Salvar backup antes em `meus-produtos/{ativo}/entregas/paginas/.backup-perf-{timestamp}.html`.
 6. Mostrar resumo "antes vs depois" e sugerir próximos passos: `/pagina-pixel` e `/pagina-lovable`.
 
 ## Regras Resumidas
 
-- Imagens costumam estar em `entregas/{ativo}/paginas/assets/` (referência no HTML: `assets/...`). Se o gargalo for peso ou formato, combinar com `/pagina-ajuste` para trocar arquivos ou gerar variantes antes de otimizar o HTML.
+- Imagens costumam estar em `meus-produtos/{ativo}/entregas/paginas/assets/` (referência no HTML: `assets/...`). Se o gargalo for peso ou formato, combinar com `/pagina-ajuste` para trocar arquivos ou gerar variantes antes de otimizar o HTML.
 - Não chamar API externa, auditoria é offline lendo o HTML.
 - Não alterar copy, só estrutura e atributos técnicos.
 - Sempre criar backup antes de sobrescrever.

@@ -7,7 +7,7 @@ description: Ajustes pós-merge guiados por perguntas. Diagnóstico, cores para 
 
 Este comando **não aplica tudo automaticamente no escuro**. O fluxo padrão é: **diagnóstico → você escolhe o que fazer → coleta do que falta (texto, links, imagens) → edição do HTML**.
 
-Referência técnica dos itens possíveis: `.claude/plugins/workshop-marketing/skills/paginas/references/etapa-ajustes-pagina.md`.
+Referência técnica dos itens possíveis: `.claude/skills/paginas/references/etapa-ajustes-pagina.md`.
 
 Não substitui `/feedback-pagina` (auditoria Nav) nem `/pagina-performance`.
 
@@ -21,11 +21,11 @@ Não substitui `/feedback-pagina` (auditoria Nav) nem `/pagina-performance`.
 
 ### 1. Contexto (sempre)
 
-1. Ler `entregas/.ativo` para o slug do produto.
-2. Ler `entregas/{ativo}/perfil.md` e, se existir, `entregas/{ativo}/copy-pagina/copy-{slug}.md`.
-3. Arquivo alvo padrão: `entregas/{ativo}/paginas/vendas-{slug}.html` (ou o caminho que o usuário disser).
+1. Ler `meus-produtos/.ativo` para o slug do produto.
+2. Ler `meus-produtos/{ativo}/perfil.md` e, se existir, `meus-produtos/{ativo}/entregas/copy-pagina/copy-{slug}.md`.
+3. Arquivo alvo padrão: `meus-produtos/{ativo}/entregas/paginas/vendas-{slug}.html` (ou o caminho que o usuário disser).
 4. **Onde as imagens ficam no projeto (sempre deixar explícito para o aluno ao falar de imagens):**
-   - **No disco:** pasta **`entregas/{ativo}/paginas/assets/`** (ao lado do HTML da página, não na raiz do repositório).
+   - **No disco:** pasta **`meus-produtos/{ativo}/entregas/paginas/assets/`** (ao lado do HTML da página, não na raiz do repositório).
    - **No HTML:** referências relativas à pasta do arquivo, em geral **`assets/nome.ext`** (ex.: `src="assets/logo.png"`). O mesmo vale para `og:image` (URL relativa ou absoluta do domínio final; se for arquivo local, costuma ser `assets/og-....jpg`).
    - **Geração por script:** `scripts/generate-openrouter-nano-banana-images.py` grava os PNG **direto** nessa pasta `assets/` do produto (`--slug` = nome da pasta em `entregas/`).
    - Em resumo ao aluno: *"As imagens ficam em `entregas/{seu-produto}/paginas/assets/` e a página aponta para elas com `assets/...`."*
@@ -117,15 +117,15 @@ Você já tem imagens para subir (logo, sua foto, prints, fotos de clientes)?
 Digite o número:
 ```
 
-Se escolher **1**, orientar: criar se fizer sentido `entregas/{ativo}/paginas/assets/` e usar nomes claros (`logo.png`, `foto-criador.jpg`, `depo-marina.jpg`, `og-planilhas.jpg`). Depois de receber arquivos ou caminhos, atualizar o HTML com `src` relativos tipo `assets/foto-criador.jpg` (caminho relativo ao HTML).
+Se escolher **1**, orientar: criar se fizer sentido `meus-produtos/{ativo}/entregas/paginas/assets/` e usar nomes claros (`logo.png`, `foto-criador.jpg`, `depo-marina.jpg`, `og-planilhas.jpg`). Depois de receber arquivos ou caminhos, atualizar o HTML com `src` relativos tipo `assets/foto-criador.jpg` (caminho relativo ao HTML).
 
 Se escolher **4 (gerar com IA)**, não pular referências. Fazer nesta ordem:
 
 1. **Confirmar pré-requisito:** chave `OPENROUTER_API_KEY` no `.env` na raiz do repositório (ver `.env.example`). Se não tiver, explicar que o fluxo é: colar a chave, salvar, rodar o script na raiz (passo abaixo) ou pedir para o assistente rodar se o ambiente permitir.
 2. **Perguntar quais slots** ainda estão com placeholder ou genérico (hero, autoridade, depoimentos, OG, seção específica). Uma pergunta ou lista numerada se já estiver claro no diagnóstico.
 3. **Passar referências de estilo** (o assistente resume em linguagem humana, sem obrigar o aluno a abrir tudo):
-   - **Playbook de evolução visual e prompts:** `.claude/plugins/workshop-marketing/skills/paginas/references/playbook-evolucao-visual-html-landing.md` (direção Fluent ou corporativa, negativos tipo “sem personagem cartoon”, uso de cor da marca `#0f7937` só como detalhe quando fizer sentido).
-   - **Script de geração em lote:** `scripts/generate-openrouter-nano-banana-images.py` (lê `JOBS` com `file`, `aspect_ratio`, `prompt` em inglês; grava em `entregas/{slug}/paginas/assets/`).
+   - **Playbook de evolução visual e prompts:** `.claude/skills/paginas/references/playbook-evolucao-visual-html-landing.md` (direção Fluent ou corporativa, negativos tipo “sem personagem cartoon”, uso de cor da marca `#0f7937` só como detalhe quando fizer sentido).
+   - **Script de geração em lote:** `scripts/generate-openrouter-nano-banana-images.py` (lê `JOBS` com `file`, `aspect_ratio`, `prompt` em inglês; grava em `meus-produtos/{slug}/entregas/paginas/assets/`).
    - **Ferramenta:** comando típico na raiz: `py -3 scripts/generate-openrouter-nano-banana-images.py --slug {ativo}`; para só algumas imagens novas no fim da lista, usar `--skip N` e `--max M` conforme o cabeçalho do script.
 4. **Coletar intenção por imagem:** nicho, tom (ex.: produto digital sério, MEI, planilha), o que não pode aparecer (texto legível na arte, logos de terceiros, estilo infantil). Isso vira trecho do prompt ou entrada em `JOBS`.
 5. **Depois que os PNG existirem na pasta `assets/`:** atualizar o HTML (`src`, `alt`, OG se for o caso) como na opção 1. Se o merge for rodado de novo, relembrar reaplicar `src` se o template sobrescrever.

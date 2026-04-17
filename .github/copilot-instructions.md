@@ -85,7 +85,7 @@ node server.js                    # Runs on http://localhost:4000
 ### Reference Files:
 - **[CLAUDE.md](CLAUDE.md)**: Global role definition (300+ lines)
 - **[.claude/plugins/workshop-marketing/skills/vtsd-completo/SKILL.md](.claude/plugins/workshop-marketing/skills/vtsd-completo/SKILL.md)**: VTSD foundation (1084 lines)
-- **[docs/ARQUITETURA.md](docs/ARQUITETURA.md)**: Technical architecture guide
+- **[ARQUITETURA.md](ARQUITETURA.md)**: Technical architecture guide
 
 ### Command Examples:
 - **[.claude/commands/meu-produto.md](.claude/commands/meu-produto.md)**: Interview-driven with market research

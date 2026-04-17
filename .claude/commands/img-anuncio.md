@@ -18,7 +18,7 @@ Gera imagens prontas para usar em anuncios do Instagram e Facebook. Pesquisa ref
 ### 0. Contexto e Verificacao de API
 
 **Ler contexto do produto:**
-Leia `entregas/.ativo`, depois `entregas/{ativo}/perfil.md` e `entregas/{ativo}/idconsumidor.md` (se existir).
+Leia `meus-produtos/.ativo`, depois `meus-produtos/{ativo}/perfil.md` e `meus-produtos/{ativo}/idconsumidor.md` (se existir).
 
 **Verificar API de geracao de imagem:**
 
@@ -41,12 +41,12 @@ Quer que eu te guie na configuracao agora?
 2. Prefiro so gerar os prompts (sem API, uso manual)
 ```
 
-Se escolher 1: exiba um resumo dos passos principais do guia `docs/setup-imagens.md` de forma conversacional, orientando o usuario a:
+Se escolher 1: exiba um resumo dos passos principais do guia `/configurar-imagens` de forma conversacional, orientando o usuario a:
 - Criar conta no openrouter.ai
 - Adicionar creditos (minimo US$ 5)
 - Gerar a chave de API (openrouter.ai/settings/keys)
 - Colar no arquivo `.env` na linha `OPENROUTER_API_KEY=`
-- Informar que o guia completo esta em `docs/setup-imagens.md`
+- Informar que o guia completo esta no command `/configurar-imagens`
 
 Apos o usuario informar que configurou, verifique lendo o `.env` novamente. Se a chave estiver la, confirme: "Conexao configurada. Vamos criar suas imagens." e siga para o passo 1.
 
@@ -73,7 +73,7 @@ A partir dos resultados, extraia:
 - Padroes de composicao (cores, layout, tipografia)
 - Elementos que param o scroll
 
-Consulte tambem a referencia interna em `.claude/plugins/workshop-marketing/skills/anuncios/references/formatos-virais-instagram.md` para cruzar com os dados da pesquisa.
+Consulte tambem a referencia interna em `.claude/skills/anuncios/references/formatos-virais-instagram.md` para cruzar com os dados da pesquisa.
 
 **Apresente ao usuario:**
 
@@ -295,10 +295,10 @@ O router (`scripts/openrouter_model_router.py`) analisa cada prompt e escolhe o 
 Gerar um arquivo JSON de config com os slides (o assistente gera automaticamente apos aprovacao da copy). Depois rodar:
 
 ```bash
-py -3 scripts/generate-creative.py --config entregas/{ativo}/anuncios/{arquivo}.json --dry-run
-py -3 scripts/generate-creative.py --config entregas/{ativo}/anuncios/{arquivo}.json
-py -3 scripts/generate-creative.py --config entregas/{ativo}/anuncios/{arquivo}.json --force-model google/gemini-3.1-flash-image-preview
-py -3 scripts/generate-creative.py --config entregas/{ativo}/anuncios/{arquivo}.json --skip-ai
+py -3 scripts/generate-creative.py --config meus-produtos/{ativo}/entregas/anuncios/{arquivo}.json --dry-run
+py -3 scripts/generate-creative.py --config meus-produtos/{ativo}/entregas/anuncios/{arquivo}.json
+py -3 scripts/generate-creative.py --config meus-produtos/{ativo}/entregas/anuncios/{arquivo}.json --force-model google/gemini-3.1-flash-image-preview
+py -3 scripts/generate-creative.py --config meus-produtos/{ativo}/entregas/anuncios/{arquivo}.json --skip-ai
 ```
 
 Compativel com Windows (Edge/Chrome), Mac (Chrome/Edge) e Linux (Chrome/Chromium).
@@ -350,12 +350,12 @@ Apos gerar e salvar as imagens:
 ```
 Imagens geradas e salvas:
 
-- entregas/{ativo}/criativos/img-anuncio-v1-{produto}.png
-- entregas/{ativo}/criativos/img-anuncio-v2-{produto}.png
-- entregas/{ativo}/criativos/img-anuncio-v3-{produto}.png
+- meus-produtos/{ativo}/entregas/criativos/img-anuncio-v1-{produto}.png
+- meus-produtos/{ativo}/entregas/criativos/img-anuncio-v2-{produto}.png
+- meus-produtos/{ativo}/entregas/criativos/img-anuncio-v3-{produto}.png
 
 Briefing criativo salvo em:
-- entregas/{ativo}/criativos/briefing-anuncio-{produto}.md
+- meus-produtos/{ativo}/entregas/criativos/briefing-anuncio-{produto}.md
 
 Proximo passo: Use `/copy-anuncio` para criar a copy (texto) dos anuncios
 que vao acompanhar essas imagens.

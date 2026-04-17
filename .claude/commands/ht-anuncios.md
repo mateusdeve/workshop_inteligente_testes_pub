@@ -16,8 +16,8 @@ Cria pacote de anúncios para atrair inscritos qualificados para o evento C10X. 
 ## O Que Fazer
 
 ### 1. Contexto
-Leia `entregas/.ativo`, depois `entregas/{ativo}/perfil.md` e `entregas/{ativo}/idconsumidor.md`.
-Se existir `entregas/{ativo}/c10x/big-idea-*.md`, leia para usar a promessa e o mote.
+Leia `meus-produtos/.ativo`, depois `meus-produtos/{ativo}/perfil.md` e `meus-produtos/{ativo}/idconsumidor.md`.
+Se existir `meus-produtos/{ativo}/entregas/c10x/big-idea-*.md`, leia para usar a promessa e o mote.
 
 ### 2. Entrevista (UMA pergunta por vez, com progresso visual)
 
@@ -145,7 +145,7 @@ Fase 3 (D-7 a D0): Anúncio 3 e remarketing. escassez máxima
 ```
 
 ### 5. Salvar
-`entregas/{ativo}/c10x/anuncios-evento-[nome].md`
+`meus-produtos/{ativo}/entregas/c10x/anuncios-evento-[nome].md`
 
 ### 6. Próximo Passo
 "Anúncios criados. Próximo: `/ht-comunicacao-pre` para montar a sequência de aquecimento dos inscritos antes do evento."
