@@ -381,6 +381,17 @@ Este assistente é treinado na metodologia VTSD. Sempre que criar materiais, apl
 
 Consulte sempre as skills de referência em `.claude/skills/` para detalhes de cada elemento.
 
+## Memória dos Agentes
+
+Os agentes (em `.claude/agents/*.md`) são stateless por padrão, mas este projeto usa uma convenção de memória persistente em dois escopos:
+
+- **Global por agente**: `.claude/agents-memory/{nome-agente}.md`. Preferências do aluno e padrões validados que valem para qualquer produto.
+- **Por produto × agente**: `meus-produtos/{ativo}/agentes/{nome-agente}.md`. Contexto específico do produto ativo.
+
+Ambas as pastas são ignoradas pelo git. Só o `.claude/agents-memory/README.md` (que documenta a convenção) vai versionado. Cada aluno gera as memórias localmente conforme usa os agentes.
+
+Todo agente carrega as duas memórias no Passo 0 (antes de qualquer outra ação) e anexa aprendizados novos antes de encerrar. Regras de higiene e schema completo em `.claude/agents-memory/README.md`.
+
 ## Sistema de Produto Ativo
 
 Este projeto suporta múltiplos produtos. Cada produto tem sua própria pasta com perfil, identidade do consumidor e entregas isoladas.

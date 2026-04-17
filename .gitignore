@@ -59,6 +59,16 @@ scripts/*.log
 .continue-here.md
 
 # ══════════════════════════════════════════
+# Memória dos agentes (gerada localmente, cada aluno a sua)
+# A pasta e o README explicando a convenção sobem; o conteúdo
+# específico dos agentes (*.md) é local.
+# Ver .claude/agents-memory/README.md
+# ══════════════════════════════════════════
+.claude/agents-memory/*
+!.claude/agents-memory/.gitkeep
+!.claude/agents-memory/README.md
+
+# ══════════════════════════════════════════
 # docs/ é área local de desenvolvimento (plans, rascunhos)
 # A documentação permanente foi internalizada: ARQUITETURA.md fica
 # na raiz; guias de setup viraram commands em .claude/commands/;
