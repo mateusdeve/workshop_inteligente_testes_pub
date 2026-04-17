@@ -385,7 +385,7 @@ Consulte sempre as skills de referência em `.claude/skills/` para detalhes de c
 
 Este projeto suporta múltiplos produtos. Cada produto tem sua própria pasta com perfil, identidade do consumidor e entregas isoladas.
 
-**Produto ativo:** leia `meus-produtos/.ativo` para obter o identificador do produto atual (ex: `curso-tarot`). Use `meus-produtos/{ativo}/` como caminho base para todos os arquivos daquele produto. A pasta `meus-produtos/` é ignorada pelo git (cada aluno gera a sua). O painel global em `painel.html` na raiz lê o manifest `meus-produtos/index.js` (regenerado pelos commands de gestão ou manualmente com `/painel-atualizar`).
+**Produto ativo:** leia `meus-produtos/.ativo` para obter o identificador do produto atual (ex: `curso-tarot`). Use `meus-produtos/{ativo}/` como caminho base para todos os arquivos daquele produto. A pasta `meus-produtos/` é ignorada pelo git (cada aluno gera a sua). O painel global em `painel/index.html` lê o manifest `meus-produtos/index.js` (regenerado pelos commands de gestão ou manualmente com `/painel-atualizar`).
 
 **Comandos de gestão:**
 - `/produto-novo`. Cria um novo produto e o define como ativo.

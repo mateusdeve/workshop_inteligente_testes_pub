@@ -34,99 +34,70 @@ workshop_inteligente/
 │
 ├── CLAUDE.md                              ← ARQUIVO CENTRAL: papel do assistente, regras e comportamento
 ├── AGENTS.md                              ← Mapa rapido para agentes (Cursor / IDEs)
-├── .cursor/rules/                         ← Regras Cursor (.mdc, alwaysApply ou globs)
+├── ARQUITETURA.md                         ← ESTE ARQUIVO (guia tecnico completo)
 ├── README.md                              ← Documentacao publica para o usuario final
 ├── COMO-USAR.md                           ← Guia passo a passo para o usuario
 ├── .env.example                           ← Modelo de chaves API (opcional)
-├── .gitignore                             ← Protege .env, entregas/ e dados do aluno
+├── .gitignore                             ← Protege .env, meus-produtos/ e dados do aluno
+├── painel/index.html                      ← Painel global (le meus-produtos/index.js)
+├── .cursor/rules/                         ← Regras Cursor (.mdc, alwaysApply ou globs)
 │
 ├── .claude/                               ← NUCLEO DO SISTEMA Claude Code
 │   ├── settings.json                      ← Permissoes de escrita/leitura/execucao
 │   │
-│   ├── commands/                          ← SLASH COMMANDS (atalhos /comando)
-│   │   ├── meu-produto.md                 ← /meu-produto
-│   │   ├── idconsumidor.md                     ← /idconsumidor
-│   │   ├── pagina-de-vendas.md            ← /pagina-de-vendas
-│   │   ├── texto-de-venda.md              ← /texto-de-venda
-│   │   ├── copy-anuncio.md                ← /copy-anuncio
-│   │   ├── copy-social.md                 ← /copy-social
-│   │   ├── roteiro-de-video.md            ← /roteiro-de-video
-│   │   ├── sequencia-de-emails.md         ← /sequencia-de-emails
-│   │   ├── lancamento.md                  ← /lancamento
-│   │   ├── estrategia-funil.md            ← /estrategia-funil
-│   │   ├── playbook-comercial.md          ← /playbook-comercial
-│   │   ├── img-anuncio.md                 ← /img-anuncio
-│   │   └── low-ticket.md                  ← /low-ticket
+│   ├── commands/                          ← SLASH COMMANDS (~90 arquivos, atalhos /comando)
+│   │   Organizados por categoria: /produto-*, /copy-*, /lt-*, /ht-*, /pagina-*,
+│   │   /video-*, /toolkit-*, /configurar-*, /estrategia-*, /feedback-*, etc.
 │   │
 │   ├── agents/                            ← AGENTES AUTONOMOS (subprocessos)
-│   │   ├── estrategista-de-produto.md     ← Concepcao VTSD completa
-│   │   ├── construtor-de-paginas.md       ← Cria paginas HTML
-│   │   ├── criador-de-campanhas.md        ← Monta campanha de trafego
-│   │   ├── produtor-de-conteudo.md        ← Plano de conteudo 30 dias
-│   │   └── consultor-comercial.md         ← Playbook de vendas high ticket
+│   │   Orquestradores e especialistas: estrategista-de-produto, estrategista-ht,
+│   │   construtor-de-paginas, criador-de-campanhas, copywriter, video-maker,
+│   │   consultor-comercial, produtor-de-conteudo, executor-de-plano-de-acao, etc.
 │   │
-│   ├── plugins/
-│   │   └── workshop-marketing/            ← PLUGIN PRINCIPAL
-│   │       ├── .claude-plugin/
-│   │       │   └── plugin.json            ← Manifesto do plugin (nome, versao, skills)
-│   │       │
-│   │       └── skills/                    ← BASE DE CONHECIMENTO (referencia)
-│   │           ├── vtsd-completo/
-│   │           │   └── SKILL.md           ← Metodologia VTSD integral (1084 linhas)
-│   │           ├── concepcao-produto/
-│   │           │   ├── SKILL.md           ← Quadro, Furadeira, 3 Identidades
-│   │           │   └── references/
-│   │           │       └── template-avatar.md
-│   │           ├── paginas/
-│   │           │   ├── SKILL.md           ← Estrutura 8D, paletas, padrao HTML
-│   │           │   └── references/
-│   │           │       └── estruturas-pagina.md
-│   │           ├── anuncios/
-│   │           │   ├── SKILL.md           ← Mandala 18 tipos
-│   │           │   └── references/
-│   │           │       ├── exemplos-criativos.md
-│   │           │       ├── formatos-meta-ads.md
-│   │           │       └── formatos-google-ads.md
-│   │           ├── anuncios-texto/
-│   │           │   └── SKILL.md           ← Anuncios em formato texto
-│   │           ├── anuncios-video/
-│   │           │   └── SKILL.md           ← Anuncios em formato video
-│   │           ├── conteudo/
-│   │           │   ├── SKILL.md           ← Formatos Reels, carrosseis, elementos literarios
-│   │           │   └── references/
-│   │           │       ├── exemplos-vsl.md
-│   │           │       ├── frameworks-copy.md
-│   │           │       └── gatilhos-mentais.md
-│   │           ├── trafego-pago/
-│   │           │   └── SKILL.md           ← Campanhas, pixel, metricas
-│   │           ├── playbook-comercial/
-│   │           │   └── SKILL.md           ← SPIN Selling, fechamento
-│   │           └── ferramentas/
-│   │               └── SKILL.md           ← Integracoes externas (Vercel, Freepik, etc.)
-│   │
-│   └── settings.json                      ← Permissoes do Claude Code
+│   └── skills/                            ← BASE DE CONHECIMENTO (30 skills)
+│       ├── vtsd-completo/                 ← Metodologia VTSD integral
+│       ├── concepcao-produto/             ← Quadro, Furadeira, 3 Identidades, Urgencias
+│       ├── paginas/                       ← Estrutura 8D, design system, 65+ templates HTML
+│       ├── anuncios/, anuncios-texto/, anuncios-video/ ← Mandala 18 tipos, formatos
+│       ├── conteudo/                      ← Reels, carrosseis, elementos literarios
+│       ├── trafego-pago/                  ← Campanhas, pixel, metricas
+│       ├── playbook-comercial/            ← SPIN Selling, fechamento, objecoes
+│       ├── revisora/                      ← Filtro final de copy (vicios VTSD)
+│       ├── pesquisa-mercado/              ← Reclame Aqui, SEBRAE, concorrentes
+│       ├── pagina-checkout/, pagina-pixel/, pagina-lovable/, pagina-performance/,
+│       │   pagina-active/, pagina-precheckout/ ← Skills de infraestrutura de pagina
+│       ├── furadeira-visual/, canvas-design/ ← Visualizacoes HTML
+│       ├── dados-instagram/, dados-nicho/, instagram-dashboard/ ← Analise
+│       └── tutorial-ferramentas/, ferramentas/, agente-gpt/, app-saas/, etc.
 │
-├── meu-negocio/                           ← DADOS DO USUARIO (nao sobe pro git)
-│   ├── README.md                          ← Instrucoes para o usuario
-│   ├── perfil.md                          ← Gerado por /meu-produto (Quadro, Furadeira, etc.)
-│   └── idconsumidor.md                         ← Gerado por /idconsumidor (cliente ideal)
+├── scripts/                               ← UTILITARIOS PYTHON/POWERSHELL
+│   ├── README-creative.md                 ← Processo de criacao de criativos
+│   ├── workshop-copy-template-tema.py     ← Copia tema para a pasta do produto
+│   ├── workshop-merge-pagina.py           ← Faz merge dos blocos 8D em HTML final
+│   ├── painel-atualizar.py                ← Regenera meus-produtos/index.js
+│   ├── generate-avatar-video.py           ← Aciona HeyGen via API
+│   ├── generate-creative.py               ← Geracao de criativos visuais
+│   ├── generate-openrouter-nano-banana-images.py
+│   └── relatorio-ads.ps1                  ← Rotina diaria Facebook Ads -> WhatsApp
 │
-├── entregas/                              ← OUTPUT GERADO (nao sobe pro git)
-│   ├── paginas/                           ← Arquivos .html
-│   ├── textos-de-venda/                   ← Arquivos .md
-│   ├── emails/                            ← Arquivos .md
-│   ├── anuncios/                          ← Arquivos .md
-│   ├── conteudo-social/                   ← Arquivos .md
-│   ├── criativos/                         ← Arquivos .md (prompts de imagem)
-│   └── comercial/                         ← Arquivos .md (scripts de venda)
+├── meus-produtos/                         ← DADOS DO ALUNO (ignorado pelo git)
+│   ├── .ativo                             ← Slug do produto ativo
+│   ├── index.js                           ← Manifest gerado (alimenta painel/index.html)
+│   └── {slug-do-produto}/                 ← Um diretorio por produto
+│       ├── perfil.md                      ← Gerado por /produto-concepcao
+│       ├── idconsumidor.md                ← Gerado por /produto-consumidor
+│       ├── pesquisa-mercado.md, tipo.md, nome.txt (opcional)
+│       ├── painel-entregas.html           ← Painel por produto
+│       └── entregas/                      ← Output do assistente
+│           ├── paginas/                   ← Arquivos .html
+│           ├── copy-pagina/, emails/, anuncios/, conteudo-social/, criativos/,
+│           │   comercial/, videos/, produto/, textos-de-venda/
 │
-├── docs/                                  ← DOCUMENTACAO INTERNA
-│   ├── diagnostico-projeto.md             ← Auditoria do estado atual
-│   └── ARQUITETURA.md                     ← ESTE ARQUIVO
+├── docs/                                  ← PLANS E RASCUNHOS LOCAIS (ignorado pelo git)
 │
-└── _prompts-gpt/                          ← REFERENCIA ORIGINAL (nao distribui)
+└── _prompts-gpt/                          ← MATERIAL COMPLEMENTAR DO WORKSHOP
     ├── vtsd-completo.skill                ← Prompt original do GPT
-    └── vtsd-extraido/                     ← Versao extraida para conversao
+    └── vtsd-extraido/                     ← Versao extraida
 ```
 
 ---
@@ -155,13 +126,13 @@ O sistema usa 5 tipos de componentes. Cada um tem um papel especifico:
 
 ### 3.2 Commands (Slash Commands. `/comando`)
 
-**O que sao:** Atalhos que o usuario digita no chat (ex: `/meu-produto`, `/copy-anuncio`). Cada command e um arquivo `.md` na pasta `.claude/commands/`.
+**O que sao:** Atalhos que o usuario digita no chat (ex: `/produto-concepcao`, `/copy-anuncio`). Cada command e um arquivo `.md` na pasta `.claude/commands/`.
 
 **Como o Claude Code encontra:** Automaticamente. qualquer `.md` dentro de `.claude/commands/` vira um slash command. O nome do arquivo (sem extensao) e o nome do comando.
 
 **Como funciona na pratica:**
-1. Usuario digita `/idconsumidor` no chat
-2. Claude Code carrega `.claude/commands/idconsumidor.md`
+1. Usuario digita `/produto-consumidor` no chat
+2. Claude Code carrega `.claude/commands/produto-consumidor.md`
 3. O conteudo do arquivo e injetado como instrucao no contexto do Claude
 4. O Claude segue as instrucoes do command + as regras do CLAUDE.md
 
@@ -197,23 +168,6 @@ skills/
 
 **Relacao com commands/agents:** Os commands e agents referenciam as skills nos seus textos (ex: "Leia `.claude/skills/paginas/SKILL.md`"). A skill fornece o conhecimento; o command/agent fornece o fluxo de trabalho.
 
-### 3.5 Plugin (Empacotamento)
-
-**O que e:** O plugin (`plugin.json`) e o manifesto que registra as skills no Claude Code. Fica em `.claude/plugins/workshop-marketing/.claude-plugin/plugin.json`.
-
-**Conteudo atual:**
-```json
-{
-  "name": "workshop-marketing",
-  "description": "Assistente completo de marketing digital...",
-  "version": "1.0.0",
-  "author": { "name": "Workshop Marketing IA" },
-  "skills": "./skills"
-}
-```
-
-O campo `"skills": "./skills"` aponta para a pasta de skills relativa ao `plugin.json`.
-
 ---
 
 ## 4. Fluxo de Dados entre Componentes
@@ -223,25 +177,25 @@ USUARIO
   │
   ├── digita /comando ──────────► COMMAND (.claude/commands/X.md)
   │                                  │
-  │                                  ├── le ► meu-negocio/perfil.md (contexto do produto)
-  │                                  ├── le ► meu-negocio/idconsumidor.md (contexto do publico)
+  │                                  ├── le ► meus-produtos/{ativo}/perfil.md (contexto do produto)
+  │                                  ├── le ► meus-produtos/{ativo}/produto-consumidor.md (contexto do publico)
   │                                  ├── consulta ► SKILL (base de conhecimento)
   │                                  │
-  │                                  └── salva ► entregas/[tipo]/[arquivo]
+  │                                  └── salva ► meus-produtos/{ativo}/entregas/[tipo]/[arquivo]
   │
   └── (ou agente e acionado) ───► AGENT (.claude/agents/X.md)
                                      │
-                                     ├── le ► meu-negocio/perfil.md
-                                     ├── le ► meu-negocio/idconsumidor.md
+                                     ├── le ► meus-produtos/{ativo}/perfil.md
+                                     ├── le ► meus-produtos/{ativo}/produto-consumidor.md
                                      ├── consulta ► SKILL (base de conhecimento)
                                      ├── le ► .env (chaves opcionais)
                                      │
-                                     └── salva ► entregas/[tipo]/[arquivo]
+                                     └── salva ► meus-produtos/{ativo}/entregas/[tipo]/[arquivo]
 ```
 
 **Ordem recomendada de uso:**
-1. `/meu-produto` → gera `meu-negocio/perfil.md`
-2. `/idconsumidor` → gera `meu-negocio/idconsumidor.md`
+1. `/produto-concepcao` → gera `meus-produtos/{ativo}/perfil.md`
+2. `/produto-consumidor` → gera `meus-produtos/{ativo}/produto-consumidor.md`
 3. Qualquer outro comando → le perfil.md e idconsumidor.md como contexto
 
 ---
@@ -275,7 +229,7 @@ Cria roteiro de webinar com [descricao do que faz].
 ## O Que Fazer
 
 ### 1. Contexto
-Leia `meu-negocio/perfil.md`. Se nao existir, oriente a usar `/meu-produto` primeiro.
+Leia `meus-produtos/{ativo}/perfil.md`. Se nao existir, oriente a usar `/produto-concepcao` primeiro.
 
 ### 2. Entrevista (UMA pergunta por vez, com progresso visual)
 
@@ -308,7 +262,7 @@ Resumo do que vou criar:
 
 ### 4. Gerar Entregavel
 [Instrucoes detalhadas de como gerar o material]
-Salvar em `entregas/[pasta]/[nome-arquivo].md`
+Salvar em `meus-produtos/{ativo}/entregas/[pasta]/[nome-arquivo].md`
 
 ### 5. Proximo Passo
 "Material salvo em [caminho]. Use `/[proximo-comando]` para [proxima acao sugerida]."
@@ -398,8 +352,8 @@ SEMPRE em Portugues do Brasil.
 ## Como Trabalhar
 
 ### 1. Ler Contexto
-- Leia `meu-negocio/perfil.md` para entender o produto
-- Leia `meu-negocio/idconsumidor.md` para entender o publico
+- Leia `meus-produtos/{ativo}/perfil.md` para entender o produto
+- Leia `meus-produtos/{ativo}/produto-consumidor.md` para entender o publico
 - Use Quadro, Furadeira, Decorados e Urgencias Ocultas como base
 
 ### 2. [Etapa especifica do agente]
@@ -409,7 +363,7 @@ SEMPRE em Portugues do Brasil.
 [Instrucoes detalhadas]
 
 ### N. Salvar
-- Salvar em `entregas/[pasta]/[nome-arquivo].[extensao]`
+- Salvar em `meus-produtos/{ativo}/entregas/[pasta]/[nome-arquivo].[extensao]`
 
 ### N+1. Informar
 NUNCA mostre codigo ao aluno.
@@ -609,8 +563,8 @@ O arquivo `.claude/settings.json` controla quais acoes o Claude Code pode execut
 {
   "permissions": {
     "allow": [
-      "Write(entregas/**)",        ← Pode criar/editar arquivos em entregas/
-      "Write(meu-negocio/**)",     ← Pode criar/editar perfil.md e idconsumidor.md
+      "Write(meus-produtos/{ativo}/entregas/**)",        ← Pode criar/editar arquivos em meus-produtos/{ativo}/entregas/
+      "Write(meus-produtos/{ativo}/**)",     ← Pode criar/editar perfil.md e idconsumidor.md
       "Write(docs/**)",            ← Pode criar/editar documentacao
       "Read(**)",                  ← Pode ler qualquer arquivo
       "Bash(ls *)",               ← Pode listar arquivos
@@ -638,19 +592,19 @@ Esta tabela e definida no CLAUDE.md e deve ser respeitada por TODOS os commands 
 
 | Tipo de Material | Pasta | Formato | Exemplo de nome |
 |---|---|---|---|
-| Paginas (vendas, captura, obrigado) | `entregas/paginas/` | `.html` | `vendas-curso-ingles.html` |
-| Textos de venda (copy, headlines, VSL) | `entregas/textos-de-venda/` | `.md` | `headlines-curso-ingles.md` |
-| Sequencias de email | `entregas/emails/` | `.md` | `sequencia-pico-curso-ingles.md` |
-| Anuncios (Meta, Google) | `entregas/anuncios/` | `.md` | `anuncios-meta-curso-ingles.md` |
-| Conteudo para redes sociais | `entregas/conteudo-social/` | `.md` | `carrossel-curso-ingles.md` |
-| Criativos e prompts de imagem | `entregas/criativos/` | `.md` | `prompts-midjourney-curso-ingles.md` |
-| Scripts comerciais | `entregas/comercial/` | `.html` | `playbook-curso-ingles.html` |
+| Paginas (vendas, captura, obrigado) | `meus-produtos/{ativo}/entregas/paginas/` | `.html` | `vendas-curso-ingles.html` |
+| Textos de venda (copy, headlines, VSL) | `meus-produtos/{ativo}/entregas/textos-de-venda/` | `.md` | `headlines-curso-ingles.md` |
+| Sequencias de email | `meus-produtos/{ativo}/entregas/emails/` | `.md` | `sequencia-pico-curso-ingles.md` |
+| Anuncios (Meta, Google) | `meus-produtos/{ativo}/entregas/anuncios/` | `.md` | `anuncios-meta-curso-ingles.md` |
+| Conteudo para redes sociais | `meus-produtos/{ativo}/entregas/conteudo-social/` | `.md` | `carrossel-curso-ingles.md` |
+| Criativos e prompts de imagem | `meus-produtos/{ativo}/entregas/criativos/` | `.md` | `prompts-midjourney-curso-ingles.md` |
+| Scripts comerciais | `meus-produtos/{ativo}/entregas/comercial/` | `.html` | `playbook-curso-ingles.html` |
 
 **Se precisar de uma nova pasta de entrega:**
-1. Crie a pasta em `entregas/`
+1. Crie a pasta em `meus-produtos/{ativo}/entregas/`
 2. Adicione um `.gitkeep` dentro dela
 3. Atualize a tabela no CLAUDE.md
-4. Adicione a permissao `Write(entregas/nova-pasta/**)` no settings.json (ja coberta por `Write(entregas/**)`)
+4. Adicione a permissao `Write(meus-produtos/{ativo}/entregas/nova-pasta/**)` no settings.json (ja coberta por `Write(meus-produtos/{ativo}/entregas/**)`)
 
 ---
 
@@ -703,9 +657,9 @@ Protegido pelo `.gitignore`:
 | Item | Razao |
 |---|---|
 | `.env` | Chaves de API do usuario |
-| `meu-negocio/perfil.md` | Dados do produto do usuario |
-| `meu-negocio/idconsumidor.md` | Identidade do consumidor (cliente ideal) |
-| `entregas/` (conteudo) | Materiais gerados sao unicos de cada usuario |
+| `meus-produtos/{ativo}/perfil.md` | Dados do produto do usuario |
+| `meus-produtos/{ativo}/produto-consumidor.md` | Identidade do consumidor (cliente ideal) |
+| `meus-produtos/{ativo}/entregas/` (conteudo) | Materiais gerados sao unicos de cada usuario |
 | `_prompts-gpt/` | Prompts originais de referencia interna |
 | `.claude/projects/`, `.claude/plans/`, etc. | Arquivos de runtime do Claude Code |
 
@@ -724,26 +678,26 @@ Protegido pelo `.gitignore`:
 ```
 CLAUDE.md (regras globais)
     │
-    ├── /meu-produto ──────► skill: concepcao-produto ──► salva: meu-negocio/perfil.md
-    ├── /idconsumidor ──────────► skill: concepcao-produto ──► salva: meu-negocio/idconsumidor.md
+    ├── /produto-concepcao ──────► skill: concepcao-produto ──► salva: meus-produtos/{ativo}/perfil.md
+    ├── /produto-consumidor ──────────► skill: concepcao-produto ──► salva: meus-produtos/{ativo}/produto-consumidor.md
     │
-    ├── /pagina-de-vendas ─► skill: paginas ────────────► salva: entregas/paginas/*.html
-    ├── /texto-de-venda ───► skill: conteudo ───────────► salva: entregas/textos-de-venda/*.md
-    ├── /copy-anuncio ─────► skill: anuncios ───────────► salva: entregas/anuncios/*.md
-    ├── /copy-social ──────► skill: conteudo ───────────► salva: entregas/conteudo-social/*.md
-    ├── /roteiro-de-video ─► skill: conteudo ───────────► salva: entregas/textos-de-venda/*.md
-    ├── /sequencia-de-emails► skill: conteudo ──────────► salva: entregas/emails/*.md
-    ├── /lancamento ───────► skill: vtsd-completo ──────► salva: entregas/textos-de-venda/*.md
-    ├── /estrategia-funil ─► skill: trafego-pago ──────► salva: entregas/textos-de-venda/*.md
-    ├── /playbook-comercial► skill: playbook-comercial ► salva: entregas/comercial/*.html
-    ├── /img-anuncio ──────► skill: anuncios ───────────► salva: entregas/criativos/*.md
-    ├── /low-ticket ───────► skill: vtsd-completo ──────► salva: entregas/ (multiplas pastas)
+    ├── /pagina-de-vendas ─► skill: paginas ────────────► salva: meus-produtos/{ativo}/entregas/paginas/*.html
+    ├── /texto-de-venda ───► skill: conteudo ───────────► salva: meus-produtos/{ativo}/entregas/textos-de-venda/*.md
+    ├── /copy-anuncio ─────► skill: anuncios ───────────► salva: meus-produtos/{ativo}/entregas/anuncios/*.md
+    ├── /copy-social ──────► skill: conteudo ───────────► salva: meus-produtos/{ativo}/entregas/conteudo-social/*.md
+    ├── /roteiro-de-video ─► skill: conteudo ───────────► salva: meus-produtos/{ativo}/entregas/textos-de-venda/*.md
+    ├── /sequencia-de-emails► skill: conteudo ──────────► salva: meus-produtos/{ativo}/entregas/emails/*.md
+    ├── /lancamento ───────► skill: vtsd-completo ──────► salva: meus-produtos/{ativo}/entregas/textos-de-venda/*.md
+    ├── /estrategia-funil ─► skill: trafego-pago ──────► salva: meus-produtos/{ativo}/entregas/textos-de-venda/*.md
+    ├── /playbook-comercial► skill: playbook-comercial ► salva: meus-produtos/{ativo}/entregas/comercial/*.html
+    ├── /img-anuncio ──────► skill: anuncios ───────────► salva: meus-produtos/{ativo}/entregas/criativos/*.md
+    ├── /low-ticket ───────► skill: vtsd-completo ──────► salva: meus-produtos/{ativo}/entregas/ (multiplas pastas)
     │
-    ├── agent: estrategista ► skill: concepcao-produto ► salva: meu-negocio/perfil.md
-    ├── agent: construtor ──► skill: paginas ───────────► salva: entregas/paginas/*.html
-    ├── agent: campanhas ───► skill: anuncios + trafego ► salva: entregas/anuncios/*.md
-    ├── agent: conteudo ────► skill: conteudo ──────────► salva: entregas/conteudo-social/*.md
-    └── agent: comercial ──► skill: playbook-comercial ► salva: entregas/comercial/*.html
+    ├── agent: estrategista ► skill: concepcao-produto ► salva: meus-produtos/{ativo}/perfil.md
+    ├── agent: construtor ──► skill: paginas ───────────► salva: meus-produtos/{ativo}/entregas/paginas/*.html
+    ├── agent: campanhas ───► skill: anuncios + trafego ► salva: meus-produtos/{ativo}/entregas/anuncios/*.md
+    ├── agent: conteudo ────► skill: conteudo ──────────► salva: meus-produtos/{ativo}/entregas/conteudo-social/*.md
+    └── agent: comercial ──► skill: playbook-comercial ► salva: meus-produtos/{ativo}/entregas/comercial/*.html
 ```
 
 ---
@@ -802,7 +756,7 @@ description: Criar roteiro completo de webinar de vendas com estrutura de 4 atos
 ## O Que Fazer
 
 ### 1. Contexto
-Leia `meu-negocio/perfil.md` e `meu-negocio/idconsumidor.md`.
+Leia `meus-produtos/{ativo}/perfil.md` e `meus-produtos/{ativo}/produto-consumidor.md`.
 
 ### 2. Entrevista
 [... perguntas seguindo o padrao ...]
@@ -812,7 +766,7 @@ Leia `meu-negocio/perfil.md` e `meu-negocio/idconsumidor.md`.
 
 ### 4. Gerar
 [... instrucoes de geracao ...]
-Salvar em `entregas/textos-de-venda/webinar-[produto].md`
+Salvar em `meus-produtos/{ativo}/entregas/textos-de-venda/webinar-[produto].md`
 
 ### 5. Proximo Passo
 "Roteiro salvo. Use `/pagina-de-vendas` para criar a pagina de inscricao do webinar."
@@ -882,8 +836,8 @@ Adicionar o novo comando nas tabelas e fluxos recomendados.
 
 ### Arquivo nao e salvo
 
-- Verifique se a pasta de destino existe em `entregas/`
-- Verifique se a permissao `Write(entregas/**)` esta no settings.json
+- Verifique se a pasta de destino existe em `meus-produtos/{ativo}/entregas/`
+- Verifique se a permissao `Write(meus-produtos/{ativo}/entregas/**)` esta no settings.json
 
 ### Ferramenta externa nao funciona
 
@@ -900,8 +854,8 @@ Se voce e um LLM lendo este arquivo para entender o projeto:
 2. **Commands** estao em `.claude/commands/*.md`. sao slash commands interativos
 3. **Agents** estao em `.claude/agents/*.md`. sao subprocessos autonomos
 4. **Skills** estao em `.claude/skills/*/SKILL.md`. sao base de conhecimento
-5. **Dados do usuario** ficam em `meu-negocio/` (perfil.md e idconsumidor.md)
-6. **Output** vai para `entregas/` organizado por tipo
+5. **Dados do usuario** ficam em `meus-produtos/{ativo}/` (perfil.md e idconsumidor.md)
+6. **Output** vai para `meus-produtos/{ativo}/entregas/` organizado por tipo
 7. **Tudo segue a metodologia VTSD**. Quadro, Furadeira, Decorados, Light Copy, 8D, Mandala
 8. **Idioma:** Sempre Portugues do Brasil para conteudo visivel ao usuario
 9. **Nunca mostre codigo HTML** ao usuario. salve silenciosamente e informe o caminho

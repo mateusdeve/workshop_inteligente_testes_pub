@@ -9,13 +9,15 @@ Este repositório é o **Workshop Marketing IA**: assistente de marketing digita
 | Regras completas do assistente | `CLAUDE.md` |
 | Regras específicas do Cursor | `.cursor/rules/*.mdc` |
 | Roteiros dos “comandos” (/copy-pagina, /pagina-ajuste, etc.) | `.claude/commands/*.md` (ex.: `pagina-ajuste.md` para pós-merge e imagens em `paginas/assets/`) |
-| Skills e templates | `.claude/plugins/workshop-marketing/skills/` |
-| Produtos e entregas do aluno | `produtos/` (cada produto em `produtos/{slug}/`, entregas em `produtos/{slug}/entregas/`) |
+| Skills e templates | `.claude/skills/` |
+| Produtos e entregas do aluno (local, fora do git) | `meus-produtos/` (cada produto em `meus-produtos/{slug}/`, entregas em `meus-produtos/{slug}/entregas/`) |
+| Painel global dos produtos | `painel/index.html` na raiz. Lê `meus-produtos/index.js` (manifest regenerado pelo script abaixo) |
 | Copiar templates do tema para a pasta do produto (antes de editar HTML) | `scripts/workshop-copy-template-tema.py` |
-| Merge da página completa (após blocos preenchidos na cópia) | `scripts/workshop-merge-pagina.py` (`--templates-root` apontando para `entregas/.../templates-{estilo}/`) |
-| Etapa de ajustes pós-merge (checkout, SEO, placeholders) | `.claude/plugins/workshop-marketing/skills/paginas/references/etapa-ajustes-pagina.md` |
-| Playbook: evolução visual, imagens, abas e contraste em HTML (qualquer produto) | `.claude/plugins/workshop-marketing/skills/paginas/references/playbook-evolucao-visual-html-landing.md` |
-| Estrutura da copy de vendas (16 blocos, alinhada ao HTML) | `.claude/plugins/workshop-marketing/skills/paginas/references/template-copy-pagina-vendas.md` |
+| Merge da página completa (após blocos preenchidos na cópia) | `scripts/workshop-merge-pagina.py` (`--templates-root` apontando para `meus-produtos/{slug}/entregas/paginas/templates-{estilo}/`) |
+| Regenerar manifest do painel (após criar, remover ou renomear produtos) | `scripts/painel-atualizar.py` ou o comando `/painel-atualizar` |
+| Etapa de ajustes pós-merge (checkout, SEO, placeholders) | `.claude/skills/paginas/references/etapa-ajustes-pagina.md` |
+| Playbook: evolução visual, imagens, abas e contraste em HTML (qualquer produto) | `.claude/skills/paginas/references/playbook-evolucao-visual-html-landing.md` |
+| Estrutura da copy de vendas (16 blocos, alinhada ao HTML) | `.claude/skills/paginas/references/template-copy-pagina-vendas.md` |
 | Toolkit de projetos estruturados (lançamento, funil completo) | `/toolkit-novo`, `/toolkit-planejar`, `/toolkit-executar`, `/toolkit-verificar`, `/toolkit-progresso`, `/toolkit-anotar`, `/toolkit-pausar`, `/toolkit-retomar`. Estado em `meus-produtos/{ativo}/projeto/{slug}/` |
 
 ## No Cursor

@@ -11,11 +11,10 @@ Não é software tradicional: é um sistema de prompts estruturados (CLAUDE.md, 
 | `COMO-USAR.md` | Guia passo a passo para o usuário final. Inclui seção Cursor. |
 | `CLAUDE.md` | Instruções e regras do assistente. Autoritativo, lido em toda conversa. |
 | `AGENTS.md` | Mapa rápido para agentes de IDEs (Cursor, etc.) |
-| `docs/ARQUITETURA.md` | Visão técnica da arquitetura. |
-| `docs/diagnostico-projeto.md` | Diagnóstico e decisões de evolução. |
-| `docs/processo-criativos.md` | Processo para geração de criativos. |
-| `docs/setup-heygen.md` | Setup de vídeo com avatar IA. |
-| `docs/setup-imagens.md` | Setup de geração de imagens para anúncios. |
+| `ARQUITETURA.md` | Visão técnica da arquitetura. Como inserir novas capacidades. |
+| `scripts/README-creative.md` | Processo de geração de criativos via `generate-creative.py`. |
+| `/configurar-heygen` | Setup de vídeo com avatar IA (slash command). |
+| `/configurar-imagens` | Setup de geração de imagens para anúncios (slash command). |
 
 ## Onde roda
 
@@ -45,25 +44,24 @@ Checklists completos (Copy Light Copy + Design HTML) estão no topo do `CLAUDE.m
 
 ## Arquitetura
 
-5 tipos de componentes trabalham juntos:
+4 tipos de componentes trabalham juntos:
 
 | Componente | Local | Papel |
 |---|---|---|
 | **CLAUDE.md** | raiz | Persona, regras globais, fluxo padrão. Lido em toda conversa. |
 | **Commands** | `.claude/commands/*.md` | Slash commands interativos (`/copy-pagina`, `/lt-funil`, etc.) |
 | **Agents** | `.claude/agents/*.md` | Subprocessos autônomos (orquestradores e especialistas) |
-| **Skills** | `.claude/plugins/workshop-marketing/skills/` | Base de conhecimento consultada por commands e agents |
-| **Plugin** | `.claude/plugins/workshop-marketing/.claude-plugin/plugin.json` | Manifesto que registra as skills |
+| **Skills** | `.claude/skills/` | Base de conhecimento consultada por commands e agents |
 
 **Fluxo típico:**
 ```
 Usuário digita /comando
   → Command carrega .md correspondente
-  → Lê produtos/{ativo}/perfil.md e idconsumidor.md (contexto)
+  → Lê meus-produtos/{ativo}/perfil.md e idconsumidor.md (contexto)
   → Consulta a skill relevante (conhecimento)
   → Roda entrevista (perguntas uma por vez)
   → Pede aprovação
-  → Salva em produtos/{ativo}/entregas/[tipo]/
+  → Salva em meus-produtos/{ativo}/entregas/[tipo]/
   → Sugere próximo comando
 ```
 
@@ -73,46 +71,42 @@ Usuário digita /comando
 workshop_inteligente/
 ├── CLAUDE.md                    Regras e papel do assistente (autoritativo)
 ├── AGENTS.md                    Mapa para IDEs
+├── ARQUITETURA.md               Guia técnico completo (como inserir novas capacidades)
 ├── COMO-USAR.md                 Guia passo a passo
 ├── README.md                    Este arquivo
-├── painel.html                  Painel global de visualização dos produtos
+├── painel/                      Painel global de visualização dos produtos
+│   └── index.html
 │
 ├── .claude/                     Núcleo do assistente
-│   ├── commands/                Slash commands (60+ arquivos .md)
+│   ├── commands/                Slash commands (90+ arquivos .md)
 │   ├── agents/                  Agentes orquestradores e especialistas
-│   ├── plugins/
-│   │   └── workshop-marketing/
-│   │       ├── .claude-plugin/plugin.json
-│   │       └── skills/          Base de conhecimento (vtsd-completo, paginas, anuncios, etc.)
+│   ├── skills/                  Base de conhecimento (vtsd-completo, paginas, anuncios, etc.)
 │   └── settings.json            Permissões
 │
 ├── .cursor/rules/               Regras específicas do Cursor (.mdc)
 │
-├── docs/                        Documentação técnica e histórico
-│   ├── ARQUITETURA.md
-│   ├── diagnostico-projeto.md
-│   ├── processo-criativos.md
-│   ├── setup-heygen.md
-│   ├── setup-imagens.md
-│   └── historico/               Registro cronológico de decisões
-│
 ├── scripts/                     Utilitários Python e PowerShell
+│   ├── README-creative.md                Processo de criação de criativos
 │   ├── workshop-copy-template-tema.py    Copia tema para a pasta do produto
 │   ├── workshop-merge-pagina.py          Faz o merge dos blocos 8D em um HTML final
 │   ├── generate-avatar-video.py          Aciona HeyGen via API
 │   ├── generate-creative.py              Geração de criativos visuais
 │   ├── generate-openrouter-nano-banana-images.py
 │   ├── openrouter_model_router.py
-│   ├── painel-atualizar.py               Atualiza o painel global
+│   ├── painel-atualizar.py               Regenera manifest meus-produtos/index.js
 │   ├── relatorio-ads.ps1                 Rotina diária de relatório Facebook Ads
 │   └── creative-templates/
 │
-├── meus-produtos/               Produtos cadastrados (fora do git)
+├── meus-produtos/               Produtos do aluno (ignorado pelo git)
 │   ├── .ativo                   Slug do produto ativo
-│   ├── index.js
+│   ├── index.js                 Manifest gerado pelo painel-atualizar.py
 │   └── {slug-do-produto}/
 │       ├── perfil.md            Quadro, Furadeira, Decorados, Urgências
 │       ├── idconsumidor.md      Identidade do consumidor
+│       ├── pesquisa-mercado.md  Pesquisa de nicho
+│       ├── tipo.md              Low/Middle/High ticket
+│       ├── nome.txt             Nome amigável (opcional, override)
+│       ├── painel-entregas.html Painel por produto (gerado por /produto-consumidor)
 │       └── entregas/            Output do assistente (por produto)
 │           ├── paginas/         HTML de vendas, captura, obrigado
 │           ├── copy-pagina/     Copy markdown por bloco
@@ -124,13 +118,16 @@ workshop_inteligente/
 │           ├── videos/          HeyGen, Remotion, roteiros
 │           └── produto/         E-book, checklist, mini-curso final
 │
-├── _prompts-gpt/                Referência original (não distribui)
+├── docs/                        Área local de desenvolvimento (ignorada pelo git)
+│                                Plans, rascunhos e anotações durante o dev.
+│
+├── _prompts-gpt/                Material complementar do workshop
 ├── package.json
 ├── vercel.json
 └── .env.example                 Modelo de chaves de API
 ```
 
-Observação: a pasta `meus-produtos/` (e `produtos/` legado) contém os dados de cada aluno e não sobe para o git.
+Observação: a pasta `meus-produtos/` contém os dados de cada aluno e não sobe para o git. A `docs/` também é ignorada e serve para plans/rascunhos locais.
 
 ## Comandos disponíveis
 
@@ -190,11 +187,11 @@ Orquestradores autônomos que executam tarefas completas acionando múltiplas sk
 - `video-maker`. Orquestrador de produção de vídeo.
 - `executor-de-plano-de-acao`. Executa plano de ação acionando skills e agentes.
 
-Além dos agentes GSD (`gsd-*`) que compõem a metodologia Get Shit Done para tarefas complexas multi-etapas.
+Para tarefas complexas multi-etapas (lançamentos, funis inteiros, reestruturações), use os comandos `/toolkit-*` (fluxo proprietário do workshop com estado persistente).
 
 ## Skills (base de conhecimento)
 
-Dentro de `.claude/plugins/workshop-marketing/skills/`:
+Dentro de `.claude/skills/`:
 
 - `vtsd-completo/`. Metodologia VTSD integral.
 - `concepcao-produto/`. Quadro, Furadeira, 3 Identidades, Urgências Ocultas.
@@ -213,7 +210,7 @@ Skills não são acionadas pelo usuário: são consultadas pelos commands e agen
 ```
 py -3 scripts/workshop-copy-template-tema.py --tema flat_claro
 py -3 scripts/workshop-merge-pagina.py --tema flat_claro \
-     --templates-root entregas/{ativo}/paginas/templates-flat_claro \
+     --templates-root meus-produtos/{ativo}/entregas/paginas/templates-flat_claro \
      --copiar-entregas
 ```
 O primeiro copia o tema inteiro para a pasta do produto. O segundo mescla os blocos preenchidos num HTML final. Detalhes no command `copy-pagina` e na skill `paginas`.
@@ -226,7 +223,7 @@ O primeiro copia o tema inteiro para a pasta do produto. O segundo mescla os blo
 - `scripts/relatorio-ads.ps1`. Busca métricas do Facebook Ads e envia no WhatsApp via Z-API, agendado na nuvem do Claude.
 
 ### Painel
-- `scripts/painel-atualizar.py`. Regenera `painel.html` com os produtos cadastrados em `meus-produtos/`.
+- `scripts/painel-atualizar.py`. Regenera o manifest `meus-produtos/index.js` usado pelo painel global em `painel/index.html`.
 
 ## Integrações externas (opcionais)
 
@@ -237,8 +234,8 @@ Configuradas via `.env` (veja `.env.example`):
 | Facebook Marketing API | Relatório diário de Ads, otimização low ticket | `/gerar-token-permanente-facebook-ads`, `/criar-aplicativo-analise-ads` |
 | Z-API | Envio de mensagens WhatsApp automatizadas | `/configurar-zapi` |
 | Apify | Coleta de dados do Instagram | `/configurar-apify` |
-| HeyGen | Vídeo com avatar IA | `docs/setup-heygen.md` |
-| OpenRouter | Geração de imagens via nano-banana | `docs/setup-imagens.md` |
+| HeyGen | Vídeo com avatar IA | `/configurar-heygen` |
+| OpenRouter | Geração de imagens via nano-banana | `/configurar-imagens` |
 | Lovable / Vercel | Publicação de páginas | `/pagina-lovable`, `/pagina-vercel` |
 | Hotmart, Kiwify, Eduzz, Cakto, Pepper, Stripe | Checkout das páginas | `/pagina-checkout` |
 | ActiveCampaign | Lista de leads e automação de email | `/pagina-active` |
@@ -295,10 +292,10 @@ Configuradas via `.env` (veja `.env.example`):
 
 ## O que sobe para o git
 
-**Sobe:** `.claude/commands/`, `.claude/agents/`, `.claude/plugins/`, `.claude/settings.json`, `CLAUDE.md`, `AGENTS.md`, `README.md`, `COMO-USAR.md`, `.env.example`, `docs/`, `scripts/`, `painel.html`.
+**Sobe:** `.claude/commands/`, `.claude/agents/`, `.claude/skills/`, `.claude/settings.json`, `CLAUDE.md`, `AGENTS.md`, `ARQUITETURA.md`, `README.md`, `COMO-USAR.md`, `.env.example`, `scripts/`, `painel/`.
 
-**Não sobe:** `.env`, `meus-produtos/` (dados do aluno), `_prompts-gpt/` (referência interna), `.claude/projects/` e demais arquivos de runtime.
+**Não sobe:** `.env`, `meus-produtos/` (dados do aluno), `docs/` (plans e rascunhos locais), `.claude/projects/` e demais arquivos de runtime.
 
 ## Adicionando novas capacidades
 
-Para criar um novo command, agent, skill ou integração, siga o guia completo em `docs/ARQUITETURA.md` (seções 5 a 8). Inclui frontmatter obrigatório, checklist e exemplo completo de como adicionar suporte a um novo domínio (ex: webinars).
+Para criar um novo command, agent, skill ou integração, siga o guia completo em `ARQUITETURA.md` (seções 5 a 8). Inclui frontmatter obrigatório, checklist e exemplo completo de como adicionar suporte a um novo domínio (ex: webinars).
