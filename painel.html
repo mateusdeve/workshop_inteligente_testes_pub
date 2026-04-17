@@ -111,26 +111,41 @@
     align-items: center;
     justify-content: center;
     padding: 32px;
+    overflow-y: auto;
   }
   .aviso-card {
-    max-width: 520px;
+    max-width: 600px;
+    width: 100%;
     background: var(--surface);
     border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 32px;
-    text-align: center;
-    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+    border-radius: 16px;
+    padding: 40px 36px;
+    box-shadow: 0 4px 20px rgba(15, 23, 42, 0.06);
+  }
+  .aviso-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, #eef2ff 0%, #e0e7ff 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+    color: var(--accent);
   }
   .aviso-card h2 {
-    font-size: 18px;
+    font-size: 20px;
     font-weight: 600;
-    margin-bottom: 12px;
+    text-align: center;
+    margin-bottom: 10px;
+    letter-spacing: -0.01em;
   }
-  .aviso-card p {
+  .aviso-card .aviso-lead {
     font-size: 14px;
     color: var(--muted);
     line-height: 1.6;
-    margin-bottom: 8px;
+    text-align: center;
+    margin-bottom: 24px;
   }
   .aviso-card code {
     display: inline-block;
@@ -141,6 +156,60 @@
     padding: 3px 8px;
     border-radius: 5px;
     margin: 0 2px;
+  }
+  .passos {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 20px;
+  }
+  .passo {
+    background: #f8fafc;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px 18px;
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    text-align: left;
+  }
+  .passo-num {
+    flex-shrink: 0;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: #fff;
+    font-size: 13px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .passo-conteudo { flex: 1; min-width: 0; }
+  .passo-titulo {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+  .passo-desc {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+  .passo-cmd {
+    display: block;
+    margin-top: 8px;
+    font-family: ui-monospace, 'SF Mono', Menlo, monospace;
+    font-size: 12px;
+    background: #0f172a;
+    color: #e2e8f0;
+    padding: 10px 12px;
+    border-radius: 6px;
+    word-break: break-all;
+    user-select: all;
+    cursor: text;
   }
   .hidden { display: none !important; }
   @media (max-width: 640px) {
@@ -174,8 +243,12 @@
     <iframe id="painel-frame" class="hidden" title="Painel de entregas do produto selecionado"></iframe>
     <div id="aviso" class="aviso">
       <div class="aviso-card">
+        <div class="aviso-icon" id="aviso-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M12 8v4"></path><path d="M12 16h.01"></path></svg>
+        </div>
         <h2 id="aviso-titulo">Carregando...</h2>
-        <p id="aviso-texto">Aguarde enquanto a lista de produtos é carregada.</p>
+        <p class="aviso-lead" id="aviso-texto">Aguarde enquanto a lista de produtos é carregada.</p>
+        <div id="aviso-passos" class="passos hidden"></div>
       </div>
     </div>
   </main>
@@ -190,16 +263,57 @@
   const $aviso = document.getElementById('aviso');
   const $avisoTitulo = document.getElementById('aviso-titulo');
   const $avisoTexto = document.getElementById('aviso-texto');
+  const $avisoPassos = document.getElementById('aviso-passos');
   const $subtitle = document.getElementById('subtitle');
 
+  const FILE_PROTOCOL = location.protocol === 'file:';
   let produtos = [];
 
-  function mostrarAviso(titulo, texto) {
+  function mostrarAviso(titulo, texto, passos) {
     $avisoTitulo.textContent = titulo;
     $avisoTexto.innerHTML = texto;
+    if (passos && passos.length) {
+      $avisoPassos.innerHTML = passos.map((p, i) => (
+        '<div class="passo">' +
+          '<div class="passo-num">' + (i + 1) + '</div>' +
+          '<div class="passo-conteudo">' +
+            '<div class="passo-titulo">' + p.titulo + '</div>' +
+            '<div class="passo-desc">' + p.desc + '</div>' +
+            (p.cmd ? '<code class="passo-cmd">' + p.cmd + '</code>' : '') +
+          '</div>' +
+        '</div>'
+      )).join('');
+      $avisoPassos.classList.remove('hidden');
+    } else {
+      $avisoPassos.innerHTML = '';
+      $avisoPassos.classList.add('hidden');
+    }
     $aviso.classList.remove('hidden');
     $frame.classList.add('hidden');
     $frame.src = 'about:blank';
+  }
+
+  function avisoServidorLocal() {
+    mostrarAviso(
+      'Precisa abrir com um servidor local',
+      'O navegador bloqueia a leitura de arquivos quando você abre o painel direto pelo explorador. Escolha um dos caminhos abaixo, é rápido.',
+      [
+        {
+          titulo: 'Live Server no VS Code (mais fácil)',
+          desc: 'Instale a extensão <strong>Live Server</strong> e clique com o botão direito no arquivo <code>painel.html</code> no VS Code. Escolha <strong>Open with Live Server</strong>. O navegador abre sozinho no endereço certo.',
+        },
+        {
+          titulo: 'Python (se já tem Python instalado)',
+          desc: 'Abra o terminal nesta pasta e rode o comando abaixo. Depois acesse <code>http://localhost:8080/painel.html</code>.',
+          cmd: 'py -3 -m http.server 8080'
+        },
+        {
+          titulo: 'Node (se já tem Node instalado)',
+          desc: 'No terminal desta pasta, rode o comando abaixo. Ele abre o painel automaticamente.',
+          cmd: 'npx serve .'
+        }
+      ]
+    );
   }
 
   function mostrarIframe(url) {
@@ -263,14 +377,23 @@
       await trocarProduto(inicial);
     } catch (err) {
       $select.innerHTML = '<option>Sem produtos</option>';
-      mostrarAviso(
-        'Manifest não encontrado',
-        'O arquivo <code>meus-produtos/index.json</code> ainda não existe. Rode <code>/produto-novo</code> ou <code>/produto-trocar</code> para gerar o manifest de produtos.'
-      );
+      if (FILE_PROTOCOL) {
+        avisoServidorLocal();
+      } else {
+        mostrarAviso(
+          'Manifest não encontrado',
+          'O arquivo <code>meus-produtos/index.json</code> ainda não existe. Rode <code>/produto-novo</code> ou <code>/produto-trocar</code> no assistente para gerar o manifest.'
+        );
+      }
     }
   }
 
-  carregar();
+  if (FILE_PROTOCOL) {
+    avisoServidorLocal();
+    $select.innerHTML = '<option>Aguardando servidor local</option>';
+  } else {
+    carregar();
+  }
 })();
 </script>
 </body>
