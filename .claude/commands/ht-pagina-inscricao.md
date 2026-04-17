@@ -127,11 +127,11 @@ Quer que eu também crie a página HTML completa com design profissional?
 2. Não, só a copy em texto
 ```
 
-Se sim, ANTES de gerar o HTML, seguir o **Fluxo de Geração Obrigatório de 7 etapas** definido em `.claude/plugins/workshop-marketing/skills/paginas/SKILL.md` (seção "Fluxo de Geração"):
+Se sim, ANTES de gerar o HTML, seguir o **Fluxo de Geração Obrigatório de 7 etapas** definido em `.claude/skills/paginas/SKILL.md` (seção "Fluxo de Geração"):
 
-1. Ler `.claude/plugins/workshop-marketing/skills/paginas/SKILL.md` PRIMEIRO. fluxo completo, tabela de estilo por nicho, checklist final.
+1. Ler `.claude/skills/paginas/SKILL.md` PRIMEIRO. fluxo completo, tabela de estilo por nicho, checklist final.
 2. Escolher **UM ÚNICO estilo visual** para a página inteira pela tabela de nicho (eventos high ticket normalmente usam `glass_escuro` do início ao fim). PROIBIDO misturar estilos diferentes na mesma página.
-3. **LER OS TEMPLATES REAIS DO ESTILO ESCOLHIDO** (OBRIGATÓRIO): para cada seção, abrir `.claude/plugins/workshop-marketing/skills/paginas/references/templates/{secao}_{estilo}/code.html`. todos no mesmo estilo. Mínimo 4 templates lidos por geração. Seções disponíveis: hero, dor, paliativo, metodo, cta, faq.
+3. **LER OS TEMPLATES REAIS DO ESTILO ESCOLHIDO** (OBRIGATÓRIO): para cada seção, abrir `.claude/skills/paginas/references/templates/{secao}_{estilo}/code.html`. todos no mesmo estilo. Mínimo 4 templates lidos por geração. Seções disponíveis: hero, dor, paliativo, metodo, cta, faq.
 4. Extrair tokens mestres do estilo (`--radius`, `--border-width`, `--shadow`, tipografia, estilo de botão) e colocar no `:root`. TODAS as seções (inclusive formulário de inscrição, contador, autoridade) herdam esses tokens.
 5. Copiar estrutura HTML+CSS dos templates lidos e adaptar cores, fontes, textos e imagens ao nicho + ao contexto do evento. NÃO reescrever do zero.
 6. Consultar `references/estruturas-pagina.md` para ordem de seções da página de inscrição e `references/design-system-components.md` apenas para gaps (formulário, animações globais, responsivo).

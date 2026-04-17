@@ -43,7 +43,7 @@ Digite o número:
 
 ### 3. Gerar HTML da trilha visual
 
-Gere o HTML com o template de trilha progressiva (consulte `.claude/plugins/workshop-marketing/skills/furadeira-visual/` para o template completo).
+Gere o HTML com o template de trilha progressiva (consulte `.claude/skills/furadeira-visual/` para o template completo).
 
 A trilha deve mostrar:
 - Nome do método em destaque

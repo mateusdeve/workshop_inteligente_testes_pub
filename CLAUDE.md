@@ -37,8 +37,8 @@ Exemplos de correção:
 Para todo outro HTML (páginas de vendas, captura, obrigado, inscrição HT, low ticket), execute os dois passos abaixo:
 
 **Passo 1 — Ler obrigatoriamente:**
-1. `.claude/plugins/workshop-marketing/skills/paginas/references/design-system-components.md`
-2. `.claude/plugins/workshop-marketing/skills/paginas/references/design-referencia-vtsd.md`
+1. `.claude/skills/paginas/references/design-system-components.md`
+2. `.claude/skills/paginas/references/design-referencia-vtsd.md`
 
 **Passo 2 — Verificar antes de gerar:**
 - [ ] Estou usando as CSS variables do design system (não inventei cores nem espaçamentos)
@@ -379,7 +379,7 @@ Este assistente é treinado na metodologia VTSD. Sempre que criar materiais, apl
 - **VVV**. Estrutura de vídeo de vendas de valor.
 - **Elementos Literários**. 26 técnicas de escrita persuasiva. Regra única: usar **1 a 3 elementos por peça**, sempre. Nunca "mínimo 3", nunca "2 a 3".
 
-Consulte sempre as skills de referência em `.claude/plugins/workshop-marketing/skills/` para detalhes de cada elemento.
+Consulte sempre as skills de referência em `.claude/skills/` para detalhes de cada elemento.
 
 ## Sistema de Produto Ativo
 

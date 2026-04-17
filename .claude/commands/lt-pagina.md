@@ -395,7 +395,7 @@ Exemplo (Quadro = "Ter lucratividade real em todos os procedimentos da agenda"):
 
 #### Design Rules (aplicar obrigatoriamente)
 
-Antes de gerar, leia `.claude/plugins/workshop-marketing/skills/paginas/SKILL.md` e `.claude/plugins/workshop-marketing/skills/paginas/references/cdn-design-resources.md`.
+Antes de gerar, leia `.claude/skills/paginas/SKILL.md` e `.claude/skills/paginas/references/cdn-design-resources.md`.
 
 **Regras críticas:**
 - **TODAS as fontes sans-serif** (heading E body). Serifadas são PROIBIDAS.

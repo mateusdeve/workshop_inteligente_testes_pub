@@ -183,7 +183,7 @@ O sistema usa 5 tipos de componentes. Cada um tem um papel especifico:
 
 ### 3.4 Skills (Base de Conhecimento)
 
-**O que sao:** Documentos de referencia que contem conhecimento especializado. Ficam em `.claude/plugins/workshop-marketing/skills/`. NAO sao acionados diretamente pelo usuario. sao consultados pelos commands e agents.
+**O que sao:** Documentos de referencia que contem conhecimento especializado. Ficam em `.claude/skills/`. NAO sao acionados diretamente pelo usuario. sao consultados pelos commands e agents.
 
 **Estrutura de uma skill:**
 ```
@@ -195,7 +195,7 @@ skills/
         └── templates.md
 ```
 
-**Relacao com commands/agents:** Os commands e agents referenciam as skills nos seus textos (ex: "Leia `.claude/plugins/workshop-marketing/skills/paginas/SKILL.md`"). A skill fornece o conhecimento; o command/agent fornece o fluxo de trabalho.
+**Relacao com commands/agents:** Os commands e agents referenciam as skills nos seus textos (ex: "Leia `.claude/skills/paginas/SKILL.md`"). A skill fornece o conhecimento; o command/agent fornece o fluxo de trabalho.
 
 ### 3.5 Plugin (Empacotamento)
 
@@ -339,7 +339,7 @@ Se o command precisa de conhecimento especializado, adicione no final:
 ```markdown
 ## Referencias
 ANTES de gerar, leia:
-- `.claude/plugins/workshop-marketing/skills/[skill-relevante]/SKILL.md`
+- `.claude/skills/[skill-relevante]/SKILL.md`
 ```
 
 ### Passo 6. Registrar no CLAUDE.md
@@ -417,7 +417,7 @@ Sugira: "Use `/[proximo-comando]` para [proxima acao]."
 
 ## Referencias
 ANTES de gerar, leia:
-- `.claude/plugins/workshop-marketing/skills/[skill]/SKILL.md`
+- `.claude/skills/[skill]/SKILL.md`
 ```
 
 ### Passo 3. Frontmatter obrigatorio
@@ -467,12 +467,12 @@ Adicione o agente na secao "Agentes Especialistas" da lista de comandos no CLAUD
 
 ### Passo 1. Criar a pasta e o arquivo
 
-Crie uma pasta em `.claude/plugins/workshop-marketing/skills/` com o nome da skill (kebab-case).
+Crie uma pasta em `.claude/skills/` com o nome da skill (kebab-case).
 Dentro dela, crie `SKILL.md` (obrigatorio, com esse nome exato).
 
 **Exemplo:**
 ```
-.claude/plugins/workshop-marketing/skills/webinars/
+.claude/skills/webinars/
 ├── SKILL.md
 └── references/           ← opcional
     └── exemplos-webinar.md
@@ -525,7 +525,7 @@ Adicione referencia na secao `## Referencias` dos commands e agents que precisam
 ```markdown
 ## Referencias
 ANTES de gerar, leia:
-- `.claude/plugins/workshop-marketing/skills/webinars/SKILL.md`
+- `.claude/skills/webinars/SKILL.md`
 ```
 
 ### Principios para boas skills:
@@ -554,7 +554,7 @@ NOME_DA_CHAVE=
 
 ### Passo 2. Documentar na skill de ferramentas
 
-Adicione a nova ferramenta em `.claude/plugins/workshop-marketing/skills/ferramentas/SKILL.md` seguindo o padrao:
+Adicione a nova ferramenta em `.claude/skills/ferramentas/SKILL.md` seguindo o padrao:
 
 ```markdown
 ### Nome da Ferramenta. Descricao
@@ -754,7 +754,7 @@ Para ilustrar todo o processo, veja como seria adicionar suporte completo a webi
 
 ### 14.1 Criar a skill
 
-**Arquivo:** `.claude/plugins/workshop-marketing/skills/webinars/SKILL.md`
+**Arquivo:** `.claude/skills/webinars/SKILL.md`
 
 ```markdown
 ---
@@ -819,8 +819,8 @@ Salvar em `entregas/textos-de-venda/webinar-[produto].md`
 
 ## Referencias
 ANTES de gerar, leia:
-- `.claude/plugins/workshop-marketing/skills/webinars/SKILL.md`
-- `.claude/plugins/workshop-marketing/skills/vtsd-completo/SKILL.md`. Modulo sobre Light Copy
+- `.claude/skills/webinars/SKILL.md`
+- `.claude/skills/vtsd-completo/SKILL.md`. Modulo sobre Light Copy
 ```
 
 ### 14.3 Criar o agent (opcional)
@@ -840,7 +840,7 @@ model: sonnet
 [... instrucoes completas ...]
 
 ## Referencias
-- `.claude/plugins/workshop-marketing/skills/webinars/SKILL.md`
+- `.claude/skills/webinars/SKILL.md`
 ```
 
 ### 14.4 Atualizar CLAUDE.md
@@ -899,7 +899,7 @@ Se voce e um LLM lendo este arquivo para entender o projeto:
 1. **Leia `CLAUDE.md` primeiro**. contem todas as regras de comportamento, papel do assistente e fluxo padrao
 2. **Commands** estao em `.claude/commands/*.md`. sao slash commands interativos
 3. **Agents** estao em `.claude/agents/*.md`. sao subprocessos autonomos
-4. **Skills** estao em `.claude/plugins/workshop-marketing/skills/*/SKILL.md`. sao base de conhecimento
+4. **Skills** estao em `.claude/skills/*/SKILL.md`. sao base de conhecimento
 5. **Dados do usuario** ficam em `meu-negocio/` (perfil.md e idconsumidor.md)
 6. **Output** vai para `entregas/` organizado por tipo
 7. **Tudo segue a metodologia VTSD**. Quadro, Furadeira, Decorados, Light Copy, 8D, Mandala

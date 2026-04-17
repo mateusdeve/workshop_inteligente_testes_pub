@@ -54,7 +54,7 @@ Digite o número:
 
 ### 3. Criar o produto
 
-Leia `.claude/plugins/workshop-marketing/skills/criacao-produto-low-ticket/SKILL.md` e siga o fluxo do formato escolhido.
+Leia `.claude/skills/criacao-produto-low-ticket/SKILL.md` e siga o fluxo do formato escolhido.
 
 ### 4. Próximo passo — Aplicar Framework Quiz vs. Página
 

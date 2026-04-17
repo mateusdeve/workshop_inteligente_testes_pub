@@ -128,7 +128,7 @@ Use os 26 elementos literários quando apropriado (consulte skill vtsd-completo 
 
 A copy da página de vendas **deve** ser salva com **títulos fixos** alinhados aos blocos HTML (16 blocos). Consulte o modelo:
 
-- `.claude/plugins/workshop-marketing/skills/paginas/references/template-copy-pagina-vendas.md`
+- `.claude/skills/paginas/references/template-copy-pagina-vendas.md`
 
 **Regras:**
 
@@ -229,7 +229,7 @@ Se escolher 1, execute o Fluxo B usando a copy recém-gerada.
 
 **Se o tipo for página de vendas (8D):**
 
-1. Verificar se existe `meus-produtos/{ativo}/entregas/copy-pagina/copy-{slug}.md` (slug = produto ativo ou nome acordado) **com** as seções `## Bloco 01` até `## Bloco 16` conforme `.claude/plugins/workshop-marketing/skills/paginas/references/template-copy-pagina-vendas.md`.
+1. Verificar se existe `meus-produtos/{ativo}/entregas/copy-pagina/copy-{slug}.md` (slug = produto ativo ou nome acordado) **com** as seções `## Bloco 01` até `## Bloco 16` conforme `.claude/skills/paginas/references/template-copy-pagina-vendas.md`.
 2. **Se o arquivo existir e tiver os 16 blocos:** esse arquivo é a **única fonte de texto** para preencher os templates HTML. Não inventar ofertas, preços, depoimentos ou argumentos que não estejam na copy aprovada. Só é permitido adaptar à estrutura do HTML (quebras, listas, negrito) e placeholders de mídia (`[Sua foto aqui]`, URL de vídeo, etc.).
 3. **Se não existir ou faltar bloco numerado:**
 
@@ -421,7 +421,7 @@ Resumo do que vou criar:
 > ⛔ **Não** montar um único HTML em `entregas/` colando seções em `<main id="page-sections">` (salvo exceção no §3-alt). **Não** gerar no chat o `pagina_completa_*/code.html` inteiro.  
 > ⛔ **NUNCA** gere a página inteira de uma vez no chat. Trabalhe **bloco a bloco**, com aprovação opcional entre blocos (o usuário pode dizer "ir direto à versão final" para pular pausas).
 
-**Base de caminhos (padrão):** `meus-produtos/{slug}/entregas/paginas/templates-{estilo}/` após `workshop-copy-template-tema.py`. **Original do plugin (só manutenção):** `.claude/plugins/workshop-marketing/skills/paginas/references/templates/`
+**Base de caminhos (padrão):** `meus-produtos/{slug}/entregas/paginas/templates-{estilo}/` após `workshop-copy-template-tema.py`. **Original do plugin (só manutenção):** `.claude/skills/paginas/references/templates/`
 
 **Ordem dos blocos** (igual ao `build_merge.py` do tema `pagina_completa_{estilo}`). Substitua `{estilo}` pelo sufixo escolhido (ex.: `flat_claro`):
 

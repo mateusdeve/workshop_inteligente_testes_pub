@@ -23,7 +23,7 @@ Tente ler:
 
 ### 2. Gerar ideias
 
-Leia `.claude/plugins/workshop-marketing/skills/agente-gpt/SKILL.md` e siga o fluxo completo:
+Leia `.claude/skills/agente-gpt/SKILL.md` e siga o fluxo completo:
 
 - **Passo 0:** Coletar dados (do produto ativo ou texto do usuario)
 - **Passo 1:** Gerar 10 ideias de agentes em tabela. Usuario escolhe 1.

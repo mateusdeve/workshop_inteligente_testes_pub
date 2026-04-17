@@ -7,7 +7,7 @@ description: Ajustes pós-merge guiados por perguntas. Diagnóstico, cores para 
 
 Este comando **não aplica tudo automaticamente no escuro**. O fluxo padrão é: **diagnóstico → você escolhe o que fazer → coleta do que falta (texto, links, imagens) → edição do HTML**.
 
-Referência técnica dos itens possíveis: `.claude/plugins/workshop-marketing/skills/paginas/references/etapa-ajustes-pagina.md`.
+Referência técnica dos itens possíveis: `.claude/skills/paginas/references/etapa-ajustes-pagina.md`.
 
 Não substitui `/feedback-pagina` (auditoria Nav) nem `/pagina-performance`.
 
@@ -124,7 +124,7 @@ Se escolher **4 (gerar com IA)**, não pular referências. Fazer nesta ordem:
 1. **Confirmar pré-requisito:** chave `OPENROUTER_API_KEY` no `.env` na raiz do repositório (ver `.env.example`). Se não tiver, explicar que o fluxo é: colar a chave, salvar, rodar o script na raiz (passo abaixo) ou pedir para o assistente rodar se o ambiente permitir.
 2. **Perguntar quais slots** ainda estão com placeholder ou genérico (hero, autoridade, depoimentos, OG, seção específica). Uma pergunta ou lista numerada se já estiver claro no diagnóstico.
 3. **Passar referências de estilo** (o assistente resume em linguagem humana, sem obrigar o aluno a abrir tudo):
-   - **Playbook de evolução visual e prompts:** `.claude/plugins/workshop-marketing/skills/paginas/references/playbook-evolucao-visual-html-landing.md` (direção Fluent ou corporativa, negativos tipo “sem personagem cartoon”, uso de cor da marca `#0f7937` só como detalhe quando fizer sentido).
+   - **Playbook de evolução visual e prompts:** `.claude/skills/paginas/references/playbook-evolucao-visual-html-landing.md` (direção Fluent ou corporativa, negativos tipo “sem personagem cartoon”, uso de cor da marca `#0f7937` só como detalhe quando fizer sentido).
    - **Script de geração em lote:** `scripts/generate-openrouter-nano-banana-images.py` (lê `JOBS` com `file`, `aspect_ratio`, `prompt` em inglês; grava em `meus-produtos/{slug}/entregas/paginas/assets/`).
    - **Ferramenta:** comando típico na raiz: `py -3 scripts/generate-openrouter-nano-banana-images.py --slug {ativo}`; para só algumas imagens novas no fim da lista, usar `--skip N` e `--max M` conforme o cabeçalho do script.
 4. **Coletar intenção por imagem:** nicho, tom (ex.: produto digital sério, MEI, planilha), o que não pode aparecer (texto legível na arte, logos de terceiros, estilo infantil). Isso vira trecho do prompt ou entrada em `JOBS`.

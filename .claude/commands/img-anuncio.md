@@ -73,7 +73,7 @@ A partir dos resultados, extraia:
 - Padroes de composicao (cores, layout, tipografia)
 - Elementos que param o scroll
 
-Consulte tambem a referencia interna em `.claude/plugins/workshop-marketing/skills/anuncios/references/formatos-virais-instagram.md` para cruzar com os dados da pesquisa.
+Consulte tambem a referencia interna em `.claude/skills/anuncios/references/formatos-virais-instagram.md` para cruzar com os dados da pesquisa.
 
 **Apresente ao usuario:**
 

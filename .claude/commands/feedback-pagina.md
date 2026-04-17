@@ -236,7 +236,7 @@ Esse foi o feedback de copy. Quer continuar para o feedback de design?
 - [ ] Thumbnail do vídeo é atrativo?
 - [ ] Prints de depoimentos nítidos e legíveis?
 
-**⛔ Anti-Cara-de-IA (ler `.claude/plugins/workshop-marketing/skills/paginas/references/anti-ia-design.md`)**
+**⛔ Anti-Cara-de-IA (ler `.claude/skills/paginas/references/anti-ia-design.md`)**
 
 Percorrer a página e marcar cada clichê presente. Cada "sim" vira item do "precisa corrigir":
 

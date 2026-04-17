@@ -17,7 +17,7 @@ Cria produtos low ticket usando a metodologia low ticket do VTSD: produto de ent
 
 ### 1. Contexto
 Leia `meus-produtos/{ativo}/perfil.md`. Se não existir, oriente a usar `/produto-editar` primeiro.
-Consulte `.claude/plugins/workshop-marketing/skills/vtsd-completo/SKILL.md` (Módulo 10: low ticket).
+Consulte `.claude/skills/vtsd-completo/SKILL.md` (Módulo 10: low ticket).
 
 Verifique também se existe `meus-produtos/{ativo}/pesquisa-mercado.md`. Se NÃO existir (ou tiver mais de 90 dias), acione a skill `pesquisa-mercado` antes de qualquer sugestão de preço, oferta, ângulo de quiz ou anúncio. É obrigatória. A pesquisa alimenta: sugestão de preço low ticket (baseada em faixa real do nicho), ângulos do quiz (baseados em assuntos quentes e objeções reais), copy dos anúncios (padrões virais mapeados) e copy da página (objeções reais do Reclame Aqui).
 
