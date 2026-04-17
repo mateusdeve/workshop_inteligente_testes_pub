@@ -53,6 +53,17 @@ Verifique também se `meus-produtos/{ativo}/pesquisa-mercado.md` já existe (pes
 
 ### 2. Entrevista guiada (UMA pergunta por vez, com progresso visual)
 
+**Bloco 0/6. Nome do Comunicador:**
+
+Antes de qualquer outro bloco, pergunte:
+
+```
+Qual é o seu nome?
+(como você quer ser chamado na comunicação com sua audiência)
+```
+
+Guarde o nome para usar em todo o fluxo e no perfil final.
+
 **Bloco 1/6. Quadro (Transformação Principal):**
 
 Pergunte:
@@ -152,7 +163,97 @@ Apresente um resumo conversacional dos achados (dados, números, insights princi
 - **Identidade do Produto.** diferencial vs concorrentes da tabela, posicionamento sugerido
 - **Identidade do Comunicador.** tom de voz e estilo adequados ao público encontrado
 
-Apresente para validação.
+Apresente para validação. Nesse momento, apresente apenas a Identidade do Consumidor e a Identidade do Produto. A Identidade do Comunicador será construída na entrevista dedicada abaixo.
+
+**Bloco 3B/6. Entrevista da Identidade do Comunicador:**
+
+Avise o aluno:
+```
+Agora vamos construir sua Identidade do Comunicador.
+São 6 perguntas rápidas para captar como você se comunica de verdade.
+```
+
+Faça as perguntas **UMA por vez**, na ordem abaixo:
+
+**Pergunta 1 — Valores:**
+```
+Quais valores você quer que guiem sua comunicação?
+
+Aqui vão 10 sugestões para te inspirar:
+
+1. Autenticidade – Ser verdadeiro e natural, sem máscaras.
+2. Empatia – Se conectar com a dor e a realidade do outro.
+3. Transparência – Falar com clareza, sem esconder nada.
+4. Criatividade – Comunicar de forma original e cativante.
+5. Simplicidade – Tornar o complexo fácil de entender.
+6. Coragem – Dizer o que precisa ser dito, sem medo.
+7. Alegria – Levar leveza, bom humor e energia para a audiência.
+8. Didática – Explicar com clareza para gerar compreensão real.
+9. Inspiração – Motivar através do exemplo e da visão de futuro.
+10. Verdade – Falar com integridade e coerência entre discurso e prática.
+
+Escolha até 4. Pode digitar os números ou escrever os seus próprios:
+```
+
+**Pergunta 2 — O que evitar:**
+```
+O que você NÃO gosta na comunicação de outras pessoas?
+(ex: Jargões exagerados, Linguagem de coach, Muito formalismo, Promessas vazias, Falta de clareza)
+```
+
+**Pergunta 3 — O que usar:**
+```
+E o que você GOSTA na comunicação de outras pessoas?
+(ex: Clareza, Leveza, Empatia, Humor leve, Comunicação visual, Direto ao ponto)
+```
+
+**Pergunta 4 — Mantras e jargões:**
+```
+Você tem mantras, frases ou jargões próprios que costuma usar?
+(pode deixar em branco se ainda não tem)
+```
+
+**Pergunta 5 — Texto autêntico:**
+```
+Me envie um texto seu para que eu possa captar seu tom de voz.
+
+Pode ser um post, e-mail, roteiro, texto de venda... quanto mais autêntico, melhor.
+```
+
+Ao receber o texto, analise: vocabulário, ritmo das frases, nível de formalidade, emoção predominante, estrutura de raciocínio. Guarde esses padrões para compor o resultado final.
+
+**Pergunta 6 — Referências de comunicação:**
+```
+Quem são as pessoas que você admira na comunicação?
+
+Pode ser qualquer celebridade, apresentador, personagem, escritor ou influenciador.
+(ex: Machado de Assis, Faustão, Pedro Bial, Drauzio Varella, Emicida, Mário Sérgio Cortella,
+Morgan Freeman, Oprah, Anitta, Silvio Santos, Tony Robbins)
+```
+
+**Após as 6 perguntas, monte o resultado final:**
+
+```
+Identidade do Comunicador
+
+Nome: [nome coletado no Bloco 0]
+Especialidade: [nicho/área do produto]
+Valores: [até 4 valores escolhidos]
+Tom de Voz: [deduzido do texto enviado]
+Posicionamento Pessoal: [como quer ser percebido pela audiência]
+Mantras/Jargões próprios: [o que informou ou "nenhum ainda"]
+
+O que usar na comunicação:
+- Vocabulário base: [deduzido do texto e das referências]
+- Tonalidade emocional predominante: [leve, profunda, enérgica, reflexiva, etc.]
+- Referências comunicacionais: [inspirações adaptadas à realidade dele]
+- Formatos que combinam mais: [reels, carrossel, bastidores, lives, etc.]
+- Elementos visuais recomendados: [clean, divertido, sóbrio, etc.]
+
+Evitar na comunicação: [o que rejeitou na Pergunta 2]
+```
+
+Apresente para validação antes de salvar.
 
 **Formato e Preço. SUGIRA com base na pesquisa:**
 Use a sugestão de preço que saiu na pesquisa e explique o raciocínio apoiado nos concorrentes mapeados. Se o aluno discordar, argumente com os dados da pesquisa e ofereça alternativas em faixas diferentes, explicando o posicionamento de cada uma.
@@ -232,9 +333,18 @@ Salve em `meus-produtos/{ativo}/perfil.md` com a estrutura:
 - **Objeções típicas:** [objeções mapeadas]
 
 ## Identidade do Comunicador
-- **Tom de voz:** [definido com base no público]
-- **Posicionamento:** [definido]
-- **Estilo:** [definido]
+- **Nome:** [nome coletado no Bloco 0]
+- **Especialidade:** [nicho/área do produto]
+- **Valores:** [até 4 valores escolhidos]
+- **Tom de voz:** [deduzido do texto enviado pelo aluno]
+- **Posicionamento pessoal:** [como quer ser percebido pela audiência]
+- **Mantras/Jargões próprios:** [informados ou "nenhum ainda"]
+- **Evitar na comunicação:** [o que rejeitou]
+- **Vocabulário base:** [deduzido do texto e referências]
+- **Tonalidade emocional predominante:** [leve, profunda, enérgica, reflexiva, etc.]
+- **Referências comunicacionais:** [inspirações adaptadas à realidade dele]
+- **Formatos que combinam mais:** [reels, carrossel, bastidores, lives, etc.]
+- **Elementos visuais recomendados:** [clean, divertido, sóbrio, etc.]
 
 ## Decorados (Benefícios)
 ### Financeiro
