@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Painel do Aluno</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0f172a;
+    --surface: #ffffff;
+    --border: #e2e8f0;
+    --muted: #64748b;
+    --text: #0f172a;
+    --accent: #4338ca;
+    --accent-hover: #3730a3;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { height: 100%; }
+  body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background: #f8fafc;
+    color: var(--text);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+  header {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .brand-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+  .brand h1 {
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+  .brand small {
+    display: block;
+    font-size: 12px;
+    color: var(--muted);
+    font-weight: 400;
+    margin-top: 2px;
+  }
+  .controls {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .controls label {
+    font-size: 13px;
+    color: var(--muted);
+    font-weight: 500;
+  }
+  .controls select {
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 8px 36px 8px 14px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: #fff;
+    color: var(--text);
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2364748b' d='M6 8.5L2 4.5h8z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    min-width: 220px;
+    transition: border-color 0.15s, box-shadow 0.15s;
+  }
+  .controls select:hover { border-color: #cbd5e1; }
+  .controls select:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(67, 56, 202, 0.12);
+  }
+  main {
+    flex: 1;
+    position: relative;
+    background: #f8fafc;
+  }
+  iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+    display: block;
+  }
+  .aviso {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 32px;
+  }
+  .aviso-card {
+    max-width: 520px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 32px;
+    text-align: center;
+    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+  }
+  .aviso-card h2 {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 12px;
+  }
+  .aviso-card p {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.6;
+    margin-bottom: 8px;
+  }
+  .aviso-card code {
+    display: inline-block;
+    font-family: ui-monospace, 'SF Mono', Menlo, monospace;
+    font-size: 13px;
+    background: #f1f5f9;
+    color: var(--accent);
+    padding: 3px 8px;
+    border-radius: 5px;
+    margin: 0 2px;
+  }
+  .hidden { display: none !important; }
+  @media (max-width: 640px) {
+    header {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 12px;
+    }
+    .controls { justify-content: space-between; }
+    .controls select { flex: 1; min-width: 0; }
+  }
+</style>
+</head>
+<body>
+  <header>
+    <div class="brand">
+      <div class="brand-dot"></div>
+      <div>
+        <h1>Painel do Aluno</h1>
+        <small id="subtitle">Selecione um produto para ver as entregas</small>
+      </div>
+    </div>
+    <div class="controls">
+      <label for="select-produto">Produto</label>
+      <select id="select-produto" disabled>
+        <option>Carregando...</option>
+      </select>
+    </div>
+  </header>
+  <main>
+    <iframe id="painel-frame" class="hidden" title="Painel de entregas do produto selecionado"></iframe>
+    <div id="aviso" class="aviso">
+      <div class="aviso-card">
+        <h2 id="aviso-titulo">Carregando...</h2>
+        <p id="aviso-texto">Aguarde enquanto a lista de produtos é carregada.</p>
+      </div>
+    </div>
+  </main>
+
+<script>
+(function () {
+  const INDEX_URL = 'meus-produtos/index.json';
+  const PAINEL_PADRAO = 'painel-entregas.html';
+
+  const $select = document.getElementById('select-produto');
+  const $frame = document.getElementById('painel-frame');
+  const $aviso = document.getElementById('aviso');
+  const $avisoTitulo = document.getElementById('aviso-titulo');
+  const $avisoTexto = document.getElementById('aviso-texto');
+  const $subtitle = document.getElementById('subtitle');
+
+  let produtos = [];
+
+  function mostrarAviso(titulo, texto) {
+    $avisoTitulo.textContent = titulo;
+    $avisoTexto.innerHTML = texto;
+    $aviso.classList.remove('hidden');
+    $frame.classList.add('hidden');
+    $frame.src = 'about:blank';
+  }
+
+  function mostrarIframe(url) {
+    $aviso.classList.add('hidden');
+    $frame.classList.remove('hidden');
+    $frame.src = url;
+  }
+
+  async function verificaExistencia(url) {
+    try {
+      const res = await fetch(url, { method: 'HEAD' });
+      return res.ok;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  async function trocarProduto(slug) {
+    const produto = produtos.find(p => p.slug === slug);
+    if (!produto) {
+      mostrarAviso('Produto não encontrado', 'O produto selecionado não está no manifest.');
+      return;
+    }
+    const painel = produto.painel || PAINEL_PADRAO;
+    const url = 'meus-produtos/' + slug + '/' + painel;
+    const existe = await verificaExistencia(url);
+    if (!existe) {
+      mostrarAviso(
+        'Este produto ainda não tem painel',
+        'O arquivo <code>' + painel + '</code> não foi encontrado. Rode <code>/produto-consumidor</code> no produto <strong>' + (produto.nome || slug) + '</strong> para gerar o painel.'
+      );
+      return;
+    }
+    mostrarIframe(url);
+    $subtitle.textContent = produto.nome || slug;
+  }
+
+  async function carregar() {
+    try {
+      const res = await fetch(INDEX_URL);
+      if (!res.ok) throw new Error('index.json não acessível');
+      const data = await res.json();
+      produtos = Array.isArray(data.produtos) ? data.produtos : [];
+      if (produtos.length === 0) {
+        mostrarAviso(
+          'Nenhum produto cadastrado ainda',
+          'Rode <code>/produto-novo</code> no assistente para criar o primeiro produto.'
+        );
+        $select.innerHTML = '<option>Sem produtos</option>';
+        return;
+      }
+      $select.innerHTML = produtos
+        .map(p => '<option value="' + p.slug + '">' + (p.nome || p.slug) + '</option>')
+        .join('');
+      $select.disabled = false;
+      const inicial = data.ativo && produtos.some(p => p.slug === data.ativo)
+        ? data.ativo
+        : produtos[0].slug;
+      $select.value = inicial;
+      $select.addEventListener('change', e => trocarProduto(e.target.value));
+      await trocarProduto(inicial);
+    } catch (err) {
+      $select.innerHTML = '<option>Sem produtos</option>';
+      mostrarAviso(
+        'Manifest não encontrado',
+        'O arquivo <code>meus-produtos/index.json</code> ainda não existe. Rode <code>/produto-novo</code> ou <code>/produto-trocar</code> para gerar o manifest de produtos.'
+      );
+    }
+  }
+
+  carregar();
+})();
+</script>
+</body>
+</html>
