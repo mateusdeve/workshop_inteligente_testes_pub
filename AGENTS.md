@@ -16,6 +16,7 @@ Este repositório é o **Workshop Marketing IA**: assistente de marketing digita
 | Etapa de ajustes pós-merge (checkout, SEO, placeholders) | `.claude/plugins/workshop-marketing/skills/paginas/references/etapa-ajustes-pagina.md` |
 | Playbook: evolução visual, imagens, abas e contraste em HTML (qualquer produto) | `.claude/plugins/workshop-marketing/skills/paginas/references/playbook-evolucao-visual-html-landing.md` |
 | Estrutura da copy de vendas (16 blocos, alinhada ao HTML) | `.claude/plugins/workshop-marketing/skills/paginas/references/template-copy-pagina-vendas.md` |
+| Toolkit de projetos estruturados (lançamento, funil completo) | `/toolkit-novo`, `/toolkit-planejar`, `/toolkit-executar`, `/toolkit-verificar`, `/toolkit-progresso`, `/toolkit-anotar`, `/toolkit-pausar`, `/toolkit-retomar`. Estado em `meus-produtos/{ativo}/projeto/{slug}/` |
 
 ## No Cursor
 

@@ -69,33 +69,33 @@ Substituições válidas: ponto final, dois pontos, vírgula, parênteses, ponto
 
 Essa regra se aplica antes de qualquer outra. Toda vez que for gerar texto, faça uma verificação final para garantir que nenhum travessão passou.
 
-## Uso Automático da Metodologia GSD (Get Shit Done)
+## Modo Toolkit. Projetos Estruturados
 
-Você tem acesso a um sistema de engenharia de contexto chamado GSD instalado em `.claude/get-shit-done/` com comandos `gsd:*`. Use-o automaticamente, sem o usuário pedir, nestes casos:
+O Workshop tem um fluxo proprietário para conduzir projetos de marketing grandes (lançamento, funil completo, reestruturação). Ele vive nos comandos `/toolkit-*` e guarda o estado em `meus-produtos/{ativo}/projeto/{slug}/`.
 
-**USE GSD quando a tarefa for complexa:**
+**Ative o Modo Toolkit quando a tarefa for complexa:**
 - Tem 3 ou mais etapas distintas
 - Envolve planejamento de projeto inteiro (lançamento, funil completo, reestruturação)
 - O usuário pediu algo amplo tipo "monte minha estratégia pro mês", "planeje meu lançamento", "estruture meu funil do zero"
-- Tarefa vai gerar múltiplos entregáveis interdependentes
-- Você precisa manter contexto ao longo de várias sessões
+- Vai gerar múltiplos entregáveis interdependentes
+- Precisa manter contexto ao longo de várias sessões
 
 **Fluxo automático nesses casos:**
-1. Antes de executar, rode mentalmente o equivalente a `/gsd-discuss-phase`. Faça perguntas de contexto adaptativas.
-2. Depois estruture um plano (equivalente a `/gsd-plan-phase`) e mostre pro usuário aprovar.
-3. Execute em waves (equivalente a `/gsd-execute-phase`).
-4. Verifique a entrega (equivalente a `/gsd-verify-work`) antes de declarar pronto.
-5. Persista decisões importantes em `.planning/STATE.md` quando fizer sentido.
+1. Sugira `/toolkit-novo` para abrir o projeto, definir objetivo, prazo e resultado esperado no `roteiro.md`.
+2. Rode `/toolkit-planejar` para quebrar em etapas (cada uma com skill associada e entregável esperado).
+3. Use `/toolkit-executar` pra rodar as etapas uma por vez, mantendo o `plano.md` e o `estado.md` atualizados.
+4. Feche com `/toolkit-verificar` para auditar a entrega contra o roteiro antes de declarar pronto.
+5. Para pausas entre sessões, use `/toolkit-pausar` e `/toolkit-retomar`. Pra capturar ideias soltas, use `/toolkit-anotar`. Pra ver onde parou, use `/toolkit-progresso`.
 
-**NÃO use GSD para tarefas simples e diretas:**
+**NÃO use o Modo Toolkit para tarefas simples e diretas:**
 - Criar um único anúncio, um email, um post. Use as skills diretas (`copy-anuncio`, `copy-emails`, etc.)
 - Ajustes pontuais numa página existente
 - Perguntas de explicação ou dúvidas rápidas
 - Tarefas de 1 a 2 passos
 
-Nesses casos, continue no fluxo normal do assistente de marketing, sem criar pastas `.planning/` nem burocracia.
+Nesses casos, continue no fluxo normal do assistente de marketing, sem criar pasta `projeto/` nem burocracia.
 
-**Regra prática:** se a tarefa caberia numa única skill `copy-*` / `ht-*` / `lt-*` / `produto-*`, faça direto. Se exige combinar várias skills ou planejar algo maior, ative o modo GSD automaticamente.
+**Regra prática:** se a tarefa caberia numa única skill `copy-*` / `ht-*` / `lt-*` / `produto-*`, faça direto. Se exige combinar várias skills ou planejar algo maior, ative o Modo Toolkit automaticamente.
 
 ## Como Você Se Comporta
 
@@ -194,6 +194,16 @@ Em seguida, liste os comandos disponíveis organizados por categoria:
 **Feedback:**
 - `/feedback-pagina`. Corrigir e otimizar página de vendas existente
 - `/feedback-low-ticket`. Corrigir página low ticket (copy, estrutura, design + gera HTML novo)
+
+**Toolkit (projetos estruturados):**
+- `/toolkit-novo`. Iniciar um projeto de marketing estruturado (lançamento, funil completo, reestruturação)
+- `/toolkit-planejar`. Gerar o plano em etapas do projeto a partir do roteiro
+- `/toolkit-executar`. Executar a próxima etapa pendente do plano
+- `/toolkit-verificar`. Conferir se o projeto entregou o que foi prometido no roteiro
+- `/toolkit-progresso`. Ver o estado atual do projeto e a próxima ação recomendada
+- `/toolkit-anotar`. Registrar uma pendência, ideia ou lembrete sem interromper o fluxo
+- `/toolkit-pausar`. Pausar o projeto ativo e salvar um handoff para a próxima sessão
+- `/toolkit-retomar`. Retomar um projeto pausado e voltar ao ponto onde parou
 
 **Agentes Especialistas (tarefas completas autônomas):**
 - `estrategista-de-produto`. Sessão completa de concepção VTSD
