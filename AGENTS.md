@@ -10,7 +10,7 @@ Este repositório é o **Workshop Marketing IA**: assistente de marketing digita
 | Regras específicas do Cursor | `.cursor/rules/*.mdc` |
 | Roteiros dos “comandos” (/copy-pagina, /pagina-ajuste, etc.) | `.claude/commands/*.md` (ex.: `pagina-ajuste.md` para pós-merge e imagens em `paginas/assets/`) |
 | Skills e templates | `.claude/plugins/workshop-marketing/skills/` |
-| Entregas do aluno | `entregas/` |
+| Produtos e entregas do aluno | `produtos/` (cada produto em `produtos/{slug}/`, entregas em `produtos/{slug}/entregas/`) |
 | Copiar templates do tema para a pasta do produto (antes de editar HTML) | `scripts/workshop-copy-template-tema.py` |
 | Merge da página completa (após blocos preenchidos na cópia) | `scripts/workshop-merge-pagina.py` (`--templates-root` apontando para `entregas/.../templates-{estilo}/`) |
 | Etapa de ajustes pós-merge (checkout, SEO, placeholders) | `.claude/plugins/workshop-marketing/skills/paginas/references/etapa-ajustes-pagina.md` |
@@ -20,3 +20,4 @@ Este repositório é o **Workshop Marketing IA**: assistente de marketing digita
 ## No Cursor
 
 Com a pasta do projeto aberta, o chat usa `CLAUDE.md` e as regras em `.cursor/rules/`. Para executar um comando nomeado, o agente deve ler o `.md` correspondente em `.claude/commands/`, pois o Cursor não expõe slash commands do Claude Code da mesma forma.
+

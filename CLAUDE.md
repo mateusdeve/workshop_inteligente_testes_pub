@@ -32,7 +32,9 @@ Exemplos de correção:
 
 ### Checklist 2 — Design HTML
 
-Antes de escrever UMA LINHA de HTML/CSS, execute os dois passos abaixo:
+**Exceção:** o arquivo `painel-entregas.html` (gerado pelo `/produto-consumidor`) NÃO segue este checklist. Ele tem especificação de design própria descrita diretamente no comando `produto-consumidor.md`. Para o painel, pule os passos abaixo e siga a especificação de design contida naquele comando.
+
+Para todo outro HTML (páginas de vendas, captura, obrigado, inscrição HT, low ticket), execute os dois passos abaixo:
 
 **Passo 1 — Ler obrigatoriamente:**
 1. `.claude/plugins/workshop-marketing/skills/paginas/references/design-system-components.md`
@@ -120,7 +122,7 @@ O que quer criar hoje?"
 Em seguida, liste os comandos disponíveis organizados por categoria:
 
 **Produto:**
-- `/produto-editar`. Atualizar Quadro, Furadeira, Decorados e Identidades
+- `/produto-concepcao`. Cadastrar ou atualizar Quadro, Furadeira, Decorados e Identidades
 - `/produto-consumidor`. Criar ou atualizar a identidade do consumidor
 - `/produto-trocar`. Alternar entre produtos cadastrados
 - `/produto-novo`. Criar um novo produto
@@ -223,7 +225,7 @@ Em seguida, faça o onboarding completo **UMA pergunta por vez**, nesta sequênc
 
 3. A partir da resposta, conduza o fluxo:
 
-   **Se tem ideia:** pergunte o nome ou tema do produto, gere o slug, crie a pasta, ative como produto, siga para o fluxo de `/produto-editar` automaticamente (Quadro, Furadeira, Decorados, Urgências Ocultas), incluindo pesquisa de mercado.
+   **Se tem ideia:** pergunte o nome ou tema do produto, gere o slug, crie a pasta, ative como produto, siga para o fluxo de `/produto-concepcao` automaticamente (Quadro, Furadeira, Decorados, Urgências Ocultas), incluindo pesquisa de mercado.
 
    **Se tem ideia vaga ou não tem:** faça pesquisa de mercado no nicho mencionado (WebSearch) antes de propor qualquer coisa. Com base nos resultados, sugira 2-3 ideias de produto com posicionamento, formato e faixa de preço. O aluno escolhe ou adapta. Depois siga o fluxo acima.
 
@@ -368,7 +370,7 @@ Consulte sempre as skills de referência em `.claude/plugins/workshop-marketing/
 
 Este projeto suporta múltiplos produtos. Cada produto tem sua própria pasta com perfil, identidade do consumidor e entregas isoladas.
 
-**Produto ativo:** leia `entregas/.ativo` para obter o identificador do produto atual (ex: `curso-tarot`). Use `entregas/{ativo}/` como caminho base para todos os arquivos daquele produto.
+**Produto ativo:** leia `produtos/.ativo` para obter o identificador do produto atual (ex: `curso-tarot`). Use `produtos/{ativo}/` como caminho base para todos os arquivos daquele produto.
 
 **Comandos de gestão:**
 - `/produto-novo`. Cria um novo produto e o define como ativo.
@@ -378,9 +380,9 @@ Este projeto suporta múltiplos produtos. Cada produto tem sua própria pasta co
 
 **ANTES de executar qualquer comando:**
 
-1. Leia `entregas/.ativo` para saber o produto ativo. Se o arquivo não existir, oriente a usar `/produto-novo` primeiro.
-2. Leia `entregas/{ativo}/perfil.md`. Se não existir, oriente a usar `/produto-editar` primeiro.
-3. Leia `entregas/{ativo}/idconsumidor.md` se existir, para entender o público.
+1. Leia `produtos/.ativo` para saber o produto ativo. Se o arquivo não existir, oriente a usar `/produto-novo` primeiro.
+2. Leia `produtos/{ativo}/perfil.md`. Se não existir, oriente a usar `/produto-concepcao` primeiro.
+3. Leia `produtos/{ativo}/idconsumidor.md` se existir, para entender o público.
 
 O perfil contém: Quadro, Furadeira, Decorados, 3 Identidades, Urgências Ocultas (7 categorias com 10 itens cada), Argumentos Incontestáveis, nicho, público-alvo, preço e diferenciais.
 O arquivo de identidade do consumidor contém: perfil do comprador detalhado, paliativos, objeções de compra, frases que o público diria e tom de comunicação. (Não chamar esse artefato de "persona"; "persona" nos prompts refere-se ao papel do assistente.)
