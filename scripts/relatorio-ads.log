@@ -1,0 +1,18 @@
+﻿2026-04-16 14:51:06 - === Iniciando relatorio Meta Ads ===
+2026-04-16 14:51:06 - Data: 15/04/2026
+2026-04-16 14:51:06 - Buscando metricas no Facebook Ads...
+2026-04-16 14:51:07 - Sem dados para ontem.
+2026-04-16 14:51:07 - Mensagem montada: *Relatorio Meta Ads - 15/04/2026*
+
+Sem dados para ontem. Verifique se ha campanhas ativas.
+2026-04-16 14:51:07 - Enviando mensagem via Z-API...
+2026-04-16 14:51:07 - ERRO ao enviar Z-API: {"error":"To continue sending a message, you must subscribe to this instance again"}
+2026-04-16 15:16:20 - === Iniciando relatorio Meta Ads ===
+2026-04-16 15:16:20 - Data: 15/04/2026
+2026-04-16 15:16:20 - Buscando metricas no Facebook Ads...
+2026-04-16 15:16:21 - Sem dados para ontem.
+2026-04-16 15:16:21 - Mensagem montada: *Relatorio Meta Ads - 15/04/2026*
+
+Sem dados para ontem. Verifique se ha campanhas ativas.
+2026-04-16 15:16:21 - Enviando mensagem via Z-API...
+2026-04-16 15:16:22 - ERRO ao enviar Z-API: {"error":"To continue sending a message, you must subscribe to this instance again"}

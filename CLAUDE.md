@@ -167,6 +167,11 @@ Em seguida, liste os comandos disponíveis organizados por categoria:
 - `/ht-apresentacao-proposta`. Script da call de apresentação de proposta
 - `/ht-onboarding`. Onboarding de novos alunos high ticket
 
+**Dados e Automações:**
+- `/ads-relatorio`. Criar rotina diária automática que busca métricas do Facebook Ads e envia relatório pelo WhatsApp via Z-API. Agente agendado na nuvem do Claude, roda todo dia às 8h sem precisar do computador ligado.
+- `/instagram-dashboard`. Dashboard HTML de métricas do Instagram (seguidores, engajamento, posts recentes), atualizado automaticamente todo dia às 8h via Apify. Roda localmente via Task Scheduler do Windows.
+- `/dados-instagram`. Analisar perfil do Instagram com insights de copy (análise pontual, sem agendamento).
+
 **Estratégia:**
 - `/estrategia-lancamento`. Planejar lançamento ou evento completo
 - `/estrategia-funil`. Mapear funil perpétuo ou de lançamento
