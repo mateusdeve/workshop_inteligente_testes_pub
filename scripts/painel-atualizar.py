@@ -2,7 +2,8 @@
 painel-atualizar.py
 
 Varre a pasta meus-produtos/ e gera o manifest meus-produtos/index.js usado
-pelo painel global (painel.html) para listar produtos e seus paineis de entregas.
+pelo painel global (painel/index.html) para listar produtos e seus paineis
+de entregas.
 
 Formato do arquivo gerado (carregado via <script src> para funcionar offline
 direto via file://, sem servidor local):
@@ -15,10 +16,13 @@ direto via file://, sem servidor local):
             {
                 "slug": "guia-produtividade-real",
                 "nome": "Guia Produtividade Real",
-                "url": "meus-produtos/guia-produtividade-real/painel-entregas.html"
+                "url": "guia-produtividade-real/painel-entregas.html"
             }
         ]
     };
+
+As URLs sao relativas a pasta meus-produtos/ (onde o manifest vive). Quem
+consome (hoje painel/index.html) resolve prefixando com "../meus-produtos/".
 
 Regras:
 - Ignora pastas que comecam com "_" (ex: _legado) e arquivos ocultos.
@@ -26,7 +30,7 @@ Regras:
     1. painel-entregas.html (padrao)
     2. painel-*.html (qualquer outro, primeiro em ordem alfabetica)
 - Se o produto nao tem nenhum painel, entra no manifest com url=null
-  (o painel.html exibe uma mensagem amigavel).
+  (o painel exibe uma mensagem amigavel).
 - O nome do produto vem do primeiro titulo H1 do perfil.md; se nao existir,
   cai numa versao "Title Case" do slug.
 - O produto ativo e lido de meus-produtos/.ativo.
@@ -119,7 +123,7 @@ def listar_produtos() -> list[dict]:
             continue
         slug = p.name
         painel = descobrir_painel(p)
-        url = f"meus-produtos/{slug}/{painel}" if painel else None
+        url = f"{slug}/{painel}" if painel else None
         produtos.append({
             "slug": slug,
             "nome": extrair_nome(p, slug),

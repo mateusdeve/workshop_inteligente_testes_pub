@@ -253,7 +253,7 @@
     </div>
   </main>
 
-<script src="meus-produtos/index.js" onerror="window.__MANIFEST_FALTANDO = true"></script>
+<script src="../meus-produtos/index.js" onerror="window.__MANIFEST_FALTANDO = true"></script>
 <script>
 (function () {
   const $select = document.getElementById('select-produto');
@@ -316,7 +316,7 @@
     }
     $aviso.classList.add('hidden');
     $frame.classList.remove('hidden');
-    $frame.src = produto.url;
+    $frame.src = '../meus-produtos/' + produto.url;
   }
 
   function iniciar() {

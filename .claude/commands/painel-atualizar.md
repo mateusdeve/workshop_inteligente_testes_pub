@@ -1,11 +1,11 @@
 ---
 name: workshop-marketing:painel-atualizar
-description: Atualizar o manifest meus-produtos/index.js que alimenta o painel global painel.html. Varre a pasta meus-produtos/ e regenera a lista de produtos, seus nomes e caminhos dos painéis.
+description: Atualizar o manifest meus-produtos/index.js que alimenta o painel global painel/index.html. Varre a pasta meus-produtos/ e regenera a lista de produtos, seus nomes e caminhos dos painéis.
 ---
 
 # Atualizar Manifest do Painel
 
-Regenera o arquivo `meus-produtos/index.js`, que é lido pelo painel global (`painel.html`) para listar os produtos e os caminhos dos seus painéis de entregas.
+Regenera o arquivo `meus-produtos/index.js`, que é lido pelo painel global (`painel/index.html`) para listar os produtos e os caminhos dos seus painéis de entregas.
 
 ## Quando usar
 
@@ -40,7 +40,7 @@ Os comandos `/produto-novo`, `/produto-excluir` e `/produto-trocar` **já chamam
    Produtos: {total} (com painel: {com}, sem painel: {sem})
    Ativo: {slug ativo}
 
-   Abra painel.html na raiz do projeto para ver o resultado.
+   Abra painel/index.html na raiz do projeto para ver o resultado.
    ```
 
 ## Dica
