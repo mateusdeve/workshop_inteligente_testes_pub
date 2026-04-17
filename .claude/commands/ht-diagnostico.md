@@ -16,7 +16,7 @@ Cria o roteiro completo da call de diagnóstico. a reunião de descoberta antes 
 ## O Que Fazer
 
 ### 1. Contexto
-Leia `entregas/.ativo`, depois `entregas/{ativo}/perfil.md`.
+Leia `meus-produtos/.ativo`, depois `meus-produtos/{ativo}/perfil.md`.
 
 ### 2. Entrevista (UMA pergunta por vez)
 
@@ -161,7 +161,7 @@ Posso te enviar até [DATA. normalmente 2 dias úteis]? Qual o melhor canal para
 ```
 
 ### 5. Salvar
-`entregas/{ativo}/c10x/diagnostico-consultoria.md`
+`meus-produtos/{ativo}/entregas/c10x/diagnostico-consultoria.md`
 
 ### 6. Próximo Passo
 "Roteiro de diagnóstico pronto. Próximo: `/ht-proposta` para criar o documento de proposta comercial."

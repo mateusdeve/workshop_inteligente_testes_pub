@@ -16,7 +16,7 @@ Cria o roteiro completo de call de vendas 1:1 usando SPIN Selling adaptado para 
 ## O Que Fazer
 
 ### 1. Contexto
-Leia `entregas/.ativo`, depois `entregas/{ativo}/perfil.md` e `entregas/{ativo}/idconsumidor.md`.
+Leia `meus-produtos/.ativo`, depois `meus-produtos/{ativo}/perfil.md` e `meus-produtos/{ativo}/idconsumidor.md`.
 
 ### 2. Entrevista (UMA pergunta por vez, com progresso visual)
 
@@ -198,7 +198,7 @@ Se objeção: acesse `/ht-objecoes` para o script de resposta específico.
 ```
 
 ### 5. Salvar
-`entregas/{ativo}/c10x/spin-[produto].md`
+`meus-produtos/{ativo}/entregas/c10x/spin-[produto].md`
 
 ### 6. Próximo Passo
 "SPIN pronto. Próximo: `/ht-objecoes` para as respostas de quebra de objeção, ou `/ht-whatsapp` para o fluxo de vendas por mensagem."

@@ -17,7 +17,7 @@ Gera criativos visuais conectados ao produto ativo, à copy e às Urgências Ocu
 
 ### 1. Contexto Estratégico
 
-Leia `produtos/.ativo`, depois `produtos/{ativo}/perfil.md` e `produtos/{ativo}/idconsumidor.md` se existir.
+Leia `meus-produtos/.ativo`, depois `meus-produtos/{ativo}/perfil.md` e `meus-produtos/{ativo}/idconsumidor.md` se existir.
 
 Extraia e use internamente (não mostrar ao usuário, mas aplicar na geração):
 - **Urgências Ocultas dominantes** — as 3 mais fortes (dores, desejos, urgências quentes)
@@ -25,7 +25,7 @@ Extraia e use internamente (não mostrar ao usuário, mas aplicar na geração):
 - **Tom da copy** — como o público fala e pensa (para garantir coerência visual/textual)
 - **Paleta e estética** — identidade visual do produto se descrita no perfil
 
-Verifique anúncios existentes em `produtos/{ativo}/entregas/anuncios/` e `produtos/{ativo}/entregas/criativos/`. Se existirem, identifique urgências ocultas já usadas para priorizar ângulos ainda não explorados.
+Verifique anúncios existentes em `meus-produtos/{ativo}/entregas/anuncios/` e `meus-produtos/{ativo}/entregas/criativos/`. Se existirem, identifique urgências ocultas já usadas para priorizar ângulos ainda não explorados.
 
 ---
 
@@ -267,7 +267,7 @@ curl -X POST "https://api.freepik.com/v1/ai/text-to-image" \
 Para stories/vertical: usar `"size": "portrait_9_16"`.
 Para landscape: usar `"size": "landscape_16_9"`.
 
-Salvar em: `produtos/{ativo}/entregas/criativos/imagem-[N]-[produto].png`
+Salvar em: `meus-produtos/{ativo}/entregas/criativos/imagem-[N]-[produto].png`
 
 Informar: "Imagens geradas e salvas em entregas/criativos/."
 
@@ -327,8 +327,8 @@ Mostrar o conteúdo gerado (prompts e briefings) e perguntar:
 ```
 
 Após aprovação:
-- Prompts e briefings: `produtos/{ativo}/entregas/criativos/criativos-[tipo]-[produto].md`
-- Imagens geradas via API: `produtos/{ativo}/entregas/criativos/imagem-[N]-[produto].png`
+- Prompts e briefings: `meus-produtos/{ativo}/entregas/criativos/criativos-[tipo]-[produto].md`
+- Imagens geradas via API: `meus-produtos/{ativo}/entregas/criativos/imagem-[N]-[produto].png`
 
 ---
 

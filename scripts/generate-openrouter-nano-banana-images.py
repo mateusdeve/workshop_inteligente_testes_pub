@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
 Gera imagens via OpenRouter usando o modelo Gemini Flash Image (Nano Banana)
-e grava em entregas/{slug}/paginas/assets/.
+e grava em meus-produtos/{slug}/entregas/paginas/assets/.
 
 Chave da API (facil e seguro):
   1. Copie .env.example para .env na RAIZ do projeto (se ainda nao tiver).
@@ -279,7 +279,7 @@ def main() -> int:
     default_model = (os.environ.get("OPENROUTER_MODEL") or "").strip() or FALLBACK_MODEL
 
     ap = argparse.ArgumentParser(description="Gera imagens Nano Banana via OpenRouter.")
-    ap.add_argument("--slug", default="planilhas-pro", help="Pasta em entregas/{slug}")
+    ap.add_argument("--slug", default="planilhas-pro", help="Pasta em meus-produtos/{slug}")
     ap.add_argument(
         "--model",
         default=default_model,
@@ -336,7 +336,7 @@ def main() -> int:
         )
         return 1
 
-    out_dir = ROOT / "entregas" / args.slug / "paginas" / "assets"
+    out_dir = ROOT / "meus-produtos" / args.slug / "entregas" / "paginas" / "assets"
 
     if args.output.strip():
         prompt_one = (args.prompt or "").strip()

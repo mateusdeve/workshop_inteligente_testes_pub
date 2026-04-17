@@ -16,7 +16,7 @@ Planeja lançamento ou evento usando a estrutura C10X (High Ticket via eventos) 
 ## O Que Fazer
 
 ### 1. Contexto
-Leia `entregas/{ativo}/perfil.md`.
+Leia `meus-produtos/{ativo}/perfil.md`.
 
 ### 2. Entrevista (UMA pergunta por vez, com progresso visual)
 
@@ -114,7 +114,7 @@ Resumo do lançamento:
    - Métricas de acompanhamento
 
 ### 4. Salvar
-`entregas/{ativo}/textos-de-venda/lancamento-[evento].md`
+`meus-produtos/{ativo}/entregas/textos-de-venda/lancamento-[evento].md`
 
 ### 5. Próximo Passo
 "Plano salvo. Comece criando os materiais: `/copy-pagina` para a página do evento, `/copy-emails` para a comunicação."

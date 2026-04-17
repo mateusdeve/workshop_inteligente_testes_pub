@@ -16,7 +16,7 @@ Cria o script do momento de fechamento da venda 1:1 high ticket. da transição 
 ## O Que Fazer
 
 ### 1. Contexto
-Leia `entregas/.ativo`, depois `entregas/{ativo}/perfil.md` e `entregas/{ativo}/idconsumidor.md`.
+Leia `meus-produtos/.ativo`, depois `meus-produtos/{ativo}/perfil.md` e `meus-produtos/{ativo}/idconsumidor.md`.
 
 ### 2. Entrevista (UMA pergunta por vez, com progresso visual)
 
@@ -143,7 +143,7 @@ Quando o lead não fecha mas ainda tem interesse:
 ```
 
 ### 5. Salvar
-`entregas/{ativo}/c10x/fechamento-[produto].md`
+`meus-produtos/{ativo}/entregas/c10x/fechamento-[produto].md`
 
 ### 6. Próximo Passo
 "Fechamento pronto. Próximo: `/ht-objecoes` para as respostas quando o lead hesitar."

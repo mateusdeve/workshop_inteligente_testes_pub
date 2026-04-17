@@ -140,7 +140,7 @@ Resumo da edicao:
 - Operacao: Cortar trecho
 - Inicio: 00:00:08
 - Fim: 00:01:00
-- Saida: entregas/{ativo}/videos/reel_editado.mp4
+- Saida: meus-produtos/{ativo}/entregas/videos/reel_editado.mp4
 
 1. Pode executar
 2. Quero ajustar algo
@@ -152,7 +152,7 @@ So execute apos OK.
 
 ## PASSO 3. Execucao com FFmpeg
 
-Use os comandos abaixo como base. Sempre rode via `Bash` e salve o arquivo final em `entregas/{ativo}/videos/`.
+Use os comandos abaixo como base. Sempre rode via `Bash` e salve o arquivo final em `meus-produtos/{ativo}/entregas/videos/`.
 
 ### Cortar trecho
 
@@ -226,7 +226,7 @@ ffmpeg -y -i entrada.mp4 -ar 16000 -ac 1 -c:a pcm_s16le audio.wav
 
 Isso gera `legendas.srt`. Para um video de ~3 min no modelo small, a transcricao leva 30 a 60 segundos.
 
-3. **Sempre salve uma copia do `.srt` junto com o video final** em `entregas/{ativo}/videos/legendas_{nome-do-video}.srt`. Isso permite que o aluno edite manualmente caso alguma palavra tecnica saia errada e regere o video com as legendas corrigidas.
+3. **Sempre salve uma copia do `.srt` junto com o video final** em `meus-produtos/{ativo}/entregas/videos/legendas_{nome-do-video}.srt`. Isso permite que o aluno edite manualmente caso alguma palavra tecnica saia errada e regere o video com as legendas corrigidas.
 
 4. Em Mac/Linux o binario e `whisper-cli` (sem `.exe`). Detecte o SO com `uname -s` e ajuste o caminho.
 
@@ -316,7 +316,7 @@ Posicoes do overlay:
 
 ## PASSO 4. Onde Salvar
 
-Sempre salve o video editado em `entregas/{ativo}/videos/` com nome descritivo.
+Sempre salve o video editado em `meus-produtos/{ativo}/entregas/videos/` com nome descritivo.
 
 Exemplos:
 - `reel_cortado_final.mp4`

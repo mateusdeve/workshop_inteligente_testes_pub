@@ -11,7 +11,7 @@ Cria o documento de **identidade do consumidor** (VTSD): perfil detalhado, obje�
 - **Middle Ticket:** gerar paliativos (ferramentas dentro do produto que resolvem dores específicas do consumidor)
 - **Low Ticket:** NÃO gerar paliativos. Produto de entrada não tem profundidade suficiente para mapear paliativos internos
 
-Para verificar o tipo do produto, leia `produtos/{ativo}/tipo.md`.
+Para verificar o tipo do produto, leia `meus-produtos/{ativo}/tipo.md`.
 
 ## Usage
 
@@ -32,13 +32,13 @@ Você já tem o `perfil.md` e `pesquisa-mercado.md` com todos os dados necessár
 
 ### Pesquisa de mercado já feita
 
-Leia `produtos/{ativo}/pesquisa-mercado.md` para usar os dados já coletados. **Não faça nova pesquisa.**
+Leia `meus-produtos/{ativo}/pesquisa-mercado.md` para usar os dados já coletados. **Não faça nova pesquisa.**
 
 ## O Que Fazer
 
 ### 1. Contexto
 
-Leia `produtos/.ativo` para obter o produto ativo. Leia `produtos/{ativo}/perfil.md` e `produtos/{ativo}/pesquisa-mercado.md`. Se o `perfil.md` não existir, oriente a usar `/produto-concepcao` primeiro.
+Leia `meus-produtos/.ativo` para obter o produto ativo. Leia `meus-produtos/{ativo}/perfil.md` e `meus-produtos/{ativo}/pesquisa-mercado.md`. Se o `perfil.md` não existir, oriente a usar `/produto-concepcao` primeiro.
 
 Verifique se as Urgências Ocultas já estão completas no perfil. Se estiverem com stubs ("a completar"), gere as Urgências Ocultas completas e atualize o `perfil.md` antes de continuar.
 
@@ -105,7 +105,7 @@ Resumo da identidade do consumidor:
 
 ### 3. Gerar Documento
 
-Salve em `produtos/{ativo}/idconsumidor.md`:
+Salve em `meus-produtos/{ativo}/idconsumidor.md`:
 
 ```markdown
 # Identidade do Consumidor: [Nome Fictício]
@@ -182,11 +182,11 @@ Os 5 perfis devem representar recortes distintos (por profissão, momento de vid
 5.
 ```
 
-NOTA: As Urgências Ocultas ficam centralizadas em `produtos/{ativo}/perfil.md`. Os baldes são derivados delas, nunca copiados.
+NOTA: As Urgências Ocultas ficam centralizadas em `meus-produtos/{ativo}/perfil.md`. Os baldes são derivados delas, nunca copiados.
 
 ### 4. Gerar Painel de Entregas HTML
 
-Após salvar o `idconsumidor.md`, gere automaticamente o Painel de Entregas em `produtos/{ativo}/painel-entregas.html`.
+Após salvar o `idconsumidor.md`, gere automaticamente o Painel de Entregas em `meus-produtos/{ativo}/painel-entregas.html`.
 
 **IMPORTANTE:** NÃO leia `design-system-components.md` nem `design-referencia-vtsd.md` para gerar este arquivo. O painel de entregas é isento do Checklist 2 do `CLAUDE.md`. Siga rigorosamente a especificação de design abaixo.
 
@@ -294,12 +294,12 @@ Não mostre o código HTML ao usuário. Salve o arquivo silenciosamente.
 
 Após salvar, informe:
 ```
-Identidade do consumidor salva em produtos/{ativo}/idconsumidor.md.
+Identidade do consumidor salva em meus-produtos/{ativo}/idconsumidor.md.
 
 Painel de entregas gerado com todas as informações do produto.
 
 Para visualizar, copie e cole no navegador:
-file:///C:/Users/Elen/.cursor/Imersão IA/workshop_inteligente/produtos/{ativo}/painel-entregas.html
+file:///C:/Users/Elen/.cursor/Imersão IA/workshop_inteligente/meus-produtos/{ativo}/painel-entregas.html
 ```
 
 ### 5. Próximo Passo

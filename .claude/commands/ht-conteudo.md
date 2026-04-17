@@ -16,8 +16,8 @@ Cria o roteiro completo dos blocos de ensino do Retiro Online ou webinar, alinha
 ## O Que Fazer
 
 ### 1. Contexto
-Leia `entregas/.ativo`, depois `entregas/{ativo}/perfil.md` e `entregas/{ativo}/idconsumidor.md`.
-Se existir `entregas/{ativo}/c10x/cronograma-*.md`, leia para alinhar com a agenda.
+Leia `meus-produtos/.ativo`, depois `meus-produtos/{ativo}/perfil.md` e `meus-produtos/{ativo}/idconsumidor.md`.
+Se existir `meus-produtos/{ativo}/entregas/c10x/cronograma-*.md`, leia para alinhar com a agenda.
 
 ### 2. Entrevista (UMA pergunta por vez, com progresso visual)
 
@@ -121,7 +121,7 @@ Texto de ligação entre o último bloco de conteúdo e o momento de apresentar 
 ```
 
 ### 5. Salvar
-`entregas/{ativo}/c10x/conteudo-[evento].md`
+`meus-produtos/{ativo}/entregas/c10x/conteudo-[evento].md`
 
 ### 6. Próximo Passo
 "Roteiro de conteúdo pronto. Próximo: `/ht-pitch-palco` para criar o script completo do momento de venda."

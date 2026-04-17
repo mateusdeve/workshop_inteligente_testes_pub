@@ -19,10 +19,10 @@ Remove todo o contexto de negócio salvo no projeto: produto ativo, perfil, iden
 
 Verifique os seguintes caminhos e registre o que encontrar com conteúdo:
 
-- `entregas/.ativo`. slug do produto ativo
-- `entregas/{ativo}/perfil.md`. perfil do produto (se existir pasta)
-- `entregas/{ativo}/idconsumidor.md`. identidade do consumidor (se existir pasta)
-- `entregas/{ativo}/`. pasta com todas as entregas do produto (se existir)
+- `meus-produtos/.ativo`. slug do produto ativo
+- `meus-produtos/{ativo}/perfil.md`. perfil do produto (se existir pasta)
+- `meus-produtos/{ativo}/idconsumidor.md`. identidade do consumidor (se existir pasta)
+- `meus-produtos/{ativo}/entregas/`. pasta com todas as entregas do produto (se existir)
 - `meu-negocio/perfil.md`. perfil legado (se existir e tiver conteúdo)
 - `meu-negocio/idconsumidor.md`. identidade legada (se existir e tiver conteúdo)
 - `entregas/`. pasta de entregas legada (se existir e tiver arquivos)
@@ -82,21 +82,21 @@ Se o usuário cancelar, encerre sem fazer nada.
 Execute conforme a opção escolhida:
 
 **Opção 1. Perfil e identidade apenas:**
-- Sobrescreva `entregas/{ativo}/perfil.md` com `# Perfil do Negócio`
-- Sobrescreva `entregas/{ativo}/idconsumidor.md` com `# Identidade do Consumidor`
+- Sobrescreva `meus-produtos/{ativo}/perfil.md` com `# Perfil do Negócio`
+- Sobrescreva `meus-produtos/{ativo}/idconsumidor.md` com `# Identidade do Consumidor`
 - Se existir `meu-negocio/perfil.md`, sobrescreva com `# Perfil do Negócio`
 - Se existir `meu-negocio/idconsumidor.md`, sobrescreva com `# Identidade do Consumidor`
 - Mantenha o produto ativo e as entregas intactas
 
 **Opção 2. Tudo:**
-- Delete todos os arquivos dentro de `entregas/{ativo}/` usando a ferramenta Delete (arquivo por arquivo)
-- Esvazie `entregas/.ativo` (grave conteúdo vazio)
+- Delete todos os arquivos dentro de `meus-produtos/{ativo}/entregas/` usando a ferramenta Delete (arquivo por arquivo)
+- Esvazie `meus-produtos/.ativo` (grave conteúdo vazio)
 - Se existir `meu-negocio/perfil.md` com conteúdo, sobrescreva com `# Perfil do Negócio`
 - Se existir `meu-negocio/idconsumidor.md` com conteúdo, sobrescreva com `# Identidade do Consumidor`
 - Se existir pasta `entregas/` legada com arquivos, delete os arquivos dentro dela
 
 **Opção 3. Só as entregas:**
-- Delete todos os arquivos dentro de `entregas/{ativo}/` usando a ferramenta Delete
+- Delete todos os arquivos dentro de `meus-produtos/{ativo}/entregas/` usando a ferramenta Delete
 - Se existir pasta `entregas/` legada com arquivos, delete os arquivos dentro dela
 - Mantenha perfil, identidade do consumidor e `.ativo` intactos
 

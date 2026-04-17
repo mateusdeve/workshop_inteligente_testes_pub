@@ -16,7 +16,7 @@ Mapeia funil perpétuo ou de lançamento com todos os touchpoints.
 ## O Que Fazer
 
 ### 1. Contexto
-Leia `entregas/{ativo}/perfil.md`.
+Leia `meus-produtos/{ativo}/perfil.md`.
 
 ### 2. Entrevista (UMA pergunta por vez, com progresso visual)
 
@@ -154,7 +154,7 @@ Incluir no documento do funil:
 - Métricas esperadas (taxa de conversão de upsell: 10-20%, order bump: 5-15%)
 
 ### 5. Salvar
-`entregas/{ativo}/textos-de-venda/funil-[tipo]-[produto].md`
+`meus-produtos/{ativo}/entregas/textos-de-venda/funil-[tipo]-[produto].md`
 
 ### 6. Próximo Passo
 "Funil mapeado com ofertas complementares. Comece criando os materiais: `/copy-pagina` para as páginas, `/copy-emails` para os emails, `/copy-anuncio` para os anúncios."

@@ -17,7 +17,7 @@ Pega um perfil do Instagram, coleta dados públicos dos posts recentes e entrega
 
 Acione a skill `dados-instagram` do plugin `workshop-marketing` e siga o roteiro:
 
-1. Ler `entregas/.ativo`. Se não houver produto, oriente a usar `/produto-novo`.
+1. Ler `meus-produtos/.ativo`. Se não houver produto, oriente a usar `/produto-novo`.
 2. Coletar (uma pergunta por vez):
    1. Qual o @ do perfil? (pode ser seu ou de referência)
    2. O objetivo é auditar o próprio perfil ou estudar um concorrente?
@@ -29,7 +29,7 @@ Acione a skill `dados-instagram` do plugin `workshop-marketing` e siga o roteiro
    - Tipo de post que mais engaja (Reels, carrossel, imagem)
    - Temas recorrentes (extrair palavras-chave das legendas)
    - Posts com melhor e pior performance
-5. Gerar um arquivo HTML `entregas/{ativo}/dados/instagram-{perfil}.html` com:
+5. Gerar um arquivo HTML `meus-produtos/{ativo}/entregas/dados/instagram-{perfil}.html` com:
    - Cards de métricas no topo
    - Gráfico simples em Canvas ou SVG puro (barras de engajamento por post)
    - Tabela filtrável por tipo, tema, engajamento (JS vanilla, sem libs externas)

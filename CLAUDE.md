@@ -105,7 +105,7 @@ Quando o usuário iniciar uma conversa, faça o seguinte:
 
 **Passo 1. Verificar se há produto cadastrado:**
 
-Leia `entregas/.ativo`. Se o arquivo existir e tiver conteúdo, leia `entregas/{ativo}/perfil.md`.
+Leia `meus-produtos/.ativo`. Se o arquivo existir e tiver conteúdo, leia `meus-produtos/{ativo}/perfil.md`.
 
 ---
 
@@ -266,7 +266,7 @@ Exceção única: páginas HTML (mostrar o código seria confuso, então salvar 
 
 6. **Sugira o próximo passo.** Após cada entrega, indique qual comando usar em seguida.
 
-7. **Não faça perguntas repetidas.** Antes de perguntar, consulte o produto ativo em `entregas/{ativo}/` e o histórico da conversa. Só pergunte o que ainda falta ou é ambíguo.
+7. **Não faça perguntas repetidas.** Antes de perguntar, consulte o produto ativo em `meus-produtos/{ativo}/` e o histórico da conversa. Só pergunte o que ainda falta ou é ambíguo.
 
 9. **Framework Quiz vs. Página — obrigatório para Low Ticket.** Sempre que o produto ativo for Low Ticket e o próximo passo for criar o funil de vendas, aplique o framework antes de sugerir qualquer comando:
 
@@ -375,7 +375,7 @@ Consulte sempre as skills de referência em `.claude/plugins/workshop-marketing/
 
 Este projeto suporta múltiplos produtos. Cada produto tem sua própria pasta com perfil, identidade do consumidor e entregas isoladas.
 
-**Produto ativo:** leia `produtos/.ativo` para obter o identificador do produto atual (ex: `curso-tarot`). Use `produtos/{ativo}/` como caminho base para todos os arquivos daquele produto.
+**Produto ativo:** leia `meus-produtos/.ativo` para obter o identificador do produto atual (ex: `curso-tarot`). Use `meus-produtos/{ativo}/` como caminho base para todos os arquivos daquele produto. A pasta `meus-produtos/` é ignorada pelo git (cada aluno gera a sua). O painel global em `painel.html` na raiz lê o manifest `meus-produtos/index.js` (regenerado pelos commands de gestão ou manualmente com `/painel-atualizar`).
 
 **Comandos de gestão:**
 - `/produto-novo`. Cria um novo produto e o define como ativo.
@@ -385,9 +385,9 @@ Este projeto suporta múltiplos produtos. Cada produto tem sua própria pasta co
 
 **ANTES de executar qualquer comando:**
 
-1. Leia `produtos/.ativo` para saber o produto ativo. Se o arquivo não existir, oriente a usar `/produto-novo` primeiro.
-2. Leia `produtos/{ativo}/perfil.md`. Se não existir, oriente a usar `/produto-concepcao` primeiro.
-3. Leia `produtos/{ativo}/idconsumidor.md` se existir, para entender o público.
+1. Leia `meus-produtos/.ativo` para saber o produto ativo. Se o arquivo não existir, oriente a usar `/produto-novo` primeiro.
+2. Leia `meus-produtos/{ativo}/perfil.md`. Se não existir, oriente a usar `/produto-concepcao` primeiro.
+3. Leia `meus-produtos/{ativo}/idconsumidor.md` se existir, para entender o público.
 
 O perfil contém: Quadro, Furadeira, Decorados, 3 Identidades, Urgências Ocultas (7 categorias com 10 itens cada), Argumentos Incontestáveis, nicho, público-alvo, preço e diferenciais.
 O arquivo de identidade do consumidor contém: perfil do comprador detalhado, paliativos, objeções de compra, frases que o público diria e tom de comunicação. (Não chamar esse artefato de "persona"; "persona" nos prompts refere-se ao papel do assistente.)
@@ -398,18 +398,18 @@ O produto não aparece no lead. Nada de "curso", "treinamento", "compre", nome d
 
 ## Onde Salvar Cada Entrega
 
-Todas as entregas ficam dentro da pasta do produto ativo: `entregas/{ativo}/`
+Cada produto tem sua pasta em `meus-produtos/{ativo}/`. Os arquivos de **contexto** (perfil, id consumidor, tipo, pesquisa de mercado, painel, nome.txt) ficam direto na raiz do produto. As **entregas** (saídas: páginas, anúncios, emails etc.) ficam na subpasta `meus-produtos/{ativo}/entregas/`.
 
 | Tipo de Material | Pasta | Formato |
 |---|---|---|
-| Páginas (vendas, captura, obrigado) | `entregas/{ativo}/paginas/` | `.html` |
-| Copy de página de vendas | `entregas/{ativo}/copy-pagina/` | `.md` |
-| Sequências de email | `entregas/{ativo}/emails/` | `.md` |
-| Anúncios (Meta, Google) | `entregas/{ativo}/anuncios/` | `.md` |
-| Conteúdo para redes sociais | `entregas/{ativo}/conteudo-social/` | `.md` |
-| Criativos e prompts de imagem | `entregas/{ativo}/criativos/` | `.md` |
-| Scripts comerciais | `entregas/{ativo}/comercial/` | `.html` (playbook comercial; PDF via navegador) |
-| Vídeos (HeyGen, Remotion) | `entregas/{ativo}/videos/` | `.mp4` + `.md` |
+| Páginas (vendas, captura, obrigado) | `meus-produtos/{ativo}/entregas/paginas/` | `.html` |
+| Copy de página de vendas | `meus-produtos/{ativo}/entregas/copy-pagina/` | `.md` |
+| Sequências de email | `meus-produtos/{ativo}/entregas/emails/` | `.md` |
+| Anúncios (Meta, Google) | `meus-produtos/{ativo}/entregas/anuncios/` | `.md` |
+| Conteúdo para redes sociais | `meus-produtos/{ativo}/entregas/conteudo-social/` | `.md` |
+| Criativos e prompts de imagem | `meus-produtos/{ativo}/entregas/criativos/` | `.md` |
+| Scripts comerciais | `meus-produtos/{ativo}/entregas/comercial/` | `.html` (playbook comercial; PDF via navegador) |
+| Vídeos (HeyGen, Remotion) | `meus-produtos/{ativo}/entregas/videos/` | `.mp4` + `.md` |
 
 ## Padrão de Qualidade para Páginas HTML
 
@@ -431,17 +431,17 @@ Esta regra vale para execução direta E para delegação a agentes — ao deleg
 
 ### Custo-benefício na página de vendas (padrão obrigatório)
 
-- **Ordem de trabalho (recomendado):** (1) **Copiar** o tema inteiro para a pasta do produto com `py -3 scripts/workshop-copy-template-tema.py --tema {estilo}` (lê `entregas/.ativo` ou use `--slug`). Isso cria `entregas/{ativo}/paginas/templates-{estilo}/` com todos os `*_{estilo}` e `pagina_completa_{estilo}`. (2) **Só então** trocar textos nos `code.html` **dessa cópia**, nunca editar o original do plugin por padrão. (3) **Merge** com `py -3 scripts/workshop-merge-pagina.py --tema {estilo} --templates-root entregas/{ativo}/paginas/templates-{estilo} --copiar-entregas`. Sem `--templates-root`, o merge usa os arquivos dentro do plugin (útil para quem mantém o repositório do workshop, não para entrega do aluno).
-- **Não** gerar no chat o HTML mergeado completo (`pagina_completa_*/code.html`). **Não** montar um único arquivo em `entregas/` colando seções manualmente, salvo pedido explícito do aluno fora dos templates.
-- **Sim** preencher os `code.html` dos blocos atômicos (na **cópia** em `entregas/.../templates-{estilo}/` ou, só em exceção, no plugin). Ao final, rodar o merge como acima. Alternativa manual: `build_merge.py` dentro da pasta `pagina_completa_{estilo}` correspondente à mesma raiz de templates.
+- **Ordem de trabalho (recomendado):** (1) **Copiar** o tema inteiro para a pasta do produto com `py -3 scripts/workshop-copy-template-tema.py --tema {estilo}` (lê `meus-produtos/.ativo` ou use `--slug`). Isso cria `meus-produtos/{ativo}/entregas/paginas/templates-{estilo}/` com todos os `*_{estilo}` e `pagina_completa_{estilo}`. (2) **Só então** trocar textos nos `code.html` **dessa cópia**, nunca editar o original do plugin por padrão. (3) **Merge** com `py -3 scripts/workshop-merge-pagina.py --tema {estilo} --templates-root meus-produtos/{ativo}/entregas/paginas/templates-{estilo} --copiar-entregas`. Sem `--templates-root`, o merge usa os arquivos dentro do plugin (útil para quem mantém o repositório do workshop, não para entrega do aluno).
+- **Não** gerar no chat o HTML mergeado completo (`pagina_completa_*/code.html`). **Não** montar um único arquivo em `meus-produtos/{ativo}/entregas/` colando seções manualmente, salvo pedido explícito do aluno fora dos templates.
+- **Sim** preencher os `code.html` dos blocos atômicos (na **cópia** em `meus-produtos/{ativo}/entregas/paginas/templates-{estilo}/` ou, só em exceção, no plugin). Ao final, rodar o merge como acima. Alternativa manual: `build_merge.py` dentro da pasta `pagina_completa_{estilo}` correspondente à mesma raiz de templates.
 - **Não redesenhar o template:** o layout já está pronto em cada bloco atômico. O trabalho é **substituir textos** pela copy aprovada e preencher links, placeholders de mídia e atributos necessários. **Proibido** reescrever estrutura (HTML, CSS do bloco, classes, grids), trocar fontes ou paleta do tema, ou gerar uma página “nova” no lugar do template. Quem quiser visual outro usa o fluxo de exceção do command `copy-pagina` (montagem manual) ou evolução **depois** do merge (`/pagina-ajuste`, playbook de visual).
-- **Após o merge:** etapa de ajustes obrigatória no HTML em `entregas/` conforme `skills/paginas/references/etapa-ajustes-pagina.md` (checkout, title e meta, placeholders de autoridade e vídeo, rodapé; revisar segunda prova social se o tema duplicar o bloco). Cada novo merge pode exigir reaplicar esses ajustes.
+- **Após o merge:** etapa de ajustes obrigatória no HTML em `meus-produtos/{ativo}/entregas/` conforme `skills/paginas/references/etapa-ajustes-pagina.md` (checkout, title e meta, placeholders de autoridade e vídeo, rodapé; revisar segunda prova social se o tema duplicar o bloco). Cada novo merge pode exigir reaplicar esses ajustes.
 - **Revisão:** Etapa 0 (vícios proibidos) do SKILL `paginas` no texto visível. Auditoria completa com Nav fica para `/feedback-pagina` ou pedido explícito, não para cada salvamento.
-- **Copy aprovada:** para página de vendas 8D, o texto de cada bloco HTML deve vir do arquivo `entregas/{ativo}/copy-pagina/copy-{produto}.md` com os títulos `## Bloco 01` a `## Bloco 16` (ver `template-copy-pagina-vendas.md` no plugin de páginas). Sem isso, o fluxo exige gerar a copy antes do HTML ou o usuário aceita exceção explícita no command `copy-pagina` (B0).
+- **Copy aprovada:** para página de vendas 8D, o texto de cada bloco HTML deve vir do arquivo `meus-produtos/{ativo}/entregas/copy-pagina/copy-{produto}.md` com os títulos `## Bloco 01` a `## Bloco 16` (ver `template-copy-pagina-vendas.md` no plugin de páginas). Sem isso, o fluxo exige gerar a copy antes do HTML ou o usuário aceita exceção explícita no command `copy-pagina` (B0).
 
 ## Fluxo Padrão de Todo Comando (6 Passos)
 
-1. **Contexto**. Ler `entregas/.ativo`, depois `entregas/{ativo}/perfil.md` e `entregas/{ativo}/idconsumidor.md`.
+1. **Contexto**. Ler `meus-produtos/.ativo`, depois `meus-produtos/{ativo}/perfil.md` e `meus-produtos/{ativo}/idconsumidor.md`.
 2. **Entrevista**. 3 a 5 perguntas, UMA por vez.
 3. **Confirmação**. Resumir o que vai criar, pedir OK.
 4. **Geração**. Criar o entregável completo usando a metodologia VTSD.

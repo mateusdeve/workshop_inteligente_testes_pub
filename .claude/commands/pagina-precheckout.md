@@ -17,12 +17,12 @@ Cria uma página intermediária entre o botão "Comprar" e o checkout da platafo
 
 Acione a skill `pagina-precheckout` do plugin `workshop-marketing` e siga o roteiro:
 
-1. Ler `entregas/.ativo`. Se não houver produto, oriente a usar `/produto-novo`.
+1. Ler `meus-produtos/.ativo`. Se não houver produto, oriente a usar `/produto-novo`.
 2. Coletar (uma pergunta por vez): URL do checkout real, qual oferta (nome + preço), se quer capturar WhatsApp opcional ou obrigatório, cor principal da página (pega do `/copy-pagina` se já existir).
 3. Gerar uma página HTML minimalista com logo, título da oferta, formulário (Nome, Email, WhatsApp) e botão "Ir para o pagamento seguro".
-4. No submit do formulário: salvar o contato em `entregas/{ativo}/crm/leads.json` (array local), disparar `fbq('track', 'InitiateCheckout')` se houver Pixel configurado, redirecionar pro checkout real com UTMs preservadas.
+4. No submit do formulário: salvar o contato em `meus-produtos/{ativo}/entregas/crm/leads.json` (array local), disparar `fbq('track', 'InitiateCheckout')` se houver Pixel configurado, redirecionar pro checkout real com UTMs preservadas.
 5. Criar um endpoint simples via `fetch` pra um arquivo PHP opcional ou usar localStorage como fallback (explicar que se a página for pública sem backend, o CRM vira apenas localStorage do navegador). Para uso real, instruir a hospedar no Vercel com uma Serverless Function básica (incluir código pronto).
-6. Salvar a página em `entregas/{ativo}/paginas/precheckout-{nome}.html` e a serverless function em `entregas/{ativo}/paginas/api/lead.js`.
+6. Salvar a página em `meus-produtos/{ativo}/entregas/paginas/precheckout-{nome}.html` e a serverless function em `meus-produtos/{ativo}/entregas/paginas/api/lead.js`.
 7. Oferecer publicar com `/pagina-vercel`.
 
 ## Regras Resumidas

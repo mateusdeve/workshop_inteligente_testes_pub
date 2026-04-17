@@ -16,7 +16,7 @@ Cria respostas prontas para as objeções mais comuns em vendas high ticket.
 ## O Que Fazer
 
 ### 1. Contexto
-Leia `entregas/.ativo`, depois `entregas/{ativo}/perfil.md` e `entregas/{ativo}/idconsumidor.md`.
+Leia `meus-produtos/.ativo`, depois `meus-produtos/{ativo}/perfil.md` e `meus-produtos/{ativo}/idconsumidor.md`.
 As objeções de compra no idconsumidor.md são especialmente importantes aqui.
 
 ### 2. Entrevista (UMA pergunta por vez)
@@ -180,7 +180,7 @@ Gere respostas para as objeções listadas pelo usuário, seguindo a mesma estru
 ```
 
 ### 5. Salvar
-`entregas/{ativo}/c10x/objecoes-[produto].md`
+`meus-produtos/{ativo}/entregas/c10x/objecoes-[produto].md`
 
 ### 6. Próximo Passo
 "Objeções mapeadas. Próximo: `/ht-whatsapp` para o fluxo completo de vendas por mensagem."

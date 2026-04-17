@@ -37,7 +37,7 @@ Gera prompts de imagem otimizados para as melhores ferramentas gratuitas de gera
 
 ### 0. Contexto
 
-Leia `entregas/.ativo`, depois `entregas/{ativo}/perfil.md` e `entregas/{ativo}/idconsumidor.md`. Se não existirem, oriente o aluno a rodar `/produto-concepcao` primeiro.
+Leia `meus-produtos/.ativo`, depois `meus-produtos/{ativo}/perfil.md` e `meus-produtos/{ativo}/idconsumidor.md`. Se não existirem, oriente o aluno a rodar `/produto-concepcao` primeiro.
 
 Extraia:
 - Quadro (transformação principal)
@@ -120,7 +120,7 @@ Quem vai aparecer nas imagens?
 Digite o número:
 ```
 
-Se escolher 1: pergunte se a foto já existe em algum lugar e instrua a deixar ela em `entregas/{ativo}/criativos/imagem-assets/subject.jpg`. Avise que só Whisk e Gemini aceitam upload de foto como referência.
+Se escolher 1: pergunte se a foto já existe em algum lugar e instrua a deixar ela em `meus-produtos/{ativo}/entregas/criativos/imagem-assets/subject.jpg`. Avise que só Whisk e Gemini aceitam upload de foto como referência.
 
 Se escolher 2: faça perguntas curtas, UMA por vez:
 - Idade aparente
@@ -240,7 +240,7 @@ Vou entregar:
 
 ### 3. Geração do Briefing
 
-Crie o arquivo `entregas/{ativo}/criativos/{ferramenta}-prompts.md` usando o formato correto da ferramenta escolhida.
+Crie o arquivo `meus-produtos/{ativo}/entregas/criativos/{ferramenta}-prompts.md` usando o formato correto da ferramenta escolhida.
 
 Se o aluno escolheu mais de uma ferramenta, crie um arquivo para cada uma.
 
@@ -290,7 +290,7 @@ Cole no box "Scene":
 
 Conceito: {o que a imagem vai comunicar}
 Onde usar: {ex: anúncio de descoberta, slide 1}
-Salvar como: entregas/{ativo}/criativos/whisk-{caso}-01.png
+Salvar como: meus-produtos/{ativo}/entregas/criativos/whisk-{caso}-01.png
 
 ---
 
@@ -332,7 +332,7 @@ Chips recomendados para clicar depois de colar:
 - {iluminação, ex: "Golden hour"}
 - {câmera, ex: "35mm"}
 
-Salvar como: entregas/{ativo}/criativos/imagefx-{caso}-01.png
+Salvar como: meus-produtos/{ativo}/entregas/criativos/imagefx-{caso}-01.png
 ```
 
 ---
@@ -397,7 +397,7 @@ Prompt (em inglês):
 Style sugerido: {Realistic / Design / 3D}
 Aspect Ratio: {1:1 para feed, 4:5 para anúncio, 9:16 para stories}
 
-Salvar como: entregas/{ativo}/criativos/ideogram-{caso}-01.png
+Salvar como: meus-produtos/{ativo}/entregas/criativos/ideogram-{caso}-01.png
 ```
 
 ---
@@ -437,7 +437,7 @@ Negative prompt (sempre o mesmo):
 blurry, low quality, distorted, deformed hands, extra fingers, watermark, text errors, bad anatomy, duplicate, ugly
 ```
 
-Salvar como: entregas/{ativo}/criativos/leonardo-{caso}-01.png
+Salvar como: meus-produtos/{ativo}/entregas/criativos/leonardo-{caso}-01.png
 ```
 
 ---
@@ -466,7 +466,7 @@ Prompt (em inglês, estilo descritivo natural):
 A {estilo, ex: photorealistic / digital illustration} of {subject detalhado}, {ação}, in {ambiente}, {iluminação}, {composição e câmera}, {paleta de cores}, {clima emocional}, high resolution, award winning
 ```
 
-Salvar como: entregas/{ativo}/criativos/bing-{caso}-01.png
+Salvar como: meus-produtos/{ativo}/entregas/criativos/bing-{caso}-01.png
 ```
 
 ---
@@ -500,7 +500,7 @@ Prompt (em inglês):
 
 Style reference opcional: {suba uma imagem do Pinterest com a estética desejada}
 
-Salvar como: entregas/{ativo}/criativos/krea-{caso}-01.png
+Salvar como: meus-produtos/{ativo}/entregas/criativos/krea-{caso}-01.png
 ```
 
 ---
@@ -547,7 +547,7 @@ Prompt (em inglês, com parâmetros):
 Conceito: {o que a imagem comunica e qual Urgência Oculta trabalha}
 Onde usar: {ex: anúncio de descoberta no feed, slide 1 do carrossel}
 Variações recomendadas: {ex: "U2 e U4 costumam ter o melhor enquadramento"}
-Salvar como: entregas/{ativo}/criativos/midjourney-{caso}-01.png
+Salvar como: meus-produtos/{ativo}/entregas/criativos/midjourney-{caso}-01.png
 
 ---
 
@@ -582,7 +582,7 @@ Mostre o conteúdo completo do arquivo ao usuário:
 2. Quero ajustar algo
 ```
 
-Após aprovação, salve o arquivo e crie a pasta `entregas/{ativo}/criativos/imagem-assets/` (se ainda não existir) com um README.md explicando:
+Após aprovação, salve o arquivo e crie a pasta `meus-produtos/{ativo}/entregas/criativos/imagem-assets/` (se ainda não existir) com um README.md explicando:
 - subject.jpg. foto do personagem (se for foto real, para Whisk ou Gemini)
 - style-ref.jpg. referência de estética opcional (para Krea)
 - Imagens geradas vão para a pasta pai com o nome indicado em cada cena
@@ -593,15 +593,15 @@ Após aprovação, salve o arquivo e crie a pasta `entregas/{ativo}/criativos/im
 Prompts prontos.
 
 Salvei em:
-- entregas/{ativo}/criativos/{ferramenta}-prompts.md
-- entregas/{ativo}/criativos/imagem-assets/ (pasta para suas referências)
+- meus-produtos/{ativo}/entregas/criativos/{ferramenta}-prompts.md
+- meus-produtos/{ativo}/entregas/criativos/imagem-assets/ (pasta para suas referências)
 
 Próximo passo:
 
 1. Abra o site da ferramenta: {link}
 2. Siga a seção "Como Usar" do arquivo
 3. Para cada cena, cole o prompt correspondente
-4. Baixe as imagens e salve em entregas/{ativo}/criativos/ com o nome indicado
+4. Baixe as imagens e salve em meus-produtos/{ativo}/entregas/criativos/ com o nome indicado
 5. Depois volte aqui e use:
    - /copy-anuncio. para escrever a copy dos anúncios que vão usar essas imagens
    - /copy-social. para montar o carrossel

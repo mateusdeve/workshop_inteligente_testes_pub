@@ -16,7 +16,7 @@ Cria o documento de proposta comercial completo para ser enviado ao cliente apó
 ## O Que Fazer
 
 ### 1. Contexto
-Leia `entregas/.ativo`, depois `entregas/{ativo}/perfil.md`.
+Leia `meus-produtos/.ativo`, depois `meus-produtos/{ativo}/perfil.md`.
 
 ### 2. Entrevista (UMA pergunta por vez, com progresso visual)
 
@@ -210,7 +210,7 @@ Esta proposta é válida até [DATA].
 ```
 
 ### 5. Salvar
-`entregas/{ativo}/c10x/proposta-[cliente].md`
+`meus-produtos/{ativo}/entregas/c10x/proposta-[cliente].md`
 
 ### 6. Próximo Passo
 "Proposta criada. Próximo: `/ht-apresentacao-proposta` para criar o script da call de apresentação."

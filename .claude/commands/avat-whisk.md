@@ -26,7 +26,7 @@ Gera briefings prontos para colar no Whisk (labs.google/fx/tools/whisk). O Whisk
 
 ### 0. Contexto
 
-Leia `entregas/.ativo`, depois `entregas/{ativo}/perfil.md` e `entregas/{ativo}/idconsumidor.md`. Se nao existirem, oriente o aluno a rodar `/produto-editar` primeiro.
+Leia `meus-produtos/.ativo`, depois `meus-produtos/{ativo}/perfil.md` e `meus-produtos/{ativo}/idconsumidor.md`. Se nao existirem, oriente o aluno a rodar `/produto-editar` primeiro.
 
 Extraia:
 - Quadro (transformacao principal)
@@ -69,7 +69,7 @@ Quem vai aparecer nas imagens?
 Digite o numero:
 ```
 
-Se escolher 1: pergunte se a foto ja existe em algum lugar e instrua a deixar ela em `entregas/{ativo}/criativos/whisk-assets/subject.jpg` antes de subir no Whisk.
+Se escolher 1: pergunte se a foto ja existe em algum lugar e instrua a deixar ela em `meus-produtos/{ativo}/entregas/criativos/whisk-assets/subject.jpg` antes de subir no Whisk.
 
 Se escolher 2: faca perguntas curtas, UMA por vez:
 - Idade aparente
@@ -180,7 +180,7 @@ Vou entregar:
 
 ### 3. Geracao do Briefing
 
-Crie o arquivo `entregas/{ativo}/criativos/whisk-briefings.md` com esta estrutura:
+Crie o arquivo `meus-produtos/{ativo}/entregas/criativos/whisk-briefings.md` com esta estrutura:
 
 ```markdown
 # Whisk. Briefings Visuais
@@ -208,7 +208,7 @@ Data: {data de hoje}
 ```
 
 **Ou suba esta imagem:**
-{caminho sugerido. entregas/{ativo}/criativos/whisk-assets/subject.jpg}
+{caminho sugerido. meus-produtos/{ativo}/entregas/criativos/whisk-assets/subject.jpg}
 
 ## Style (fixo em todas as cenas)
 
@@ -235,7 +235,7 @@ Data: {data de hoje}
 {ex: anuncio de descoberta, slide 1 do carrossel, capa do modulo 1}
 
 **Nome do arquivo esperado:**
-entregas/{ativo}/criativos/whisk-{caso}-01.png
+meus-produtos/{ativo}/entregas/criativos/whisk-{caso}-01.png
 
 ---
 
@@ -259,7 +259,7 @@ Mostre o conteudo completo do whisk-briefings.md ao usuario:
 2. Quero ajustar algo
 ```
 
-Apos aprovacao, salve o arquivo e crie a pasta vazia `entregas/{ativo}/criativos/whisk-assets/` com um README.md explicando:
+Apos aprovacao, salve o arquivo e crie a pasta vazia `meus-produtos/{ativo}/entregas/criativos/whisk-assets/` com um README.md explicando:
 - subject.jpg. foto do personagem (se for foto real)
 - style-ref.jpg. referencia de estetica opcional
 - Imagens geradas vao para a pasta pai (`whisk-{caso}-NN.png`)
@@ -270,15 +270,15 @@ Apos aprovacao, salve o arquivo e crie a pasta vazia `entregas/{ativo}/criativos
 Briefing pronto.
 
 Salvei em:
-- entregas/{ativo}/criativos/whisk-briefings.md
-- entregas/{ativo}/criativos/whisk-assets/ (pasta para suas imagens de referencia)
+- meus-produtos/{ativo}/entregas/criativos/whisk-briefings.md
+- meus-produtos/{ativo}/entregas/criativos/whisk-assets/ (pasta para suas imagens de referencia)
 
 Proximo passo:
 
 1. Abra labs.google/fx/tools/whisk no navegador
 2. Siga a secao "Como Usar" do arquivo whisk-briefings.md
 3. Para cada cena, troque apenas o Scene e mantenha Subject e Style fixos
-4. Baixe as imagens e salve em entregas/{ativo}/criativos/ com o nome indicado em cada cena
+4. Baixe as imagens e salve em meus-produtos/{ativo}/entregas/criativos/ com o nome indicado em cada cena
 5. Depois volte aqui e use:
    - /copy-anuncio. para escrever a copy dos anuncios que vao usar essas imagens
    - /copy-social. para montar o carrossel com as imagens

@@ -89,9 +89,9 @@ Se 403: "Sua conta nao tem acesso a API. Precisa do plano Creator ou superior."
 
 Leia, na ordem:
 
-1. `entregas/.ativo` (identificador do produto ativo)
-2. `entregas/{ativo}/perfil.md` (Quadro, Furadeira, Decorados, Urgencias Ocultas, cores da marca se houver)
-3. `entregas/{ativo}/idconsumidor.md` (se existir)
+1. `meus-produtos/.ativo` (identificador do produto ativo)
+2. `meus-produtos/{ativo}/perfil.md` (Quadro, Furadeira, Decorados, Urgencias Ocultas, cores da marca se houver)
+3. `meus-produtos/{ativo}/idconsumidor.md` (se existir)
 
 Se faltar produto ativo ou perfil, pare e oriente o usuario a rodar `/produto-novo` ou `/produto-editar` primeiro.
 
@@ -290,7 +290,7 @@ Use esta tabela para a direcao base. Combine com a pesquisa visual do Passo 3 pa
 
 1. **Cor solida:** basta mandar `{"type": "color", "value": "#HEXCODE"}` no payload.
 2. **Imagem:**
-   - **Opcao A (recomendada).** Acionar a skill `img-anuncio` internamente para gerar 2 a 3 imagens de background (cenarios, contextos, SEM pessoas e SEM texto) que casam com o roteiro. Salvar em `entregas/{ativo}/videos/backgrounds/video-{data}/`. Fazer upload no HeyGen e usar o `image_key` retornado.
+   - **Opcao A (recomendada).** Acionar a skill `img-anuncio` internamente para gerar 2 a 3 imagens de background (cenarios, contextos, SEM pessoas e SEM texto) que casam com o roteiro. Salvar em `meus-produtos/{ativo}/entregas/videos/backgrounds/video-{data}/`. Fazer upload no HeyGen e usar o `image_key` retornado.
    - **Opcao B.** Stock gratuito (Unsplash, Pexels) via WebSearch + download + upload.
 3. **Video b-roll:** so se o plano permitir. Mesma logica.
 
@@ -376,7 +376,7 @@ curl -s "https://api.heygen.com/v2/avatars" \
 
 **Regras novas:**
 
-1. **Historico de uso.** Leia `entregas/{ativo}/videos/.avatares-usados.json` (se existir). Essa lista tem os avatares usados nos ultimos 5 videos deste produto. Na listagem ao usuario, marque com asterisco os que ja foram usados e coloque os novos no topo.
+1. **Historico de uso.** Leia `meus-produtos/{ativo}/entregas/videos/.avatares-usados.json` (se existir). Essa lista tem os avatares usados nos ultimos 5 videos deste produto. Na listagem ao usuario, marque com asterisco os que ja foram usados e coloque os novos no topo.
 2. **Diversidade.** Liste 8 avatares variados (genero, idade, estilo). Dos 8, pelo menos 4 devem ser novos.
 3. **Filtro por tipo da Mandala.** Se o tipo pede mais de 1 avatar (ex: Prova Social), peca duas escolhas.
 
@@ -410,7 +410,7 @@ Acione a skill `img-anuncio` em modo silencioso, passando:
 - Briefing da cena ("cenario de [descricao], SEM pessoas, SEM texto, proporcao 9:16")
 - Paleta da pesquisa visual
 
-A skill gera a imagem. Salve em `entregas/{ativo}/videos/backgrounds/video-{data}/cena-{n}.jpg`.
+A skill gera a imagem. Salve em `meus-produtos/{ativo}/entregas/videos/backgrounds/video-{data}/cena-{n}.jpg`.
 
 **Opcao B. Stock gratuito:**
 WebSearch + download direto de Unsplash ou Pexels. Salve no mesmo local.
@@ -421,7 +421,7 @@ WebSearch + download direto de Unsplash ou Pexels. Salve no mesmo local.
 curl -X POST "https://upload.heygen.com/v1/asset" \
   -H "X-Api-Key: $HEYGEN_API_KEY" \
   -H "Content-Type: image/jpeg" \
-  --data-binary "@entregas/{ativo}/videos/backgrounds/video-{data}/cena-1.jpg"
+  --data-binary "@meus-produtos/{ativo}/entregas/videos/backgrounds/video-{data}/cena-1.jpg"
 ```
 
 Guarde o `image_key` retornado por cena. Esse e o valor que vai em `image_asset_id` no payload final.
@@ -560,13 +560,13 @@ Estados:
 Download:
 
 ```bash
-curl -o "entregas/{ativo}/videos/video-heygen-{data}.mp4" "VIDEO_URL"
+curl -o "meus-produtos/{ativo}/entregas/videos/video-heygen-{data}.mp4" "VIDEO_URL"
 ```
 
 Salvar tambem:
 
-- `entregas/{ativo}/videos/roteiro-heygen-{data}.md` (roteiro aprovado + quebra em cenas + payload usado)
-- Atualizar `entregas/{ativo}/videos/.avatares-usados.json` com o(s) avatar(es) usados
+- `meus-produtos/{ativo}/entregas/videos/roteiro-heygen-{data}.md` (roteiro aprovado + quebra em cenas + payload usado)
+- Atualizar `meus-produtos/{ativo}/entregas/videos/.avatares-usados.json` com o(s) avatar(es) usados
 
 ---
 
@@ -575,8 +575,8 @@ Salvar tambem:
 ```
 Video gerado.
 
-Arquivo: entregas/{ativo}/videos/video-heygen-{data}.mp4
-Roteiro + direcao: entregas/{ativo}/videos/roteiro-heygen-{data}.md
+Arquivo: meus-produtos/{ativo}/entregas/videos/video-heygen-{data}.mp4
+Roteiro + direcao: meus-produtos/{ativo}/entregas/videos/roteiro-heygen-{data}.md
 Duracao: [X]s
 Cenas: 4 (gancho / contexto / virada / cta)
 Avatar(es): [nome(s)]

@@ -50,7 +50,7 @@ Que tipo de produto é este?
 Digite o número:
 ```
 
-Guarde o tipo escolhido. Ele será salvo no arquivo `produtos/{slug}/tipo.md`.
+Guarde o tipo escolhido. Ele será salvo no arquivo `meus-produtos/{slug}/tipo.md`.
 
 #### Passo 3. Gerar slug automaticamente
 
@@ -71,7 +71,7 @@ Vou criar o produto com o identificador: curso-ingles-fluente
 
 #### Passo 4. Verificar se já existe
 
-Verifique se já existe uma pasta `produtos/{slug}/`. Se existir, informe:
+Verifique se já existe uma pasta `meus-produtos/{slug}/`. Se existir, informe:
 ```
 Já existe um produto com esse identificador. Quer usar /produto-trocar para acessá-lo?
 ```
@@ -80,27 +80,35 @@ Já existe um produto com esse identificador. Quer usar /produto-trocar para ace
 
 Crie as seguintes pastas:
 ```
-produtos/{slug}/
-produtos/{slug}/entregas/
-produtos/{slug}/entregas/paginas/
-produtos/{slug}/entregas/anuncios/
-produtos/{slug}/entregas/emails/
-produtos/{slug}/entregas/copy-pagina/
-produtos/{slug}/entregas/conteudo-social/
-produtos/{slug}/entregas/criativos/
-produtos/{slug}/entregas/comercial/
-produtos/{slug}/entregas/textos-de-venda/
+meus-produtos/{slug}/
+meus-produtos/{slug}/entregas/
+meus-produtos/{slug}/entregas/paginas/
+meus-produtos/{slug}/entregas/anuncios/
+meus-produtos/{slug}/entregas/emails/
+meus-produtos/{slug}/entregas/copy-pagina/
+meus-produtos/{slug}/entregas/conteudo-social/
+meus-produtos/{slug}/entregas/criativos/
+meus-produtos/{slug}/entregas/comercial/
+meus-produtos/{slug}/entregas/textos-de-venda/
 ```
 
 #### Passo 6. Definir como produto ativo
 
-Salve o slug em `produtos/.ativo` (sobrescreva o conteúdo anterior).
+Salve o slug em `meus-produtos/.ativo` (sobrescreva o conteúdo anterior).
 
 #### Passo 7. Salvar o tipo do produto
 
-Salve o tipo escolhido em `produtos/{slug}/tipo.md`.
+Salve o tipo escolhido em `meus-produtos/{slug}/tipo.md`.
 
-#### Passo 8. Confirmar e sugerir próximo passo
+#### Passo 8. Atualizar o manifest do painel
+
+Rode no terminal para regenerar `meus-produtos/index.js` (o painel global em `painel.html` lê esse arquivo):
+
+```
+py -3 scripts/painel-atualizar.py
+```
+
+#### Passo 9. Confirmar e sugerir próximo passo
 
 ```
 Produto "{nome}" criado e ativado.
@@ -139,7 +147,7 @@ Pesquise e colete obrigatoriamente:
 - Resumo das reclamações do Reclame Aqui dos principais produtores (problemas reais de entrega, resultado, suporte)
 - Público real (demografias, comportamento de compra, canais de consumo)
 
-Salve o resultado em um arquivo temporário que será movido para `produtos/{slug}/pesquisa-mercado.md` assim que o produto for registrado.
+Salve o resultado em um arquivo temporário que será movido para `meus-produtos/{slug}/pesquisa-mercado.md` assim que o produto for registrado.
 
 #### Passo 3. Gerar 100 ideias de infoprodutos
 
@@ -186,9 +194,17 @@ Preço sugerido: R${valor} ({justificativa baseada nos concorrentes mapeados})
 
 Com a ideia aprovada, gere o slug, crie a estrutura de pastas, salve `tipo.md` e defina como ativo (mesmos passos 3 a 6 do Ramo 1).
 
-Mova ou salve a pesquisa de mercado em `produtos/{slug}/pesquisa-mercado.md`.
+Mova ou salve a pesquisa de mercado em `meus-produtos/{slug}/pesquisa-mercado.md`.
 
-#### Passo 6. Confirmar e sugerir próximo passo
+#### Passo 6. Atualizar o manifest do painel
+
+Rode no terminal para regenerar `meus-produtos/index.js`:
+
+```
+py -3 scripts/painel-atualizar.py
+```
+
+#### Passo 7. Confirmar e sugerir próximo passo
 
 ```
 Produto "{nome}" criado e ativado.

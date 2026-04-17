@@ -16,8 +16,8 @@ Cria o script completo do momento de venda dentro do evento. da transição do c
 ## O Que Fazer
 
 ### 1. Contexto
-Leia `entregas/.ativo`, depois `entregas/{ativo}/perfil.md` e `entregas/{ativo}/idconsumidor.md`.
-Se existir `entregas/{ativo}/c10x/oferta-*.md`, leia para usar os entregáveis, bônus e preço.
+Leia `meus-produtos/.ativo`, depois `meus-produtos/{ativo}/perfil.md` e `meus-produtos/{ativo}/idconsumidor.md`.
+Se existir `meus-produtos/{ativo}/entregas/c10x/oferta-*.md`, leia para usar os entregáveis, bônus e preço.
 
 ### 2. Entrevista (UMA pergunta por vez, com progresso visual)
 
@@ -194,7 +194,7 @@ Respostas curtas para as perguntas mais comuns após o pitch:
 ```
 
 ### 5. Salvar
-`entregas/{ativo}/c10x/pitch-palco-[produto].md`
+`meus-produtos/{ativo}/entregas/c10x/pitch-palco-[produto].md`
 
 ### 6. Próximo Passo
 "Pitch criado. Próximo: `/ht-follow-up` para montar a sequência de quem assistiu mas não comprou, ou `/ht-spin` para os scripts de venda 1:1."

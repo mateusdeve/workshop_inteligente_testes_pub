@@ -16,8 +16,8 @@ Monta a agenda completa do Retiro Online ou evento high ticket com timing, bloco
 ## O Que Fazer
 
 ### 1. Contexto
-Leia `entregas/.ativo`, depois `entregas/{ativo}/perfil.md`.
-Se existir `entregas/{ativo}/c10x/big-idea-*.md`, leia para alinhar com a promessa do evento.
+Leia `meus-produtos/.ativo`, depois `meus-produtos/{ativo}/perfil.md`.
+Se existir `meus-produtos/{ativo}/entregas/c10x/big-idea-*.md`, leia para alinhar com a promessa do evento.
 
 ### 2. Entrevista (UMA pergunta por vez, com progresso visual)
 
@@ -162,7 +162,7 @@ Resumo do evento:
 ```
 
 ### 5. Salvar
-`entregas/{ativo}/c10x/cronograma-[evento].md`
+`meus-produtos/{ativo}/entregas/c10x/cronograma-[evento].md`
 
 ### 6. Próximo Passo
 "Cronograma pronto. Próximo: `/ht-conteudo` para roteirizar os blocos de ensino, ou `/ht-pitch-palco` para criar o script do momento de venda."

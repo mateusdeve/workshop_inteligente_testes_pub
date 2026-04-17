@@ -12,9 +12,9 @@ Cria roteiros completos de VSL prontos para narração em áudio/vídeo, seguind
 ## Pré-requisito
 
 Antes de iniciar, leia:
-- `produtos/.ativo` — produto ativo
-- `produtos/{ativo}/perfil.md` — Quadro, Furadeira, Decorados, oferta, provas
-- `produtos/{ativo}/idconsumidor.md` — dores, objeções, linguagem do público
+- `meus-produtos/.ativo` — produto ativo
+- `meus-produtos/{ativo}/perfil.md` — Quadro, Furadeira, Decorados, oferta, provas
+- `meus-produtos/{ativo}/idconsumidor.md` — dores, objeções, linguagem do público
 
 Se algum arquivo não existir, oriente a criar com `/meu-produto` ou `/idconsumidor`.
 
@@ -234,11 +234,11 @@ Antes de mostrar o resultado, verifique e corrija:
 ```
 
 Se aprovado, salvar em:
-`produtos/{ativo}/entregas/textos-de-venda/vsl-[produto].md`
+`meus-produtos/{ativo}/entregas/textos-de-venda/vsl-[produto].md`
 
 Após salvar:
 ```
-VSL salva em produtos/{ativo}/entregas/textos-de-venda/vsl-[produto].md
+VSL salva em meus-produtos/{ativo}/entregas/textos-de-venda/vsl-[produto].md
 
 Próximos passos sugeridos:
 - /roteiro-de-video → adaptar para Reels 60s (versão curta desta VSL)

@@ -9,7 +9,7 @@ Gera **um único arquivo** com tudo em sequência:
 - Perguntas do quiz (Tela de Entrada + 10 perguntas SPIN com prompts de imagem e tipos variados)
 - Prompt técnico completo para o Lovable.dev (com as perguntas já embutidas no formato técnico)
 
-O arquivo é salvo em `entregas/{ativo}/quiz/quiz-[produto].md` e está pronto para colar diretamente no Lovable.dev.
+O arquivo é salvo em `meus-produtos/{ativo}/entregas/quiz/quiz-[produto].md` e está pronto para colar diretamente no Lovable.dev.
 
 ## Usage
 
@@ -43,7 +43,7 @@ O quiz é a ponte entre o anúncio e a venda do produto de entrada (Low Ticket).
 
 ## FASE 0 — VERIFICAÇÃO: QUIZ É O FORMATO CERTO?
 
-Antes de começar, aplique o framework de decisão com base no perfil do produto. Leia `entregas/.ativo` e `entregas/{ativo}/perfil.md`.
+Antes de começar, aplique o framework de decisão com base no perfil do produto. Leia `meus-produtos/.ativo` e `meus-produtos/{ativo}/perfil.md`.
 
 | Critério | Aponta para QUIZ | Aponta para PÁGINA |
 |---|---|---|
@@ -63,7 +63,7 @@ Se o quiz for confirmado como formato correto (ou o usuário insistir), continue
 
 ### 1. Contexto
 
-Leia `entregas/.ativo`, depois `entregas/{ativo}/perfil.md` e `entregas/{ativo}/idconsumidor.md`.
+Leia `meus-produtos/.ativo`, depois `meus-produtos/{ativo}/perfil.md` e `meus-produtos/{ativo}/idconsumidor.md`.
 
 Se `perfil.md` não existir, oriente a usar `/produto-editar` primeiro.
 
@@ -567,14 +567,14 @@ Substitua todo o conteúdo do exemplo do curso de francês pelo produto do aluno
 
 Salve o arquivo em:
 
-`entregas/{ativo}/quiz/quiz-[produto].md`
+`meus-produtos/{ativo}/entregas/quiz/quiz-[produto].md`
 
 ### 6. Entrega Final
 
 ```
 ✅ Quiz completo entregue. Arquivo salvo:
 
-📄 entregas/{ativo}/quiz/quiz-[produto].md
+📄 meus-produtos/{ativo}/entregas/quiz/quiz-[produto].md
 
 Próximo passo: abra o arquivo, copie todo o conteúdo e cole no Lovable.dev para construir o funil completo.
 ```

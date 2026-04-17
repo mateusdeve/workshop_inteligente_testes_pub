@@ -17,7 +17,7 @@ Pega uma página de captura pronta e conecta ao ActiveCampaign. Quando o lead pr
 
 Acione a skill `pagina-active` do plugin `workshop-marketing` e siga o roteiro:
 
-1. Ler `entregas/.ativo`. Se não houver produto, oriente a usar `/produto-novo`.
+1. Ler `meus-produtos/.ativo`. Se não houver produto, oriente a usar `/produto-novo`.
 2. Verificar `ACTIVE_API_URL` e `ACTIVE_API_KEY` no `.env`. Se não existirem, mostrar setup guiado (login no ActiveCampaign, Settings > Developer, copiar URL e Key, colar no chat). Salvar no `.env` silenciosamente.
 3. Coletar (uma pergunta por vez): qual página de captura, ID da lista, tag do lead, URL da página de obrigado.
 4. Testar a API buscando as listas disponíveis. Se o usuário não souber o ID da lista, mostrar a lista numerada e pedir pra escolher.

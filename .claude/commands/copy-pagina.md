@@ -19,7 +19,7 @@ Cria a copy completa da página de vendas e/ou a página HTML profissional com e
 
 ### 1. Contexto
 
-Leia `entregas/{ativo}/perfil.md` e `entregas/{ativo}/idconsumidor.md` se existir.
+Leia `meus-produtos/{ativo}/perfil.md` e `meus-produtos/{ativo}/idconsumidor.md` se existir.
 
 ### 2. Primeira Pergunta. O que criar
 
@@ -138,7 +138,7 @@ A copy da página de vendas **deve** ser salva com **títulos fixos** alinhados 
 
 ### A3. Geração em 2 Partes (16 blocos)
 
-Para garantir qualidade, SEMPRE gere em **duas partes** no **mesmo arquivo** `entregas/{ativo}/copy-pagina/copy-[produto].md`.
+Para garantir qualidade, SEMPRE gere em **duas partes** no **mesmo arquivo** `meus-produtos/{ativo}/entregas/copy-pagina/copy-[produto].md`.
 
 #### PARTE 1. Blocos 01 a 09
 
@@ -200,14 +200,14 @@ Só então apresente a copy corrigida e pergunte:
 
 ### A5. Salvar
 
-`entregas/{ativo}/copy-pagina/copy-[produto].md`
+`meus-produtos/{ativo}/entregas/copy-pagina/copy-[produto].md`
 
 **Obrigatório:** o arquivo deve conter os **16** títulos `## Bloco NN — …` (dois dígitos), na ordem do `template-copy-pagina-vendas.md`. Sem isso, a página HTML não pode ser preenchida de forma fiel à copy.
 
 ### A6. Próximo Passo
 
 ```
-Copy completa salva em entregas/{ativo}/copy-pagina/copy-[produto].md
+Copy completa salva em meus-produtos/{ativo}/entregas/copy-pagina/copy-[produto].md
 
 Quer que eu monte a página HTML agora com essa copy?
 
@@ -229,7 +229,7 @@ Se escolher 1, execute o Fluxo B usando a copy recém-gerada.
 
 **Se o tipo for página de vendas (8D):**
 
-1. Verificar se existe `entregas/{ativo}/copy-pagina/copy-{slug}.md` (slug = produto ativo ou nome acordado) **com** as seções `## Bloco 01` até `## Bloco 16` conforme `.claude/plugins/workshop-marketing/skills/paginas/references/template-copy-pagina-vendas.md`.
+1. Verificar se existe `meus-produtos/{ativo}/entregas/copy-pagina/copy-{slug}.md` (slug = produto ativo ou nome acordado) **com** as seções `## Bloco 01` até `## Bloco 16` conforme `.claude/plugins/workshop-marketing/skills/paginas/references/template-copy-pagina-vendas.md`.
 2. **Se o arquivo existir e tiver os 16 blocos:** esse arquivo é a **única fonte de texto** para preencher os templates HTML. Não inventar ofertas, preços, depoimentos ou argumentos que não estejam na copy aprovada. Só é permitido adaptar à estrutura do HTML (quebras, listas, negrito) e placeholders de mídia (`[Sua foto aqui]`, URL de vídeo, etc.).
 3. **Se não existir ou faltar bloco numerado:**
 
@@ -309,7 +309,7 @@ Tem um vídeo de vendas para a primeira dobra?
 (ex: "https://www.youtube.com/watch?v=XXXX". ou "ainda não tenho" para usar placeholder)
 ```
 
-Se escolheu **2. Captura** ou **3. Obrigado**, verificar ANTES se já existem páginas criadas em `entregas/{ativo}/paginas/`. Se existirem, perguntar:
+Se escolheu **2. Captura** ou **3. Obrigado**, verificar ANTES se já existem páginas criadas em `meus-produtos/{ativo}/entregas/paginas/`. Se existirem, perguntar:
 
 ```
 Encontrei estas páginas já criadas:
@@ -400,19 +400,19 @@ Resumo do que vou criar:
 
 **Fluxo preferido (vendas 8D): copiar template, depois copy na cópia**
 
-1. **Copiar o tema para a entrega** (antes de editar qualquer `code.html`): na raiz do repo, `py -3 scripts/workshop-copy-template-tema.py --tema {estilo}` (`{estilo}` = um dos cinco: `flat_claro`, `minimal_claro`, `glass_escuro`, `teal_claro`, `purple_escuro`). Usa `entregas/.ativo` ou `--slug nome-do-produto`. Saída: `entregas/{slug}/paginas/templates-{estilo}/` com todas as pastas `*_{estilo}` e `pagina_completa_{estilo}`. Se a pasta já existir, `--force` recopia do zero (**apaga** a cópia local já editada).
-2. **Trabalhar só nos blocos atômicos da cópia:** editar **apenas** `entregas/{slug}/paginas/templates-{estilo}/{nome_do_bloco}_{estilo}/code.html`. O texto vem de **`## Bloco NN`** em `copy-pagina/copy-{slug}.md` (B0). **Não** editar por padrão `.claude/plugins/.../references/templates/` (original do workshop; exceção: manutenção do plugin).
+1. **Copiar o tema para a entrega** (antes de editar qualquer `code.html`): na raiz do repo, `py -3 scripts/workshop-copy-template-tema.py --tema {estilo}` (`{estilo}` = um dos cinco: `flat_claro`, `minimal_claro`, `glass_escuro`, `teal_claro`, `purple_escuro`). Usa `meus-produtos/.ativo` ou `--slug nome-do-produto`. Saída: `meus-produtos/{slug}/entregas/paginas/templates-{estilo}/` com todas as pastas `*_{estilo}` e `pagina_completa_{estilo}`. Se a pasta já existir, `--force` recopia do zero (**apaga** a cópia local já editada).
+2. **Trabalhar só nos blocos atômicos da cópia:** editar **apenas** `meus-produtos/{slug}/entregas/paginas/templates-{estilo}/{nome_do_bloco}_{estilo}/code.html`. O texto vem de **`## Bloco NN`** em `copy-pagina/copy-{slug}.md` (B0). **Não** editar por padrão `.claude/plugins/.../references/templates/` (original do workshop; exceção: manutenção do plugin).
 3. **Segunda prova social (atenção):**
    - Temas **flat_claro** e **minimal_claro:** o merge usa **duas vezes** o mesmo tipo de bloco de provas (`provas2` = mesma família do primeiro bloco). Conteúdo pode ser diferente, **formato** é o mesmo.
    - Temas **glass_escuro**, **teal_claro** e **purple_escuro:** o segundo bloco **não** é cópia do primeiro. Preencher também `hero_{estilo}_depoimentos/code.html` quando o `build_merge.py` do tema exigir.
 4. **Fechar a página (merge):** na raiz do repositório (com a cópia já preenchida):
    ```bash
-   py -3 scripts/workshop-merge-pagina.py --tema {estilo} --templates-root entregas/{slug}/paginas/templates-{estilo} --copiar-entregas
+   py -3 scripts/workshop-merge-pagina.py --tema {estilo} --templates-root meus-produtos/{slug}/entregas/paginas/templates-{estilo} --copiar-entregas
    ```
-   No Linux/macOS pode ser `python3` em vez de `py -3`. Usa `entregas/.ativo` como slug do `vendas-{slug}.html`, salvo `--slug`.  
+   No Linux/macOS pode ser `python3` em vez de `py -3`. Usa `meus-produtos/.ativo` como slug do `vendas-{slug}.html`, salvo `--slug`.  
    **Sem cópia em entregas:** omitir `--templates-root` para mergear a partir do plugin (fluxo alternativo, não o padrão de entrega).  
    **Alternativa manual:** em `entregas/.../templates-{estilo}/pagina_completa_{estilo}/`, rodar `py -3 build_merge.py`, depois copiar `code.html` se não usar `--copiar-entregas`.
-5. **Entrega ao aluno:** com `--copiar-entregas`, o HTML final vai para `entregas/{slug}/paginas/vendas-{slug}.html`. Ajustes finais (título, meta, checkout, pixel) como na etapa de ajustes.
+5. **Entrega ao aluno:** com `--copiar-entregas`, o HTML final vai para `meus-produtos/{slug}/entregas/paginas/vendas-{slug}.html`. Ajustes finais (título, meta, checkout, pixel) como na etapa de ajustes.
 
 **Revisão de texto:** em cada bloco aplicar a **Etapa 0 (vícios proibidos)** do SKILL `paginas`. **Não** abrir o arquivo inteiro `.claude/commands/feedback-pagina.md` a cada seção (ele é pesado). Auditoria completa com Nav fica para quando o usuário usar `/feedback-pagina` ou pedir revisão profunda.
 
@@ -421,11 +421,11 @@ Resumo do que vou criar:
 > ⛔ **Não** montar um único HTML em `entregas/` colando seções em `<main id="page-sections">` (salvo exceção no §3-alt). **Não** gerar no chat o `pagina_completa_*/code.html` inteiro.  
 > ⛔ **NUNCA** gere a página inteira de uma vez no chat. Trabalhe **bloco a bloco**, com aprovação opcional entre blocos (o usuário pode dizer "ir direto à versão final" para pular pausas).
 
-**Base de caminhos (padrão):** `entregas/{slug}/paginas/templates-{estilo}/` após `workshop-copy-template-tema.py`. **Original do plugin (só manutenção):** `.claude/plugins/workshop-marketing/skills/paginas/references/templates/`
+**Base de caminhos (padrão):** `meus-produtos/{slug}/entregas/paginas/templates-{estilo}/` após `workshop-copy-template-tema.py`. **Original do plugin (só manutenção):** `.claude/plugins/workshop-marketing/skills/paginas/references/templates/`
 
 **Ordem dos blocos** (igual ao `build_merge.py` do tema `pagina_completa_{estilo}`). Substitua `{estilo}` pelo sufixo escolhido (ex.: `flat_claro`):
 
-| # | Fonte da copy (`copy-*.md`) | Pasta do bloco na **cópia** (`entregas/{slug}/paginas/templates-{estilo}/{pasta}/code.html`) |
+| # | Fonte da copy (`copy-*.md`) | Pasta do bloco na **cópia** (`meus-produtos/{slug}/entregas/paginas/templates-{estilo}/{pasta}/code.html`) |
 |---|-----------------------------|--------------------------------------------------------|
 | 1 | `## Bloco 01 — Hero` | `hero_{estilo}` |
 | 2 | `## Bloco 02 — Dor` | `dor_{estilo}` |
@@ -444,19 +444,19 @@ Resumo do que vou criar:
 | 15 | `## Bloco 15 — FAQ` | `faq_{estilo}` |
 | 16 | `## Bloco 16 — Oferta final` | `oferta_final_{estilo}` |
 
-**Passo 3a. Antes do primeiro bloco:** garantir que existe `entregas/{slug}/paginas/templates-{estilo}/` (rodar `workshop-copy-template-tema.py` se ainda não existir). Escolher o tema e anunciar: `Vou preencher os blocos na cópia em entregas/.../templates-[estilo], um por vez. Total: 16 blocos. Depois rodo o merge com --templates-root e entrego vendas-{slug}.html.`
+**Passo 3a. Antes do primeiro bloco:** garantir que existe `meus-produtos/{slug}/entregas/paginas/templates-{estilo}/` (rodar `workshop-copy-template-tema.py` se ainda não existir). Escolher o tema e anunciar: `Vou preencher os blocos na cópia em entregas/.../templates-[estilo], um por vez. Total: 16 blocos. Depois rodo o merge com --templates-root e entrego vendas-{slug}.html.`
 
 **Passo 3b. Loop para cada bloco (1 a 16):**
 
-1. Abrir `entregas/{ativo}/copy-pagina/copy-{slug}.md` e localizar **`## Bloco NN — …`** com o mesmo número do bloco atual (01 a 16). **Exceção B0 opção 3:** usar só `perfil.md` + entrevista, sem arquivo de 16 blocos.
-2. Abrir o `code.html` **da cópia** em `entregas/{slug}/paginas/templates-{estilo}/{pasta}/code.html` (tabela abaixo com nomes de pasta). Manter o **mesmo** HTML e CSS do arquivo; não reescrever o esqueleto.
+1. Abrir `meus-produtos/{ativo}/entregas/copy-pagina/copy-{slug}.md` e localizar **`## Bloco NN — …`** com o mesmo número do bloco atual (01 a 16). **Exceção B0 opção 3:** usar só `perfil.md` + entrevista, sem arquivo de 16 blocos.
+2. Abrir o `code.html` **da cópia** em `meus-produtos/{slug}/entregas/paginas/templates-{estilo}/{pasta}/code.html` (tabela abaixo com nomes de pasta). Manter o **mesmo** HTML e CSS do arquivo; não reescrever o esqueleto.
 3. Preencher o template com o **texto daquela seção da copy**, sem acrescentar promessas, preços ou depoimentos que não estejam na copy aprovada. Etapas 4 e 5 do SKILL `paginas` só para encaixe visual. Etapa 0 (anti-vícios) **antes** de salvar.
 4. **Salvar só esse arquivo atômico** (não um arquivo grande em `entregas/` ainda).
 5. Resumo curto ao usuário (sem colar HTML no chat). **1. Aprovar próximo bloco** / **2. Ajustar este bloco** (ou "ir direto à versão final" para não pausar mais).
 
 **Passo 3c. Após o bloco 16 salvo:**
 
-1. Rodar o merge e copiar para entregas (ver B1.5, passos 4 e 5). Preferir: `py -3 scripts/workshop-merge-pagina.py --tema {estilo} --templates-root entregas/{slug}/paginas/templates-{estilo} --copiar-entregas`
+1. Rodar o merge e copiar para entregas (ver B1.5, passos 4 e 5). Preferir: `py -3 scripts/workshop-merge-pagina.py --tema {estilo} --templates-root meus-produtos/{slug}/entregas/paginas/templates-{estilo} --copiar-entregas`
 2. **Etapa de ajustes (pós-merge):** seguir `references/etapa-ajustes-pagina.md` no SKILL `paginas` (checkout, preço, vídeo, autoridade, `<title>` e meta description no HTML em `entregas/`, segunda prova social se duplicada pelo tema, rodapé). O merge pode recolocar placeholders do shell do tema; reaplicar ajustes sempre que rodar o merge de novo.
 3. Checklist anti-vícios (Etapa 0 do SKILL `paginas`) no texto visível do arquivo em `entregas/`. Pixel só se o fluxo pedir (`/pagina-pixel`).
 
@@ -476,7 +476,7 @@ Página entregue no arquivo abaixo.
 ✅ Etapa de ajustes pós-merge (etapa-ajustes-pagina.md): checkout, SEO básico, placeholders críticos
 ✅ Checklist anti-vícios (Etapa 0) no HTML final
 
-Arquivo: entregas/{ativo}/paginas/vendas-[produto].html (ou nome acordado)
+Arquivo: meus-produtos/{ativo}/entregas/paginas/vendas-[produto].html (ou nome acordado)
 
 Próximos passos opcionais: /feedback-pagina (auditoria), /pagina-performance, /pagina-pixel, /pagina-checkout
 ```
@@ -516,11 +516,11 @@ São 3 passos. leva menos de 5 minutos:
 
 Quando o usuário colar o token:
 - Salvar em `.env`: `VERCEL_TOKEN=<token>`
-- Executar: `npx vercel --token <token> entregas/{ativo}/paginas --prod --yes --name {slug-do-produto}`
+- Executar: `npx vercel --token <token> meus-produtos/{ativo}/entregas/paginas --prod --yes --name {slug-do-produto}`
 
 **Se conta conectada:**
 ```bash
-npx vercel entregas/{ativo}/paginas --prod --yes --name {slug-do-produto}
+npx vercel meus-produtos/{ativo}/entregas/paginas --prod --yes --name {slug-do-produto}
 ```
 
 Informar ao usuário:
@@ -533,7 +533,7 @@ studio.youtube.com → Conteúdo → editar o vídeo → Mais opções → Permi
 
 #### Atualizar a página (nova versão após edições)
 ```bash
-npx vercel entregas/{ativo}/paginas --prod --yes --name {slug-do-produto}
+npx vercel meus-produtos/{ativo}/entregas/paginas --prod --yes --name {slug-do-produto}
 ```
 
 ## B4. Revisão e Correção Automática da Copy no HTML (OBRIGATÓRIO antes de salvar)
@@ -568,9 +568,9 @@ Leia `.env` e verifique `META_PIXEL_ID`. Se existir, insira o snippet do Faceboo
 
 ## B6. Salvar
 
-- `entregas/{ativo}/paginas/vendas-[produto].html`
-- `entregas/{ativo}/paginas/captura-[produto].html`
-- `entregas/{ativo}/paginas/obrigado-[produto].html`
+- `meus-produtos/{ativo}/entregas/paginas/vendas-[produto].html`
+- `meus-produtos/{ativo}/entregas/paginas/captura-[produto].html`
+- `meus-produtos/{ativo}/entregas/paginas/obrigado-[produto].html`
 
 **SEMPRE** criar também `index.html` como cópia do arquivo gerado na mesma pasta.
 

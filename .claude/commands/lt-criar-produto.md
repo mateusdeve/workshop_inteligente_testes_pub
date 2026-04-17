@@ -18,12 +18,12 @@ Cria o conteúdo real do produto digital (o que o comprador vai receber), confir
 ### 1. Contexto
 
 Leia:
-- `entregas/.ativo` → se não existir, oriente a usar `/produto-novo` primeiro
-- `entregas/{ativo}/perfil.md` → se não existir, oriente a usar `/produto-editar` primeiro
+- `meus-produtos/.ativo` → se não existir, oriente a usar `/produto-novo` primeiro
+- `meus-produtos/{ativo}/perfil.md` → se não existir, oriente a usar `/produto-editar` primeiro
 
 ### 2. Verificar formato
 
-Leia `entregas/{ativo}/perfil.md` e identifique se o formato do produto já está definido.
+Leia `meus-produtos/{ativo}/perfil.md` e identifique se o formato do produto já está definido.
 
 **Se o formato já estiver no perfil**, confirme com o usuário:
 

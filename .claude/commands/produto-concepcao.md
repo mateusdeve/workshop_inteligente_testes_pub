@@ -32,7 +32,7 @@ Isso vale para TODAS as perguntas do fluxo. Se o aluno não sabe responder, voc�
 
 ### Regra da pesquisa de mercado (UMA vez, nunca repetir)
 
-A pesquisa de mercado é feita **uma única vez** e salva em `produtos/{ativo}/pesquisa-mercado.md`. Antes de qualquer coisa, verifique se esse arquivo já existe:
+A pesquisa de mercado é feita **uma única vez** e salva em `meus-produtos/{ativo}/pesquisa-mercado.md`. Antes de qualquer coisa, verifique se esse arquivo já existe:
 
 - **Se existir:** leia o arquivo e use os dados em todo o fluxo. Nunca refaça a pesquisa.
 - **Se não existir:** rode a pesquisa completa no Bloco 3 e salve o arquivo. A partir daí, todos os blocos seguintes leem o arquivo salvo.
@@ -47,9 +47,9 @@ Os blocos abaixo são uma referência de ordem, não uma camisa de força. Se a 
 
 ### 1. Verificar perfil existente
 
-Leia `produtos/.ativo` para obter o produto ativo. Leia `produtos/{ativo}/perfil.md`. Se existir, mostre resumo e pergunte se quer atualizar.
+Leia `meus-produtos/.ativo` para obter o produto ativo. Leia `meus-produtos/{ativo}/perfil.md`. Se existir, mostre resumo e pergunte se quer atualizar.
 
-Verifique também se `produtos/{ativo}/pesquisa-mercado.md` já existe (pesquisa feita anteriormente no `/produto-novo`).
+Verifique também se `meus-produtos/{ativo}/pesquisa-mercado.md` já existe (pesquisa feita anteriormente no `/produto-novo`).
 
 ### 2. Entrevista guiada (UMA pergunta por vez, com progresso visual)
 
@@ -65,7 +65,7 @@ Mostre progresso ao concluir.
 
 **Bloco 2/6. Furadeira (Mecanismo Único):**
 
-**Detecção de tipo de produto:** Verifique em `produtos/{ativo}/tipo.md` se o produto é Low Ticket (R$7-97) ou se o formato é planilha, checklist, e-book, agente GPT, template ou desafio. Se for produto de entrada, siga a regra abaixo. Se for Middle Ticket, siga o fluxo padrão.
+**Detecção de tipo de produto:** Verifique em `meus-produtos/{ativo}/tipo.md` se o produto é Low Ticket (R$7-97) ou se o formato é planilha, checklist, e-book, agente GPT, template ou desafio. Se for produto de entrada, siga a regra abaixo. Se for Middle Ticket, siga o fluxo padrão.
 
 **Se for produto Low Ticket:** A Furadeira É o próprio produto/ferramenta. Não pergunte sobre macroetapas. Pergunte: "Qual ferramenta o comprador vai receber? O que ela faz? Como ele usa no dia a dia?" Registre no perfil: "A ferramenta é a Furadeira. [tipo da ferramenta + o que resolve + como o comprador usa]". Depois siga para o Bloco 3.
 
@@ -110,9 +110,9 @@ Avise o aluno:
 Execute o fluxo completo da skill `furadeira-visual`:
 1. Pergunte a paleta de cores preferida (1 pergunta numerada)
 2. Gere o HTML da trilha visual com o template da skill
-3. Salve em `produtos/{ativo}/entregas/furadeira-visual.html`
+3. Salve em `meus-produtos/{ativo}/entregas/furadeira-visual.html`
 4. Converta para PNG: tente via `playwright`, `puppeteer` ou script `scripts/html-to-png.py` se disponível no ambiente
-5. Se a conversão funcionar: salve em `produtos/{ativo}/entregas/furadeira-visual.png` e confirme os dois caminhos
+5. Se a conversão funcionar: salve em `meus-produtos/{ativo}/entregas/furadeira-visual.png` e confirme os dois caminhos
 6. Se a conversão falhar: salve apenas o HTML e informe: "A versão HTML está salva. Para exportar como imagem, abra no navegador e use Ctrl+P → Salvar como PDF, ou Print Screen."
 7. Registre os caminhos gerados no `perfil.md` ao final (campos: `furadeira_html` e `furadeira_png`)
 
@@ -120,7 +120,7 @@ Só siga para o Bloco 3 após confirmar que o HTML foi salvo.
 
 **Bloco 3/6. Pesquisa de Mercado + Identidades e Posicionamento:**
 
-**VERIFIQUE PRIMEIRO:** se `produtos/{ativo}/pesquisa-mercado.md` já existe (criado no `/produto-novo`), leia o arquivo e use os dados. Não faça nova pesquisa.
+**VERIFIQUE PRIMEIRO:** se `meus-produtos/{ativo}/pesquisa-mercado.md` já existe (criado no `/produto-novo`), leia o arquivo e use os dados. Não faça nova pesquisa.
 
 Se o arquivo não existir, rode agora:
 
@@ -142,7 +142,7 @@ Pesquise e colete obrigatoriamente:
 - Público real (demografias, comportamento de compra, canais de consumo)
 - Faixa de preço sugerida com justificativa baseada nos concorrentes
 
-Salve tudo em `produtos/{ativo}/pesquisa-mercado.md`.
+Salve tudo em `meus-produtos/{ativo}/pesquisa-mercado.md`.
 
 **A partir daqui, todos os blocos seguintes usam os dados desse arquivo. Nenhuma nova busca é feita.**
 
@@ -202,7 +202,7 @@ Apresente resumo completo de tudo que foi definido/gerado e peça confirmação 
 
 ### 4. Salvar Perfil
 
-Salve em `produtos/{ativo}/perfil.md` com a estrutura:
+Salve em `meus-produtos/{ativo}/perfil.md` com a estrutura:
 
 ```markdown
 # Perfil do Negócio
@@ -212,8 +212,8 @@ Salve em `produtos/{ativo}/perfil.md` com a estrutura:
 
 ## Furadeira (Método)
 **Nome do Método:** [nome]
-**Furadeira HTML:** produtos/{ativo}/entregas/furadeira-visual.html
-**Furadeira PNG:** produtos/{ativo}/entregas/furadeira-visual.png (ou "não gerado" se falhou)
+**Furadeira HTML:** meus-produtos/{ativo}/entregas/furadeira-visual.html
+**Furadeira PNG:** meus-produtos/{ativo}/entregas/furadeira-visual.png (ou "não gerado" se falhou)
 1. **[Macroetapa]**. [microetapas]
 2. **[Macroetapa]**. [microetapas]
 3. **[Macroetapa]**. [microetapas]
@@ -280,7 +280,7 @@ Estrutura oficial: 7 categorias com exatamente 10 itens cada (totalizando 70 ite
 ### 5. Próximo Passo
 
 ```
-Perfil salvo em produtos/{ativo}/perfil.md.
+Perfil salvo em meus-produtos/{ativo}/perfil.md.
 
 Próximo passo obrigatório: /produto-consumidor para detalhar a identidade do consumidor
 e gerar o Painel de Entregas completo.

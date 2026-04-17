@@ -17,7 +17,7 @@ Transforma copy comum em copy memorável usando os 26 Elementos Literários do L
 
 ### 1. Contexto
 
-Leia `entregas/.ativo` e depois `entregas/{ativo}/perfil.md` e `entregas/{ativo}/idconsumidor.md` se existirem. Use o Quadro, Urgências Ocultas e tom da marca para calibrar as sugestões.
+Leia `meus-produtos/.ativo` e depois `meus-produtos/{ativo}/perfil.md` e `meus-produtos/{ativo}/idconsumidor.md` se existirem. Use o Quadro, Urgências Ocultas e tom da marca para calibrar as sugestões.
 
 Leia também `.claude/plugins/workshop-marketing/skills/elementos-literarios/SKILL.md` para ter os 26 elementos completos na cabeça.
 
@@ -129,7 +129,7 @@ Mostre as variações e pergunte:
 
 ### 7. Entrega
 
-Se o aluno escolher salvar, salve em `entregas/{ativo}/copy-pagina/elementos-literarios-{data}.md` com:
+Se o aluno escolher salvar, salve em `meus-produtos/{ativo}/entregas/copy-pagina/elementos-literarios-{data}.md` com:
 - Contexto original (copy anterior ou briefing)
 - Formato de uso
 - Variação escolhida e elemento aplicado

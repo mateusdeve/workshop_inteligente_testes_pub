@@ -16,8 +16,8 @@ Monta a estrutura completa da oferta do produto high ticket: o que o aluno receb
 ## O Que Fazer
 
 ### 1. Contexto
-Leia `entregas/.ativo`, depois `entregas/{ativo}/perfil.md` e `entregas/{ativo}/idconsumidor.md`.
-Se existir `entregas/{ativo}/c10x/big-idea-*.md`, leia também para usar a transformação já definida.
+Leia `meus-produtos/.ativo`, depois `meus-produtos/{ativo}/perfil.md` e `meus-produtos/{ativo}/idconsumidor.md`.
+Se existir `meus-produtos/{ativo}/entregas/c10x/big-idea-*.md`, leia também para usar a transformação já definida.
 
 ### 2. Entrevista (UMA pergunta por vez, com progresso visual)
 
@@ -160,7 +160,7 @@ Bloco de fechamento em formato de script:
 ```
 
 ### 5. Salvar
-`entregas/{ativo}/c10x/oferta-[produto].md`
+`meus-produtos/{ativo}/entregas/c10x/oferta-[produto].md`
 
 ### 6. Próximo Passo
 "Oferta estruturada. Próximo passo: `/ht-cronograma` para montar a agenda do evento, ou `/ht-pagina-inscricao` para criar a página de captação."

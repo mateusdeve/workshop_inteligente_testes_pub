@@ -16,10 +16,10 @@ Cria produtos low ticket usando a metodologia low ticket do VTSD: produto de ent
 ## O Que Fazer
 
 ### 1. Contexto
-Leia `entregas/{ativo}/perfil.md`. Se não existir, oriente a usar `/produto-editar` primeiro.
+Leia `meus-produtos/{ativo}/perfil.md`. Se não existir, oriente a usar `/produto-editar` primeiro.
 Consulte `.claude/plugins/workshop-marketing/skills/vtsd-completo/SKILL.md` (Módulo 10: low ticket).
 
-Verifique também se existe `entregas/{ativo}/pesquisa-mercado.md`. Se NÃO existir (ou tiver mais de 90 dias), acione a skill `pesquisa-mercado` antes de qualquer sugestão de preço, oferta, ângulo de quiz ou anúncio. É obrigatória. A pesquisa alimenta: sugestão de preço low ticket (baseada em faixa real do nicho), ângulos do quiz (baseados em assuntos quentes e objeções reais), copy dos anúncios (padrões virais mapeados) e copy da página (objeções reais do Reclame Aqui).
+Verifique também se existe `meus-produtos/{ativo}/pesquisa-mercado.md`. Se NÃO existir (ou tiver mais de 90 dias), acione a skill `pesquisa-mercado` antes de qualquer sugestão de preço, oferta, ângulo de quiz ou anúncio. É obrigatória. A pesquisa alimenta: sugestão de preço low ticket (baseada em faixa real do nicho), ângulos do quiz (baseados em assuntos quentes e objeções reais), copy dos anúncios (padrões virais mapeados) e copy da página (objeções reais do Reclame Aqui).
 
 ### 2. Entrevista (UMA pergunta por vez, com progresso visual)
 
@@ -199,11 +199,11 @@ Estrutura do produto:
 
 | Material | Destino |
 | --- | --- |
-| Página final do quiz (HTML) | `entregas/{ativo}/entregas/{ativo}/paginas/quiz-[produto].html` |
-| Anúncios low ticket | `entregas/{ativo}/anuncios/caixa-rapido-[produto].md` |
-| Produto desafio | `entregas/{ativo}/textos-de-venda/desafio-[produto].md` |
-| Copy Hotmart/Kiwify | `entregas/{ativo}/textos-de-venda/copy-plataforma-[produto].md` |
-| Agente GPT (estrutura) | `entregas/{ativo}/textos-de-venda/agente-gpt-[produto].md` |
+| Página final do quiz (HTML) | `meus-produtos/{ativo}/entregas/meus-produtos/{ativo}/entregas/paginas/quiz-[produto].html` |
+| Anúncios low ticket | `meus-produtos/{ativo}/entregas/anuncios/caixa-rapido-[produto].md` |
+| Produto desafio | `meus-produtos/{ativo}/entregas/textos-de-venda/desafio-[produto].md` |
+| Copy Hotmart/Kiwify | `meus-produtos/{ativo}/entregas/textos-de-venda/copy-plataforma-[produto].md` |
+| Agente GPT (estrutura) | `meus-produtos/{ativo}/entregas/textos-de-venda/agente-gpt-[produto].md` |
 
 ### 5. Próximo Passo
 "Produto low ticket criado. Use `/copy-anuncio` para criar mais variações de anúncios, ou `/estrategia-funil` para mapear o funil completo com upsell."

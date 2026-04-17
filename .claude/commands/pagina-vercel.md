@@ -17,10 +17,10 @@ Publica uma página HTML local diretamente na Vercel e devolve o link público p
 
 Acione a skill `pagina-vercel` do plugin `workshop-marketing` e siga o roteiro:
 
-1. Ler `entregas/.ativo`. Se não houver produto, oriente a usar `/produto-novo`.
+1. Ler `meus-produtos/.ativo`. Se não houver produto, oriente a usar `/produto-novo`.
 2. Verificar `VERCEL_API_TOKEN` no `.env`. Se não existir, mostrar setup guiado (cadastro em vercel.com > Settings > Tokens, colar o token no chat). O assistente salva no `.env` automaticamente, nunca pede pro usuário abrir o arquivo.
 3. Coletar (uma pergunta por vez): qual página, nome do projeto na Vercel, conta pessoal ou time, modo (novo projeto ou nova versão de projeto existente).
-4. Se já existe `entregas/{ativo}/.vercel` com `project_id`, oferecer publicar nova versão do projeto anterior.
+4. Se já existe `meus-produtos/{ativo}/entregas/.vercel` com `project_id`, oferecer publicar nova versão do projeto anterior.
 5. Mostrar resumo e pedir confirmação:
    ```
    1. Publicar
@@ -29,7 +29,7 @@ Acione a skill `pagina-vercel` do plugin `workshop-marketing` e siga o roteiro:
 6. Publicar via `curl` POST em `https://api.vercel.com/v13/deployments` com payload no formato `{name, files: [{file, data}], target: "production"}`. Usar arquivo de payload temporário pra evitar problema de tamanho. Apagar depois.
 7. Se o deploy voltar como `QUEUED` ou `BUILDING`, fazer polling em `GET /v13/deployments/{id}` até virar `READY` (máximo 30 segundos).
 8. Tratar erros de API (até 3 tentativas com ajuste). Se persistir, mostrar erro completo e perguntar como prosseguir.
-9. Salvar histórico em `entregas/{ativo}/.vercel` e atualizar `entregas/{ativo}/paginas/.vercel-link.md` com o link público.
+9. Salvar histórico em `meus-produtos/{ativo}/entregas/.vercel` e atualizar `meus-produtos/{ativo}/entregas/paginas/.vercel-link.md` com o link público.
 10. Mostrar resumo final com URL pública (`https://{projeto}.vercel.app`) e sugerir próximos passos: usar o link no `/copy-anuncio` e em `/copy-emails`.
 
 ## Regras Resumidas

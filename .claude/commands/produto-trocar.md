@@ -5,7 +5,7 @@ description: Listar os produtos cadastrados e trocar o produto ativo.
 
 # Trocar Produto. Selecionar Produto Ativo
 
-Lista todos os produtos cadastrados em `entregas/` e permite trocar o produto ativo.
+Lista todos os produtos cadastrados em `meus-produtos/` e permite trocar o produto ativo.
 
 ## Usage
 
@@ -17,15 +17,15 @@ Lista todos os produtos cadastrados em `entregas/` e permite trocar o produto at
 
 ### 1. Ler produto ativo atual
 
-Leia `entregas/.ativo` para saber qual produto está ativo agora. Use este valor **somente** para marcar o produto ativo na listagem. não use para descobrir os outros produtos.
+Leia `meus-produtos/.ativo` para saber qual produto está ativo agora. Use este valor **somente** para marcar o produto ativo na listagem. não use para descobrir os outros produtos.
 
 ### 2. Descobrir todos os produtos cadastrados
 
-Use **Glob** com o padrão `entregas/*/perfil.md` para encontrar todos os produtos que têm perfil cadastrado.
+Use **Glob** com o padrão `meus-produtos/*/perfil.md` para encontrar todos os produtos que têm perfil cadastrado.
 
-Em seguida, use **Glob** com o padrão `entregas/*/` para detectar pastas que existem mas ainda não têm `perfil.md`.
+Em seguida, use **Glob** com o padrão `meus-produtos/*/` para detectar pastas que existem mas ainda não têm `perfil.md`. Ignore pastas que começam com `_` (ex: `_legado`) e o arquivo `index.js`.
 
-**Nunca** assuma que só existe o produto que está em `.ativo`. Sempre varre toda a pasta `entregas/` para descobrir os produtos disponíveis.
+**Nunca** assuma que só existe o produto que está em `.ativo`. Sempre varre toda a pasta `meus-produtos/` para descobrir os produtos disponíveis.
 
 Para cada pasta encontrada, mostre:
 - Nome do produto (leia a linha do Quadro do `perfil.md` se existir, senão mostre só o slug)
@@ -44,7 +44,7 @@ Digite o número do produto que quer ativar, ou 0 para cancelar:
 
 ### 3. Se não houver produtos
 
-Se `entregas/` estiver vazio (só tem `.ativo` ou está vazia), informe:
+Se `meus-produtos/` não tiver subpastas de produto (só tem `.ativo`, `index.js` ou `_legado/`), informe:
 ```
 Você ainda não tem produtos cadastrados.
 Use /produto-novo para criar seu primeiro produto.
@@ -53,19 +53,28 @@ Use /produto-novo para criar seu primeiro produto.
 ### 4. Ativar o produto escolhido
 
 Após o aluno digitar o número:
-- Salve o slug correspondente em `entregas/.ativo` (sobrescreva)
-- Confirme:
+- Salve o slug correspondente em `meus-produtos/.ativo` (sobrescreva)
+
+### 5. Atualizar o manifest do painel
+
+Rode no terminal para atualizar `meus-produtos/index.js` (o painel global usa esse arquivo para saber o produto ativo):
+
+```
+py -3 scripts/painel-atualizar.py
+```
+
+### 6. Confirmar e sugerir próximo passo
 
 ```
 Produto ativado: {nome/slug}
 Todos os próximos comandos usarão este produto.
 
-Quer continuar com /produto-editar para editar o perfil, ou já ir para /copy-pagina?
+Quer continuar com /produto-concepcao para editar o perfil, ou já ir para /copy-pagina?
 ```
 
 ### 5. Se o produto escolhido não tiver perfil
 
-Se `entregas/{slug}/perfil.md` não existir:
+Se `meus-produtos/{slug}/perfil.md` não existir:
 ```
 Este produto ainda não tem perfil cadastrado.
 Use /produto-editar para cadastrar o Quadro, Furadeira e as 3 Identidades.

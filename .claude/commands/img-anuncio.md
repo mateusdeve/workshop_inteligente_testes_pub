@@ -18,7 +18,7 @@ Gera imagens prontas para usar em anuncios do Instagram e Facebook. Pesquisa ref
 ### 0. Contexto e Verificacao de API
 
 **Ler contexto do produto:**
-Leia `entregas/.ativo`, depois `entregas/{ativo}/perfil.md` e `entregas/{ativo}/idconsumidor.md` (se existir).
+Leia `meus-produtos/.ativo`, depois `meus-produtos/{ativo}/perfil.md` e `meus-produtos/{ativo}/idconsumidor.md` (se existir).
 
 **Verificar API de geracao de imagem:**
 
@@ -295,10 +295,10 @@ O router (`scripts/openrouter_model_router.py`) analisa cada prompt e escolhe o 
 Gerar um arquivo JSON de config com os slides (o assistente gera automaticamente apos aprovacao da copy). Depois rodar:
 
 ```bash
-py -3 scripts/generate-creative.py --config entregas/{ativo}/anuncios/{arquivo}.json --dry-run
-py -3 scripts/generate-creative.py --config entregas/{ativo}/anuncios/{arquivo}.json
-py -3 scripts/generate-creative.py --config entregas/{ativo}/anuncios/{arquivo}.json --force-model google/gemini-3.1-flash-image-preview
-py -3 scripts/generate-creative.py --config entregas/{ativo}/anuncios/{arquivo}.json --skip-ai
+py -3 scripts/generate-creative.py --config meus-produtos/{ativo}/entregas/anuncios/{arquivo}.json --dry-run
+py -3 scripts/generate-creative.py --config meus-produtos/{ativo}/entregas/anuncios/{arquivo}.json
+py -3 scripts/generate-creative.py --config meus-produtos/{ativo}/entregas/anuncios/{arquivo}.json --force-model google/gemini-3.1-flash-image-preview
+py -3 scripts/generate-creative.py --config meus-produtos/{ativo}/entregas/anuncios/{arquivo}.json --skip-ai
 ```
 
 Compativel com Windows (Edge/Chrome), Mac (Chrome/Edge) e Linux (Chrome/Chromium).
@@ -350,12 +350,12 @@ Apos gerar e salvar as imagens:
 ```
 Imagens geradas e salvas:
 
-- entregas/{ativo}/criativos/img-anuncio-v1-{produto}.png
-- entregas/{ativo}/criativos/img-anuncio-v2-{produto}.png
-- entregas/{ativo}/criativos/img-anuncio-v3-{produto}.png
+- meus-produtos/{ativo}/entregas/criativos/img-anuncio-v1-{produto}.png
+- meus-produtos/{ativo}/entregas/criativos/img-anuncio-v2-{produto}.png
+- meus-produtos/{ativo}/entregas/criativos/img-anuncio-v3-{produto}.png
 
 Briefing criativo salvo em:
-- entregas/{ativo}/criativos/briefing-anuncio-{produto}.md
+- meus-produtos/{ativo}/entregas/criativos/briefing-anuncio-{produto}.md
 
 Proximo passo: Use `/copy-anuncio` para criar a copy (texto) dos anuncios
 que vao acompanhar essas imagens.

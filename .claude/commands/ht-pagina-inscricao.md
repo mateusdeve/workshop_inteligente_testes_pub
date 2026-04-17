@@ -16,8 +16,8 @@ Cria a copy e página HTML da página de inscrição do evento high ticket. Estr
 ## O Que Fazer
 
 ### 1. Contexto
-Leia `entregas/.ativo`, depois `entregas/{ativo}/perfil.md` e `entregas/{ativo}/idconsumidor.md`.
-Se existir `entregas/{ativo}/c10x/big-idea-*.md`, leia para usar a promessa e o mote.
+Leia `meus-produtos/.ativo`, depois `meus-produtos/{ativo}/perfil.md` e `meus-produtos/{ativo}/idconsumidor.md`.
+Se existir `meus-produtos/{ativo}/entregas/c10x/big-idea-*.md`, leia para usar a promessa e o mote.
 
 ### 2. Entrevista (UMA pergunta por vez, com progresso visual)
 
@@ -146,8 +146,8 @@ Criar página HTML responsiva, arquivo único, sem dependências externas (excet
 ```
 
 ### 5. Salvar
-Copy: `entregas/{ativo}/c10x/copy-inscricao-[evento].md`
-HTML: `entregas/{ativo}/paginas/inscricao-[evento].html`
+Copy: `meus-produtos/{ativo}/entregas/c10x/copy-inscricao-[evento].md`
+HTML: `meus-produtos/{ativo}/entregas/paginas/inscricao-[evento].html`
 
 ### 6. Próximo Passo
 "Página de inscrição pronta. Próximo: `/ht-anuncios` para criar os anúncios que vão trazer inscritos, ou `/ht-comunicacao-pre` para preparar a comunicação antes do evento."

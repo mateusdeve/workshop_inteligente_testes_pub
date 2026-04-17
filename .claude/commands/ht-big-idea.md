@@ -16,9 +16,9 @@ Cria a Big Idea completa do evento high ticket: promessa, mote e posicionamento 
 ## O Que Fazer
 
 ### 1. Contexto
-Leia `entregas/.ativo`, depois `entregas/{ativo}/perfil.md` e `entregas/{ativo}/idconsumidor.md`.
+Leia `meus-produtos/.ativo`, depois `meus-produtos/{ativo}/perfil.md` e `meus-produtos/{ativo}/idconsumidor.md`.
 
-Verifique `entregas/{ativo}/pesquisa-mercado.md`. Se não existir ou tiver mais de 90 dias, acione a skill `pesquisa-mercado` antes de criar a Big Idea. A pesquisa é obrigatória: ela traz concorrentes do nicho high ticket, faixa de preço praticada, promessas usadas no mercado (para você diferenciar a Big Idea do que já existe) e objeções reais que a Big Idea precisa antecipar.
+Verifique `meus-produtos/{ativo}/pesquisa-mercado.md`. Se não existir ou tiver mais de 90 dias, acione a skill `pesquisa-mercado` antes de criar a Big Idea. A pesquisa é obrigatória: ela traz concorrentes do nicho high ticket, faixa de preço praticada, promessas usadas no mercado (para você diferenciar a Big Idea do que já existe) e objeções reais que a Big Idea precisa antecipar.
 
 ### 2. Entrevista (UMA pergunta por vez, com progresso visual)
 
@@ -144,7 +144,7 @@ Mostrar os 3 elementos gerados e perguntar:
 ```
 
 ### 5. Salvar
-`entregas/{ativo}/c10x/big-idea-[evento].md`
+`meus-produtos/{ativo}/entregas/c10x/big-idea-[evento].md`
 
 ### 6. Próximo Passo
 "Big Idea criada. Próximo passo: `/ht-oferta` para estruturar o que o aluno recebe e o preço."

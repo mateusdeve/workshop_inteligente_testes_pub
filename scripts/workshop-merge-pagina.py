@@ -1,15 +1,15 @@
 # -*- coding: utf-8 -*-
 """
 Regenera a página completa VTSD via build_merge.py do tema escolhido e,
-opcionalmente, copia para entregas/{slug}/paginas/vendas-{slug}.html.
+opcionalmente, copia para meus-produtos/{slug}/entregas/paginas/vendas-{slug}.html.
 
 Uso (na raiz do repositório):
   python scripts/workshop-merge-pagina.py --tema flat_claro
   python scripts/workshop-merge-pagina.py --tema glass_escuro --copiar-entregas
   python scripts/workshop-merge-pagina.py --tema teal_claro --copiar-entregas --slug meu-produto
 
-  Após copiar templates para entregas com workshop-copy-template-tema.py:
-  python scripts/workshop-merge-pagina.py --tema flat_claro --templates-root entregas/meu-produto/paginas/templates-flat_claro --copiar-entregas
+  Após copiar templates com workshop-copy-template-tema.py:
+  python scripts/workshop-merge-pagina.py --tema flat_claro --templates-root meus-produtos/meu-produto/entregas/paginas/templates-flat_claro --copiar-entregas
 """
 from __future__ import annotations
 
@@ -53,12 +53,12 @@ def main() -> None:
     p.add_argument(
         "--copiar-entregas",
         action="store_true",
-        help="Copia code.html para entregas/{slug}/paginas/vendas-{slug}.html",
+        help="Copia code.html para meus-produtos/{slug}/entregas/paginas/vendas-{slug}.html",
     )
     p.add_argument(
         "--slug",
         default=None,
-        help="Slug do produto para pasta e nome do arquivo (padrão: conteúdo de entregas/.ativo)",
+        help="Slug do produto para pasta e nome do arquivo (padrão: conteúdo de meus-produtos/.ativo)",
     )
     p.add_argument(
         "--templates-root",
@@ -90,17 +90,17 @@ def main() -> None:
 
     slug = args.slug
     if not slug:
-        ativo = ROOT / "entregas" / ".ativo"
+        ativo = ROOT / "meus-produtos" / ".ativo"
         if ativo.is_file():
             slug = ativo.read_text(encoding="utf-8").strip()
     if not slug:
         print(
-            "Defina --slug ou crie entregas/.ativo com o identificador do produto.",
+            "Defina --slug ou crie meus-produtos/.ativo com o identificador do produto.",
             file=sys.stderr,
         )
         sys.exit(2)
 
-    dest_dir = ROOT / "entregas" / slug / "paginas"
+    dest_dir = ROOT / "meus-produtos" / slug / "entregas" / "paginas"
     dest_dir.mkdir(parents=True, exist_ok=True)
     dest = dest_dir / f"vendas-{slug}.html"
     shutil.copy2(out_html, dest)

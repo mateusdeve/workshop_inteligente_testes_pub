@@ -375,9 +375,9 @@ Primeiro entregar a copy corrigida (Opção 1), pedir aprovação. Depois gerar 
 **Varredura final antes de salvar o HTML:**
 Executar a varredura de vícios proibidos em todo o texto visível da página. Nenhum HTML pode ser salvo sem passar por essa revisão.
 
-Salvar em: `entregas/{ativo}/paginas/low-ticket-corrigida-[produto].html`
+Salvar em: `meus-produtos/{ativo}/entregas/paginas/low-ticket-corrigida-[produto].html`
 
-Após salvar: "Pronto. Sua página corrigida foi salva em `entregas/{ativo}/paginas/low-ticket-corrigida-[produto].html`. Abra no navegador para visualizar."
+Após salvar: "Pronto. Sua página corrigida foi salva em `meus-produtos/{ativo}/entregas/paginas/low-ticket-corrigida-[produto].html`. Abra no navegador para visualizar."
 
 ---
 

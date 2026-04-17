@@ -17,7 +17,7 @@ Agente especialista em analise e otimizacao de campanhas de trafego pago para pr
 
 ### 1. Contexto
 
-Leia `entregas/{ativo}/perfil.md` para saber o valor do produto (se disponivel).
+Leia `meus-produtos/{ativo}/perfil.md` para saber o valor do produto (se disponivel).
 Consulte `.claude/plugins/workshop-marketing/skills/trafego-pago/SKILL.md` para referencia de metricas.
 
 ### 2. Coleta de Dados
@@ -273,7 +273,7 @@ Apos apresentar o diagnostico:
 3. Analisar outra planilha
 ```
 
-Salvar em: `entregas/{ativo}/trafego/otimizacao-metaads-[data].md`
+Salvar em: `meus-produtos/{ativo}/entregas/trafego/otimizacao-metaads-[data].md`
 
 Sugerir proximo passo:
 - `/copy-anuncio`. para criar novos criativos para os testes recomendados

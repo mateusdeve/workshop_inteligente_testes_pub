@@ -17,7 +17,7 @@ Cria roteiros e briefings de vídeo para todos os formatos usados no marketing d
 
 ### 1. Contexto
 
-Leia `entregas/.ativo`, depois `entregas/{ativo}/perfil.md` e `entregas/{ativo}/idconsumidor.md` se existir.
+Leia `meus-produtos/.ativo`, depois `meus-produtos/{ativo}/perfil.md` e `meus-produtos/{ativo}/idconsumidor.md` se existir.
 
 Extraia internamente (sem mostrar ao usuário):
 - Quadro, Furadeira, Urgências Ocultas
@@ -328,10 +328,10 @@ Keywords: "whiteboard 3 steps process", "chalkboard writing steps"
 ### 6. Salvar Roteiro
 
 ### 4. Salvar
-`entregas/{ativo}/textos-de-venda/roteiro-[formato]-[produto].md`
+`meus-produtos/{ativo}/entregas/textos-de-venda/roteiro-[formato]-[produto].md`
 
 Se caminho 3 (direção criativa), salvar briefing separado:
-`entregas/{ativo}/textos-de-venda/briefing-video-[formato]-[produto].md`
+`meus-produtos/{ativo}/entregas/textos-de-venda/briefing-video-[formato]-[produto].md`
 
 ---
 
@@ -375,7 +375,7 @@ curl "https://api.heygen.com/v1/video_status.get?video_id=VIDEO_ID" \
 ```
 
 Quando `status: completed`, fazer download do `video_url` e salvar em:
-`entregas/{ativo}/textos-de-venda/video-[formato]-[produto].mp4`
+`meus-produtos/{ativo}/entregas/textos-de-venda/video-[formato]-[produto].mp4`
 
 **Se faltar alguma variável**, instruir como configurar:
 
