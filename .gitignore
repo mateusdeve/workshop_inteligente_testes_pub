@@ -12,13 +12,10 @@
 # ══════════════════════════════════════════
 # Dados do aluno (cada um gera os seus)
 # ══════════════════════════════════════════
-# Nova estrutura multi-produto: cada aluno cria os seus
-entregas/*/
-entregas/.ativo
-# Legado — mantidos por compatibilidade
-meu-negocio/perfil.md
-meu-negocio/idconsumidor.md
-entregas/
+# Estrutura multi-produto: toda a pasta meus-produtos/ fica local,
+# fora do repositorio. Painel global lê meus-produtos/index.json
+# (gerado pelos commands de gestão de produto).
+meus-produtos/
 
 # ══════════════════════════════════════════
 # Claude Code — arquivos de sessão/runtime
@@ -68,19 +65,6 @@ scripts/*.log
 Thumbs.db
 desktop.ini
 *.tmp
-
-# ══════════════════════════════════════════
-# Entregas (cada aluno gera as suas)
-# ══════════════════════════════════════════
-entregas/
-entregas-*/
-
-# ══════════════════════════════════════════
-# Node e servidor local
-# ══════════════════════════════════════════
-node_modules/
-package-lock.json
-package.json
 
 # ══════════════════════════════════════════
 # Vercel (deploy e configurações de projeto)
