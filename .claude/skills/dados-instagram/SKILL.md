@@ -21,7 +21,7 @@ Pega um perfil do Instagram público e entrega duas coisas: um dashboard HTML in
 
 ### 0. Contexto
 
-Leia `entregas/.ativo`, `entregas/{ativo}/perfil.md` e `entregas/{ativo}/idconsumidor.md` (se existir).
+Leia `meus-produtos/.ativo`, `meus-produtos/{ativo}/perfil.md` e `meus-produtos/{ativo}/idconsumidor.md` (se existir).
 
 ### 1. Entrevista (uma pergunta por vez)
 
@@ -37,6 +37,18 @@ Leia `entregas/.ativo`, `entregas/{ativo}/perfil.md` e `entregas/{ativo}/idconsu
 (padrão 30, pode ser 20 ou 50)
 
 ### 2. Coletar dados
+
+**Passo 0. Verificar dados existentes (prioridade máxima).**
+Antes de qualquer estratégia de coleta, verifique na ordem:
+
+1. `entregas/instagram-dashboard/dados.json` (gerado pelo `/instagram-dashboard`)
+2. `entregas/dados/instagram-{perfil}.json` (gerado por execução anterior do `/dados-instagram`)
+
+Se qualquer um existir: leia o arquivo, extraia `perfil` e `posts`, e pule direto para o Passo 3 (Processar os dados). Informe ao aluno: "Usando dados já coletados ({n} posts, última atualização {data})."
+
+Só siga para as estratégias abaixo se nenhum dos dois existir ou estiverem vazios.
+
+---
 
 A API oficial do Instagram não permite scraping de perfis públicos sem autenticação. Use uma das três estratégias, na ordem:
 
@@ -82,6 +94,8 @@ Estrutura:
 - `<section class="insights">`: bullets com os insights principais
 
 Tudo em CSS inline e JS vanilla. Paleta: preto + branco + uma cor de destaque (#E1306C rosa Instagram ou cor do produto). Fonte Inter via Google Fonts.
+
+**OBRIGATORIO:** os dados dos posts devem ser embutidos diretamente no HTML como variável JS (`var dados = [...];`), nunca via `fetch()` de arquivo externo. Arquivos abertos via `file://` bloqueiam `fetch()` por CORS na maioria dos browsers. O HTML deve ser autossuficiente.
 
 ### 5. Gerar o relatório escrito
 
@@ -133,12 +147,13 @@ Mostre o relatório resumido e o link do dashboard. Peça:
 2. Quero ajustar algo
 ```
 
-Após aprovação, salve os dois arquivos e mostre:
+Após aprovação, salve os três arquivos e mostre:
 ```
 Pronto. Análise do @{perfil} salva.
 
 Dashboard:   entregas/{ativo}/dados/instagram-{perfil}.html
 Relatório:   entregas/{ativo}/dados/instagram-{perfil}.md
+Dados brutos: entregas/dados/instagram-{perfil}.json
 
 Abra o dashboard no navegador pra ver os gráficos e filtros.
 
@@ -146,6 +161,8 @@ Próximos passos:
 - Use os insights em /copy-social pra criar conteúdo alinhado ao que funciona
 - Rode /dados-nicho pra descobrir mais perfis de referência no seu nicho
 ```
+
+**Regra de salvamento do JSON:** salvar `entregas/dados/instagram-{perfil}.json` somente quando os dados foram coletados via Estratégia A, B ou C (ou seja, quando o Passo 0 não encontrou dados existentes). Se o Passo 0 usou dados do `instagram-dashboard` ou de uma execução anterior, não sobrescrever o JSON existente.
 
 ## Regras
 

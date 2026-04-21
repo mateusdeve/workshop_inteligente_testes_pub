@@ -1,6 +1,6 @@
 # Relatorio Diario Meta Ads
 # Gerado automaticamente pelo Workshop Marketing IA
-# Roda todo dia via Task Scheduler do Windows
+# Roda todo dia via Task Scheduler do Windows ou CronCreate do Claude
 
 $ErrorActionPreference = "Stop"
 $ScriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
@@ -13,10 +13,10 @@ function Log($msg) {
     Add-Content -Path $LogFile -Value $linha -Encoding UTF8
 }
 
-# --- Credenciais ---
+# --- Credenciais Facebook ---
 $FB_ACCESS_TOKEN_PERMANENTE = "EAAVUZAIy8ZAE4BRLAaGBnFBsboZApqPNvQZCvaRWi0s3s8gzTF5bZAApvwNBpsuLjZAXUHg3pR6uWtVR9zTCxGtMWKjyF9nWvPHq4Ru1o2iViWIaVYnJvVhgT1KtZCZCZAMSWcdZAq48mjQ6xb83ozfaUgC2bs8WAjYgM5ZCUHi6fKU5wUaWOpfZCd7UmlsxDKKMc3UYkAZDZD"
 $FB_ACCESS_TOKEN_TEMPORARIO = ""
-$FB_AD_ACCOUNT_ID   = "956832473206286"
+$FB_AD_ACCOUNT_ID           = "956832473206286"
 
 # Prioriza token permanente
 if ($FB_ACCESS_TOKEN_PERMANENTE -and $FB_ACCESS_TOKEN_PERMANENTE -ne "") {
@@ -27,6 +27,15 @@ if ($FB_ACCESS_TOKEN_PERMANENTE -and $FB_ACCESS_TOKEN_PERMANENTE -ne "") {
     Log "ERRO: Nenhum token encontrado. Configure FB_ACCESS_TOKEN_PERMANENTE ou FB_ACCESS_TOKEN_TEMPORARIO no script."
     exit 1
 }
+
+# --- Canal de envio ---
+$RELATORIO_CANAL = "WHATSAPP"
+
+# --- Credenciais Telegram (usado se RELATORIO_CANAL = TELEGRAM) ---
+$TELEGRAM_BOT_TOKEN = ""
+$TELEGRAM_CHAT_ID   = ""
+
+# --- Credenciais Z-API / WhatsApp (usado se RELATORIO_CANAL = WHATSAPP) ---
 $ZAPI_INSTANCE_ID   = "3F1BE42A76BF134CBBEE06ABA24BC57F"
 $ZAPI_TOKEN         = "40D4CEF2F70639DC22877991"
 $ZAPI_CLIENT_TOKEN  = "F8e2521f13b3e4b05aa2908001542b598S"
@@ -96,19 +105,35 @@ if (-not $dados -or $dados.Count -eq 0) {
     $mensagem = $linhas -join "`n"
 }
 
-Log "Mensagem montada: $mensagem"
+Log "Mensagem montada."
 
-# --- Enviar via Z-API ---
-$urlZapi  = "https://api.z-api.io/instances/$ZAPI_INSTANCE_ID/token/$ZAPI_TOKEN/send-text"
-$headers  = @{ "Content-Type" = "application/json"; "Client-Token" = $ZAPI_CLIENT_TOKEN }
-$payload  = @{ phone = $WHATSAPP_NUMERO; message = $mensagem } | ConvertTo-Json
-
-try {
-    Log "Enviando mensagem via Z-API..."
-    $resultado = Invoke-RestMethod -Uri $urlZapi -Method POST -Headers $headers -Body $payload -TimeoutSec 30
-    Log "Z-API resposta: $($resultado | ConvertTo-Json -Compress)"
-    Log "=== Relatorio enviado com sucesso ==="
-} catch {
-    Log "ERRO ao enviar Z-API: $_"
-    exit 1
+# --- Enviar ---
+if ($RELATORIO_CANAL -eq "TELEGRAM") {
+    $urlTelegram     = "https://api.telegram.org/bot$TELEGRAM_BOT_TOKEN/sendMessage"
+    $payloadTelegram = @{
+        chat_id    = $TELEGRAM_CHAT_ID
+        text       = $mensagem
+        parse_mode = "Markdown"
+    } | ConvertTo-Json
+    try {
+        Log "Enviando via Telegram..."
+        $resultado = Invoke-RestMethod -Uri $urlTelegram -Method POST -ContentType "application/json" -Body $payloadTelegram -TimeoutSec 30
+        Log "=== Relatorio enviado com sucesso ==="
+    } catch {
+        Log "ERRO ao enviar Telegram: $_"
+        exit 1
+    }
+} else {
+    $urlZapi  = "https://api.z-api.io/instances/$ZAPI_INSTANCE_ID/token/$ZAPI_TOKEN/send-text"
+    $headers  = @{ "Content-Type" = "application/json"; "Client-Token" = $ZAPI_CLIENT_TOKEN }
+    $payload  = @{ phone = $WHATSAPP_NUMERO; message = $mensagem } | ConvertTo-Json
+    try {
+        Log "Enviando via Z-API..."
+        $resultado = Invoke-RestMethod -Uri $urlZapi -Method POST -Headers $headers -Body $payload -TimeoutSec 30
+        Log "Z-API resposta: $($resultado | ConvertTo-Json -Compress)"
+        Log "=== Relatorio enviado com sucesso ==="
+    } catch {
+        Log "ERRO ao enviar Z-API: $_"
+        exit 1
+    }
 }

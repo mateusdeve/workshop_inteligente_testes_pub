@@ -1,20 +1,19 @@
 ---
 name: workshop-marketing:configurar-heygen
 description: Guia para conectar uma conta do HeyGen ao projeto (videos com avatar IA). Salva a API key no .env como HEYGEN_API_KEY para ser usada pela skill /video-heygen.
+allowed-tools: Read, Edit, Bash
+model: sonnet
 ---
 
-# Como Configurar o HeyGen para Criar Videos com Avatar IA
+# Configurar HeyGen para Videos com Avatar IA
 
-Guia completo para conectar sua conta do HeyGen ao Workshop Marketing IA.
-Tempo estimado: 5 minutos.
+Guia interativo para conectar sua conta do HeyGen ao projeto. So precisa fazer uma vez.
 
 ---
 
 ## O que e o HeyGen?
 
-O HeyGen e uma plataforma que cria videos com avatares de inteligencia artificial.
-Voce escolhe (ou cria) um avatar, seleciona uma voz, escreve o roteiro e ele
-gera um video com o avatar "falando" o texto. Parece uma pessoa real gravando.
+O HeyGen e uma plataforma que cria videos com avatares de inteligencia artificial. Voce escolhe (ou cria) um avatar, seleciona uma voz, escreve o roteiro e ele gera um video com o avatar "falando" o texto. Parece uma pessoa real gravando.
 
 Isso serve para:
 - Criar anuncios em video sem precisar gravar nada
@@ -32,155 +31,199 @@ Isso serve para:
 | Creator | ~US$ 29/mes (US$ 24 no anual) | Videos ilimitados, 1080p, sem marca d'agua | SIM |
 | Business | ~US$ 149/mes | Tudo do Creator + 4K + time | SIM |
 
-**IMPORTANTE:** O plano gratuito NAO da acesso a API.
-Isso significa que pelo plano gratuito voce pode criar videos pelo site do HeyGen
-(manualmente), mas o comando /video-heygen nao consegue gerar automaticamente.
+**IMPORTANTE:** O plano gratuito NAO da acesso a API. Pelo plano gratuito voce pode criar videos pelo site do HeyGen (manualmente), mas o comando /video-heygen nao consegue gerar automaticamente.
+
+**Conta de padaria:**
+- Um video de 60 segundos custa ~US$ 0,50 em creditos
+- Se voce faz 10 videos por mes = US$ 5
+- O plano Creator (US$ 29/mes) inclui 15 minutos = ~15 videos de 60s
+- Compensa a partir de 5-10 videos por mes
 
 **Recomendacao para comecar:**
 1. Crie a conta gratuita e teste pelo site (app.heygen.com)
 2. Quando gostar do resultado, assine o Creator
 3. Pegue a chave de API e conecte aqui
 
-**Conta de padaria:**
-Um video de 60 segundos custa ~US$ 0,50 em creditos.
-Se voce faz 10 videos por mes = US$ 5.
-O plano Creator (US$ 29/mes) inclui 15 minutos = ~15 videos de 60s.
-Compensa a partir de 5-10 videos por mes.
-
 ---
 
-## Etapa 1. Criar sua conta no HeyGen
+## Passo 0. Verificar se ja esta configurado
 
-1. Abra o navegador e acesse: **heygen.com**
-2. Clique no botao **"Get started for free"** (ou "Comecar gratis")
-3. Escolha como quer entrar:
-   - **Google** (mais rapido, um clique)
-   - **Email + senha** (crie uma senha)
-4. Pronto, voce ja tem conta
+Leia `.env`. Verifique se `HEYGEN_API_KEY` existe e tem valor nao vazio.
 
-Nao precisa de cartao de credito para criar a conta.
+**Se tiver valor:** teste a chave (Passo 3). Se o teste passar, informe:
 
----
-
-## Etapa 2. Conhecer o painel (opcional, mas recomendado)
-
-Antes de pegar a API, vale explorar o HeyGen pelo site para entender como funciona:
-
-1. Apos entrar, voce vera o painel principal
-2. Clique em **"Create Video"** para ver como funciona
-3. Escolha um avatar da biblioteca (tem centenas de opcoes)
-4. Escreva um texto curto e clique em **"Submit"**
-5. O HeyGen vai gerar um video de teste para voce ver a qualidade
-
-Esse teste e gratuito e ajuda a decidir se vale a pena assinar.
-
----
-
-## Etapa 3. Assinar o plano Creator
-
-Para usar o /video-heygen, voce precisa do plano Creator:
-
-1. No painel do HeyGen, clique no seu avatar (canto superior direito)
-2. Clique em **"Pricing"** ou **"Upgrade"**
-3. Escolha o plano **Creator**
-   - Mensal: US$ 29/mes
-   - Anual: US$ 24/mes (economia de ~17%)
-4. Preencha os dados de pagamento e confirme
-
-**DICA:** Se preferir testar antes, use o painel gratuito para criar
-alguns videos manualmente. Quando estiver convencido, assine e volte aqui.
-
----
-
-## Etapa 4. Pegar sua chave de API
-
-Essa e a parte mais importante. A chave de API e como uma "senha" que permite
-que o assistente se conecte a sua conta do HeyGen automaticamente.
-
-### Passo a passo:
-
-1. Entre no painel: **app.heygen.com**
-2. Clique no seu **avatar ou foto** (canto superior direito da tela)
-3. Clique em **"Settings"** (Configuracoes)
-4. No menu do lado esquerdo, procure e clique em **"API"**
-5. Voce vera sua chave de API (ou um botao para gerar uma nova)
-6. Clique em **"Copy"** (Copiar) ou **"Generate"** (Gerar) se for a primeira vez
-
-**ATENCAO IMPORTANTE:**
-Copie a chave IMEDIATAMENTE e guarde em um lugar seguro.
-Depois que voce sair dessa pagina, NAO vai conseguir ver a chave de novo.
-Se perder, tera que gerar uma nova (e a antiga para de funcionar).
-
-A chave tem este formato (exemplo ficticio):
 ```
+Sua chave do HeyGen ja esta configurada e funcionando.
+
+Nao precisa fazer nada. Pode usar /video-heygen direto.
+```
+
+Encerre a skill.
+
+**Se nao tiver:** siga para o Passo 1.
+
+---
+
+## Passo 1. Criar conta no HeyGen
+
+Pergunte:
+
+```
+Voce ja tem conta no HeyGen?
+
+1. Sim, ja tenho (plano Creator ou superior)
+2. Sim, tenho conta gratuita
+3. Nao tenho ainda
+```
+
+**Se nao tiver (opcao 3):** instrua:
+
+```
+Para criar sua conta (gratis, sem cartao de credito):
+
+1. Acesse https://heygen.com
+2. Clique em "Get started for free"
+3. Escolha como quer entrar: Google (mais rapido) ou email + senha
+4. Pronto, conta criada
+
+Antes de pegar a API, vale explorar o HeyGen pelo site:
+- Clique em "Create Video" para ver como funciona
+- Escolha um avatar da biblioteca (tem centenas de opcoes)
+- Escreva um texto curto e clique em "Submit"
+- O HeyGen vai gerar um video de teste para voce ver a qualidade
+
+Quando quiser gerar videos pelo assistente automaticamente, assine o plano Creator
+(US$ 29/mes ou US$ 24/mes no anual) e volte aqui.
+
+Me avise quando estiver pronto.
+```
+
+**Se tiver conta gratuita (opcao 2):**
+
+```
+A conta gratuita nao da acesso a API. Voce pode criar videos manualmente pelo site
+(app.heygen.com), mas o comando /video-heygen precisa do plano Creator.
+
+Para assinar:
+1. Entre no painel do HeyGen
+2. Clique no seu avatar (canto superior direito)
+3. Clique em "Pricing" ou "Upgrade"
+4. Escolha o plano Creator (US$ 29/mes ou US$ 24/mes no anual)
+
+Quando assinar, me avise que eu te guio para pegar a chave de API.
+```
+
+**Se ja tiver conta Creator ou superior (opcao 1):** avance para o Passo 2.
+
+---
+
+## Passo 2. Copiar a chave de API
+
+Instrua o usuario:
+
+```
+Para copiar sua chave de API:
+
+1. Entre no painel: https://app.heygen.com
+2. Clique no seu avatar ou foto (canto superior direito)
+3. Clique em "Settings" (Configuracoes)
+4. No menu do lado esquerdo, clique em "API"
+5. Copie a chave (ou clique em "Generate" se for a primeira vez)
+
+A chave e uma sequencia longa de letras e numeros, tipo:
 MGRlMjM1MzBlOTAzNDY5MmI3YjY4ZjQ5...
+
+Copie TUDO, sem espacos. A chave so aparece uma vez.
+Se perder, gere uma nova (a antiga para de funcionar).
 ```
-E uma sequencia longa de letras e numeros. Copie TUDO, sem espacos.
+
+Peca a chave:
+
+```
+Cole sua chave do HeyGen aqui:
+```
 
 ---
 
-## Etapa 5. Colar a chave no projeto
+## Passo 3. Testar a chave
 
-Agora voce vai conectar o HeyGen ao seu projeto:
+Rode o teste de conexao com o valor informado:
 
-1. Abra a pasta do projeto no seu computador
-2. Procure o arquivo chamado **`.env`** na raiz do projeto
-   - Se nao existir, copie o arquivo `.env.example` e renomeie para `.env`
-3. Abra o arquivo `.env` com qualquer editor de texto (Bloco de Notas serve)
-4. Procure a linha:
-   ```
-   HEYGEN_API_KEY=
-   ```
-5. Cole sua chave depois do sinal de igual:
-   ```
-   HEYGEN_API_KEY=MGRlMjM1MzBlOTAzNDY5MmI3YjY4ZjQ5...
-   ```
-6. **Salve o arquivo** (Ctrl+S)
+```bash
+curl -s -H "X-Api-Key: {CHAVE_INFORMADA}" "https://api.heygen.com/v2/avatars" | head -c 300
+```
 
-**Cuidados:**
-- NAO coloque espacos antes ou depois da chave
-- NAO coloque aspas ao redor da chave
-- NAO compartilhe essa chave com ninguem (ela da acesso a sua conta)
+- Se retornar JSON com `{"data":...}` ou lista de avatares: chave valida, continua.
+- Se retornar `{"code":401,...}` ou `unauthorized`: chave invalida. Peca para verificar e colar novamente. Repita o Passo 2.
+- Se retornar erro de permissao ou `403`: conta pode estar no plano gratuito (sem acesso a API). Oriente a assinar o plano Creator.
 
 ---
 
-## Etapa 6. Testar a conexao
+## Passo 4. Salvar no .env
 
-Volte ao assistente e rode o comando:
+Leia o `.env`.
+
+- Se a linha `HEYGEN_API_KEY` ja existir: atualize o valor com Edit.
+- Se nao existir: adicione `HEYGEN_API_KEY={valor}` ao final do arquivo (ou na secao correspondente, se existir).
+
+O nome padrao obrigatorio da variavel e `HEYGEN_API_KEY`. Nao usar variacao diferente desse nome.
+
+Confirme ao usuario:
+
 ```
-/video-heygen
+Chave do HeyGen salva e testada com sucesso.
+
+Voce ja pode usar o comando /video-heygen para criar videos com avatar IA.
 ```
-
-Se tudo estiver certo, ele vai confirmar que a conexao esta funcionando
-e te levar direto para criar seu primeiro video.
-
-Se der erro, verifique:
-- A chave foi copiada inteira? (sem cortar nenhum caractere)
-- Tem espacos extras antes ou depois da chave?
-- Voce esta no plano Creator ou superior? (gratuito nao tem API)
 
 ---
 
-## Configuracoes opcionais (para agilizar)
+## Passo 5. Avatar e voz favoritos (opcional)
 
-Se voce ja sabe qual avatar e voz quer usar, pode salvar no `.env`
-para nao precisar escolher toda vez:
+Pergunte:
 
 ```
-HEYGEN_AVATAR_ID=seu_avatar_id_aqui
-HEYGEN_VOICE_ID=seu_voice_id_aqui
+Quer escolher um avatar e uma voz padrao agora? Assim nao precisa escolher toda vez.
+
+1. Sim, quero escolher agora
+2. Nao, prefiro escolher na hora de criar o video
 ```
 
-**Como descobrir o ID do avatar:**
-- Ao rodar /video-heygen pela primeira vez, o sistema lista os avatares disponiveis com seus IDs
-- Copie o ID do avatar que mais gostou e cole no `.env`
+**Se escolher 1:**
 
-**Como descobrir o ID da voz:**
-- O sistema tambem lista as vozes disponiveis com IDs
-- Copie o ID da voz que prefere e cole no `.env`
+Liste os avatares disponiveis:
 
-Assim, nos proximos videos, ele ja usa o avatar e a voz que voce escolheu
-sem precisar perguntar de novo.
+```bash
+curl -s -H "X-Api-Key: {CHAVE}" "https://api.heygen.com/v2/avatars" | head -c 2000
+```
+
+Mostre os 5-10 primeiros avatares com nome e ID. Peca para o usuario escolher. Salve o ID no `.env` como `HEYGEN_AVATAR_ID={id}` com Edit.
+
+Para vozes, liste as opcoes em portugues:
+
+```bash
+curl -s -H "X-Api-Key: {CHAVE}" "https://api.heygen.com/v2/voices" | head -c 2000
+```
+
+Filtre vozes em portugues (pt-BR), mostre as opcoes e peca para escolher. Salve como `HEYGEN_VOICE_ID={id}` com Edit.
+
+**Se escolher 2:** encerre normalmente. O /video-heygen lista as opcoes na hora.
+
+---
+
+## Apos configurar
+
+Confirme ao usuario:
+
+```
+HeyGen configurado.
+
+Voce pode usar agora:
+- /video-heygen para criar videos com avatar IA
+- /copy-roteiro para criar o roteiro antes de gerar o video
+```
+
+Retorne ao fluxo que chamou esta skill (ex: `/video-heygen`) e continue de onde parou.
 
 ---
 
@@ -190,12 +233,10 @@ sem precisar perguntar de novo.
 Nao. Tudo funciona pela internet. O HeyGen roda nos servidores deles.
 
 **Posso usar minha propria foto como avatar?**
-Sim. O /video-heygen tem a opcao de enviar uma foto e o HeyGen transforma
-em avatar falante. A foto precisa ser de rosto frontal, bem iluminada.
+Sim. O /video-heygen tem a opcao de enviar uma foto e o HeyGen transforma em avatar falante. A foto precisa ser de rosto frontal, bem iluminada.
 
 **Posso usar foto do Pinterest ou banco de imagens?**
-Sim. Pode usar qualquer foto de rosto frontal. Muitos infoprodutores usam
-fotos de banco de imagens para criar um "porta-voz" para o produto.
+Sim. Pode usar qualquer foto de rosto frontal. Muitos infoprodutores usam fotos de banco de imagens para criar um "porta-voz" para o produto.
 
 **Quanto tempo leva para gerar um video?**
 Entre 2 e 5 minutos, dependendo da duracao do roteiro.
@@ -204,21 +245,21 @@ Entre 2 e 5 minutos, dependendo da duracao do roteiro.
 Sim. O plano Creator e mensal e pode ser cancelado a qualquer momento.
 
 **A qualidade e boa para anuncios?**
-Sim. O HeyGen gera videos em 1080p (Full HD) no plano Creator,
-que e a qualidade padrao para Reels e anuncios no Meta Ads.
+Sim. O HeyGen gera videos em 1080p (Full HD) no plano Creator, que e a qualidade padrao para Reels e anuncios no Meta Ads.
 
 **Posso clonar minha propria voz?**
-Sim. O HeyGen tem recurso de clonagem de voz. Voce envia um audio
-de ~30 segundos falando naturalmente e ele cria uma voz sintetica
-que soa como voce. Essa opcao esta disponivel no plano Creator.
+Sim. O HeyGen tem recurso de clonagem de voz. Voce envia um audio de ~30 segundos falando naturalmente e ele cria uma voz sintetica que soa como voce. Essa opcao esta disponivel no plano Creator.
+
+**E se eu perder minha chave de API?**
+Acesse app.heygen.com > Settings > API, gere uma nova chave e rode /configurar-heygen novamente para atualizar.
 
 ---
 
 ## Links uteis
 
-- Site do HeyGen: heygen.com
-- Painel (login): app.heygen.com
-- Precos: heygen.com/pricing
-- Precos da API: heygen.com/api-pricing
-- Documentacao da API: docs.heygen.com
-- Suporte: help.heygen.com
+- Site do HeyGen: https://heygen.com
+- Painel (login): https://app.heygen.com
+- Precos: https://heygen.com/pricing
+- Precos da API: https://heygen.com/api-pricing
+- Documentacao da API: https://docs.heygen.com
+- Suporte: https://help.heygen.com

@@ -1,44 +1,33 @@
 ---
 name: workshop-marketing:configurar-imagens
-description: Guia para conectar uma API de geração de imagens (OpenRouter/Nano Banana) ao projeto. Salva OPENROUTER_API_KEY no .env, usado pelas skills /img-anuncio e /criativo-de-imagem.
+description: Guia para conectar uma API de geração de imagens (OpenRouter) ao projeto. Salva OPENROUTER_API_KEY no .env, usado pelas skills /img-anuncio e /criativo-de-imagem.
+allowed-tools: Read, Edit, Bash
+model: sonnet
 ---
 
-# Como Configurar a Geracao de Imagens com IA
+# Configurar Geracao de Imagens com IA
 
-Guia completo para conectar uma API de geracao de imagens ao Workshop Marketing IA.
-Tempo estimado: 5 minutos.
+Guia interativo para conectar o OpenRouter ao projeto. So precisa fazer uma vez.
 
----
+Quando voce usa o comando `/img-anuncio`, o assistente cria imagens prontas para usar nos seus anuncios do Instagram e Facebook. Imagens profissionais, no tamanho certo, com o estilo que voce escolher.
 
-## O que isso faz?
+Para isso funcionar automaticamente, voce precisa conectar uma API de geracao de imagens. E como dar ao assistente acesso a uma "impressora de imagens".
 
-Quando voce usa o comando `/img-anuncio`, o assistente cria imagens prontas
-para usar nos seus anuncios do Instagram e Facebook. Imagens profissionais,
-no tamanho certo, com o estilo que voce escolher.
+**Sem a API:** o assistente gera os prompts (descricoes detalhadas da imagem) e voce copia e cola manualmente em qualquer gerador de imagem (Midjourney, Leonardo.ai, Freepik, etc.).
 
-Para isso funcionar automaticamente, voce precisa conectar uma API de geracao
-de imagens. E como dar ao assistente acesso a uma "impressora de imagens".
-
-**Sem a API:** o assistente gera os prompts (descricoes detalhadas da imagem)
-e voce copia e cola manualmente em qualquer gerador de imagem (Midjourney,
-Leonardo.ai, Freepik, etc.).
-
-**Com a API:** o assistente gera a imagem automaticamente e salva na sua pasta
-de entregas. Pronto para subir no Meta Ads.
+**Com a API:** o assistente gera a imagem automaticamente e salva na sua pasta de entregas. Pronto para subir no Meta Ads.
 
 ---
 
-## Qual API escolher?
+## Por que o OpenRouter?
 
-Recomendamos o **OpenRouter** como API principal. Ele e um "portal" que da acesso
-a dezenas de modelos de geracao de imagem por um unico cadastro.
+O OpenRouter e um "portal" que da acesso a dezenas de modelos de geracao de imagem por um unico cadastro. Com uma chave so, voce usa Flux, DALL-E, Stable Diffusion e outros.
 
 | API | Custo | Qualidade | Facilidade |
 |-----|-------|-----------|------------|
 | **OpenRouter** (recomendado) | ~US$ 0,01-0,05 por imagem | Alta (varios modelos) | Muito facil |
-| Freepik AI (alternativa) | Plano com API a partir de ~US$ 10/mes | Boa | Facil |
 
-**Conta de padaria (OpenRouter):**
+**Conta de padaria:**
 - 1 imagem de teste (Flux Schnell) = ~US$ 0,003 (menos de 1 centavo)
 - 1 imagem final (Flux Pro) = ~US$ 0,05
 - Se voce gera 20 imagens por mes = ~US$ 1,00
@@ -46,145 +35,173 @@ a dezenas de modelos de geracao de imagem por um unico cadastro.
 
 ---
 
-## Opcao 1. OpenRouter (Recomendado)
+## Passo 0. Verificar se ja esta configurado
 
-### Etapa 1. Criar sua conta
+Leia `.env`. Verifique se `OPENROUTER_API_KEY` existe e tem valor nao vazio.
 
-1. Abra o navegador e acesse: **openrouter.ai**
-2. Clique em **"Sign Up"** (Criar conta)
-3. Escolha como quer entrar:
-   - **Google** (mais rapido)
-   - **Email + senha**
-4. Pronto, conta criada
+**Se tiver valor:** teste o token (Passo 3). Se o teste passar, informe:
 
-Nao precisa de cartao de credito para criar a conta.
-
-### Etapa 2. Adicionar creditos
-
-Para gerar imagens, voce precisa de um saldo minimo:
-
-1. Apos entrar, clique no seu nome (canto superior direito)
-2. Clique em **"Credits"** ou **"Billing"**
-3. Clique em **"Add Credits"**
-4. Escolha o valor (minimo US$ 5. dura meses para geracao de imagem)
-5. Preencha os dados de pagamento e confirme
-
-**DICA:** Com US$ 5 voce gera mais de 100 imagens de teste (Flux Schnell)
-ou cerca de 100 imagens finais (Flux Pro). Dura bastante.
-
-### Etapa 3. Pegar sua chave de API
-
-1. Acesse: **openrouter.ai/settings/keys** (ou clique no menu > Settings > API Keys)
-2. Clique em **"Create Key"** (Criar chave)
-3. De um nome para a chave (ex: "Workshop Marketing")
-4. Clique em **"Create"**
-5. A chave vai aparecer na tela. **COPIE IMEDIATAMENTE**
-
-**ATENCAO IMPORTANTE:**
-A chave so aparece uma vez. Depois que voce fechar a pagina, nao consegue
-ver de novo. Se perder, gere uma nova (a antiga para de funcionar).
-
-A chave tem este formato:
 ```
-sk-or-v1-abc123def456...
-```
-Comeca com `sk-or-v1-`. Copie TUDO, sem espacos.
+Sua chave do OpenRouter ja esta configurada e funcionando.
 
-### Etapa 4. Colar a chave no projeto
-
-1. Abra a pasta do projeto no seu computador
-2. Procure o arquivo chamado **`.env`** na raiz do projeto
-   - Se nao existir, copie o arquivo `.env.example` e renomeie para `.env`
-3. Abra o arquivo `.env` com qualquer editor de texto (Bloco de Notas serve)
-4. Procure a linha:
-   ```
-   OPENROUTER_API_KEY=
-   ```
-5. Cole sua chave depois do sinal de igual:
-   ```
-   OPENROUTER_API_KEY=sk-or-v1-abc123def456...
-   ```
-6. **Salve o arquivo** (Ctrl+S)
-
-**Cuidados:**
-- NAO coloque espacos antes ou depois da chave
-- NAO coloque aspas ao redor da chave
-- NAO compartilhe essa chave com ninguem
-
-### Etapa 5. Escolher o modelo (opcional)
-
-O OpenRouter da acesso a varios modelos de geracao de imagem.
-O padrao ja vem configurado (Flux Schnell. rapido e barato).
-
-Se quiser mudar, edite essa linha no `.env`:
-```
-OPENROUTER_IMAGE_MODEL=black-forest-labs/flux-schnell
+Nao precisa fazer nada. Pode usar /img-anuncio ou /criativo-de-imagem direto.
 ```
 
-**Modelos disponiveis:**
+Encerre a skill.
 
-| Modelo | Para que serve | Velocidade | Custo por imagem |
-|--------|---------------|------------|------------------|
-| `black-forest-labs/flux-schnell` | Testes rapidos, rascunhos | Muito rapido | ~US$ 0,003 |
-| `black-forest-labs/flux-1.1-pro` | Imagens finais, alta qualidade | Rapido | ~US$ 0,05 |
-| `openai/dall-e-3` | Conceitos criativos, texto na imagem | Medio | ~US$ 0,04 |
-| `stability-ai/stable-diffusion-3.5-large` | Fotos realistas | Medio | ~US$ 0,04 |
-
-**Recomendacao:**
-- Para testar ideias: mantenha o `flux-schnell` (padrao)
-- Para imagem final do anuncio: troque para `flux-1.1-pro`
-- Para imagem com texto legivel: use `dall-e-3`
-
-### Etapa 6. Testar a conexao
-
-Volte ao assistente e rode o comando:
-```
-/img-anuncio
-```
-
-Se tudo estiver certo, ele vai confirmar que a conexao esta funcionando
-e te levar direto para criar sua primeira imagem de anuncio.
-
-Se der erro, verifique:
-- A chave foi copiada inteira? (sem cortar nenhum caractere)
-- Tem espacos extras antes ou depois da chave?
-- Voce adicionou creditos na sua conta?
+**Se nao tiver:** siga para o Passo 1.
 
 ---
 
-## Opcao 2. Freepik AI (Alternativa)
+## Passo 1. Criar conta no OpenRouter
 
-Use o Freepik se preferir uma interface mais visual ou se ja tiver conta Premium.
+Pergunte:
 
-### Etapa 1. Criar conta e assinar plano com API
+```
+Voce ja tem conta no OpenRouter?
 
-1. Acesse: **freepik.com**
-2. Crie uma conta (Google ou email)
-3. Assine um plano que inclua acesso a API (verifique em freepik.com/pricing)
+1. Sim, ja tenho
+2. Nao tenho ainda
+```
 
-### Etapa 2. Pegar a chave de API
+**Se nao tiver:** instrua:
 
-1. Acesse: **freepik.com** > seu perfil > API
-2. Clique em **"Manage API Keys"**
-3. Clique em **"Create Key"**
-4. Copie a chave gerada
+```
+Para criar sua conta (gratis, sem cartao de credito):
 
-### Etapa 3. Colar no projeto
+1. Acesse https://openrouter.ai
+2. Clique em "Sign Up" (Criar conta)
+3. Escolha como quer entrar: Google (mais rapido) ou email + senha
+4. Pronto, conta criada
 
-1. Abra o arquivo `.env` na raiz do projeto
-2. Procure a linha:
-   ```
-   FREEPIK_API_KEY=
-   ```
-3. Cole sua chave:
-   ```
-   FREEPIK_API_KEY=sua_chave_aqui
-   ```
-4. Salve o arquivo
+Depois de criar, voce precisa adicionar creditos para gerar imagens:
 
-### Etapa 4. Testar
+1. Apos entrar, clique no seu nome (canto superior direito)
+2. Clique em "Credits" ou "Billing"
+3. Clique em "Add Credits"
+4. Escolha o valor (minimo US$ 5, dura meses para geracao de imagem)
+5. Preencha os dados de pagamento e confirme
 
-Rode `/img-anuncio` e o assistente vai detectar a chave do Freepik automaticamente.
+Com US$ 5 voce gera mais de 100 imagens de teste ou cerca de 100 imagens finais. Dura bastante.
+
+Quando estiver com a conta criada e creditos adicionados, me avise.
+```
+
+**Se ja tiver:** avance para o Passo 2.
+
+---
+
+## Passo 2. Copiar a chave de API
+
+Instrua o usuario:
+
+```
+Para copiar sua chave de API:
+
+1. Acesse https://openrouter.ai/settings/keys
+2. Clique em "Create Key" (Criar chave)
+3. De um nome para a chave (ex: "Workshop Marketing")
+4. Clique em "Create"
+5. A chave vai aparecer na tela. Copie imediatamente.
+
+A chave comeca com sk-or-v1- e tem este formato:
+sk-or-v1-abc123def456...
+
+Copie TUDO, sem espacos. A chave so aparece uma vez.
+Se fechar a pagina sem copiar, gere uma nova.
+```
+
+Peca a chave:
+
+```
+Cole sua chave do OpenRouter aqui:
+```
+
+---
+
+## Passo 3. Testar a chave
+
+Rode o teste de conexao com o valor informado:
+
+```bash
+curl -s -H "Authorization: Bearer {CHAVE_INFORMADA}" "https://openrouter.ai/api/v1/models" | head -c 300
+```
+
+- Se retornar JSON com `{"data":[...]}`: chave valida, continua.
+- Se retornar `{"error":...}` ou `401`: chave invalida ou copiada com espaco. Peca para verificar e colar novamente. Repita o Passo 2.
+
+---
+
+## Passo 4. Salvar no .env
+
+Leia o `.env`.
+
+- Se a linha `OPENROUTER_API_KEY` ja existir: atualize o valor com Edit.
+- Se nao existir: adicione `OPENROUTER_API_KEY={valor}` ao final do arquivo.
+
+O nome padrao obrigatorio da variavel e `OPENROUTER_API_KEY`. Nao usar variacao diferente desse nome.
+
+Confirme ao usuario:
+
+```
+Chave do OpenRouter salva e testada com sucesso.
+
+Modelo padrao configurado: Flux Schnell (rapido e barato, ideal para testes).
+Quando quiser imagens finais de alta qualidade, voce pode trocar para Flux Pro.
+```
+
+---
+
+## Passo 5. Escolher o modelo (opcional)
+
+Pergunte:
+
+```
+O modelo padrao e o Flux Schnell (rapido, ~US$ 0,003 por imagem). Quer manter esse ou trocar?
+
+1. Manter o Flux Schnell (recomendado para comecar)
+2. Trocar para Flux Pro (melhor qualidade, ~US$ 0,05 por imagem)
+3. Me explique as opcoes
+```
+
+**Se escolher 3**, mostre:
+
+```
+Modelos disponiveis:
+
+- Flux Schnell: testes rapidos, rascunhos. Muito rapido, ~US$ 0,003 por imagem.
+- Flux 1.1 Pro: imagens finais, alta qualidade. Rapido, ~US$ 0,05 por imagem.
+- DALL-E 3: conceitos criativos, texto na imagem. Medio, ~US$ 0,04 por imagem.
+- Stable Diffusion 3.5: fotos realistas. Medio, ~US$ 0,04 por imagem.
+
+Recomendacao:
+- Para testar ideias: Flux Schnell (padrao)
+- Para imagem final do anuncio: Flux Pro
+- Para imagem com texto legivel: DALL-E 3
+```
+
+Depois pergunte qual quer usar.
+
+**Se escolher 2:** atualize `OPENROUTER_IMAGE_MODEL=black-forest-labs/flux-1.1-pro` no `.env` com Edit.
+
+**Se escolher 1:** mantenha como esta (`black-forest-labs/flux-schnell`).
+
+---
+
+## Apos configurar
+
+Confirme ao usuario:
+
+```
+Geracao de imagens configurada.
+
+Voce pode usar agora:
+- /img-anuncio para gerar imagens prontas para anuncios
+- /criativo-de-imagem para criativos visuais completos
+- /imagem-prompt para gerar prompts para ferramentas gratuitas (sem gastar API)
+```
+
+Retorne ao fluxo que chamou esta skill (ex: `/img-anuncio`) e continue de onde parou.
 
 ---
 
@@ -194,33 +211,30 @@ Rode `/img-anuncio` e o assistente vai detectar a chave do Freepik automaticamen
 Nao. Tudo funciona pela internet. As APIs rodam nos servidores deles.
 
 **Quanto custa por mes?**
-Depende de quantas imagens voce gera. Com OpenRouter, a maioria dos usuarios
-gasta menos de US$ 2/mes gerando 20-40 imagens. E pago por uso (sem mensalidade fixa).
+Depende de quantas imagens voce gera. Com OpenRouter, a maioria dos usuarios gasta menos de US$ 2/mes gerando 20-40 imagens. E pago por uso (sem mensalidade fixa).
 
 **Posso usar as imagens geradas nos meus anuncios?**
-Sim. As imagens geradas por IA sao de uso comercial. Voce pode usar
-em anuncios, posts, paginas, onde quiser.
+Sim. As imagens geradas por IA sao de uso comercial. Voce pode usar em anuncios, posts, paginas, onde quiser.
 
 **E se eu nao quiser pagar nada?**
-Sem problema. O assistente gera os prompts detalhados e voce usa qualquer
-ferramenta gratuita para criar a imagem: Canva, Leonardo.ai (plano free),
-ou o proprio site do Freepik (com limite de geracoes gratuitas).
+Sem problema. O assistente gera os prompts detalhados e voce usa qualquer ferramenta gratuita para criar a imagem: Canva, Leonardo.ai (plano free), ou o proprio site do Freepik (com limite de geracoes gratuitas). Use o comando `/imagem-prompt` para isso.
 
 **Posso trocar de API depois?**
-Sim. Basta mudar a chave no arquivo `.env`. O assistente detecta
-automaticamente qual API esta configurada.
+Sim. Basta mudar a chave no arquivo `.env`. O assistente detecta automaticamente qual API esta configurada.
 
 **A qualidade e boa para anuncios profissionais?**
-Sim. Os modelos como Flux Pro e DALL-E 3 geram imagens em alta resolucao
-(1024x1024 ou maior) com qualidade profissional. Para anuncios no Instagram,
-a resolucao e mais que suficiente.
+Sim. Os modelos como Flux Pro e DALL-E 3 geram imagens em alta resolucao (1024x1024 ou maior) com qualidade profissional. Para anuncios no Instagram, a resolucao e mais que suficiente.
+
+**E se eu perder minha chave?**
+Acesse https://openrouter.ai/settings/keys, apague a chave antiga e crie uma nova. Depois rode `/configurar-imagens` de novo para atualizar.
+
+**Meus creditos expiram?**
+Nao. Os creditos do OpenRouter nao expiram. Voce carrega uma vez e usa no seu ritmo.
 
 ---
 
 ## Links uteis
 
-- OpenRouter: openrouter.ai
-- OpenRouter (chaves de API): openrouter.ai/settings/keys
-- OpenRouter (modelos de imagem): openrouter.ai/models?modality=image
-- Freepik: freepik.com
-- Freepik API: freepik.com > perfil > API
+- OpenRouter: https://openrouter.ai
+- Chaves de API: https://openrouter.ai/settings/keys
+- Modelos de imagem: https://openrouter.ai/models?modality=image

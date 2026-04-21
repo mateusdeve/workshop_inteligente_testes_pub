@@ -1,53 +1,53 @@
 ---
 name: workshop-marketing:enviar-relatorio-ads
-description: Busca as métricas do dia anterior no Facebook Ads e envia o relatório pelo WhatsApp via Z-API. Roda direto no CLI, sem agendamento.
+description: Busca as métricas do dia anterior no Facebook Ads e envia o relatório pelo Telegram ou WhatsApp via Z-API. Roda direto no CLI, sem agendamento.
 allowed-tools: Read, Bash, WebFetch
 model: sonnet
 ---
 
-# Enviar Relatorio de Ads no WhatsApp
+# Enviar Relatorio de Ads
 
-Executa imediatamente: busca as metricas do Facebook Ads do periodo escolhido e envia no WhatsApp via Z-API. Sem agendamento.
+Executa imediatamente: busca as metricas do Facebook Ads do periodo escolhido e envia no canal configurado (Telegram ou WhatsApp). Sem agendamento.
 
 ## PASSO 1. Verificar credenciais
 
-Leia `.env` e verifique se existem:
-- Pelo menos uma das variaveis de token do Facebook: `FB_ACCESS_TOKEN_PERMANENTE` ou `FB_ACCESS_TOKEN`
+Leia `.env` e verifique:
+
+**Facebook Ads (obrigatorio para ambos os canais):**
+- Pelo menos uma das variaveis de token: `FB_ACCESS_TOKEN_PERMANENTE` ou `FB_ACCESS_TOKEN`
 - `FB_AD_ACCOUNT_ID`
-- `ZAPI_INSTANCE_ID`
-- `ZAPI_TOKEN`
-- `ZAPI_CLIENT_TOKEN`
-- `RELATORIO_WHATSAPP_NUMERO`
 
-**Se faltar token do Facebook ou `FB_AD_ACCOUNT_ID`:**
-
-Pergunte primeiro:
+**Canal de envio:**
+- Se `RELATORIO_CANAL` nao existir no `.env`, pergunte:
 
 ```
-Voce ja tem um App criado no Facebook Developers (developers.facebook.com)?
+Por qual canal quer enviar o relatorio?
 
-1. Sim, ja tenho — quero gerar o token
-2. Nao tenho ainda — preciso criar o App
+1. Telegram (Recomendado)
+2. WhatsApp
+
+Digite o numero:
 ```
 
-- Se opcao 1: execute a skill `gerar-token-permanente-facebook-ads`
-- Se opcao 2: execute a skill `criar-aplicativo-analise-ads`, depois retorne e execute `gerar-token-permanente-facebook-ads`
+Se o usuario perguntar por que Telegram e recomendado: "O Telegram e gratuito e nao tem risco de bloqueio. Automacoes no WhatsApp podem banir o numero."
 
-Apos concluir, retorne ao Passo 1 para verificar novamente.
+Se WhatsApp, exiba antes de continuar: "Atencao: use um numero secundario aquecido, nao o numero principal da operacao."
 
-**Se faltar qualquer credencial da Z-API (`ZAPI_INSTANCE_ID`, `ZAPI_TOKEN`, `ZAPI_CLIENT_TOKEN`):**
+Salve `RELATORIO_CANAL=TELEGRAM` ou `RELATORIO_CANAL=WHATSAPP` no `.env` com `Edit`.
 
-```
-Voce ja tem conta na Z-API com instancia e WhatsApp conectado?
+**Se `RELATORIO_CANAL=TELEGRAM`:**
+- Verificar `TELEGRAM_BOT_TOKEN` e `TELEGRAM_CHAT_ID`
+- Se faltar qualquer um: execute a skill `configurar-telegram`, depois retorne
 
-1. Sim, ja tenho — quero inserir as credenciais
-2. Nao tenho ainda
-```
-
-- Se opcao 1: peca as 3 credenciais uma por vez e salve no `.env` com `Edit`
-- Se opcao 2: execute a skill `configurar-zapi`, depois retorne
-
-**Se faltar `RELATORIO_WHATSAPP_NUMERO`:**
+**Se `RELATORIO_CANAL=WHATSAPP`:**
+- Verificar `ZAPI_INSTANCE_ID`, `ZAPI_TOKEN`, `ZAPI_CLIENT_TOKEN`, `RELATORIO_WHATSAPP_NUMERO`
+- Se faltar token do Facebook ou `FB_AD_ACCOUNT_ID`: pergunte se tem App no Facebook Developers
+  - Se opcao 1 (tem App): execute a skill `gerar-token-permanente-facebook-ads`
+  - Se opcao 2 (nao tem): execute a skill `criar-aplicativo-analise-ads`, depois `gerar-token-permanente-facebook-ads`
+- Se faltar qualquer credencial Z-API: pergunte se tem conta na Z-API
+  - Se sim: peca as 3 credenciais uma por vez e salve no `.env` com `Edit`
+  - Se nao: execute a skill `configurar-zapi`, depois retorne
+- Se faltar `RELATORIO_WHATSAPP_NUMERO`:
 
 ```
 Para qual numero do WhatsApp devo enviar o relatorio?
@@ -75,7 +75,7 @@ Qual periodo voce quer no relatorio?
 Digite o numero:
 ```
 
-- Opcao 1: calcule `INICIO_ISO` e `FIM_ISO` como ontem (`date -d "yesterday" +%Y-%m-%d 2>/dev/null || date -v-1d +%Y-%m-%d`). Label do periodo: `{ONTEM_BR}`.
+- Opcao 1: calcule `INICIO_ISO` e `FIM_ISO` como ontem. Label do periodo: `{ONTEM_BR}`.
 - Opcao 2: `INICIO_ISO` = hoje menos 7 dias, `FIM_ISO` = ontem. Label: `Ultimos 7 dias`.
 - Opcao 3: `INICIO_ISO` = hoje menos 30 dias, `FIM_ISO` = ontem. Label: `Ultimos 30 dias`.
 - Opcao 4: peca a data inicial (formato DD/MM/AAAA) e a data final (formato DD/MM/AAAA), converta para ISO (AAAA-MM-DD). Label: `{INICIO_BR} a {FIM_BR}`.
@@ -141,7 +141,16 @@ Formatacao numerica: valores monetarios com virgula decimal e ponto milhar (ex: 
 
 ## PASSO 5. Confirmar envio
 
-Mostre a mensagem montada ao usuario e pergunte:
+**Se Telegram:**
+
+```
+Relatorio pronto. Deseja enviar para o seu Telegram?
+
+1. Sim, enviar agora
+2. Nao, apenas exibir aqui
+```
+
+**Se WhatsApp:**
 
 ```
 Relatorio pronto. Deseja enviar para o WhatsApp {NUMERO_MASCARADO}?
@@ -150,9 +159,28 @@ Relatorio pronto. Deseja enviar para o WhatsApp {NUMERO_MASCARADO}?
 2. Nao, apenas exibir aqui
 ```
 
-Se opcao 2: encerre sem chamar a Z-API.
+Se opcao 2: encerre sem chamar nenhuma API de envio.
 
-## PASSO 6. Enviar via Z-API
+## PASSO 6. Enviar
+
+**Se `RELATORIO_CANAL=TELEGRAM`:**
+
+Use Bash com curl:
+
+```bash
+BOT_TOKEN="{TELEGRAM_BOT_TOKEN}"
+CHAT_ID="{TELEGRAM_CHAT_ID}"
+MENSAGEM="{MENSAGEM_ESCAPADA_JSON}"
+
+curl -s -X POST \
+  "https://api.telegram.org/bot${BOT_TOKEN}/sendMessage" \
+  -H "Content-Type: application/json" \
+  -d "{\"chat_id\":\"${CHAT_ID}\",\"text\":\"${MENSAGEM}\",\"parse_mode\":\"Markdown\"}"
+```
+
+A mensagem deve ter as quebras de linha substituidas por `\n` para caber no JSON.
+
+**Se `RELATORIO_CANAL=WHATSAPP`:**
 
 Use Bash com curl:
 
@@ -168,9 +196,18 @@ A mensagem deve ter as quebras de linha substituidas por `\n` para caber no JSON
 
 ## PASSO 7. Resultado
 
-Se a Z-API retornar sucesso: informe "Relatorio enviado para {numero mascarado}."
+**Se Telegram:**
 
-Se retornar erro, mostre a mensagem de erro e oriente:
-- `"subscribe to this instance again"`: assinatura Z-API expirada. Acesse o painel da Z-API e renove o plano.
-- `"connected":false`: WhatsApp desconectado. Acesse o painel da Z-API e reconecte escaneando o QR Code.
-- Qualquer outro erro: mostre o retorno bruto para diagnostico.
+- Sucesso (`"ok":true`): informe "Relatorio enviado para o seu Telegram."
+- Erro: mostre a mensagem de erro e oriente:
+  - `"Unauthorized"` ou error_code 401: token do bot invalido. Rode `/configurar-telegram` para reconfigurar.
+  - `"chat not found"`: Chat ID errado. Rode `/configurar-telegram` para obter o Chat ID correto.
+  - Qualquer outro erro: mostre o retorno bruto para diagnostico.
+
+**Se WhatsApp (Z-API):**
+
+- Sucesso: informe "Relatorio enviado para {numero mascarado}."
+- Erro, mostre a mensagem e oriente:
+  - `"subscribe to this instance again"`: assinatura Z-API expirada. Acesse o painel da Z-API e renove o plano.
+  - `"connected":false`: WhatsApp desconectado. Acesse o painel da Z-API e reconecte pelo QR Code.
+  - Qualquer outro erro: mostre o retorno bruto para diagnostico.

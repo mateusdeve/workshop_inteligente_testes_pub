@@ -57,6 +57,7 @@ scripts/__pycache__/
 .claude/scheduled_tasks.lock
 scripts/*.log
 .continue-here.md
+.planning/
 
 # ══════════════════════════════════════════
 # Memória dos agentes (gerada localmente, cada aluno a sua)
@@ -90,3 +91,14 @@ desktop.ini
 .vercel
 vercel.json
 .env*.local
+
+# ══════════════════════════════════════════
+# Entregas geradas localmente (cada aluno gera as suas)
+# conta.md tem dados da conta do aluno; use conta.exemplo.md como template.
+# Os demais sao outputs do instagram-dashboard (gerados a cada execucao).
+# ══════════════════════════════════════════
+entregas/conta.md
+entregas/instagram-dashboard/dashboard.html
+entregas/instagram-dashboard/insights.json
+entregas/instagram-dashboard/log.txt
+entregas/instagram-dashboard/imagens/
