@@ -176,7 +176,7 @@ Em seguida, liste os comandos disponíveis organizados por categoria:
 
 **Dados e Automações:**
 - `/ads-relatorio`. Criar rotina diária automática que busca métricas do Facebook Ads e envia relatório pelo WhatsApp via Z-API. Agente agendado na nuvem do Claude, roda todo dia às 8h sem precisar do computador ligado.
-- `/instagram-dashboard`. Dashboard HTML de métricas do Instagram (seguidores, engajamento, posts recentes), atualizado automaticamente todo dia às 8h via Apify. Roda localmente via Task Scheduler do Windows.
+- `instagram-dashboard`. Dashboard HTML de métricas do Instagram (seguidores, engajamento, posts recentes) via Apify. O aluno roda o script manualmente para atualizar.
 - `/dados-instagram`. Analisar perfil do Instagram com insights de copy (análise pontual, sem agendamento).
 - `/adaptar-plataforma`. Converter scripts e instruções Windows/PowerShell para Mac ou Linux. Adapta agendamento (Task Scheduler → cron/launchd) e comandos de instalação para o SO do aluno.
 

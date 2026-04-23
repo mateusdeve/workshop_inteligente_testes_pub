@@ -1,13 +1,13 @@
 ---
 name: workshop-marketing:video-heygen
-description: Criar video com avatar IA usando HeyGen com multiplas cenas, avatares rotacionados, backgrounds variados e direcao visual alinhada a Mandala VTSD e pesquisa de referencias virais. Entrega video pronto com cenas diferentes, nao mais "avatar falando em fundo branco".
-allowed-tools: Read, Write, Edit, Glob, Grep, Bash, Agent, WebSearch, WebFetch, AskUserQuestion, Skill, mcp__Claude_in_Chrome__tabs_context_mcp, mcp__Claude_in_Chrome__tabs_create_mcp, mcp__Claude_in_Chrome__navigate, mcp__Claude_in_Chrome__read_page, mcp__Claude_in_Chrome__get_page_text, mcp__Claude_in_Chrome__find, mcp__Claude_in_Chrome__form_input, mcp__Claude_in_Chrome__computer
+description: Criar video com avatar IA usando HeyGen com multiplas cenas, avatares rotacionados, backgrounds variados e direcao visual baseada em dados reais (Apify/dashboard) ou Urgencias Ocultas do perfil. Entrega video pronto com cenas diferentes, nao mais "avatar falando em fundo branco".
+allowed-tools: Read, Write, Edit, Glob, Grep, Bash, Agent, WebFetch, AskUserQuestion, Skill, mcp__Claude_in_Chrome__tabs_context_mcp, mcp__Claude_in_Chrome__tabs_create_mcp, mcp__Claude_in_Chrome__navigate, mcp__Claude_in_Chrome__read_page, mcp__Claude_in_Chrome__get_page_text, mcp__Claude_in_Chrome__find, mcp__Claude_in_Chrome__form_input, mcp__Claude_in_Chrome__computer
 model: opus
 ---
 
 # Video com Avatar IA (HeyGen). Multi-Cena, Multi-Avatar, Multi-Background
 
-Cria videos com avatar IA que NAO sao "avatares falando em fundo branco". Cada video e quebrado em 3 a 5 cenas, com combinacao de avatar, voz e background por cena, alinhada ao tipo de anuncio da Mandala VTSD e a pesquisa visual do nicho.
+Cria videos com avatar IA que NAO sao "avatares falando em fundo branco". Cada video e quebrado em 3 a 5 cenas, com combinacao de avatar, voz e background por cena, alinhada ao tipo de anuncio da Mandala VTSD e a direcao visual baseada em dados reais (dashboard/Apify) ou Urgencias Ocultas do perfil.
 
 ## O que mudou em relacao a versao antiga
 
@@ -26,7 +26,7 @@ Este fluxo usa 1 API paga: HeyGen (~US$ 0,50/min de video). Cada cena adicional 
 
 1. **Roteiro em cenas, nao em bloco.** O roteiro vira um array de 3 a 5 cenas antes de virar payload.
 2. **Cada cena tem funcao narrativa.** Gancho, problema, virada, prova, CTA. Nao e so quebrar por tempo.
-3. **Background nunca e branco liso.** Default da skill e cor solida da marca. Branco so se a pesquisa visual mostrar que o nicho usa (ex: maternidade clean).
+3. **Background nunca e branco liso.** Default da skill e cor solida da marca. Branco so se a direcao visual do Passo 3 mostrar que o nicho usa (ex: maternidade clean).
 4. **Direcao visual vem da Mandala + pesquisa.** O tipo de anuncio define a base. A pesquisa viral ajusta ao tom atual do nicho.
 5. **Produto nao aparece no lead.** Mesma regra VTSD. A Cena 1 fala da dor, desejo ou transformacao do leitor, nunca do produto.
 
@@ -141,40 +141,122 @@ Guardar na sessao: `tipo_mandala`, `objetivo`, `momento`.
 
 ---
 
-## PASSO 3. Pesquisa Visual de Referencias (NOVO)
+## PASSO 3. Direcao Visual
 
-Antes de escrever o roteiro, rode uma pesquisa visual rapida inspirada na skill `img-anuncio`. Isso define cores, ritmo e estilo de background das cenas.
+Antes de escrever o roteiro, defina a direcao visual do video. O fluxo tem dois caminhos: o padrao (sempre funciona) e o avancado (dados reais do Instagram, recomendado).
 
-Avise o usuario:
+### Caminho padrao. Dados existentes + Urgencias Ocultas
+
+**Primeiro, verifique se ja tem dados do nicho no produto ativo:**
+
+1. `meus-produtos/{ativo}/entregas/instagram-dashboard/insights.json` (dashboard do Instagram)
+2. `meus-produtos/{ativo}/entregas/instagram-dashboard/imagens/` (thumbnails dos posts)
+3. `meus-produtos/{ativo}/entregas/dados-nicho*.md` (relatorio do /dados-nicho)
+
+**Se `insights.json` existir e tiver menos de 30 dias:**
+
+- Leia os posts com maior engajamento (top 6 por likes + comentarios).
+- Se a pasta `imagens/` existir com as thumbnails, leia as imagens dos top 6 posts para extrair paleta, composicao e estilo visual real.
+- Se so tiver o JSON sem imagens, use as legendas e tipos de post (Reel, Foto, Carrossel) para inferir o ritmo e estilo dominante do nicho.
+- Extraia os 4 elementos (ver abaixo) e siga para o resumo.
+
+**Se `dados-nicho*.md` existir:** leia o relatorio e extraia padroes visuais mencionados (tipos de conteudo, estilos, formatos que dominam no nicho).
+
+**Se nao tiver nenhum dado externo**, derive a direcao visual do que ja existe no `perfil.md`:
+
+1. Leia as **Urgencias Ocultas** (dores, desejos, urgencias quentes).
+2. Leia as **3 Identidades** (comunicador, consumidor, produto).
+3. Combine com a **tabela da Mandala** do Passo 5 (linha do tipo escolhido no Passo 2) para derivar a direcao visual.
+
+Regras de derivacao:
+
+- **Paleta:** use as cores da marca do perfil.md. Se nao tiver, use a paleta base da tabela da Mandala para o tipo escolhido.
+- **Ritmo:** se o publico e jovem ou o nicho e dinamico (fitness, marketing, tech), corte rapido. Se e reflexivo ou premium (terapia, coaching executivo, investimentos), corte lento.
+- **Cenario:** derive do contexto das dores. Se as dores mencionam "escritorio", "computador", "rotina", o cenario e interno profissional. Se mencionam "corpo", "espelho", "academia", o cenario e lifestyle.
+- **Retencao:** use a urgencia quente mais forte como base do gancho visual (rosto + frase de impacto derivada da urgencia).
+
+### Caminho avancado (recomendado). Apify + analise visual real
+
+Se o caminho padrao usou apenas Urgencias Ocultas (sem dados do dashboard ou dados-nicho), verifique se `APIFY_API_TOKEN` existe no `.env`.
+
+**Se o token existir**, oferca ao usuario:
 
 ```
-Antes de montar o video, vou pesquisar como os virais do seu nicho estao aparecendo no Instagram e TikTok. Isso define cor, ritmo e tipo de cena.
+Pra deixar a direcao visual mais precisa, posso analisar os posts reais de 2 a 3 perfis de referencia do seu nicho. Isso me da a paleta de cores, ritmo e estilo que ta funcionando agora no Instagram.
 
-Isso leva ~30 segundos.
+Quer usar essa opcao?
+
+1. Sim, quero (vou informar os perfis)
+2. Nao, segue com o que ja tem
+
+Digite o numero:
 ```
 
-**Buscas obrigatorias (em paralelo via WebSearch):**
+Se opcao 1: pergunte os perfis e siga o fluxo abaixo.
+Se opcao 2: siga para o resumo com os dados do caminho padrao.
 
-1. `reels {nicho} viral {mes atual} {ano atual}`
-2. `tiktok {nicho} trending {ano atual}`
-3. `{tipo_mandala} ad exemplo {nicho}`
+**Se o token NAO existir**, mencione a opcao sem travar o fluxo:
 
-**Do que foi encontrado, extraia 4 elementos:**
+```
+Dica: se voce configurar o Apify (/configurar-apify), da proxima vez eu consigo analisar os posts reais dos concorrentes pra definir cores e estilo do video com mais precisao. Por enquanto, vou usar as Urgencias Ocultas do seu produto.
+```
 
-- **Paleta dominante.** 2 a 3 cores que mais aparecem nos virais do nicho.
-- **Ritmo.** Cortes rapidos (menos de 2s por cena) ou cortes lentos (mais de 4s por cena).
-- **Tipo de cenario.** Interno neutro, ambiente real (cozinha, carro, rua), grafico texto em tela, mistura.
+E siga para o resumo.
+
+**Fluxo do Apify (quando o usuario aceitar):**
+
+1. Pergunte os perfis:
+
+```
+Quais perfis do Instagram sao referencia no seu nicho?
+(ex: @fulano, @ciclano, @beltrano)
+```
+
+2. Use o Apify Instagram Scraper para cada perfil:
+
+```bash
+curl -s -X POST "https://api.apify.com/v2/acts/apify~instagram-scraper/run-sync-get-dataset-items?token=$APIFY_API_TOKEN&timeout=120" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "directUrls": ["https://www.instagram.com/{perfil}/"],
+    "resultsType": "posts",
+    "resultsLimit": 12
+  }'
+```
+
+3. Dos posts retornados, baixe as thumbnails dos 6 com mais engajamento:
+
+```bash
+curl -s -o "thumbnail_{n}.jpg" "{displayUrl}" \
+  -H "User-Agent: Mozilla/5.0" \
+  -H "Referer: https://www.instagram.com/"
+```
+
+4. Leia as imagens baixadas com o Read (Claude e multimodal) e analise visualmente: paleta de cores dominante, composicao, tipo de cenario, presenca de texto sobreposto, estilo de iluminacao.
+
+5. Extraia os 4 elementos e siga para o resumo.
+
+### Os 4 elementos que toda fonte deve extrair
+
+Independente do caminho usado, o resultado final e sempre:
+
+- **Paleta dominante.** 2 a 3 cores HEX que definem o tom visual do video.
+- **Ritmo.** Cortes rapidos (menos de 2s por cena) ou lentos (mais de 4s por cena).
+- **Tipo de cenario.** Interno neutro, ambiente real, grafico/texto em tela, ou mistura.
 - **Elemento de retencao.** O que segura nos primeiros 2 segundos (rosto + texto grande, b-roll + voz off, etc).
 
-Guarde em memoria da sessao como `pesquisa_visual`. Nao mostre relatorio completo ao usuario, so um resumo:
+### Resumo para o usuario
+
+Guarde em memoria da sessao como `pesquisa_visual`. Mostre ao usuario:
 
 ```
-Pesquisa pronta. Resumo:
+Direcao visual definida. Resumo:
 
-- Paleta do nicho: [cores]
-- Ritmo atual: [corte rapido / lento]
-- Cenario dominante: [descricao]
-- Gancho visual que prende: [descricao]
+- Fonte: [insights.json do dashboard / Apify @perfil1 @perfil2 / Urgencias Ocultas do perfil]
+- Paleta: [cores HEX]
+- Ritmo: [corte rapido / lento]
+- Cenario: [descricao]
+- Gancho visual: [descricao]
 
 Vou usar isso para montar as cenas.
 ```
@@ -252,7 +334,7 @@ Toda cena tem um papel. Mapeamento padrao para 4 cenas:
 
 ### Mapeamento Mandala para Direcao Visual (TABELA OBRIGATORIA)
 
-Use esta tabela para a direcao base. Combine com a pesquisa visual do Passo 3 para ajustar ao nicho.
+Use esta tabela para a direcao base. Combine com a direcao visual do Passo 3 para ajustar ao nicho.
 
 | Tipo da Mandala | Paleta base | Ritmo | Bg cena 1 | Bg cena do meio | Bg CTA | Avatares |
 |---|---|---|---|---|---|---|
@@ -275,7 +357,7 @@ Use esta tabela para a direcao base. Combine com a pesquisa visual do Passo 3 pa
 | Revelacao | Escuro > luz | Medio | Preto/escuro | Imagem que "revela" | Cor clara | 1 avatar |
 | Dilema | 2 cores em conflito | Medio | Cor A | Cor B | Cor resolutiva | 1 avatar |
 
-**Como usar a tabela:** pegar a linha do tipo escolhido, ajustar as cores com a paleta que veio da pesquisa visual do Passo 3. Se o nicho usa pasteis, traduzir "vermelho" para rosa-coral, "verde" para verde-menta, mantendo a ideia de contraste.
+**Como usar a tabela:** pegar a linha do tipo escolhido, ajustar as cores com a paleta que veio da direcao visual do Passo 3. Se o nicho usa pasteis, traduzir "vermelho" para rosa-coral, "verde" para verde-menta, mantendo a ideia de contraste.
 
 ### Backgrounds: como decidir entre cor, imagem ou video
 
@@ -291,7 +373,7 @@ Use esta tabela para a direcao base. Combine com a pesquisa visual do Passo 3 pa
 1. **Cor solida:** basta mandar `{"type": "color", "value": "#HEXCODE"}` no payload.
 2. **Imagem:**
    - **Opcao A (recomendada).** Acionar a skill `img-anuncio` internamente para gerar 2 a 3 imagens de background (cenarios, contextos, SEM pessoas e SEM texto) que casam com o roteiro. Salvar em `meus-produtos/{ativo}/entregas/videos/backgrounds/video-{data}/`. Fazer upload no HeyGen e usar o `image_key` retornado.
-   - **Opcao B.** Stock gratuito (Unsplash, Pexels) via WebSearch + download + upload.
+   - **Opcao B.** Stock gratuito (Unsplash, Pexels) via WebFetch + download + upload.
 3. **Video b-roll:** so se o plano permitir. Mesma logica.
 
 ### Exemplo concreto de quebra em cenas
@@ -408,12 +490,12 @@ Para cada cena que usa `background.type == "image"`:
 Acione a skill `img-anuncio` em modo silencioso, passando:
 - Produto ativo
 - Briefing da cena ("cenario de [descricao], SEM pessoas, SEM texto, proporcao 9:16")
-- Paleta da pesquisa visual
+- Paleta da direcao visual do Passo 3
 
 A skill gera a imagem. Salve em `meus-produtos/{ativo}/entregas/videos/backgrounds/video-{data}/cena-{n}.jpg`.
 
 **Opcao B. Stock gratuito:**
-WebSearch + download direto de Unsplash ou Pexels. Salve no mesmo local.
+Download direto de Unsplash ou Pexels via WebFetch. Salve no mesmo local.
 
 **Upload para HeyGen:**
 

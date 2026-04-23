@@ -26,7 +26,7 @@ Salvo em: `meus-produtos/{ativo}/entregas/conteudo-social/variacoes-[slug].md`
 
 ### PASSO 0. Verificar insights.json
 
-Leia `entregas/instagram-dashboard/insights.json`.
+Leia `meus-produtos/{ativo}/entregas/instagram-dashboard/insights.json`.
 
 Se nao existir:
 ```
@@ -125,22 +125,25 @@ Variacoes por post: 3 (cada uma com elemento literario diferente)
 2. Quero ajustar algo
 ```
 
-### PASSO 3. Pesquisa de Virais (OBRIGATORIO)
+### PASSO 3. Transcricao de Reels (sob demanda)
 
-Antes de gerar qualquer variacao, pesquise:
-- `reels instagram virais [mes e ano atual]`
-- `tiktok trends virais [mes e ano atual]`
+Antes de analisar, identifique quais posts selecionados sao Reels com `transcricao` vazia no `insights.json`.
 
-Se o formato for Reels, pesquise tambem:
-- `estrutura roteiro viral reels [mes e ano atual]`
+Se houver ao menos um:
 
-**O que extrair dos virais:**
-- Estrutura de abertura: o que esta parando o scroll nos primeiros 2-3 segundos
-- Tom predominante: didatico, emocional, provocativo, informal, historia pessoal
-- O que entregam dentro do proprio conteudo (modelar so os que entregam valor real)
-- Padrao de CTA atual: salva, comenta, compartilha, segue
+```
+Encontrei {N} Reel(s) sem transcricao nos posts selecionados.
+Vou buscar o audio agora para melhorar a analise. Isso leva ~1 min por Reel.
+```
 
-Apos as buscas, sintetize em 3-4 linhas e use para calibrar estilo e abertura de cada variacao.
+Execute para cada shortcode de Reel sem transcricao:
+```bash
+python .claude/skills/copy-variacao-post/scripts/transcrever.py {shortcode1} {shortcode2} ...
+```
+
+Aguarde a conclusao e releia o `insights.json` atualizado antes de prosseguir.
+
+Se nenhum Reel selecionado tiver transcricao vazia, pule direto para o PASSO 4.
 
 ### PASSO 4. Analise do Post Original
 

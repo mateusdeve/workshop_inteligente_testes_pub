@@ -41,8 +41,8 @@ Leia `meus-produtos/.ativo`, `meus-produtos/{ativo}/perfil.md` e `meus-produtos/
 **Passo 0. Verificar dados existentes (prioridade máxima).**
 Antes de qualquer estratégia de coleta, verifique na ordem:
 
-1. `entregas/instagram-dashboard/dados.json` (gerado pelo `/instagram-dashboard`)
-2. `entregas/dados/instagram-{perfil}.json` (gerado por execução anterior do `/dados-instagram`)
+1. `meus-produtos/{ativo}/entregas/instagram-dashboard/insights.json` (gerado pelo `/instagram-dashboard`)
+2. `meus-produtos/{ativo}/entregas/dados/instagram-{perfil}.json` (gerado por execução anterior do `/dados-instagram`)
 
 Se qualquer um existir: leia o arquivo, extraia `perfil` e `posts`, e pule direto para o Passo 3 (Processar os dados). Informe ao aluno: "Usando dados já coletados ({n} posts, última atualização {data})."
 
@@ -83,7 +83,7 @@ Calcule:
 
 ### 4. Gerar o dashboard HTML
 
-Arquivo: `entregas/{ativo}/dados/instagram-{perfil}.html`
+Arquivo: `meus-produtos/{ativo}/entregas/dados/instagram-{perfil}.html`
 
 Estrutura:
 - `<header>`: @ do perfil, bio curta, foto placeholder, seguidores, taxa de engajamento

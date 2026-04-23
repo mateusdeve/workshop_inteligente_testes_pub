@@ -24,12 +24,13 @@ description: >
 
 | Arquivo | Descricao |
 |---|---|
-| `entregas/instagram-dashboard/dashboard.html` | Dashboard HTML completo, abre no navegador |
-| `entregas/instagram-dashboard/atualizar.py` | Script Python principal (Windows, macOS, Linux) |
-| `entregas/instagram-dashboard/atualizar_powershell.ps1` | Script PowerShell de backup (Windows validado) |
-| `entregas/instagram-dashboard/imagens/` | Thumbnails e slides dos top 10 posts (gerados pelo script) |
-| `entregas/instagram-dashboard/log.txt` | Log de cada execucao com timestamp e status |
-| `entregas/conta.md` | Config de conta (Instagram, YouTube, Site, WhatsApp) |
+| `.claude/skills/instagram-dashboard/scripts/atualizar.py` | Script Python principal (Windows, macOS, Linux) — compartilhado entre todos os produtos |
+| `.claude/skills/instagram-dashboard/scripts/atualizar_powershell.ps1` | Script PowerShell de backup (Windows) |
+| `meus-produtos/{ativo}/entregas/instagram-dashboard/dashboard.html` | Dashboard HTML completo, abre no navegador |
+| `meus-produtos/{ativo}/entregas/instagram-dashboard/imagens/` | Thumbnails e slides dos posts (gerados pelo script) |
+| `meus-produtos/{ativo}/entregas/instagram-dashboard/insights.json` | Dados estruturados sem base64 (usado por /copy-variacao-post) |
+| `meus-produtos/{ativo}/entregas/instagram-dashboard/historico.json` | Snapshots acumulativos (seguidores, engajamento) entre execucoes |
+| `meus-produtos/{ativo}/entregas/instagram-dashboard/log.txt` | Log de cada execucao com timestamp e status |
 
 ## Como Funciona
 
@@ -73,7 +74,7 @@ Uma chamada de perfil + loop de posts (ambas sync, mesmo ator):
 
 **Transcricao de Reels:** para posts do tipo Video, o script chama `apify~whisper-speech-to-text` com a `videoUrl` do post e armazena a transcricao em `insights.json`. O `/copy-variacao-post` usa essa transcricao para entender o conteudo real do Reel sem precisar reproduzir o video.
 
-Custo total: ~US$0,20-0,50/mes no plano gratuito Apify (varia com quantas iteracoes de busca expandida forem necessarias).
+Custo por execucao: ~US$0,05-0,20 no plano gratuito Apify (varia com quantas iteracoes de busca expandida forem necessarias).
 
 ## Compatibilidade por Sistema Operacional
 
@@ -100,46 +101,167 @@ pip install requests
 
 ## Dashboard: O Que Mostra
 
-**ESTRUTURA OBRIGATORIA — todas as 6 secoes devem estar presentes em todos os dashboards gerados, nesta ordem:**
+**ESTRUTURA OBRIGATORIA — todas as 12 secoes devem estar presentes em todos os dashboards gerados, nesta ordem:**
 
 1. **Cabecalho (perfil):** foto de perfil em base64 (fallback: inicial do nome), @username, bio, ultima atualizacao
-2. **Visao Geral (4 cards KPI):** seguidores, engajamento medio (%), total de posts, formato mais postado
-3. **Desempenho por Formato:** cards separados para Reels, Carrossel e Foto com media de likes, comentarios e views totais (Reels). Obrigatorio mesmo que so haja um formato.
-4. **Top 3 Posts:** os 3 com maior engajamento, com thumbnail em base64, badge de tipo, likes, comentarios, views (Reels), taxa de engajamento e link "Ver post original"
-5. **Linha do Tempo (3 graficos):** canvas puro, um grafico por metrica, empilhados verticalmente dentro do mesmo card. (a) **Curtidas:** uma linha por formato (Reels roxo, Carrossel azul, Foto verde), eixo Y com rotulos em 0%, 50% e 100% do maximo. (b) **Visualizacoes (Reels):** apenas a linha de Reels (unico formato com viewsCount). (c) **Engajamento (%):** uma linha por formato. Todos os graficos: pontos em cada post, linha conectando cronologicamente, eixo X com data mais antiga (esquerda) e mais recente (direita), grid horizontal sutil, tooltip colorido com tipo, valor e data ao passar o mouse.
-6. **Todos os Posts (grade):** thumbnail ciclavel em base64 (click para avancar imagens do carrossel com indicador "X/N"), badge de tipo, likes, comentarios, views (Reels), data, primeiros 120 chars da legenda e link "Ver post original"
+2. **Visao Geral (4 cards KPI):** seguidores, engajamento medio (%) com total de shares, total de posts, formato mais postado
+3. **Evolucao ao Longo do Tempo:** graficos de tendencia de seguidores e engajamento medio entre execucoes. So aparece quando historico.json tem 2+ snapshots.
+4. **Desempenho por Formato:** cards separados para Reels, Carrossel e Foto com media de likes, comentarios, shares e views totais (Reels).
+5. **Melhores Horarios para Postar:** heatmap 7x24 (dia da semana x hora). Intensidade = engajamento medio. Tooltip com contagem e media.
+6. **Frequencia de Postagem:** posts por semana vs engajamento. Insight comparando semanas com 4+ posts vs menos.
+7. **Top 3 Posts:** os 3 com maior engajamento, com thumbnail em base64, badge de tipo, likes, comentarios, shares, views (Reels), taxa de engajamento e link.
+8. **Analise de Hashtags:** top 10 hashtags por engajamento medio. Barras horizontais com contagem e media.
+9. **Tamanho da Legenda vs Engajamento:** 3 buckets (curta, media, longa) com engajamento medio por faixa. Insight textual.
+10. **Linha do Tempo (4 graficos):** curtidas, visualizacoes (Reels), engajamento (%) e compartilhamentos. Canvas puro, uma linha por formato, tooltip colorido.
+11. **Barra de Filtros:** filtros interativos por tipo (Reel/Carrossel/Foto) e periodo (7/15/30 dias). Afeta grade de posts, Top 3 e KPIs.
+12. **Todos os Posts (grade):** thumbnail ciclavel em base64, badge de tipo, likes, comentarios, shares, views (Reels), data, legenda truncada e link.
 
-**NUNCA omitir nenhuma dessas 6 secoes.** Nao existe versao simplificada do dashboard.
+**NUNCA omitir nenhuma dessas 12 secoes.** Nao existe versao simplificada do dashboard.
 
-## Fluxo Resumido
+## Fluxo
+
+### PASSO 0. Detectar Estado
+
+Antes de qualquer pergunta, leia em paralelo:
+1. `.env` na raiz do projeto — existe `APIFY_API_TOKEN` com valor? existe `IG_USER` com valor?
+2. `meus-produtos/{ativo}/entregas/instagram-dashboard/dashboard.html` — o arquivo existe?
+
+---
+
+#### Cenario A. Dashboard ja configurado (dashboard.html existe)
+
+Mostre o menu sem perguntas:
 
 ```
-PASSO 0  Detectar estado
-         ├── Ler .env para verificar APIFY_API_TOKEN (SEMPRE antes de pedir ao usuario)
-         ├── Dashboard ja existe? → menu de acoes (abrir, atualizar, trocar, recriar)
-         └── Primeira vez? → coletar username → (token ja vem do .env) → confirmar → criar
+Dashboard do Instagram ja esta configurado.
 
-PASSO 1  Confirmacao com resumo
-PASSO 2  Gerar atualizar.py (token e username embutidos)
-         CRITICO: Ler o arquivo entregas/instagram-dashboard/atualizar.py existente
-         e usar como template — substituir APENAS APIFY_TOKEN e IG_USER.
-         Se nao existir, gerar do zero seguindo RIGOROSAMENTE todas as Regras desta
-         skill (base64, busca expandida, likes ocultos, 6 secoes obrigatorias).
-PASSO 3  Executar o script imediatamente e abrir o dashboard no navegador
-PASSO 4  Entrega com proximos passos
+Perfil monitorado: @{IG_USER do .env}
+
+O que quer fazer?
+
+1. Abrir o dashboard agora
+2. Atualizar os dados agora
+3. Trocar o perfil monitorado
+4. Recriar o script do zero
 ```
 
-**Sem agendamento automatico:** nao configurar CronCreate nem schtasks. O aluno roda o script manualmente quando quiser atualizar. Comando para atualizar:
+**Opcao 1 — Abrir (Windows):**
+```bash
+start meus-produtos/{ativo}/entregas/instagram-dashboard/dashboard.html
 ```
-python3 entregas/instagram-dashboard/atualizar.py --abrir
+macOS: `open ...` / Linux: `xdg-open ...`
+
+**Opcao 2 — Atualizar:**
+```bash
+python .claude/skills/instagram-dashboard/scripts/atualizar.py --abrir
 ```
-Windows sem Python no PATH:
+Aguarde, leia o log em `meus-produtos/{ativo}/entregas/instagram-dashboard/log.txt`, informe o resultado.
+
+**Opcao 3 — Trocar perfil:**
+Pergunte o novo @. Normalize (sem @, lowercase). Atualize com Edit cirurgico no `.env`: linha `IG_USER=<novo_username>`. Execute para testar:
+```bash
+python .claude/skills/instagram-dashboard/scripts/atualizar.py --abrir
 ```
-python entregas/instagram-dashboard/atualizar.py --abrir
+
+**Opcao 4 — Recriar do zero:**
+Siga o Cenario B abaixo.
+
+---
+
+#### Cenario B. Primeira configuracao
+
+**1. Username do Instagram**
+
+Prioridade: ler `.env` primeiro (`IG_USER`). Se encontrar, confirme:
+
 ```
+Encontrei o Instagram configurado: @{username}
+
+E esse mesmo perfil que quer monitorar?
+
+1. Sim, pode continuar
+2. Nao, quero usar outro
+```
+
+Se nao encontrar, pergunte:
+```
+Qual o usuario do seu perfil no Instagram? (so o nome, sem o arroba)
+(ex: meuperfil)
+```
+
+Normalize: sem @, lowercase. Salve com Edit cirurgico no `.env`: `IG_USER=<username>`.
+
+**2. Token Apify**
+
+Se `APIFY_API_TOKEN` estiver no `.env`: use diretamente, nao pergunte.
+Se nao estiver: execute a skill `configurar-apify` e retorne aqui apos concluir.
+
+---
+
+### PASSO 1. Confirmacao
+
+```
+Configuracao confirmada:
+
+- Perfil Instagram: @{username}
+- Token Apify: configurado
+- Script: .claude/skills/instagram-dashboard/scripts/atualizar.py
+- Dashboard: meus-produtos/{ativo}/entregas/instagram-dashboard/dashboard.html
+
+Custo estimado no Apify: menos de US$ 0,20 por geracao no plano gratuito.
+
+1. Tudo certo, atualizar agora
+2. Quero ajustar algo
+```
+
+---
+
+### PASSO 2. Executar
+
+```bash
+python .claude/skills/instagram-dashboard/scripts/atualizar.py --abrir
+```
+
+macOS / Linux: `python3 ...`
+
+Aguarde a conclusao (pode levar ate 10 minutos — busca expandida de ate 100 posts).
+
+Leia o log para confirmar sucesso:
+```bash
+tail -10 meus-produtos/{ativo}/entregas/instagram-dashboard/log.txt
+```
+
+**Erros comuns:**
+
+| Erro no log | Causa | Solucao |
+|---|---|---|
+| `401` ou autenticacao | Token Apify invalido | Verificar token em console.apify.com |
+| `Perfil vazio` ou erro | @ errado ou perfil privado | Confirmar username; perfis privados nao funcionam |
+| Arquivo travado pelo navegador | Browser com dashboard aberto | Fechar a aba do dashboard e rodar novamente |
+
+---
+
+### PASSO 3. Entrega
+
+```
+Dashboard criado.
+
+Arquivos:
+- Dashboard: meus-produtos/{ativo}/entregas/instagram-dashboard/dashboard.html
+- Script:    .claude/skills/instagram-dashboard/scripts/atualizar.py
+- Log:       meus-produtos/{ativo}/entregas/instagram-dashboard/log.txt
+
+Para atualizar quando quiser:
+python .claude/skills/instagram-dashboard/scripts/atualizar.py --abrir
+
+Perfil monitorado: @{username}
+```
+
+**Sem agendamento automatico:** nao configurar CronCreate nem schtasks. O aluno roda o script manualmente.
+
 Backup PowerShell (Windows):
 ```
-powershell -ExecutionPolicy Bypass -File entregas\instagram-dashboard\atualizar_powershell.ps1 -Abrir
+powershell -ExecutionPolicy Bypass -File .claude\skills\instagram-dashboard\scripts\atualizar_powershell.ps1 -Abrir
 ```
 
 ## Regras
@@ -157,6 +279,6 @@ powershell -ExecutionPolicy Bypass -File entregas\instagram-dashboard\atualizar_
 
 ## Proximos Passos Apos Configurar
 
-- `/copy-social` — criar conteudo baseado nos posts com mais engajamento
-- `/dados-instagram` — analise profunda com insights de copy e relatorio escrito
+- `/copy-variacao-post` — criar variacoes dos posts com mais engajamento (le thumbnails e insights.json do dashboard)
+- `/copy-social` — criar conteudo novo baseado nos posts com mais engajamento
 - `/copy-anuncio` — transformar os dados em anuncios com angulos testados
