@@ -146,7 +146,7 @@ Gere e salve no arquivo, com parágrafos desenvolvidos (persona, cenas, elemento
 
 - **Bloco 01 — Hero:** headline, subheadline, PROIBIDO nome do produto/método/curso/sigla no hero; 3 bullets (UO + decorado); indicação de vídeo; texto do botão.
 - **Bloco 02 — Dor:** dor amplificada, cotidiano.
-- **Bloco 03 — Paliativo:** tentativas antigas e por que falharam.
+- **Bloco 03 — Paliativo:** ferramentas, produtos e soluções concorrentes do mercado que resolvem parcialmente o problema, e por que cada uma não entrega o resultado completo.
 - **Bloco 04 — Prova social (primeiro bloco):** 2 a 3 depoimentos curtos; modelos marcados se não houver reais.
 - **Bloco 05 — CTA intermediário:** frase + botão.
 - **Bloco 06 — Método (Furadeira):** primeira vez com nome do método em destaque; macroetapas; mínimo 3 parágrafos de argumentação.

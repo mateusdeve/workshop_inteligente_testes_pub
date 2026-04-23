@@ -224,8 +224,8 @@ Posicionamento único do produto no mercado.
 - Vídeo de vendas
 
 **Seção 2. Paliativo:**
-- O que o cliente já tentou e não funcionou
-- Por que essas soluções falham
+- Ferramentas, produtos e soluções concorrentes que existem no mercado e resolvem parcialmente o problema
+- Por que cada uma dessas soluções não entrega o resultado completo
 
 **Seção 3. Método:**
 - Apresentação da Furadeira
@@ -296,7 +296,7 @@ Identifique e quebre as principais objeções do público.
 1. **Abertura**. gancho que prende atenção
 2. **Conexão**. história ou situação que gera identificação
 3. **Problema**. dor do público amplificada
-4. **Paliativo**. o que já tentaram e não funcionou
+4. **Paliativo**. ferramentas, produtos e soluções concorrentes do mercado que resolvem parcialmente o problema, mas não entregam o resultado completo
 5. **Solução**. apresentação do método
 6. **Prova**. resultados e depoimentos
 7. **Oferta**. entregáveis, bônus, garantia
@@ -763,7 +763,7 @@ Conteúdos que aproveitam momentos específicos:
 | 8D | Estrutura de 8 seções da página de vendas |
 | Light Copy | Estilo de copy conversacional e não óbvio |
 | Mandala | Os 18 tipos de anúncios |
-| Paliativo | O que o cliente já tentou sem sucesso |
+| Paliativo | Ferramentas e soluções concorrentes do mercado que resolvem o problema parcialmente |
 | CTA | Call to Action (chamada para ação) |
 | C10X | Metodologia de High Ticket via eventos |
 | SPIN | Situação, Problema, Implicação, Necessidade |

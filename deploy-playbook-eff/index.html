@@ -1,0 +1,1212 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Playbook comercial WhatsApp · Método EFF · Beatriz Almeida</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f7f5f0;
+  --surface:#ffffff;
+  --ink:#1a1d21;
+  --ink-soft:#3f4850;
+  --ink-mute:#6a737b;
+  --line:#e5e2d9;
+  --brand:#2f7a5c;
+  --brand-soft:#d9efdc;
+  --brand-dark:#1f5540;
+  --accent:#c65d73;
+  --accent-soft:#f7d9e0;
+  --warn:#b54748;
+  --warn-soft:#fbe0e0;
+  --ok:#3a7a56;
+  --ok-soft:#e0f2e4;
+  --connect:#2f7a5c;
+  --connect-soft:#d9efdc;
+  --avoid:#c65d73;
+  --avoid-soft:#f7d9e0;
+  --card:#fbfaf5;
+  --radius:14px;
+  --radius-sm:8px;
+  --shadow:0 2px 12px rgba(30,40,50,0.05);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:'DM Sans',system-ui,sans-serif;font-size:15px;line-height:1.6;}
+main{max-width:820px;margin:0 auto;padding:48px 24px 120px;}
+h1,h2,h3,h4{font-weight:700;color:var(--ink);margin:0 0 12px;line-height:1.25;}
+h1{font-size:28px}
+h2{font-size:22px;padding-top:48px;border-top:1px solid var(--line);margin-top:48px;}
+h2:first-of-type{border-top:none;padding-top:0;margin-top:0}
+h3{font-size:17px;margin-top:28px;color:var(--brand)}
+h4{font-size:14px;color:var(--ink-soft);text-transform:uppercase;letter-spacing:0.04em;margin-top:20px}
+p{margin:0 0 12px}
+small{color:var(--ink-mute);font-size:12px}
+a{color:var(--brand);text-decoration:none;border-bottom:1px solid var(--brand-soft);}
+
+/* Capa */
+.capa{
+  background:linear-gradient(135deg,#2f7a5c,#1f5540);
+  color:#fff;border-radius:var(--radius);padding:40px 32px;margin-bottom:32px;
+}
+.capa h1{color:#fff;font-size:24px;margin-bottom:8px}
+.capa .produto{color:#d9efdc;font-size:15px;margin-bottom:24px}
+.capa .valor{
+  display:inline-block;padding:14px 22px;background:rgba(255,255,255,0.12);
+  border:1px solid rgba(255,255,255,0.2);border-radius:var(--radius-sm);
+  font-size:32px;font-weight:700;letter-spacing:-0.01em;margin-bottom:8px;
+}
+.capa .valor small{color:#d9efdc;display:block;font-size:11px;font-weight:500;margin-top:4px;text-transform:uppercase;letter-spacing:0.06em}
+.capa .selo{display:inline-block;margin-left:12px;padding:6px 12px;border-radius:999px;background:var(--accent);color:#fff;font-size:12px;font-weight:600}
+.capa .objetivo{margin-top:20px;color:#d9efdc;font-size:14px}
+.capa .usar{
+  margin-top:24px;padding:16px 20px;background:rgba(255,255,255,0.08);border-radius:var(--radius-sm);
+  font-size:13px;line-height:1.6;color:#eef5ef
+}
+.capa .usar strong{color:#fff}
+
+/* Indice */
+.indice{background:var(--card);padding:20px 24px;border:1px solid var(--line);border-radius:var(--radius);margin-bottom:32px}
+.indice h4{margin-top:0}
+.indice ol{margin:0;padding-left:20px;font-size:13px;line-height:2;columns:2;column-gap:32px;}
+.indice a{color:var(--ink-soft);border:none}
+.indice a:hover{color:var(--brand)}
+
+/* Cards e grids */
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:16px 0}
+.grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin:16px 0}
+.card{
+  background:var(--card);border:1px solid var(--line);border-radius:var(--radius-sm);
+  padding:18px 20px;
+}
+.card .titulo{font-weight:700;color:var(--ink);margin-bottom:8px;font-size:14px}
+.card .gatilho{
+  margin-top:10px;padding:8px 12px;background:var(--accent-soft);border-radius:6px;
+  font-size:12px;color:var(--ink-soft);
+}
+.card .gatilho strong{color:var(--accent)}
+
+/* Furadeira visual */
+.furadeira-visual{
+  display:grid;grid-template-columns:1fr auto 1fr auto 1fr auto 1fr auto 1fr;align-items:stretch;gap:6px;
+  margin:20px 0 28px;padding:24px 20px;background:var(--card);
+  border:1px solid var(--line);border-radius:var(--radius);
+}
+.furadeira-visual .etapa{
+  background:#fff;border:1px solid var(--line);border-radius:var(--radius-sm);
+  padding:16px 10px;text-align:center;display:flex;flex-direction:column;gap:6px;
+}
+.furadeira-visual .etapa .num{
+  width:32px;height:32px;border-radius:50%;background:var(--brand);color:#fff;
+  font-weight:700;font-size:13px;display:grid;place-items:center;margin:0 auto 4px;
+}
+.furadeira-visual .etapa .nome{font-weight:700;color:var(--ink);font-size:13px;line-height:1.3}
+.furadeira-visual .etapa .prazo{font-size:11px;color:var(--accent);font-weight:600;text-transform:uppercase;letter-spacing:0.04em}
+.furadeira-visual .etapa .resumo{font-size:11px;color:var(--ink-mute);line-height:1.4;margin-top:2px}
+.furadeira-visual .seta{
+  align-self:center;color:var(--brand);font-weight:700;font-size:18px;
+}
+.furadeira-visual .destino{
+  grid-column:1 / -1;margin-top:8px;padding:12px 16px;background:var(--brand-soft);
+  border-radius:var(--radius-sm);text-align:center;font-size:13px;color:var(--brand-dark);font-weight:600;
+}
+
+/* Trilha Furadeira escrita */
+.trilha{margin:20px 0;padding:0;list-style:none}
+.trilha li{
+  position:relative;padding:0 0 24px 44px;border-left:2px solid var(--brand-soft);
+  margin-left:14px;
+}
+.trilha li:last-child{padding-bottom:4px}
+.trilha li::before{
+  content:attr(data-n);position:absolute;left:-16px;top:-4px;width:30px;height:30px;
+  border-radius:50%;background:var(--brand);color:#fff;font-weight:700;font-size:13px;
+  display:grid;place-items:center;
+}
+.trilha .macro{font-weight:700;font-size:15px;color:var(--ink);margin-bottom:4px}
+.trilha .prazo-li{font-size:12px;color:var(--accent);font-weight:600;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:6px}
+.trilha .micro{color:var(--ink-soft);font-size:14px}
+
+/* Pills vocabulario */
+.pills{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 20px}
+.pill{
+  padding:6px 12px;border-radius:999px;font-size:13px;font-weight:500;
+}
+.pill.conecta{background:var(--connect-soft);color:var(--connect)}
+.pill.evita{background:var(--avoid-soft);color:var(--avoid);text-decoration:line-through;text-decoration-color:rgba(198,93,115,0.4)}
+.mantra{
+  margin:16px 0;padding:14px 18px;border-left:3px solid var(--accent);background:var(--accent-soft);
+  font-style:italic;color:var(--ink);border-radius:0 var(--radius-sm) var(--radius-sm) 0;
+}
+
+/* Principios cards */
+.princ{
+  background:var(--card);border:1px solid var(--line);border-radius:var(--radius-sm);
+  padding:16px 18px;position:relative;
+}
+.princ .n{
+  position:absolute;top:-10px;left:16px;background:var(--brand);color:#fff;
+  width:26px;height:26px;border-radius:50%;display:grid;place-items:center;font-weight:700;font-size:12px;
+}
+.princ .titulo{font-weight:700;margin-top:6px;margin-bottom:6px;font-size:14px}
+.princ .d{font-size:13px;color:var(--ink-soft)}
+
+/* 15 pontos */
+.ponto{
+  background:var(--card);border:1px solid var(--line);border-radius:var(--radius-sm);
+  padding:16px 18px;
+}
+.ponto .titulo{font-weight:700;font-size:14px;color:var(--brand);margin-bottom:6px}
+.ponto .msg{font-size:13px;color:var(--ink);margin-bottom:8px;line-height:1.5}
+.ponto .quando{
+  padding:8px 12px;background:var(--brand-soft);border-radius:6px;
+  font-size:11px;color:var(--brand-dark);
+}
+.ponto .quando strong{color:var(--brand-dark)}
+
+/* Bolhas WhatsApp */
+.wpp-bloco{background:var(--card);border:1px solid var(--line);border-radius:var(--radius-sm);padding:18px 20px;margin:14px 0}
+.wpp-bloco .bloco-titulo{font-weight:700;font-size:15px;color:var(--brand);margin-bottom:4px}
+.wpp-bloco .bloco-obj{font-size:12px;color:var(--ink-mute);margin-bottom:12px}
+.bolha{
+  background:#fff;border:1px solid var(--line);border-radius:10px;
+  padding:12px 14px;margin:8px 0;font-size:13px;line-height:1.5;position:relative;
+}
+.bolha small{display:block;color:var(--accent);font-weight:600;font-size:10px;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:6px}
+.bolha.var{background:#f3faf5}
+.nota-cond{
+  margin-top:10px;padding:10px 12px;background:#fdf6e8;border-left:3px solid #d4a017;
+  font-size:12px;color:var(--ink-soft);border-radius:0 6px 6px 0
+}
+.nota-cond strong{color:#a87c0d}
+
+/* SPIN */
+.spin-fase{background:var(--card);border:1px solid var(--line);border-radius:var(--radius-sm);padding:18px 20px;margin:14px 0}
+.spin-fase .fase-titulo{font-weight:700;font-size:15px;color:var(--brand);margin-bottom:4px}
+.spin-fase .fase-desc{font-size:12px;color:var(--ink-mute);margin-bottom:12px}
+.spin-fase ol{margin:8px 0 0;padding-left:22px;font-size:13px}
+.spin-fase ol li{margin-bottom:6px;color:var(--ink)}
+
+/* Escassez */
+.escassez{background:var(--accent-soft);border:1px solid var(--accent);border-radius:var(--radius-sm);padding:18px 20px;margin:14px 0}
+.escassez .tipo{display:inline-block;background:var(--accent);color:#fff;padding:4px 10px;border-radius:999px;font-size:11px;font-weight:600;margin-bottom:10px;text-transform:uppercase;letter-spacing:0.06em}
+.escassez ul{margin:0;padding-left:20px;font-size:13px}
+.escassez ul li{margin-bottom:6px}
+
+/* Objeções */
+.obj-resumo{width:100%;border-collapse:collapse;margin:16px 0;font-size:13px}
+.obj-resumo th,.obj-resumo td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line)}
+.obj-resumo th{background:var(--card);font-weight:700;color:var(--ink-soft);font-size:12px;text-transform:uppercase;letter-spacing:0.04em}
+details{background:var(--card);border:1px solid var(--line);border-radius:var(--radius-sm);margin:12px 0;overflow:hidden}
+details summary{
+  padding:16px 20px;cursor:pointer;font-weight:700;font-size:14px;color:var(--ink);
+  list-style:none;position:relative;padding-right:44px;
+}
+details summary::-webkit-details-marker{display:none}
+details summary::before{
+  content:"+";position:absolute;right:20px;top:14px;color:var(--brand);font-weight:700;font-size:20px;
+}
+details[open] summary::before{content:"−"}
+details .corpo{padding:0 20px 20px}
+.arg-versoes{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:12px 0}
+.arg{
+  background:#fff;border:1px solid var(--line);border-radius:6px;padding:14px 16px;
+}
+.arg .rotulo{font-size:11px;color:var(--ink-mute);text-transform:uppercase;letter-spacing:0.04em;font-weight:600;margin-bottom:6px}
+.arg .conteudo{font-size:13px;color:var(--ink);line-height:1.5}
+.arg-curta{background:var(--brand-soft)}
+.arg-curta .rotulo{color:var(--brand-dark)}
+.arg-completa{background:var(--card)}
+.sete-args{margin:16px 0 0}
+.sete-args .arg-item{margin:10px 0;padding:12px 14px;background:#fff;border-left:3px solid var(--brand);border-radius:0 6px 6px 0}
+.sete-args .arg-item .nome{font-weight:700;font-size:13px;color:var(--brand);margin-bottom:4px}
+.sete-args .arg-item .texto{font-size:13px;color:var(--ink-soft);line-height:1.5}
+
+/* Timeline carrinho e follow-up */
+.toque{
+  background:var(--card);border:1px solid var(--line);border-radius:var(--radius-sm);
+  padding:16px 20px;margin:14px 0;position:relative;padding-left:80px;
+}
+.toque .badge{
+  position:absolute;left:16px;top:16px;background:var(--accent);color:#fff;
+  padding:6px 10px;border-radius:999px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.04em;
+}
+.toque .obj{font-size:12px;color:var(--ink-mute);margin-bottom:10px}
+
+/* Checklist */
+.check-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin:16px 0}
+.check-col{
+  background:var(--card);border:1px solid var(--line);border-radius:var(--radius-sm);padding:18px 20px;
+}
+.check-col .titulo{font-weight:700;font-size:14px;color:var(--brand);margin-bottom:10px}
+.check-col ul{margin:0;padding-left:0;list-style:none;font-size:13px}
+.check-col ul li{padding:4px 0 4px 22px;position:relative;color:var(--ink-soft);line-height:1.4}
+.check-col ul li::before{
+  content:"";position:absolute;left:0;top:7px;width:14px;height:14px;
+  border:1.5px solid var(--brand);border-radius:3px;background:#fff;
+}
+
+/* Argumentos incontestáveis */
+.inc-lista{margin:12px 0;padding:0;list-style:none}
+.inc-lista li{padding:12px 16px;margin:8px 0;background:var(--card);border-left:3px solid var(--brand);border-radius:0 6px 6px 0;font-size:13px;line-height:1.5}
+
+/* Rodapé */
+footer{
+  margin-top:56px;padding-top:20px;border-top:1px solid var(--line);
+  font-size:12px;color:var(--ink-mute);text-align:center;
+}
+
+/* Botão exportar PDF */
+.btn-pdf{
+  position:fixed;right:24px;bottom:24px;z-index:999;
+  display:inline-flex;align-items:center;gap:8px;
+  padding:14px 20px;border:none;border-radius:999px;cursor:pointer;
+  background:var(--brand);color:#fff;font-family:inherit;font-size:14px;font-weight:600;
+  box-shadow:0 6px 24px rgba(47,122,92,0.28);transition:transform .15s ease,box-shadow .15s ease;
+}
+.btn-pdf:hover{transform:translateY(-1px);box-shadow:0 10px 30px rgba(47,122,92,0.38)}
+.btn-pdf:active{transform:translateY(0)}
+.btn-pdf svg{width:18px;height:18px;fill:#fff}
+
+/* Responsivo */
+@media (max-width:720px){
+  main{padding:32px 16px 100px}
+  .grid-2,.grid-3,.check-grid,.arg-versoes{grid-template-columns:1fr}
+  .indice ol{columns:1}
+  .capa{padding:28px 22px}
+  .capa h1{font-size:20px}
+  .capa .valor{font-size:26px;padding:12px 18px}
+  .furadeira-visual{grid-template-columns:1fr;gap:10px}
+  .furadeira-visual .seta{transform:rotate(90deg);margin:0}
+}
+
+/* Impressão */
+@media print{
+  @page{margin:14mm 12mm}
+  html,body{background:#fff}
+  main{max-width:100%;padding:0}
+  .capa{background:#2f7a5c !important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  details{page-break-inside:avoid}
+  details summary::before{content:""}
+  details .corpo{padding:0 20px 20px}
+  details[open]{box-shadow:none}
+  details:not([open]) .corpo{display:block !important}
+  details:not([open]){border-color:var(--line)}
+  .bolha,.card,.spin-fase,.wpp-bloco,.arg,.toque,.check-col,.escassez{page-break-inside:avoid}
+  a{color:var(--ink)}
+  .indice{page-break-after:always}
+  h2{page-break-before:auto}
+  .btn-pdf{display:none !important}
+  .furadeira-visual{page-break-inside:avoid;background:#fff}
+}
+</style>
+</head>
+<body>
+<main>
+
+<!-- 1. CAPA -->
+<section class="capa" id="capa">
+  <h1>Playbook comercial WhatsApp</h1>
+  <div class="produto">Método EFF. Equilíbrio Financeiro Feminino · Beatriz Almeida</div>
+  <div>
+    <span class="valor">R$ 397<small>ou 12x R$ 39</small></span>
+    <span class="selo">Venda 1:1 por WhatsApp</span>
+  </div>
+  <div class="objetivo">Converter lead em aluna do EFF via WhatsApp 1:1, em fluxos de abordagem ativa, receptiva e recuperação de carrinho.</div>
+  <div class="usar">
+    <strong>Como usar este playbook.</strong><br>
+    Time que não conhece o produto: leia os blocos 2 a 5 (identidades e princípios) antes de abrir qualquer conversa.<br>
+    Produtora que já atende: vá direto ao bloco 6 (pontos de convicção) e ao cenário que está vivendo (7 ativa, 8 receptiva, 14 recuperação de carrinho).
+  </div>
+</section>
+
+<!-- INDICE -->
+<nav class="indice">
+  <h4>Índice</h4>
+  <ol>
+    <li><a href="#s2">Identidade do Produto</a></li>
+    <li><a href="#s3">Identidade do Consumidor</a></li>
+    <li><a href="#s4">Identidade do Comunicador</a></li>
+    <li><a href="#s5">Princípios de venda por WhatsApp</a></li>
+    <li><a href="#s6">15 pontos para convencer</a></li>
+    <li><a href="#s7">Abordagem Ativa. Outbound</a></li>
+    <li><a href="#s8">Abordagem Receptiva. Inbound</a></li>
+    <li><a href="#s9">SPIN adaptado ao WhatsApp</a></li>
+    <li><a href="#s10">Apresentação e ancoragem de preço</a></li>
+    <li><a href="#s11">Frases de escassez</a></li>
+    <li><a href="#s12">Fechamento em 4 passos</a></li>
+    <li><a href="#s13">Quebra de objeções (7 argumentos)</a></li>
+    <li><a href="#s14">Recuperação de carrinho</a></li>
+    <li><a href="#s15">Follow-up e Upsell/Downsell/Order Bump</a></li>
+    <li><a href="#s16">Checklist de atendimento</a></li>
+  </ol>
+</nav>
+
+<!-- 2. IDENTIDADE DO PRODUTO -->
+<h2 id="s2">2. Identidade do Produto</h2>
+
+<h3>Quadro</h3>
+<p><strong>Alcançar independência financeira feminina em 90 dias de execução.</strong> A aluna entra no EFF apertada no fim do mês, sem saber pra onde o dinheiro vai, e sai com diagnóstico pronto, reserva iniciada, rituais de 20 minutos por semana e primeiro passo de investimento.</p>
+
+<h3>Furadeira. Método EFF em 5 macroetapas</h3>
+
+<h4>Visão visual das 5 macroetapas</h4>
+<div class="furadeira-visual">
+  <div class="etapa">
+    <div class="num">1</div>
+    <div class="prazo">Semana 1</div>
+    <div class="nome">Diagnóstico Financeiro</div>
+    <div class="resumo">Mapear entradas, saídas e vazamentos dos últimos 3 meses</div>
+  </div>
+  <div class="seta">→</div>
+  <div class="etapa">
+    <div class="num">2</div>
+    <div class="prazo">Semanas 2-3</div>
+    <div class="nome">Reorganização de Prioridades</div>
+    <div class="resumo">Classificar gastos, renegociar dívida, orçamento por categoria</div>
+  </div>
+  <div class="seta">→</div>
+  <div class="etapa">
+    <div class="num">3</div>
+    <div class="prazo">Semanas 4-5</div>
+    <div class="nome">Construção do Plano</div>
+    <div class="resumo">Metas de 30, 60, 90 dias com número específico</div>
+  </div>
+  <div class="seta">→</div>
+  <div class="etapa">
+    <div class="num">4</div>
+    <div class="prazo">Semanas 6-10</div>
+    <div class="nome">Execução com Rituais</div>
+    <div class="resumo">Ritual da Segunda e da Sexta, 20 min por semana</div>
+  </div>
+  <div class="seta">→</div>
+  <div class="etapa">
+    <div class="num">5</div>
+    <div class="prazo">Semanas 11-13</div>
+    <div class="nome">Consolidação e Proteção</div>
+    <div class="resumo">Reserva separada, primeiro aporte em renda fixa</div>
+  </div>
+  <div class="destino">Destino: 90 dias com orçamento real, rituais ativos, reserva iniciada e primeiro investimento em renda fixa</div>
+</div>
+
+<h4>Detalhamento escrito das macro e microetapas</h4>
+<ol class="trilha">
+  <li data-n="1">
+    <div class="macro">Diagnóstico Financeiro</div>
+    <div class="prazo-li">Semana 1</div>
+    <div class="micro">Mapeamento completo de entradas, saídas e padrões de consumo ocultos. A aluna preenche a Planilha Diagnóstico e levanta fontes de renda, categorização dos últimos 3 meses, identificação de vazamentos invisíveis e cálculo do saldo real mensal. Microetapas: extrato do cartão, extrato da conta, gastos fixos, gastos invisíveis, ranking de categorias, mapa de renda fixa e variável.</div>
+  </li>
+  <li data-n="2">
+    <div class="macro">Reorganização de Prioridades</div>
+    <div class="prazo-li">Semanas 2 e 3</div>
+    <div class="micro">Classificação em essenciais, importantes e supérfluas. Renegociação de itens de baixo retorno. Definição de orçamento ideal por categoria. Estratégia de quitação de dívidas pela Calculadora de Custo Real. Microetapas: script de renegociação, cancelamento de assinaturas duplicadas, troca de cartão ou banco, meta de reserva de 1 mês de gasto essencial.</div>
+  </li>
+  <li data-n="3">
+    <div class="macro">Construção do Plano</div>
+    <div class="prazo-li">Semanas 4 e 5</div>
+    <div class="micro">Metas de 30, 60 e 90 dias com número específico. Plano de Metas EFF com checklist semanal automatizado. Adaptação para renda variável. Definição de meta de reserva de emergência com prazo. Microetapas: meta de curto, médio e longo prazo, sistema de acompanhamento semanal, protocolo para renda que oscila mais de 30% entre meses.</div>
+  </li>
+  <li data-n="4">
+    <div class="macro">Execução com Rituais</div>
+    <div class="prazo-li">Semanas 6 a 10</div>
+    <div class="micro">Ritual da Segunda (revisão, 10 min) e Ritual da Sexta (planejamento da próxima semana, 10 min). Checklist de Rituais EFF. Protocolo de recuperação para semanas perdidas. Microetapas: gatilho de início dos rituais, ancoragem no horário de café ou almoço, registro em planilha, sistema de "voltar ao eixo" sem recomeçar do zero.</div>
+  </li>
+  <li data-n="5">
+    <div class="macro">Consolidação e Proteção</div>
+    <div class="prazo-li">Semanas 11 a 13</div>
+    <div class="micro">Abertura de conta de reserva separada. Primeiros R$ 50 por semana em automático. Introdução a investimentos de renda fixa. Construção da base de independência financeira. Microetapas: escolha da conta de reserva, cadastro em corretora de renda fixa, simulador de CDB e Tesouro Direto, painel mensal de patrimônio líquido.</div>
+  </li>
+</ol>
+
+<h3>Entregáveis</h3>
+<div class="grid-2">
+  <div class="card"><div class="titulo">Curso online em 5 módulos</div>Aulas curtas, uma por macroetapa, com legenda e download para assistir quando der.</div>
+  <div class="card"><div class="titulo">Planilha Diagnóstico</div>Mapa de entradas, saídas e vazamentos invisíveis com categorização automática.</div>
+  <div class="card"><div class="titulo">Plano de Metas EFF</div>Metas de 30, 60, 90 dias com checklist semanal automatizado.</div>
+  <div class="card"><div class="titulo">Checklist Rituais</div>Roteiro dos Rituais da Segunda e da Sexta, 20 minutos por semana.</div>
+  <div class="card"><div class="titulo">Comunidade no Telegram</div>Grupo privado só de alunas, moderado pela Beatriz por 90 dias.</div>
+  <div class="card"><div class="titulo">Sala de dúvidas ao vivo</div>Toda segunda-feira por 90 dias, com espaço pra pergunta aberta.</div>
+</div>
+
+<h3>Diferenciais</h3>
+<ul>
+  <li>Método criado para a realidade da mulher brasileira de renda média (salário menor, gastos de cuidado, dependência financeira como pano de fundo).</li>
+  <li>Rituais de 20 minutos por semana, não planilha diária que desanda na segunda semana.</li>
+  <li>Protocolo específico para renda variável (autônomas, MEIs, profissionais liberais).</li>
+  <li>Linguagem sem julgamento, para quem já tentou e parou.</li>
+</ul>
+
+<h3>Argumentos Incontestáveis</h3>
+<ul class="inc-lista">
+  <li>70% dos brasileiros ficam sem dinheiro antes do fim do mês, segundo o Banco Central em 2023. O problema não está na disciplina. Está no método.</li>
+  <li>Mulheres ganham em média 20,5% menos que homens no mesmo cargo, segundo o IBGE em 2023. Isso exige um plano feito para essa realidade.</li>
+  <li>Gastos de cuidado consomem em média 15% da renda feminina e não aparecem no orçamento padrão ensinado pra todo mundo.</li>
+  <li>Rotinas de 20 minutos por semana têm 3 vezes mais retenção do que planos diários, segundo estudos de comportamento em hábito.</li>
+</ul>
+
+<h3>Posicionamento</h3>
+<p>Curso online de 5 módulos com comunidade ativa por 90 dias. Focado em mulher de 28 a 42 anos com renda entre R$ 2.500 e R$ 5.000. Não é coaching de mindset. Não é curso de investidor com patrimônio alto. Resolve o problema de quem ainda não chegou lá.</p>
+
+<!-- 3. IDENTIDADE DO CONSUMIDOR -->
+<h2 id="s3">3. Identidade do Consumidor</h2>
+
+<h3>Para quem é</h3>
+<p>Mulher entre 28 e 42 anos, CLT, autônoma, MEI ou profissional liberal, com renda entre R$ 2.500 e R$ 5.000 por mês, no Brasil urbano. Já tentou planilha, aplicativo e curso antes e nada durou mais de duas semanas. Está consciente de que tem um problema, não da solução certa.</p>
+
+<h3>Dois baldes de perfil</h3>
+<div class="grid-2">
+  <div class="card"><div class="titulo">CLT com renda previsível</div>O salário some antes do próximo pagamento. Sabe quanto ganha, não quanto gasta por categoria. Tem benefícios como VR e VT, mas ainda falta dinheiro. Já tentou guardar do salário e acabou usando.</div>
+  <div class="card"><div class="titulo">Autônoma ou MEI</div>Tem meses bons e meses ruins e não sabe planejar. Mistura as finanças pessoais com as do negócio. Não tem décimo terceiro, FGTS nem auxílio-doença. Quer um método feito para renda variável.</div>
+</div>
+
+<h3>10 dores</h3>
+<ol>
+  <li>Chegar ao fim do mês e não saber pra onde foi o dinheiro.</li>
+  <li>Trabalhar muito e não ter nada guardado.</li>
+  <li>Medo de abrir o aplicativo do banco e ver o saldo.</li>
+  <li>Ciclo de parcelar pra pagar parcela.</li>
+  <li>Depender financeiramente do parceiro, mesmo tendo renda própria.</li>
+  <li>Vergonha de falar sobre dinheiro com as amigas.</li>
+  <li>Já tentou planilha, aplicativo e curso, e nada durou duas semanas.</li>
+  <li>Ganha mais do que antes, e está mais apertada.</li>
+  <li>Não conseguir dizer não para gastos de cuidado com a família.</li>
+  <li>Dívida no cartão que cresce mais rápido do que ela consegue pagar.</li>
+</ol>
+
+<h3>10 desejos</h3>
+<ol>
+  <li>Reserva de emergência formada e intocada.</li>
+  <li>Compra grande à vista, sem parcelar.</li>
+  <li>Chegar ao fim do mês com dinheiro sobrando.</li>
+  <li>O dinheiro trabalhar pra ela, não o contrário.</li>
+  <li>Não depender financeiramente de ninguém.</li>
+  <li>Ajudar a família sem comprometer as próprias finanças.</li>
+  <li>Clareza total sobre cada real que entra e sai.</li>
+  <li>Viagem paga do dinheiro guardado.</li>
+  <li>Começar a investir com patrimônio crescendo mês a mês.</li>
+  <li>Paz quando pensa em dinheiro, no lugar da ansiedade.</li>
+</ol>
+
+<h3>Paliativos (ferramentas que resolvem dores)</h3>
+<div class="grid-2">
+  <div class="card"><div class="titulo">Planilha Diagnóstico</div>Resolve: não saber pra onde vai o dinheiro.</div>
+  <div class="card"><div class="titulo">Calculadora Custo Real</div>Resolve: dúvida entre pagar à vista ou parcelar.</div>
+  <div class="card"><div class="titulo">Plano Metas EFF</div>Resolve: ter objetivo e não saber se está no ritmo.</div>
+  <div class="card"><div class="titulo">Checklist Rituais</div>Resolve: começar e não conseguir manter por mais de duas semanas.</div>
+  <div class="card"><div class="titulo">Protocolo Recuperação</div>Resolve: desistir depois de uma semana ruim.</div>
+</div>
+
+<h3>Frase que a aluna gostaria de dizer</h3>
+<div class="mantra">"Quero poder contar pra minha melhor amiga que finalmente me organizei e tenho R$ 10.000 guardados."</div>
+
+<!-- 4. IDENTIDADE DO COMUNICADOR -->
+<h2 id="s4">4. Identidade do Comunicador</h2>
+
+<h3>Quem é a Beatriz</h3>
+<p>Beatriz Almeida é a primeira especialista em finanças pessoais que construiu um método pensado na realidade da mulher brasileira de renda média. Não é coach de mindset. Não é investidora para quem já tem patrimônio alto. Fala com quem ainda não chegou lá, com dados e fatos concretos, sem julgamento.</p>
+
+<h3>Tom de voz</h3>
+<p>Direto, acolhedor, sem julgamento. Conversa como uma amiga que entende de dinheiro, não como especialista que olha de cima. Usa dados concretos no lugar de promessas vagas. Reconhece causas estruturais do problema financeiro feminino antes de oferecer solução.</p>
+
+<h4>Palavras que conectam (usar no WhatsApp)</h4>
+<div class="pills">
+  <span class="pill conecta">realidade</span>
+  <span class="pill conecta">sem julgamento</span>
+  <span class="pill conecta">concreto</span>
+  <span class="pill conecta">20 minutos</span>
+  <span class="pill conecta">consistência</span>
+  <span class="pill conecta">independência</span>
+  <span class="pill conecta">protocolo</span>
+  <span class="pill conecta">sistema</span>
+  <span class="pill conecta">resultado real</span>
+  <span class="pill conecta">renda variável</span>
+</div>
+
+<h4>Palavras que afastam (nunca usar)</h4>
+<div class="pills">
+  <span class="pill evita">basta querer</span>
+  <span class="pill evita">fique rico</span>
+  <span class="pill evita">multiplique seu dinheiro</span>
+  <span class="pill evita">mindset de abundância</span>
+  <span class="pill evita">transforme sua vida</span>
+  <span class="pill evita">coach</span>
+  <span class="pill evita">jargão de investidor</span>
+  <span class="pill evita">promessa vaga</span>
+</div>
+
+<h3>Mantras da Beatriz</h3>
+<div class="mantra">"Dinheiro organizado não é privilégio. É protocolo."</div>
+<div class="mantra">"Mulher que sabe quanto sobra no fim do mês decide melhor o resto da vida."</div>
+<div class="mantra">"20 minutos por semana valem mais que planilha gigante esquecida."</div>
+
+<h3>Exemplos rápidos</h3>
+<div class="grid-2">
+  <div class="card" style="background:var(--ok-soft);border-color:var(--ok)"><div class="titulo" style="color:var(--ok)">Frase no tom certo</div>"A maioria das mulheres que eu atendo já tentou planilha. O problema não é disciplina. É o formato. 20 minutos por semana, em dois rituais, funciona pra 87% das alunas."</div>
+  <div class="card" style="background:var(--warn-soft);border-color:var(--warn)"><div class="titulo" style="color:var(--warn)">Frase fora do tom</div>"Basta ter foco e disciplina que você transforma sua realidade financeira e entra numa mentalidade de abundância."</div>
+</div>
+
+<!-- 5. PRINCIPIOS WHATSAPP -->
+<h2 id="s5">5. Princípios de venda por WhatsApp</h2>
+<p>Antes de qualquer script, esses 7 princípios orientam toda conversa. São a régua.</p>
+
+<div class="grid-2">
+  <div class="princ"><div class="n">1</div><div class="titulo">Mensagens curtas</div><div class="d">Uma ideia por mensagem. Mensagem longa mata o ritmo e a lead para de responder.</div></div>
+  <div class="princ"><div class="n">2</div><div class="titulo">Evitar áudios no início</div><div class="d">Texto primeiro. Áudio só depois da lead ter respondido 2 ou 3 vezes, e com no máximo 45 segundos.</div></div>
+  <div class="princ"><div class="n">3</div><div class="titulo">Pergunta curta ao final</div><div class="d">Boa parte das mensagens termina com pergunta simples pra manter a lead respondendo.</div></div>
+  <div class="princ"><div class="n">4</div><div class="titulo">Nome na primeira e na última</div><div class="d">Personalização básica. Usar o nome da lead na mensagem de abertura e no fechamento.</div></div>
+  <div class="princ"><div class="n">5</div><div class="titulo">Nunca enviar link sem contexto</div><div class="d">O checkout só aparece depois que a lead disse sim com palavras ou pediu o link.</div></div>
+  <div class="princ"><div class="n">6</div><div class="titulo">Nunca perguntar "quer comprar?"</div><div class="d">No momento do preço, assuma o interesse e envie o link. Pergunta abre a porta pra recusa.</div></div>
+  <div class="princ"><div class="n">7</div><div class="titulo">Rápido no inbound, espaçado no outbound</div><div class="d">Inbound é velocidade. Outbound precisa de intervalo entre mensagens pra não soar robô nem spam.</div></div>
+</div>
+
+<!-- 6. 15 PONTOS -->
+<h2 id="s6">6. 15 pontos para convencer</h2>
+<p>Combinação de Urgência Oculta, Decorado e voz da Beatriz. Cada ponto é uma mensagem pronta pra copiar e colar, com orientação de quando usar.</p>
+
+<div class="grid-2">
+  <div class="ponto">
+    <div class="titulo">1. Mapa real do dinheiro</div>
+    <div class="msg">"A maior parte das alunas descobre R$ 200 a R$ 400 invisíveis no primeiro diagnóstico. Não é culpa da sua cabeça. É ferramenta que nunca foi feita pra sua realidade."</div>
+    <div class="quando"><strong>Quando usar:</strong> lead disse que já tentou planilha e não durou.</div>
+  </div>
+  <div class="ponto">
+    <div class="titulo">2. Protocolo, não força de vontade</div>
+    <div class="msg">"Dinheiro organizado não é questão de disciplina. É protocolo. Quem tem método consome 20 minutos por semana. Quem não tem, consome 3 horas por mês em caos."</div>
+    <div class="quando"><strong>Quando usar:</strong> lead se culpa ("eu sou desorganizada").</div>
+  </div>
+  <div class="ponto">
+    <div class="titulo">3. Renda variável tem protocolo próprio</div>
+    <div class="msg">"Autônoma não pode usar método criado pra CLT. A conta fica furada. O EFF tem protocolo específico pra renda que oscila mais de 30% entre meses."</div>
+    <div class="quando"><strong>Quando usar:</strong> lead é autônoma, MEI ou freelancer.</div>
+  </div>
+  <div class="ponto">
+    <div class="titulo">4. Gastos de cuidado invisíveis</div>
+    <div class="msg">"Em média 15% da renda feminina desaparece em gastos de cuidado que nenhum orçamento padrão pega. Remédio de pai, roupa pra filho, mercado da família. O método reconhece esse buraco."</div>
+    <div class="quando"><strong>Quando usar:</strong> lead é mãe, cuida de pais, ou responsável pela casa.</div>
+  </div>
+  <div class="ponto">
+    <div class="titulo">5. Método para quem já fracassou</div>
+    <div class="msg">"Foi feito pra mulher que já tentou 3 ou 4 coisas. A diferença é o tempo exigido: 20 minutos por semana, em dois rituais. Consistência maior que planilha diária."</div>
+    <div class="quando"><strong>Quando usar:</strong> lead disse que "não tem tempo" ou "nunca consegue manter".</div>
+  </div>
+  <div class="ponto">
+    <div class="titulo">6. Primeira reserva em menos de 1 ano</div>
+    <div class="msg">"A reserva de 3 meses pode ficar pronta em até 12 meses, partindo de R$ 50 por semana em automático. É a base da independência financeira."</div>
+    <div class="quando"><strong>Quando usar:</strong> lead diz que quer começar a guardar mas não sabe quanto.</div>
+  </div>
+  <div class="ponto">
+    <div class="titulo">7. Quitar dívida pelo custo real</div>
+    <div class="msg">"A Calculadora de Custo Real mostra quanto cada dívida está custando por mês de verdade. Com esse número, a renegociação vira estratégia, não tentativa."</div>
+    <div class="quando"><strong>Quando usar:</strong> lead está endividada, cartão travado, rotativo.</div>
+  </div>
+  <div class="ponto">
+    <div class="titulo">8. Comunidade sem julgamento</div>
+    <div class="msg">"Grupo privado no Telegram, só de alunas, com moderação da Beatriz por 90 dias. Espaço onde falar de R$ 200 em vergonha ou em conquista é tratado do mesmo jeito."</div>
+    <div class="quando"><strong>Quando usar:</strong> lead sente vergonha de falar de dinheiro.</div>
+  </div>
+  <div class="ponto">
+    <div class="titulo">9. Rituais curtos ancorados em rotina</div>
+    <div class="msg">"Ritual da Segunda (10 min de revisão) e Ritual da Sexta (10 min de planejamento). Cabe no trajeto de ônibus, no café da manhã, no fim do expediente."</div>
+    <div class="quando"><strong>Quando usar:</strong> lead diz "minha rotina é muito cheia".</div>
+  </div>
+  <div class="ponto">
+    <div class="titulo">10. Protocolo de recuperação</div>
+    <div class="msg">"Semana ruim não zera. Tem protocolo pra voltar ao eixo sem recomeçar do zero. A aluna que falha na semana 4 retoma no sábado e fecha o mês igual."</div>
+    <div class="quando"><strong>Quando usar:</strong> lead tem medo de "largar de novo".</div>
+  </div>
+  <div class="ponto">
+    <div class="titulo">11. Primeiro investimento com clareza</div>
+    <div class="msg">"No fim dos 90 dias, a aluna já abriu conta em corretora, entendeu CDB, Tesouro Direto e LCI, e fez o primeiro aporte. Sem precisar decorar siglas."</div>
+    <div class="quando"><strong>Quando usar:</strong> lead tem curiosidade em investir mas trava.</div>
+  </div>
+  <div class="ponto">
+    <div class="titulo">12. Sala ao vivo toda segunda</div>
+    <div class="msg">"Dúvida respondida ao vivo por 90 dias, toda segunda-feira. A aluna manda a pergunta e ouve a resposta na mesma semana."</div>
+    <div class="quando"><strong>Quando usar:</strong> lead pergunta sobre suporte.</div>
+  </div>
+  <div class="ponto">
+    <div class="titulo">13. Custo menor que um streaming</div>
+    <div class="msg">"12x R$ 39 é R$ 1,30 por dia. Valor menor do que uma assinatura de streaming. Retorno médio em gasto invisível identificado: R$ 200 a R$ 400 no primeiro mês."</div>
+    <div class="quando"><strong>Quando usar:</strong> lead reclama do preço antes de conhecer a proposta.</div>
+  </div>
+  <div class="ponto">
+    <div class="titulo">14. Dados concretos, não promessa</div>
+    <div class="msg">"87% das alunas encontram gastos invisíveis maiores que o valor mensal do curso em até 3 semanas. Dado interno, turma piloto com 142 alunas."</div>
+    <div class="quando"><strong>Quando usar:</strong> lead desconfia da promessa ("isso funciona mesmo?").</div>
+  </div>
+  <div class="ponto">
+    <div class="titulo">15. Falar de dinheiro sem culpa</div>
+    <div class="msg">"No final dos 90 dias, a maioria das alunas consegue pela primeira vez dizer não pra um gasto sem culpa, com um plano do lado. Essa é a virada real."</div>
+    <div class="quando"><strong>Quando usar:</strong> lead sonha com a frase "quero poder contar pra minha amiga que me organizei".</div>
+  </div>
+</div>
+
+<!-- 7. ABORDAGEM ATIVA -->
+<h2 id="s7">7. Abordagem Ativa. Outbound WhatsApp</h2>
+<p>Vendedora dá o primeiro passo. Lead fria ou morna: seguidora de Instagram, contato que baixou isca, aluna de produto anterior, indicação. Sequência de 7 blocos, 3 variações por bloco.</p>
+
+<div class="wpp-bloco">
+  <div class="bloco-titulo">Bloco 1. Primeiro contato</div>
+  <div class="bloco-obj">Objetivo: quebrar gelo e explicar por que escreveu, sem vender.</div>
+  <div class="bolha"><small>Variação 1</small>Oi [Nome], aqui é a Bia, da comunidade do EFF. Te chamei porque vi que você baixou o checklist do diagnóstico semana passada. Só pra saber, conseguiu preencher a primeira linha?</div>
+  <div class="bolha var"><small>Variação 2</small>[Nome], tudo bem? Aqui é a Bia. Te encontrei na última live sobre reserva de emergência. Te mando uma coisa curta que pode te ajudar a começar? Não precisa responder agora.</div>
+  <div class="bolha var"><small>Variação 3</small>Oi [Nome], aqui é a Bia Almeida. Segunda sem vergonha de falar de dinheiro, tô mandando um toque pra algumas mulheres que entraram na lista em março. Você curtiu o material que veio por email?</div>
+  <div class="nota-cond"><strong>Nota.</strong> Tom de amiga. Sem promessa. Termina com pergunta simples pra abrir resposta.</div>
+</div>
+
+<div class="wpp-bloco">
+  <div class="bloco-titulo">Bloco 2. Qualificação leve</div>
+  <div class="bloco-obj">Objetivo: entender o momento da lead com uma ou duas perguntas curtas.</div>
+  <div class="bolha"><small>Variação 1</small>Me ajuda a entender rapidinho: hoje, onde você sente que aperta mais? No final do mês que some o dinheiro, na dívida do cartão, ou em não conseguir começar a guardar?</div>
+  <div class="bolha var"><small>Variação 2</small>Você é CLT ou trabalha como autônoma? Pergunto porque o protocolo muda, principalmente pra quem tem renda que oscila.</div>
+  <div class="bolha var"><small>Variação 3</small>Posso te perguntar uma coisa concreta? Quanto tempo, em média, você passa por mês pensando em dinheiro, planilha ou conta pra pagar?</div>
+  <div class="nota-cond"><strong>Nota.</strong> Ouvir. Não interpretar a resposta antes de ter ela inteira. Uma pergunta por mensagem.</div>
+</div>
+
+<div class="wpp-bloco">
+  <div class="bloco-titulo">Bloco 3. Amarrar a dor</div>
+  <div class="bloco-obj">Objetivo: devolver uma Urgência Oculta relevante em forma de pergunta aberta.</div>
+  <div class="bolha"><small>Variação 1</small>Faz sentido. A maioria das mulheres que eu atendo passou pelo mesmo: chega no dia 20 sem saber pra onde foi o dinheiro. Você lembra quando foi a última vez que você abriu o app do banco sem aquele aperto?</div>
+  <div class="bolha var"><small>Variação 2</small>Isso que você descreveu tem nome: é o ciclo do parcelar pra pagar parcela. Não é culpa sua. É um buraco do método, não da pessoa. Quanto tempo você já tá nesse ciclo?</div>
+  <div class="bolha var"><small>Variação 3</small>Entendi. Esse medo de ver saldo é mais comum do que parece. Em pesquisa com 1.400 alunas, 73% descreveram exatamente isso. O que você faz hoje quando a cobrança chega?</div>
+</div>
+
+<div class="wpp-bloco">
+  <div class="bloco-titulo">Bloco 4. Apresentar a solução em 2 linhas</div>
+  <div class="bloco-obj">Objetivo: encaixar o Método EFF como resposta, sem vender ainda.</div>
+  <div class="bolha"><small>Variação 1</small>Eu criei o Método EFF justamente pra esse ciclo. Em 90 dias, a aluna sai do "não sei pra onde foi" com reserva iniciada e 2 rituais de 10 min por semana. Quer que eu te explique como funciona?</div>
+  <div class="bolha var"><small>Variação 2</small>A gente tem um protocolo de 5 passos que foi desenhado pra mulher com renda média. Nada de planilha diária. 20 minutos por semana. Posso te mandar um resumo em 30 segundos?</div>
+  <div class="bolha var"><small>Variação 3</small>O EFF atende exatamente esse perfil. 87% das alunas encontram gastos invisíveis maiores que o valor mensal do curso em 3 semanas. Te interessa conhecer a estrutura?</div>
+</div>
+
+<div class="wpp-bloco">
+  <div class="bloco-titulo">Bloco 5. Prova + voz</div>
+  <div class="bloco-obj">Objetivo: um caso real que se parece com a lead e o tom da Beatriz.</div>
+  <div class="bolha"><small>Variação 1</small>A Renata, auxiliar administrativa de Recife, R$ 2.800 de salário, achou R$ 340 invisíveis em 3 semanas. Perfil bem parecido com o que você me contou agora.</div>
+  <div class="bolha var"><small>Variação 2</small>A Juliana, professora CLT com dois filhos, tá há 11 meses mantendo os rituais de 20 minutos e fechou a primeira reserva em 9 meses. O método é simples, a consistência que faz.</div>
+  <div class="bolha var"><small>Variação 3</small>A Bianca, assistente comercial, cortou uma ida semanal de lanche, pagou as 12 parcelas do curso e sobraram R$ 540 no ano. Não é história motivacional. É conta.</div>
+</div>
+
+<div class="wpp-bloco">
+  <div class="bloco-titulo">Bloco 6. Convite à próxima resposta</div>
+  <div class="bloco-obj">Objetivo: pedir um sim pequeno que abre a próxima etapa (preço).</div>
+  <div class="bolha"><small>Variação 1</small>Se fizer sentido pra você, posso te mandar um vídeo curto de 4 minutos explicando as 5 macroetapas do método. Ele vale como filtro. Quer?</div>
+  <div class="bolha var"><small>Variação 2</small>Te mando o link da página do EFF com todos os detalhes ou você prefere que eu te explique por aqui rapidamente?</div>
+  <div class="bolha var"><small>Variação 3</small>A gente abre turma no dia 15. Quer que eu te conte o valor e o que está incluso, pra você avaliar com calma?</div>
+</div>
+
+<div class="wpp-bloco">
+  <div class="bloco-titulo">Bloco 7. Fechamento</div>
+  <div class="bloco-obj">Objetivo: apresentar preço e mandar link assumindo o sim.</div>
+  <div class="bolha"><small>Variação 1</small>O valor é R$ 397 à vista ou 12x R$ 39. Dá R$ 1,30 por dia. Tô te mandando o link da inscrição. Qualquer dúvida antes, me avisa.</div>
+  <div class="bolha var"><small>Variação 2</small>Fechei o link pra você, [Nome]. R$ 397 ou 12x R$ 39. Tá valendo condição de turma até sexta. Segue aqui: [link]</div>
+  <div class="bolha var"><small>Variação 3</small>Pronto. Link de inscrição nessa mensagem: [link]. Assim que confirmar, eu te adiciono no grupo e já te envio o cronograma da semana 1. [Nome]</div>
+  <div class="nota-cond"><strong>Nota.</strong> Nunca perguntar "quer comprar?". Envia link. A pergunta é só "qualquer dúvida antes".</div>
+</div>
+
+<!-- 8. ABORDAGEM RECEPTIVA -->
+<h2 id="s8">8. Abordagem Receptiva. Inbound WhatsApp</h2>
+<p>Lead chega pelo próprio canal. Anúncio, link da bio, palavra-chave no Instagram, página de captura. No inbound, velocidade é conversão. Responder em menos de 5 minutos no horário comercial.</p>
+
+<div class="wpp-bloco">
+  <div class="bloco-titulo">Bloco 1. Resposta imediata</div>
+  <div class="bloco-obj">Objetivo: responder em até 5 minutos e confirmar o motivo do contato.</div>
+  <div class="bolha"><small>Variação 1</small>Oi [Nome], aqui é a Bia do EFF. Recebi sua mensagem. Você chegou pelo anúncio do diagnóstico financeiro ou por indicação?</div>
+  <div class="bolha var"><small>Variação 2</small>Oi [Nome], vi que você clicou em "quero saber mais". Antes de te mandar o material, me conta brevemente o que te fez procurar agora?</div>
+  <div class="bolha var"><small>Variação 3</small>Oi, [Nome]. Sou a Beatriz do EFF. Posso te ajudar em 3 minutos pelo WhatsApp ou você prefere uma call curta de 15 min? Qual funciona melhor?</div>
+</div>
+
+<div class="wpp-bloco">
+  <div class="bloco-titulo">Bloco 2. Identificar o balde</div>
+  <div class="bloco-obj">Objetivo: saber se é CLT ou renda variável pra adequar a linguagem.</div>
+  <div class="bolha"><small>Variação 1</small>Duas perguntas rápidas: hoje você tem salário fixo ou renda variável (autônoma, MEI, freelancer)?</div>
+  <div class="bolha var"><small>Variação 2</small>E qual é sua situação com dívida no momento? Nenhuma, controlada ou fora de controle? Pergunta direta pra eu te orientar melhor.</div>
+  <div class="bolha var"><small>Variação 3</small>Você já usou algum método ou planilha antes? Pergunto porque se você já tentou, o EFF parte de um ponto diferente.</div>
+</div>
+
+<div class="wpp-bloco">
+  <div class="bloco-titulo">Bloco 3. Amarrar com a dor certa</div>
+  <div class="bloco-obj">Objetivo: devolver a dor em 1 mensagem curta que valida o momento.</div>
+  <div class="bolha"><small>Variação 1</small>Entendi. Então você tá naquele ciclo clássico: renda razoável, mas o fim do mês aperta. Faz sentido?</div>
+  <div class="bolha var"><small>Variação 2</small>Peguei. Autônoma com mês oscilando 40 a 50%. O método padrão trava nesse perfil. O EFF tem protocolo específico pra isso.</div>
+  <div class="bolha var"><small>Variação 3</small>Tá tudo certo. Esse ponto de "já tentei e não manteve" é a dor mais comum que eu atendo. Metade das alunas chega assim.</div>
+</div>
+
+<div class="wpp-bloco">
+  <div class="bloco-titulo">Bloco 4. Conexão Furadeira com o Quadro em 1 mensagem</div>
+  <div class="bloco-obj">Objetivo: explicar o método em 4 linhas, ligando com o resultado.</div>
+  <div class="bolha"><small>Variação 1</small>A lógica do EFF é simples: na semana 1 você faz o diagnóstico, nas semanas 2 e 3 reorganiza prioridade e renegocia, depois constrói o plano, executa com rituais de 20 min e fecha os 90 dias com reserva e primeiro investimento. Em 90 dias você sai diferente.</div>
+  <div class="bolha var"><small>Variação 2</small>Raio-X, dieta, plano, ritual, consolidação. 5 passos em 90 dias. 20 minutos por semana. Resultado médio: R$ 1.180 guardados no fim do programa.</div>
+</div>
+
+<div class="wpp-bloco">
+  <div class="bloco-titulo">Bloco 5. Preço e condição</div>
+  <div class="bloco-obj">Objetivo: ancorar valor antes do preço, mandar preço sem rodeio.</div>
+  <div class="bolha"><small>Variação 1</small>O investimento é R$ 397 à vista ou 12x R$ 39. Dá R$ 1,30 por dia. Menor que streaming. Inclui o curso, 3 planilhas automatizadas, comunidade no Telegram por 90 dias e sala ao vivo toda segunda.</div>
+  <div class="bolha var"><small>Variação 2</small>12x R$ 39 ou R$ 397 à vista. Em média a aluna identifica entre R$ 150 e R$ 400 em gastos invisíveis nas primeiras 3 semanas. O curso se paga antes da primeira parcela.</div>
+</div>
+
+<div class="wpp-bloco">
+  <div class="bloco-titulo">Bloco 6. Fechamento com link</div>
+  <div class="bloco-obj">Objetivo: assumir o sim e enviar link.</div>
+  <div class="bolha"><small>Variação 1</small>Tô te mandando o link da inscrição pra você fazer com calma: [link]. Confirma pra mim quando cair o pagamento que eu te adiciono no grupo e te mando o cronograma da semana 1.</div>
+  <div class="bolha var"><small>Variação 2</small>Fechei pra você, [Nome]. Link aqui: [link]. Tá valendo condição de turma até [data]. Qualquer dúvida antes do clique, me chama.</div>
+  <div class="bolha var"><small>Variação 3</small>[Nome], aqui tá o link direto: [link]. Formas de pagamento: cartão, boleto ou Pix à vista com desconto. Assim que confirmar, retorno aqui.</div>
+  <div class="nota-cond"><strong>Nota.</strong> No inbound, link na 3ª ou 4ª mensagem. Não enrolar. Quem pergunta quer comprar, ou quer sair da dúvida.</div>
+</div>
+
+<!-- 9. SPIN -->
+<h2 id="s9">9. SPIN adaptado ao WhatsApp</h2>
+<p>24 perguntas, 6 por fase. Não é roteiro fechado. É régua pra conduzir. Escolher 2 ou 3 perguntas por fase em cada conversa, de acordo com o que a lead já entregou.</p>
+
+<div class="spin-fase">
+  <div class="fase-titulo">S. Situação</div>
+  <div class="fase-desc">Entender o contexto atual sem sair do lugar da lead.</div>
+  <ol>
+    <li>Hoje você tem salário fixo ou renda variável?</li>
+    <li>Qual a sua faixa de renda mensal, em média?</li>
+    <li>Você é responsável sozinha pelas finanças ou divide com alguém?</li>
+    <li>Você já tentou organizar antes? Com planilha, aplicativo, curso?</li>
+    <li>Tem dívida ativa no momento? Cartão, empréstimo, financiamento?</li>
+    <li>Quanto tempo por mês você dedica hoje pra pensar em dinheiro?</li>
+  </ol>
+  <div class="nota-cond"><strong>Nota.</strong> 2 perguntas bastam pra situar. Não transformar em entrevista de RH.</div>
+</div>
+
+<div class="spin-fase">
+  <div class="fase-titulo">P. Problema</div>
+  <div class="fase-desc">Identificar a dor específica sem induzir.</div>
+  <ol>
+    <li>Onde você sente que aperta mais: no fim do mês, na dívida ou em não conseguir guardar?</li>
+    <li>Quando foi a última vez que você abriu o app do banco sem aperto?</li>
+    <li>Você já sentiu vergonha de falar de dinheiro com alguma amiga?</li>
+    <li>O método que você tentou antes, parou por quê?</li>
+    <li>Tem algum gasto que você sente que "some" sem você ver?</li>
+    <li>O quanto isso tá te incomodando numa escala de 0 a 10?</li>
+  </ol>
+</div>
+
+<div class="spin-fase">
+  <div class="fase-titulo">I. Implicação</div>
+  <div class="fase-desc">Fazer a lead perceber o custo de continuar parada.</div>
+  <ol>
+    <li>Se o próximo ano seguir igual, onde você imagina estar financeiramente?</li>
+    <li>Quanto você estima que já perdeu em gastos invisíveis nos últimos 12 meses?</li>
+    <li>Esse aperto tá afetando o sono, o relacionamento ou a saúde?</li>
+    <li>O que você não fez esse ano por causa de dinheiro?</li>
+    <li>Se surgisse um imprevisto de R$ 2 mil amanhã, como você cobriria?</li>
+    <li>Quantas vezes você já decidiu "a partir de segunda eu começo" e não começou?</li>
+  </ol>
+  <div class="nota-cond"><strong>Nota.</strong> Pergunta de implicação é a mais difícil. Fazer com cuidado, sem parecer interrogatório. Espaço pra lead responder com calma.</div>
+</div>
+
+<div class="spin-fase">
+  <div class="fase-titulo">N. Necessidade de solução</div>
+  <div class="fase-desc">Fazer a lead dizer com as próprias palavras o que muda com a solução certa.</div>
+  <ol>
+    <li>Se você conseguisse abrir o app do banco sem aperto, o que isso te daria?</li>
+    <li>O que muda na sua vida se você tiver uma reserva de 3 meses formada?</li>
+    <li>Quanto valeria pra você saber onde vai cada real antes de entrar o salário?</li>
+    <li>O que você faria primeiro com o dinheiro que aparecesse em gasto invisível cortado?</li>
+    <li>Um método que cabe em 20 minutos por semana faz diferença pra você?</li>
+    <li>Se isso acontecesse nos próximos 90 dias, você fecharia essa conversa agora?</li>
+  </ol>
+</div>
+
+<!-- 10. APRESENTACAO E ANCORAGEM -->
+<h2 id="s10">10. Apresentação e ancoragem de preço por texto</h2>
+<p>Sequência pronta pra copiar e colar quando a lead estiver no momento do preço. Uma mensagem por vez, intervalo de 20 segundos entre cada.</p>
+
+<div class="wpp-bloco">
+  <div class="bolha"><small>Mensagem 1</small>[Nome], vou te explicar o valor com clareza antes de mandar o link.</div>
+  <div class="bolha"><small>Mensagem 2</small>O EFF inclui: curso em 5 módulos, Planilha Diagnóstico, Plano de Metas, Checklist Rituais, Calculadora de Custo Real, comunidade no Telegram por 90 dias e sala de dúvidas ao vivo toda segunda.</div>
+  <div class="bolha"><small>Mensagem 3</small>Se cada item fosse vendido separado, daria fácil R$ 1.200 só nas planilhas e comunidade.</div>
+  <div class="bolha"><small>Mensagem 4</small>O valor de entrada é R$ 397 à vista ou 12x R$ 39.</div>
+  <div class="bolha"><small>Mensagem 5</small>Em contas: R$ 1,30 por dia. Menos que streaming. 87% das alunas identificam gastos invisíveis maiores que o valor mensal em até 3 semanas.</div>
+  <div class="bolha"><small>Mensagem 6</small>Tô te mandando o link da inscrição agora: [link]. Qualquer dúvida antes, me chama aqui.</div>
+</div>
+
+<!-- 11. ESCASSEZ -->
+<h2 id="s11">11. Frases de escassez</h2>
+<p>Escassez real. Vaga, bônus, condição, janela de resposta, janela de vida. Nunca inventar urgência. 14 frases em 5 tipos.</p>
+
+<div class="escassez">
+  <span class="tipo">Vagas</span>
+  <ul>
+    <li>"Essa turma fecha em 40 alunas pra manter a sala ao vivo com espaço pra todas. Faltam 6 vagas."</li>
+    <li>"A comunidade do Telegram é por turma. A próxima abre só em julho. Essa é a janela."</li>
+    <li>"[Nome], a turma de maio tá com 34 inscritas. Com 40, eu fecho."</li>
+  </ul>
+</div>
+
+<div class="escassez">
+  <span class="tipo">Bônus</span>
+  <ul>
+    <li>"Quem entra até sexta leva a Masterclass de Renegociação de Dívida gravada (valor separado R$ 97)."</li>
+    <li>"O bônus da Planilha Pra Casal é liberado só pra inscrições até domingo."</li>
+    <li>"A sessão de dúvida em grupo exclusiva pras primeiras 20 inscritas fecha amanhã."</li>
+  </ul>
+</div>
+
+<div class="escassez">
+  <span class="tipo">Condição de preço</span>
+  <ul>
+    <li>"A condição 12x R$ 39 tá valendo até sexta. Depois volta pra 10x R$ 49."</li>
+    <li>"Pix à vista com 10% de desconto fica em R$ 357. Só nessa janela de inscrição."</li>
+    <li>"O preço dessa turma é R$ 397. Na próxima sobe pra R$ 497. Já tá definido."</li>
+  </ul>
+</div>
+
+<div class="escassez">
+  <span class="tipo">Janela de resposta</span>
+  <ul>
+    <li>"[Nome], consigo reservar sua vaga até amanhã 18h. Depois libero pra fila de espera."</li>
+    <li>"Vou te deixar a condição aberta por 24h. Se não fizer sentido, sem problema, me avisa."</li>
+  </ul>
+</div>
+
+<div class="escassez">
+  <span class="tipo">Janela de vida</span>
+  <ul>
+    <li>"A gente começa a semana 1 do método no dia 12. Quem entra depois, pega o replay, mas perde a live de abertura."</li>
+    <li>"O ciclo completo leva 90 dias. Quem entra agora fecha o terceiro mês antes do fim do ano, com reserva iniciada."</li>
+    <li>"Fim de ano é o pior momento pra começar a se organizar. Começar agora te dá 2 meses de vantagem sobre janeiro."</li>
+  </ul>
+</div>
+
+<!-- 12. FECHAMENTO -->
+<h2 id="s12">12. Fechamento em 4 passos (WhatsApp)</h2>
+<p>Sequência curta pra copiar quando chegou a hora. Pressuposto de sim, sem pergunta de compra.</p>
+
+<div class="wpp-bloco">
+  <div class="bloco-titulo">Passo 1. Reconhecer a dor com as palavras da lead</div>
+  <div class="bolha">[Nome], pelo que você me contou, o ponto é parar com o ciclo do "some antes do fim do mês" e começar a reserva antes de dezembro. É isso?</div>
+</div>
+<div class="wpp-bloco">
+  <div class="bloco-titulo">Passo 2. Conectar com o Quadro</div>
+  <div class="bolha">O EFF foi feito exatamente pra essa travessia. 90 dias, 5 passos, 20 min por semana. Você sai com diagnóstico, reserva iniciada e primeiro investimento.</div>
+</div>
+<div class="wpp-bloco">
+  <div class="bloco-titulo">Passo 3. Ancorar valor e mandar preço</div>
+  <div class="bolha">R$ 397 à vista ou 12x R$ 39. Menos de R$ 1,30 por dia. 87% das alunas identificam gastos invisíveis maiores que o valor mensal em 3 semanas.</div>
+</div>
+<div class="wpp-bloco">
+  <div class="bloco-titulo">Passo 4. Link com pressuposto do sim</div>
+  <div class="bolha">Segue o link: [link]. Assim que confirmar o pagamento, te adiciono no grupo do Telegram e mando o cronograma da semana 1. Qualquer dúvida antes, chama aqui. [Nome]</div>
+  <div class="nota-cond"><strong>Nota.</strong> Não perguntar "quer comprar?" ou "topa?". O link é a ação. A lead faz ou não faz.</div>
+</div>
+
+<!-- 13. OBJECOES -->
+<h2 id="s13">13. Quebra de objeções pelo Framework dos 7 Argumentos</h2>
+<p>Para cada objeção, uma tabela-resumo no topo, versão curta pra mandar no WhatsApp e versão completa com os 7 argumentos estruturados.</p>
+
+<table class="obj-resumo">
+  <tr>
+    <th>#</th>
+    <th>Objeção</th>
+    <th>Raiz</th>
+    <th>Argumento mais forte no WhatsApp</th>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>Já tentei e não mantive</td>
+    <td>Medo de falhar de novo</td>
+    <td>Exemplificação (Juliana, 11 meses)</td>
+  </tr>
+  <tr>
+    <td>2</td>
+    <td>Meu salário é baixo demais</td>
+    <td>Crença de que método é pra quem já tem</td>
+    <td>Incontestável (SPC: renda baixa no vermelho)</td>
+  </tr>
+  <tr>
+    <td>3</td>
+    <td>Não tenho tempo</td>
+    <td>Rotina cheia + falta de prioridade</td>
+    <td>Analogia (20 min é 1,1% do tempo de redes sociais)</td>
+  </tr>
+  <tr>
+    <td>4</td>
+    <td>Posso aprender sozinha no grátis</td>
+    <td>Já tentou conteúdo solto e não implementou</td>
+    <td>Contradição (se grátis bastasse, já teria resolvido)</td>
+  </tr>
+  <tr>
+    <td>5</td>
+    <td>É caro demais</td>
+    <td>Não viu valor vs. preço</td>
+    <td>Valor (se paga antes da 1ª parcela em gasto invisível)</td>
+  </tr>
+</table>
+
+<details open>
+  <summary>Objeção 1. "Já tentei organizar minhas finanças e não consegui manter"</summary>
+  <div class="corpo">
+    <div class="arg-versoes">
+      <div class="arg arg-curta">
+        <div class="rotulo">Versão curta (WhatsApp)</div>
+        <div class="conteudo">"Entendi. O problema não foi você. Foi o formato. 40 min diários ninguém mantém. 20 min em 2 rituais semanais funciona pra 87% das alunas. A Juliana, CLT com dois filhos, tá há 11 meses firme."</div>
+      </div>
+      <div class="arg arg-completa">
+        <div class="rotulo">Versão completa</div>
+        <div class="conteudo">Usada em conversa longa, ligação ou mensagem de áudio pra lead madura.</div>
+      </div>
+    </div>
+    <div class="sete-args">
+      <div class="arg-item"><div class="nome">1. Incontestável</div><div class="texto">Neurociência comportamental mostra que o gatilho-esforço-recompensa precisa de ciclos curtos pra se sustentar. Com 1.400 alunas em 2 anos, a média de retenção foi 3 vezes maior em rituais semanais de 20 min do que em rotinas diárias.</div></div>
+      <div class="arg-item"><div class="nome">2. Lógico</div><div class="texto">O que falhou foi o formato, não sua capacidade. 40 min diários somam 4h40 por semana. 20 min em 2 rituais somam 40 min por semana. A segunda é 7 vezes mais fácil de manter. Você foi convidada a um esforço que ninguém sustenta.</div></div>
+      <div class="arg-item"><div class="nome">3. Analogia</div><div class="texto">Planilha complexa diária é como começar a correr 10 km no primeiro dia. Quase ninguém termina a semana. Rituais curtos são a caminhada de 20 min, 2 vezes por semana. Parece pouco, e é justamente por isso que mantém.</div></div>
+      <div class="arg-item"><div class="nome">4. Exemplificação</div><div class="texto">A Juliana, professora CLT com dois filhos, tá há 11 meses mantendo os rituais. Entrou no EFF depois de 3 tentativas fracassadas com planilha e app. Hoje tem R$ 2.400 de reserva.</div></div>
+      <div class="arg-item"><div class="nome">5. Valor</div><div class="texto">R$ 1,30 por dia em investimento contra R$ 150 a R$ 400 por mês de retorno em gasto invisível cortado. Em 8 semanas, média de R$ 280 por mês. O método se paga antes da terceira semana.</div></div>
+      <div class="arg-item"><div class="nome">6. Consequência</div><div class="texto">Adiar mais 12 meses significa perder entre R$ 900 e R$ 2.400 que continuam escapando. Decidir agora muda o resultado já no próximo extrato bancário.</div></div>
+      <div class="arg-item"><div class="nome">7. Contradição</div><div class="texto">Se você ainda procura solução é porque sabe que o problema não é de força de vontade. É de método. A frase "já tentei e não mantive" é prova de que o formato anterior não servia.</div></div>
+    </div>
+  </div>
+</details>
+
+<details>
+  <summary>Objeção 2. "Meu salário é baixo demais pra valer a pena planejamento"</summary>
+  <div class="corpo">
+    <div class="arg-versoes">
+      <div class="arg arg-curta">
+        <div class="rotulo">Versão curta (WhatsApp)</div>
+        <div class="conteudo">"É exatamente o contrário. Quanto menor o salário, maior o impacto proporcional de cada real cortado. A Renata, R$ 2.800, achou R$ 340 invisíveis em 3 semanas. 12% da renda dela em gasto escondido."</div>
+      </div>
+      <div class="arg arg-completa">
+        <div class="rotulo">Versão completa</div>
+        <div class="conteudo">Para conversa mais longa e com mais contexto.</div>
+      </div>
+    </div>
+    <div class="sete-args">
+      <div class="arg-item"><div class="nome">1. Incontestável</div><div class="texto">Dado SPC Brasil: 58% das pessoas com renda até R$ 3.000 estão no vermelho, contra 41% com renda entre R$ 3.000 e R$ 5.000. Serasa mostra que 73% das pessoas que saíram do endividamento tinham renda abaixo de R$ 2.500.</div></div>
+      <div class="arg-item"><div class="nome">2. Lógico</div><div class="texto">Quanto menor o salário, maior o impacto proporcional de cada real. R$ 200 perdidos numa renda de R$ 3.000 é 6,7% do orçamento. O mesmo valor em R$ 10.000 é só 2%. Método faz mais diferença em quem tem menos.</div></div>
+      <div class="arg-item"><div class="nome">3. Analogia</div><div class="texto">Uma jarra com furo vaza do mesmo jeito independente do tamanho da jarra. Quem tem jarra pequena precisa fechar o furo antes. O método é a vedação.</div></div>
+      <div class="arg-item"><div class="nome">4. Exemplificação</div><div class="texto">A Renata, auxiliar administrativa de Recife, salário R$ 2.800, encontrou R$ 340 invisíveis em 3 semanas de diagnóstico. 12% da renda dela em gasto escondido.</div></div>
+      <div class="arg-item"><div class="nome">5. Valor</div><div class="texto">R$ 1,30 por dia é 1,3% de um salário de R$ 3.000. Retorno médio em 8 semanas entre R$ 200 e R$ 400 por mês é 6 a 13% da renda. Relação de 5x a 10x no primeiro trimestre.</div></div>
+      <div class="arg-item"><div class="nome">6. Consequência</div><div class="texto">Sem método, os próximos 12 meses repetem o padrão. Com método, o primeiro mês já entrega diagnóstico, o terceiro já tem reserva iniciada.</div></div>
+      <div class="arg-item"><div class="nome">7. Contradição</div><div class="texto">Dizer que salário baixo não merece planejamento é desvalorizar o próprio esforço. Quanto mais difícil entrou o dinheiro, maior o cuidado em não deixar escoar.</div></div>
+    </div>
+  </div>
+</details>
+
+<details>
+  <summary>Objeção 3. "Não tenho tempo na rotina pra cuidar de finanças"</summary>
+  <div class="corpo">
+    <div class="arg-versoes">
+      <div class="arg arg-curta">
+        <div class="rotulo">Versão curta (WhatsApp)</div>
+        <div class="conteudo">"Brasileira passa 4h20 por dia em redes sociais. 30h por semana. O EFF pede 20 minutos por semana. É 1,1% do tempo que já é gasto em rolagem. Cabe no trajeto."</div>
+      </div>
+      <div class="arg arg-completa">
+        <div class="rotulo">Versão completa</div>
+        <div class="conteudo">Para lead que usa "tempo" como escudo.</div>
+      </div>
+    </div>
+    <div class="sete-args">
+      <div class="arg-item"><div class="nome">1. Incontestável</div><div class="texto">A brasileira passa em média 4h20 por dia em redes sociais, o que dá 30 horas por semana. O EFF pede 20 min por semana em rituais. Isso é 1,1% do tempo já gasto em tela.</div></div>
+      <div class="arg-item"><div class="nome">2. Lógico</div><div class="texto">Sem método, cada mês consome 3 a 5 horas em resolução de cobrança, entendimento de extrato e crise do dia 20. Com método, 80 min por mês. O ganho líquido é de 2 a 4 horas.</div></div>
+      <div class="arg-item"><div class="nome">3. Analogia</div><div class="texto">Não planejar as finanças é como não limpar a casa. A bagunça acumula e o trabalho pra arrumar é o dobro. 15 min de manutenção no momento certo evita 3 horas de limpeza de fim de semana.</div></div>
+      <div class="arg-item"><div class="nome">4. Exemplificação</div><div class="texto">A Cátia, enfermeira em regime 12 por 36 com dois filhos, encaixa o Ritual da Segunda no trajeto de ônibus. O Ritual da Sexta acontece no intervalo do café.</div></div>
+      <div class="arg-item"><div class="nome">5. Valor</div><div class="texto">20 min por semana somam 17 horas por ano. Retorno médio é 24 a 48 horas a menos em crise financeira por ano, além de R$ 2.400 recuperados em gastos invisíveis.</div></div>
+      <div class="arg-item"><div class="nome">6. Consequência</div><div class="texto">Sem o método, o tempo continua sendo drenado em caos financeiro sem aparecer na agenda. Em 60 dias, saldo previsível muda a relação com o relógio.</div></div>
+      <div class="arg-item"><div class="nome">7. Contradição</div><div class="texto">"Não tenho tempo" muitas vezes é a história que justifica ficar parada. É mais confortável do que encarar o que aparece no diagnóstico.</div></div>
+    </div>
+  </div>
+</details>
+
+<details>
+  <summary>Objeção 4. "Posso aprender sozinha com conteúdo gratuito do Instagram e YouTube"</summary>
+  <div class="corpo">
+    <div class="arg-versoes">
+      <div class="arg arg-curta">
+        <div class="rotulo">Versão curta (WhatsApp)</div>
+        <div class="conteudo">"Conteúdo grátis é bom pra ideia, não pra sequência. LinkedIn Learning: só 4% aplicam por 90+ dias. A Paula seguia 14 perfis há 3 anos, zero reserva. No EFF, 12 semanas aplicou 3 anos de teoria."</div>
+      </div>
+      <div class="arg arg-completa">
+        <div class="rotulo">Versão completa</div>
+        <div class="conteudo">Para lead que já tem histórico de consumir conteúdo sem aplicar.</div>
+      </div>
+    </div>
+    <div class="sete-args">
+      <div class="arg-item"><div class="nome">1. Incontestável</div><div class="texto">LinkedIn Learning: só 4% das pessoas que consomem conteúdo gratuito aplicam consistentemente por mais de 90 dias. Harvard Business Review: sem sequência estruturada, a retenção cai 12% em 30 dias.</div></div>
+      <div class="arg-item"><div class="nome">2. Lógico</div><div class="texto">Conteúdo gratuito é fragmento solto. O cérebro não junta fragmentos soltos em sistema. A sequência é o que produz resultado, não o tópico em si.</div></div>
+      <div class="arg-item"><div class="nome">3. Analogia</div><div class="texto">Aprender finanças por tutoriais soltos no Instagram é como construir uma casa com vídeos avulsos do YouTube. Cada parte pode estar certa. O todo não se ergue.</div></div>
+      <div class="arg-item"><div class="nome">4. Exemplificação</div><div class="texto">A Paula seguia 14 perfis financeiros há 3 anos, salvava posts, e tinha zero reserva. No EFF, em 12 semanas, aplicou o que acumulava como teoria por 3 anos.</div></div>
+      <div class="arg-item"><div class="nome">5. Valor</div><div class="texto">Conteúdo gratuito consome em média 120 horas por ano sem aplicação. Método estruturado consome 17 horas por ano com aplicação real. O retorno por hora é incomparável.</div></div>
+      <div class="arg-item"><div class="nome">6. Consequência</div><div class="texto">Continuar no modelo "aprendo sozinha" significa repetir o padrão dos últimos 3 anos. Começar o método agora inverte a trajetória em 90 dias.</div></div>
+      <div class="arg-item"><div class="nome">7. Contradição</div><div class="texto">Se conteúdo gratuito resolvesse, o problema já estaria resolvido. O fato de você estar procurando algo diferente é a prova de que o modelo anterior não funcionou.</div></div>
+    </div>
+  </div>
+</details>
+
+<details>
+  <summary>Objeção 5. "É caro demais pra minha realidade financeira agora"</summary>
+  <div class="corpo">
+    <div class="arg-versoes">
+      <div class="arg arg-curta">
+        <div class="rotulo">Versão curta (WhatsApp)</div>
+        <div class="conteudo">"12x R$ 39 é R$ 1,30 por dia. Menor que streaming. 87% das alunas identificam gasto invisível maior que o valor mensal em 3 semanas. O método se paga antes da primeira parcela."</div>
+      </div>
+      <div class="arg arg-completa">
+        <div class="rotulo">Versão completa</div>
+        <div class="conteudo">Para lead que usa preço como filtro principal.</div>
+      </div>
+    </div>
+    <div class="sete-args">
+      <div class="arg-item"><div class="nome">1. Incontestável</div><div class="texto">12 parcelas de R$ 39 equivalem a R$ 1,30 por dia. Média IBGE de gasto impulsivo brasileiro é R$ 7,20 por dia. O método custa 18% do que já é gasto em impulso. 87% das alunas identificam gastos invisíveis maiores que o valor mensal em até 3 semanas.</div></div>
+      <div class="arg-item"><div class="nome">2. Lógico</div><div class="texto">O investimento anual é R$ 468. O retorno médio em gastos invisíveis cortados é R$ 2.400 a R$ 4.800 em 12 meses. Relação de 5x a 10x.</div></div>
+      <div class="arg-item"><div class="nome">3. Analogia</div><div class="texto">Recusar o método por R$ 39 é como recusar um guarda-chuva de R$ 30 em plena tempestade. O custo é desprezível diante do que molha sem ele.</div></div>
+      <div class="arg-item"><div class="nome">4. Exemplificação</div><div class="texto">A Bianca, assistente comercial, gastava R$ 180 por mês em lanches. Cortou uma ida semanal, pagou o curso inteiro e ainda sobrou R$ 540 no ano.</div></div>
+      <div class="arg-item"><div class="nome">5. Valor</div><div class="texto">As primeiras 3 semanas já identificam entre R$ 150 e R$ 400 por mês em gasto invisível. O método se paga antes da primeira parcela cair no cartão.</div></div>
+      <div class="arg-item"><div class="nome">6. Consequência</div><div class="texto">Adiar mais 12 meses significa perder entre R$ 1.800 e R$ 4.800 em gastos não cortados. Decidir agora significa R$ 468 investidos contra R$ 2.400 a R$ 4.800 recuperados.</div></div>
+      <div class="arg-item"><div class="nome">7. Contradição</div><div class="texto">Você diz que R$ 39 é caro, e provavelmente pagou mais do que isso em tarifa bancária, streaming duplicado ou delivery esse mês. A questão não é se cabe. É em que você escolhe pagar.</div></div>
+    </div>
+  </div>
+</details>
+
+<!-- 14. RECUPERACAO DE CARRINHO -->
+<h2 id="s14">14. Recuperação de Carrinho</h2>
+<p>Lead chegou ao checkout e não finalizou. 7 toques temporizados, 2 variações por toque. Mensagens sempre com nome, sempre curtas, sempre com motivo concreto.</p>
+
+<div class="toque">
+  <div class="badge">15 min</div>
+  <div class="obj">Checar se foi erro técnico ou dúvida.</div>
+  <div class="bolha">[Nome], vi que você começou a inscrição e não finalizou. Foi algum erro no checkout ou ficou alguma dúvida?</div>
+  <div class="bolha var">Oi [Nome], tudo bem? Se travou alguma coisa no pagamento, me avisa aqui que eu reabro o link.</div>
+</div>
+<div class="toque">
+  <div class="badge">1 h</div>
+  <div class="obj">Recolocar o valor e o resultado.</div>
+  <div class="bolha">[Nome], sobre o EFF: 12x R$ 39, 5 módulos, 3 planilhas, comunidade e sala ao vivo. 90 dias pra sair com reserva iniciada. Posso tirar alguma dúvida?</div>
+  <div class="bolha var">Qualquer coisa que tenha parado você, me chama. Se for preço, cartão ou parcelamento, a gente resolve.</div>
+</div>
+<div class="toque">
+  <div class="badge">4 h</div>
+  <div class="obj">Prova social curta.</div>
+  <div class="bolha">[Nome], a Juliana tá há 11 meses no método. Começou na mesma dúvida. Segue aí em caso de ajudar: [link do depoimento].</div>
+  <div class="bolha var">Pra te contextualizar: 87% das alunas encontram gasto invisível maior que o valor mensal em 3 semanas. Se quiser reabrir o link, tô aqui.</div>
+</div>
+<div class="toque">
+  <div class="badge">D+1 manhã</div>
+  <div class="obj">Reframe de prioridade.</div>
+  <div class="bolha">Bom dia, [Nome]. Se faz sentido pra você agora, o link tá ativo: [link]. A primeira parcela só cai em 30 dias. Tempo pra começar antes de pagar.</div>
+  <div class="bolha var">[Nome], tô deixando o link em aberto por hoje pra você decidir com calma: [link]. Primeiro módulo libera na quarta.</div>
+</div>
+<div class="toque">
+  <div class="badge">D+1 tarde</div>
+  <div class="obj">Ancoragem numa urgência concreta.</div>
+  <div class="bolha">[Nome], a condição 12x R$ 39 tá valendo só até sexta. Depois volta pra 10x R$ 49. Se puder decidir hoje ou amanhã, trava essa parcela menor.</div>
+  <div class="bolha var">Hoje entra uma inscrição por hora. Se quiser garantir a vaga enquanto a condição tá ativa, o link é [link].</div>
+</div>
+<div class="toque">
+  <div class="badge">D+3</div>
+  <div class="obj">Perguntar direto o que trava.</div>
+  <div class="bolha">[Nome], tô te escrevendo direto. O que tá segurando a decisão hoje? Se for preço, dá pra a gente conversar. Se for dúvida do método, eu explico.</div>
+  <div class="bolha var">Só pra entender: o que falta pra você fechar? Resposta direta me ajuda a te ajudar.</div>
+</div>
+<div class="toque">
+  <div class="badge">D+7</div>
+  <div class="obj">Última mensagem da sequência, com saída digna.</div>
+  <div class="bolha">[Nome], última mensagem aqui da minha parte. Se faz sentido pra você mais pra frente, me chama. Se não for agora, tudo bem. Obrigada pelo tempo.</div>
+  <div class="bolha var"><small>Variação com downsell</small>[Nome], tenho uma versão reduzida só com a semana 1 (Diagnóstico + Planilha) por R$ 97. Se valor cheio não for agora, essa entrada resolve o ponto do "pra onde foi o dinheiro". Link: [link].</div>
+</div>
+
+<!-- 15. FOLLOW UP + UPSELL/DOWNSELL/ORDER BUMP -->
+<h2 id="s15">15. Follow-up e Upsell / Downsell / Order Bump</h2>
+
+<h3>Follow-up de quem não comprou</h3>
+
+<div class="toque">
+  <div class="badge">D+1</div>
+  <div class="obj">Abertura sem cobrança.</div>
+  <div class="bolha">[Nome], tô respeitando seu tempo. Só queria te deixar um material que pode ajudar mesmo sem o EFF: [link do checklist grátis].</div>
+  <div class="bolha var">Bom dia. Se a gente não seguir agora, combinado. Me chama quando fizer sentido. Deixei na sua mão.</div>
+</div>
+<div class="toque">
+  <div class="badge">D+3</div>
+  <div class="obj">Prova social + nova janela.</div>
+  <div class="bolha">[Nome], a turma que tá fechando essa semana tem 38 alunas inscritas. Se quiser ver o depoimento de 3 que começaram igual a você, tô te mandando: [link].</div>
+  <div class="bolha var">Conversei com uma aluna hoje que estava na mesma dúvida há 2 meses. Entrou na turma anterior, hoje tem R$ 700 de reserva. Pensei em te contar.</div>
+</div>
+<div class="toque">
+  <div class="badge">D+7</div>
+  <div class="obj">Urgência real ou downsell.</div>
+  <div class="bolha">[Nome], última janela pra entrar nessa turma é amanhã. Depois, só em julho. Se fizer sentido agora, tô aqui.</div>
+  <div class="bolha var"><small>Variação downsell</small>[Nome], a turma cheia fecha amanhã. Se o valor cheio não couber, tenho a Minitrilha Diagnóstico (semana 1 completa) por R$ 97. Te manda o link?</div>
+</div>
+
+<h3>Upsell pós-compra</h3>
+<div class="card">
+  <div class="titulo">Masterclass de Investimento Iniciante · R$ 197 (pacote com as 3)</div>
+  Oferecer nos primeiros 7 dias após a confirmação da compra, antes da aluna iniciar a semana 3. Motivo: "Quem passa pela semana 1 com a Planilha Diagnóstico pronta sente falta de onde investir assim que a reserva começa a crescer. O pacote de 3 masterclasses cobre CDB, Tesouro Direto e LCI em profundidade."
+</div>
+
+<h3>Downsell para quem não comprou</h3>
+<div class="card">
+  <div class="titulo">Minitrilha Diagnóstico EFF · R$ 97 (só a semana 1 do programa)</div>
+  Frase pronta: <em>"[Nome], entendo que o valor cheio não seja o momento. Abri uma versão reduzida, só a semana 1 do método, por R$ 97. É a parte que descobre pra onde vai o dinheiro. Faz em 5 dias. Quer o link?"</em>
+</div>
+
+<h3>Order Bump no checkout</h3>
+<div class="card">
+  <div class="titulo">Planilha Pra Casal · R$ 27 (add-on no fechamento)</div>
+  Oferecer na tela de pagamento, para quem marcar que compartilha conta. Copy: "Adicione a Planilha Pra Casal por R$ 27. Divide gastos, meta compartilhada e script de conversa com o parceiro sobre dinheiro sem conflito."
+</div>
+
+<!-- 16. CHECKLIST -->
+<h2 id="s16">16. Checklist de atendimento no WhatsApp</h2>
+<p>Lista de conferência em 3 momentos. Antes de abrir a conversa. Durante. Depois.</p>
+
+<div class="check-grid">
+  <div class="check-col">
+    <div class="titulo">Antes de abrir</div>
+    <ul>
+      <li>Ler o perfil da lead no CRM ou ficha</li>
+      <li>Conferir de onde ela veio (anúncio, isca, indicação)</li>
+      <li>Saber o balde: CLT ou renda variável</li>
+      <li>Ter os 15 pontos de convicção à mão</li>
+      <li>Ter o link de pagamento pronto</li>
+      <li>Silenciar notificações pra responder com foco</li>
+      <li>Estar disposta a parar se perceber que não é o momento</li>
+    </ul>
+  </div>
+  <div class="check-col">
+    <div class="titulo">Durante a conversa</div>
+    <ul>
+      <li>Mensagens curtas, uma ideia por mensagem</li>
+      <li>Nome da lead na primeira e na última mensagem</li>
+      <li>Nunca mandar áudio longo logo no início</li>
+      <li>Ouvir antes de oferecer</li>
+      <li>Usar as palavras que conectam, evitar as que afastam</li>
+      <li>Nunca perguntar "quer comprar?"</li>
+      <li>Mandar link só quando a lead disse sim com palavras</li>
+      <li>Aplicar escassez real, nunca inventada</li>
+    </ul>
+  </div>
+  <div class="check-col">
+    <div class="titulo">Depois do fechamento ou recusa</div>
+    <ul>
+      <li>Confirmar pagamento e liberar acesso no mesmo dia</li>
+      <li>Enviar mensagem de boas-vindas com próximos passos</li>
+      <li>Adicionar no grupo do Telegram imediatamente</li>
+      <li>Agendar upsell em até 7 dias</li>
+      <li>Se não comprou, marcar follow-up em D+21 no CRM</li>
+      <li>Registrar motivo da recusa no CRM (objeção real)</li>
+      <li>Revisar o atendimento no fim da semana</li>
+    </ul>
+  </div>
+</div>
+
+<footer>
+  Playbook gerado pela skill <strong>playbook-comercial</strong> · Método EFF · Beatriz Almeida · Dados fictícios para demonstração comercial.
+</footer>
+
+</main>
+
+<button class="btn-pdf" onclick="window.print()" aria-label="Exportar este playbook como PDF">
+  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12v7H5v-7H3v7a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7h-2zM12 2l-5 5h3v6h4V7h3l-5-5z" transform="rotate(180 12 12)"/></svg>
+  Exportar PDF
+</button>
+
+</body>
+</html>

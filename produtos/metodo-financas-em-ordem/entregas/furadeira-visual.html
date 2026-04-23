@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Método FIO: Trilha Visual</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green: #22c55e;
+    --green-dark: #16a34a;
+    --green-light: #dcfce7;
+    --green-mid: #4ade80;
+    --bg: #f0fdf4;
+    --surface: #ffffff;
+    --text-1: #111827;
+    --text-2: #374151;
+    --text-3: #6b7280;
+    --border: #d1fae5;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    min-height: 100vh;
+    padding: 48px 24px;
+  }
+
+  .header {
+    text-align: center;
+    margin-bottom: 56px;
+  }
+
+  .method-badge {
+    display: inline-block;
+    background: var(--green-light);
+    color: var(--green-dark);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 6px 16px;
+    border-radius: 9999px;
+    margin-bottom: 16px;
+  }
+
+  .header h1 {
+    font-size: 36px;
+    font-weight: 900;
+    color: var(--text-1);
+    line-height: 1.15;
+    margin-bottom: 12px;
+  }
+
+  .header h1 span {
+    color: var(--green-dark);
+  }
+
+  .header p {
+    font-size: 16px;
+    color: var(--text-3);
+    max-width: 480px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+
+  .timeline {
+    max-width: 820px;
+    margin: 0 auto;
+    position: relative;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 52px;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: linear-gradient(to bottom, var(--green), var(--green-mid), var(--green-light));
+    border-radius: 2px;
+  }
+
+  .step {
+    display: flex;
+    gap: 28px;
+    margin-bottom: 32px;
+    position: relative;
+  }
+
+  .step-number {
+    flex-shrink: 0;
+    width: 56px;
+    height: 56px;
+    background: var(--green-dark);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 18px;
+    font-weight: 800;
+    position: relative;
+    z-index: 1;
+    box-shadow: 0 0 0 6px var(--bg), 0 0 0 8px var(--green-light);
+  }
+
+  .step-number.light {
+    background: var(--green);
+  }
+
+  .step-content {
+    flex: 1;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 24px 28px;
+    box-shadow: 0 2px 8px rgba(22,163,74,0.07);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .step-content:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(22,163,74,0.12);
+  }
+
+  .step-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+
+  .step-tag {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--green-dark);
+    background: var(--green-light);
+    padding: 3px 10px;
+    border-radius: 9999px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+
+  .step-days {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-3);
+  }
+
+  .step-content h3 {
+    font-size: 19px;
+    font-weight: 800;
+    color: var(--text-1);
+    margin-bottom: 6px;
+  }
+
+  .step-content .step-line {
+    font-size: 14px;
+    color: var(--green-dark);
+    font-weight: 500;
+    margin-bottom: 14px;
+    font-style: italic;
+  }
+
+  .micro-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .micro-list li {
+    font-size: 13px;
+    color: var(--text-2);
+    padding-left: 18px;
+    position: relative;
+    line-height: 1.5;
+  }
+
+  .micro-list li::before {
+    content: '›';
+    position: absolute;
+    left: 0;
+    color: var(--green);
+    font-size: 16px;
+    font-weight: 700;
+    top: -1px;
+  }
+
+  .result-box {
+    margin-top: 40px;
+    background: linear-gradient(135deg, var(--green-dark) 0%, #15803d 100%);
+    border-radius: 20px;
+    padding: 36px 40px;
+    text-align: center;
+    color: white;
+  }
+
+  .result-box .icon {
+    font-size: 32px;
+    margin-bottom: 12px;
+  }
+
+  .result-box h2 {
+    font-size: 24px;
+    font-weight: 800;
+    margin-bottom: 8px;
+  }
+
+  .result-box p {
+    font-size: 15px;
+    opacity: 0.85;
+    max-width: 480px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+
+  .print-btn {
+    display: block;
+    width: fit-content;
+    margin: 48px auto 0;
+    background: var(--green-dark);
+    color: white;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 12px 28px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+
+  .print-btn:hover { background: #14532d; }
+
+  @media print {
+    body { padding: 24px; background: white; }
+    .print-btn { display: none; }
+    .step-content { box-shadow: none; }
+    .timeline::before { background: #ccc; }
+  }
+
+  @media (max-width: 600px) {
+    .timeline::before { left: 28px; }
+    .step-number { width: 36px; height: 36px; font-size: 14px; }
+    .step-content { padding: 18px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="method-badge">Método FIO</div>
+  <h1>Finanças em <span>Ordem</span></h1>
+  <p>5 macroetapas para organizar as finanças e sair das dívidas em 90 dias</p>
+</div>
+
+<div class="timeline">
+
+  <div class="step">
+    <div class="step-number">1</div>
+    <div class="step-content">
+      <div class="step-header">
+        <span class="step-tag">Macroetapa 1</span>
+        <span class="step-days">Semana 1</span>
+      </div>
+      <h3>Diagnóstico Real</h3>
+      <div class="step-line">Antes de resolver, você precisa enxergar o que existe.</div>
+      <ul class="micro-list">
+        <li>Levantamento de extratos dos últimos 3 meses</li>
+        <li>Classificação de gastos: necessários, confortáveis e desnecessários</li>
+        <li>Cálculo da dívida total real (muitos se surpreendem com o número)</li>
+        <li>Identificação dos drenos silenciosos: assinaturas, juros rotativos e parcelamentos empilhados</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-number light">2</div>
+    <div class="step-content">
+      <div class="step-header">
+        <span class="step-tag">Macroetapa 2</span>
+        <span class="step-days">Semanas 2 e 3</span>
+      </div>
+      <h3>Corte Cirúrgico</h3>
+      <div class="step-line">Eliminar o que sangra o orçamento sem sacrificar a qualidade de vida.</div>
+      <ul class="micro-list">
+        <li>Script de negociação com credores (Serasa Limpa Nome e banco direto)</li>
+        <li>Regra dos 3 grupos de corte: imediato, progressivo e por substituição</li>
+        <li>Teste de 30 dias sem gastos variáveis supérfluos</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-number">3</div>
+    <div class="step-content">
+      <div class="step-header">
+        <span class="step-tag">Macroetapa 3</span>
+        <span class="step-days">Semanas 3 e 4</span>
+      </div>
+      <h3>Organização do Fluxo</h3>
+      <div class="step-line">Um sistema financeiro que funciona no piloto automático.</div>
+      <ul class="micro-list">
+        <li>Método dos 3 envelopes digitais: necessário, reserva e liberdade</li>
+        <li>Automação da poupança no dia do salário</li>
+        <li>Regra do gasto consciente: pausa de 48h para compras acima de R$200</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-number light">4</div>
+    <div class="step-content">
+      <div class="step-header">
+        <span class="step-tag">Macroetapa 4</span>
+        <span class="step-days">Semanas 4 a 10</span>
+      </div>
+      <h3>Quitação em Cascata</h3>
+      <div class="step-line">Eliminar dívidas na ordem certa para pagar menos e terminar mais rápido.</div>
+      <ul class="micro-list">
+        <li>Ordem de quitação: juro mais alto primeiro, depois menor saldo (método bola de neve adaptado)</li>
+        <li>Celebração de marcos: cada dívida quitada ganha uma recompensa planejada</li>
+        <li>Revisão mensal de progresso com ajuste de estratégia</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-number">5</div>
+    <div class="step-content">
+      <div class="step-header">
+        <span class="step-tag">Macroetapa 5</span>
+        <span class="step-days">Semanas 11 e 12</span>
+      </div>
+      <h3>Reserva e Próximos Passos</h3>
+      <div class="step-line">Construir o alicerce para nunca mais voltar ao ponto de partida.</div>
+      <ul class="micro-list">
+        <li>Meta de 3 meses de gastos como reserva mínima</li>
+        <li>Conta separada para reserva: Tesouro Selic ou CDB 100% CDI</li>
+        <li>Introdução ao investimento básico apenas após reserva completa</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="result-box">
+    <div class="icon">*</div>
+    <h2>Resultado ao Final dos 90 Dias</h2>
+    <p>Finanças organizadas, dívidas em rota de quitação e reserva de emergência iniciada. Uma base financeira real, construída com método.</p>
+  </div>
+
+</div>
+
+<button class="print-btn" onclick="window.print()">Exportar como PDF</button>
+
+</body>
+</html>

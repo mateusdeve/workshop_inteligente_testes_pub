@@ -55,6 +55,30 @@ Cada bônus precisa ter valor de referência explícito antes do CTA.
 **Produto acima de R$300 sem pré-checkout**
 Produtos acima de R$300 devem ter pré-checkout para capturar quem não comprou.
 
+**Lero-lero na copy**
+Copy com palavras que soam bem mas não dizem nada: "padrão interno", "segurança interna", "caminhos terapêuticos", "processos emocionais", "reconectar com a sensibilidade". Teste: troca a palavra por outra genérica do mesmo nicho e o sentido continua igual? É lero-lero. Substituir por dado concreto, cena real ou argumento específico.
+
+**Copy sem tese**
+A copy descreve o problema mas não argumenta por que ele existe. "Você não avança" não é tese. "Você não avança porque seu cérebro interpreta como ameaça qualquer situação nova que não tem precedente na sua memória" é tese. Sem tese, a copy não argumenta. Sem argumento, não convence.
+
+**Ausência de facilitação visual do método**
+Toda página de vendas precisa de representação visual do método, do antes/depois ou da transformação prometida. Texto descritendo o método sem diagrama, esquema ou comparativo visual perde 70% do impacto. Um desenho simples vale mais que três parágrafos de explicação.
+
+**Autoridade sem jornada e sem fragilidade**
+"Meu trabalho nasce do encontro com a sensibilidade" não convence ninguém. A seção de autoridade precisa da história de origem com o problema que o próprio criador enfrentou. Quem foi antes de ter o método? O que aconteceu? Por que decidiu criar isso? Sem jornada, sem conexão.
+
+**Depoimento que elogia sem resultado concreto**
+"Material lindo", "professor incrível", "mudou minha vida", "estou amando" são depoimentos que atrapalham mais do que ajudam. O depoimento que converte tem: onde o aluno estava antes + resultado específico depois + número ou prazo sempre que possível. Ex: "Meu tempo de celular era 8 horas, agora está menos de 2" ou "Em uma semana fiz um relatório que estava adiando há meses".
+
+**Sigla ou técnica sem explicação**
+Se citar EME, EFT, ROTA ou qualquer nome de protocolo/técnica, explicar o que é na mesma dobra ou parágrafo. Ninguém vai buscar entender. Se não explicar, perde o leitor ali.
+
+**Unicidade rompida: vários pontos centrais**
+A página não pode falar de crenças, energia, segurança, processos emocionais e confiança como se fossem a mesma coisa. Escolher um ponto central e bater nele o tempo todo. Cada vez que muda de assunto sem conexão clara, o leitor perde o fio.
+
+**Furadeira de low ticket complexa demais**
+Para produto até R$97, o método não pode ter 8 passos elaborados. Precisa ser algo de hoje para amanhã: "testa hoje, amanhã você vê a diferença". A furadeira do low ticket é a própria ferramenta sendo usada, não um processo longo de aprendizado.
+
 ---
 
 ## Padrões por tipo de seção
@@ -148,7 +172,8 @@ Analise a copy seguindo a estrutura 8D. Para cada seção, avalie o que está bo
 - [ ] Vídeo de vendas posicionado corretamente?
 
 **Seção 2. Paliativo**
-- [ ] Apresenta uma ferramenta do método que resolve uma dor específica?
+- [ ] Apresenta as ferramentas, produtos e soluções concorrentes do mercado que o público usa hoje?
+- [ ] Explica por que cada uma dessas soluções não entrega o resultado completo?
 
 **Seção 3. Método (Furadeira)**
 - [ ] Método tem nome próprio e memorável?

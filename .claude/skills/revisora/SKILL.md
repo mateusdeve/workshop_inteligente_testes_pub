@@ -72,6 +72,38 @@ Veja lista completa em [references/phrases.md](references/phrases.md) e [referen
 - Declarações vagas ("as implicações são significativas", "o impacto é profundo")
 - Meta-frases ("nos próximos parágrafos", "como veremos a seguir")
 
+## 4. Checagem de Argumento e Especificidade
+
+Estas regras não geram correção automática no texto, mas geram um **alerta interno** para a skill chamadora quando detectadas. Se algum item abaixo falhar, inclua uma nota no final da saída no formato `[REVISORA: aviso]` antes de devolver o texto.
+
+### 4.1 Detector de Lero-Lero
+
+Varredura nas headlines, bullets e subheadlines. Se houver palavras que soam bem mas não dizem nada concreto, e que poderiam ser trocadas por outras palavras genéricas do mesmo nicho sem mudar o sentido, sinalize.
+
+Palavras de alerta em desenvolvimento pessoal: "padrão interno", "segurança interna", "caminhos terapêuticos", "processos emocionais", "insuficiência", "reconectar com a sensibilidade", "jornada de autoconhecimento", "despertar", "transformar sua essência".
+
+Teste: dá para trocar a palavra por outra do mesmo campo semântico e o significado continua igual? Se sim, é lero-lero. Sinalize: `[REVISORA: headline/bullet com lero-lero detectado. Revisar com dado concreto ou cena real.]`
+
+### 4.2 Ausência de Tese
+
+A copy deve defender uma razão concreta para o problema existir, não apenas descrever o problema. "Você procrastina" não é tese. "Você procrastina porque seu cérebro foi programado para ação imediata e não para acumular reservas" é tese.
+
+Se o texto descreve dor sem argumentar por que ela existe, sinalize: `[REVISORA: copy sem tese. Falta o argumento de causa do problema.]`
+
+### 4.3 Ausência de Facilitação Visual (flag para página)
+
+Quando o texto for de uma página de vendas e não houver nenhuma indicação de diagrama, esquema visual, antes/depois ou representação gráfica do método, sinalize: `[REVISORA: página sem facilitação visual. Recomendado incluir diagrama do método ou comparativo antes/depois.]`
+
+### 4.4 Sigla ou técnica sem explicação
+
+Se o texto citar uma sigla, acrônimo ou nome de técnica sem explicar o que é na mesma página ou parágrafo, corrija inserindo uma explicação curta entre parênteses ou reescreva para não usar a sigla.
+
+### 4.5 Depoimento sem resultado concreto (flag)
+
+Se houver depoimentos que apenas elogiam ("material lindo", "professor incrível", "mudou minha vida", "recomendo muito") sem mencionar resultado específico, número, prazo ou mudança tangível, sinalize: `[REVISORA: depoimento fraco. Substituir por resultado concreto com número ou situação real.]`
+
+---
+
 ## Saída
 
 Devolva SOMENTE o texto revisado. Nada de:
@@ -79,6 +111,8 @@ Devolva SOMENTE o texto revisado. Nada de:
 - "Corrigi X, Y, Z"
 - Lista de alterações
 - Comentários sobre o processo
+
+A única exceção são os alertas `[REVISORA: ...]` gerados pela Checagem 4, que ficam ao final do texto para a skill chamadora tratar.
 
 A skill chamadora pega o texto limpo e segue para o passo de aprovação com o usuário.
 
@@ -94,5 +128,7 @@ A skill chamadora pega o texto limpo e segue para o passo de aprovação com o u
 - [ ] Zero advérbios vazios
 - [ ] Variação de ritmo nas frases
 - [ ] Soa como pessoa falando, não IA escrevendo
+- [ ] Zero siglas ou técnicas sem explicação
+- [ ] Depoimentos (se houver) têm resultado concreto ou estão flagados
 
 Se passou em tudo, entregue.

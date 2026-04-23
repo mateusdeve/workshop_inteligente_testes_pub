@@ -27,7 +27,7 @@ description: >
 1. **Header**. Logotipo + CTA pequeno (opcional)
 2. **Primeira Dobra (Hero)**. Premissa (headline) + subheadline + 3 bullets (Urgência Oculta + Decorado) + vídeo + CTA
 3. **Problema/Dor**. Dor amplificada com cenas do cotidiano
-4. **Paliativo**. O que já tentaram e por que falhou
+4. **Paliativo**. Ferramentas, produtos e soluções concorrentes do mercado que resolvem parcialmente o problema, e por que cada uma não entrega o resultado completo
 5. **Prova Social (1º bloco)**. 2-3 depoimentos curtos de resultado rápido. Objetivo: validar que o problema é real e que tem gente resolvendo. Vem ANTES do método para ancorar credibilidade cedo.
 6. **CTA intermediário**. Seção curta com botão
 7. **Solução/Método**. Apresentação da Furadeira (macroetapas + microetapas). O nome do produto/método aparece aqui pela primeira vez. **Diagrama visual (recomendado):** sempre que possível, acionar a skill `furadeira-visual` ANTES de gerar o HTML para criar um PNG do método (linear, roadmap, pirâmide, hub ou fluxograma) e embutir nesta seção como imagem ilustrativa. Diagrama visual aumenta percepção de método estruturado e diferencia a página de concorrentes que usam só texto.
@@ -145,6 +145,10 @@ Percorra TODO o texto gerado e elimine cada item abaixo. Se encontrar, corrija n
 | Bullets que não seguem padrão urgência oculta + decorado | Reescreva no padrão correto. |
 | Produto mencionado nos primeiros parágrafos da hero | Reescreva focando no leitor, não no produto. INCLUI: nome do produto, nome do método, nome do curso, sigla do programa. A primeira dobra fala APENAS sobre o leitor e o problema/transformação dele. O nome do produto/método só aparece a partir da seção Solução/Método (seção 7). Sem exceção, mesmo que o nome pareça um "posicionamento de identidade". |
 | Emojis | Remova sem substituição. |
+| Lero-lero: palavras que soam bem mas dizem nada ("padrão interno", "segurança interna", "caminhos terapêuticos", "processos emocionais", "reconectar com a sensibilidade") | Teste: dá para trocar por outra palavra genérica do mesmo nicho e o sentido continua igual? Substitua por dado concreto, cena real ou argumento específico. |
+| Copy sem tese (descreve o problema sem argumentar por que ele existe) | Adicione a razão causa do problema. Ex: "Você procrastina" vira "Você procrastina porque seu cérebro foi programado para ação imediata e não para acumular reservas". |
+| Sigla ou nome de técnica sem explicação no mesmo parágrafo | Insira explicação entre parênteses ou reescreva sem a sigla. |
+| Depoimento que só elogia sem resultado concreto ("material lindo", "mudou minha vida") | Sinalizar para substituição. O depoimento que converte tem: antes + resultado específico + número ou prazo. |
 
 Após a varredura, confirme internamente: "Não há nenhum travessão, exclamação, pergunta no gancho ou estrutura proibida neste texto." Só então salve ou entregue.
 
@@ -154,6 +158,11 @@ Após a varredura, confirme internamente: "Não há nenhum travessão, exclamaç
 - [ ] Produto não mencionado no hero/lead (inclui nome do produto, nome do método, nome do curso ou sigla)
 - [ ] Nenhum emoji
 - [ ] Headline sem imperativo ou pergunta no gancho
+- [ ] Zero lero-lero: toda palavra-chave é concreta ou foi substituída
+- [ ] Há tese (argumento de causa) na copy, não só descrição de dor
+- [ ] Método tem facilitação visual (diagrama, esquema ou antes/depois) ou está sinalizado para incluir
+- [ ] Siglas e técnicas explicadas no mesmo parágrafo em que aparecem
+- [ ] Depoimentos com resultado concreto ou sinalizados para substituição
 
 ---
 

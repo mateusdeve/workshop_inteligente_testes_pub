@@ -131,7 +131,7 @@ Próxima etapa: Página de vendas
 
 - Perfil demográfico (idade, gênero, situação de vida, renda)
 - Nível de consciência (Eugene Schwartz. inconsciente até totalmente consciente)
-- O que o público usa hoje como paliativo (antes de encontrar o produto)
+- Paliativos: ferramentas e soluções concorrentes do mercado que resolvem o problema parcialmente (Pinterest, perfis do nicho, cursos genéricos, apps, planilhas). Paliativo é CONCORRENTE, não é "o que o público tentou e falhou"
 - Objeções de compra mais comuns (consulte Reclame Aqui se necessário)
 - Frases que o público realmente diria
 - Tom de comunicação ideal

@@ -170,7 +170,7 @@ Próxima etapa: Página de vendas
 **Se não existir ou estiver incompleto**, conduza a criação conforme o template:
 
 - Perfil demográfico (idade, gênero, situação de vida)
-- O que o público usa hoje como paliativo (antes de encontrar o produto)
+- Paliativos: ferramentas e soluções concorrentes do mercado que resolvem o problema parcialmente (Pinterest, perfis do nicho, cursos genéricos, apps, planilhas). Paliativo é CONCORRENTE, não é "o que o público tentou e falhou"
 - Objeções de compra mais comuns (consulte Reclame Aqui se necessário, conforme indicado na skill de concepção)
 - Frases que o público realmente diria
 - Tom de comunicação ideal

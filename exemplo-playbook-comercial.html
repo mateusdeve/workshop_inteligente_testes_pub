@@ -1,0 +1,1412 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Playbook comercial WhatsApp · Rotina Financeira 30 Dias</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ─── Adobe Spectrum 2 – tokens traduzidos para CSS puro ─── */
+:root {
+  /* Camadas de fundo – Spectrum layer tokens */
+  --color-base:               #ffffff;
+  --color-layer-1:            #f8f8f8;
+  --color-layer-2:            #f2f0eb;
+  --color-pasteboard:         #eeecea;
+  --color-elevated:           #ffffff;
+
+  /* Accent: slot accent do Spectrum 2 adaptado à marca verde do produto */
+  --color-accent:             #2d5a4a;
+  --color-accent-dark:        #1f4033;
+  --color-accent-subtle:      #dff0e6;
+
+  /* Cores semânticas – Spectrum 2 semantic tokens */
+  --color-neutral:            #1a1a1a;
+  --color-neutral-subdued:    #404040;
+  --color-neutral-subtle:     #e6e6e6;
+  --color-positive:           #0d7d45;
+  --color-positive-subtle:    #d7f4e3;
+  --color-negative:           #d7373f;
+  --color-negative-subtle:    #fde8e8;
+  --color-notice:             #c4640c;
+  --color-notice-subtle:      #fdf0e0;
+  --color-informative:        #0065bd;
+  --color-informative-subtle: #e0f0ff;
+
+  /* Texto – Spectrum 2 text color tokens */
+  --color-heading:  #1a1a1a;
+  --color-body:     #333333;
+  --color-detail:   #6e6e6e;
+  --color-disabled: #b3b3b3;
+  --color-on-accent:#ffffff;
+
+  /* Border radius – Spectrum 2 radius tokens */
+  --radius-sm:   4px;
+  --radius:      8px;
+  --radius-lg:   12px;
+  --radius-xl:   16px;
+  --radius-pill: 999px;
+
+  /* Shadows – Spectrum 2 shadow tokens */
+  --shadow-elevated:   0 2px 8px rgba(0,0,0,0.10);
+  --shadow-emphasized: 0 4px 16px rgba(0,0,0,0.16);
+  --shadow-dragged:    0 8px 24px rgba(0,0,0,0.22);
+}
+/* ─── Base – Spectrum 2: Rational / Human / Focused / Collaborative ─── */
+*{box-sizing:border-box}
+html,body{
+  margin:0;padding:0;
+  background:var(--color-pasteboard);
+  color:var(--color-body);
+  font-family:"Adobe Clean",Inter,"DM Sans",system-ui,sans-serif;
+  font-size:14px;        /* body */
+  line-height:1.55;      /* body line-height */
+}
+main{max-width:820px;margin:0 auto;padding:48px 24px 96px;}
+
+/* ─── Tipografia – Spectrum 2 type scale ─── */
+h1,h2,h3,h4{font-weight:700;color:var(--color-heading);margin:0 0 12px;}
+h1{font-size:28px;line-height:1.2;}   /* heading-xl */
+h2{
+  font-size:22px;line-height:1.25;   /* heading-lg */
+  padding-top:48px;
+  border-top:1px solid var(--color-neutral-subtle);
+  margin-top:48px;
+}
+h2:first-of-type{border-top:none;padding-top:0;margin-top:0}
+h3{font-size:18px;line-height:1.3;margin-top:28px;color:var(--color-accent)}  /* heading */
+h4{
+  font-size:15px;font-weight:600;line-height:1.35;  /* heading-sm */
+  color:var(--color-detail);
+  text-transform:uppercase;letter-spacing:0.04em;margin-top:20px;
+}
+p{margin:0 0 12px;font-size:14px;}
+small{color:var(--color-detail);font-size:11px;font-weight:500;line-height:1.4;}  /* detail */
+a{color:var(--color-accent);text-decoration:none;border-bottom:1px solid var(--color-accent-subtle);}
+
+/* ─── Capa ─── */
+.capa{
+  background:linear-gradient(135deg,var(--color-accent),var(--color-accent-dark));
+  color:var(--color-on-accent);
+  border-radius:var(--radius-xl);
+  padding:40px 32px;margin-bottom:32px;
+  box-shadow:var(--shadow-emphasized);
+}
+.capa h1{color:var(--color-on-accent);font-size:24px;margin-bottom:8px}
+.capa .produto{color:var(--color-accent-subtle);font-size:15px;margin-bottom:24px}
+.capa .valor{
+  display:inline-block;padding:14px 22px;
+  background:rgba(255,255,255,0.12);
+  border:1px solid rgba(255,255,255,0.2);
+  border-radius:var(--radius);
+  font-size:32px;font-weight:700;letter-spacing:-0.01em;margin-bottom:8px;
+}
+.capa .valor small{
+  color:var(--color-accent-subtle);display:block;font-size:11px;
+  font-weight:500;margin-top:4px;text-transform:uppercase;letter-spacing:0.06em;
+}
+.capa .selo{
+  display:inline-block;margin-left:12px;padding:6px 12px;
+  border-radius:var(--radius-pill);
+  background:var(--color-notice);color:var(--color-on-accent);
+  font-size:12px;font-weight:600;
+}
+.capa .objetivo{margin-top:20px;color:var(--color-accent-subtle);font-size:14px;}
+.capa .usar{
+  margin-top:24px;padding:16px 20px;
+  background:rgba(255,255,255,0.08);
+  border-radius:var(--radius);
+  font-size:13px;line-height:1.6;color:rgba(255,255,255,0.88);
+}
+.capa .usar strong{color:var(--color-on-accent)}
+
+/* ─── Índice ─── */
+.indice{
+  background:var(--color-layer-1);
+  padding:20px 24px;
+  border:1px solid var(--color-neutral-subtle);
+  border-radius:var(--radius-lg);
+  margin-bottom:32px;
+  box-shadow:var(--shadow-elevated);
+}
+.indice h4{margin-top:0}
+.indice ol{margin:0;padding-left:20px;font-size:13px;line-height:2;columns:2;column-gap:32px;}
+.indice a{color:var(--color-body);border:none}
+.indice a:hover{color:var(--color-accent)}
+
+/* ─── Cards e grids ─── */
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:16px 0}
+.grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin:16px 0}
+.card{
+  background:var(--color-elevated);
+  border:1px solid var(--color-neutral-subtle);
+  border-radius:var(--radius);
+  padding:16px 20px;
+  box-shadow:var(--shadow-elevated);
+}
+.card .titulo{font-weight:700;color:var(--color-heading);margin-bottom:8px;font-size:15px}
+.card .gatilho{
+  margin-top:10px;padding:8px 12px;
+  background:var(--color-notice-subtle);
+  border-radius:var(--radius-sm);
+  font-size:12px;color:var(--color-body);
+}
+.card .gatilho strong{color:var(--color-notice)}
+
+/* ─── Trilha Furadeira ─── */
+.trilha{margin:20px 0;padding:0;list-style:none}
+.trilha li{
+  position:relative;padding:0 0 24px 44px;
+  border-left:2px solid var(--color-accent-subtle);
+  margin-left:14px;
+}
+.trilha li:last-child{padding-bottom:4px}
+.trilha li::before{
+  content:attr(data-n);position:absolute;left:-16px;top:-4px;
+  width:30px;height:30px;border-radius:50%;
+  background:var(--color-accent);color:var(--color-on-accent);
+  font-weight:700;font-size:13px;display:grid;place-items:center;
+}
+.trilha .macro{font-weight:700;font-size:15px;color:var(--color-heading);margin-bottom:4px}
+.trilha .micro{color:var(--color-body);font-size:13px;line-height:1.5}
+
+/* ─── Pills – Spectrum 2 semantic colors ─── */
+.pills{margin:12px 0}
+.pill{
+  display:inline-block;padding:5px 12px;
+  border-radius:var(--radius-pill);
+  font-size:13px;margin:3px 4px 3px 0;font-weight:500;
+}
+.pill.connect{background:var(--color-positive-subtle);color:var(--color-positive)}
+.pill.avoid{background:var(--color-negative-subtle);color:var(--color-negative)}
+
+/* ─── Bolhas de WhatsApp ─── */
+.wpp-bloco{
+  background:var(--color-layer-1);
+  border:1px solid var(--color-neutral-subtle);
+  border-radius:var(--radius);
+  padding:16px 20px;margin:12px 0;page-break-inside:avoid;
+  box-shadow:var(--shadow-elevated);
+}
+.wpp-bloco .numero{
+  display:inline-block;background:var(--color-accent);color:var(--color-on-accent);
+  padding:2px 10px;border-radius:var(--radius-pill);
+  font-size:12px;font-weight:700;margin-bottom:10px;
+}
+.wpp-bloco .obj{font-size:13px;color:var(--color-detail);margin-bottom:12px;font-style:italic}
+.bolha{
+  background:var(--color-accent-subtle);
+  color:var(--color-heading);
+  padding:12px 14px;
+  border-radius:12px 12px 12px 4px;
+  margin:8px 0;max-width:85%;font-size:14px;line-height:1.5;
+  position:relative;
+  box-shadow:var(--shadow-elevated);
+}
+.bolha.var{background:var(--color-base);border:1px solid var(--color-neutral-subtle)}
+.bolha small{
+  color:var(--color-detail);display:block;font-size:11px;
+  margin-bottom:4px;text-transform:uppercase;letter-spacing:0.04em;font-weight:600;
+}
+.nota-conducao{
+  margin-top:14px;padding:12px 16px;
+  background:var(--color-accent-subtle);
+  border-left:3px solid var(--color-accent);
+  border-radius:0 var(--radius-sm) var(--radius-sm) 0;
+  font-size:13px;color:var(--color-body);
+}
+.nota-conducao strong{color:var(--color-accent)}
+
+/* ─── SPIN ─── */
+.spin{margin:20px 0}
+.spin-fase{
+  background:var(--color-layer-1);
+  border:1px solid var(--color-neutral-subtle);
+  border-radius:var(--radius);
+  padding:20px 22px;margin-bottom:16px;
+  box-shadow:var(--shadow-elevated);
+}
+.spin-fase .fase-tag{
+  display:inline-block;width:30px;height:30px;border-radius:50%;
+  background:var(--color-accent);color:var(--color-on-accent);
+  font-weight:700;text-align:center;line-height:30px;margin-right:10px;vertical-align:middle;
+}
+.spin-fase h3{display:inline-block;margin:0;vertical-align:middle;color:var(--color-heading)}
+.spin-fase ol{padding-left:20px;margin:14px 0 0}
+.spin-fase ol li{margin-bottom:6px;font-size:14px}
+
+/* ─── Escassez – notice token ─── */
+.escassez{
+  background:var(--color-notice-subtle);
+  border:2px solid var(--color-notice);
+  border-radius:var(--radius-lg);
+  padding:24px;margin:20px 0;
+}
+.escassez h3{color:var(--color-notice);margin-top:0}
+.escassez .grupo{margin-top:18px}
+.escassez .badge{
+  display:inline-block;padding:4px 10px;
+  background:var(--color-notice);color:var(--color-on-accent);
+  border-radius:var(--radius-sm);font-size:12px;font-weight:600;margin-bottom:8px;
+}
+.escassez ul{padding-left:18px;margin:6px 0 0}
+.escassez li{margin-bottom:6px;font-size:14px}
+
+/* ─── Tabela ─── */
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:13px}
+th{
+  background:var(--color-accent-subtle);color:var(--color-accent);
+  text-align:left;padding:10px 12px;font-weight:700;
+  border-bottom:2px solid var(--color-accent);
+}
+td{padding:10px 12px;border-bottom:1px solid var(--color-neutral-subtle);vertical-align:top}
+tr:nth-child(even) td{background:var(--color-layer-1)}
+
+/* ─── Accordion ─── */
+details{
+  background:var(--color-elevated);
+  border:1px solid var(--color-neutral-subtle);
+  border-radius:var(--radius);
+  margin-bottom:12px;page-break-inside:avoid;
+}
+details[open]{box-shadow:var(--shadow-elevated)}
+summary{
+  padding:16px 20px;font-weight:700;cursor:pointer;font-size:14px;
+  color:var(--color-heading);list-style:none;
+}
+summary::-webkit-details-marker{display:none}
+summary::before{content:"+";display:inline-block;margin-right:10px;color:var(--color-accent);font-weight:700}
+details[open] summary::before{content:"−"}
+details .corpo{padding:4px 20px 20px}
+
+/* ─── Argumento ─── */
+.arg{border-top:1px solid var(--color-neutral-subtle);padding:14px 0;}
+.arg .nome{
+  font-size:12px;font-weight:700;color:var(--color-accent);
+  text-transform:uppercase;letter-spacing:0.04em;margin-bottom:6px;
+}
+.arg-versoes{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:6px}
+.arg-versoes .bloco{padding:12px;border-radius:var(--radius-sm);font-size:13px;line-height:1.55}
+.arg-versoes .curta{background:var(--color-positive-subtle)}
+.arg-versoes .curta h5,.arg-versoes .completa h5{
+  font-size:11px;margin:0 0 6px;text-transform:uppercase;
+  letter-spacing:0.04em;color:var(--color-detail);
+}
+.arg-versoes .completa{background:var(--color-base);border:1px solid var(--color-neutral-subtle)}
+
+/* ─── Timeline recuperação de carrinho – notice badges ─── */
+.timeline{position:relative;padding-left:28px;margin:20px 0}
+.timeline::before{
+  content:"";position:absolute;left:8px;top:0;bottom:0;
+  width:2px;background:var(--color-accent-subtle);
+}
+.toque{margin-bottom:24px;page-break-inside:avoid}
+.toque .tempo{
+  display:inline-block;
+  background:var(--color-notice);color:var(--color-on-accent);
+  padding:4px 12px;border-radius:var(--radius-pill);
+  font-size:12px;font-weight:700;margin-left:-28px;margin-bottom:10px;
+}
+.toque h4{margin:4px 0 10px;color:var(--color-heading);text-transform:none;letter-spacing:0;font-size:15px}
+
+/* ─── Checklist – 3 cores semânticas Spectrum 2 ─── */
+.check-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin:16px 0}
+.check-col{
+  border:1px solid var(--color-neutral-subtle);
+  border-radius:var(--radius);
+  padding:16px;
+  box-shadow:var(--shadow-elevated);
+}
+.check-col:nth-child(1){background:var(--color-informative-subtle)}
+.check-col:nth-child(2){background:var(--color-notice-subtle)}
+.check-col:nth-child(3){background:var(--color-positive-subtle)}
+.check-col h4{margin-top:0;font-size:15px;text-transform:none;letter-spacing:0}
+.check-col:nth-child(1) h4{color:var(--color-informative)}
+.check-col:nth-child(2) h4{color:var(--color-notice)}
+.check-col:nth-child(3) h4{color:var(--color-positive)}
+.check-col ul{list-style:none;padding:0;margin:0}
+.check-col li{
+  padding:6px 0 6px 24px;position:relative;
+  font-size:13px;line-height:1.4;
+  border-bottom:1px dashed var(--color-neutral-subtle);
+}
+.check-col li:last-child{border-bottom:none}
+.check-col li::before{
+  content:"";position:absolute;left:0;top:9px;
+  width:14px;height:14px;
+  border:1.5px solid var(--color-accent);border-radius:var(--radius-sm);
+}
+
+/* ─── Rodapé ─── */
+footer{
+  margin-top:56px;padding-top:20px;
+  border-top:1px solid var(--color-neutral-subtle);
+  font-size:12px;color:var(--color-detail);text-align:center;
+}
+
+/* ─── Botão exportar PDF – shadow-dragged ─── */
+.btn-pdf{
+  position:fixed;right:24px;bottom:24px;z-index:999;
+  display:inline-flex;align-items:center;gap:8px;
+  padding:14px 20px;border:none;border-radius:var(--radius-pill);cursor:pointer;
+  background:var(--color-accent);color:var(--color-on-accent);
+  font-family:inherit;font-size:14px;font-weight:600;
+  box-shadow:var(--shadow-dragged);
+  transition:transform .15s ease,box-shadow .15s ease;
+}
+.btn-pdf:hover{transform:translateY(-1px);box-shadow:0 12px 32px rgba(45,90,74,0.35)}
+.btn-pdf:active{transform:translateY(0)}
+.btn-pdf svg{width:18px;height:18px;fill:var(--color-on-accent)}
+
+/* ─── Furadeira visual ─── */
+.furadeira-visual{
+  display:grid;grid-template-columns:1fr auto 1fr auto 1fr;align-items:stretch;gap:8px;
+  margin:20px 0 28px;padding:24px 20px;
+  background:var(--color-layer-1);
+  border:1px solid var(--color-neutral-subtle);
+  border-radius:var(--radius-lg);
+  box-shadow:var(--shadow-elevated);
+}
+.furadeira-visual .etapa{
+  background:var(--color-base);
+  border:1px solid var(--color-neutral-subtle);
+  border-radius:var(--radius);
+  padding:16px 14px;text-align:center;display:flex;flex-direction:column;gap:6px;
+}
+.furadeira-visual .etapa .num{
+  width:36px;height:36px;border-radius:50%;
+  background:var(--color-accent);color:var(--color-on-accent);
+  font-weight:700;font-size:15px;display:grid;place-items:center;margin:0 auto 4px;
+}
+.furadeira-visual .etapa .nome{font-weight:700;color:var(--color-heading);font-size:15px}
+.furadeira-visual .etapa .prazo{
+  font-size:12px;color:var(--color-notice);
+  font-weight:600;text-transform:uppercase;letter-spacing:0.05em;
+}
+.furadeira-visual .etapa .resumo{font-size:12px;color:var(--color-detail);line-height:1.5;margin-top:4px}
+.furadeira-visual .seta{align-self:center;color:var(--color-accent);font-weight:700;font-size:22px;}
+.furadeira-visual .destino{
+  grid-column:1 / -1;margin-top:4px;padding:12px 16px;
+  background:var(--color-accent-subtle);
+  border-radius:var(--radius-sm);
+  text-align:center;font-size:13px;color:var(--color-accent);font-weight:600;
+}
+@media (max-width:640px){
+  .furadeira-visual{grid-template-columns:1fr;gap:10px}
+  .furadeira-visual .seta{transform:rotate(90deg);margin:0}
+}
+
+/* ─── Responsivo ─── */
+@media (max-width:640px){
+  main{padding:32px 16px 80px}
+  .grid-2,.grid-3,.check-grid,.arg-versoes{grid-template-columns:1fr}
+  .indice ol{columns:1}
+  .capa{padding:28px 22px}
+  .capa h1{font-size:20px}
+  .capa .valor{font-size:26px;padding:12px 18px}
+}
+
+/* ─── Impressão / PDF ─── */
+@media print{
+  @page{margin:14mm 12mm}
+  html,body{background:#fff}
+  main{max-width:100%;padding:0}
+  .capa{
+    background:var(--color-accent) !important;
+    -webkit-print-color-adjust:exact;print-color-adjust:exact;
+  }
+  details{page-break-inside:avoid}
+  details summary::before{content:""}
+  details .corpo{padding:0 20px 20px}
+  details[open]{box-shadow:none}
+  details:not([open]) .corpo{display:block !important;max-height:none !important;overflow:visible !important}
+  details:not([open]){border-color:var(--color-neutral-subtle)}
+  .bolha,.card,.spin-fase,.wpp-bloco,.arg,.toque,.check-col,.escassez{page-break-inside:avoid}
+  a{color:var(--color-heading)}
+  .indice{page-break-after:always}
+  h2{page-break-before:auto}
+  .btn-pdf{display:none !important}
+  .furadeira-visual{page-break-inside:avoid;background:#fff}
+}
+</style>
+</head>
+<body>
+<main>
+
+<!-- 1. CAPA -->
+<section class="capa" id="capa">
+  <h1>Playbook comercial WhatsApp</h1>
+  <div class="produto">Rotina Financeira 30 Dias · Método Ciclo da Folga</div>
+  <div class="valor">R$ 497<small>à vista ou 12x de R$ 49,70</small></div>
+  <span class="selo">Venda 1:1 por WhatsApp</span>
+  <p class="objetivo">Converter lead em aluna via WhatsApp 1:1 em fluxos de abordagem ativa, receptiva e recuperação de carrinho. Produto middle ticket. Fecha direto no chat, sem call.</p>
+  <div class="usar">
+    <strong>Como usar este playbook.</strong> Se você é do time, comece pelas seções 2 a 5 pra aprender o produto, a consumidora e a voz da Letícia. Se você é a Letícia ou a atendente de WhatsApp, pule direto pra seção 7 (ativa), 8 (receptiva) ou 14 (recuperação de carrinho), conforme o atendimento em mãos. Tenha a seção 13 (objeções) aberta no celular durante a conversa.
+  </div>
+</section>
+
+<!-- ÍNDICE -->
+<nav class="indice" aria-label="Índice">
+  <h4>Índice</h4>
+  <ol>
+    <li><a href="#s1">Capa interna</a></li>
+    <li><a href="#s2">Identidade do Produto</a></li>
+    <li><a href="#s3">Identidade do Consumidor</a></li>
+    <li><a href="#s4">Identidade do Comunicador</a></li>
+    <li><a href="#s5">Princípios de venda por WhatsApp</a></li>
+    <li><a href="#s6">15 pontos para convencer</a></li>
+    <li><a href="#s7">Abordagem Ativa (Outbound)</a></li>
+    <li><a href="#s8">Abordagem Receptiva (Inbound)</a></li>
+    <li><a href="#s9">SPIN adaptado ao WhatsApp</a></li>
+    <li><a href="#s10">Apresentação e ancoragem de preço</a></li>
+    <li><a href="#s11">Frases de escassez</a></li>
+    <li><a href="#s12">Fechamento em 4 passos</a></li>
+    <li><a href="#s13">Quebra de objeções (7 Argumentos)</a></li>
+    <li><a href="#s14">Recuperação de Carrinho</a></li>
+    <li><a href="#s15">Follow-up, Upsell, Downsell, Order Bump</a></li>
+    <li><a href="#s16">Checklist de atendimento</a></li>
+  </ol>
+</nav>
+
+<!-- 2. PRODUTO -->
+<h2 id="s2">2. Identidade do Produto</h2>
+
+<h3>Quadro</h3>
+<p><strong>Organizar as finanças pessoais em 30 dias.</strong> A aluna entra no programa apertada no fim do mês e sai com a conta do cartão sob controle, uma reserva de emergência iniciada e uma rotina de 20 minutos por semana pra cuidar do dinheiro.</p>
+
+<h3>Furadeira. Método Ciclo da Folga</h3>
+
+<h4>Visão visual das 3 macroetapas</h4>
+<div class="furadeira-visual">
+  <div class="etapa">
+    <div class="num">1</div>
+    <div class="prazo">Semana 1</div>
+    <div class="nome">Raio-X</div>
+    <div class="resumo">Mapear entradas e saídas dos últimos 90 dias</div>
+  </div>
+  <div class="seta">→</div>
+  <div class="etapa">
+    <div class="num">2</div>
+    <div class="prazo">Semanas 2 e 3</div>
+    <div class="nome">Dieta</div>
+    <div class="resumo">Cortar gastos, renegociar dívida, iniciar reserva</div>
+  </div>
+  <div class="seta">→</div>
+  <div class="etapa">
+    <div class="num">3</div>
+    <div class="prazo">Semana 4</div>
+    <div class="nome">Crescimento</div>
+    <div class="resumo">Ativar renda extra e fechar o mês no azul</div>
+  </div>
+  <div class="destino">Destino: 30 dias com fatura sob controle, reserva iniciada e rotina de 20 min por semana</div>
+</div>
+
+<h4>Detalhamento escrito das macro e microetapas</h4>
+<ol class="trilha">
+  <li data-n="1">
+    <div class="macro">Raio-X (semana 1)</div>
+    <div class="micro">Mapeamento de todas as entradas e saídas dos últimos 90 dias. A aluna preenche a planilha Raio-X e descobre pra onde o dinheiro estava indo de verdade. Microetapas: extrato do cartão, extrato da conta, gastos fixos, gastos invisíveis, ranking de categorias.</div>
+  </li>
+  <li data-n="2">
+    <div class="macro">Dieta (semanas 2 e 3)</div>
+    <div class="micro">Corte de gastos invisíveis, renegociação das duas maiores dívidas, início da reserva de emergência (R$ 50 ou R$ 100 por semana). Microetapas: script de renegociação, cancelamento de assinaturas, mudança de cartão, meta de reserva de 1 mês.</div>
+  </li>
+  <li data-n="3">
+    <div class="macro">Crescimento (semana 4)</div>
+    <div class="micro">Ativação de uma segunda fonte de renda (freela, revenda, extra), primeiro aporte em aplicação de liquidez diária, fechamento do mês no azul. Microetapas: mapa de renda extra, cadastro em aplicação de renda fixa, painel de acompanhamento mensal.</div>
+  </li>
+</ol>
+
+<h3>Entregáveis</h3>
+<div class="grid-2">
+  <div class="card"><div class="titulo">4 módulos em vídeo</div>Aulas curtas de 12 a 18 minutos, uma por semana, com legenda e download.</div>
+  <div class="card"><div class="titulo">Planilha Raio-X</div>Mapa completo de entradas e saídas com categorização automática e gráfico semanal.</div>
+  <div class="card"><div class="titulo">Planilha Dieta</div>Controle mês a mês, meta de reserva e simulador de parcelamento.</div>
+  <div class="card"><div class="titulo">Comunidade no WhatsApp</div>Grupo privado de alunas com moderação da Letícia por 90 dias.</div>
+  <div class="card"><div class="titulo">Lives quinzenais</div>3 lives ao vivo com a Letícia nos primeiros 90 dias, com espaço pra dúvida aberta.</div>
+  <div class="card"><div class="titulo">3 masterclasses bônus</div>Renegociação de dívida, investimento iniciante e mentalidade de prosperidade.</div>
+</div>
+
+<h3>Diferenciais</h3>
+<ul>
+  <li>Rotina de 20 minutos por semana, não planilha diária (realista pra mãe de CLT).</li>
+  <li>Foco em renda familiar de R$ 4 mil a R$ 10 mil, não em investidor de alta renda.</li>
+  <li>Comunicadora que saiu de R$ 80 mil em dívida em 14 meses, não guru distante.</li>
+  <li>Planilhas prontas, nada pra configurar do zero.</li>
+</ul>
+
+<h3>Argumentos Incontestáveis</h3>
+<ul>
+  <li>83% das alunas da turma piloto (86 pessoas) terminaram 90 dias com reserva iniciada. Fonte: pesquisa interna pós-programa, março/2025.</li>
+  <li>Reserva média no fim do programa: R$ 1.180. Fonte: formulário de fechamento da turma 3.</li>
+  <li>Redução média da fatura do cartão nas primeiras 8 semanas: 31%. Fonte: autorrelato das alunas ativas na comunidade.</li>
+</ul>
+
+<h3>Posicionamento</h3>
+<p>Programa de 4 semanas com comunidade ativa por 90 dias. Não é curso aberto nem mentoria individual: é uma turma com acompanhamento em grupo.</p>
+
+<!-- 3. CONSUMIDOR -->
+<h2 id="s3">3. Identidade do Consumidor</h2>
+
+<h3>Para quem é</h3>
+<p>Mulher que vive no fio no fim do mês, já tentou planilha e aplicativo, acha que o problema é ela e quer parar de abrir a fatura do cartão com medo.</p>
+
+<h3>Perfil demográfico</h3>
+<ul>
+  <li>Mulher, 30 a 45 anos</li>
+  <li>CLT ou autônoma (cabeleireira, esteticista, pedagoga, enfermeira, secretária)</li>
+  <li>Renda familiar de R$ 4 mil a R$ 10 mil</li>
+  <li>Mãe de 1 ou 2 filhos, em média</li>
+  <li>Consciência do problema: alta (sabe que tá bagunçada). Consciência da solução: baixa (acha que é só vontade).</li>
+  <li>Canal: Instagram e WhatsApp. Pouco tempo pra vídeo longo.</li>
+</ul>
+
+<h3>Dor central e dores secundárias</h3>
+<ul>
+  <li>Dor central: chega no fim do mês sem entender onde o dinheiro foi.</li>
+  <li>Medo de abrir a fatura do cartão.</li>
+  <li>Peso mental nas sextas à noite.</li>
+  <li>Dependência do cheque especial ou de empréstimo com parente.</li>
+  <li>Ansiedade com o futuro do filho e com aposentadoria.</li>
+</ul>
+
+<h3>Desejos</h3>
+<ul>
+  <li>Abrir a fatura sem surpresa.</li>
+  <li>Ter R$ 2 mil guardados pra uma emergência.</li>
+  <li>Conseguir dizer sim pro filho sem apertar o mês seguinte.</li>
+  <li>Dormir em paz no último domingo do mês.</li>
+</ul>
+
+<h3>Paliativos do mercado</h3>
+<p>Soluções que a lead já tentou e por que não resolveram:</p>
+<ul>
+  <li><strong>Planilha gratuita do blog.</strong> Entrega a caixa vazia, não ensina o hábito de preencher.</li>
+  <li><strong>App Mobills ou Organizze.</strong> Fica bonito nos primeiros 10 dias e depois vira notificação ignorada.</li>
+  <li><strong>Pinterest de organização financeira.</strong> Inspira, não cria rotina.</li>
+  <li><strong>Poupança.</strong> Rende menos que a inflação e não vira hábito sem meta.</li>
+  <li><strong>Grupo de Telegram de dicas.</strong> Informação solta, sem método.</li>
+</ul>
+
+<h3>10 frases que a consumidora diria</h3>
+<ol>
+  <li>"Eu ganho bem, não sei o que tô fazendo de errado."</li>
+  <li>"Todo mês eu juro que vou controlar e todo mês acontece a mesma coisa."</li>
+  <li>"Abrir a fatura do cartão é um pesadelo."</li>
+  <li>"Eu não tenho cabeça pra ficar anotando gasto."</li>
+  <li>"Meu marido acha que eu não sei administrar."</li>
+  <li>"Eu já tentei planilha e nunca dura um mês."</li>
+  <li>"Se eu perder o emprego amanhã, tô quebrada."</li>
+  <li>"Eu sei que preciso guardar, mas cadê o dinheiro pra guardar."</li>
+  <li>"Eu tenho vergonha de falar do quanto eu devo."</li>
+  <li>"Eu só queria chegar no fim do mês sem aquele aperto no peito."</li>
+</ol>
+
+<!-- 4. COMUNICADOR -->
+<h2 id="s4">4. Identidade do Comunicador</h2>
+
+<h3>Quem é Letícia</h3>
+<p>Pedagoga de 38 anos, mãe de dois, que saiu de R$ 80 mil em dívida acumulada em 14 meses seguindo o próprio método. Hoje ensina o que fez, sem pose de guru e sem promessa mágica.</p>
+
+<h3>Tom de voz</h3>
+<p>Didático como professora conversando com uma amiga no WhatsApp. Usa exemplos do cotidiano dela (escola do filho, mercado, salão). Nunca usa jargão de investidor. Fala "passo a passo", não "estratégia disruptiva". Admite os próprios erros antes de dar qualquer conselho.</p>
+
+<h3>Posicionamento</h3>
+<p>Professora que faz a matéria ficar fácil. Não se posiciona como coach. Não usa audio longo. Não se compara com outros produtores do nicho.</p>
+
+<h3>Palavras que conectam</h3>
+<div class="pills">
+  <span class="pill connect">rotina</span>
+  <span class="pill connect">folga</span>
+  <span class="pill connect">clareza</span>
+  <span class="pill connect">ciclo</span>
+  <span class="pill connect">virada</span>
+  <span class="pill connect">fôlego</span>
+  <span class="pill connect">planilha</span>
+  <span class="pill connect">passo a passo</span>
+  <span class="pill connect">dormir em paz</span>
+  <span class="pill connect">fim do mês</span>
+  <span class="pill connect">abrir a fatura</span>
+  <span class="pill connect">reserva</span>
+</div>
+
+<h3>Palavras que afastam</h3>
+<div class="pills">
+  <span class="pill avoid">milagre</span>
+  <span class="pill avoid">fórmula secreta</span>
+  <span class="pill avoid">ficar rica</span>
+  <span class="pill avoid">investidora</span>
+  <span class="pill avoid">trader</span>
+  <span class="pill avoid">liberdade financeira</span>
+  <span class="pill avoid">mindset</span>
+  <span class="pill avoid">disrupção</span>
+</div>
+
+<h3>Tom certo vs. tom errado</h3>
+<div class="grid-2">
+  <div class="card">
+    <div class="titulo" style="color:var(--color-positive)">Certo</div>
+    "Oi Carla, vi que você entrou no link. Você conseguiu abrir sua fatura essa semana sem aperto ou ainda tá no susto?"
+  </div>
+  <div class="card">
+    <div class="titulo" style="color:var(--color-negative)">Errado</div>
+    "Olá Carla, sou especialista em gestão financeira pessoal. Temos uma solução disruptiva pra sua liberdade financeira. Vamos conversar?"
+  </div>
+</div>
+
+<!-- 5. PRINCÍPIOS -->
+<h2 id="s5">5. Princípios de venda por WhatsApp</h2>
+<p>Os 7 princípios que todo script do playbook respeita:</p>
+
+<div class="grid-3">
+  <div class="card"><div class="titulo">1. Mensagens curtas</div>Uma ideia por mensagem. Nunca parágrafo longo.</div>
+  <div class="card"><div class="titulo">2. Texto antes de áudio</div>Áudio só depois de 2 ou 3 respostas da lead, máximo 45 segundos.</div>
+  <div class="card"><div class="titulo">3. Pergunta no fim</div>Boa parte das mensagens fecha com pergunta curta pra manter o diálogo.</div>
+  <div class="card"><div class="titulo">4. Nome da lead</div>Chama pelo nome na primeira e na última mensagem.</div>
+  <div class="card"><div class="titulo">5. Link com contexto</div>Nunca dispara checkout sem o sim com palavras da lead.</div>
+  <div class="card"><div class="titulo">6. Assumir o interesse</div>Nunca pergunta "quer comprar?". Envia o link e pede confirmação.</div>
+  <div class="card"><div class="titulo">7. Ritmo por canal</div>Inbound: resposta rápida. Outbound: intervalo entre mensagens pra não parecer spam.</div>
+</div>
+
+<!-- 6. 15 PONTOS -->
+<h2 id="s6">6. 15 pontos para convencer</h2>
+<p>Frases prontas que a Letícia encaixa em qualquer momento da conversa. Combinam Urgência Oculta, Decorado e voz do comunicador.</p>
+
+<div class="grid-2">
+  <div class="card">
+    <div class="titulo">1. A fatura deixa de ser susto</div>
+    "Você chega no dia 3 sabendo exatamente o que tá na fatura, porque você viu chegar ali semana a semana. Some o susto."
+    <div class="gatilho"><strong>Quando usar:</strong> lead menciona medo de abrir o app do cartão.</div>
+  </div>
+  <div class="card">
+    <div class="titulo">2. 20 minutos por semana</div>
+    "O programa inteiro cabe em 20 minutos no domingo à noite. Não é planilha diária, é rotina, não vigilância."
+    <div class="gatilho"><strong>Quando usar:</strong> lead alega falta de tempo.</div>
+  </div>
+  <div class="card">
+    <div class="titulo">3. Reserva em 30 dias</div>
+    "Na semana 4, minhas alunas já têm pelo menos R$ 400 guardados. Não é muito, mas é a primeira vez que sobra."
+    <div class="gatilho"><strong>Quando usar:</strong> lead duvida que "sobra dinheiro".</div>
+  </div>
+  <div class="card">
+    <div class="titulo">4. Sexta à noite diferente</div>
+    "Sexta de noite deixa de ser hora de contar quanto falta. Você fecha o app do banco e vai dormir."
+    <div class="gatilho"><strong>Quando usar:</strong> lead fala em ansiedade de fim de semana.</div>
+  </div>
+  <div class="card">
+    <div class="titulo">5. Método que sai da dívida</div>
+    "Saí de R$ 80 mil devendo em 14 meses. O método que você vai usar é o mesmo, na mesma ordem."
+    <div class="gatilho"><strong>Quando usar:</strong> lead pergunta se funciona pra muita dívida.</div>
+  </div>
+  <div class="card">
+    <div class="titulo">6. Sem ficar rica. Ficar em paz</div>
+    "A proposta não é ficar rica. É chegar no fim do mês sem aquele aperto no peito."
+    <div class="gatilho"><strong>Quando usar:</strong> lead se coloca como "simples", acha que programa é pra investidor.</div>
+  </div>
+  <div class="card">
+    <div class="titulo">7. Resposta direta da Letícia</div>
+    "Dentro do programa, você me manda mensagem no grupo e eu respondo em até 24h úteis. Não é chatbot."
+    <div class="gatilho"><strong>Quando usar:</strong> lead tem dúvida sobre suporte.</div>
+  </div>
+  <div class="card">
+    <div class="titulo">8. O marido muda de postura</div>
+    "Quando você chega no domingo com a planilha fechada, a conversa em casa muda. Ele para de cobrar porque ele vê."
+    <div class="gatilho"><strong>Quando usar:</strong> lead comenta que o parceiro não apoia.</div>
+  </div>
+  <div class="card">
+    <div class="titulo">9. Planilha já pronta</div>
+    "Você não configura nada. Abre, cola os lançamentos do extrato e o gráfico aparece sozinho."
+    <div class="gatilho"><strong>Quando usar:</strong> lead alega que "é ruim com Excel".</div>
+  </div>
+  <div class="card">
+    <div class="titulo">10. Menos juros, mais ar</div>
+    "Uma renegociação bem feita corta R$ 150, R$ 300 do boleto. Esse dinheiro some pro banco todo mês. Na semana 2 você busca ele."
+    <div class="gatilho"><strong>Quando usar:</strong> lead menciona parcela do cartão.</div>
+  </div>
+  <div class="card">
+    <div class="titulo">11. Sim pra escola do filho</div>
+    "Quando sua filha pede o passeio da escola, você não pensa duas vezes. Você olha a planilha, vê que dá, e fala que dá."
+    <div class="gatilho"><strong>Quando usar:</strong> lead fala dos filhos.</div>
+  </div>
+  <div class="card">
+    <div class="titulo">12. O que custa não resolver</div>
+    "Em 12 meses sem mexer, só os juros do rotativo pagam dois programas como esse. A conta não para, ela cresce."
+    <div class="gatilho"><strong>Quando usar:</strong> lead hesita no preço.</div>
+  </div>
+  <div class="card">
+    <div class="titulo">13. Mulheres como você</div>
+    "A maioria das minhas alunas é CLT, mãe, renda familiar entre 5 e 8 mil. É gente igual a gente. O material foi feito pra essa realidade."
+    <div class="gatilho"><strong>Quando usar:</strong> lead acha que "é pra quem ganha muito".</div>
+  </div>
+  <div class="card">
+    <div class="titulo">14. 4 semanas e uma turma</div>
+    "São 4 semanas intensas com uma turma junto. Ninguém passa por isso sozinha. A comunidade segura no D+10, quando a gente costuma desanimar."
+    <div class="gatilho"><strong>Quando usar:</strong> lead já tentou sozinha antes.</div>
+  </div>
+  <div class="card">
+    <div class="titulo">15. Preço que cabe na planilha</div>
+    "R$ 49,70 por mês é menos que uma assinatura de streaming. E essa volta pra você em semana 3, quando a gente corta dois gastos invisíveis."
+    <div class="gatilho"><strong>Quando usar:</strong> lead usa objeção financeira.</div>
+  </div>
+</div>
+
+<!-- 7. ABORDAGEM ATIVA -->
+<h2 id="s7">7. Abordagem Ativa. Outbound WhatsApp</h2>
+<p>Fluxo pra quando você dá o primeiro passo. Lead frio (nunca interagiu) ou morno (seguidora, baixou planilha gratuita, comentou post). Cada bloco traz 3 variações prontas e nota de condução.</p>
+
+<div class="wpp-bloco">
+  <span class="numero">Bloco 1</span>
+  <div class="obj">Primeiro contato. Quebra-gelo mais motivo de ter escrito. Zero venda.</div>
+  <div class="bolha"><small>Variação 1</small>Oi [Nome], tudo bem? Aqui é a Letícia, do Rotina Financeira. Vi que você baixou a planilha semana passada. Você conseguiu preencher ela pelo menos um dia?</div>
+  <div class="bolha var"><small>Variação 2</small>Oi [Nome], me diz uma coisa rápida. A planilha que você pegou no meu Instagram tá te ajudando ou tá parada?</div>
+  <div class="bolha var"><small>Variação 3</small>Oi [Nome], te mandei mensagem porque vi você curtiu o post do "domingo sem abrir a fatura". Queria entender se isso é sua realidade hoje.</div>
+  <div class="nota-conducao"><strong>Nota de condução.</strong> Se a lead respondeu em até 2 horas, siga direto pro bloco 2. Se passou de 24h sem resposta, não insista no mesmo dia. Volte daqui a 3 dias com outra angulação.</div>
+</div>
+
+<div class="wpp-bloco">
+  <span class="numero">Bloco 2</span>
+  <div class="obj">Qualificação leve. 1 ou 2 perguntas sobre o momento atual da lead.</div>
+  <div class="bolha"><small>Variação 1</small>Me conta: você tá tentando organizar sozinha hoje ou alguém tá te ajudando?</div>
+  <div class="bolha var"><small>Variação 2</small>Só pra eu entender: o que mais tá pesando esse mês, cartão, empréstimo, ou o simples fato de não saber onde o dinheiro foi?</div>
+  <div class="bolha var"><small>Variação 3</small>Tá numa fase de "vou começar amanhã" ou já decidiu que precisa resolver agora?</div>
+  <div class="nota-conducao"><strong>Nota de condução.</strong> A resposta aqui é a dor central da lead. Anota ela literalmente. Vai usar essa palavra de volta nos próximos blocos.</div>
+</div>
+
+<div class="wpp-bloco">
+  <span class="numero">Bloco 3</span>
+  <div class="obj">Amarrar a dor. Devolver uma Urgência Oculta em forma de pergunta aberta.</div>
+  <div class="bolha"><small>Variação 1</small>Entendi. E quando chega dia 3 e você abre a fatura, como é esse momento pra você?</div>
+  <div class="bolha var"><small>Variação 2</small>Você sabe quanto foi o seu gasto em delivery e assinatura nos últimos 30 dias, ou isso tá meio nebuloso?</div>
+  <div class="bolha var"><small>Variação 3</small>Se a sua renda caísse 30% no mês que vem, quantas semanas você aguentaria antes de entrar no cheque especial?</div>
+  <div class="nota-conducao"><strong>Nota de condução.</strong> Objetivo é deixar a dor aflorar sem empurrar. Se a lead ficar quieta ou responder curto, mude de ângulo, não repita a pergunta.</div>
+</div>
+
+<div class="wpp-bloco">
+  <span class="numero">Bloco 4</span>
+  <div class="obj">Oferecer ajuda concreta. Conteúdo ou resposta pontual. Ainda não vende.</div>
+  <div class="bolha"><small>Variação 1</small>Posso te mandar 1 aula curta de 6 minutos que mostra como fazer o Raio-X do cartão? Não precisa de planilha pra começar. Te mando?</div>
+  <div class="bolha var"><small>Variação 2</small>Tenho um script de renegociação de fatura que a gente usa no programa. Posso te passar pra você testar essa semana?</div>
+  <div class="bolha var"><small>Variação 3</small>Posso te ligar 5 minutos agora, ou prefere que eu responda sua dúvida por aqui mesmo?</div>
+  <div class="nota-conducao"><strong>Nota de condução.</strong> Se a lead pedir o material, entregue e espere ela devolver (engajamento real). Se não responder nada, passe pro bloco 7.</div>
+</div>
+
+<div class="wpp-bloco">
+  <span class="numero">Bloco 5</span>
+  <div class="obj">Convite pra conversa real sobre o problema dela.</div>
+  <div class="bolha"><small>Variação 1</small>Se você quiser, me conta mais 2 coisas e eu te mostro o que faria no seu caso. Funciona assim pra você?</div>
+  <div class="bolha var"><small>Variação 2</small>Posso te fazer 4 perguntas rápidas pra entender melhor seu momento e te sugerir o próximo passo certo?</div>
+  <div class="bolha var"><small>Variação 3</small>Me manda um áudio curto descrevendo seu final de mês que eu te volto com 2 ações pra essa semana.</div>
+  <div class="nota-conducao"><strong>Nota de condução.</strong> Pedir "4 perguntas rápidas" converte mais que "vamos conversar". A lead precisa saber quanto vai gastar de tempo.</div>
+</div>
+
+<div class="wpp-bloco">
+  <span class="numero">Bloco 6</span>
+  <div class="obj">Transição para diagnóstico. Entra no SPIN curto (seção 9).</div>
+  <div class="bolha"><small>Variação 1</small>Ótimo. Vou começar então. Primeira pergunta: você trabalha CLT, autônoma ou tem o próprio negócio?</div>
+  <div class="bolha var"><small>Variação 2</small>Obrigada. Vamos lá. A renda que entra na sua conta todo mês fica em torno de quanto? Pode ser aproximado.</div>
+  <div class="bolha var"><small>Variação 3</small>Então bora, [Nome]. Me conta em 1 frase qual seria sua situação financeira ideal daqui a 3 meses.</div>
+  <div class="nota-conducao"><strong>Nota de condução.</strong> Uma pergunta por mensagem. Espera a resposta antes da próxima.</div>
+</div>
+
+<div class="wpp-bloco">
+  <span class="numero">Bloco 7</span>
+  <div class="obj">Encerramento quando não engajou. Porta aberta pra follow-up.</div>
+  <div class="bolha"><small>Variação 1</small>Sem problema, [Nome]. Vou ficar por aqui. Se daqui a um tempo você quiser retomar, me chama que a gente pega do ponto que parou.</div>
+  <div class="bolha var"><small>Variação 2</small>Entendi, talvez não seja o momento. Vou te mandar 1 conteúdo por semana pelo Instagram. Se algo fizer sentido, volta aqui.</div>
+  <div class="bolha var"><small>Variação 3</small>Tranquilo. Fica com a planilha e volta quando for a hora. Aqui eu estou.</div>
+  <div class="nota-conducao"><strong>Nota de condução.</strong> Nunca forçar. Mas marcar no CRM pra follow-up em 21 dias. A lead que não comprou hoje compra daqui a 2 ou 3 meses se o relacionamento continuar.</div>
+</div>
+
+<!-- 8. RECEPTIVA -->
+<h2 id="s8">8. Abordagem Receptiva. Inbound WhatsApp</h2>
+<p>Fluxo pra lead que chega por anúncio, orgânico, link da bio ou palavra-chave. 6 blocos com 3 variações e nota de condução.</p>
+
+<div class="wpp-bloco">
+  <span class="numero">Bloco 1</span>
+  <div class="obj">Acolhimento imediato. Resposta em menos de 5 minutos.</div>
+  <div class="bolha"><small>Variação 1</small>Oi, [Nome], aqui é a Letícia. Que bom que você chegou. Vi que você veio pelo anúncio do "sexta sem susto". Me diz: o que mais chamou sua atenção?</div>
+  <div class="bolha var"><small>Variação 2</small>Oi, [Nome], sou eu, a Letícia, em pessoa. Obrigada por me chamar. Antes de eu te explicar o programa, me conta rapidinho: você tá procurando resolver dívida, organizar o mês ou começar do zero?</div>
+  <div class="bolha var"><small>Variação 3</small>[Nome], oi. Bem-vinda. Pra eu te ajudar do jeito certo, me fala: você já tem algum controle hoje ou tá no zero?</div>
+  <div class="nota-conducao"><strong>Nota de condução.</strong> A velocidade é conversão. Lead inbound que espera 2h pra ser respondida pensa que virou hot lead de robô. Menos de 5 min, sempre.</div>
+</div>
+
+<div class="wpp-bloco">
+  <span class="numero">Bloco 2</span>
+  <div class="obj">Pergunta de posicionamento. Descobre nível de consciência.</div>
+  <div class="bolha"><small>Variação 1</small>Você já ouviu falar do Rotina Financeira ou chegou hoje agora?</div>
+  <div class="bolha var"><small>Variação 2</small>O que te fez clicar no anúncio hoje especificamente? Foi alguma conta que chegou essa semana?</div>
+  <div class="bolha var"><small>Variação 3</small>Você já tentou organizar sozinha antes? Se sim, o que deu errado?</div>
+  <div class="nota-conducao"><strong>Nota de condução.</strong> A resposta aqui muda o discurso. Lead que "já tentou" precisa de prova social. Lead que "nunca tentou" precisa de simplicidade.</div>
+</div>
+
+<div class="wpp-bloco">
+  <span class="numero">Bloco 3</span>
+  <div class="obj">Diagnóstico rápido. 3 a 5 perguntas no estilo SPIN curto.</div>
+  <div class="bolha"><small>Variação 1</small>Posso te fazer 4 perguntas rápidas pra te responder direito? Leva uns 3 minutos.</div>
+  <div class="bolha var"><small>Variação 2</small>Então vou te entender melhor em 4 perguntas. Primeira: qual a renda aproximada que entra na sua conta todo mês?</div>
+  <div class="bolha var"><small>Variação 3</small>Me conta: tem alguma dívida hoje que te tira o sono?</div>
+  <div class="nota-conducao"><strong>Nota de condução.</strong> Usa as perguntas da seção 9 (SPIN) aqui. Não faz mais que 5 perguntas seguidas. Pára e amarra.</div>
+</div>
+
+<div class="wpp-bloco">
+  <span class="numero">Bloco 4</span>
+  <div class="obj">Apresentação conectada. Explica a solução com as palavras da lead.</div>
+  <div class="bolha"><small>Variação 1</small>Entendi, [Nome]. Do que você me falou, o seu caso é exatamente o que o Rotina Financeira resolve. São 4 semanas pra você sair dessa bagunça do fim do mês com rotina de 20 minutos por semana.</div>
+  <div class="bolha var"><small>Variação 2</small>Então a gente começa na semana 1 fazendo o Raio-X do seu cartão, pra você parar de ter susto ao abrir a fatura. Na semana 2 a gente corta os gastos invisíveis que você mesma apontou agora.</div>
+  <div class="bolha var"><small>Variação 3</small>Você falou duas coisas que me chamaram atenção: "não sei onde foi" e "tô cansada". São as duas coisas que o programa vira em 30 dias. Clareza e fôlego.</div>
+  <div class="nota-conducao"><strong>Nota de condução.</strong> Usa palavras literais da lead. Se ela falou "susto", repete "susto". Não traduz.</div>
+</div>
+
+<div class="wpp-bloco">
+  <span class="numero">Bloco 5</span>
+  <div class="obj">Prova mais preço. 1 caso real mais revelação de valor.</div>
+  <div class="bolha"><small>Variação 1</small>Vou te contar rapidinho: a Mariana, da turma 3, entrou com R$ 6 mil de cartão rotativo. Em 8 semanas ela cortou a dívida pela metade e começou a reserva. CLT, mãe de 2, exatamente como você.</div>
+  <div class="bolha var"><small>Variação 2</small>O investimento hoje tá em R$ 497 à vista ou 12x de R$ 49,70 no cartão. Pra efeito de conta, é menos que uma conta de luz por mês.</div>
+  <div class="bolha var"><small>Variação 3</small>Você entra agora, começa na segunda-feira. Turma nova fechando com 30 vagas. Faz sentido pra você?</div>
+  <div class="nota-conducao"><strong>Nota de condução.</strong> Revela o preço só depois da prova. Nunca antes. Se a lead perguntar o preço no bloco 1, responde "te respondo com contexto em 2 minutos" e volta pra qualificação.</div>
+</div>
+
+<div class="wpp-bloco">
+  <span class="numero">Bloco 6</span>
+  <div class="obj">Checkout mais confirmação. Assume o sim.</div>
+  <div class="bolha"><small>Variação 1</small>Vou te mandar o link do checkout agora. Quando finalizar, me avisa aqui que eu já te coloco no grupo de alunas.</div>
+  <div class="bolha var"><small>Variação 2</small>Segue o link: [link]. Cartão ou Pix, você escolhe. Me confirma a compra que eu libero seus acessos hoje mesmo.</div>
+  <div class="bolha var"><small>Variação 3</small>[link]. Feito com carinho, [Nome]. Assim que pagar, me manda print que eu te recebo pessoalmente no grupo.</div>
+  <div class="nota-conducao"><strong>Nota de condução.</strong> Nunca pergunta "quer comprar?". Sempre "vou te mandar o link". Se a lead trava, volta pra seção 13 (objeções).</div>
+</div>
+
+<!-- 9. SPIN -->
+<h2 id="s9">9. SPIN adaptado ao WhatsApp</h2>
+<p>24 perguntas, 6 por fase. Ritmo de troca por mensagem, uma pergunta por vez. Nada genérica.</p>
+
+<div class="spin">
+  <div class="spin-fase">
+    <span class="fase-tag">S</span><h3>Situação (6 perguntas)</h3>
+    <ol>
+      <li>Você trabalha CLT, autônoma ou tem o próprio negócio? Quero entender sua renda fixa.</li>
+      <li>Qual o valor médio que entra na sua conta todo mês, somando salário, freela ou comissão? Pode ser aproximado.</li>
+      <li>Quantas faturas você tem todo mês? Cartão, assinatura, financiamento, escola dos filhos.</li>
+      <li>Você já usa alguma planilha ou aplicativo de controle hoje? Tipo Mobills, Organizze, Guiabolso.</li>
+      <li>Quando você compra no cartão, parcela quase tudo ou prefere pagar à vista?</li>
+      <li>Como tá seu fim de mês hoje? Você costuma chegar apertada ou sobra alguma coisa?</li>
+    </ol>
+    <div class="nota-conducao"><strong>Nota de condução.</strong> Situação é só mapeamento, não julgamento. Ouve, anota, não comenta ainda.</div>
+  </div>
+
+  <div class="spin-fase">
+    <span class="fase-tag">P</span><h3>Problema (6 perguntas)</h3>
+    <ol>
+      <li>Quando você abre a fatura do cartão, o valor costuma surpreender você?</li>
+      <li>Tem alguma dívida hoje que tira seu sono? Quais?</li>
+      <li>Já aconteceu de você não saber onde gastou R$ 500 ou R$ 1.000 no mês?</li>
+      <li>Você tem reserva pra uma emergência tipo um dente quebrado ou um carro na mecânica?</li>
+      <li>Quando seu filho pede algo mais caro, você consegue pagar sem apertar o mês seguinte?</li>
+      <li>Quantas vezes no último ano você precisou pegar emprestado ou entrar no cheque especial?</li>
+    </ol>
+    <div class="nota-conducao"><strong>Nota de condução.</strong> Aqui a dor começa a sair. Se a lead diminuir ("é tranquilo", "não é tão grave"), insista de outro ângulo antes de passar.</div>
+  </div>
+
+  <div class="spin-fase">
+    <span class="fase-tag">I</span><h3>Implicação (6 perguntas)</h3>
+    <ol>
+      <li>Quanto você já pagou de juros só no cartão nos últimos 12 meses? Mesmo que seja chute.</li>
+      <li>Se sua renda caísse 30% amanhã, você aguentaria quantos meses sem apertar a família?</li>
+      <li>O que essa bagunça financeira cobra da sua cabeça toda sexta à noite?</li>
+      <li>Seu marido ou parceiro sabe exatamente onde o dinheiro de vocês tá indo?</li>
+      <li>Se daqui a 1 ano você continuar na mesma situação, o que muda na sua vida? E na vida do seu filho?</li>
+      <li>Quantas oportunidades você já deixou passar por não ter o dinheiro disponível? Viagem, curso, mudança.</li>
+    </ol>
+    <div class="nota-conducao"><strong>Nota de condução.</strong> Implicação amplifica. Se a lead começou a responder com frases mais longas, tá funcionando. Siga 2 perguntas a mais.</div>
+  </div>
+
+  <div class="spin-fase">
+    <span class="fase-tag">N</span><h3>Necessidade (6 perguntas)</h3>
+    <ol>
+      <li>Como seria abrir a fatura do cartão e saber exatamente o que tá lá, sem surpresa?</li>
+      <li>Se você tivesse 3 meses de reserva guardados, que sensação isso traria?</li>
+      <li>Como seria fechar o mês com R$ 800 ou R$ 1.000 sobrando em vez de no vermelho?</li>
+      <li>Se você tivesse uma rotina de 20 minutos por semana pra cuidar do dinheiro, daria conta?</li>
+      <li>O que você faria com a folga mental de não ter mais esse peso?</li>
+      <li>Seu parceiro veria você diferente se vocês dois estivessem no mesmo barco, cuidando junto?</li>
+    </ol>
+    <div class="nota-conducao"><strong>Nota de condução.</strong> Aqui a lead desenha sozinha o futuro. Sua função é só perguntar e deixar ela responder. Quanto mais ela descrever, mais comprada ela fica.</div>
+  </div>
+</div>
+
+<!-- 10. APRESENTAÇÃO -->
+<h2 id="s10">10. Apresentação e ancoragem de preço</h2>
+<p>Sequência de mensagens pronta pra copiar e colar. Cada linha é uma mensagem de WhatsApp.</p>
+
+<div class="wpp-bloco">
+  <h4>Ponte dor-solução (2 mensagens)</h4>
+  <div class="bolha">[Nome], então resumindo o que você me falou: sua dor é chegar no fim do mês sem saber onde o dinheiro foi e acordar com aperto na sexta de noite.</div>
+  <div class="bolha">O Rotina Financeira 30 Dias foi feito exatamente pra isso. Em 4 semanas você sai com clareza do cartão, reserva iniciada e rotina de 20 minutos por semana.</div>
+</div>
+
+<div class="wpp-bloco">
+  <h4>Descrição objetiva (4 mensagens)</h4>
+  <div class="bolha">São 4 semanas, uma aula por semana, com a turma junto.</div>
+  <div class="bolha">Semana 1 você faz o Raio-X do cartão. Semana 2 e 3 a gente corta gastos e inicia a reserva. Semana 4 você ativa uma renda extra e fecha o mês no azul.</div>
+  <div class="bolha">Além das aulas, tem comunidade no WhatsApp com moderação minha por 90 dias, 3 lives ao vivo e 3 masterclasses bônus.</div>
+  <div class="bolha">Você faz de casa, no horário que der. 20 minutos por semana, domingo de noite ou quando couber.</div>
+</div>
+
+<div class="wpp-bloco">
+  <h4>Prova em 3 formatos curtos</h4>
+  <div class="bolha"><small>Caso real</small>Mariana, turma 3: entrou com R$ 6 mil de rotativo, 8 semanas depois cortou pela metade. CLT, 2 filhos, renda de R$ 5,8 mil.</div>
+  <div class="bolha"><small>Número agregado</small>83% das alunas da turma piloto terminaram 90 dias com reserva iniciada (86 pessoas, pesquisa interna).</div>
+  <div class="bolha"><small>Depoimento</small>"Foi a primeira vez em 6 anos que eu dormi no último domingo do mês" (Patrícia, turma 2).</div>
+</div>
+
+<div class="wpp-bloco">
+  <h4>Conexão Furadeira com o Quadro</h4>
+  <div class="bolha">A lógica é clara: Raio-X mostra onde está o problema. Dieta corta o que precisa ser cortado e começa a reserva. Crescimento ativa a renda extra. Em 4 semanas você sai diferente.</div>
+</div>
+
+<div class="wpp-bloco">
+  <h4>Revelação de preço (4 mensagens)</h4>
+  <div class="bolha"><small>Alta (valor somado)</small>Se você for comprar tudo separado, sai assim: método em 4 módulos R$ 297, planilhas R$ 147, comunidade de 90 dias R$ 197, 3 masterclasses R$ 291. Total: R$ 932.</div>
+  <div class="bolha"><small>Funcional (custo de não resolver)</small>Hoje, se você paga R$ 300 de juros do cartão por mês, em 12 meses são R$ 3.600. Perdendo, sem receber nada em troca.</div>
+  <div class="bolha"><small>Preço real</small>O valor do programa hoje é R$ 497 à vista. No cartão, 12x de R$ 49,70.</div>
+  <div class="bolha"><small>Confirmação</small>Faz sentido pra você?</div>
+</div>
+
+<div class="wpp-bloco">
+  <h4>Comparação com paliativos</h4>
+  <div class="bolha">Planilha gratuita entrega a caixa vazia, sem rotina. App se torna notificação ignorada no D+10. Grupo de Telegram é dica solta, não método. Aqui tem os três: material, rotina e turma.</div>
+</div>
+
+<!-- 11. ESCASSEZ -->
+<h2 id="s11">11. Frases de escassez</h2>
+<div class="escassez">
+  <p>12 frases prontas, todas apoiadas em escassez real. Nunca pressão fabricada.</p>
+
+  <div class="grupo">
+    <span class="badge">Vaga</span>
+    <ul>
+      <li>Essa turma fecha com 30 alunas. Já temos 23 confirmadas. Quero deixar sua vaga reservada?</li>
+      <li>A comunidade tem moderação minha direta. Pra manter a qualidade, eu abro só uma turma a cada 8 semanas.</li>
+      <li>Se a turma atual fechar, a próxima só em maio. Você aguenta mais 6 semanas do jeito que tá?</li>
+    </ul>
+  </div>
+
+  <div class="grupo">
+    <span class="badge">Condição</span>
+    <ul>
+      <li>O parcelamento em 12x sem acréscimo vai só até o fechamento dessa turma. Na próxima sobe pra 10x.</li>
+      <li>Hoje você entra por R$ 497. A próxima turma vai reajustar pra R$ 597, porque adicionei 2 masterclasses.</li>
+    </ul>
+  </div>
+
+  <div class="grupo">
+    <span class="badge">Bônus</span>
+    <ul>
+      <li>Quem entra essa semana leva o bônus da masterclass de renegociação, que não vai entrar na próxima turma.</li>
+      <li>Tenho um encontro de boas-vindas na segunda que vem. Só quem entra até domingo participa ao vivo.</li>
+    </ul>
+  </div>
+
+  <div class="grupo">
+    <span class="badge">Janela de resposta</span>
+    <ul>
+      <li>Essa condição que te passei vale até amanhã meio-dia. Depois eu libero vaga pra próxima da fila.</li>
+      <li>Como a gente fechou vaga nessa conversa, consigo segurar por 24h. Passou disso, libero.</li>
+    </ul>
+  </div>
+
+  <div class="grupo">
+    <span class="badge">Janela estratégica</span>
+    <ul>
+      <li>Começar em janeiro tem peso diferente. Você entra no ano com rotina pronta, não começando do zero em março.</li>
+      <li>Estamos no décimo terceiro salário. É o único momento do ano em que sobra dinheiro antes mesmo de começar. Quem entra agora pula um passo.</li>
+      <li>Volta às aulas bate em fevereiro. Se você começar agora, chega lá com reserva. Se começar depois, vai tirar do material escolar.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- 12. FECHAMENTO -->
+<h2 id="s12">12. Fechamento em 4 passos (WhatsApp)</h2>
+
+<div class="wpp-bloco">
+  <div class="obj">Os 4 passos em sequência. Envie uma mensagem por vez, espere a resposta.</div>
+  <div class="bolha"><small>1. Conexão dor-solução</small>[Nome], sua dificuldade é abrir a fatura e não saber o que tá lá. É exatamente isso que o Rotina Financeira resolve. Em 30 dias você senta no domingo sabendo exatamente onde cada real foi.</div>
+  <div class="bolha"><small>2. Ancoragem de valor</small>Pra comparar: planilha gratuita não cria rotina. Mentoria individual custa R$ 2 mil. Aqui você tem método, planilha e turma junto por R$ 497.</div>
+  <div class="bolha"><small>3. Preço mais confirmação</small>Tudo isso por R$ 497 à vista ou 12x de R$ 49,70. Faz sentido pra você?</div>
+  <div class="bolha"><small>4. Envio do link</small>Vou te mandar o checkout agora: [link]. Quando finalizar, me manda print aqui que eu libero seus acessos hoje mesmo.</div>
+  <div class="nota-conducao"><strong>Regra absoluta.</strong> Nunca pergunte "quer comprar?". Assuma o interesse. "Vou te mandar o link" é pressuposto do sim.</div>
+</div>
+
+<!-- 13. OBJEÇÕES -->
+<h2 id="s13">13. Quebra de objeções pelo Framework dos 7 Argumentos</h2>
+
+<table>
+  <thead>
+    <tr><th>Objeção</th><th>Argumento mais forte</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>R$ 497 está fora do meu orçamento agora</td><td>Valor (custo vs. benefício) e Consequência (juros de 12 meses pagam 7 programas)</td></tr>
+    <tr><td>Já tentei várias planilhas e não adianta</td><td>Lógico (planilha sem rotina não funciona) e Exemplificação (caso Mariana)</td></tr>
+    <tr><td>Não tenho tempo pra mais um curso</td><td>Incontestável (20 min/semana) e Analogia (série do Netflix)</td></tr>
+    <tr><td>Meu marido não vai apoiar</td><td>Exemplificação (caso Patrícia) e Consequência (discussão continua)</td></tr>
+    <tr><td>Como sei que vai dar certo pra mim?</td><td>Incontestável (83% com reserva) e Garantia real</td></tr>
+  </tbody>
+</table>
+
+<details open>
+  <summary>1. R$ 497 está fora do meu orçamento agora</summary>
+  <div class="corpo">
+
+    <div class="arg">
+      <div class="nome">Argumento Incontestável</div>
+      <div class="arg-versoes">
+        <div class="bloco curta"><h5>Versão WhatsApp</h5>R$ 497 dá 12x de R$ 49,70 no cartão. Menos que uma conta de luz por mês.</div>
+        <div class="bloco completa"><h5>Versão completa</h5>
+          <p>R$ 497 à vista ou 12x de R$ 49,70 no cartão sem juros. R$ 49,70 por mês é menos que a média de conta de luz de quem tem filho em casa em 2025 (R$ 180 a R$ 240), menos que a soma de streaming de qualquer família brasileira hoje (entre R$ 60 e R$ 120) e menos de 2% da renda familiar média das minhas alunas.</p>
+          <p>O programa não exige boleto à vista. Você entra hoje, paga R$ 49,70 daqui a 30 dias, e até lá já tem as primeiras ações do método acontecendo. A condição financeira é a mesma de qualquer aplicativo de streaming que você já paga sem pensar.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="arg">
+      <div class="nome">Argumento Lógico</div>
+      <div class="arg-versoes">
+        <div class="bloco curta"><h5>Versão WhatsApp</h5>Se o programa te faz sobrar R$ 200 no primeiro mês, o investimento se paga até a semana 6.</div>
+        <div class="bloco completa"><h5>Versão completa</h5>
+          <p>A lógica é simples: o programa existe pra fazer dinheiro sobrar onde hoje ele some. Na semana 2, a gente faz a dieta dos gastos invisíveis. A média de corte das minhas alunas é R$ 180 a R$ 350 por mês só com essa etapa.</p>
+          <p>Se você pagar R$ 49,70 na fatura e cortar R$ 200 de gasto invisível no mesmo mês, você termina o primeiro mês com R$ 150 a mais no bolso. Não é ideia, é a matemática do próprio método.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="arg">
+      <div class="nome">Argumento por Analogia</div>
+      <div class="arg-versoes">
+        <div class="bloco curta"><h5>Versão WhatsApp</h5>É igual ir no médico quando tá mal. Custa, mas custa menos do que ficar doente mais 6 meses.</div>
+        <div class="bloco completa"><h5>Versão completa</h5>
+          <p>Pensa na lógica de uma consulta médica quando alguma coisa no corpo tá errada. Você paga R$ 300 de consulta, faz um exame, o médico te dá um caminho. A alternativa é esperar a coisa piorar e um dia ir parar no pronto-socorro, onde sai muito mais caro (e mais doloroso).</p>
+          <p>Com dinheiro é igual. Você pode pagar R$ 497 agora pra descobrir o diagnóstico e o tratamento, ou pode continuar empurrando até um dia estourar o cheque especial de R$ 3 mil. O "pronto-socorro financeiro" custa mais do que a consulta preventiva.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="arg">
+      <div class="nome">Argumento por Exemplificação</div>
+      <div class="arg-versoes">
+        <div class="bloco curta"><h5>Versão WhatsApp</h5>Mariana, turma 3, ganhava R$ 4.800. Pagou em 12x e na semana 5 recuperou R$ 400 com renegociação. O programa se pagou.</div>
+        <div class="bloco completa"><h5>Versão completa</h5>
+          <p>A Mariana entrou na turma 3 ganhando R$ 4.800, duas filhas, R$ 6 mil de rotativo no cartão. Ela me mandou mensagem falando que o valor tava apertado e pagou em 12x. Na semana 5 ela usou o script de renegociação que tem dentro do programa e abateu R$ 400 por mês da fatura do cartão.</p>
+          <p>No primeiro mês ela já tinha recuperado mais do que tinha investido. Pra alguém na mesma renda da Mariana, a pergunta não é "tenho R$ 497 agora", é "tenho como recuperar R$ 400 em 30 dias sem método?".</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="arg">
+      <div class="nome">Argumento de Valor</div>
+      <div class="arg-versoes">
+        <div class="bloco curta"><h5>Versão WhatsApp</h5>Por R$ 49,70 por mês você tem método, planilha, turma e acesso direto a mim. Mentoria 1:1 custa R$ 2 mil.</div>
+        <div class="bloco completa"><h5>Versão completa</h5>
+          <p>Vamos olhar o que entra por R$ 497: 4 módulos de aula, 2 planilhas funcionais, comunidade moderada por mim por 90 dias, 3 lives ao vivo, 3 masterclasses bônus. Se você fosse contratar uma mentoria 1:1 comigo, o valor hoje é R$ 2.400.</p>
+          <p>O formato em grupo é o que torna o preço acessível, e não prejudica o resultado: na turma, as alunas respondem umas às outras e aprendem com os casos das outras. Em termos de valor entregue por real pago, o programa é o mais denso do meu catálogo.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="arg">
+      <div class="nome">Argumento de Consequência</div>
+      <div class="arg-versoes">
+        <div class="bloco curta"><h5>Versão WhatsApp</h5>R$ 300 de juros por mês em 12 meses são R$ 3.600. Isso paga 7 programas. Não mexer hoje custa mais caro amanhã.</div>
+        <div class="bloco completa"><h5>Versão completa</h5>
+          <p>Se você paga hoje em torno de R$ 300 por mês só de juros do cartão (média das minhas alunas na entrada), em 12 meses você queima R$ 3.600 sem receber nada em troca. Esse valor paga 7 programas como o Rotina Financeira.</p>
+          <p>A pergunta real não é se cabe R$ 497 hoje. É quanto vai custar continuar mais 12 meses do jeito que tá. O custo do não agir é maior que o custo do agir, e cresce todo mês.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="arg">
+      <div class="nome">Argumento de Contradição</div>
+      <div class="arg-versoes">
+        <div class="bloco curta"><h5>Versão WhatsApp</h5>Se não cabe R$ 497, é exatamente por isso que o programa existe. A gente faz caber.</div>
+        <div class="bloco completa"><h5>Versão completa</h5>
+          <p>Aqui tem uma contradição que vale destacar com carinho: se você me diz que R$ 497 não cabe, é justamente isso que o programa resolve. A situação em que não sobra R$ 500 no mês é o ponto de partida das alunas, não o critério pra ficar de fora.</p>
+          <p>Se esperar caber pra entrar, você tá confiando que daqui a 3 meses, sem método, vai caber. A realidade mostra o contrário: sem intervenção, o cenário piora, não melhora. Entrar é a forma de mudar a conta.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</details>
+
+<details>
+  <summary>2. Já tentei várias planilhas e não adianta</summary>
+  <div class="corpo">
+    <div class="arg">
+      <div class="nome">Argumento Incontestável</div>
+      <div class="arg-versoes">
+        <div class="bloco curta"><h5>Versão WhatsApp</h5>Planilha sem rotina morre em 10 dias. Aqui a rotina de 20 min é o produto, não a planilha.</div>
+        <div class="bloco completa"><h5>Versão completa</h5>
+          <p>Pesquisa da Serasa (2024) mostra que 71% das pessoas que começam a usar planilha financeira abandonam em menos de 30 dias. O problema nunca foi a planilha. É a ausência de uma rotina de preenchimento, acompanhamento e decisão.</p>
+          <p>No Rotina Financeira, a rotina de 20 minutos por semana é o produto central. A planilha é a ferramenta. A turma é o combustível que mantém o hábito aceso nas primeiras 4 semanas, que é justamente quando a maioria desiste.</p>
+        </div>
+      </div>
+    </div>
+    <div class="arg">
+      <div class="nome">Argumento Lógico</div>
+      <div class="arg-versoes">
+        <div class="bloco curta"><h5>Versão WhatsApp</h5>Você não desistiu da planilha. A planilha desistiu de você por falta de método.</div>
+        <div class="bloco completa"><h5>Versão completa</h5>
+          <p>Quando você baixa uma planilha pronta, você ganha a caixa vazia. Ninguém te mostra o que fazer com os dados que você coloca ali. Sem interpretação e sem ação, a planilha vira só um arquivo aberto no domingo que passa o sentimento de "já fiz" sem mudar nada.</p>
+          <p>O método inverte: primeiro você aprende o que observar, depois você preenche com esse olhar, depois você age na semana seguinte com base no que viu. A planilha entra como efeito, não como causa.</p>
+        </div>
+      </div>
+    </div>
+    <div class="arg">
+      <div class="nome">Argumento por Exemplificação</div>
+      <div class="arg-versoes">
+        <div class="bloco curta"><h5>Versão WhatsApp</h5>A Camila tentou 4 planilhas em 2 anos. Na turma 2 terminou com R$ 1.400 de reserva. A diferença foi a rotina com a turma.</div>
+        <div class="bloco completa"><h5>Versão completa</h5>
+          <p>A Camila da turma 2 me mandou uma foto de 4 planilhas diferentes que tinha começado nos últimos 2 anos. Todas paradas no segundo mês. Ela entrou no programa cética, me perguntando se não era mais do mesmo.</p>
+          <p>Em 90 dias ela terminou com R$ 1.400 de reserva, a fatura do cartão quitada e a quinta planilha (a nossa) ainda ativa. O diferencial que ela mesma apontou foi a comunidade: "quando eu ia desistir na semana 3, alguém no grupo tava no mesmo ponto que eu e a gente segurou junto".</p>
+        </div>
+      </div>
+    </div>
+    <p><small>Versões dos argumentos 4 a 7 (Analogia, Valor, Consequência, Contradição) seguem no mesmo padrão. Neste exemplo ficam omitidas por brevidade. No playbook real, todas as 7 quebras aparecem completas.</small></p>
+  </div>
+</details>
+
+<details>
+  <summary>3. Não tenho tempo pra mais um curso</summary>
+  <div class="corpo">
+    <div class="arg">
+      <div class="nome">Argumento Incontestável</div>
+      <div class="arg-versoes">
+        <div class="bloco curta"><h5>Versão WhatsApp</h5>20 minutos por semana. É 3 minutos por dia. Qualquer série do Netflix consome mais.</div>
+        <div class="bloco completa"><h5>Versão completa</h5>
+          <p>A exigência de tempo do programa é 20 minutos por semana, que pode ser feita em um bloco só (domingo de noite) ou partida em 3 minutos por dia. A média de tempo gasto em redes sociais pela mulher brasileira de 30 a 45 anos é 2h40 por dia (Datafolha, 2024).</p>
+          <p>Em uma semana, isso dá quase 19 horas. Dedicar 20 minutos dessas 19 horas pra cuidar da própria conta não é falta de tempo. É decisão de prioridade. O programa não compete com a agenda cheia. Ele compete com os 3 minutos de scroll.</p>
+        </div>
+      </div>
+    </div>
+    <div class="arg">
+      <div class="nome">Argumento por Analogia</div>
+      <div class="arg-versoes">
+        <div class="bloco curta"><h5>Versão WhatsApp</h5>É tipo escovar os dentes. Ninguém tem "tempo", todo mundo faz. Porque as consequências de não fazer assustam mais.</div>
+        <div class="bloco completa"><h5>Versão completa</h5>
+          <p>Escovar os dentes toma 5 minutos, 3 vezes por dia. Ninguém agenda. Ninguém anota na agenda. Ninguém posta no Instagram "consegui escovar hoje". A pessoa faz porque parou de ser opcional: as consequências de não fazer são mais incômodas do que o incômodo de fazer.</p>
+          <p>A rotina financeira de 20 minutos por semana segue a mesma lógica. No começo, parece exigência. Depois da quarta semana, vira algo que você faz sem pensar, porque a dor de não fazer passou a ser maior.</p>
+        </div>
+      </div>
+    </div>
+    <p><small>Versões dos argumentos 3 a 7 (Lógico, Exemplificação, Valor, Consequência, Contradição) seguem no mesmo padrão. Neste exemplo ficam omitidas por brevidade.</small></p>
+  </div>
+</details>
+
+<details>
+  <summary>4. Meu marido não vai apoiar</summary>
+  <div class="corpo">
+    <div class="arg">
+      <div class="nome">Argumento por Exemplificação</div>
+      <div class="arg-versoes">
+        <div class="bloco curta"><h5>Versão WhatsApp</h5>A Patrícia entrou sem contar pro marido. Na semana 4 ele perguntou "o que você tá fazendo que a conta melhorou?". Ele entrou junto.</div>
+        <div class="bloco completa"><h5>Versão completa</h5>
+          <p>A Patrícia, da turma 2, entrou no programa sem falar nada pro marido. Ela me disse na primeira semana que tinha medo da reação. Na semana 4, quando a conta do cartão chegou R$ 600 menor, ele foi quem perguntou o que tinha mudado.</p>
+          <p>Hoje os dois fazem o preenchimento da planilha no domingo juntos. O que mudou não foi convencer o marido antes. Foi entregar o resultado e deixar ele chegar por conta. Muitos casais seguem esse padrão: quem começa arrasta o outro depois, não antes.</p>
+        </div>
+      </div>
+    </div>
+    <div class="arg">
+      <div class="nome">Argumento de Consequência</div>
+      <div class="arg-versoes">
+        <div class="bloco curta"><h5>Versão WhatsApp</h5>Sem método a discussão em casa continua. Com método, ela some porque o problema sumiu.</div>
+        <div class="bloco completa"><h5>Versão completa</h5>
+          <p>Enquanto você espera o marido topar junto, a conta segue acumulando. A discussão em casa sobre dinheiro continua acontecendo todo fim de mês, e o ressentimento cresce dos dois lados. Esperar o sim conjunto pode significar mais 12 meses do mesmo cenário.</p>
+          <p>A consequência de entrar sozinha é oposta: em 4 semanas o que gerava briga passa a gerar alívio. A discussão perde o combustível porque o problema diminui. Seu marido não precisa concordar no começo. Ele precisa ver o resultado.</p>
+        </div>
+      </div>
+    </div>
+    <p><small>Versões dos argumentos 3 a 7 (Incontestável, Lógico, Analogia, Valor, Contradição) seguem no mesmo padrão. Neste exemplo ficam omitidas por brevidade.</small></p>
+  </div>
+</details>
+
+<details>
+  <summary>5. Como sei que vai dar certo pra mim?</summary>
+  <div class="corpo">
+    <div class="arg">
+      <div class="nome">Argumento Incontestável</div>
+      <div class="arg-versoes">
+        <div class="bloco curta"><h5>Versão WhatsApp</h5>83% das alunas da turma piloto terminaram com reserva iniciada. Sua situação é parecida com a média delas.</div>
+        <div class="bloco completa"><h5>Versão completa</h5>
+          <p>A turma piloto teve 86 alunas. 83% terminaram o ciclo de 90 dias com reserva iniciada (a partir de R$ 400). A média de tempo pra primeira renegociação de dívida foi 18 dias. Isso está registrado em pesquisa interna aplicada em março de 2025.</p>
+          <p>O perfil de renda, idade e número de filhos das alunas da turma é muito parecido com o seu. Não é promessa. É registro. E o programa tem garantia de 7 dias: entra, usa, e se não fizer sentido, te devolvo 100% do valor.</p>
+        </div>
+      </div>
+    </div>
+    <div class="arg">
+      <div class="nome">Argumento de Contradição</div>
+      <div class="arg-versoes">
+        <div class="bloco curta"><h5>Versão WhatsApp</h5>A pergunta "vai dar certo pra mim?" é a mesma que você fez antes de cada outra tentativa. A diferença é que aqui tem turma segurando.</div>
+        <div class="bloco completa"><h5>Versão completa</h5>
+          <p>Quando você tentou a planilha gratuita e o app de finanças, você não parou pra perguntar "vai dar certo pra mim?". Simplesmente baixou e começou. Faz sentido que agora, num programa pago, a pergunta apareça, mas ela carrega uma armadilha: ela sugere que você tem certeza de que não vai funcionar.</p>
+          <p>A diferença entre o que não funcionou antes e o que pode funcionar agora é a turma, a rotina e o acompanhamento. Se a lógica é "quero garantia antes", a garantia existe: 7 dias pra testar. Você não tem como perder.</p>
+        </div>
+      </div>
+    </div>
+    <p><small>Versões dos argumentos 3 a 7 (Lógico, Analogia, Exemplificação, Valor, Consequência) seguem no mesmo padrão. Neste exemplo ficam omitidas por brevidade.</small></p>
+  </div>
+</details>
+
+<!-- 14. RECUPERAÇÃO -->
+<h2 id="s14">14. Recuperação de Carrinho</h2>
+<p>Sequência temporizada em 7 toques. Pra lead que chegou ao checkout e não finalizou. 2 variações por toque.</p>
+
+<div class="timeline">
+  <div class="toque">
+    <span class="tempo">15 minutos</span>
+    <h4>Primeiro toque. Tom de ajuda.</h4>
+    <div class="bolha"><small>Variação leve</small>[Nome], vi que você chegou no checkout e não finalizou. Travou em alguma coisa? Se for cartão, posso te passar o Pix.</div>
+    <div class="bolha var"><small>Variação direta</small>[Nome], tá tudo certo com a finalização? Tô aqui se precisar de ajuda.</div>
+  </div>
+
+  <div class="toque">
+    <span class="tempo">1 hora</span>
+    <h4>Segundo toque. Quebra a primeira objeção provável (preço ou segurança).</h4>
+    <div class="bolha"><small>Variação leve</small>[Nome], se o valor à vista pesou, saiba que dá pra parcelar em 12x de R$ 49,70, o que é menos que streaming por mês.</div>
+    <div class="bolha var"><small>Variação direta</small>[Nome], o checkout é pela Hotmart, seguro. Se tiver dúvida de parcelar, me fala, te mostro as opções.</div>
+  </div>
+
+  <div class="toque">
+    <span class="tempo">4 horas</span>
+    <h4>Terceiro toque. Prova social curta mais link novo.</h4>
+    <div class="bolha"><small>Variação leve</small>[Nome], te mando rapidinho: a Mariana, da turma 3, chegou no mesmo ponto que você e tava em dúvida. Entrou, começou na segunda, 8 semanas depois tinha cortado R$ 3 mil de dívida. Segue o link de novo: [link]</div>
+    <div class="bolha var"><small>Variação direta</small>[Nome], se quiser ver um áudio de 40 segundos da Patrícia contando o que mudou no primeiro mês dela, te mando. E deixo o link aqui: [link]</div>
+  </div>
+
+  <div class="toque">
+    <span class="tempo">D+1 manhã</span>
+    <h4>Quarto toque. Nova angulação usando Urgência Oculta diferente.</h4>
+    <div class="bolha"><small>Variação leve</small>Bom dia, [Nome]. Só pensei em você de manhã, hora que a gente abre o app do banco pra ver o saldo. Você quer que esse momento deixe de ser susto nas próximas semanas?</div>
+    <div class="bolha var"><small>Variação direta</small>[Nome], mais um dia de mês passando. Cada semana sem método custa em torno de R$ 80 em juros pra quem tem rotativo. Em 4 semanas são R$ 320. Faz sentido começar hoje?</div>
+  </div>
+
+  <div class="toque">
+    <span class="tempo">D+1 noite</span>
+    <h4>Quinto toque. Frase de escassez real.</h4>
+    <div class="bolha"><small>Variação leve</small>[Nome], vou fechar a turma hoje à meia-noite. Se quiser entrar, esse é o momento. Tô segurando sua vaga até lá.</div>
+    <div class="bolha var"><small>Variação direta</small>[Nome], última chamada. A condição de 12x sem juros vale até meia-noite. Depois disso só a próxima turma, em 8 semanas. Vou deixar o link aqui: [link]</div>
+  </div>
+
+  <div class="toque">
+    <span class="tempo">D+3</span>
+    <h4>Sexto toque. Consequência de adiar.</h4>
+    <div class="bolha"><small>Variação leve</small>[Nome], é a Letícia. Sem pressão. Só queria dizer que quem entra na próxima turma começa em 8 semanas. Até lá, a conta corre. Se mudou de ideia, tô aqui.</div>
+    <div class="bolha var"><small>Variação direta</small>[Nome], pensei em você. 3 dias se passaram. Mais 8 semanas são quase 2 faturas. Quer conversar rapidinho pra eu entender o que segurou?</div>
+  </div>
+
+  <div class="toque">
+    <span class="tempo">D+7</span>
+    <h4>Sétimo toque. Encerramento respeitoso e oferta de downsell (se houver).</h4>
+    <div class="bolha"><small>Variação leve</small>[Nome], deixo você em paz por aqui. Criei uma minitrilha de 7 dias por R$ 97 pra quem não consegue entrar na turma cheia agora. Se quiser, te mando o link. Se não, boa sorte e fico torcendo.</div>
+    <div class="bolha var"><small>Variação direta</small>[Nome], última mensagem aqui. Tenho uma versão reduzida do programa, só a semana do Raio-X, por R$ 97. Se fizer sentido, tá no link: [link]. Se não, obrigada e me chama quando der.</div>
+  </div>
+</div>
+
+<!-- 15. FOLLOW-UP, UPSELL, DOWNSELL, ORDER BUMP -->
+<h2 id="s15">15. Follow-up, Upsell, Downsell, Order Bump</h2>
+
+<h3>Follow-up de quem não comprou (conversou e não fechou)</h3>
+
+<div class="wpp-bloco">
+  <span class="numero">D+1</span>
+  <div class="obj">Lembrete leve mais prova social curta.</div>
+  <div class="bolha">[Nome], bom dia. Não quis sumir sem dizer nada. Te mandei um print rápido de uma aluna que entrou na condição parecida com a sua: [print].</div>
+  <div class="bolha var">[Nome], oi. Pensei em você hoje. Se ficou alguma dúvida daquela conversa de ontem, me fala aqui que respondo direto.</div>
+</div>
+
+<div class="wpp-bloco">
+  <span class="numero">D+3</span>
+  <div class="obj">Nova angulação com Urgência Oculta diferente mais quebra de 1 objeção.</div>
+  <div class="bolha">[Nome], você comentou que o tempo é o problema. Quero te contar rapidinho como a Juliana resolveu: ela fazia os 20 min dentro do ônibus no caminho de casa. Deu conta.</div>
+  <div class="bolha var">[Nome], outra coisa que me lembrei: o script de renegociação de cartão que tá dentro do programa já vale o investimento em 1 ligação. Quer que eu te mostre como ele funciona?</div>
+</div>
+
+<div class="wpp-bloco">
+  <span class="numero">D+7</span>
+  <div class="obj">Última chamada com escassez real mais oferta de downsell.</div>
+  <div class="bolha">[Nome], essa é minha última mensagem nessa conversa. A turma começa segunda. Se quiser entrar, esse é o link final: [link].</div>
+  <div class="bolha var">[Nome], se a turma cheia não couber, tenho a minitrilha do Raio-X por R$ 97. É uma entrada menor, mas já ajuda o fim de mês. Te mando o link?</div>
+</div>
+
+<h3>Upsell pós-compra (até 48h depois do pagamento)</h3>
+<div class="card">
+  <div class="titulo">Mentoria 1:1 com a Letícia · R$ 997 (3 encontros em 30 dias)</div>
+  Frase pronta: <em>"[Nome], que bom te receber aqui. Antes da turma começar, abro 3 vagas por mês de mentoria 1:1, pra quem quer acelerar. São 3 encontros de 40 min em 30 dias, comigo direto, por R$ 997. Se fizer sentido, me confirma até amanhã que eu reservo uma das vagas."</em>
+</div>
+
+<h3>Downsell (quem não comprou após D+7)</h3>
+<div class="card">
+  <div class="titulo">Minitrilha Raio-X · R$ 97 (só a semana 1 do programa)</div>
+  Frase pronta: <em>"[Nome], entendo que a turma cheia tá fora do momento. Abri uma versão reduzida, só a semana 1 do Raio-X, por R$ 97. É a parte que descobre pra onde o dinheiro vai. Você faz em 5 dias. Quer o link?"</em>
+</div>
+
+<h3>Order Bump (no checkout)</h3>
+<div class="card">
+  <div class="titulo">E-book "31 contas invisíveis" · R$ 19 no checkout</div>
+  Chamada: <em>"Adicione por R$ 19: lista das 31 contas invisíveis que a maioria das mães de CLT paga sem perceber. Leitura de 20 minutos. Adiciona agora antes de finalizar?"</em>
+</div>
+
+<!-- 16. CHECKLIST -->
+<h2 id="s16">16. Checklist de atendimento no WhatsApp</h2>
+
+<div class="check-grid">
+  <div class="check-col">
+    <h4>Antes de abrir a conversa</h4>
+    <ul>
+      <li>Conferir etiqueta no CRM (lead novo, ativa, receptiva, recuperação)</li>
+      <li>Ler a origem do lead (anúncio, orgânico, indicação)</li>
+      <li>Conferir histórico de mensagens anteriores</li>
+      <li>Ter o link do checkout pronto pra colar</li>
+      <li>Ambiente sem distração (sem notificação, som baixo)</li>
+      <li>Ter a seção 13 de objeções aberta em outra aba</li>
+      <li>Horário adequado (evitar início de semana às 23h)</li>
+    </ul>
+  </div>
+
+  <div class="check-col">
+    <h4>Durante a conversa</h4>
+    <ul>
+      <li>Chamar pelo nome na primeira mensagem</li>
+      <li>Uma ideia por mensagem</li>
+      <li>Pergunta no fim sempre que possível</li>
+      <li>Anotar no CRM a dor literal que a lead falou</li>
+      <li>Identificar 1 sinal de compra (fala em começar, pergunta preço, pergunta como funciona)</li>
+      <li>Identificar 1 sinal de desengajamento (respostas curtas, demora)</li>
+      <li>Tempo de resposta abaixo de 5 min no inbound</li>
+      <li>Nunca perguntar "quer comprar?"</li>
+    </ul>
+  </div>
+
+  <div class="check-col">
+    <h4>Depois do fechamento ou recusa</h4>
+    <ul>
+      <li>Confirmar pagamento e liberar acesso no mesmo dia</li>
+      <li>Enviar mensagem de boas-vindas com próximos passos</li>
+      <li>Agendar upsell em até 48h</li>
+      <li>Se não comprou, marcar follow-up em D+21 no CRM</li>
+      <li>Registrar motivo da recusa no CRM (objeção real)</li>
+      <li>Revisar o atendimento no fim da semana</li>
+    </ul>
+  </div>
+</div>
+
+<footer>
+  Playbook gerado pela skill <strong>playbook-comercial</strong> · Exemplo fictício para demonstração. Dados, métricas, casos e nomes são ilustrativos.
+</footer>
+
+</main>
+
+<button class="btn-pdf" onclick="window.print()" aria-label="Exportar este playbook como PDF">
+  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12v7H5v-7H3v7a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7h-2zM12 2l-5 5h3v6h4V7h3l-5-5z" transform="rotate(180 12 12)"/></svg>
+  Exportar PDF
+</button>
+
+</body>
+</html>

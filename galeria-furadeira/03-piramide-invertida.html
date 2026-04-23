@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Furadeira Pirâmide: {{NOME_METODO}}</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f0fdf4;
+    --bg-alt: #dcfce7;
+    --ink: #14532d;
+    --accent: #16a34a;
+    --line: #166534;
+    --muted: #4b5563;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1080px; height: 1080px; overflow: hidden; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Inter', sans-serif;
+    padding: 60px 80px;
+    display: flex;
+    flex-direction: column;
+  }
+  header { text-align: center; margin-bottom: 30px; }
+  header .label {
+    display: inline-block;
+    background: var(--accent);
+    color: #fff;
+    padding: 6px 18px;
+    border-radius: 999px;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  header h1 {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 44px;
+    font-weight: 800;
+    color: var(--line);
+    line-height: 1.05;
+  }
+  .piramide {
+    flex: 1;
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+    gap: 14px;
+    justify-content: flex-start;
+    padding-top: 20px;
+  }
+  .camada {
+    background: var(--bg-alt);
+    border: 3px solid var(--line);
+    border-radius: 16px;
+    padding: 22px 32px;
+    text-align: center;
+    box-shadow: 4px 4px 0 var(--line);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+  .camada h3 {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 24px;
+    font-weight: 800;
+    color: var(--line);
+    margin-bottom: 6px;
+    line-height: 1.1;
+  }
+  .camada p {
+    font-size: 15px;
+    line-height: 1.4;
+    color: var(--muted);
+    max-width: 600px;
+  }
+  /* Larguras decrescentes da base ao topo. Ajustar proporcional ao N de etapas. */
+  .camada:nth-child(1) { width: 100%; }
+  .camada:nth-child(2) { width: 85%; }
+  .camada:nth-child(3) { width: 70%; }
+  .camada:nth-child(4) { width: 55%; }
+  .camada:nth-child(5) { width: 40%; }
+  .camada.topo {
+    background: var(--accent);
+    border-color: var(--line);
+  }
+  .camada.topo h3, .camada.topo p { color: #fff; }
+  footer {
+    text-align: center;
+    margin-top: 24px;
+    color: var(--muted);
+    font-size: 16px;
+    letter-spacing: 1.2px;
+  }
+</style>
+</head>
+<body>
+  <header>
+    <span class="label">Método</span>
+    <h1>{{NOME_METODO}}</h1>
+  </header>
+  <div class="piramide">
+    <!-- Ordem: do topo (Quadro) para a base (problema). Como flex-direction é column-reverse, a base aparece embaixo. -->
+    <div class="camada topo">
+      <h3>{{QUADRO}}</h3>
+      <p>{{TRANSFORMACAO_FINAL}}</p>
+    </div>
+    <div class="camada">
+      <h3>{{ETAPA_4}}</h3>
+      <p>{{ETAPA_4_DESC}}</p>
+    </div>
+    <div class="camada">
+      <h3>{{ETAPA_3}}</h3>
+      <p>{{ETAPA_3_DESC}}</p>
+    </div>
+    <div class="camada">
+      <h3>{{ETAPA_2}}</h3>
+      <p>{{ETAPA_2_DESC}}</p>
+    </div>
+    <div class="camada">
+      <h3>{{ETAPA_1}}</h3>
+      <p>{{PROBLEMA_INICIAL}}</p>
+    </div>
+  </div>
+  <footer>{{NOME_PRODUTO}}</footer>
+</body>
+</html>

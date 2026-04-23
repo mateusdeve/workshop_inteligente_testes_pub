@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pesquisa de Mercado</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --main-bg:#f8f9fb;
+  --surface:#ffffff;
+  --primary:#22c55e;
+  --primary-dark:#16a34a;
+  --primary-light:#dcfce7;
+  --text-1:#111827;
+  --text-2:#374151;
+  --text-3:#6b7280;
+  --border:#e5e7eb;
+  --border-2:#f3f4f6;
+  --badge-green-bg:#dcfce7;--badge-green-text:#16a34a;
+  --badge-blue-bg:#dbeafe;--badge-blue-text:#1d4ed8;
+  --badge-purple-bg:#ede9fe;--badge-purple-text:#7c3aed;
+  --badge-orange-bg:#fef3c7;--badge-orange-text:#d97706;
+  --badge-pink-bg:#fce7f3;--badge-pink-text:#db2777;
+  --badge-neutral-bg:#f3f4f6;--badge-neutral-text:#374151;
+  --r:10px;--r2:8px;
+  --sh1:0 1px 3px rgba(0,0,0,.06),0 1px 2px rgba(0,0,0,.04);
+}
+body{font-family:'Inter',sans-serif;background:var(--main-bg);color:var(--text-1);padding:32px 40px}
+.section-title{font-size:26px;font-weight:700;color:var(--text-1);margin-bottom:4px}
+.section-sub{font-size:13px;color:var(--text-3);margin-bottom:24px}
+.card-label{font-size:11px;font-weight:700;color:var(--text-3);text-transform:uppercase;letter-spacing:.8px;margin-bottom:8px}
+.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:16px}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
+.mb-16{margin-bottom:16px}
+.kpi-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:20px;box-shadow:var(--sh1);display:flex;flex-direction:column}
+.kpi-label{font-size:11px;font-weight:700;color:var(--text-3);text-transform:uppercase;letter-spacing:.8px}
+.kpi-value{font-size:28px;font-weight:800;color:var(--text-1);line-height:1.1;margin:6px 0 8px}
+.kpi-trend{display:flex;align-items:center;gap:4px;font-size:12px;font-weight:600}
+.kpi-trend .tlabel{color:var(--text-3);font-weight:500;margin-left:2px}
+.trend-up{color:var(--primary-dark)}
+.trend-neutral{color:var(--text-3)}
+.kpi-sparkline{margin-top:12px;height:36px;width:100%;display:block}
+.chart-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:20px 24px;box-shadow:var(--sh1)}
+.chart-sub{font-size:11px;color:var(--text-3);margin-top:-4px;margin-bottom:4px}
+.area-chart{width:100%;height:200px;margin-top:12px;display:block}
+.donut-wrap{display:flex;align-items:center;gap:24px;margin-top:16px}
+.donut-svg{position:relative;width:180px;height:180px;flex-shrink:0}
+.donut-svg svg{width:100%;height:100%;display:block}
+.donut-center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+.donut-big{font-size:32px;font-weight:800;color:var(--text-1);line-height:1}
+.donut-small{font-size:11px;color:var(--text-3);text-transform:uppercase;letter-spacing:.8px;margin-top:4px;max-width:100px}
+.donut-legend{flex:1;display:flex;flex-direction:column;gap:10px;min-width:0}
+.legend-item{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--text-2)}
+.legend-dot{width:10px;height:10px;border-radius:3px;flex-shrink:0}
+.legend-label{flex:1;min-width:0}
+.legend-pct{font-weight:700;color:var(--text-1);flex-shrink:0}
+.vbar-chart{width:100%;height:260px;margin-top:12px;display:block}
+.opp-list{margin-top:16px;display:flex;flex-direction:column}
+.opp-item{display:flex;gap:14px;padding:14px 0;border-bottom:1px solid var(--border-2);align-items:flex-start}
+.opp-item:last-child{border-bottom:none}
+.opp-num{width:28px;height:28px;border-radius:50%;background:var(--primary-light);color:var(--primary-dark);font-weight:700;font-size:13px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.opp-text{font-size:14px;color:var(--text-2);line-height:1.6}
+.comp-list{margin-top:12px}
+.comp-row{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--border-2)}
+.comp-row:last-child{border-bottom:none}
+.comp-avatar{width:36px;height:36px;border-radius:50%;color:#fff;font-weight:700;font-size:14px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.comp-info{flex:1;min-width:0}
+.comp-links{display:flex;gap:8px;margin-top:3px}
+.comp-link{font-size:11px;color:var(--primary);text-decoration:none}
+.comp-name{font-size:14px;font-weight:600;color:var(--text-1);line-height:1.2}
+.comp-format{font-size:12px;color:var(--text-3);margin-top:2px}
+.badge{border-radius:9999px;font-size:11px;font-weight:700;padding:3px 10px;white-space:nowrap;display:inline-block}
+.badge-green{background:var(--badge-green-bg);color:var(--badge-green-text)}
+.badge-blue{background:var(--badge-blue-bg);color:var(--badge-blue-text)}
+.badge-purple{background:var(--badge-purple-bg);color:var(--badge-purple-text)}
+.badge-orange{background:var(--badge-orange-bg);color:var(--badge-orange-text)}
+.complaint-row{display:flex;align-items:center;gap:4px;margin-bottom:14px}
+.complaint-row:last-child{margin-bottom:0}
+.complaint-label{font-size:12px;color:var(--text-2);width:200px;flex-shrink:0;line-height:1.4}
+.bar-track{background:var(--border-2);border-radius:4px;height:8px;flex:1;overflow:hidden}
+.bar-fill{height:8px;border-radius:4px}
+.complaint-pct{font-size:12px;font-weight:700;color:var(--text-2);width:36px;text-align:right;flex-shrink:0}
+.mkt-table{width:100%;border-collapse:collapse;margin-top:8px}
+.mkt-table th{font-size:11px;text-transform:uppercase;letter-spacing:1px;color:var(--text-3);font-weight:700;padding:10px 12px;text-align:left;border-bottom:1px solid var(--border)}
+.mkt-table td{font-size:13px;color:var(--text-2);padding:10px 12px;border-bottom:1px solid var(--border-2)}
+.mkt-table tr:last-child td{border-bottom:none}
+.position-dots{display:inline-flex;gap:3px;align-items:center}
+.pdot{width:6px;height:6px;border-radius:50%;background:var(--border-2)}
+.pdot.on{background:var(--primary)}
+.bullet-list{list-style:none;padding:0}
+.bullet-list li{font-size:13px;color:var(--text-2);line-height:1.7;padding:8px 0;border-bottom:1px solid var(--border-2);display:flex;gap:8px}
+.bullet-list li:last-child{border-bottom:none}
+.bullet-list li::before{content:"•";color:var(--primary);font-weight:700;flex-shrink:0}
+.bullet-orange li::before{color:var(--badge-orange-text)}
+.tags-wrap{display:flex;flex-wrap:wrap;gap:8px}
+.tag-hot{font-size:13px;padding:5px 12px}
+.tag-warm{font-size:11px;padding:3px 10px}
+.alert-card{background:#fffbeb;border:1px solid #fde68a;border-radius:var(--r);padding:20px 24px;margin-bottom:16px}
+.alert-label{font-size:11px;font-weight:700;color:#d97706;text-transform:uppercase;letter-spacing:.8px;margin-bottom:12px}
+.footer-grid{display:grid;grid-template-columns:auto 1fr;gap:32px;align-items:center}
+.sources-list{list-style:none;columns:2;column-gap:24px}
+.sources-list li{font-size:13px;color:var(--text-2);padding:4px 0;display:flex;gap:6px;break-inside:avoid}
+.sources-arrow{color:var(--text-3);flex-shrink:0}
+.cprogress{width:120px;height:120px;position:relative;flex-shrink:0}
+.cprogress svg{width:100%;height:100%;display:block}
+.cprogress-center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.cprogress-num{font-size:24px;font-weight:800;color:var(--text-1);line-height:1}
+.cprogress-label{font-size:10px;color:var(--text-3);text-transform:uppercase;letter-spacing:.8px;margin-top:4px}
+
+@media print{
+  body{background:#fff;padding:20px}
+  .chart-card,.kpi-card,.alert-card{break-inside:avoid}
+}
+</style>
+</head>
+<body>
+
+<h1 class="section-title">Pesquisa de Mercado</h1>
+<p class="section-sub">Dashboard de inteligência de mercado. Produto: Método EFF &middot; Nicho: Educação financeira feminina</p>
+
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <linearGradient id="spGrad" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0%" stop-color="#22c55e" stop-opacity=".35"/>
+      <stop offset="100%" stop-color="#22c55e" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="areaGrad" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0%" stop-color="#22c55e" stop-opacity=".35"/>
+      <stop offset="100%" stop-color="#22c55e" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+</svg>
+
+<!-- KPIs -->
+<div class="grid-4">
+  <div class="kpi-card">
+    <div class="kpi-label">Tamanho do Mercado</div>
+    <div class="kpi-value">R$2,1 bi</div>
+    <div class="kpi-trend"><span class="trend-up">▲ 15%</span><span class="tlabel">vs 2022</span></div>
+    <svg class="kpi-sparkline" viewBox="0 0 200 40" preserveAspectRatio="none">
+      <path d="M0,32 L25,28 L50,30 L75,22 L100,24 L125,18 L150,14 L175,10 L200,6 L200,40 L0,40 Z" fill="url(#spGrad)"/>
+      <path d="M0,32 L25,28 L50,30 L75,22 L100,24 L125,18 L150,14 L175,10 L200,6" fill="none" stroke="#22c55e" stroke-width="1.5"/>
+    </svg>
+  </div>
+  <div class="kpi-card">
+    <div class="kpi-label">Crescimento Anual</div>
+    <div class="kpi-value">18%</div>
+    <div class="kpi-trend"><span class="trend-up">▲ 3pp</span><span class="tlabel">vs 2023</span></div>
+    <svg class="kpi-sparkline" viewBox="0 0 200 40" preserveAspectRatio="none">
+      <path d="M0,28 L25,26 L50,22 L75,24 L100,18 L125,14 L150,16 L175,10 L200,8 L200,40 L0,40 Z" fill="url(#spGrad)"/>
+      <path d="M0,28 L25,26 L50,22 L75,24 L100,18 L125,14 L150,16 L175,10 L200,8" fill="none" stroke="#22c55e" stroke-width="1.5"/>
+    </svg>
+  </div>
+  <div class="kpi-card">
+    <div class="kpi-label">Concorrentes Mapeados</div>
+    <div class="kpi-value">47</div>
+    <div class="kpi-trend"><span class="trend-neutral">● 12 diretos</span><span class="tlabel">/ 35 indiretos</span></div>
+    <svg class="kpi-sparkline" viewBox="0 0 200 40" preserveAspectRatio="none">
+      <path d="M0,24 L25,20 L50,26 L75,18 L100,22 L125,16 L150,18 L175,12 L200,14 L200,40 L0,40 Z" fill="url(#spGrad)"/>
+      <path d="M0,24 L25,20 L50,26 L75,18 L100,22 L125,16 L150,18 L175,12 L200,14" fill="none" stroke="#22c55e" stroke-width="1.5"/>
+    </svg>
+  </div>
+  <div class="kpi-card">
+    <div class="kpi-label">Ticket Médio do Nicho</div>
+    <div class="kpi-value">R$347</div>
+    <div class="kpi-trend"><span class="trend-neutral">● Percentil 65</span><span class="tlabel">do mercado</span></div>
+    <svg class="kpi-sparkline" viewBox="0 0 200 40" preserveAspectRatio="none">
+      <path d="M0,20 L25,22 L50,18 L75,20 L100,14 L125,18 L150,12 L175,16 L200,10 L200,40 L0,40 Z" fill="url(#spGrad)"/>
+      <path d="M0,20 L25,22 L50,18 L75,20 L100,14 L125,18 L150,12 L175,16 L200,10" fill="none" stroke="#22c55e" stroke-width="1.5"/>
+    </svg>
+  </div>
+</div>
+
+<!-- CRESCIMENTO + DONUT -->
+<div class="grid-2 mb-16">
+  <div class="chart-card">
+    <div class="card-label">Crescimento do Mercado (5 anos)</div>
+    <div class="chart-sub">Educação financeira no Brasil &middot; Fontes: IBGE, ABFin</div>
+    <svg class="area-chart" viewBox="0 0 500 200" preserveAspectRatio="none">
+      <line x1="0" y1="50" x2="500" y2="50" stroke="#f3f4f6" stroke-width="1"/>
+      <line x1="0" y1="100" x2="500" y2="100" stroke="#f3f4f6" stroke-width="1"/>
+      <line x1="0" y1="150" x2="500" y2="150" stroke="#f3f4f6" stroke-width="1"/>
+      <path d="M15,160 C60,150 85,135 125,115 C170,92 210,85 250,65 C295,48 335,40 375,28 C420,18 465,12 485,8 L485,185 L15,185 Z" fill="url(#areaGrad)"/>
+      <path d="M15,160 C60,150 85,135 125,115 C170,92 210,85 250,65 C295,48 335,40 375,28 C420,18 465,12 485,8" fill="none" stroke="#22c55e" stroke-width="2.5"/>
+      <circle cx="15" cy="160" r="4" fill="#22c55e"/>
+      <circle cx="125" cy="115" r="4" fill="#22c55e"/>
+      <circle cx="250" cy="65" r="4" fill="#22c55e"/>
+      <circle cx="375" cy="28" r="4" fill="#22c55e"/>
+      <circle cx="485" cy="8" r="6" fill="#22c55e" stroke="#fff" stroke-width="2"/>
+    </svg>
+    <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--text-3);margin-top:8px;padding:0 10px">
+      <span>2020 &middot; R$1,2bi</span><span>2021 &middot; R$1,5bi</span><span>2022 &middot; R$1,8bi</span><span>2023 &middot; R$2,1bi</span><span style="color:var(--primary-dark);font-weight:600">2024 &middot; R$2,5bi</span>
+    </div>
+  </div>
+  <div class="chart-card">
+    <div class="card-label">Reclamações por Categoria</div>
+    <div class="chart-sub">Base: 1.247 reclamações no Reclame Aqui (últimos 12 meses)</div>
+    <div class="donut-wrap">
+      <div class="donut-svg">
+        <svg viewBox="0 0 42 42">
+          <circle cx="21" cy="21" r="15.9155" fill="none" stroke="#f3f4f6" stroke-width="6"/>
+          <circle cx="21" cy="21" r="15.9155" fill="none" stroke="#22c55e" stroke-width="6" stroke-dasharray="62 38" stroke-dashoffset="0" transform="rotate(-90 21 21)"/>
+          <circle cx="21" cy="21" r="15.9155" fill="none" stroke="#d97706" stroke-width="6" stroke-dasharray="24 76" stroke-dashoffset="-62" transform="rotate(-90 21 21)"/>
+          <circle cx="21" cy="21" r="15.9155" fill="none" stroke="#db2777" stroke-width="6" stroke-dasharray="9 91" stroke-dashoffset="-86" transform="rotate(-90 21 21)"/>
+          <circle cx="21" cy="21" r="15.9155" fill="none" stroke="#6b7280" stroke-width="6" stroke-dasharray="5 95" stroke-dashoffset="-95" transform="rotate(-90 21 21)"/>
+        </svg>
+        <div class="donut-center"><div class="donut-big">62%</div><div class="donut-small">Conteúdo genérico</div></div>
+      </div>
+      <div class="donut-legend">
+        <div class="legend-item"><div class="legend-dot" style="background:#22c55e"></div><div class="legend-label">Conteúdo genérico</div><div class="legend-pct">62%</div></div>
+        <div class="legend-item"><div class="legend-dot" style="background:#d97706"></div><div class="legend-label">Muito teórico</div><div class="legend-pct">24%</div></div>
+        <div class="legend-item"><div class="legend-dot" style="background:#db2777"></div><div class="legend-label">Suporte ausente</div><div class="legend-pct">9%</div></div>
+        <div class="legend-item"><div class="legend-dot" style="background:#6b7280"></div><div class="legend-label">Outros</div><div class="legend-pct">5%</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- OPORTUNIDADES -->
+<div class="chart-card mb-16">
+  <div class="card-label" style="color:var(--primary)">Oportunidades Identificadas</div>
+  <div class="opp-list">
+    <div class="opp-item"><div class="opp-num">1</div><div class="opp-text">Foco em renda feminina entre R$2.500 e R$5.000/mês. A maioria dos produtos é genérica ou foca em quem já tem acima de R$8.000.</div></div>
+    <div class="opp-item"><div class="opp-num">2</div><div class="opp-text">Abordagem específica para mulheres com renda variável (autônomas, informais). Segmento sem produto dedicado no mercado atual.</div></div>
+    <div class="opp-item"><div class="opp-num">3</div><div class="opp-text">Método que considera gastos de cuidado (filhos, pais idosos). Ausente em 100% dos concorrentes mapeados.</div></div>
+    <div class="opp-item"><div class="opp-num">4</div><div class="opp-text">Ritualização do planejamento em sessões curtas de 20 min/semana. Diferencial de adesão comprovado por estudos de hábito.</div></div>
+    <div class="opp-item"><div class="opp-num">5</div><div class="opp-text">Linguagem sem julgamento para quem já tentou e fracassou. Tom predominante dos concorrentes ainda é "basta ter disciplina".</div></div>
+  </div>
+</div>
+
+<!-- BAR CHART + TOP CONCORRENTES -->
+<div class="grid-2 mb-16">
+  <div class="chart-card">
+    <div class="card-label">Preço Médio por Formato</div>
+    <div class="chart-sub">Análise de 47 produtos no nicho</div>
+    <svg class="vbar-chart" viewBox="0 0 500 260">
+      <line x1="50" y1="30" x2="500" y2="30" stroke="#f3f4f6"/>
+      <line x1="50" y1="90" x2="500" y2="90" stroke="#f3f4f6"/>
+      <line x1="50" y1="150" x2="500" y2="150" stroke="#f3f4f6"/>
+      <line x1="50" y1="210" x2="500" y2="210" stroke="#e5e7eb"/>
+      <text x="42" y="34" text-anchor="end" font-size="10" fill="#6b7280" font-family="Inter">R$2k</text>
+      <text x="42" y="94" text-anchor="end" font-size="10" fill="#6b7280" font-family="Inter">R$1,5k</text>
+      <text x="42" y="154" text-anchor="end" font-size="10" fill="#6b7280" font-family="Inter">R$1k</text>
+      <text x="42" y="214" text-anchor="end" font-size="10" fill="#6b7280" font-family="Inter">R$500</text>
+      <rect x="80" y="200" width="60" height="10" fill="#22c55e" rx="3"/>
+      <text x="110" y="195" text-anchor="middle" font-size="11" font-weight="700" fill="#111827" font-family="Inter">R$42</text>
+      <rect x="165" y="185" width="60" height="25" fill="#22c55e" rx="3"/>
+      <text x="195" y="180" text-anchor="middle" font-size="11" font-weight="700" fill="#111827" font-family="Inter">R$122</text>
+      <rect x="250" y="155" width="60" height="55" fill="#16a34a" rx="3" stroke="#15803d" stroke-width="2"/>
+      <text x="280" y="150" text-anchor="middle" font-size="11" font-weight="700" fill="#15803d" font-family="Inter">R$397</text>
+      <rect x="252" y="133" width="56" height="16" fill="#dcfce7" rx="8"/>
+      <text x="280" y="144" text-anchor="middle" font-size="9" font-weight="700" fill="#15803d" font-family="Inter">SEU PRODUTO</text>
+      <rect x="335" y="90" width="60" height="120" fill="#22c55e" rx="3"/>
+      <text x="365" y="85" text-anchor="middle" font-size="11" font-weight="700" fill="#111827" font-family="Inter">R$1.247</text>
+      <rect x="420" y="30" width="60" height="180" fill="#22c55e" rx="3"/>
+      <text x="450" y="25" text-anchor="middle" font-size="11" font-weight="700" fill="#111827" font-family="Inter">R$3.997</text>
+      <text x="110" y="232" text-anchor="middle" font-size="11" fill="#6b7280" font-family="Inter">Ebook</text>
+      <text x="195" y="232" text-anchor="middle" font-size="11" fill="#6b7280" font-family="Inter">Mini-curso</text>
+      <text x="280" y="232" text-anchor="middle" font-size="11" fill="#15803d" font-weight="600" font-family="Inter">Curso</text>
+      <text x="365" y="232" text-anchor="middle" font-size="11" fill="#6b7280" font-family="Inter">Mentoria</text>
+      <text x="450" y="232" text-anchor="middle" font-size="11" fill="#6b7280" font-family="Inter">HT 1:1</text>
+    </svg>
+  </div>
+  <div class="chart-card">
+    <div class="card-label">Top 5 Concorrentes</div>
+    <div class="chart-sub">Ordenados por presença de mercado</div>
+    <div class="comp-list">
+      <div class="comp-row">
+        <div class="comp-avatar" style="background:#22c55e">O</div>
+        <div class="comp-info">
+          <div class="comp-name">Organizando as Finanças</div>
+          <div class="comp-format">Curso online &middot; 18k alunos</div>
+          <div class="comp-links"><a href="#" class="comp-link">↗ Página</a><a href="#" class="comp-link">↗ Instagram</a></div>
+        </div>
+        <span class="badge badge-blue">R$297</span>
+      </div>
+      <div class="comp-row">
+        <div class="comp-avatar" style="background:#7c3aed">M</div>
+        <div class="comp-info">
+          <div class="comp-name">Mulher Investidora</div>
+          <div class="comp-format">Curso + comunidade &middot; 12k alunos</div>
+          <div class="comp-links"><a href="#" class="comp-link">↗ Página</a><a href="#" class="comp-link">↗ Instagram</a></div>
+        </div>
+        <span class="badge badge-purple">R$597</span>
+      </div>
+      <div class="comp-row">
+        <div class="comp-avatar" style="background:#1d4ed8">B</div>
+        <div class="comp-info">
+          <div class="comp-name">Método Bolso Cheio</div>
+          <div class="comp-format">Curso + planilhas &middot; 9k alunos</div>
+          <div class="comp-links"><a href="#" class="comp-link">↗ Página</a><a href="#" class="comp-link">↗ Instagram</a></div>
+        </div>
+        <span class="badge badge-blue">R$397</span>
+      </div>
+      <div class="comp-row">
+        <div class="comp-avatar" style="background:#d97706">P</div>
+        <div class="comp-info">
+          <div class="comp-name">Planejamento Total</div>
+          <div class="comp-format">Curso completo &middot; 7k alunos</div>
+          <div class="comp-links"><a href="#" class="comp-link">↗ Página</a><a href="#" class="comp-link">↗ Instagram</a></div>
+        </div>
+        <span class="badge badge-blue">R$347</span>
+      </div>
+      <div class="comp-row">
+        <div class="comp-avatar" style="background:#6b7280">F</div>
+        <div class="comp-info">
+          <div class="comp-name">Finanças do Zero</div>
+          <div class="comp-format">Mini-curso &middot; 22k alunos</div>
+          <div class="comp-links"><a href="#" class="comp-link">↗ Página</a><a href="#" class="comp-link">↗ Instagram</a></div>
+        </div>
+        <span class="badge badge-green">R$97</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CUIDADOS + RECLAMAÇÕES -->
+<div class="grid-2 mb-16">
+  <div class="chart-card">
+    <div class="card-label">Cuidados e Riscos</div>
+    <ul class="bullet-list bullet-orange" style="margin-top:8px">
+      <li>Evitar prometer rendimentos financeiros específicos ou retornos de investimento (exigência CVM).</li>
+      <li>Saturação leve no topo do mercado. Oportunidade clara na faixa R$297 a R$497.</li>
+      <li>Promessas problemáticas a evitar em anúncios: "fique rico em X meses", "multiplique seu dinheiro".</li>
+      <li>Reclamações recorrentes dos concorrentes: conteúdo genérico que não funciona para renda variável.</li>
+    </ul>
+  </div>
+  <div class="chart-card">
+    <div class="card-label">Padrões de Reclamação</div>
+    <div style="margin-top:20px">
+      <div class="complaint-row"><span class="complaint-label">Conteúdo genérico</span><div class="bar-track"><div class="bar-fill" style="width:62%;background:#22c55e"></div></div><span class="complaint-pct">62%</span></div>
+      <div class="complaint-row"><span class="complaint-label">Muito teórico</span><div class="bar-track"><div class="bar-fill" style="width:24%;background:#d97706"></div></div><span class="complaint-pct">24%</span></div>
+      <div class="complaint-row"><span class="complaint-label">Suporte ausente</span><div class="bar-track"><div class="bar-fill" style="width:18%;background:#db2777"></div></div><span class="complaint-pct">18%</span></div>
+      <div class="complaint-row"><span class="complaint-label">Planilhas complexas</span><div class="bar-track"><div class="bar-fill" style="width:14%;background:#6b7280"></div></div><span class="complaint-pct">14%</span></div>
+      <div class="complaint-row"><span class="complaint-label">Promessas não entregues</span><div class="bar-track"><div class="bar-fill" style="width:9%;background:#6b7280"></div></div><span class="complaint-pct">9%</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- TABELA COMPLETA -->
+<div class="chart-card mb-16">
+  <div class="card-label">Análise Completa de Concorrentes</div>
+  <table class="mkt-table">
+    <thead>
+      <tr>
+        <th>Nome</th><th>Promessa Principal</th><th>Formato</th><th>Preço</th><th>Diferencial</th><th>Links</th><th>Força</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Organizando as Finanças</strong></td><td>Sair das dívidas em 12 meses</td><td>Curso online</td><td><span class="badge badge-blue">R$297</span></td><td>Metodologia para iniciantes</td><td><a href="#" class="comp-link">↗ Página</a><br><a href="#" class="comp-link">↗ Instagram</a></td><td><div class="position-dots"><div class="pdot on"></div><div class="pdot on"></div><div class="pdot on"></div><div class="pdot on"></div></div></td></tr>
+      <tr><td><strong>Mulher Investidora</strong></td><td>Começar a investir do zero</td><td>Curso + comunidade</td><td><span class="badge badge-purple">R$597</span></td><td>Foco feminino, mas renda alta</td><td><a href="#" class="comp-link">↗ Página</a><br><a href="#" class="comp-link">↗ Instagram</a></td><td><div class="position-dots"><div class="pdot on"></div><div class="pdot on"></div><div class="pdot on"></div><div class="pdot"></div></div></td></tr>
+      <tr><td><strong>Método Bolso Cheio</strong></td><td>Ter reserva de 6 meses</td><td>Curso + planilhas</td><td><span class="badge badge-blue">R$397</span></td><td>Muitas planilhas prontas</td><td><a href="#" class="comp-link">↗ Página</a><br><a href="#" class="comp-link">↗ Instagram</a></td><td><div class="position-dots"><div class="pdot on"></div><div class="pdot on"></div><div class="pdot on"></div><div class="pdot"></div></div></td></tr>
+      <tr><td><strong>Planejamento Financeiro Total</strong></td><td>Controle da família</td><td>Curso completo</td><td><span class="badge badge-blue">R$347</span></td><td>Foco em casal / família</td><td><a href="#" class="comp-link">↗ Página</a><br><a href="#" class="comp-link">↗ Instagram</a></td><td><div class="position-dots"><div class="pdot on"></div><div class="pdot on"></div><div class="pdot"></div><div class="pdot"></div></div></td></tr>
+      <tr><td><strong>Finanças do Zero</strong></td><td>Guardar os primeiros R$1.000</td><td>Mini-curso</td><td><span class="badge badge-green">R$97</span></td><td>Preço de entrada + upsell</td><td><a href="#" class="comp-link">↗ Página</a><br><a href="#" class="comp-link">↗ Instagram</a></td><td><div class="position-dots"><div class="pdot on"></div><div class="pdot on"></div><div class="pdot"></div><div class="pdot"></div></div></td></tr>
+      <tr><td><strong>Independência F.</strong></td><td>Viver de renda passiva</td><td>Mentoria grupo</td><td><span class="badge badge-purple">R$1.497</span></td><td>Para quem já tem patrimônio</td><td><a href="#" class="comp-link">↗ Página</a><br><a href="#" class="comp-link">↗ Instagram</a></td><td><div class="position-dots"><div class="pdot on"></div><div class="pdot on"></div><div class="pdot"></div><div class="pdot"></div></div></td></tr>
+      <tr><td><strong>Finanças Práticas</strong></td><td>Organizar orçamento familiar</td><td>Ebook + planilha</td><td><span class="badge badge-green">R$47</span></td><td>Preço baixo, conteúdo básico</td><td><a href="#" class="comp-link">↗ Página</a><br><a href="#" class="comp-link">↗ Instagram</a></td><td><div class="position-dots"><div class="pdot on"></div><div class="pdot"></div><div class="pdot"></div><div class="pdot"></div></div></td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ÂNGULOS VIRAIS -->
+<div class="chart-card mb-16">
+  <div class="card-label">Ângulos e Ganchos em Alta</div>
+  <div class="grid-2" style="margin-top:16px;margin-bottom:0">
+    <div>
+      <div style="font-size:11px;font-weight:700;color:var(--text-3);text-transform:uppercase;letter-spacing:.8px;margin-bottom:12px">Termos em Alta (heatmap)</div>
+      <div class="tags-wrap">
+        <span class="badge badge-green tag-hot">independência financeira feminina</span>
+        <span class="badge badge-green tag-hot">reserva de emergência</span>
+        <span class="badge badge-green tag-hot">renda variável</span>
+        <span class="badge badge-green tag-warm">salário acabando</span>
+        <span class="badge badge-green tag-warm">dinheiro sumindo</span>
+        <span class="badge badge-green tag-warm">gastos de cuidado</span>
+        <span class="badge badge-green tag-warm">rituais financeiros</span>
+        <span class="badge badge-green tag-warm">dívida cartão</span>
+        <span class="badge badge-green tag-warm">autônoma MEI</span>
+      </div>
+    </div>
+    <div>
+      <div style="font-size:11px;font-weight:700;color:var(--text-3);text-transform:uppercase;letter-spacing:.8px;margin-bottom:12px">Padrões de Anúncio que Performam</div>
+      <div class="opp-list">
+        <div class="opp-item"><div class="opp-num" style="background:#dbeafe;color:#1d4ed8">1</div><div class="opp-text">Gancho de identidade: "Se você ganha R$3.000 e não tem R$500 guardados..."</div></div>
+        <div class="opp-item"><div class="opp-num" style="background:#dbeafe;color:#1d4ed8">2</div><div class="opp-text">Prova social com número: "3.847 mulheres já formaram a reserva"</div></div>
+        <div class="opp-item"><div class="opp-num" style="background:#dbeafe;color:#1d4ed8">3</div><div class="opp-text">Antes e depois financeiro: saldo negativo para reserva formada</div></div>
+        <div class="opp-item"><div class="opp-num" style="background:#dbeafe;color:#1d4ed8">4</div><div class="opp-text">Objeção como gancho: "Já tentei organizar antes e não funcionou"</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ALERTAS -->
+<div class="alert-card mb-16">
+  <div class="alert-label">Alertas Regulatórios</div>
+  <div style="margin-bottom:12px;font-size:13px;color:var(--text-2)">Palavras e promessas a evitar em anúncios (CVM / CONAR):</div>
+  <div class="tags-wrap" style="margin-bottom:16px">
+    <span class="badge badge-orange">fique rico</span>
+    <span class="badge badge-orange">multiplique seu dinheiro</span>
+    <span class="badge badge-orange">retorno garantido</span>
+    <span class="badge badge-orange">X% ao mês</span>
+    <span class="badge badge-orange">rendimento de X%</span>
+    <span class="badge badge-orange">investimento seguro</span>
+  </div>
+  <div style="font-size:13px;color:var(--text-2)">Regra do nicho: conteúdo sobre investimentos específicos exige habilitação CVM. O Método EFF foca em organização e reserva, fora do escopo regulatório.</div>
+</div>
+
+<!-- FOOTER -->
+<div class="chart-card">
+  <div class="footer-grid">
+    <div class="cprogress">
+      <svg viewBox="0 0 120 120">
+        <circle cx="60" cy="60" r="52" fill="none" stroke="#f3f4f6" stroke-width="8"/>
+        <circle cx="60" cy="60" r="52" fill="none" stroke="#22c55e" stroke-width="8" stroke-linecap="round" stroke-dasharray="326.7" stroke-dashoffset="39.2" transform="rotate(-90 60 60)"/>
+      </svg>
+      <div class="cprogress-center">
+        <div class="cprogress-num">88%</div>
+        <div class="cprogress-label">Confiança</div>
+      </div>
+    </div>
+    <div>
+      <div class="card-label">Fontes Consultadas (8)</div>
+      <ul class="sources-list" style="margin-top:10px">
+        <li><span class="sources-arrow">↗</span> IBGE &middot; Dados demográficos</li>
+        <li><span class="sources-arrow">↗</span> Banco Central &middot; Poupança BR</li>
+        <li><span class="sources-arrow">↗</span> ABFin &middot; Relatório 2024</li>
+        <li><span class="sources-arrow">↗</span> Reclame Aqui &middot; 1.247 queixas</li>
+        <li><span class="sources-arrow">↗</span> Hotmart &middot; Top 20 produtos</li>
+        <li><span class="sources-arrow">↗</span> Google Trends &middot; Brasil 2024</li>
+        <li><span class="sources-arrow">↗</span> SEBRAE &middot; Segmento feminino</li>
+        <li><span class="sources-arrow">↗</span> Meta Ads Library &middot; 120 criativos</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

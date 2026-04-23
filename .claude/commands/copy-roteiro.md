@@ -169,7 +169,7 @@ Resumo do que vou criar:
 1. Abertura — Gancho que prende (sem pergunta, premissa forte)
 2. Conexão — História que gera identificação
 3. Problema — Dor amplificada com Urgências Ocultas
-4. Paliativo — Contraste entre o método antigo (falho) e o método do produto: por que as soluções anteriores não chegavam ao resultado. Não é lista do que a pessoa tentou, é argumento que invalida o caminho antigo e valida o novo
+4. Paliativo — Contraste entre as ferramentas, produtos e soluções concorrentes do mercado (Pinterest, perfis do nicho, cursos genéricos, apps, planilhas) e o método do produto: por que cada uma dessas soluções resolve parcialmente, mas não entrega o resultado completo. Paliativo é o CONCORRENTE, não é "o que a pessoa tentou e falhou"
 5. Solução — Apresentação da Furadeira
 6. Prova — Resultados e depoimentos
 7. Oferta — Entregáveis, bônus, garantia, preço

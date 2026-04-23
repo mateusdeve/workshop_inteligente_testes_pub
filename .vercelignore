@@ -1,0 +1,24 @@
+# Dependências e binários pesados
+node_modules/
+.claude/
+.git/
+
+# Dados locais do aluno
+meus-produtos/
+produtos/
+
+# Materiais e exports não usados pelo site
+_prompts-gpt/
+galeria-furadeira/
+scripts/
+pesquisa-mercado.pdf
+pesquisa-mercado-export.html
+exemplo-playbook-comercial.html
+
+# Configs de IDE
+.cursor/
+.vscode/
+
+# Logs e temp
+*.log
+*.tmp

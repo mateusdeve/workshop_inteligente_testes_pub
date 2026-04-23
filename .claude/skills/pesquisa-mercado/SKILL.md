@@ -37,7 +37,7 @@ Se faltar algum desses, pergunte ao aluno UMA coisa por vez antes de iniciar.
 
 ## O que pesquisar (checklist obrigatório)
 
-A pesquisa tem 8 eixos. Cada um precisa ser coberto. Se um eixo vier vazio, tente uma segunda busca com termos diferentes antes de marcar como "sem dados".
+A pesquisa tem 9 eixos. Cada um precisa ser coberto. Se um eixo vier vazio, tente uma segunda busca com termos diferentes antes de marcar como "sem dados".
 
 ### 1. Tamanho e saúde do mercado
 - Estimativa de tamanho do mercado no Brasil (e global, quando fizer sentido)
@@ -80,13 +80,40 @@ A pesquisa tem 8 eixos. Cada um precisa ser coberto. Se um eixo vier vazio, tent
 - Ganchos que estão performando bem em conteúdo orgânico e em anúncios
 - Referências de copy que o mercado está usando agora
 
-### 7. Biblioteca de Anúncios do Meta (quando possível)
+### 7. YouTube. Top 10 vídeos do nicho
+- Mapear os **10 vídeos mais vistos do YouTube** relacionados ao tema/nicho do produto
+- Priorizar vídeos com tema diretamente relacionado ao Quadro do produto
+- Incluir pelo menos 1 Short se houver algum muito viral no nicho
+- Limitar a 2 vídeos por canal para manter diversidade
+- Descartar clickbait genérico que não tem relação real com o nicho
+
+Para **cada um dos 10 vídeos**, coletar:
+- Título exato
+- Canal e número de inscritos
+- Link direto do vídeo
+- Número de visualizações (aproximado, com data da consulta)
+- Data de publicação
+- 3 a 5 comentários mais curtidos (com número de likes quando visível)
+- Características da thumbnail:
+  - Cores dominantes (ex: azul saturado + amarelo, preto + dourado)
+  - Expressão facial do apresentador (surpresa, autoridade, espanto, seriedade)
+  - Texto em destaque (número grande, palavra gatilho)
+  - Elementos visuais (gráficos, dinheiro, setas, ícones, objetos do cotidiano)
+  - Composição (close no rosto, cenário, antes e depois)
+- Ângulo/gancho da copy do título
+- Lacuna: o que o vídeo NÃO aborda e o produto do aluno pode ocupar
+
+**Fontes:** busca direta no YouTube via WebSearch, WebFetch nos links específicos, sites agregadores de estatísticas (youtubers.me, socialblade) como plano B. Se alguma view não puder ser confirmada, marque como "estimada" com a data da consulta.
+
+Ao final dos 10 vídeos, sintetize os **padrões observados**: thumb dominante, gancho de título dominante, dor/desejo dominante nos comentários, lacunas de conteúdo do mercado.
+
+### 8. Biblioteca de Anúncios do Meta (quando possível)
 - Anúncios ativos há mais de 30 dias no nicho (alta probabilidade de estar funcionando)
 - Anúncios com muitas variações (sinal de iteração e otimização)
 - Padrões de headline, gancho, oferta e CTA que se repetem
 - Se acesso direto não for possível, use pesquisa web para identificar criativos conhecidos do nicho
 
-### 8. Riscos regulatórios e éticos
+### 9. Riscos regulatórios e éticos
 - Regras específicas do nicho (CFM para saúde, CVM para finanças, etc.)
 - Palavras e promessas que podem dar problema no Meta Ads / Google Ads
 - Histórico de processos ou polêmicas conhecidas no nicho
@@ -157,13 +184,66 @@ Salve o relatório em `entregas/{ativo}/pesquisa-mercado.md` com a estrutura aba
 - Conteúdos virais recentes: [3 a 5 exemplos com link e ângulo]
 - Ganchos que estão performando: [lista]
 
-## 7. Biblioteca de Anúncios (insights)
+## 7. YouTube. Top 10 Vídeos do Nicho
+
+### Vídeo 1
+- **Título:** [título exato]
+- **Canal:** [nome] ([X milhões de inscritos])
+- **Link:** [URL]
+- **Visualizações:** [X] (consulta em YYYY-MM-DD)
+- **Data de publicação:** [data]
+- **Comentários mais curtidos:**
+  1. "[comentário]" ([X likes])
+  2. "[comentário]" ([X likes])
+  3. "[comentário]" ([X likes])
+- **Thumbnail:**
+  - Cores: [descrição]
+  - Expressão: [descrição]
+  - Texto em destaque: [texto]
+  - Elementos visuais: [descrição]
+- **Ângulo do título:** [análise do gancho]
+- **Lacuna para o produto:** [o que o vídeo NÃO aborda]
+
+### Vídeo 2
+[mesma estrutura]
+
+### Vídeo 3
+[mesma estrutura]
+
+### Vídeo 4
+[mesma estrutura]
+
+### Vídeo 5
+[mesma estrutura]
+
+### Vídeo 6
+[mesma estrutura]
+
+### Vídeo 7
+[mesma estrutura]
+
+### Vídeo 8
+[mesma estrutura]
+
+### Vídeo 9
+[mesma estrutura]
+
+### Vídeo 10
+[mesma estrutura]
+
+### Padrões Observados nos 10 Vídeos
+- **Padrão de thumb dominante:** [cores, expressão e texto que mais se repetem]
+- **Padrão de gancho de título dominante:** [estrutura recorrente]
+- **Dor/desejo dominante nos comentários:** [análise agregada]
+- **Lacunas de conteúdo (o que o mercado NÃO cobre):** [3 a 5 bullets]
+
+## 8. Biblioteca de Anúncios (insights)
 - Padrões de headline: [lista]
 - Padrões de oferta: [lista]
 - Criativos ativos há +30 dias no nicho: [exemplos ou "acesso indireto"]
 - Observações: [o que isso sugere para a comunicação do produto]
 
-## 8. Riscos Regulatórios e Éticos
+## 9. Riscos Regulatórios e Éticos
 - Regras específicas do nicho: [descrição]
 - Palavras/promessas a evitar em anúncio: [lista]
 - Histórico de polêmicas: [descrição ou "sem registros relevantes"]
@@ -194,13 +274,14 @@ Depois de gerar o relatório, o assistente DEVE:
 2. **Usar os dados de preço e posicionamento** para sugerir (não perguntar) o preço e a oferta do produto no fluxo em andamento.
 3. **Usar as objeções reais** como base para o bloco de quebra de objeções do `comercial-playbook`, `ht-objecoes`, páginas de vendas (FAQ) e sequências de email.
 4. **Usar os ângulos virais e padrões de anúncio** como insumo direto para `copy-anuncio`, `img-anuncio`, `copy-social` e `copy-roteiro`.
+4.1. **Usar os 10 vídeos do YouTube** como referência de thumb (`img-anuncio`, `criativo-de-imagem`), gancho de título (`copy-anuncio`, `copy-roteiro`) e dor viva dos comentários (`copy-emails`, `copy-social`, `comercial-playbook`).
 5. **Marcar no perfil.md** que a pesquisa foi feita, com data. Antes de qualquer novo fluxo de concepção, verificar se a pesquisa tem mais de 90 dias. Se tiver, sugerir refazer.
 
 ## Regras de qualidade
 
 - **Nunca inventar dado.** Se não encontrou fonte, escreva "sem dados disponíveis" e siga.
 - **Todo número tem fonte.** Nenhuma estatística no relatório pode ficar sem link ou referência.
-- **Concorrentes têm que ter link.** Se o link não abriu, marque "link indisponível" ao invés de omitir.
+- **Concorrentes têm que ter link real.** Se o link não abriu, marque "link indisponível" ao invés de omitir. **Proibido** preencher com `https://www.google.com/search?q=...`, `https://www.youtube.com/results?search_query=...`, `https://www.bing.com/search?q=...` ou qualquer URL de busca como fallback. URL de busca não é link de concorrente, é mascaramento de dado faltante e quebra todo consumidor downstream do dado (painel, página, copy de comparativo). Quando o link real não foi encontrado, deixe o campo vazio ou "link indisponível" e siga.
 - **Objeções têm que ter evidência.** Cada objeção da tabela precisa apontar para uma reclamação real (ou padrão identificado em múltiplas reclamações).
 - **Nada de copy-paste grande de fonte externa.** Resumir com palavras próprias. No máximo uma citação curta (menos de 15 palavras) entre aspas quando for crítico.
 - **Idioma:** relatório em Português do Brasil, sempre.
@@ -209,7 +290,7 @@ Depois de gerar o relatório, o assistente DEVE:
 ## O que NÃO fazer
 
 - Não pular a pesquisa porque "o aluno já tem uma ideia". Mesmo com ideia clara, a pesquisa valida ou ajusta.
-- Não rodar pesquisa superficial (1 ou 2 buscas). Se os 8 eixos não foram cobertos, a pesquisa não acabou.
+- Não rodar pesquisa superficial (1 ou 2 buscas). Se os 9 eixos não foram cobertos, a pesquisa não acabou.
 - Não aceitar "não encontrei nada" no primeiro try. Tente pelo menos uma segunda query por eixo antes de desistir.
 - Não entregar o relatório sem a síntese estratégica. A síntese é o que transforma dado em decisão.
 - Não misturar essa skill com a de concepção VTSD. Aqui é pesquisa externa; metodologia interna (Quadro, Furadeira, Decorados) fica em `concepcao-produto`.

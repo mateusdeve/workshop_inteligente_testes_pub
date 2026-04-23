@@ -46,6 +46,35 @@ Cada bônus precisa ter o valor de referência explícito antes do CTA. Formato:
 Produtos acima de R$300 devem ter pré-checkout para capturar quem não comprou e fazer follow-up. Ir direto para o checkout da Hotmart perde o lead.
 > *"100% dos produtos acima de 300 reais. Combinado."*
 
+**Lero-lero na copy**
+Copy com palavras que soam bem mas não dizem nada: "padrão interno", "segurança interna", "caminhos terapêuticos", "processos emocionais", "reconectar com a sensibilidade", "jornada de autoconhecimento". Teste: troca a palavra por outra genérica do mesmo nicho e o sentido continua igual? É lero-lero. Substituir por dado concreto, cena real ou argumento específico.
+> *"Você pode botar lá no Cloud, a gente chama isso aqui de gerador de lero-lero."*
+
+**Copy sem tese**
+A copy descreve o problema mas não argumenta por que ele existe. "Você procrastina" não é tese. "Você procrastina porque seu cérebro foi programado para ação imediata e não tem memória evolutiva para adiar recompensa" é tese. Sem tese, a copy não argumenta. Sem argumento, não convence.
+
+**Ausência de facilitação visual do método**
+Toda página precisa de representação visual do método, do antes/depois ou da transformação prometida. Um diagrama simples, um bonequinho, um esquema de curto prazo vs longo prazo valem mais que três parágrafos de explicação. Especialmente para produtos de desenvolvimento pessoal, espiritualidade e comportamento.
+> *"Quando a pessoa vê um desenhozinho desse, que pode parecer bobinho e feio, ele vale 10 vezes mais do que um parágrafo inteiro gigantesco."*
+
+**Autoridade sem jornada e sem fragilidade**
+"Meu trabalho nasce do encontro com a sensibilidade" não conecta. A seção de autoridade precisa da história de origem: o que o criador enfrentou antes de ter o método, qual foi a virada, por que isso existe. Sem jornada real e sem mostrar a fragilidade, não há conexão humana.
+> *"Não conta nada da história dela. Não conta uma fragilidade. De onde veio essa jornada, por que ela virou terapeuta."*
+
+**Depoimento que elogia sem resultado concreto**
+"Material lindo", "professor incrível", "mudou minha vida", "estou amando" são depoimentos que atrapalham mais do que ajudam. O depoimento que converte tem: onde o aluno estava antes + resultado específico depois + número ou prazo. Ex: "Meu tempo de celular era 8 horas, agora está menos de 2" ou "Ganhei 8 mil reais com os vídeos que eu estava adiando há semanas".
+> *"Não pode ter depoimento de 'material tá lindo'."*
+
+**Sigla ou técnica sem explicação**
+Se a página citar EME, EFT, ROTA ou qualquer nome de protocolo sem explicar o que é na mesma dobra ou parágrafo, o leitor sai. Ninguém vai buscar entender. Explicar no mesmo lugar ou remover.
+> *"Se você cita uma sigla, uma técnica, um pedaço de método e não explica o que é, ninguém vai entender porra nenhuma."*
+
+**Unicidade rompida: vários pontos centrais**
+A página não pode falar de crenças, energia, segurança, processos emocionais e confiança como se fossem a mesma coisa. Escolher um ponto central e bater nele durante toda a página. Cada mudança de assunto sem conexão explícita rompe a narrativa e o leitor perde o fio.
+
+**Furadeira de low ticket complexa demais**
+Para produto até R$97, o método não pode ter 8 passos elaborados. Precisa ser algo de hoje para amanhã: "testa hoje, amanhã você vê a diferença". A furadeira do low ticket é a própria ferramenta sendo usada, não um processo longo de aprendizado.
+
 ---
 
 ### Padrões específicos por tipo de seção
@@ -297,7 +326,8 @@ Analise a copy seguindo a estrutura 8D. Para cada seção, avalie o que está bo
 - [ ] Tem vídeo de vendas posicionado corretamente?
 
 **Seção 2 — Paliativo**
-- [ ] Apresenta uma ferramenta dentro do método que resolve uma dor específica? 
+- [ ] Apresenta as ferramentas, produtos e soluções concorrentes do mercado que o público usa hoje?
+- [ ] Explica por que cada uma dessas soluções não entrega o resultado completo?
 
 
 **Seção 3 — Método (Furadeira)**

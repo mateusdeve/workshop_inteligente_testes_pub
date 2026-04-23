@@ -55,7 +55,7 @@ Convencer e converter o visitante em comprador.
 | 1 | **Header** | Transparente sobre hero | Logo + CTA pequeno opcional |
 | 2 | **Hero** | Escuro com gradiente | Headline + subheadline + 3 bullets + CTA + vídeo |
 | 3 | **Problema/Dor** | Claro + cards com borda | Dor amplificada com cenas do cotidiano |
-| 4 | **Paliativo** | **Imagem + overlay escuro** | O que já tentaram e por que falhou |
+| 4 | **Paliativo** | **Imagem + overlay escuro** | Ferramentas e soluções concorrentes do mercado, e por que cada uma não entrega o resultado completo |
 | 5 | **Depoimentos (1º bloco)** | Claro com cards flutuantes | 2-3 depoimentos curtos de resultado rápido. Ancora credibilidade ANTES do método. |
 | 6 | **CTA intermediário** | Cor vibrante (CTA color) | Seção curta + botão |
 | 7 | **Solução/Método** | Claro com textura sutil | Furadeira com macroetapas visuais. Nome do produto aparece aqui pela 1ª vez. |

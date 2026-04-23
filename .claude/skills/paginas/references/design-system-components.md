@@ -270,7 +270,7 @@ document.querySelectorAll('.scroll-reveal').forEach(el => observer.observe(el));
 @media (max-width: 768px) { .pain-grid { grid-template-columns: 1fr; } }
 ```
 
-### 6. Paliativo Cards (o que já tentou)
+### 6. Paliativo Cards (soluções concorrentes do mercado)
 
 ```css
 .paliativo-section::before { /* radial glow vermelho sutil */

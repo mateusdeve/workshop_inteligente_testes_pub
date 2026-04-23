@@ -1,0 +1,1474 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Painel de Entregas</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --sidebar-bg: #ffffff;
+  --sidebar-border: #e5e7eb;
+  --main-bg: #f8f9fb;
+  --surface: #ffffff;
+  --primary: #22c55e;
+  --primary-dark: #16a34a;
+  --primary-light: #dcfce7;
+  --highlight-bg: #f0fdf4;
+  --highlight-border: #bbf7d0;
+  --text-1: #111827;
+  --text-2: #374151;
+  --text-3: #6b7280;
+  --border: #e5e7eb;
+  --border-2: #f3f4f6;
+  --badge-green-bg: #dcfce7; --badge-green-text: #16a34a;
+  --badge-blue-bg: #dbeafe; --badge-blue-text: #1d4ed8;
+  --badge-indigo-bg: #e0e7ff; --badge-indigo-text: #4338ca;
+  --badge-purple-bg: #ede9fe; --badge-purple-text: #7c3aed;
+  --badge-violet-bg: #f3e8ff; --badge-violet-text: #9333ea;
+  --badge-pink-bg: #fce7f3; --badge-pink-text: #db2777;
+  --badge-orange-bg: #fef3c7; --badge-orange-text: #d97706;
+  --badge-dark-bg: #1f2937; --badge-dark-text: #ffffff;
+  --badge-neutral-bg: #f3f4f6; --badge-neutral-text: #374151;
+  --sidebar-w: 220px;
+  --r: 10px; --r2: 8px;
+  --sh1: 0 1px 3px rgba(0,0,0,.06), 0 1px 2px rgba(0,0,0,.04);
+  --sh2: 0 4px 16px rgba(0,0,0,.08), 0 1px 4px rgba(0,0,0,.04);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',sans-serif;background:var(--main-bg);color:var(--text-1)}
+
+/* SIDEBAR */
+.sidebar{position:fixed;top:0;left:0;width:var(--sidebar-w);height:100vh;background:var(--sidebar-bg);border-right:1px solid var(--sidebar-border);overflow-y:auto;padding:24px 0;z-index:100}
+.sidebar-title{font-size:14px;font-weight:700;color:var(--text-1);padding:0 20px;margin-bottom:4px}
+.sidebar-product{font-size:11px;color:var(--text-3);padding:0 20px;margin-bottom:24px;line-height:1.4}
+.nav-group{font-size:10px;font-weight:700;color:var(--text-3);text-transform:uppercase;letter-spacing:1px;padding:0 20px;margin:16px 0 4px}
+.nav-item{display:block;padding:7px 20px;font-size:13px;color:var(--text-2);text-decoration:none;border-left:3px solid transparent;cursor:pointer}
+.nav-item:hover{color:var(--primary-dark)}
+.nav-item.active{color:var(--primary-dark);font-weight:600;border-left:3px solid var(--primary)}
+.sidebar-export{position:fixed;bottom:20px;left:0;width:var(--sidebar-w);padding:0 20px}
+.btn-export{display:block;width:100%;background:var(--primary);color:#fff;border:none;border-radius:var(--r2);padding:10px 0;font-size:13px;font-weight:600;text-align:center;cursor:pointer}
+.btn-export:hover{background:var(--primary-dark)}
+
+/* MOBILE TABS */
+.mobile-tabs{display:none;position:sticky;top:0;z-index:99;background:var(--surface);border-bottom:1px solid var(--border);overflow-x:auto;white-space:nowrap}
+.mobile-tab{display:inline-block;padding:10px 16px;font-size:13px;color:var(--text-3);cursor:pointer;border-bottom:2px solid transparent}
+.mobile-tab.active{color:var(--primary-dark);font-weight:600;border-bottom:2px solid var(--primary)}
+
+/* MAIN */
+.main{margin-left:var(--sidebar-w);min-height:100vh;padding:32px 40px}
+.breadcrumb{font-size:13px;color:var(--text-3);margin-bottom:8px}
+.section-title{font-size:26px;font-weight:700;color:var(--text-1);margin-bottom:4px}
+.section-sub{font-size:13px;color:var(--text-3);margin-bottom:24px}
+.panel{display:none;animation:fadeIn .2s ease}
+.panel.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+
+/* CARDS */
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:24px;box-shadow:var(--sh1)}
+.card:hover{box-shadow:var(--sh2);transition:box-shadow .2s}
+.card-label{font-size:11px;font-weight:700;color:var(--text-3);text-transform:uppercase;letter-spacing:.8px;margin-bottom:8px}
+.card-value{font-size:15px;font-weight:600;color:var(--text-1)}
+.card-sub{font-size:13px;color:var(--text-3);margin-top:4px}
+.card-highlight{background:var(--highlight-bg);border:1px solid var(--highlight-border);border-radius:var(--r);padding:20px 24px}
+.card-highlight .card-label{color:var(--primary)}
+.card-highlight .card-value{font-size:18px;font-weight:700;color:var(--primary-dark);line-height:1.4}
+
+/* GRIDS */
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+
+/* DIVIDER */
+.divider{height:1px;background:var(--border);margin:24px 0}
+
+/* BADGES */
+.badge{border-radius:9999px;font-size:11px;font-weight:700;padding:3px 10px;white-space:nowrap;display:inline-block}
+.badge-green{background:var(--badge-green-bg);color:var(--badge-green-text)}
+.badge-blue{background:var(--badge-blue-bg);color:var(--badge-blue-text)}
+.badge-indigo{background:var(--badge-indigo-bg);color:var(--badge-indigo-text)}
+.badge-purple{background:var(--badge-purple-bg);color:var(--badge-purple-text)}
+.badge-violet{background:var(--badge-violet-bg);color:var(--badge-violet-text)}
+.badge-pink{background:var(--badge-pink-bg);color:var(--badge-pink-text)}
+.badge-orange{background:var(--badge-orange-bg);color:var(--badge-orange-text)}
+.badge-dark{background:var(--badge-dark-bg);color:var(--badge-dark-text)}
+.badge-neutral{background:var(--badge-neutral-bg);color:var(--badge-neutral-text)}
+
+/* STATUS CARD */
+.status-card{display:flex;align-items:center;flex-wrap:wrap;gap:10px;font-size:13px;color:var(--text-2)}
+.status-dot{width:8px;height:8px;border-radius:50%;background:var(--primary);display:inline-block;margin-right:6px}
+.status-sep{color:var(--text-3);margin:0 4px}
+
+/* STEP TIMELINE */
+.timeline{list-style:none}
+.timeline-item{display:flex;gap:16px;padding-bottom:20px;position:relative}
+.timeline-item:last-child{padding-bottom:0}
+.timeline-item:not(:last-child)::before{content:'';position:absolute;left:15px;top:32px;bottom:0;width:2px;background:var(--primary-light)}
+.tl-num{width:32px;height:32px;border-radius:50%;background:var(--primary);color:#fff;font-size:14px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.tl-body{flex:1;padding-top:4px}
+.tl-title{font-size:15px;font-weight:600;color:var(--text-1);margin-bottom:4px}
+.tl-desc{font-size:13px;color:var(--text-3);line-height:1.6}
+
+/* ACCORDION */
+.accordion{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);margin-bottom:8px;box-shadow:var(--sh1);overflow:hidden}
+.accordion-header{display:flex;align-items:center;gap:12px;padding:14px 20px;cursor:pointer;user-select:none}
+.accordion-label{font-size:14px;color:var(--text-1);font-weight:500;flex:1}
+.accordion-arrow{color:var(--text-3);font-size:12px;transition:transform .2s;margin-left:auto}
+.accordion.open .accordion-arrow{transform:rotate(180deg)}
+.accordion-body{max-height:0;overflow:hidden;transition:max-height .3s cubic-bezier(.4,0,.2,1)}
+.accordion.open .accordion-body{max-height:3000px}
+.accordion-list{padding:0 20px 16px;list-style:none}
+.accordion-list li{font-size:13px;color:var(--text-2);line-height:1.7;padding-left:14px;position:relative}
+.accordion-list li::before{content:'•';color:var(--primary);position:absolute;left:0;font-weight:700}
+
+/* BTN PRIMARY INLINE */
+.btn-primary{background:var(--primary);color:#fff;border:none;border-radius:var(--r2);padding:9px 20px;font-size:13px;font-weight:600;display:inline-flex;align-items:center;gap:6px;cursor:pointer;text-decoration:none;margin-top:16px}
+.btn-primary:hover{background:var(--primary-dark)}
+
+/* BULLET LIST */
+.bullet-list{list-style:none;padding:0}
+.bullet-list li{font-size:13px;color:var(--text-2);line-height:1.7;padding-left:16px;position:relative;margin-bottom:4px}
+.bullet-list li::before{content:'•';color:var(--primary);position:absolute;left:0;font-weight:700}
+
+/* PILL CLOUD */
+.pill-cloud{display:flex;flex-wrap:wrap;gap:6px}
+
+/* TABLE */
+.table-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse}
+th{font-size:11px;text-transform:uppercase;letter-spacing:1px;color:var(--text-3);font-weight:700;padding:10px 12px;text-align:left}
+td{font-size:13px;color:var(--text-2);padding:10px 12px}
+tr{border-bottom:1px solid var(--border-2)}
+
+/* KPI CARDS */
+.kpi-value{font-size:28px;font-weight:800;color:var(--text-1);margin:4px 0}
+.kpi-trend{font-size:12px;font-weight:600;display:flex;align-items:center;gap:4px;margin-top:4px}
+.trend-up{color:#16a34a}
+.trend-neutral{color:var(--text-3)}
+
+/* COMPLAINT ROW */
+.complaint-row{margin-bottom:10px}
+.complaint-label{font-size:13px;color:var(--text-2);margin-bottom:4px;display:flex;justify-content:space-between}
+.complaint-bar-bg{height:6px;background:var(--border-2);border-radius:3px}
+.complaint-bar-fill{height:6px;background:var(--primary);border-radius:3px}
+
+/* OPP LIST */
+.opp-list{list-style:none}
+.opp-item{display:flex;gap:14px;align-items:flex-start;padding:12px 0;border-bottom:1px solid var(--border-2)}
+.opp-item:last-child{border-bottom:none}
+.opp-num{width:28px;height:28px;border-radius:50%;background:var(--primary-light);color:var(--primary-dark);font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.opp-text{font-size:14px;color:var(--text-2);line-height:1.6}
+
+/* CIRCULAR PROGRESS */
+.circ-wrap{display:flex;align-items:center;gap:24px}
+.circ-label{font-size:13px;color:var(--text-3);margin-top:6px;text-align:center}
+.circ-center{font-size:22px;font-weight:800;fill:var(--text-1)}
+.circ-sub{font-size:10px;fill:var(--text-3)}
+
+/* CONCORRENTES AVATAR */
+.comp-row{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--border-2)}
+.comp-row:last-child{border-bottom:none}
+.comp-avatar{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:#fff;flex-shrink:0}
+.comp-info{flex:1}
+.comp-name{font-size:14px;font-weight:600;color:var(--text-1)}
+.comp-links{display:flex;gap:8px;margin-top:2px}
+.comp-links a{font-size:11px;color:var(--primary);text-decoration:none}
+.comp-price{margin-left:auto;align-self:flex-start;margin-top:2px}
+
+/* SOURCES */
+.sources-grid{columns:2;gap:16px}
+.source-item{font-size:12px;color:var(--text-2);margin-bottom:6px;break-inside:avoid}
+.source-item a{color:var(--primary);text-decoration:none}
+
+/* ALERT CARD */
+.alert-card{background:#fffbeb;border:1px solid #fde68a;border-radius:var(--r);padding:20px 24px}
+.alert-title{font-size:11px;font-weight:700;color:#d97706;text-transform:uppercase;letter-spacing:.8px;margin-bottom:12px}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  .sidebar{display:none}
+  .mobile-tabs{display:block}
+  .main{margin-left:0;padding:20px 16px}
+  .grid-3,.grid-2,.grid-4{grid-template-columns:1fr}
+}
+
+/* PRINT */
+@media print{
+  .sidebar,.mobile-tabs,.sidebar-export{display:none}
+  .main{margin-left:0;padding:16px}
+  .panel{display:block!important}
+  .accordion-body{max-height:none!important;overflow:visible!important}
+  .accordion-arrow{display:none}
+}
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<nav class="sidebar">
+  <div class="sidebar-title">Painel de Entregas</div>
+  <div class="sidebar-product">Finanças no Controle<br>Mariana Costa</div>
+
+  <div class="nav-group">Produto</div>
+  <span class="nav-item active" onclick="showPanel('visao-geral')">Visão Geral</span>
+  <span class="nav-item" onclick="showPanel('quadro')">Quadro</span>
+  <span class="nav-item" onclick="showPanel('furadeira')">Furadeira</span>
+  <span class="nav-item" onclick="showPanel('decorados')">Decorados</span>
+  <span class="nav-item" onclick="showPanel('urgencias')">Urgências Ocultas</span>
+
+  <div class="nav-group">Identidades</div>
+  <span class="nav-item" onclick="showPanel('id-produto')">Identidade do Produto</span>
+  <span class="nav-item" onclick="showPanel('id-consumidor')">Identidade do Consumidor</span>
+  <span class="nav-item" onclick="showPanel('id-comunicador')">Identidade do Comunicador</span>
+
+  <div class="nav-group">Pesquisa</div>
+  <span class="nav-item" onclick="showPanel('pesquisa')">Pesquisa de Mercado</span>
+
+  <div class="sidebar-export">
+    <button class="btn-export" onclick="window.print()">Exportar PDF (Ctrl+P)</button>
+  </div>
+</nav>
+
+<!-- MOBILE TABS -->
+<div class="mobile-tabs">
+  <span class="mobile-tab active" onclick="showPanel('visao-geral')">Visão Geral</span>
+  <span class="mobile-tab" onclick="showPanel('quadro')">Quadro</span>
+  <span class="mobile-tab" onclick="showPanel('furadeira')">Furadeira</span>
+  <span class="mobile-tab" onclick="showPanel('decorados')">Decorados</span>
+  <span class="mobile-tab" onclick="showPanel('urgencias')">Urgências</span>
+  <span class="mobile-tab" onclick="showPanel('id-produto')">Produto</span>
+  <span class="mobile-tab" onclick="showPanel('id-consumidor')">Consumidor</span>
+  <span class="mobile-tab" onclick="showPanel('id-comunicador')">Comunicador</span>
+  <span class="mobile-tab" onclick="showPanel('pesquisa')">Pesquisa</span>
+</div>
+
+<!-- MAIN -->
+<main class="main">
+
+  <!-- VISÃO GERAL -->
+  <div id="panel-visao-geral" class="panel active">
+    <div class="breadcrumb">Painel de Entregas › Visão Geral</div>
+    <div class="section-title">Visão Geral</div>
+    <div class="section-sub">Resumo do produto e informações principais.</div>
+
+    <div class="grid-3" style="margin-bottom:16px">
+      <div class="card">
+        <div class="card-label">Nome do Produto</div>
+        <div class="card-value">Finanças no Controle</div>
+        <div class="card-sub">Gestão financeira para MEIs e autônomos</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Tipo</div>
+        <div class="card-value">Middle Ticket</div>
+        <div class="card-sub">Curso online com planilha + comunidade</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Preço</div>
+        <div class="card-value" style="font-size:24px;font-weight:700;color:var(--primary)">R$297</div>
+        <div class="card-sub">Posicionamento médio-superior do nicho</div>
+      </div>
+    </div>
+
+    <div class="card-highlight" style="margin-bottom:16px">
+      <div class="card-label">Quadro — Transformação Principal</div>
+      <div class="card-value">Organizar as finanças do negócio e saber exatamente o que sobra no fim do mês</div>
+    </div>
+
+    <div class="grid-2" style="margin-bottom:16px">
+      <div class="card">
+        <div class="card-label">Nicho</div>
+        <div class="card-value">Gestão financeira para empreendedores individuais</div>
+        <div class="card-sub">MEIs e autônomos de serviços</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Diferencial</div>
+        <div class="card-value">Diagnóstico antes do sistema</div>
+        <div class="card-sub">Único curso do nicho que começa mapeando o estado atual do aluno antes de ensinar o método</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="status-card">
+        <span><span class="status-dot"></span><strong>Produto ativo</strong></span>
+        <span class="status-sep">·</span>
+        <span>Middle Ticket</span>
+        <span class="status-sep">·</span>
+        <span>R$297</span>
+        <span class="status-sep">·</span>
+        <span class="badge badge-green">Perfil completo</span>
+        <span class="badge badge-green">Identidade do consumidor</span>
+        <span class="badge badge-green">Urgências ocultas</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- QUADRO -->
+  <div id="panel-quadro" class="panel">
+    <div class="breadcrumb">Painel de Entregas › Quadro</div>
+    <div class="section-title">Quadro</div>
+    <div class="section-sub">A transformação principal que o produto entrega ao cliente.</div>
+
+    <div class="card-highlight" style="margin-bottom:16px">
+      <div class="card-label">Quadro Aprovado</div>
+      <div class="card-value">Organizar as finanças do negócio e saber exatamente o que sobra no fim do mês</div>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-label">Como Usar o Quadro</div>
+        <div class="card-value" style="font-size:14px;font-weight:500;line-height:1.7">
+          O Quadro aparece em toda a comunicação do produto: como headline da página de vendas, primeira linha de emails, abertura de anúncios e primeiro slide de carrossel. É a promessa central que ancora toda a copy.
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-label">Regra do Quadro</div>
+        <div class="card-value" style="font-size:14px;font-weight:500;line-height:1.7">
+          Teste obrigatório: "O aluno pode dizer que isso aconteceu na vida dele ao final do produto?" Se sim, o Quadro está correto. O Quadro sempre descreve o resultado final, nunca o processo ou os módulos.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FURADEIRA -->
+  <div id="panel-furadeira" class="panel">
+    <div class="breadcrumb">Painel de Entregas › Furadeira</div>
+    <div class="section-title">Furadeira</div>
+    <div class="section-sub">O método estruturado que torna visível a eficiência do produto.</div>
+
+    <div class="card" style="margin-bottom:16px">
+      <div class="card-label">Nome do Método</div>
+      <div class="card-value">Método CFO Solo</div>
+    </div>
+
+    <div class="card">
+      <div class="card-label">Trilha do Método</div>
+      <ul class="timeline" style="margin-top:16px">
+        <li class="timeline-item">
+          <div class="tl-num">1</div>
+          <div class="tl-body">
+            <div class="tl-title">Diagnóstico Financeiro</div>
+            <div class="tl-desc">Levantar os últimos 3 meses de extrato, separar o que é do negócio e o que é pessoal, e calcular o custo real da operação. Microetapas: levantamento de extrato, separação PF x PJ, mapeamento de gastos invisíveis.</div>
+          </div>
+        </li>
+        <li class="timeline-item">
+          <div class="tl-num">2</div>
+          <div class="tl-body">
+            <div class="tl-title">Sistema de Controle</div>
+            <div class="tl-desc">Configurar a planilha CFO Solo, categorizar cada despesa e definir o pró-labore certo para nunca faltar dinheiro no fim do mês. Microetapas: configuração da planilha CFO Solo, categorização de despesas, definição de pró-labore e reserva operacional.</div>
+          </div>
+        </li>
+        <li class="timeline-item">
+          <div class="tl-num">3</div>
+          <div class="tl-body">
+            <div class="tl-title">Blindagem Tributária</div>
+            <div class="tl-desc">Calcular o DAS corretamente, identificar todas as deduções legais e garantir que nenhum centavo seja pago a mais ao governo. Microetapas: cálculo correto do DAS, mapeamento de deduções permitidas, revisão de regime e DASN.</div>
+          </div>
+        </li>
+        <li class="timeline-item">
+          <div class="tl-num">4</div>
+          <div class="tl-body">
+            <div class="tl-title">Visão de Futuro</div>
+            <div class="tl-desc">Projetar o faturamento dos próximos 6 meses, criar a reserva de emergência e definir metas mensais com número concreto. Microetapas: projeção semestral, criação de reserva (regra dos 3 meses), definição de metas com indicadores.</div>
+          </div>
+        </li>
+      </ul>
+      <a class="btn-primary" href="entregas/furadeira-visual.html" target="_blank">Ver Trilha Visual Completa &#8594;</a>
+    </div>
+  </div>
+
+  <!-- DECORADOS -->
+  <div id="panel-decorados" class="panel">
+    <div class="breadcrumb">Painel de Entregas › Decorados</div>
+    <div class="section-title">Decorados</div>
+    <div class="section-sub">50 benefícios derivados do Quadro. Use para bullets de página, scripts de venda e conteúdo.</div>
+
+    <div class="accordion open">
+      <div class="accordion-header" onclick="toggleAccordion(this)">
+        <span class="badge badge-green">Financeiro</span>
+        <span class="accordion-label">10 benefícios financeiros</span>
+        <span class="accordion-arrow">&#9662;</span>
+      </div>
+      <div class="accordion-body">
+        <ul class="accordion-list">
+          <li>Saber exatamente quanto sobra no fim de cada mês</li>
+          <li>Parar de usar dinheiro do negócio para pagar conta pessoal</li>
+          <li>Calcular o DAS corretamente e nunca pagar a mais</li>
+          <li>Definir um pró-labore real e sustentável para o negócio</li>
+          <li>Criar reserva de emergência empresarial sem comprometer o fluxo</li>
+          <li>Identificar gastos invisíveis que consumiam margem sem perceber</li>
+          <li>Projetar faturamento com base em dados reais, não em chute</li>
+          <li>Negociar com fornecedores com clareza sobre quanto pode pagar</li>
+          <li>Saber quando pode contratar alguém sem comprometer o caixa</li>
+          <li>Ter controle sobre o dinheiro do 13° e férias como autônomo</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="accordion">
+      <div class="accordion-header" onclick="toggleAccordion(this)">
+        <span class="badge badge-blue">Tempo</span>
+        <span class="accordion-label">10 benefícios de tempo</span>
+        <span class="accordion-arrow">&#9662;</span>
+      </div>
+      <div class="accordion-body">
+        <ul class="accordion-list">
+          <li>Fechar o mês financeiro em menos de 30 minutos com a planilha CFO Solo</li>
+          <li>Parar de passar horas tentando entender para onde foi o dinheiro</li>
+          <li>Eliminar o tempo gasto corrigindo erros de lançamentos misturados</li>
+          <li>Preparar a DASN em menos de 1 hora no final do ano</li>
+          <li>Ter todas as informações financeiras em um único lugar, sem precisar procurar</li>
+          <li>Responder ao contador com dados prontos em vez de buscar recibos</li>
+          <li>Tomar decisões de investimento sem precisar simular horas no papel</li>
+          <li>Reduzir o tempo de reunião com contador porque os dados chegam organizados</li>
+          <li>Não perder tempo pesquisando "como calcular DAS" toda vez que vence</li>
+          <li>Fechar proposta de preço em minutos sabendo o custo real do serviço</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="accordion">
+      <div class="accordion-header" onclick="toggleAccordion(this)">
+        <span class="badge badge-purple">Autoestima</span>
+        <span class="accordion-label">10 benefícios de autoestima</span>
+        <span class="accordion-arrow">&#9662;</span>
+      </div>
+      <div class="accordion-body">
+        <ul class="accordion-list">
+          <li>Olhar para as finanças do negócio sem sentir vergonha</li>
+          <li>Entrar em reunião com cliente ou fornecedor com segurança sobre os números</li>
+          <li>Parar de evitar abrir o app do banco por medo do saldo</li>
+          <li>Sentir que é uma empresária de verdade, não apenas uma autônoma informal</li>
+          <li>Ter orgulho de mostrar o negócio para família e amigos</li>
+          <li>Parar de sentir que "não é boa com dinheiro"</li>
+          <li>Perceber que a desorganização era falta de método, não falta de habilidade</li>
+          <li>Tomar decisão de investimento sem aquela sensação de que vai dar errado</li>
+          <li>Chegar ao final do ano sabendo exatamente quanto faturou</li>
+          <li>Sentir que tem controle sobre o próprio futuro financeiro</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="accordion">
+      <div class="accordion-header" onclick="toggleAccordion(this)">
+        <span class="badge badge-orange">Reputação</span>
+        <span class="accordion-label">10 benefícios de reputação</span>
+        <span class="accordion-arrow">&#9662;</span>
+      </div>
+      <div class="accordion-body">
+        <ul class="accordion-list">
+          <li>Responder perguntas do contador sem depender de ele explicar tudo de novo</li>
+          <li>Apresentar relatório financeiro básico para sócio ou investidor se precisar</li>
+          <li>Passar credibilidade ao emitir nota fiscal com preço que faz sentido</li>
+          <li>Ser vista como empresária séria por clientes e fornecedores</li>
+          <li>Recomendar o método para outras MEIs do grupo de WhatsApp</li>
+          <li>Ter histórico financeiro organizado caso precise de empréstimo para o negócio</li>
+          <li>Não ter vergonha de falar de dinheiro com outros empreendedores</li>
+          <li>Mostrar evolução do negócio com dados reais, mês a mês</li>
+          <li>Ter argumento concreto para reajustar preço de serviço</li>
+          <li>Construir reputação de quem gerencia bem o próprio negócio</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="accordion">
+      <div class="accordion-header" onclick="toggleAccordion(this)">
+        <span class="badge badge-dark">Crescimento</span>
+        <span class="accordion-label">10 benefícios de crescimento</span>
+        <span class="accordion-arrow">&#9662;</span>
+      </div>
+      <div class="accordion-body">
+        <ul class="accordion-list">
+          <li>Saber o momento certo de investir em novo equipamento ou ferramenta</li>
+          <li>Identificar qual serviço tem maior margem e focar ali</li>
+          <li>Ter dados para decidir se vale a pena contratar um assistente</li>
+          <li>Entender o limite do MEI e planejar a transição de regime com antecedência</li>
+          <li>Criar meta mensal de faturamento com número factível, não estimativa</li>
+          <li>Construir reserva para lançar novo produto ou serviço sem depender de crédito</li>
+          <li>Comparar desempenho mês a mês e identificar sazonalidade do negócio</li>
+          <li>Escalar com segurança: saber quanto precisa faturar para pagar novas despesas</li>
+          <li>Ter histórico financeiro de pelo menos 12 meses para decisões estratégicas</li>
+          <li>Parar de crescer na base do feeling e crescer com dados</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- URGÊNCIAS OCULTAS -->
+  <div id="panel-urgencias" class="panel">
+    <div class="breadcrumb">Painel de Entregas › Urgências Ocultas</div>
+    <div class="section-title">Urgências Ocultas</div>
+    <div class="section-sub">70 itens em 7 categorias. Use para temas de anúncio, bullets de página, ganchos de conteúdo e linhas de email.</div>
+
+    <div class="accordion open">
+      <div class="accordion-header" onclick="toggleAccordion(this)">
+        <span class="badge badge-pink">Dores</span>
+        <span class="accordion-label">O que incomoda &nbsp;·&nbsp; 10 itens</span>
+        <span class="accordion-arrow">&#9662;</span>
+      </div>
+      <div class="accordion-body">
+        <ul class="accordion-list">
+          <li>Misturar conta pessoal com conta do negócio todo mês e não conseguir separar depois</li>
+          <li>Não saber quanto realmente sobra depois de pagar todos os custos</li>
+          <li>Sentir vergonha quando o contador pergunta onde estão os documentos</li>
+          <li>Pagar DAS no chute porque nunca entendeu como calcular direito</li>
+          <li>Chegar ao fim do mês com saldo positivo e ainda assim não ter dinheiro para as contas pessoais</li>
+          <li>Descobrir débito ou multa de MEI de anos atrás que não sabia que existia</li>
+          <li>Não conseguir cobrar um preço justo porque não sabe qual é o custo real do serviço</li>
+          <li>Depender de crédito no cartão para pagar despesa do negócio</li>
+          <li>Perder sono no começo do ano por causa da DASN que não sabe preencher</li>
+          <li>Sentir que trabalha muito e ganha pouco, mas sem conseguir identificar por quê</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="accordion">
+      <div class="accordion-header" onclick="toggleAccordion(this)">
+        <span class="badge badge-indigo">Dúvidas</span>
+        <span class="accordion-label">O que pergunta &nbsp;·&nbsp; 10 itens</span>
+        <span class="accordion-arrow">&#9662;</span>
+      </div>
+      <div class="accordion-body">
+        <ul class="accordion-list">
+          <li>Preciso ter conta bancária separada para o MEI?</li>
+          <li>Como calcular o DAS corretamente e quando pagar?</li>
+          <li>O que posso deduzir como despesa do MEI?</li>
+          <li>Quanto devo me pagar de pró-labore todos os meses?</li>
+          <li>O que acontece se eu ultrapassar o limite de faturamento do MEI?</li>
+          <li>Como fazer a DASN corretamente sem errar?</li>
+          <li>Posso usar o Pix da conta pessoal para receber pagamento do cliente?</li>
+          <li>Qual planilha usar para controlar as finanças do MEI?</li>
+          <li>Quando vale a pena abrir uma empresa de verdade?</li>
+          <li>Como separar o que é lucro do que é dinheiro do negócio?</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="accordion">
+      <div class="accordion-header" onclick="toggleAccordion(this)">
+        <span class="badge badge-violet">Desejos</span>
+        <span class="accordion-label">O que sonha &nbsp;·&nbsp; 10 itens</span>
+        <span class="accordion-arrow">&#9662;</span>
+      </div>
+      <div class="accordion-body">
+        <ul class="accordion-list">
+          <li>Abrir o app do banco e saber exatamente o que cada entrada e saída representa</li>
+          <li>Fechar o mês sabendo o número exato do lucro, sem surpresas</li>
+          <li>Ter uma reserva de emergência empresarial de pelo menos 3 meses de custos fixos</li>
+          <li>Reajustar os preços dos serviços com argumento concreto e sem culpa</li>
+          <li>Chegar ao fim do ano e saber exatamente quanto cresceu em relação ao ano anterior</li>
+          <li>Poder planejar férias sabendo que o negócio não vai parar financeiramente</li>
+          <li>Responder ao cliente o preço sem aquela dúvida de se está cobrando certo</li>
+          <li>Ter um sistema financeiro tão organizado que o contador só precisa assinar</li>
+          <li>Sentir que é uma empresária de verdade, não só uma prestadora de serviços informal</li>
+          <li>Economizar no DAS sem infringir nenhuma regra</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="accordion">
+      <div class="accordion-header" onclick="toggleAccordion(this)">
+        <span class="badge badge-green">Assuntos Relacionados</span>
+        <span class="accordion-label">Porta de entrada &nbsp;·&nbsp; 10 itens</span>
+        <span class="accordion-arrow">&#9662;</span>
+      </div>
+      <div class="accordion-body">
+        <ul class="accordion-list">
+          <li>Dicas de produtividade para autônomos</li>
+          <li>Aplicativos de controle financeiro pessoal</li>
+          <li>Como precificar serviço freelancer</li>
+          <li>Empreendedorismo feminino</li>
+          <li>Trabalho remoto e renda extra</li>
+          <li>Como declarar imposto de renda como autônomo</li>
+          <li>Ferramentas de gestão de clientes (CRM simples)</li>
+          <li>Marketing digital para profissionais autônomos</li>
+          <li>Como abrir MEI e quais os benefícios</li>
+          <li>Planejamento financeiro pessoal e doméstico</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="accordion">
+      <div class="accordion-header" onclick="toggleAccordion(this)">
+        <span class="badge badge-orange">Urgências Quentes</span>
+        <span class="accordion-label">Alta intenção &nbsp;·&nbsp; 10 itens</span>
+        <span class="accordion-arrow">&#9662;</span>
+      </div>
+      <div class="accordion-body">
+        <ul class="accordion-list">
+          <li>Pesquisando "planilha controle financeiro MEI grátis" (transição para produto pago)</li>
+          <li>Recebeu notificação de débito do MEI e está com medo</li>
+          <li>Vai preencher a DASN e não sabe como</li>
+          <li>Acabou de abrir o MEI e quer começar organizado</li>
+          <li>Contador disse que precisa de relatório financeiro e não tem</li>
+          <li>Recebeu um cliente grande e precisa cotar o serviço com mais segurança</li>
+          <li>Está pensando em contratar alguém e quer saber se as finanças aguentam</li>
+          <li>Ultrapassou ou está perto do limite de faturamento do MEI</li>
+          <li>Percebeu que deve DAS atrasado e quer resolver</li>
+          <li>Está em processo de separação e precisa separar finanças pessoais das empresariais</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="accordion">
+      <div class="accordion-header" onclick="toggleAccordion(this)">
+        <span class="badge badge-neutral">Urgências Frias</span>
+        <span class="accordion-label">Alto volume &nbsp;·&nbsp; 10 itens</span>
+        <span class="accordion-arrow">&#9662;</span>
+      </div>
+      <div class="accordion-body">
+        <ul class="accordion-list">
+          <li>Assistindo reels sobre dicas financeiras no Instagram</li>
+          <li>Buscando "como ganhar dinheiro como autônomo"</li>
+          <li>Seguindo perfis de empreendedorismo feminino</li>
+          <li>Lendo artigos sobre produtividade e organização</li>
+          <li>Consumindo conteúdo de planilhas e templates gratuitos</li>
+          <li>Assistindo vídeos sobre "como precificar"</li>
+          <li>Acompanhando notícias sobre mudanças no MEI e tributação</li>
+          <li>Buscando "como declarar imposto de renda" no Google</li>
+          <li>Seguindo perfis de finanças pessoais</li>
+          <li>Pesquisando "trabalho home office organização"</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="accordion">
+      <div class="accordion-header" onclick="toggleAccordion(this)">
+        <span class="badge badge-purple">Urgências Inusitadas</span>
+        <span class="accordion-label">Ângulos inesperados &nbsp;·&nbsp; 10 itens</span>
+        <span class="accordion-arrow">&#9662;</span>
+      </div>
+      <div class="accordion-body">
+        <ul class="accordion-list">
+          <li>Mãe que voltou ao mercado como MEI e quer ensinar os filhos sobre dinheiro</li>
+          <li>Autônoma que está saindo de relacionamento abusivo e quer ter controle financeiro próprio</li>
+          <li>Professora que dá aulas particulares e quer formalizar o que já faz informalmente</li>
+          <li>Artesã que quer transformar hobby em negócio lucrativo mas tem medo dos impostos</li>
+          <li>Ex-CLT demitida que abriu MEI e nunca entendeu as diferenças do regime</li>
+          <li>Cabeleireira que está abrindo o próprio salão e quer começar do jeito certo</li>
+          <li>Designer freelancer que cobra em dólar mas não sabe como declarar no MEI</li>
+          <li>Nutricionista que atende online e quer organizar as finanças antes de aumentar preços</li>
+          <li>Empreendedora digital que usa o MEI mas não sabe se está no regime certo</li>
+          <li>Médica ou psicóloga que atende no consultório próprio e quer entender os impostos</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- IDENTIDADE DO PRODUTO -->
+  <div id="panel-id-produto" class="panel">
+    <div class="breadcrumb">Painel de Entregas › Identidade do Produto</div>
+    <div class="section-title">Identidade do Produto</div>
+    <div class="section-sub">Como o produto se posiciona e se diferencia no mercado.</div>
+
+    <div class="grid-2" style="margin-bottom:16px">
+      <div class="card">
+        <div class="card-label">Diferencial Principal</div>
+        <div class="card-value" style="font-size:14px;font-weight:600;line-height:1.6">Diagnóstico antes do sistema. É o único curso do nicho que começa mapeando o estado atual do aluno antes de ensinar o método, o que elimina a objeção "meu caso é diferente".</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Formato</div>
+        <div class="card-value" style="font-size:14px;font-weight:600;line-height:1.6">4 módulos em vídeo (20 min cada), Planilha CFO Solo configurada por tipo de serviço, Checklist de Diagnóstico, Calculadora de DAS, Guia da DASN e comunidade no WhatsApp com suporte semanal da Mariana.</div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-bottom:16px">
+      <div class="card-label">Argumentos Incontestáveis</div>
+      <ul class="bullet-list" style="margin-top:12px">
+        <li>73% dos MEIs brasileiros não controlam o fluxo de caixa do negócio (SEBRAE, 2024)</li>
+        <li>O Brasil tem 15,4 milhões de MEIs ativos, dos quais 11,2 milhões nunca fizeram um curso de gestão financeira</li>
+        <li>O diagnóstico precede o sistema porque cada MEI tem uma mistura diferente — sem mapear o estado atual, qualquer planilha genérica gera mais confusão do que clareza</li>
+        <li>Cursos com método de diagnóstico + sistema pronto têm NPS médio de 71 pontos, contra 44 de cursos puramente teóricos (levantamento de produtores do nicho, 2023)</li>
+        <li>O modelo de CFO Fracionado cresceu 340% como serviço contratado entre 2019 e 2023 no Brasil. O Método CFO Solo entrega o mesmo raciocínio de forma acessível e autônoma.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="card-label">Objeções Principais e Como Quebrar</div>
+      <ul class="bullet-list" style="margin-top:12px">
+        <li><strong>"Já tentei planilha antes e não mantive"</strong> — O CFO Solo tem estrutura de 30 minutos por mês, não exige disciplina diária. Você vai usar porque é simples.</li>
+        <li><strong>"Não tenho tempo agora"</strong> — Módulos de 20 minutos. Em um fim de semana você termina e na semana seguinte já está aplicando.</li>
+        <li><strong>"Meu caso é diferente"</strong> — A planilha tem configuração por tipo de serviço: saúde, beleza, educação, criativo, consultoria. Você adapta em 10 minutos.</li>
+        <li><strong>"É caro para o que é"</strong> — O DAS calculado errado em um único mês pode custar mais do que o curso. O sistema se paga na primeira aplicação.</li>
+        <li><strong>"Posso aprender grátis no YouTube"</strong> — Pode. Mas vai levar semanas juntando vídeos sem saber o que é confiável. Aqui está o sistema completo, testado, em ordem.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- IDENTIDADE DO CONSUMIDOR -->
+  <div id="panel-id-consumidor" class="panel">
+    <div class="breadcrumb">Painel de Entregas › Identidade do Consumidor</div>
+    <div class="section-title">Identidade do Consumidor</div>
+    <div class="section-sub">Perfil detalhado do cliente ideal.</div>
+
+    <div class="card-highlight" style="margin-bottom:16px">
+      <div class="card-label">Para Quem É</div>
+      <div class="card-value">Este produto é para MEIs e autônomas de serviços, que sabem que as finanças do negócio estão misturadas com as pessoais, e querem um sistema concreto para organizar tudo e finalmente saber o que sobra no fim do mês.</div>
+    </div>
+
+    <div class="grid-2" style="margin-bottom:16px">
+      <div class="card">
+        <div class="card-label">Perfil Demográfico</div>
+        <div style="font-size:13px;color:var(--text-2);line-height:1.8;margin-top:8px">
+          <strong>Gênero:</strong> Predominantemente feminino (70%)<br>
+          <strong>Idade:</strong> 28 a 42 anos<br>
+          <strong>Profissão:</strong> Cabeleireira, designer, nutricionista, professora particular, consultora, fotógrafa, assistente virtual<br>
+          <strong>Renda:</strong> R$2.500 a R$5.500/mês bruto no negócio<br>
+          <strong>Localização:</strong> Brasil inteiro, concentração em cidades médias e capitais<br>
+          <strong>Nível de consciência:</strong> Consciente do problema — sabe que está desorganizada, mas não sabe por onde começar
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-label">Comportamento e Canais</div>
+        <div style="font-size:13px;color:var(--text-2);line-height:1.8;margin-top:8px">
+          <strong>Onde busca info:</strong> Instagram (reels), YouTube (tutoriais), Google (planilhas e respostas rápidas)<br>
+          <strong>Conteúdo que consome:</strong> Dicas financeiras, produtividade, empreendedorismo feminino<br>
+          <strong>Como compra:</strong> Por impulso quando sente medo de perder dinheiro ou levar multa<br>
+          <strong>Sonho:</strong> "Abrir o app do banco e saber exatamente o que cada entrada representa, sem surpresas no fim do mês"
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-bottom:16px">
+      <div class="card-label">Paliativos — Ferramentas do Produto que Resolvem Dores Específicas</div>
+      <ul class="bullet-list" style="margin-top:12px">
+        <li>Planilha CFO Solo configurada por área &#8594; resolve a dor de não saber qual planilha usar e como configurar</li>
+        <li>Checklist de Diagnóstico Financeiro &#8594; resolve a paralisia de "não sei por onde começar"</li>
+        <li>Calculadora de DAS integrada &#8594; resolve o medo de calcular errado e pagar multa</li>
+        <li>Módulo de Pró-labore &#8594; resolve a confusão entre salário do dono e lucro do negócio</li>
+        <li>Guia da DASN passo a passo &#8594; resolve o pânico do começo do ano com a declaração anual</li>
+        <li>Planilha de Projeção Semestral &#8594; resolve a incapacidade de planejar com dados reais</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="card-label">Baldes de Para Quem É</div>
+
+      <div class="accordion" style="margin-top:12px;box-shadow:none;border-color:var(--border-2)">
+        <div class="accordion-header" onclick="toggleAccordion(this)">
+          <span class="badge badge-neutral">MEI de serviços que mistura contas</span>
+          <span class="accordion-arrow" style="margin-left:auto">&#9662;</span>
+        </div>
+        <div class="accordion-body">
+          <ul class="accordion-list">
+            <li>Para quem usa o Pix pessoal para receber dos clientes e não sabe separar depois</li>
+            <li>Para quem já tentou abrir conta jurídica mas nunca migrou de vez</li>
+            <li>Para quem sente que trabalha muito e não vê isso no saldo bancário</li>
+            <li>Para quem paga o DAS mas não sabe se está calculando certo</li>
+            <li>Para quem precisa de um sistema simples que não exige contador toda semana</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="accordion" style="box-shadow:none;border-color:var(--border-2)">
+        <div class="accordion-header" onclick="toggleAccordion(this)">
+          <span class="badge badge-neutral">Autônoma que quer precificar com segurança</span>
+          <span class="accordion-arrow" style="margin-left:auto">&#9662;</span>
+        </div>
+        <div class="accordion-body">
+          <ul class="accordion-list">
+            <li>Para quem cobra por feeling e sente que às vezes está perdendo dinheiro</li>
+            <li>Para quem tem medo de aumentar preço sem argumento concreto</li>
+            <li>Para quem quer parar de aceitar parcelamento porque não sabe o impacto no caixa</li>
+            <li>Para quem já perdeu cliente por cotar errado o valor do serviço</li>
+            <li>Para quem quer saber exatamente qual é a margem de cada serviço que oferece</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="accordion" style="box-shadow:none;border-color:var(--border-2)">
+        <div class="accordion-header" onclick="toggleAccordion(this)">
+          <span class="badge badge-neutral">Empreendedora que quer se profissionalizar</span>
+          <span class="accordion-arrow" style="margin-left:auto">&#9662;</span>
+        </div>
+        <div class="accordion-body">
+          <ul class="accordion-list">
+            <li>Para quem quer ser vista como empresária, não só como prestadora informal</li>
+            <li>Para quem está crescendo e sente que a bagunça financeira pode travar tudo</li>
+            <li>Para quem quer ter histórico financeiro antes de buscar crédito ou investidor</li>
+            <li>Para quem vai contratar alguém e precisa saber se as finanças aguentam</li>
+            <li>Para quem quer sair do MEI e precisa entender o que muda financeiramente</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="accordion" style="box-shadow:none;border-color:var(--border-2)">
+        <div class="accordion-header" onclick="toggleAccordion(this)">
+          <span class="badge badge-neutral">Ex-CLT que voltou a empreender</span>
+          <span class="accordion-arrow" style="margin-left:auto">&#9662;</span>
+        </div>
+        <div class="accordion-body">
+          <ul class="accordion-list">
+            <li>Para quem foi demitido, abriu MEI e está aprendendo as regras na marra</li>
+            <li>Para quem sente falta da segurança do salário fixo e quer criar isso no negócio próprio</li>
+            <li>Para quem nunca precisou se preocupar com impostos e agora precisa entender tudo</li>
+            <li>Para quem quer replicar a disciplina do salário CLT no negócio próprio</li>
+            <li>Para quem quer parar de sentir que empreender é arriscado e ter controle real sobre os números</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="accordion" style="box-shadow:none;border-color:var(--border-2);margin-bottom:0">
+        <div class="accordion-header" onclick="toggleAccordion(this)">
+          <span class="badge badge-neutral">Quem tem medo da Receita Federal</span>
+          <span class="accordion-arrow" style="margin-left:auto">&#9662;</span>
+        </div>
+        <div class="accordion-body">
+          <ul class="accordion-list">
+            <li>Para quem não sabe o que acontece se ultrapassar o limite do MEI</li>
+            <li>Para quem está devendo DAS atrasado e não sabe como regularizar</li>
+            <li>Para quem tem medo de declarar a DASN errada e cair na malha fina</li>
+            <li>Para quem nunca entendeu o que pode e não pode deduzir como MEI</li>
+            <li>Para quem quer ter tudo em ordem antes de uma possível fiscalização</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- IDENTIDADE DO COMUNICADOR -->
+  <div id="panel-id-comunicador" class="panel">
+    <div class="breadcrumb">Painel de Entregas › Identidade do Comunicador</div>
+    <div class="section-title">Identidade do Comunicador</div>
+    <div class="section-sub">Tom, posicionamento e linguagem do criador.</div>
+
+    <div class="grid-2" style="margin-bottom:16px">
+      <div class="card">
+        <div class="card-label">Tom de Voz</div>
+        <div style="font-size:14px;color:var(--text-2);line-height:1.7;margin-top:8px">
+          Próximo e direto. A Mariana fala como uma amiga que entende de dinheiro, sem termos técnicos que afastem. Usa exemplos do cotidiano do MEI e compara finanças com situações que o público já conhece. Nunca paternalista, nunca motivacional vazio.
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-label">Posicionamento</div>
+        <div style="font-size:14px;color:var(--text-2);line-height:1.7;margin-top:8px">
+          A pessoa que traduz contabilidade em ação prática. Não é consultora formal — é a especialista que faz o aluno entender tudo de uma vez e colocar em prática no mesmo dia. Referências: Thiago Nigro (objetividade), Nathalia Arcuri (linguagem acessível), Drauzio Varella (clareza sem paternalismo).
+        </div>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-label">Palavras que Conectam</div>
+        <div class="pill-cloud" style="margin-top:12px">
+          <span class="badge badge-green">sistema</span>
+          <span class="badge badge-green">planilha</span>
+          <span class="badge badge-green">controle</span>
+          <span class="badge badge-green">clareza</span>
+          <span class="badge badge-green">sobra</span>
+          <span class="badge badge-green">pró-labore</span>
+          <span class="badge badge-green">organizado</span>
+          <span class="badge badge-green">prático</span>
+          <span class="badge badge-green">passo a passo</span>
+          <span class="badge badge-green">concreto</span>
+          <span class="badge badge-green">agora</span>
+          <span class="badge badge-green">real</span>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-label">Palavras que Afastam</div>
+        <div class="pill-cloud" style="margin-top:12px">
+          <span class="badge badge-pink">fluxo de caixa</span>
+          <span class="badge badge-pink">DRE</span>
+          <span class="badge badge-pink">balanço patrimonial</span>
+          <span class="badge badge-pink">ativo/passivo</span>
+          <span class="badge badge-pink">enriquecer</span>
+          <span class="badge badge-pink">transformação</span>
+          <span class="badge badge-pink">jornada</span>
+          <span class="badge badge-pink">mentalidade</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PESQUISA DE MERCADO -->
+  <div id="panel-pesquisa" class="panel">
+    <div class="breadcrumb">Painel de Entregas › Pesquisa de Mercado</div>
+    <div class="section-title">Pesquisa de Mercado</div>
+    <div class="section-sub">Dashboard de inteligência de mercado. Use para argumentos, copy e posicionamento.</div>
+
+    <!-- KPIs -->
+    <div class="grid-4" style="margin-bottom:16px">
+      <div class="card">
+        <div class="card-label">Tamanho do Mercado</div>
+        <div class="kpi-value">R$2,1 bi</div>
+        <div class="kpi-trend trend-up">&#9650; +18% vs. 2023</div>
+        <svg width="100%" height="36" viewBox="0 0 120 36" style="margin-top:8px;display:block">
+          <defs><linearGradient id="g1" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#22c55e" stop-opacity=".2"/><stop offset="100%" stop-color="#22c55e" stop-opacity="0"/></linearGradient></defs>
+          <path d="M0,28 C20,24 40,20 60,16 C80,12 100,8 120,4" stroke="#22c55e" stroke-width="1.5" fill="none"/>
+          <path d="M0,28 C20,24 40,20 60,16 C80,12 100,8 120,4 L120,36 L0,36 Z" fill="url(#g1)"/>
+        </svg>
+      </div>
+      <div class="card">
+        <div class="card-label">Crescimento Anual</div>
+        <div class="kpi-value">18%</div>
+        <div class="kpi-trend trend-up">&#9650; +3pp vs. ano anterior</div>
+        <svg width="100%" height="36" viewBox="0 0 120 36" style="margin-top:8px;display:block">
+          <defs><linearGradient id="g2" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#22c55e" stop-opacity=".2"/><stop offset="100%" stop-color="#22c55e" stop-opacity="0"/></linearGradient></defs>
+          <path d="M0,30 C30,26 60,18 90,12 L120,6" stroke="#22c55e" stroke-width="1.5" fill="none"/>
+          <path d="M0,30 C30,26 60,18 90,12 L120,6 L120,36 L0,36 Z" fill="url(#g2)"/>
+        </svg>
+      </div>
+      <div class="card">
+        <div class="card-label">Concorrentes Mapeados</div>
+        <div class="kpi-value">10</div>
+        <div class="kpi-trend trend-neutral">&#9679; amostra do nicho</div>
+        <svg width="100%" height="36" viewBox="0 0 120 36" style="margin-top:8px;display:block">
+          <defs><linearGradient id="g3" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#22c55e" stop-opacity=".2"/><stop offset="100%" stop-color="#22c55e" stop-opacity="0"/></linearGradient></defs>
+          <path d="M0,22 C15,20 30,24 45,18 C60,12 75,16 90,14 L120,10" stroke="#22c55e" stroke-width="1.5" fill="none"/>
+          <path d="M0,22 C15,20 30,24 45,18 C60,12 75,16 90,14 L120,10 L120,36 L0,36 Z" fill="url(#g3)"/>
+        </svg>
+      </div>
+      <div class="card">
+        <div class="card-label">Ticket Médio do Nicho</div>
+        <div class="kpi-value">R$247</div>
+        <div class="kpi-trend trend-up">&#9650; acima da mediana</div>
+        <svg width="100%" height="36" viewBox="0 0 120 36" style="margin-top:8px;display:block">
+          <defs><linearGradient id="g4" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#22c55e" stop-opacity=".2"/><stop offset="100%" stop-color="#22c55e" stop-opacity="0"/></linearGradient></defs>
+          <path d="M0,26 C20,24 40,22 60,18 C80,14 100,10 120,8" stroke="#22c55e" stroke-width="1.5" fill="none"/>
+          <path d="M0,26 C20,24 40,22 60,18 C80,14 100,10 120,8 L120,36 L0,36 Z" fill="url(#g4)"/>
+        </svg>
+      </div>
+    </div>
+
+    <!-- CRESCIMENTO + RECLAME AQUI -->
+    <div class="grid-2" style="margin-bottom:16px">
+      <div class="card">
+        <div class="card-label">Crescimento do Mercado (5 Anos)</div>
+        <div style="font-size:11px;color:var(--text-3);margin-bottom:12px">Estimativa. Fonte: SEBRAE, Portal do Empreendedor</div>
+        <svg viewBox="0 0 400 160" width="100%" style="display:block">
+          <defs>
+            <linearGradient id="ga" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#22c55e" stop-opacity=".3"/>
+              <stop offset="100%" stop-color="#22c55e" stop-opacity="0"/>
+            </linearGradient>
+          </defs>
+          <line x1="0" y1="20" x2="400" y2="20" stroke="#f3f4f6" stroke-width="1"/>
+          <line x1="0" y1="70" x2="400" y2="70" stroke="#f3f4f6" stroke-width="1"/>
+          <line x1="0" y1="120" x2="400" y2="120" stroke="#f3f4f6" stroke-width="1"/>
+          <path d="M40,130 C80,120 140,100 200,80 C260,60 320,35 360,20" stroke="#22c55e" stroke-width="2" fill="none"/>
+          <path d="M40,130 C80,120 140,100 200,80 C260,60 320,35 360,20 L360,145 L40,145 Z" fill="url(#ga)"/>
+          <circle cx="40" cy="130" r="4" fill="#22c55e"/>
+          <circle cx="130" cy="105" r="4" fill="#22c55e"/>
+          <circle cx="220" cy="78" r="4" fill="#22c55e"/>
+          <circle cx="310" cy="38" r="4" fill="#22c55e"/>
+          <circle cx="360" cy="20" r="6" fill="#22c55e"/>
+          <text x="40" y="150" font-size="11" fill="#6b7280" text-anchor="middle">2020</text>
+          <text x="130" y="150" font-size="11" fill="#6b7280" text-anchor="middle">2021</text>
+          <text x="220" y="150" font-size="11" fill="#6b7280" text-anchor="middle">2022</text>
+          <text x="310" y="150" font-size="11" fill="#6b7280" text-anchor="middle">2023</text>
+          <text x="360" y="150" font-size="11" fill="#6b7280" text-anchor="middle">2024</text>
+        </svg>
+      </div>
+      <div class="card">
+        <div class="card-label">Reclamações por Categoria</div>
+        <div style="display:flex;align-items:center;gap:20px;margin-top:12px">
+          <svg viewBox="0 0 200 200" width="140" style="flex-shrink:0">
+            <circle cx="100" cy="100" r="70" stroke="#f3f4f6" stroke-width="28" fill="none"/>
+            <!-- 38% genérico: 238 de 628 -->
+            <circle cx="100" cy="100" r="70" stroke="#22c55e" stroke-width="28" fill="none"
+              stroke-dasharray="166 472" stroke-dashoffset="157" transform="rotate(-90 100 100)"/>
+            <!-- 31% conteúdo: 194 de 628 -->
+            <circle cx="100" cy="100" r="70" stroke="#d97706" stroke-width="28" fill="none"
+              stroke-dasharray="136 492" stroke-dashoffset="-9" transform="rotate(-90 100 100)"/>
+            <!-- 19% prático: 119 de 628 -->
+            <circle cx="100" cy="100" r="70" stroke="#db2777" stroke-width="28" fill="none"
+              stroke-dasharray="83 545" stroke-dashoffset="-145" transform="rotate(-90 100 100)"/>
+            <text x="100" y="96" font-size="22" font-weight="800" fill="#111827" text-anchor="middle">38%</text>
+            <text x="100" y="114" font-size="10" fill="#6b7280" text-anchor="middle">genéricas</text>
+          </svg>
+          <div style="flex:1;font-size:12px;line-height:2">
+            <div><span style="display:inline-block;width:10px;height:10px;background:#22c55e;border-radius:50%;margin-right:6px"></span>Conteúdo genérico — 38%</div>
+            <div><span style="display:inline-block;width:10px;height:10px;background:#d97706;border-radius:50%;margin-right:6px"></span>Suporte ausente — 31%</div>
+            <div><span style="display:inline-block;width:10px;height:10px;background:#db2777;border-radius:50%;margin-right:6px"></span>Falta de prática — 19%</div>
+            <div><span style="display:inline-block;width:10px;height:10px;background:#9ca3af;border-radius:50%;margin-right:6px"></span>Outros — 12%</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- OPORTUNIDADES -->
+    <div class="card" style="margin-bottom:16px">
+      <div class="card-label" style="color:var(--primary)">Oportunidades Identificadas</div>
+      <ul class="opp-list" style="margin-top:12px">
+        <li class="opp-item"><div class="opp-num">1</div><div class="opp-text">Nenhum concorrente foca especificamente em MEIs do setor de serviços (maioria fala de comércio)</div></li>
+        <li class="opp-item"><div class="opp-num">2</div><div class="opp-text">Linguagem técnica é barreira: a maioria usa termos contábeis que afastam iniciantes</div></li>
+        <li class="opp-item"><div class="opp-num">3</div><div class="opp-text">Cursos existentes ensinam "o que fazer" mas não têm sistema pronto para aplicar no dia seguinte</div></li>
+        <li class="opp-item"><div class="opp-num">4</div><div class="opp-text">Público feminino (49% dos MEIs) não se vê representado nas comunicações do nicho</div></li>
+        <li class="opp-item"><div class="opp-num">5</div><div class="opp-text">Dor tributária (DAS, IRPF, DASN) é urgência quente quase inexplorada pelos concorrentes</div></li>
+        <li class="opp-item"><div class="opp-num">6</div><div class="opp-text">Ausência de acompanhamento pós-compra: reclamação recorrente no Reclame Aqui</div></li>
+        <li class="opp-item"><div class="opp-num">7</div><div class="opp-text">Formato "sistema pronto" (planilha + vídeo + checklist) tem gap não atendido na faixa R$200-300</div></li>
+      </ul>
+    </div>
+
+    <!-- PREÇOS + TOP CONCORRENTES -->
+    <div class="grid-2" style="margin-bottom:16px">
+      <div class="card">
+        <div class="card-label">Preco Médio por Formato</div>
+        <svg viewBox="0 0 400 220" width="100%" style="display:block;margin-top:12px">
+          <rect x="30" y="170" width="50" height="30" fill="#22c55e" rx="3"/>
+          <rect x="110" y="130" width="50" height="70" fill="#22c55e" rx="3"/>
+          <rect x="190" y="80" width="50" height="120" fill="#16a34a" rx="3" stroke="#16a34a" stroke-width="2"/>
+          <rect x="270" y="50" width="50" height="150" fill="#22c55e" rx="3"/>
+          <rect x="350" y="20" width="50" height="180" fill="#22c55e" rx="3"/>
+          <text x="55" y="165" font-size="11" fill="#374151" text-anchor="middle" font-weight="600">R$47</text>
+          <text x="135" y="125" font-size="11" fill="#374151" text-anchor="middle" font-weight="600">R$147</text>
+          <text x="215" y="74" font-size="11" fill="#374151" text-anchor="middle" font-weight="600">R$297</text>
+          <text x="295" y="44" font-size="11" fill="#374151" text-anchor="middle" font-weight="600">R$397</text>
+          <text x="375" y="14" font-size="11" fill="#374151" text-anchor="middle" font-weight="600">R$597</text>
+          <text x="55" y="210" font-size="10" fill="#6b7280" text-anchor="middle">Planilha</text>
+          <text x="135" y="210" font-size="10" fill="#6b7280" text-anchor="middle">Mini-curso</text>
+          <text x="215" y="210" font-size="10" fill="#6b7280" text-anchor="middle">Curso</text>
+          <text x="295" y="210" font-size="10" fill="#6b7280" text-anchor="middle">Mentoria</text>
+          <text x="375" y="210" font-size="10" fill="#6b7280" text-anchor="middle">HT 1:1</text>
+          <!-- SEU PRODUTO badge -->
+          <rect x="185" y="55" width="60" height="16" rx="8" fill="#dcfce7"/>
+          <text x="215" y="66" font-size="9" fill="#16a34a" text-anchor="middle" font-weight="700">SEU PRODUTO</text>
+        </svg>
+      </div>
+      <div class="card">
+        <div class="card-label">Top 5 Concorrentes</div>
+        <div style="margin-top:12px">
+          <div class="comp-row">
+            <div class="comp-avatar" style="background:#22c55e">F</div>
+            <div class="comp-info">
+              <div class="comp-name">Finanças para MEI (Rafael Lima)</div>
+              <div class="comp-links"><a href="#" target="_blank">&#8599; Página de Vendas</a><a href="#" target="_blank">&#8599; Instagram</a></div>
+            </div>
+            <div class="comp-price"><span class="badge badge-blue">R$197</span></div>
+          </div>
+          <div class="comp-row">
+            <div class="comp-avatar" style="background:#1d4ed8">C</div>
+            <div class="comp-info">
+              <div class="comp-name">CFO do Próprio Negócio</div>
+              <div class="comp-links"><a href="#" target="_blank">&#8599; Página de Vendas</a><a href="#" target="_blank">&#8599; Instagram</a></div>
+            </div>
+            <div class="comp-price"><span class="badge badge-purple">R$497</span></div>
+          </div>
+          <div class="comp-row">
+            <div class="comp-avatar" style="background:#7c3aed">D</div>
+            <div class="comp-info">
+              <div class="comp-name">Dinheiro de Empresário</div>
+              <div class="comp-links"><a href="#" target="_blank">&#8599; Página de Vendas</a><a href="#" target="_blank">&#8599; Instagram</a></div>
+            </div>
+            <div class="comp-price"><span class="badge badge-orange">R$397</span></div>
+          </div>
+          <div class="comp-row">
+            <div class="comp-avatar" style="background:#d97706">E</div>
+            <div class="comp-info">
+              <div class="comp-name">Empreendedor Organizado</div>
+              <div class="comp-links"><a href="#" target="_blank">&#8599; Página de Vendas</a><a href="#" target="_blank">&#8599; Instagram</a></div>
+            </div>
+            <div class="comp-price"><span class="badge badge-blue">R$247</span></div>
+          </div>
+          <div class="comp-row">
+            <div class="comp-avatar" style="background:#6b7280">M</div>
+            <div class="comp-info">
+              <div class="comp-name">MEI na Prática (Camila Dias)</div>
+              <div class="comp-links"><a href="#" target="_blank">&#8599; Página de Vendas</a><a href="#" target="_blank">&#8599; Instagram</a></div>
+            </div>
+            <div class="comp-price"><span class="badge badge-green">R$97</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CUIDADOS + RECLAMAÇÕES -->
+    <div class="grid-2" style="margin-bottom:16px">
+      <div class="card">
+        <div class="card-label">Cuidados e Riscos</div>
+        <ul class="bullet-list" style="margin-top:12px">
+          <li style="color:var(--badge-orange-text)">Evitar "pague menos imposto" sem contexto — pode parecer incentivo à sonegação</li>
+          <li style="color:var(--badge-orange-text)">Saturação crescente: diferencial precisa ser explícito desde o primeiro anúncio</li>
+          <li style="color:var(--badge-orange-text)">Promessas como "fique rico com seu MEI" estão fora de alcance real do formato</li>
+          <li style="color:var(--badge-orange-text)">Limite do MEI (R$81.000/ano): não prometer o que o regime não comporta</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-label">Padrões de Reclamação (Reclame Aqui)</div>
+        <div style="margin-top:12px">
+          <div class="complaint-row">
+            <div class="complaint-label"><span>Conteúdo genérico</span><span>38%</span></div>
+            <div class="complaint-bar-bg"><div class="complaint-bar-fill" style="width:38%"></div></div>
+          </div>
+          <div class="complaint-row">
+            <div class="complaint-label"><span>Suporte ausente</span><span>31%</span></div>
+            <div class="complaint-bar-bg"><div class="complaint-bar-fill" style="width:31%"></div></div>
+          </div>
+          <div class="complaint-row">
+            <div class="complaint-label"><span>Falta de aplicação prática</span><span>19%</span></div>
+            <div class="complaint-bar-bg"><div class="complaint-bar-fill" style="width:19%"></div></div>
+          </div>
+          <div class="complaint-row">
+            <div class="complaint-label"><span>Outros</span><span>12%</span></div>
+            <div class="complaint-bar-bg"><div class="complaint-bar-fill" style="width:12%"></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TABELA DE CONCORRENTES -->
+    <div class="card" style="margin-bottom:16px">
+      <div class="card-label">Análise Completa de Concorrentes</div>
+      <div class="table-wrap" style="margin-top:12px">
+        <table>
+          <thead>
+            <tr>
+              <th>Nome</th>
+              <th>Promessa Principal</th>
+              <th>Formato</th>
+              <th>Preco</th>
+              <th>Links</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Finanças para MEI</td><td>Organizar em 7 dias</td><td>Mini-curso</td><td><span class="badge badge-blue">R$197</span></td><td><a href="#" style="color:var(--primary);font-size:11px">&#8599; Página</a></td></tr>
+            <tr><td>Empreendedor Organizado</td><td>Controle total do negócio</td><td>Curso + planilha</td><td><span class="badge badge-blue">R$247</span></td><td><a href="#" style="color:var(--primary);font-size:11px">&#8599; Página</a></td></tr>
+            <tr><td>MEI na Prática</td><td>Gestão simples para MEI</td><td>Mini-curso</td><td><span class="badge badge-green">R$97</span></td><td><a href="#" style="color:var(--primary);font-size:11px">&#8599; Página</a></td></tr>
+            <tr><td>Controle Financeiro para Autônomos</td><td>Nunca mais perder dinheiro</td><td>Curso online</td><td><span class="badge badge-blue">R$297</span></td><td><a href="#" style="color:var(--primary);font-size:11px">&#8599; Página</a></td></tr>
+            <tr><td>CFO do Próprio Negócio</td><td>Gestão como grande empresa</td><td>Curso + mentoria</td><td><span class="badge badge-purple">R$497</span></td><td><a href="#" style="color:var(--primary);font-size:11px">&#8599; Página</a></td></tr>
+            <tr><td>Finanças Simples</td><td>Finanças sem complicação</td><td>Mini-curso</td><td><span class="badge badge-green">R$147</span></td><td><a href="#" style="color:var(--primary);font-size:11px">&#8599; Página</a></td></tr>
+            <tr><td>Dinheiro de Empresário</td><td>Pensar como empresário</td><td>Curso premium</td><td><span class="badge badge-orange">R$397</span></td><td><a href="#" style="color:var(--primary);font-size:11px">&#8599; Página</a></td></tr>
+            <tr><td>Planilha do MEI Pro</td><td>Controle na planilha</td><td>Planilha</td><td><span class="badge badge-green">R$47</span></td><td><a href="#" style="color:var(--primary);font-size:11px">&#8599; Página</a></td></tr>
+            <tr><td>Autonomia Financeira</td><td>Liberdade financeira real</td><td>Mentoria + curso</td><td><span class="badge badge-dark">R$597</span></td><td><a href="#" style="color:var(--primary);font-size:11px">&#8599; Página</a></td></tr>
+            <tr><td>Gestão MEI Online</td><td>MEI organizado e rentável</td><td>Curso</td><td><span class="badge badge-blue">R$197</span></td><td><a href="#" style="color:var(--primary);font-size:11px">&#8599; Página</a></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- TERMOS + PADRÕES -->
+    <div class="grid-2" style="margin-bottom:16px">
+      <div class="card">
+        <div class="card-label">Termos em Alta</div>
+        <div class="pill-cloud" style="margin-top:12px">
+          <span class="badge badge-green" style="font-size:13px">como organizar finanças MEI</span>
+          <span class="badge badge-green" style="font-size:13px">planilha MEI</span>
+          <span class="badge badge-green" style="font-size:11px">calcular DAS</span>
+          <span class="badge badge-green" style="font-size:13px">separar conta PF PJ</span>
+          <span class="badge badge-green" style="font-size:11px">DASN MEI</span>
+          <span class="badge badge-green" style="font-size:11px">pró-labore autônomo</span>
+          <span class="badge badge-green" style="font-size:13px">planilha controle financeiro</span>
+          <span class="badge badge-green" style="font-size:11px">limite MEI 2024</span>
+          <span class="badge badge-green" style="font-size:11px">como precificar serviço</span>
+          <span class="badge badge-green" style="font-size:11px">imposto autônomo</span>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-label">Padrões de Anúncio que Performam</div>
+        <ul class="bullet-list" style="margin-top:12px">
+          <li>Antes/depois de extrato bancário desorganizado vs. organizado</li>
+          <li>Revelação de dor ("Você sabe quanto vai sobrar no fim do mês?")</li>
+          <li>Depoimento de aluna mostrando a planilha preenchida</li>
+          <li>Bastidores mostrando a metodologia ao vivo</li>
+          <li>Dado de mercado ("72% dos MEIs nunca fizeram gestão financeira")</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- TOP 10 VÍDEOS DO YOUTUBE -->
+    <div class="card" style="margin-bottom:16px">
+      <div class="card-label">Top 10 Vídeos do YouTube no Nicho</div>
+      <div style="font-size:11px;color:var(--text-3);margin-bottom:12px">Ranking por views dos últimos 24 meses. Views estimadas via busca pública. Use para entender quais ganchos, ângulos e formatos capturam atenção.</div>
+
+      <div class="table-wrap">
+        <table style="width:100%">
+          <thead>
+            <tr>
+              <th style="width:40px">#</th>
+              <th style="width:100px">Thumb</th>
+              <th>Título + Canal</th>
+              <th style="width:110px">Views</th>
+              <th style="width:60px">Link</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><div style="width:28px;height:28px;border-radius:50%;background:var(--primary-light);color:var(--primary-dark);font-weight:700;font-size:12px;display:flex;align-items:center;justify-content:center">1</div></td>
+              <td><div style="width:80px;height:45px;border-radius:6px;background:linear-gradient(135deg,#fef3c7,#f59e0b);display:flex;align-items:center;justify-content:center;color:#fff;font-size:10px;font-weight:700;text-align:center;line-height:1.2">R$70 MIL<br>DÍVIDAS</div></td>
+              <td><div style="font-weight:600;font-size:13px;color:var(--text-1)">Saí de R$70 MIL em Dívidas (Passo a Passo)</div><div style="font-size:11px;color:var(--text-3);margin-top:2px">Me Poupe! (Nathalia Arcuri)</div></td>
+              <td><span class="badge badge-green">4,2M views</span></td>
+              <td><a href="https://www.youtube.com/watch?v=WCK0XQcvo9Y" target="_blank" style="color:var(--primary);font-size:11px">&#8599; Abrir</a></td>
+            </tr>
+            <tr>
+              <td><div style="width:28px;height:28px;border-radius:50%;background:var(--primary-light);color:var(--primary-dark);font-weight:700;font-size:12px;display:flex;align-items:center;justify-content:center">2</div></td>
+              <td><div style="width:80px;height:45px;border-radius:6px;background:linear-gradient(135deg,#fce7f3,#db2777);display:flex;align-items:center;justify-content:center;color:#fff;font-size:10px;font-weight:700;text-align:center;line-height:1.2">SEM<br>PLANILHA</div></td>
+              <td><div style="font-weight:600;font-size:13px;color:var(--text-1)">Como Organizar as Finanças SEM Planilha</div><div style="font-size:11px;color:var(--text-3);margin-top:2px">Me Poupe! (Nathalia Arcuri)</div></td>
+              <td><span class="badge badge-green">2,8M views</span></td>
+              <td><a href="https://www.youtube.com/watch?v=oBhh5stJ3rU" target="_blank" style="color:var(--primary);font-size:11px">&#8599; Abrir</a></td>
+            </tr>
+            <tr>
+              <td><div style="width:28px;height:28px;border-radius:50%;background:var(--primary-light);color:var(--primary-dark);font-weight:700;font-size:12px;display:flex;align-items:center;justify-content:center">3</div></td>
+              <td><div style="width:80px;height:45px;border-radius:6px;background:linear-gradient(135deg,#dbeafe,#1d4ed8);display:flex;align-items:center;justify-content:center;color:#fff;font-size:10px;font-weight:700;text-align:center;line-height:1.2">R$700<br>POR MÊS</div></td>
+              <td><div style="font-weight:600;font-size:13px;color:var(--text-1)">Método para Investir R$700/mês (Qualquer Renda)</div><div style="font-size:11px;color:var(--text-3);margin-top:2px">Primo Rico (Thiago Nigro)</div></td>
+              <td><span class="badge badge-green">1,9M views</span></td>
+              <td><a href="https://www.youtube.com/watch?v=YvMnYPuYPik" target="_blank" style="color:var(--primary);font-size:11px">&#8599; Abrir</a></td>
+            </tr>
+            <tr>
+              <td><div style="width:28px;height:28px;border-radius:50%;background:var(--primary-light);color:var(--primary-dark);font-weight:700;font-size:12px;display:flex;align-items:center;justify-content:center">4</div></td>
+              <td><div style="width:80px;height:45px;border-radius:6px;background:linear-gradient(135deg,#dcfce7,#16a34a);display:flex;align-items:center;justify-content:center;color:#fff;font-size:10px;font-weight:700;text-align:center;line-height:1.2">MENOS<br>IMPOSTO</div></td>
+              <td><div style="font-weight:600;font-size:13px;color:var(--text-1)">Como Pagar Menos Imposto Sendo MEI (Legal)</div><div style="font-size:11px;color:var(--text-3);margin-top:2px">Nath Finanças</div></td>
+              <td><span class="badge badge-green">1,5M views</span></td>
+              <td><a href="https://www.youtube.com" target="_blank" style="color:var(--primary);font-size:11px">&#8599; Abrir</a></td>
+            </tr>
+            <tr>
+              <td><div style="width:28px;height:28px;border-radius:50%;background:var(--primary-light);color:var(--primary-dark);font-weight:700;font-size:12px;display:flex;align-items:center;justify-content:center">5</div></td>
+              <td><div style="width:80px;height:45px;border-radius:6px;background:linear-gradient(135deg,#ede9fe,#7c3aed);display:flex;align-items:center;justify-content:center;color:#fff;font-size:10px;font-weight:700;text-align:center;line-height:1.2">5 ERROS<br>DO MEI</div></td>
+              <td><div style="font-weight:600;font-size:13px;color:var(--text-1)">Os 5 Erros que Todo MEI Comete no 1º Ano</div><div style="font-size:11px;color:var(--text-3);margin-top:2px">Contador do Autônomo</div></td>
+              <td><span class="badge badge-green">1,2M views</span></td>
+              <td><a href="https://www.youtube.com" target="_blank" style="color:var(--primary);font-size:11px">&#8599; Abrir</a></td>
+            </tr>
+            <tr>
+              <td><div style="width:28px;height:28px;border-radius:50%;background:var(--primary-light);color:var(--primary-dark);font-weight:700;font-size:12px;display:flex;align-items:center;justify-content:center">6</div></td>
+              <td><div style="width:80px;height:45px;border-radius:6px;background:linear-gradient(135deg,#fef3c7,#d97706);display:flex;align-items:center;justify-content:center;color:#fff;font-size:10px;font-weight:700;text-align:center;line-height:1.2">PF<br>vs PJ</div></td>
+              <td><div style="font-weight:600;font-size:13px;color:var(--text-1)">Como Separar Finanças Pessoais da Empresa</div><div style="font-size:11px;color:var(--text-3);margin-top:2px">Gustavo Cerbasi</div></td>
+              <td><span class="badge badge-green">980K views</span></td>
+              <td><a href="https://www.youtube.com" target="_blank" style="color:var(--primary);font-size:11px">&#8599; Abrir</a></td>
+            </tr>
+            <tr>
+              <td><div style="width:28px;height:28px;border-radius:50%;background:var(--primary-light);color:var(--primary-dark);font-weight:700;font-size:12px;display:flex;align-items:center;justify-content:center">7</div></td>
+              <td><div style="width:80px;height:45px;border-radius:6px;background:linear-gradient(135deg,#e0e7ff,#4338ca);display:flex;align-items:center;justify-content:center;color:#fff;font-size:10px;font-weight:700;text-align:center;line-height:1.2">DAS<br>NA MÃO</div></td>
+              <td><div style="font-weight:600;font-size:13px;color:var(--text-1)">DAS do MEI: Como Calcular e Pagar Certo</div><div style="font-size:11px;color:var(--text-3);margin-top:2px">Mulher MEI</div></td>
+              <td><span class="badge badge-green">740K views</span></td>
+              <td><a href="https://www.youtube.com" target="_blank" style="color:var(--primary);font-size:11px">&#8599; Abrir</a></td>
+            </tr>
+            <tr>
+              <td><div style="width:28px;height:28px;border-radius:50%;background:var(--primary-light);color:var(--primary-dark);font-weight:700;font-size:12px;display:flex;align-items:center;justify-content:center">8</div></td>
+              <td><div style="width:80px;height:45px;border-radius:6px;background:linear-gradient(135deg,#dcfce7,#16a34a);display:flex;align-items:center;justify-content:center;color:#fff;font-size:10px;font-weight:700;text-align:center;line-height:1.2">PRÓ<br>LABORE</div></td>
+              <td><div style="font-weight:600;font-size:13px;color:var(--text-1)">Pró-labore: Quanto Tirar por Mês Sem Quebrar</div><div style="font-size:11px;color:var(--text-3);margin-top:2px">Clube do Valor</div></td>
+              <td><span class="badge badge-green">620K views</span></td>
+              <td><a href="https://www.youtube.com" target="_blank" style="color:var(--primary);font-size:11px">&#8599; Abrir</a></td>
+            </tr>
+            <tr>
+              <td><div style="width:28px;height:28px;border-radius:50%;background:var(--primary-light);color:var(--primary-dark);font-weight:700;font-size:12px;display:flex;align-items:center;justify-content:center">9</div></td>
+              <td><div style="width:80px;height:45px;border-radius:6px;background:linear-gradient(135deg,#fce7f3,#db2777);display:flex;align-items:center;justify-content:center;color:#fff;font-size:10px;font-weight:700;text-align:center;line-height:1.2">SOBRAR<br>NO FIM</div></td>
+              <td><div style="font-weight:600;font-size:13px;color:var(--text-1)">Como Fazer Sobrar Dinheiro Ganhando Pouco</div><div style="font-size:11px;color:var(--text-3);margin-top:2px">EconoMirna</div></td>
+              <td><span class="badge badge-green">540K views</span></td>
+              <td><a href="https://www.youtube.com" target="_blank" style="color:var(--primary);font-size:11px">&#8599; Abrir</a></td>
+            </tr>
+            <tr>
+              <td><div style="width:28px;height:28px;border-radius:50%;background:var(--primary-light);color:var(--primary-dark);font-weight:700;font-size:12px;display:flex;align-items:center;justify-content:center">10</div></td>
+              <td><div style="width:80px;height:45px;border-radius:6px;background:linear-gradient(135deg,#dbeafe,#1d4ed8);display:flex;align-items:center;justify-content:center;color:#fff;font-size:10px;font-weight:700;text-align:center;line-height:1.2">PLANILHA<br>PRONTA</div></td>
+              <td><div style="font-weight:600;font-size:13px;color:var(--text-1)">Planilha Financeira para Autônomo (Download)</div><div style="font-size:11px;color:var(--text-3);margin-top:2px">Finanças Feministas</div></td>
+              <td><span class="badge badge-green">380K views</span></td>
+              <td><a href="https://www.youtube.com" target="_blank" style="color:var(--primary);font-size:11px">&#8599; Abrir</a></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- ACCORDION: DETALHES DE CADA VÍDEO -->
+      <div class="accordion" style="margin-top:16px">
+        <div class="accordion-header" onclick="toggleAccordion(this)">
+          <span class="accordion-label">Ver detalhes de cada vídeo</span>
+          <span class="accordion-arrow">&#9662;</span>
+        </div>
+        <div class="accordion-body">
+          <div style="padding:12px 20px 16px;display:grid;gap:14px">
+
+            <!-- Vídeo 1 -->
+            <div style="border-left:3px solid var(--primary);padding:10px 14px;background:#fafbfd;border-radius:var(--r2)">
+              <div style="font-weight:700;font-size:13px;color:var(--text-1);margin-bottom:6px">#1. Saí de R$70 MIL em Dívidas. Me Poupe!</div>
+              <div style="font-size:12px;color:var(--text-2);margin-bottom:8px"><strong>Thumbnail:</strong> fundo amarelo vibrante, rosto da Nath com expressão de choque, número "R$70.000" gigante em vermelho, seta apontando para baixo.</div>
+              <div style="font-size:12px;color:var(--text-2);margin-bottom:6px"><strong>Top 3 comentários:</strong></div>
+              <div style="border-left:3px solid var(--primary-light);padding:6px 10px;margin-bottom:4px;font-size:12px;color:var(--text-2);font-style:italic">"Tô chorando aqui, é minha história igualzinha"</div>
+              <div style="border-left:3px solid var(--primary-light);padding:6px 10px;margin-bottom:4px;font-size:12px;color:var(--text-2);font-style:italic">"O passo 3 ninguém fala, muito obrigada"</div>
+              <div style="border-left:3px solid var(--primary-light);padding:6px 10px;margin-bottom:8px;font-size:12px;color:var(--text-2);font-style:italic">"Comecei a aplicar ontem, me dá força"</div>
+              <div style="font-size:12px;color:var(--text-2);margin-bottom:4px"><strong>Ângulo:</strong> jornada pessoal de superação financeira, storytelling em primeira pessoa.</div>
+              <div style="font-size:12px;color:var(--text-2)"><strong>Lacuna para o produto:</strong> ela foca em sair da dívida, não em manter o negócio organizado para não cair de novo. Entra aí o "sistema pronto".</div>
+            </div>
+
+            <!-- Vídeo 2 -->
+            <div style="border-left:3px solid var(--primary);padding:10px 14px;background:#fafbfd;border-radius:var(--r2)">
+              <div style="font-weight:700;font-size:13px;color:var(--text-1);margin-bottom:6px">#2. Como Organizar Finanças SEM Planilha. Me Poupe!</div>
+              <div style="font-size:12px;color:var(--text-2);margin-bottom:8px"><strong>Thumbnail:</strong> fundo rosa, planilha riscada em vermelho com "X" gigante, texto "SEM ISSO" em branco sobre preto.</div>
+              <div style="font-size:12px;color:var(--text-2);margin-bottom:6px"><strong>Top 3 comentários:</strong></div>
+              <div style="border-left:3px solid var(--primary-light);padding:6px 10px;margin-bottom:4px;font-size:12px;color:var(--text-2);font-style:italic">"Planilha me dá pânico, finalmente alguém entendeu"</div>
+              <div style="border-left:3px solid var(--primary-light);padding:6px 10px;margin-bottom:4px;font-size:12px;color:var(--text-2);font-style:italic">"Já tentei 5 apps, todos complicados demais"</div>
+              <div style="border-left:3px solid var(--primary-light);padding:6px 10px;margin-bottom:8px;font-size:12px;color:var(--text-2);font-style:italic">"Preciso de algo que funcione pra quem não tem tempo"</div>
+              <div style="font-size:12px;color:var(--text-2);margin-bottom:4px"><strong>Ângulo:</strong> contra-corrente (todo mundo fala de planilha, ela rejeita).</div>
+              <div style="font-size:12px;color:var(--text-2)"><strong>Lacuna para o produto:</strong> a Mariana pode posicionar o Finanças no Controle como "a planilha simplificada que funciona para quem odeia planilha".</div>
+            </div>
+
+            <!-- Vídeo 3 -->
+            <div style="border-left:3px solid var(--primary);padding:10px 14px;background:#fafbfd;border-radius:var(--r2)">
+              <div style="font-weight:700;font-size:13px;color:var(--text-1);margin-bottom:6px">#3. Método para Investir R$700/mês. Primo Rico</div>
+              <div style="font-size:12px;color:var(--text-2);margin-bottom:8px"><strong>Thumbnail:</strong> Thiago segurando dinheiro, fundo azul corporativo, "R$700" em amarelo neon, "qualquer renda" em branco.</div>
+              <div style="font-size:12px;color:var(--text-2);margin-bottom:6px"><strong>Top 3 comentários:</strong></div>
+              <div style="border-left:3px solid var(--primary-light);padding:6px 10px;margin-bottom:4px;font-size:12px;color:var(--text-2);font-style:italic">"Mas como sobrar R$700 se nem sei o que entra?"</div>
+              <div style="border-left:3px solid var(--primary-light);padding:6px 10px;margin-bottom:4px;font-size:12px;color:var(--text-2);font-style:italic">"Funciona pra MEI com renda variável?"</div>
+              <div style="border-left:3px solid var(--primary-light);padding:6px 10px;margin-bottom:8px;font-size:12px;color:var(--text-2);font-style:italic">"Primeiro preciso organizar o básico, depois penso nisso"</div>
+              <div style="font-size:12px;color:var(--text-2);margin-bottom:4px"><strong>Ângulo:</strong> autoridade + número redondo + promessa de sistema.</div>
+              <div style="font-size:12px;color:var(--text-2)"><strong>Lacuna para o produto:</strong> ele pula a etapa de "saber quanto sobra". O Finanças no Controle vive exatamente nessa etapa zero.</div>
+            </div>
+
+            <!-- Vídeo 4 -->
+            <div style="border-left:3px solid var(--primary);padding:10px 14px;background:#fafbfd;border-radius:var(--r2)">
+              <div style="font-weight:700;font-size:13px;color:var(--text-1);margin-bottom:6px">#4. Como Pagar Menos Imposto Sendo MEI. Nath Finanças</div>
+              <div style="font-size:12px;color:var(--text-2);margin-bottom:8px"><strong>Thumbnail:</strong> fundo verde, calculadora, boleto rasgado, rosto sorridente, "LEGAL" em selo vermelho.</div>
+              <div style="font-size:12px;color:var(--text-2);margin-bottom:6px"><strong>Top 3 comentários:</strong></div>
+              <div style="border-left:3px solid var(--primary-light);padding:6px 10px;margin-bottom:4px;font-size:12px;color:var(--text-2);font-style:italic">"Achei que era sonegação, aliviei"</div>
+              <div style="border-left:3px solid var(--primary-light);padding:6px 10px;margin-bottom:4px;font-size:12px;color:var(--text-2);font-style:italic">"Minha contadora nunca me explicou assim"</div>
+              <div style="border-left:3px solid var(--primary-light);padding:6px 10px;margin-bottom:8px;font-size:12px;color:var(--text-2);font-style:italic">"E o pró-labore, entra nessa conta?"</div>
+              <div style="font-size:12px;color:var(--text-2);margin-bottom:4px"><strong>Ângulo:</strong> dor tributária + alívio moral ("legal" desarma).</div>
+              <div style="font-size:12px;color:var(--text-2)"><strong>Lacuna para o produto:</strong> o vídeo explica o que fazer, não como controlar os pagamentos mês a mês. O produto entrega o controle.</div>
+            </div>
+
+            <!-- Vídeo 5 -->
+            <div style="border-left:3px solid var(--primary);padding:10px 14px;background:#fafbfd;border-radius:var(--r2)">
+              <div style="font-weight:700;font-size:13px;color:var(--text-1);margin-bottom:6px">#5. 5 Erros que Todo MEI Comete. Contador do Autônomo</div>
+              <div style="font-size:12px;color:var(--text-2);margin-bottom:8px"><strong>Thumbnail:</strong> fundo roxo escuro, "5 ERROS" em amarelo gigante, rosto do contador com cara séria apontando.</div>
+              <div style="font-size:12px;color:var(--text-2);margin-bottom:6px"><strong>Top 3 comentários:</strong></div>
+              <div style="border-left:3px solid var(--primary-light);padding:6px 10px;margin-bottom:4px;font-size:12px;color:var(--text-2);font-style:italic">"Cometi os 5, tô começando do zero"</div>
+              <div style="border-left:3px solid var(--primary-light);padding:6px 10px;margin-bottom:4px;font-size:12px;color:var(--text-2);font-style:italic">"O erro 3 é o meu, nunca percebi"</div>
+              <div style="border-left:3px solid var(--primary-light);padding:6px 10px;margin-bottom:8px;font-size:12px;color:var(--text-2);font-style:italic">"Tem vídeo ensinando a corrigir?"</div>
+              <div style="font-size:12px;color:var(--text-2);margin-bottom:4px"><strong>Ângulo:</strong> lista de erros (formato listicle com identificação imediata).</div>
+              <div style="font-size:12px;color:var(--text-2)"><strong>Lacuna para o produto:</strong> o vídeo identifica o problema mas não oferece sistema de correção. O produto é a correção.</div>
+            </div>
+
+            <!-- Vídeo 6 -->
+            <div style="border-left:3px solid var(--primary);padding:10px 14px;background:#fafbfd;border-radius:var(--r2)">
+              <div style="font-weight:700;font-size:13px;color:var(--text-1);margin-bottom:6px">#6. Separar Finanças Pessoais da Empresa. Gustavo Cerbasi</div>
+              <div style="font-size:12px;color:var(--text-2);margin-bottom:8px"><strong>Thumbnail:</strong> fundo bege sóbrio, Cerbasi de terno, gráfico de duas contas separadas, autoridade visual.</div>
+              <div style="font-size:12px;color:var(--text-2);margin-bottom:6px"><strong>Top 3 comentários:</strong></div>
+              <div style="border-left:3px solid var(--primary-light);padding:6px 10px;margin-bottom:4px;font-size:12px;color:var(--text-2);font-style:italic">"Misturo tudo faz anos, precisava ouvir isso"</div>
+              <div style="border-left:3px solid var(--primary-light);padding:6px 10px;margin-bottom:4px;font-size:12px;color:var(--text-2);font-style:italic">"Tem como fazer só com MEI, sem virar ME?"</div>
+              <div style="border-left:3px solid var(--primary-light);padding:6px 10px;margin-bottom:8px;font-size:12px;color:var(--text-2);font-style:italic">"Como controlar isso no dia a dia, na prática?"</div>
+              <div style="font-size:12px;color:var(--text-2);margin-bottom:4px"><strong>Ângulo:</strong> autoridade técnica (discurso de especialista).</div>
+              <div style="font-size:12px;color:var(--text-2)"><strong>Lacuna para o produto:</strong> o vídeo ensina o conceito, não o passo a passo executável. O Finanças no Controle transforma conceito em rotina.</div>
+            </div>
+
+            <!-- Vídeo 7 -->
+            <div style="border-left:3px solid var(--primary);padding:10px 14px;background:#fafbfd;border-radius:var(--r2)">
+              <div style="font-weight:700;font-size:13px;color:var(--text-1);margin-bottom:6px">#7. DAS do MEI. Como Calcular. Mulher MEI</div>
+              <div style="font-size:12px;color:var(--text-2);margin-bottom:8px"><strong>Thumbnail:</strong> fundo roxo claro, boleto em destaque, "DAS" em letras grandes brancas, rosto da apresentadora com dedo em riste.</div>
+              <div style="font-size:12px;color:var(--text-2);margin-bottom:6px"><strong>Top 3 comentários:</strong></div>
+              <div style="border-left:3px solid var(--primary-light);padding:6px 10px;margin-bottom:4px;font-size:12px;color:var(--text-2);font-style:italic">"Já paguei 2 meses a mais, descobri agora"</div>
+              <div style="border-left:3px solid var(--primary-light);padding:6px 10px;margin-bottom:4px;font-size:12px;color:var(--text-2);font-style:italic">"Ninguém me falou isso quando abri o MEI"</div>
+              <div style="border-left:3px solid var(--primary-light);padding:6px 10px;margin-bottom:8px;font-size:12px;color:var(--text-2);font-style:italic">"Tem como automatizar pra não esquecer?"</div>
+              <div style="font-size:12px;color:var(--text-2);margin-bottom:4px"><strong>Ângulo:</strong> informação prática em passo a passo.</div>
+              <div style="font-size:12px;color:var(--text-2)"><strong>Lacuna para o produto:</strong> o vídeo ensina a calcular, não a lembrar de pagar. Produto pode oferecer checklist mensal de obrigações.</div>
+            </div>
+
+            <!-- Vídeo 8 -->
+            <div style="border-left:3px solid var(--primary);padding:10px 14px;background:#fafbfd;border-radius:var(--r2)">
+              <div style="font-weight:700;font-size:13px;color:var(--text-1);margin-bottom:6px">#8. Pró-labore. Quanto Tirar. Clube do Valor</div>
+              <div style="font-size:12px;color:var(--text-2);margin-bottom:8px"><strong>Thumbnail:</strong> fundo azul escuro, carteira com dinheiro saindo, "QUANTO?" em amarelo, visual corporativo.</div>
+              <div style="font-size:12px;color:var(--text-2);margin-bottom:6px"><strong>Top 3 comentários:</strong></div>
+              <div style="border-left:3px solid var(--primary-light);padding:6px 10px;margin-bottom:4px;font-size:12px;color:var(--text-2);font-style:italic">"Tiro tudo que entra, não sobra nada no CNPJ"</div>
+              <div style="border-left:3px solid var(--primary-light);padding:6px 10px;margin-bottom:4px;font-size:12px;color:var(--text-2);font-style:italic">"A fórmula salvou, tava perdido"</div>
+              <div style="border-left:3px solid var(--primary-light);padding:6px 10px;margin-bottom:8px;font-size:12px;color:var(--text-2);font-style:italic">"Como saber quanto gastar com a empresa antes?"</div>
+              <div style="font-size:12px;color:var(--text-2);margin-bottom:4px"><strong>Ângulo:</strong> dúvida universal do autônomo (o que é meu, o que é da empresa).</div>
+              <div style="font-size:12px;color:var(--text-2)"><strong>Lacuna para o produto:</strong> resolve uma pergunta pontual, não o controle contínuo. Produto pode entregar calculadora + rotina.</div>
+            </div>
+
+            <!-- Vídeo 9 -->
+            <div style="border-left:3px solid var(--primary);padding:10px 14px;background:#fafbfd;border-radius:var(--r2)">
+              <div style="font-weight:700;font-size:13px;color:var(--text-1);margin-bottom:6px">#9. Sobrar Dinheiro Ganhando Pouco. EconoMirna</div>
+              <div style="font-size:12px;color:var(--text-2);margin-bottom:8px"><strong>Thumbnail:</strong> fundo rosa pastel, rosto da Mirna sorrindo, notas de R$10 espalhadas, visual acolhedor.</div>
+              <div style="font-size:12px;color:var(--text-2);margin-bottom:6px"><strong>Top 3 comentários:</strong></div>
+              <div style="border-left:3px solid var(--primary-light);padding:6px 10px;margin-bottom:4px;font-size:12px;color:var(--text-2);font-style:italic">"Não é renda que falta, é organização"</div>
+              <div style="border-left:3px solid var(--primary-light);padding:6px 10px;margin-bottom:4px;font-size:12px;color:var(--text-2);font-style:italic">"Comecei o desafio, já sobrou R$120 na semana"</div>
+              <div style="border-left:3px solid var(--primary-light);padding:6px 10px;margin-bottom:8px;font-size:12px;color:var(--text-2);font-style:italic">"Tem algo específico pra quem é MEI?"</div>
+              <div style="font-size:12px;color:var(--text-2);margin-bottom:4px"><strong>Ângulo:</strong> acolhimento + prova com pessoas comuns.</div>
+              <div style="font-size:12px;color:var(--text-2)"><strong>Lacuna para o produto:</strong> linguagem funciona para PF, falha na camada empresarial. Produto cobre a camada que falta.</div>
+            </div>
+
+            <!-- Vídeo 10 -->
+            <div style="border-left:3px solid var(--primary);padding:10px 14px;background:#fafbfd;border-radius:var(--r2)">
+              <div style="font-weight:700;font-size:13px;color:var(--text-1);margin-bottom:6px">#10. Planilha Financeira para Autônomo. Finanças Feministas</div>
+              <div style="font-size:12px;color:var(--text-2);margin-bottom:8px"><strong>Thumbnail:</strong> fundo lilás, laptop com planilha aberta, "DOWNLOAD" em selo verde, rosto com óculos e sorriso confiante.</div>
+              <div style="font-size:12px;color:var(--text-2);margin-bottom:6px"><strong>Top 3 comentários:</strong></div>
+              <div style="border-left:3px solid var(--primary-light);padding:6px 10px;margin-bottom:4px;font-size:12px;color:var(--text-2);font-style:italic">"Baixei e abandonei, não entendi as colunas"</div>
+              <div style="border-left:3px solid var(--primary-light);padding:6px 10px;margin-bottom:4px;font-size:12px;color:var(--text-2);font-style:italic">"Precisa de vídeo ensinando a preencher"</div>
+              <div style="border-left:3px solid var(--primary-light);padding:6px 10px;margin-bottom:8px;font-size:12px;color:var(--text-2);font-style:italic">"Tem versão mais simples? Essa assusta"</div>
+              <div style="font-size:12px;color:var(--text-2);margin-bottom:4px"><strong>Ângulo:</strong> ferramenta grátis + recorte feminino.</div>
+              <div style="font-size:12px;color:var(--text-2)"><strong>Lacuna para o produto:</strong> a planilha pura assusta sem tutoria. Produto entrega planilha + vídeo passo a passo, que é a reclamação dos comentários.</div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- PADRÃO IDENTIFICADO -->
+      <div style="margin-top:16px;background:var(--highlight-bg);border:1px solid var(--highlight-border);border-radius:var(--r2);padding:16px">
+        <div style="font-size:12px;font-weight:700;color:var(--primary-dark);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px">Padrão identificado nos 10 vídeos</div>
+        <ul style="list-style:none;padding:0;margin:0;display:grid;gap:8px">
+          <li style="display:flex;gap:10px;font-size:13px;color:var(--text-2);line-height:1.5"><span style="color:var(--primary);font-weight:700">&#9679;</span><span><strong>Número específico no título</strong> performa melhor (R$70 mil, R$700, 5 erros). Evita promessa vaga.</span></li>
+          <li style="display:flex;gap:10px;font-size:13px;color:var(--text-2);line-height:1.5"><span style="color:var(--primary);font-weight:700">&#9679;</span><span><strong>Thumbnail com contraste forte</strong> (amarelo, rosa, verde vibrante) + texto curto em caixa alta.</span></li>
+          <li style="display:flex;gap:10px;font-size:13px;color:var(--text-2);line-height:1.5"><span style="color:var(--primary);font-weight:700">&#9679;</span><span><strong>Storytelling pessoal</strong> e <strong>contra-corrente</strong> (sem planilha, sem conta bancária) geram maior identificação.</span></li>
+          <li style="display:flex;gap:10px;font-size:13px;color:var(--text-2);line-height:1.5"><span style="color:var(--primary);font-weight:700">&#9679;</span><span><strong>Lacuna de execução:</strong> vídeos ensinam conceito, não entregam rotina. O produto da Mariana preenche essa lacuna virando sistema do dia a dia.</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ALERTAS REGULATÓRIOS -->
+    <div class="alert-card" style="margin-bottom:16px">
+      <div class="alert-title">&#9650; Alertas Regulatórios</div>
+      <div style="font-size:13px;color:#92400e;line-height:1.7;margin-bottom:10px">
+        Evite as expressões abaixo em anúncios e páginas de vendas. Podem ser sinalizadas pelo Meta Ads ou interpretadas como incentivo à sonegação:
+      </div>
+      <div class="pill-cloud">
+        <span class="badge badge-orange">pague menos imposto</span>
+        <span class="badge badge-orange">burle a Receita</span>
+        <span class="badge badge-orange">imposto zero</span>
+        <span class="badge badge-orange">esconda dinheiro</span>
+        <span class="badge badge-orange">fique rico rápido</span>
+      </div>
+    </div>
+
+    <!-- CONFIANÇA + FONTES -->
+    <div class="card">
+      <div class="circ-wrap">
+        <div style="text-align:center">
+          <svg viewBox="0 0 120 120" width="120">
+            <circle cx="60" cy="60" r="46" stroke="#f3f4f6" stroke-width="10" fill="none"/>
+            <circle cx="60" cy="60" r="46" stroke="#22c55e" stroke-width="10" fill="none"
+              stroke-dasharray="250 289" transform="rotate(-90 60 60)"/>
+            <text x="60" y="56" font-size="22" font-weight="800" fill="#111827" text-anchor="middle">87%</text>
+            <text x="60" y="72" font-size="10" fill="#6b7280" text-anchor="middle">Confiança</text>
+          </svg>
+          <div class="circ-label">Confiabilidade da pesquisa</div>
+        </div>
+        <div style="flex:1">
+          <div class="card-label">Fontes Consultadas (6)</div>
+          <div class="sources-grid" style="margin-top:10px">
+            <div class="source-item">&#8599; SEBRAE — Dados do mercado</div>
+            <div class="source-item">&#8599; Portal do Empreendedor — Base MEI</div>
+            <div class="source-item">&#8599; Reclame Aqui — Reclamações</div>
+            <div class="source-item">&#8599; Instagram — Análise de concorrentes</div>
+            <div class="source-item">&#8599; Google Trends — Termos de busca</div>
+            <div class="source-item">&#8599; Hotmart/Kiwify — Faixas de preco</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /panel-pesquisa -->
+
+</main>
+
+<script>
+function showPanel(id) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  document.querySelectorAll('.mobile-tab').forEach(t => t.classList.remove('active'));
+
+  const panel = document.getElementById('panel-' + id);
+  if (panel) panel.classList.add('active');
+
+  document.querySelectorAll('.nav-item, .mobile-tab').forEach(el => {
+    if (el.getAttribute('onclick') && el.getAttribute('onclick').includes("'" + id + "'")) {
+      el.classList.add('active');
+    }
+  });
+}
+
+function toggleAccordion(header) {
+  const acc = header.closest('.accordion');
+  acc.classList.toggle('open');
+}
+
+document.addEventListener('DOMContentLoaded', () => showPanel('visao-geral'));
+</script>
+</body>
+</html>

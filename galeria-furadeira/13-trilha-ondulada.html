@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>{{NOME_METODO}}</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg-outer: #1a3a2a;
+    --path-1: #7bc67a; /* trilha principal */
+    --path-2: #f0f0f0; /* trilha secundária/bônus */
+    --stop-fill: #7bc67a;
+    --stop-border: #fff;
+    --label-color: #7bc67a;
+    --ink: #ffffff;
+    --muted: rgba(255,255,255,0.7);
+    --section-label: #7bc67a;
+    --card-bg: rgba(255,255,255,0.12);
+    --card-border: rgba(255,255,255,0.2);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1080px; overflow: visible; }
+  body {
+    background: var(--bg-outer);
+    font-family: 'Inter', sans-serif;
+    padding: 48px 60px 48px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  /* CABEÇALHO */
+  .header { display: flex; align-items: flex-start; gap: 32px; }
+  .title-block { flex: 1; }
+  .method-name {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 28px;
+    font-weight: 900;
+    color: var(--ink);
+    line-height: 1.2;
+  }
+  .quadro-sub { font-size: 14px; color: var(--muted); margin-top: 6px; }
+
+  /* CONTAINER DA TRILHA */
+  .trail-container {
+    position: relative;
+    width: 100%;
+    height: 560px;
+  }
+
+  /* NOME DAS SEÇÕES DA TRILHA (labels laterais) */
+  .section-labels {
+    position: absolute;
+    bottom: 20px;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-end;
+    pointer-events: none;
+    z-index: 5;
+  }
+  .section-label {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 900;
+    color: var(--section-label);
+    text-align: center;
+    line-height: 1.3;
+    max-width: 180px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  /* PARADAS NUMERADAS */
+  .stops {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 10;
+  }
+
+  .stop {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transform: translate(-50%, -50%);
+  }
+  .stop-disc {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: var(--stop-fill);
+    border: 4px solid white;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 900;
+    color: white;
+    line-height: 1.1;
+    text-align: center;
+    margin-bottom: 6px;
+  }
+  .stop-disc.bonus {
+    background: #aaaaaa;
+    width: 42px;
+    height: 42px;
+    border-width: 3px;
+    font-size: 10px;
+  }
+  .stop-label {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    color: white;
+    text-align: center;
+    background: rgba(0,0,0,0.35);
+    padding: 2px 8px;
+    border-radius: 4px;
+    white-space: nowrap;
+  }
+
+  /* RODAPÉ */
+  .footer { font-size: 11px; color: rgba(255,255,255,0.35); letter-spacing: 1.5px; text-transform: uppercase; text-align: center; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="title-block">
+    <div class="method-name">{{NOME_METODO}}</div>
+    <div class="quadro-sub">{{QUADRO}}</div>
+  </div>
+</div>
+
+<div class="trail-container">
+
+  <!-- TRILHA SVG (caminho sinuoso) -->
+  <svg viewBox="0 0 960 520" width="960" height="520"
+       style="position:absolute;top:0;left:0;" xmlns="http://www.w3.org/2000/svg">
+
+    <!-- FUNDO ESCURO ARREDONDADO -->
+    <rect x="0" y="0" width="960" height="520" rx="20" fill="#0d2a1a"/>
+
+    <!--
+      TRILHA PRINCIPAL — caminho sinuoso de esquerda para direita
+      Pontos de controle para criar ondulação:
+      Início: (60, 400) → sobe → (300, 180) → desce → (540, 380) → sobe → (780, 200) → (900, 200)
+
+      Paradas (VP01-VP10) posicionadas ao longo do caminho:
+      VP01: (60, 400)
+      VP02: (140, 340)
+      VP03: (220, 270)
+      VP04: (320, 180)     ← pico trilha BPF
+      VP05: (440, 270)
+      VP06: (540, 380)     ← vale
+      VP07: (620, 310)
+      VP08: (700, 220)
+      VP09: (800, 210)
+      VP10 (destino): (900, 200)
+
+      Trilha bônus saindo do VP08 para cima:
+      VP09-bonus: (820, 140)
+      VP10-bonus: (900, 80)
+    -->
+
+    <!-- Trilha principal (grossa, verde) -->
+    <path d="
+      M 60,400
+      C 90,370 110,310 140,280
+      C 170,250 200,220 240,200
+      C 280,180 300,175 340,175
+      C 380,175 410,200 450,260
+      C 490,320 510,370 550,380
+      C 580,385 600,360 630,330
+      C 660,300 680,260 710,235
+      C 740,210 770,205 810,205
+      C 850,205 880,205 910,205
+    " stroke="var(--path-1)" stroke-width="32" fill="none"
+      stroke-linecap="round" stroke-linejoin="round" opacity="0.95"/>
+
+    <!-- Borda superior da trilha (efeito 3D) -->
+    <path d="
+      M 60,390
+      C 90,360 110,300 140,270
+      C 170,240 200,210 240,190
+      C 280,170 300,165 340,165
+      C 380,165 410,190 450,250
+      C 490,310 510,360 550,370
+      C 580,375 600,350 630,320
+      C 660,290 680,250 710,225
+      C 740,200 770,195 810,195
+      C 850,195 880,195 910,195
+    " stroke="rgba(180,255,180,0.4)" stroke-width="6" fill="none"
+      stroke-linecap="round"/>
+
+    <!-- Trilha secundária branca (começa em VP05 e vai para bônus) -->
+    <path d="
+      M 550,340
+      C 570,300 590,240 620,200
+      C 650,160 680,140 720,125
+      C 760,110 800,105 840,100
+      C 870,96 895,94 915,92
+    " stroke="var(--path-2)" stroke-width="22" fill="none"
+      stroke-linecap="round" stroke-linejoin="round" opacity="0.8"
+      stroke-dasharray="0"/>
+
+    <!-- Borda da trilha branca -->
+    <path d="
+      M 550,330
+      C 570,290 590,230 620,190
+      C 650,150 680,130 720,115
+      C 760,100 800,95 840,90
+      C 870,86 895,84 915,82
+    " stroke="rgba(255,255,255,0.3)" stroke-width="5" fill="none"
+      stroke-linecap="round"/>
+
+    <!-- Labels das seções das trilhas -->
+    <!-- Seção 1 (VP01-VP03): "TRILHA {{SECAO_1_NOME}}" -->
+    <text x="170" y="470" text-anchor="middle"
+          font-family="Plus Jakarta Sans" font-size="13" font-weight="900"
+          fill="var(--path-1)" letter-spacing="0.5">{{SECAO_1_NOME}}</text>
+
+    <!-- Seção 2 (VP04-VP06): "TRILHA {{SECAO_2_NOME}}" -->
+    <text x="440" y="470" text-anchor="middle"
+          font-family="Plus Jakarta Sans" font-size="13" font-weight="900"
+          fill="var(--path-1)" letter-spacing="0.5">{{SECAO_2_NOME}}</text>
+
+    <!-- Seção 3 (VP07-VP10): "TRILHA {{SECAO_3_NOME}}" -->
+    <text x="730" y="470" text-anchor="middle"
+          font-family="Plus Jakarta Sans" font-size="13" font-weight="900"
+          fill="var(--path-1)" letter-spacing="0.5">{{SECAO_3_NOME}}</text>
+
+    <!-- Trilha bônus label -->
+    <text x="760" y="72" text-anchor="middle"
+          font-family="Plus Jakarta Sans" font-size="12" font-weight="900"
+          fill="#ccc" letter-spacing="0.5">{{BONUS_NOME}}</text>
+    <!-- Seta pontilhada indicando bônus -->
+    <path d="M 620,280 Q 650,200 720,125" stroke="white" stroke-width="1.5"
+          stroke-dasharray="6,4" fill="none" marker-end="url(#arrow)"/>
+    <defs>
+      <marker id="arrow" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto">
+        <path d="M0,0 L6,3 L0,6 Z" fill="white"/>
+      </marker>
+    </defs>
+
+    <!-- PARADAS NA TRILHA PRINCIPAL -->
+    <!-- VP01 (60,400) -->
+    <circle cx="60" cy="400" r="24" fill="var(--stop-fill)" stroke="white" stroke-width="3"/>
+    <text x="60" y="396" text-anchor="middle" font-family="Plus Jakarta Sans" font-size="9" font-weight="900" fill="white">VP01</text>
+    <text x="60" y="408" text-anchor="middle" font-family="Inter" font-size="8" fill="rgba(255,255,255,0.85)">{{STOP_1}}</text>
+    <!-- VP01 label abaixo -->
+    <text x="60" y="438" text-anchor="middle" font-family="Plus Jakarta Sans" font-size="9" font-weight="700" fill="var(--path-1)">{{STOP_1_NOME}}</text>
+
+    <!-- VP02 (175,285) -->
+    <circle cx="175" cy="288" r="18" fill="var(--stop-fill)" stroke="white" stroke-width="2.5"/>
+    <text x="175" y="284" text-anchor="middle" font-family="Plus Jakarta Sans" font-size="9" font-weight="900" fill="white">VP02</text>
+    <text x="175" y="295" text-anchor="middle" font-family="Inter" font-size="8" fill="rgba(255,255,255,0.85)">{{STOP_2}}</text>
+
+    <!-- VP03 (295,178) -->
+    <circle cx="295" cy="178" r="18" fill="var(--stop-fill)" stroke="white" stroke-width="2.5"/>
+    <text x="295" y="174" text-anchor="middle" font-family="Plus Jakarta Sans" font-size="9" font-weight="900" fill="white">VP03</text>
+    <text x="295" y="185" text-anchor="middle" font-family="Inter" font-size="8" fill="rgba(255,255,255,0.85)">{{STOP_3}}</text>
+
+    <!-- VP04 (400,174) — pico -->
+    <circle cx="400" cy="174" r="24" fill="var(--stop-fill)" stroke="white" stroke-width="3"/>
+    <text x="400" y="170" text-anchor="middle" font-family="Plus Jakarta Sans" font-size="9" font-weight="900" fill="white">VP04</text>
+    <text x="400" y="182" text-anchor="middle" font-family="Inter" font-size="8" fill="rgba(255,255,255,0.85)">{{STOP_4}}</text>
+    <text x="400" y="152" text-anchor="middle" font-family="Plus Jakarta Sans" font-size="9" font-weight="700" fill="var(--path-1)">{{STOP_4_NOME}}</text>
+
+    <!-- VP05 (495,295) -->
+    <circle cx="495" cy="295" r="18" fill="rgba(200,200,200,0.8)" stroke="white" stroke-width="2.5"/>
+    <text x="495" y="291" text-anchor="middle" font-family="Plus Jakarta Sans" font-size="9" font-weight="900" fill="#333">VP05</text>
+    <text x="495" y="302" text-anchor="middle" font-family="Inter" font-size="8" fill="#444">{{STOP_5}}</text>
+
+    <!-- VP06 (560,378) — vale -->
+    <circle cx="560" cy="378" r="24" fill="rgba(200,200,200,0.8)" stroke="white" stroke-width="3"/>
+    <text x="560" y="374" text-anchor="middle" font-family="Plus Jakarta Sans" font-size="9" font-weight="900" fill="#333">VP06</text>
+    <text x="560" y="386" text-anchor="middle" font-family="Inter" font-size="8" fill="#444">{{STOP_6}}</text>
+    <text x="560" y="408" text-anchor="middle" font-family="Plus Jakarta Sans" font-size="9" font-weight="700" fill="var(--path-1)">{{STOP_6_NOME}}</text>
+
+    <!-- VP07 (645,322) -->
+    <circle cx="645" cy="322" r="18" fill="var(--stop-fill)" stroke="white" stroke-width="2.5"/>
+    <text x="645" y="318" text-anchor="middle" font-family="Plus Jakarta Sans" font-size="9" font-weight="900" fill="white">VP07</text>
+    <text x="645" y="329" text-anchor="middle" font-family="Inter" font-size="8" fill="rgba(255,255,255,0.85)">{{STOP_7}}</text>
+
+    <!-- VP08 (730,230) -->
+    <circle cx="730" cy="230" r="24" fill="var(--stop-fill)" stroke="white" stroke-width="3"/>
+    <text x="730" y="226" text-anchor="middle" font-family="Plus Jakarta Sans" font-size="9" font-weight="900" fill="white">VP08</text>
+    <text x="730" y="238" text-anchor="middle" font-family="Inter" font-size="8" fill="rgba(255,255,255,0.85)">{{STOP_8}}</text>
+    <text x="730" y="210" text-anchor="middle" font-family="Plus Jakarta Sans" font-size="9" font-weight="700" fill="var(--path-1)">{{STOP_8_NOME}}</text>
+
+    <!-- VP09 (825,205) -->
+    <circle cx="825" cy="205" r="18" fill="var(--stop-fill)" stroke="white" stroke-width="2.5"/>
+    <text x="825" y="201" text-anchor="middle" font-family="Plus Jakarta Sans" font-size="9" font-weight="900" fill="white">VP09</text>
+    <text x="825" y="212" text-anchor="middle" font-family="Inter" font-size="8" fill="rgba(255,255,255,0.85)">{{STOP_9}}</text>
+
+    <!-- VP10 (destino, 910,205) — especial -->
+    <circle cx="910" cy="205" r="30" fill="var(--stop-fill)" stroke="white" stroke-width="4"/>
+    <circle cx="910" cy="205" r="22" fill="rgba(255,255,255,0.15)" stroke="rgba(255,255,255,0.4)" stroke-width="1.5"/>
+    <text x="910" y="201" text-anchor="middle" font-family="Plus Jakarta Sans" font-size="9" font-weight="900" fill="white">VP10</text>
+    <text x="910" y="213" text-anchor="middle" font-family="Inter" font-size="8" fill="rgba(255,255,255,0.9)">{{STOP_10}}</text>
+    <text x="910" y="184" text-anchor="middle" font-family="Plus Jakarta Sans" font-size="9" font-weight="700" fill="var(--path-1)">{{STOP_10_NOME}}</text>
+
+    <!-- PARADAS NA TRILHA BÔNUS -->
+    <!-- Bonus 1 (720,122) -->
+    <circle cx="720" cy="122" r="18" fill="#888" stroke="white" stroke-width="2.5"/>
+    <text x="720" y="118" text-anchor="middle" font-family="Plus Jakarta Sans" font-size="8" font-weight="900" fill="white">{{BONUS_1_LABEL}}</text>
+    <text x="720" y="129" text-anchor="middle" font-family="Inter" font-size="7.5" fill="rgba(255,255,255,0.8)">{{BONUS_1}}</text>
+
+    <!-- Bonus 2 (830,97) -->
+    <circle cx="830" cy="97" r="18" fill="#888" stroke="white" stroke-width="2.5"/>
+    <text x="830" y="93" text-anchor="middle" font-family="Plus Jakarta Sans" font-size="8" font-weight="900" fill="white">{{BONUS_2_LABEL}}</text>
+    <text x="830" y="104" text-anchor="middle" font-family="Inter" font-size="7.5" fill="rgba(255,255,255,0.8)">{{BONUS_2}}</text>
+
+    <!-- Bonus destino (920,88) -->
+    <circle cx="920" cy="88" r="22" fill="#666" stroke="white" stroke-width="3"/>
+    <text x="920" y="84" text-anchor="middle" font-family="Plus Jakarta Sans" font-size="8" font-weight="900" fill="white">{{BONUS_3_LABEL}}</text>
+    <text x="920" y="95" text-anchor="middle" font-family="Inter" font-size="7.5" fill="rgba(255,255,255,0.8)">{{BONUS_3}}</text>
+
+    <!-- Indicador de ponto de entrada na trilha bônus -->
+    <circle cx="550" cy="345" r="10" fill="white" stroke="var(--path-1)" stroke-width="2.5"/>
+    <text x="550" y="349" text-anchor="middle" font-family="Plus Jakarta Sans" font-size="8" font-weight="900" fill="#333">+</text>
+
+  </svg>
+
+</div>
+
+<div class="footer">{{NOME_PRODUTO}} · Metodologia exclusiva</div>
+</body>
+</html>

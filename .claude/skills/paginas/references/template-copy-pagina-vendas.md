@@ -21,7 +21,7 @@ Use **exatamente** estes títulos `##` na ordem abaixo (um por bloco). O HTML da
 
 ## Bloco 03 — Paliativo
 
-- O que já tentaram e por que falhou
+- Ferramentas, produtos e soluções concorrentes do mercado que resolvem parcialmente o problema, e por que cada uma não entrega o resultado completo
 
 ---
 

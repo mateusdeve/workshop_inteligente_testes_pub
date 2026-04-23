@@ -158,7 +158,7 @@ Gere as seções 1 a 8 completas e salve no arquivo. Cada seção narrativa deve
 - Botão de Vendas
 
 **Seção 2 — Paliativo**
-- Uma parte do produto ou ferramenta que resolve uma dor específica rápido
+- Ferramentas, produtos e soluções concorrentes do mercado que resolvem parcialmente o problema, e por que cada uma não entrega o resultado completo
 
 **Seção 3 — Prova Social**
 - 3-6 depoimentos completos (nome, situação antes, resultado depois)
