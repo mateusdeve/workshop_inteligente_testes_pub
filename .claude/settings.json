@@ -55,6 +55,16 @@
             "timeout": 5
           }
         ]
+      },
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node .claude/hooks/copy-review.js",
+            "timeout": 5
+          }
+        ]
       }
     ],
     "PreToolUse": [

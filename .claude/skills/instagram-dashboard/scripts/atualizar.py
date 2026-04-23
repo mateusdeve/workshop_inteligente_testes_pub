@@ -118,7 +118,7 @@ def buscar_posts(token, ig_user):
             'directUrls': [f'https://www.instagram.com/{ig_user}/'],
             'resultsType': 'posts',
             'resultsLimit': limite,
-        }, timeout=300)
+        }, timeout=600)
         if not data:
             break
         todos = data
@@ -272,8 +272,8 @@ def calcular_metricas(perfil, posts):
     }
 
 # ── Historico (snapshots acumulativos entre execucoes) ────────────────────────
-def atualizar_historico(output_dir, perfil, metricas):
-    hist_file = output_dir / 'historico.json'
+def atualizar_historico(base_dir, perfil, metricas):
+    hist_file = base_dir / 'historico.json'
     historico = []
     if hist_file.exists():
         try:
@@ -282,17 +282,24 @@ def atualizar_historico(output_dir, perfil, metricas):
                 historico = []
         except Exception:
             historico = []
+    hoje = datetime.now().strftime('%Y-%m-%d')
+    username = perfil.get('username', '')
     snapshot = {
         'data':        datetime.now().isoformat(),
+        'username':    username,
         'seguidores':  perfil['seguidores'],
         'engMedio':    metricas['engMedio'],
         'totalPosts':  perfil['totalPosts'],
         'totalShares': metricas['totalShares'],
     }
+    # Substitui snapshot do mesmo perfil + mesmo dia em vez de duplicar
+    historico = [h for h in historico if not (h.get('data', '')[:10] == hoje and h.get('username', '') == username)]
     historico.append(snapshot)
     hist_file.write_text(json.dumps(historico, ensure_ascii=False, indent=2), encoding='utf-8')
-    log.info(f'historico.json atualizado ({len(historico)} snapshots)')
-    return historico
+    # Retorna apenas snapshots do perfil atual
+    hist_perfil = [h for h in historico if h.get('username', '') == username]
+    log.info(f'historico.json atualizado ({len(historico)} snapshots, {len(hist_perfil)} do @{username})')
+    return hist_perfil
 
 # ── Dashboard HTML ────────────────────────────────────────────────────────────
 def gerar_html(perfil, posts, metricas, historico=None):
@@ -393,7 +400,7 @@ canvas{{width:100%!important;display:block}}
 .hm-tip{{display:none;position:absolute;bottom:calc(100% + 6px);left:50%;transform:translateX(-50%);background:#1e293b;color:#fff;padding:5px 8px;border-radius:6px;font-size:11px;white-space:nowrap;z-index:10;pointer-events:none}}
 .freq-wrap{{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:20px;margin-bottom:24px;box-shadow:var(--sh)}}
 .freq-bars{{display:flex;align-items:flex-end;gap:4px;height:120px;margin-top:12px}}
-.freq-bar{{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;min-width:0}}
+.freq-bar{{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:2px;min-width:0;height:100%}}
 .freq-bar-inner{{width:100%;border-radius:4px 4px 0 0;transition:height .3s}}
 .freq-bar-lbl{{font-size:9px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%;text-align:center}}
 .freq-insight{{font-size:13px;color:var(--muted);margin-top:12px;line-height:1.5}}
@@ -452,6 +459,7 @@ function getFilteredPosts(){{
       return new Date(p.timestamp)>=cutoff;
     }});
   }}
+  list.sort((a,b)=>new Date(b.timestamp)-new Date(a.timestamp));
   return list;
 }}
 
@@ -482,7 +490,7 @@ function render(){{
 
   <div class="kpi-grid" id="kpiGrid">
     <div class="kpi"><div class="kpi-lbl">Seguidores</div><div class="kpi-val">${{fmt(p.seguidores)}}</div><div class="kpi-sub">${{fmt(p.seguindo)}} seguindo</div></div>
-    <div class="kpi kpi-accent"><div class="kpi-lbl">Engajamento medio</div><div class="kpi-val" id="kpiEng">${{m.engMedio}}%</div><div class="kpi-sub">${{fmt(m.totalShares)}} shares totais</div></div>
+    <div class="kpi kpi-accent"><div class="kpi-lbl">Engajamento medio</div><div class="kpi-val" id="kpiEng">${{m.engMedio}}%</div><div class="kpi-sub">${{m.totalShares>0?fmt(m.totalShares)+' shares totais':'baseado em likes e comentarios'}}</div></div>
     <div class="kpi"><div class="kpi-lbl">Total de posts</div><div class="kpi-val" id="kpiCount">${{fmt(p.totalPosts)}}</div><div class="kpi-sub">no perfil</div></div>
     <div class="kpi"><div class="kpi-lbl">Formato mais postado</div><div class="kpi-val" style="font-size:22px">${{m.formatoTop}}</div><div class="kpi-sub">ultimos ${{posts.length}} posts</div></div>
   </div>
@@ -497,7 +505,7 @@ function render(){{
         <div><div class="met-lbl">Media de likes</div><div class="met-val">${{fmt(m.reels.mediaLikes)}}</div></div>
         <div><div class="met-lbl">Media comentarios</div><div class="met-val">${{fmt(m.reels.mediaComentarios)}}</div></div>
         <div><div class="met-lbl">Views totais</div><div class="met-val">${{fmt(m.reels.totalViews)}}</div></div>
-        <div><div class="met-lbl">Media de shares</div><div class="met-val">${{fmt(m.reels.mediaShares)}}</div></div>
+        ${{m.reels.mediaShares>0?'<div><div class="met-lbl">Media de shares</div><div class="met-val">'+fmt(m.reels.mediaShares)+'</div></div>':''}}
       </div>
     </div>
     <div class="fmt-card">
@@ -505,7 +513,7 @@ function render(){{
       <div class="mets">
         <div><div class="met-lbl">Media de likes</div><div class="met-val">${{fmt(m.carrosseis.mediaLikes)}}</div></div>
         <div><div class="met-lbl">Media comentarios</div><div class="met-val">${{fmt(m.carrosseis.mediaComentarios)}}</div></div>
-        <div><div class="met-lbl">Media de shares</div><div class="met-val">${{fmt(m.carrosseis.mediaShares)}}</div></div>
+        ${{m.carrosseis.mediaShares>0?'<div><div class="met-lbl">Media de shares</div><div class="met-val">'+fmt(m.carrosseis.mediaShares)+'</div></div>':''}}
       </div>
     </div>
     <div class="fmt-card">
@@ -513,7 +521,7 @@ function render(){{
       <div class="mets">
         <div><div class="met-lbl">Media de likes</div><div class="met-val">${{fmt(m.fotos.mediaLikes)}}</div></div>
         <div><div class="met-lbl">Media comentarios</div><div class="met-val">${{fmt(m.fotos.mediaComentarios)}}</div></div>
-        <div><div class="met-lbl">Media de shares</div><div class="met-val">${{fmt(m.fotos.mediaShares)}}</div></div>
+        ${{m.fotos.mediaShares>0?'<div><div class="met-lbl">Media de shares</div><div class="met-val">'+fmt(m.fotos.mediaShares)+'</div></div>':''}}
       </div>
     </div>
   </div>
@@ -556,8 +564,7 @@ function render(){{
     <canvas id="cViews" height="80"></canvas>
     <div class="ch-title" style="margin-top:20px">Engajamento (%)</div>
     <canvas id="cEng" height="80"></canvas>
-    <div class="ch-title" style="margin-top:20px">Compartilhamentos</div>
-    <canvas id="cShares" height="80"></canvas>
+    ${{posts.some(p=>p.shares>0)?'<div class="ch-title" style="margin-top:20px">Compartilhamentos</div><canvas id="cShares" height="80"></canvas>':''}}
   </div>
 
   <div id="filterBar"></div>
@@ -764,8 +771,8 @@ function renderHeatmap(){{
   posts.forEach(p=>{{
     if(!p.timestamp)return;
     const dt=new Date(p.timestamp);
-    const day=(dt.getUTCDay()+6)%7;
-    const hour=dt.getUTCHours();
+    const day=(dt.getDay()+6)%7;
+    const hour=dt.getHours();
     grid[day][hour].count++;
     grid[day][hour].totalEng+=p.engajamento||0;
   }});
@@ -831,7 +838,8 @@ function renderFrequency(){{
     const pct=Math.round(w.count/maxCount*100);
     const avg=w.count?Math.round(w.totalEng/w.count*100)/100:0;
     const shortLbl=w.label.split('-')[1];
-    return`<div class="freq-bar"><div class="freq-bar-inner" style="height:${{Math.max(pct,5)}}%;background:var(--accent)" title="${{w.count}} posts, ${{avg}}% eng"></div><div class="freq-bar-lbl">${{shortLbl}}</div></div>`;
+    const px=Math.max(Math.round(pct/100*100),6);
+    return`<div class="freq-bar"><div class="freq-bar-inner" style="height:${{px}}px;background:var(--accent)" title="${{w.count}} posts, ${{avg}}% eng"></div><div class="freq-bar-lbl">${{shortLbl}}</div></div>`;
   }}).join('');
   let insight='';
   if(highWeeks.length>0&&lowWeeks.length>0){{
@@ -846,7 +854,7 @@ function renderHashtags(){{
   const posts=D.posts;
   const tagMap={{}};
   posts.forEach(p=>{{
-    const tags=(p.legenda||'').match(/#[\w\u00C0-\u024F]+/g);
+    const tags=(p.legenda||'').match(/#[\\w\\u00C0-\\u024F]+/g);
     if(!tags)return;
     tags.forEach(tag=>{{
       const t=tag.toLowerCase();
@@ -1034,7 +1042,13 @@ def main():
     args = parser.parse_args()
 
     # Resolver caminhos de output a partir do produto ativo
-    output_dir    = get_output_dir()
+    base_dir      = get_output_dir()
+    env = ler_env()
+    ig_user = env.get('IG_USER', '')
+    token   = env.get('APIFY_API_TOKEN', '')
+
+    # Subpasta por perfil (cada @ tem seus proprios arquivos)
+    output_dir    = base_dir / ig_user if ig_user else base_dir
     images_dir    = output_dir / 'imagens'
     log_file      = output_dir / 'log.txt'
     insights_file = output_dir / 'insights.json'
@@ -1045,10 +1059,6 @@ def main():
     file_handler = logging.FileHandler(log_file, encoding='utf-8')
     file_handler.setFormatter(logging.Formatter('%(asctime)s %(levelname)s %(message)s'))
     logging.getLogger().addHandler(file_handler)
-
-    env = ler_env()
-    token   = env.get('APIFY_API_TOKEN', '')
-    ig_user = env.get('IG_USER', '')
 
     log.info('=== Iniciando atualizacao do dashboard Instagram ===')
     log.info(f'Output: {output_dir}')
@@ -1098,6 +1108,9 @@ def main():
         except Exception:
             pass
 
+    # Metricas (antes do insights.json para engajamento estar calculado)
+    metricas = calcular_metricas(perfil, posts)
+
     # insights.json (sem base64)
     def slim(p):
         s = {k: v for k, v in p.items() if k not in ('imagem', 'imagens') and not k.startswith('_')}
@@ -1113,10 +1126,7 @@ def main():
     }
     insights_file.write_text(json.dumps(insights, ensure_ascii=False, indent=2, default=str), encoding='utf-8')
     log.info('insights.json salvo')
-
-    # Metricas + historico
-    metricas = calcular_metricas(perfil, posts)
-    historico = atualizar_historico(output_dir, perfil, metricas)
+    historico = atualizar_historico(base_dir, perfil, metricas)
 
     # dashboard.html
     log.info('Gerando dashboard.html...')

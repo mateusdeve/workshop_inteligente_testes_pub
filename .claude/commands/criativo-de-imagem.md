@@ -38,18 +38,20 @@ Perguntar isso PRIMEIRO para calibrar toda a entrevista seguinte:
 ```
 Como vai executar os criativos?
 
-1. Freepik AI (API automática — precisa de FREEPIK_API_KEY no .env)
-2. Midjourney (qualidade premium — precisa de conta paga)
-3. DALL·E via Bing (grátis com conta Microsoft)
-4. Ferramenta gratuita à sua escolha (Whisk, Ideogram, ImageFX, Leonardo, Krea)
-5. Direção criativa para designer, editor ou Canva
+1. OpenRouter — Google Gemini (API automática — precisa de OPENROUTER_API_KEY no .env)
+2. Freepik AI (API automática — precisa de FREEPIK_API_KEY no .env)
+3. Midjourney (qualidade premium — precisa de conta paga)
+4. DALL·E via Bing (grátis com conta Microsoft)
+5. Ferramenta gratuita à sua escolha (Whisk, Ideogram, ImageFX, Leonardo, Krea)
+6. Direção criativa para designer, editor ou Canva
 
 Digite o número:
 ```
 
-Se escolher opção 1: verificar `FREEPIK_API_KEY` no `.env` e gerar automaticamente.
-Se escolher opções 2, 3 ou 4: ao final da entrevista, redirecionar para `/imagem-prompt` com o contexto já preenchido, entregando prompts otimizados para a ferramenta escolhida.
-Se escolher opção 5: entregar briefing completo de direção criativa (sem geração de imagem).
+Se escolher opção 1: verificar `OPENROUTER_API_KEY` no `.env` e gerar automaticamente via Google Gemini.
+Se escolher opção 2: verificar `FREEPIK_API_KEY` no `.env` e gerar automaticamente.
+Se escolher opções 3, 4 ou 5: ao final da entrevista, redirecionar para `/imagem-prompt` com o contexto já preenchido, entregando prompts otimizados para a ferramenta escolhida.
+Se escolher opção 6: entregar briefing completo de direção criativa (sem geração de imagem).
 
 ```
 --- Bloco 1/4 concluído ---
@@ -251,7 +253,55 @@ Instruções para montar no Canva:
 
 ### 4. Saída por Caminho de Execução
 
-**Caminho 1 — API Freepik automática:**
+**Caminho 1 — OpenRouter (Google Gemini) automático:**
+
+Leia `.env` e verifique `OPENROUTER_API_KEY`.
+
+Se existir, para cada variação de prompt gerada, criar um arquivo JSON de config e rodar o script:
+
+```bash
+# Criar config mínimo para cada variação
+py -3 -c "
+import json, sys
+config = {
+  'output_dir': 'meus-produtos/{ativo}/entregas/criativos/',
+  'slides': [
+    {
+      'theme': 'theme-light',
+      'layout': 'layout-gancho',
+      'headline': 'TEXTO_DA_IMAGEM',
+      'ai_prompt': 'PROMPT_EM_INGLES',
+      'filename': 'imagem-v[N]-{produto}'
+    }
+  ]
+}
+json.dump(config, open('meus-produtos/{ativo}/entregas/criativos/config-temp-v[N].json','w'))
+"
+
+py -3 scripts/generate-creative.py \
+  --config meus-produtos/{ativo}/entregas/criativos/config-temp-v[N].json \
+  --force-model google/gemini-3.1-flash-image-preview
+```
+
+Substituir `TEXTO_DA_IMAGEM`, `PROMPT_EM_INGLES`, `[N]` e `{ativo}/{produto}` pelos valores reais de cada variação.
+
+Salvar em: `meus-produtos/{ativo}/entregas/criativos/imagem-v[N]-[produto].png`
+
+Informar: "Imagens geradas e salvas em entregas/criativos/."
+
+Se não existir a chave, mostrar:
+
+```
+OPENROUTER_API_KEY não encontrada no .env.
+
+Opções:
+1. Configurar agora (use /configurar-imagens para o guia completo)
+2. Copiar o prompt e colar direto no Gemini (gemini.google.com)
+```
+
+---
+
+**Caminho 2 — API Freepik automática:**
 
 Leia `.env` e verifique `FREEPIK_API_KEY`.
 
@@ -284,7 +334,7 @@ Configure o Freepik AI para geração automática:
 6. Salve e rode `/criativo-de-imagem` novamente
 ---
 
-**Caminhos 2, 3 e 4 — Prompts otimizados por ferramenta:**
+**Caminhos 3, 4 e 5 — Prompts otimizados por ferramenta:**
 
 Ao final da entrevista, entregar o contexto preenchido e direcionar para `/imagem-prompt`:
 

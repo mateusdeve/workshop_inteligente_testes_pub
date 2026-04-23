@@ -68,9 +68,16 @@ def get_insights_file() -> Path:
     if not ativo:
         log.error('meus-produtos/.ativo esta vazio.')
         sys.exit(1)
-    insights = PROJECT_ROOT / 'meus-produtos' / ativo / 'entregas' / 'instagram-dashboard' / 'insights.json'
+    base = PROJECT_ROOT / 'meus-produtos' / ativo / 'entregas' / 'instagram-dashboard'
+    # Tentar subpasta por perfil (IG_USER do .env)
+    env = ler_env()
+    ig_user = env.get('IG_USER', '')
+    if ig_user and (base / ig_user / 'insights.json').exists():
+        return base / ig_user / 'insights.json'
+    # Fallback: raiz do dashboard
+    insights = base / 'insights.json'
     if not insights.exists():
-        log.error(f'insights.json nao encontrado em {insights}')
+        log.error(f'insights.json nao encontrado em {base}')
         log.error('Execute o /instagram-dashboard primeiro para gerar os dados.')
         sys.exit(1)
     return insights
