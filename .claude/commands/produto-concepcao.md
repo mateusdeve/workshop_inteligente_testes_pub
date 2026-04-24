@@ -74,6 +74,16 @@ Com as respostas, gere 5 opções de Quadro seguindo as regras: até 10 palavras
 
 Mostre progresso ao concluir.
 
+**Disparar pesquisa de mercado em background (sub-agente):**
+
+Assim que o Quadro estiver aprovado, verifique se `meus-produtos/{ativo}/pesquisa-mercado.md` já existe. Se NÃO existir, dispare um sub-agente em background usando a ferramenta Agent com `run_in_background: true` e `subagent_type: "general-purpose"`. O prompt do sub-agente deve conter:
+- O nicho do produto
+- O Quadro aprovado
+- O formato pretendido (se já souber)
+- Instrução para rodar a skill `pesquisa-mercado` completa e salvar em `meus-produtos/{ativo}/pesquisa-mercado.md`
+
+Enquanto o sub-agente roda a pesquisa, continue normalmente com o Bloco 2. Você será notificado quando a pesquisa terminar. No Bloco 3, verifique se o arquivo já foi salvo pelo sub-agente antes de tentar rodar a pesquisa de novo.
+
 **Bloco 2/6. Furadeira (Mecanismo Único):**
 
 **Detecção de tipo de produto:** Verifique em `meus-produtos/{ativo}/tipo.md` se o produto é Low Ticket (R$7-97) ou se o formato é planilha, checklist, e-book, agente GPT, template ou desafio. Se for produto de entrada, siga a regra abaixo. Se for Middle Ticket, siga o fluxo padrão.
@@ -278,31 +288,19 @@ Apresente para validação antes de salvar.
 **Formato e Preço. SUGIRA com base na pesquisa:**
 Use a sugestão de preço que saiu na pesquisa e explique o raciocínio apoiado nos concorrentes mapeados. Se o aluno discordar, argumente com os dados da pesquisa e ofereça alternativas em faixas diferentes, explicando o posicionamento de cada uma.
 
-**Bloco 4/6. Decorados (Geração Automática):**
+**Blocos 4 e 5. Decorados + Urgencias Ocultas (Sub-agentes em paralelo):**
 
-NÃO peça os decorados ao aluno. Gere automaticamente 50 Decorados com base no Quadro, na Furadeira, nas Identidades e nos dados de `pesquisa-mercado.md`.
+Ao chegar neste ponto, dispare **2 sub-agentes simultaneamente** usando a ferramenta Agent (ambos na mesma mensagem, em paralelo). Avise o aluno:
 
-Organize em 5 categorias: Financeiro, Tempo, Autoestima, Reputação, Crescimento (10 de cada).
+```
+Gerando Decorados e Urgencias Ocultas em paralelo. Leva alguns segundos.
+```
 
-Apresente a lista completa e pergunte se quer ajustar ou adicionar os seus próprios.
+**Sub-agente Decorados:** prompt deve conter o Quadro, a Furadeira, as Identidades e o conteudo de `pesquisa-mercado.md`. Instrucao: gerar 50 Decorados em 5 categorias (Financeiro, Tempo, Autoestima, Reputacao, Crescimento), 10 de cada. Devolver a lista completa formatada em markdown.
 
-**Bloco 5/6. Urgências Ocultas (Geração Proativa):**
+**Sub-agente Urgencias Ocultas:** mesmo contexto. Instrucao: gerar 70 itens em 7 categorias (Dores, Duvidas, Desejos, Assuntos Relacionados, Urgencias Quentes, Urgencias Frias, Urgencias Inusitadas), exatamente 10 de cada. Devolver formatado em markdown.
 
-Pergunte ao aluno como prefere: geração automática (recomendado) ou dar exemplos para você expandir.
-
-Estrutura oficial: 7 categorias com exatamente 10 itens cada (totalizando 70 itens). Não gere mais nem menos do que 10 em cada categoria.
-
-1. DORES (o que incomoda): 10 problemas específicos que o produto resolve
-2. DÚVIDAS (o que a pessoa pesquisa): 10 perguntas reais que o público faz
-3. DESEJOS (o que ela quer alcançar): 10 estados desejados concretos
-4. ASSUNTOS RELACIONADOS (porta de entrada): 10 temas adjacentes que interessam o público
-5. URGÊNCIAS QUENTES (alta intenção): 10 itens diretamente ligados à compra
-6. URGÊNCIAS FRIAS (atração): 10 itens de baixa intenção e alto volume
-7. URGÊNCIAS INUSITADAS (ângulo diferente): 10 conexões inesperadas que chamam atenção
-
-**Se geração automática:** Gere as 7 categorias completas (10 itens cada) com base em tudo que já coletou (Quadro, Identidades, dados de `pesquisa-mercado.md`). Apresente para validação e ajuste.
-
-**Se dar exemplos:** Peça exemplos por categoria (UMA por vez) e expanda cada uma até completar 10 itens.
+Quando ambos retornarem, apresente os resultados ao aluno para validacao e ajuste. Se quiser mudar algo, ajuste direto sem recriar tudo.
 
 **Bloco 6/6. Argumentos Incontestáveis (Geração Automática):**
 

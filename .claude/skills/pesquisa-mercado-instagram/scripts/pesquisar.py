@@ -267,7 +267,10 @@ def calcular_metricas_perfil(perfil, posts_raw):
         for tag in (p.get('hashtags', []) or []):
             hashtags_set.add(tag.lower().strip())
 
+        sc = p.get('shortCode') or p.get('shortcode', '')
+        url_post = f'https://www.instagram.com/p/{sc}/' if sc else p.get('url', '')
         posts.append({
+            'shortCode': sc,
             'tipo': tipo,
             'likes': likes,
             'comentarios': comments,
@@ -276,6 +279,8 @@ def calcular_metricas_perfil(perfil, posts_raw):
             'timestamp': p.get('timestamp', ''),
             'legenda': (p.get('caption', '') or '')[:300],
             'hashtags': p.get('hashtags', []),
+            'url': url_post,
+            'transcricao': '',
         })
 
     n = len(posts) or 1
@@ -444,6 +449,18 @@ body{{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text)}}
 .all-info{{flex:1;min-width:0}}
 .all-info h4{{font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}}
 .all-info .all-meta{{font-size:11px;color:var(--muted)}}
+.tp-grid{{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px;margin-bottom:24px}}
+.tp-card{{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:20px;box-shadow:var(--sh)}}
+.tp-rank{{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:50%;background:var(--accent);color:#fff;font-size:12px;font-weight:700;margin-bottom:10px}}
+.tp-owner{{font-size:12px;color:var(--accent);font-weight:500;margin-bottom:8px}}
+.tp-leg{{font-size:13px;color:var(--text);line-height:1.5;margin-bottom:10px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}}
+.tp-stats{{display:flex;gap:12px;flex-wrap:wrap;font-size:12px}}
+.tp-stat-val{{font-weight:700}}
+.tp-eng{{font-size:14px;font-weight:700;color:var(--accent);margin-bottom:6px}}
+.tp-link{{font-size:12px;color:var(--accent);text-decoration:none;font-weight:500;margin-top:8px;display:inline-block}}
+.tp-link:hover{{text-decoration:underline}}
+.badge{{display:inline-block;padding:2px 8px;border-radius:99px;font-size:11px;font-weight:600;margin-right:6px}}
+.br{{background:#f3e8ff;color:var(--reel)}}.bc{{background:#e0f2fe;color:var(--carrossel)}}.bf{{background:#d1fae5;color:var(--foto)}}
 @media(max-width:768px){{
   .kpi-grid{{grid-template-columns:repeat(2,1fr)}}
   .fmt-grid{{grid-template-columns:1fr}}
@@ -506,6 +523,7 @@ function render(){{
   <div id="formatoSection"></div>
   <div id="hashtagSection"></div>
   <div id="heatmapSection"></div>
+  <div id="topPostsSection"></div>
 
   <div class="sec">Todos os Perfis (${{todos.length}})</div>
   <div id="filterBar"></div>
@@ -515,6 +533,7 @@ function render(){{
   renderFormatos(analise.formatos||{{}});
   renderHashtags(analise.topHashtags||[]);
   renderHeatmap(analise.heatmap||{{}});
+  renderTopPosts();
   renderFilters(todos);
 }}
 
@@ -604,6 +623,36 @@ function renderHeatmap(heatmap){{
   }}
   html+='</div></div>';
   el.innerHTML=html;
+}}
+
+function renderTopPosts(){{
+  const el=document.getElementById('topPostsSection');
+  if(!el)return;
+  const tp=D.topPosts||[];
+  if(!tp.length)return;
+  function bc(tipo){{return tipo==='Reel'?'br':tipo==='Carrossel'?'bc':'bf'}}
+  const cards=tp.map((p,i)=>{{
+    const leg=(p.legenda||'').substring(0,200);
+    return`<div class="tp-card">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
+        <div class="tp-rank">${{i+1}}</div>
+        <div>
+          <div class="tp-owner">@${{p.ownerUsername||'?'}} (${{fmt(p.ownerSeguidores||0)}} seg)</div>
+          <span class="badge ${{bc(p.tipo)}}">${{p.tipo}}</span>
+          <span style="font-size:11px;color:var(--muted)">${{p.origem||''}}</span>
+        </div>
+      </div>
+      <div class="tp-eng">${{p.engajamento||0}}% engajamento</div>
+      <div class="tp-stats">
+        <span><span class="tp-stat-val">${{fmt(p.likes)}}</span> likes</span>
+        <span><span class="tp-stat-val">${{fmt(p.comentarios)}}</span> com.</span>
+        ${{p.tipo==='Reel'?`<span><span class="tp-stat-val">${{fmt(p.views)}}</span> views</span>`:''}}
+      </div>
+      ${{leg?`<div class="tp-leg">${{leg}}</div>`:''}}
+      ${{p.url?`<a class="tp-link" href="${{p.url}}" target="_blank" rel="noopener">Ver post original</a>`:''}}
+    </div>`;
+  }}).join('');
+  el.innerHTML=`<div class="sec">Top 10 Posts do Nicho (por engajamento)</div><div class="sec-sub">Posts com maior engajamento entre todos os perfis analisados</div><div class="tp-grid">${{cards}}</div>`;
 }}
 
 let filterOrigem='all';
@@ -750,9 +799,25 @@ def main():
 
     # Preparar dados para o dashboard (sem base64 pesado no JSON exportado)
     perfis_para_dash = []
+    todos_posts_rankeados = []
     for p in perfis_finais:
         pd = {k: v for k, v in p.items() if k != 'metricas'}
+        # Incluir top 15 posts individuais do perfil (para pesquisa profunda)
+        posts_do_perfil = p.get('metricas', {}).get('posts', [])
+        top_posts_perfil = sorted(posts_do_perfil, key=lambda x: x.get('engajamento', 0), reverse=True)[:15]
+        pd['posts'] = top_posts_perfil
         perfis_para_dash.append(pd)
+        # Acumular para ranking global
+        for tp in top_posts_perfil:
+            tp_global = dict(tp)
+            tp_global['ownerUsername'] = p.get('username', '')
+            tp_global['ownerSeguidores'] = p.get('seguidores', 0)
+            tp_global['origem'] = p.get('origem', '')
+            todos_posts_rankeados.append(tp_global)
+
+    # Top 10 posts globais por engajamento (cruzando todos os perfis)
+    top_posts_global = sorted(todos_posts_rankeados, key=lambda x: x.get('engajamento', 0), reverse=True)[:10]
+    log.info(f'Top 10 posts globais selecionados (melhor: {top_posts_global[0]["engajamento"]}% de @{top_posts_global[0]["ownerUsername"]})' if top_posts_global else 'Nenhum post para ranking global')
 
     pesquisa_data = {
         'config': {
@@ -761,6 +826,7 @@ def main():
             'slug': slug,
         },
         'perfis': perfis_para_dash,
+        'topPosts': top_posts_global,
         'analise': analise,
         'atualizadoEm': datetime.now().strftime('%d/%m/%Y %H:%M'),
     }
@@ -769,6 +835,7 @@ def main():
     insights_data = {
         'config': pesquisa_data['config'],
         'perfis': [{k: v for k, v in p.items() if k != 'fotoB64'} for p in perfis_para_dash],
+        'topPosts': top_posts_global,
         'analise': analise,
         'atualizadoEm': pesquisa_data['atualizadoEm'],
     }

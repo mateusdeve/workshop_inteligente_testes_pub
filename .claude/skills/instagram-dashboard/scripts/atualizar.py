@@ -302,7 +302,7 @@ def atualizar_historico(base_dir, perfil, metricas):
     return hist_perfil
 
 # ── Dashboard HTML ────────────────────────────────────────────────────────────
-def gerar_html(perfil, posts, metricas, historico=None):
+def gerar_html(perfil, posts, metricas, historico=None, variacoes=None):
     agora = datetime.now().strftime('%d/%m/%Y %H:%M')
     top3        = sorted(posts, key=lambda p: p['engajamento'], reverse=True)[:3]
     cronologico = sorted([p for p in posts if p['timestamp']], key=lambda p: p['timestamp'])
@@ -318,6 +318,7 @@ def gerar_html(perfil, posts, metricas, historico=None):
         'postsCronologicos': [limpar_post(p) for p in cronologico],
         'metricas':          metricas,
         'historico':         historico or [],
+        'variacoes':         variacoes or [],
         'atualizadoEm':      agora,
     }, ensure_ascii=False, default=str)
 
@@ -416,6 +417,17 @@ canvas{{width:100%!important;display:block}}
 .cap-val{{font-size:24px;font-weight:700;color:var(--accent)}}
 .cap-count{{font-size:11px;color:var(--muted);margin-top:2px}}
 .cap-insight{{font-size:13px;color:var(--muted);margin-bottom:24px;line-height:1.5}}
+.var-wrap{{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:20px;margin-bottom:24px;box-shadow:var(--sh)}}
+.var-post{{margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid var(--border)}}
+.var-post:last-child{{margin-bottom:0;padding-bottom:0;border-bottom:none}}
+.var-header{{display:flex;align-items:center;gap:12px;margin-bottom:12px}}
+.var-thumb{{width:56px;height:56px;border-radius:var(--r-sm);object-fit:cover;flex-shrink:0}}
+.var-info{{flex:1}}
+.var-info h4{{font-size:14px;font-weight:700;margin-bottom:2px}}
+.var-info .var-eng{{font-size:12px;color:var(--accent);font-weight:600}}
+.var-chips{{display:flex;gap:6px;flex-wrap:wrap}}
+.var-chip{{display:inline-block;padding:4px 10px;border-radius:99px;font-size:11px;font-weight:500;background:var(--accent-lt);color:var(--accent)}}
+.var-gancho{{font-size:12px;color:var(--muted);margin-top:4px;line-height:1.4}}
 .filter-bar{{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;align-items:center}}
 .filter-group{{display:flex;gap:4px;align-items:center}}
 .filter-group-lbl{{font-size:11px;color:var(--muted);font-weight:600;margin-right:4px;text-transform:uppercase;letter-spacing:.5px}}
@@ -547,6 +559,7 @@ function render(){{
       </div>
     </div>`).join('')}}
   </div>
+  <div id="variacoesSection"></div>
 
   <div id="hashtagSection"></div>
   <div id="captionSection"></div>
@@ -579,6 +592,7 @@ function render(){{
   renderFrequency();
   renderHashtags();
   renderCaptionAnalysis();
+  renderVariacoes();
   setTimeout(renderCharts,100);
 }}
 
@@ -906,6 +920,40 @@ function renderCaptionAnalysis(){{
   el.innerHTML=`<div class="sec">Tamanho de Legenda vs Engajamento</div><div class="cap-grid">${{cards}}</div>${{insight}}`;
 }}
 
+function renderVariacoes(){{
+  const el=document.getElementById('variacoesSection');
+  if(!el||!D.variacoes||!D.variacoes.length)return;
+  const postsMap={{}};
+  D.posts.forEach(p=>{{postsMap[p.shortCode]=p;}});
+  const items=D.variacoes.map(v=>{{
+    const post=postsMap[v.shortCode];
+    if(!post)return'';
+    const thumbSrc=post.imagem?`data:image/jpeg;base64,${{post.imagem}}`:'';
+    const thumbHtml=thumbSrc?`<img class="var-thumb" src="${{thumbSrc}}" alt="">`:
+      `<div class="var-thumb" style="background:var(--accent-lt);display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--muted)">${{post.tipo||'Post'}}</div>`;
+    const caption=(post.legenda||'').substring(0,60);
+    const chips=v.variacoes.map(vr=>
+      `<div class="var-chip">${{vr.elemento}}</div>`
+    ).join('');
+    const ganchos=v.variacoes.map(vr=>
+      `<div class="var-gancho"><strong>${{vr.elemento}}:</strong> "${{vr.gancho}}"</div>`
+    ).join('');
+    return`<div class="var-post">
+      <div class="var-header">
+        ${{thumbHtml}}
+        <div class="var-info">
+          <h4>${{caption}}...</h4>
+          <div class="var-eng">${{v.engajamento}}% engajamento | ${{v.variacoes[0]?.formato||'Reels'}} | ${{v.variacoes[0]?.objetivo||''}}</div>
+        </div>
+      </div>
+      <div class="var-chips">${{chips}}</div>
+      ${{ganchos}}
+    </div>`;
+  }}).join('');
+  if(!items)return;
+  el.innerHTML=`<div class="var-wrap"><div class="sec">Variacoes de Conteudo</div>${{items}}</div>`;
+}}
+
 function renderCharts(){{
   const posts=D.postsCronologicos;
   if(!posts.length)return;
@@ -1128,9 +1176,20 @@ def main():
     log.info('insights.json salvo')
     historico = atualizar_historico(base_dir, perfil, metricas)
 
+    # Variacoes (se existir variacoes.json na mesma pasta)
+    variacoes_file = output_dir / 'variacoes.json'
+    variacoes = []
+    if variacoes_file.exists():
+        try:
+            variacoes = json.loads(variacoes_file.read_text(encoding='utf-8'))
+            if not isinstance(variacoes, list):
+                variacoes = []
+        except Exception:
+            variacoes = []
+
     # dashboard.html
     log.info('Gerando dashboard.html...')
-    html = gerar_html(perfil, posts, metricas, historico)
+    html = gerar_html(perfil, posts, metricas, historico, variacoes)
     dashboard_file.write_text(html, encoding='utf-8')
     log.info(f'dashboard.html salvo: {dashboard_file}')
 

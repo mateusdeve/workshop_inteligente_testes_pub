@@ -120,7 +120,13 @@ def transcrever_reel(token, shortcode):
 def transcrever_posts(token, shortcodes, insights_file):
     """Transcreve os posts indicados e salva a transcricao no insights.json."""
     insights = json.loads(insights_file.read_text(encoding='utf-8'))
-    posts_map = {p['shortCode']: p for p in insights['posts'] if p.get('shortCode')}
+    # Suporta tanto insights do instagram-dashboard (posts na raiz)
+    # quanto insights da pesquisa-nicho (topPosts + perfis[].posts)
+    all_posts = insights.get('posts', [])
+    all_posts += insights.get('topPosts', [])
+    for perfil in insights.get('perfis', []):
+        all_posts += perfil.get('posts', [])
+    posts_map = {p['shortCode']: p for p in all_posts if p.get('shortCode')}
 
     atualizados = 0
     for shortcode in shortcodes:
@@ -151,11 +157,14 @@ def transcrever_posts(token, shortcodes, insights_file):
 
 # ── Main ──────────────────────────────────────────────────────────────────────
 def main():
-    if len(sys.argv) < 2:
-        print('Uso: python transcrever.py SHORTCODE1 SHORTCODE2 ...')
-        sys.exit(1)
+    import argparse
+    parser = argparse.ArgumentParser(description='Transcreve audio de Reels via Apify')
+    parser.add_argument('shortcodes', nargs='+', help='ShortCodes dos Reels para transcrever')
+    parser.add_argument('--insights', type=str, default=None,
+                        help='Caminho customizado para o insights.json (ex: pesquisa-nicho)')
+    args = parser.parse_args()
 
-    shortcodes = sys.argv[1:]
+    shortcodes = args.shortcodes
 
     env = ler_env()
     token = env.get('APIFY_API_TOKEN', '')
@@ -163,7 +172,13 @@ def main():
         log.error('APIFY_API_TOKEN nao encontrado no .env')
         sys.exit(1)
 
-    insights_file = get_insights_file()
+    if args.insights:
+        insights_file = Path(args.insights)
+        if not insights_file.exists():
+            log.error(f'insights.json nao encontrado: {insights_file}')
+            sys.exit(1)
+    else:
+        insights_file = get_insights_file()
     log.info(f'=== Transcrevendo {len(shortcodes)} Reel(s): {shortcodes} ===')
     log.info(f'insights.json: {insights_file}')
 
