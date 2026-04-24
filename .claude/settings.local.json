@@ -138,7 +138,16 @@
       "Bash(\"/c/Users/Elen/AppData/Local/Programs/Python/Python312/python.exe\" scripts/painel-incremental.py --secao identidade-consumidor)",
       "Bash(start \"\" \"C:\\\\Users\\\\Elen\\\\.cursor\\\\Imersão IA\\\\workshop_inteligente\\\\meus-produtos\\\\workshop-yoga-ansiedade\\\\painel-entregas.html\")",
       "Bash(git fetch *)",
-      "Bash(git checkout *)"
+      "Bash(git checkout *)",
+      "Bash(git stash *)",
+      "Bash(py -3 scripts/painel-incremental.py --secao pesquisa)",
+      "Bash(python scripts/painel-incremental.py --secao pesquisa)",
+      "Bash(\"/c/Users/Elen/AppData/Local/Programs/Python/Python312/python.exe\" scripts/painel-incremental.py --secao perfil)",
+      "Bash(cat)",
+      "Bash(py -3 /tmp/inject_botao.py)",
+      "PowerShell(py -3 C:\\\\tmp\\\\inject_botao.py 2>&1)",
+      "PowerShell(Set-Location \"C:\\\\Users\\\\Elen\\\\.cursor\\\\Imersão IA\\\\workshop_inteligente\"; foreach \\($slug in @\\(\"taro-para-iniciantes\",\"sono-tranquilo\",\"metodo-foco\",\"professor-ingles-tiktok-10k\",\"workshop-yoga-ansiedade\",\"_teste-painel-novo\"\\)\\) { Write-Host \"--- $slug ---\"; py -3 scripts/painel-incremental.py --secao quadro --slug $slug --rebuild-shell 2>&1 })",
+      "PowerShell($python = \"C:\\\\Users\\\\Elen\\\\AppData\\\\Local\\\\Programs\\\\Python\\\\Python312\\\\python.exe\"; Set-Location \"C:\\\\Users\\\\Elen\\\\.cursor\\\\Imersão IA\\\\workshop_inteligente\"; foreach \\($slug in @\\(\"taro-para-iniciantes\",\"sono-tranquilo\",\"metodo-foco\",\"professor-ingles-tiktok-10k\",\"workshop-yoga-ansiedade\",\"_teste-painel-novo\"\\)\\) { Write-Host \"--- $slug ---\"; & $python scripts/painel-incremental.py --secao quadro --slug $slug --rebuild-shell 2>&1 })"
     ]
   }
 }

@@ -43,6 +43,56 @@ Nenhum bloco subsequente (Decorados, Urgências, Argumentos, Identidade do Consu
 
 Os blocos abaixo são uma referência de ordem, não uma camisa de força. Se a conversa fluir naturalmente para outro tema, acompanhe. O importante é coletar/gerar todos os elementos antes de salvar.
 
+### Atualização incremental do Painel de Entregas (REGRA OBRIGATÓRIA)
+
+O `perfil.md` e o `painel-entregas.html` crescem **bloco a bloco**, em tempo real. Nunca deixe para salvar tudo no final. O aluno precisa ver cada seção aparecendo no painel assim que for aprovada.
+
+**Fluxo padrão após CADA bloco validado:**
+
+1. **Upsert da seção no `perfil.md`**. Se o arquivo ainda não existir, crie com um skeleton contendo os H2 headers de todas as seções ainda pendentes (vazios). Se já existir, substitua apenas o conteúdo da seção correspondente.
+2. **Atualizar o painel**. Rode `py -3 scripts/painel-incremental.py --secao {nome-da-secao}`.
+3. **Confirmar ao aluno em UMA linha**: `✅ Painel atualizado: seção {Nome} preenchida. Caminho: meus-produtos/{ativo}/painel-entregas.html`
+
+**Mapeamento bloco → seção do painel:**
+
+| Bloco | Seção do painel |
+|---|---|
+| Bloco 1. Quadro | `quadro` |
+| Bloco 2. Furadeira | `furadeira` |
+| Bloco 3. Pesquisa de mercado | `pesquisa` |
+| Bloco 3. Identidade do Produto | `identidade-produto` |
+| Bloco 3. Identidade do Consumidor (parcial, do perfil) | `identidade-consumidor` |
+| Bloco 3B. Identidade do Comunicador | `identidade-comunicador` |
+| Bloco 4. Decorados | `decorados` |
+| Bloco 5. Urgências Ocultas | `urgencias` |
+| Bloco 6. Argumentos Incontestáveis | rerodar `identidade-produto` (argumentos entram nessa seção) |
+| Passo 4B. Identidade do Consumidor completa (objeções + baldes) | rerodar `identidade-consumidor` |
+
+**Skeleton inicial do `perfil.md`** (usar no primeiro upsert, logo após a aprovação do Quadro):
+
+```markdown
+# Perfil do Negócio
+
+## Quadro (Transformação Principal)
+[preenchido]
+
+## Furadeira (Método)
+
+## Identidade do Produto
+
+## Identidade do Consumidor
+
+## Identidade do Comunicador
+
+## Decorados (Benefícios)
+
+## Argumentos Incontestáveis
+
+## Urgências Ocultas
+```
+
+A partir daí, cada bloco aprovado substitui o conteúdo abaixo do seu H2, sem mexer nos outros.
+
 ## O Que Fazer
 
 ### 1. Verificar perfil existente
@@ -73,6 +123,25 @@ Pergunte:
 Com as respostas, gere 5 opções de Quadro seguindo as regras: até 10 palavras, verbo no infinitivo, único resultado, específico e tangível. **ATENÇÃO: o Quadro é o resultado final, nunca o processo.** Cada opção deve descrever o que a pessoa CONQUISTA ou SE TORNA, não o que ela vai aprender, descobrir, identificar ou investigar. Teste interno antes de apresentar: "a pessoa pode dizer 'isso aconteceu na minha vida' ao final do produto?" Se não, reescreva. Apresente numeradas para o aluno escolher ou descrever outro.
 
 Mostre progresso ao concluir.
+
+**Salvar Quadro + atualizar painel (obrigatório, imediato):**
+
+Assim que o aluno aprovar o Quadro, faça o primeiro upsert do `perfil.md`:
+
+- Se `meus-produtos/{ativo}/perfil.md` não existir, crie com o skeleton descrito acima e já com o Quadro aprovado preenchido dentro da seção `## Quadro (Transformação Principal)`.
+- Se já existir (ex.: veio do `/produto-novo`), substitua apenas o conteúdo da seção `## Quadro (Transformação Principal)`.
+
+Em seguida rode no terminal:
+
+```
+py -3 scripts/painel-incremental.py --secao quadro
+```
+
+Confirme ao aluno em UMA linha:
+
+```
+✅ Painel atualizado: seção Quadro preenchida. Caminho: meus-produtos/{ativo}/painel-entregas.html
+```
 
 **Disparar pesquisa de mercado em background (sub-agente):**
 
@@ -119,25 +188,45 @@ Estruture a Furadeira com:
 
 Apresente para validação.
 
-**Após validação da Furadeira — Gerar Trilha Visual (obrigatório):**
+**Após validação da Furadeira — Gerar Representação Visual (obrigatório):**
 
-Assim que o aluno aprovar a Furadeira, acione automaticamente a skill `furadeira-visual` para gerar a representação visual do método como trilha de jornada.
+Assim que o aluno aprovar a Furadeira, acione automaticamente o command `/furadeira-visual` para gerar a representação visual do método. Não force um formato específico: o aluno escolhe entre HTML (trilha navegável), PNG via API (Gemini ou OpenRouter) ou prompt pronto para colar em IA externa.
 
 Avise o aluno:
 ```
-Ótimo. Vou gerar agora a trilha visual do seu método.
+Ótimo. Vou gerar agora a representação visual do seu método.
 ```
 
-Execute o fluxo completo da skill `furadeira-visual`:
-1. Pergunte a paleta de cores preferida (1 pergunta numerada)
-2. Gere o HTML da trilha visual com o template da skill
-3. Salve em `meus-produtos/{ativo}/entregas/furadeira-visual.html`
-4. Converta para PNG: tente via `playwright`, `puppeteer` ou script `scripts/html-to-png.py` se disponível no ambiente
-5. Se a conversão funcionar: salve em `meus-produtos/{ativo}/entregas/furadeira-visual.png` e confirme os dois caminhos
-6. Se a conversão falhar: salve apenas o HTML e informe: "A versão HTML está salva. Para exportar como imagem, abra no navegador e use Ctrl+P → Salvar como PDF, ou Print Screen."
-7. Registre os caminhos gerados no `perfil.md` ao final (campos: `furadeira_html` e `furadeira_png`)
+Execute o fluxo completo do command `/furadeira-visual` conforme definido em `.claude/commands/furadeira-visual.md`:
+1. Faça a pergunta de escolha de formato (1. HTML, 2. API, 3. Prompt pronto)
+2. Siga o fluxo correspondente ao formato escolhido
+3. Salve o arquivo no caminho padrão do formato escolhido
+4. Registre no `perfil.md` ao final o(s) caminho(s) gerado(s) nos campos apropriados:
+   - Se HTML: `furadeira_html` e, se conversão funcionou, `furadeira_png`
+   - Se API: `furadeira_png`
+   - Se Prompt pronto: `furadeira_prompt`
 
-Só siga para o Bloco 3 após confirmar que o HTML foi salvo.
+Só siga para o Bloco 3 após confirmar que o arquivo da Furadeira foi salvo.
+
+**Salvar Furadeira + atualizar painel (obrigatório, imediato):**
+
+Após a Furadeira estar aprovada e o arquivo visual salvo, faça upsert da seção `## Furadeira (Método)` no `perfil.md` com:
+- Nome do Método
+- Formato gerado (HTML, PNG ou Prompt)
+- Caminhos do arquivo visual (`furadeira_html`, `furadeira_png`, `furadeira_prompt` conforme o formato)
+- Lista numerada das macroetapas no formato `1. **Macroetapa**. microetapas`
+
+Em seguida rode:
+
+```
+py -3 scripts/painel-incremental.py --secao furadeira
+```
+
+Confirme ao aluno em UMA linha:
+
+```
+✅ Painel atualizado: seção Furadeira preenchida. Caminho: meus-produtos/{ativo}/painel-entregas.html
+```
 
 **Bloco 3/6. Pesquisa de Mercado + Identidades e Posicionamento:**
 
@@ -194,6 +283,26 @@ Apresente um resumo conversacional dos achados (dados, números, insights princi
 - **Identidade do Comunicador.** tom de voz e estilo adequados ao público encontrado
 
 Apresente para validação. Nesse momento, apresente apenas a Identidade do Consumidor e a Identidade do Produto. A Identidade do Comunicador será construída na entrevista dedicada abaixo.
+
+**Salvar Identidade do Produto + Identidade do Consumidor (parcial) + atualizar painel (obrigatório, imediato):**
+
+Após o aluno validar Identidade do Produto e Identidade do Consumidor, faça upsert no `perfil.md` das duas seções:
+- `## Identidade do Produto` (Nome, Formato, Preço, Diferencial)
+- `## Identidade do Consumidor` (Público-alvo, Nicho, Nível de consciência, Comportamento, Objeções típicas)
+
+Em seguida rode, um por vez:
+
+```
+py -3 scripts/painel-incremental.py --secao identidade-produto
+py -3 scripts/painel-incremental.py --secao identidade-consumidor
+```
+
+Confirme ao aluno em UMA linha por chamada:
+
+```
+✅ Painel atualizado: seção Identidade do Produto preenchida.
+✅ Painel atualizado: seção Identidade do Consumidor preenchida (parcial, baldes e objeções virão depois).
+```
 
 **Bloco 3B/6. Entrevista da Identidade do Comunicador:**
 
@@ -285,6 +394,22 @@ Evitar na comunicação: [o que rejeitou na Pergunta 2]
 
 Apresente para validação antes de salvar.
 
+**Salvar Identidade do Comunicador + atualizar painel (obrigatório, imediato):**
+
+Após o aluno aprovar, faça upsert da seção `## Identidade do Comunicador` no `perfil.md` com todos os campos (Nome, Especialidade, Valores, Tom de voz, Posicionamento pessoal, Mantras/Jargões próprios, Evitar na comunicação, Vocabulário base, Tonalidade emocional predominante, Referências comunicacionais, Formatos que combinam mais, Elementos visuais recomendados).
+
+Em seguida rode:
+
+```
+py -3 scripts/painel-incremental.py --secao identidade-comunicador
+```
+
+Confirme ao aluno em UMA linha:
+
+```
+✅ Painel atualizado: seção Identidade do Comunicador preenchida. Caminho: meus-produtos/{ativo}/painel-entregas.html
+```
+
 **Formato e Preço. SUGIRA com base na pesquisa:**
 Use a sugestão de preço que saiu na pesquisa e explique o raciocínio apoiado nos concorrentes mapeados. Se o aluno discordar, argumente com os dados da pesquisa e ofereça alternativas em faixas diferentes, explicando o posicionamento de cada uma.
 
@@ -302,6 +427,26 @@ Gerando Decorados e Urgencias Ocultas em paralelo. Leva alguns segundos.
 
 Quando ambos retornarem, apresente os resultados ao aluno para validacao e ajuste. Se quiser mudar algo, ajuste direto sem recriar tudo.
 
+**Salvar Decorados + Urgências Ocultas + atualizar painel (obrigatório, imediato):**
+
+Após o aluno validar os dois, faça upsert no `perfil.md` das seções:
+- `## Decorados (Benefícios)` com os 5 H3 (Financeiro, Tempo, Autoestima, Reputação, Crescimento) e 10 bullets em cada
+- `## Urgências Ocultas` com os 7 H3 (Dores, Dúvidas, Desejos, Assuntos Relacionados, Urgências Quentes, Urgências Frias, Urgências Inusitadas) e 10 bullets em cada
+
+Em seguida rode, um por vez:
+
+```
+py -3 scripts/painel-incremental.py --secao decorados
+py -3 scripts/painel-incremental.py --secao urgencias
+```
+
+Confirme ao aluno em UMA linha por chamada:
+
+```
+✅ Painel atualizado: seção Decorados preenchida.
+✅ Painel atualizado: seção Urgências Ocultas preenchida.
+```
+
 **Bloco 6/6. Argumentos Incontestáveis (Geração Automática):**
 
 NÃO peça argumentos ao aluno. Gere automaticamente com base em tudo que já foi coletado: dados de `pesquisa-mercado.md`, Quadro, Furadeira e Identidades.
@@ -315,13 +460,29 @@ Os argumentos incontestáveis são evidências externas, lógicas ou estatístic
 
 Apresente para validação e pergunte se o aluno quer adicionar dados próprios (número de alunos, faturamento gerado, resultados documentados). Se tiver, incorpore à lista existente.
 
+**Salvar Argumentos Incontestáveis + atualizar painel (obrigatório, imediato):**
+
+Após o aluno aprovar, faça upsert da seção `## Argumentos Incontestáveis` no `perfil.md` com a lista de bullets validada. Os argumentos são renderizados dentro da seção Identidade do Produto no painel, então rerode:
+
+```
+py -3 scripts/painel-incremental.py --secao identidade-produto
+```
+
+Confirme em UMA linha:
+
+```
+✅ Painel atualizado: Argumentos Incontestáveis incorporados à seção Identidade do Produto.
+```
+
 ### 3. Confirmação
 
 Apresente resumo completo de tudo que foi definido/gerado e peça confirmação antes de salvar.
 
-### 4. Salvar Perfil
+### 4. Consolidação Final do Perfil (sanidade)
 
-Salve em `meus-produtos/{ativo}/perfil.md` com a estrutura:
+Neste ponto, o `perfil.md` já deve estar completo porque cada bloco fez upsert da sua seção logo após ser aprovado. Aqui você só confere que o arquivo em `meus-produtos/{ativo}/perfil.md` bate com a estrutura final abaixo. Se faltar algo, preencha e rode `painel-incremental.py` das seções pendentes antes de seguir.
+
+Estrutura final esperada do `perfil.md`:
 
 ```markdown
 # Perfil do Negócio
@@ -331,8 +492,10 @@ Salve em `meus-produtos/{ativo}/perfil.md` com a estrutura:
 
 ## Furadeira (Método)
 **Nome do Método:** [nome]
-**Furadeira HTML:** meus-produtos/{ativo}/entregas/furadeira-visual.html
-**Furadeira PNG:** meus-produtos/{ativo}/entregas/furadeira-visual.png (ou "não gerado" se falhou)
+**Formato gerado:** [HTML | PNG via API | Prompt pronto]
+**Furadeira HTML:** [caminho, se gerado; "não gerado" caso contrário]
+**Furadeira PNG:** [caminho, se gerado; "não gerado" caso contrário]
+**Furadeira Prompt:** [caminho, se gerado; "não gerado" caso contrário]
 1. **[Macroetapa]**. [microetapas]
 2. **[Macroetapa]**. [microetapas]
 3. **[Macroetapa]**. [microetapas]
@@ -405,31 +568,27 @@ Estrutura oficial: 7 categorias com exatamente 10 itens cada (totalizando 70 ite
 - [10 conexões inesperadas que chamam atenção]
 ```
 
-### 4A. Atualizar Painel de Entregas (seções do perfil)
+### 4A. Sanidade do Painel de Entregas (conferência final)
 
-Depois de salvar o `perfil.md`, atualize o painel seção por seção. Cada chamada lê o `perfil.md` recém-salvo, renderiza **apenas** o bloco daquela seção e substitui o HTML in-place. Se o painel ainda não existir (ex.: aluno pulou o `/produto-novo`), a primeira chamada cria o shell com placeholders "Em breve" nas demais seções.
+Neste ponto o painel já foi atualizado **incrementalmente** ao longo de cada bloco (Quadro, Furadeira, Identidades, Decorados, Urgências, Argumentos). Esta etapa é só uma conferência rápida, não uma nova geração.
 
-Avise o aluno uma vez:
+Abra `meus-produtos/{ativo}/painel-entregas.html` e confirme que todas as seções abaixo já estão preenchidas (sem "Em breve"):
+
+- Pesquisa de mercado
+- Quadro
+- Furadeira
+- Identidade do Produto (com Argumentos Incontestáveis)
+- Identidade do Comunicador
+- Decorados
+- Urgências Ocultas
+
+Se alguma seção ainda aparecer como placeholder "Em breve" (falha de hook, Python indisponível, etc.), rerode **apenas** a seção faltante:
+
 ```
-Atualizando seu painel de entregas...
+py -3 scripts/painel-incremental.py --secao {nome-da-secao}
 ```
 
-Rode no terminal, uma chamada por vez, na ordem abaixo. Entre cada chamada, mostre a mensagem "Painel atualizado: seção X adicionada." para dar visibilidade do progresso:
-
-```
-py -3 scripts/painel-incremental.py --secao quadro
-py -3 scripts/painel-incremental.py --secao furadeira
-py -3 scripts/painel-incremental.py --secao identidade-produto
-py -3 scripts/painel-incremental.py --secao identidade-comunicador
-py -3 scripts/painel-incremental.py --secao decorados
-py -3 scripts/painel-incremental.py --secao urgencias
-```
-
-Ao final, confirme:
-```
-Painel atualizado com todas as seções do perfil.
-Caminho: meus-produtos/{ativo}/painel-entregas.html
-```
+Seções válidas: `pesquisa`, `quadro`, `furadeira`, `identidade-produto`, `identidade-comunicador`, `decorados`, `urgencias`.
 
 **NÃO gere o HTML do painel dentro deste command.** A spec de design inteira vive em `scripts/painel_template.py`. A seção Identidade do Consumidor é atualizada no Bloco 4C, depois de salvar o `idconsumidor.md`.
 

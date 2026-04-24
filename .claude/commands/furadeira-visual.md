@@ -91,6 +91,24 @@ A trilha deve mostrar:
 
 Salve em `meus-produtos/{ativo}/entregas/furadeira-visual.html`.
 
+**REGRA OBRIGATÓRIA. Botão Baixar PNG embutido no HTML.**
+
+Todo HTML gerado nesta opção precisa incluir o bloco de botão de download ANTES de `</body>`. Conteúdo exato do bloco em `.claude/skills/furadeira-visual/references/botao-baixar-png.html`. Copie o arquivo inteiro (comentários e tudo) e cole imediatamente antes de `</body>`.
+
+Por quê:
+- O aluno precisa conseguir exportar a Furadeira como imagem sem depender de Python, Playwright, Puppeteer nem de habilidade técnica para usar DevTools.
+- A conversão backend (passo 3.4) pode falhar em máquinas sem as ferramentas instaladas. O botão embutido garante que qualquer usuário, em qualquer máquina, baixe o PNG com um clique.
+- Se os templates de referência em `.claude/skills/furadeira-visual/references/templates/` forem usados como base, o bloco já vem incluso. Se o HTML for gerado do zero, incluir manualmente é obrigatório.
+
+Checklist antes de salvar o HTML:
+- [ ] O arquivo contém o comentário `<!-- ===== Botão Baixar PNG` antes de `</body>`.
+- [ ] O ID `btn-baixar-furadeira` aparece exatamente uma vez.
+- [ ] O script carrega `html2canvas` via CDN (`cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1`).
+- [ ] O botão usa `position: fixed; top: 20px; right: 20px` (não invade o conteúdo).
+- [ ] O botão tem `@media print { display: none; }` (não aparece em PDF nem screenshot manual).
+
+Se qualquer item falhar, corrija antes de salvar.
+
 #### 3.4. Converter para PNG (tente todas as opções)
 
 Tente nesta ordem de prioridade. Se uma funcionar, pare.
@@ -147,10 +165,12 @@ Se só HTML (todas as conversões falharam):
 
 HTML: meus-produtos/{ativo}/entregas/furadeira-visual.html
 
-Para exportar como PNG:
+Para baixar como PNG:
 1. Abra o arquivo no navegador
-2. Ctrl+P → Salvar como PDF, ou
-3. F12 → aba Device → capture screenshot
+2. Clique no botão "Baixar PNG" no canto superior direito da página
+3. O download começa automaticamente (arquivo furadeira.png)
+
+O botão é embutido no HTML e funciona em qualquer máquina com internet.
 ```
 
 Siga para a seção **Próximo passo sugerido**.
@@ -386,3 +406,4 @@ Próximo:
 - Erros sempre em português, sem jargão de stack trace.
 - Anunciar "próximo passo" antes de operações longas (regra global do CLAUDE.md).
 - Não misturar as 3 opções numa mesma execução. O aluno escolhe uma; para rodar outra, executa o comando de novo.
+- **Todo HTML gerado na opção 1 precisa ter o botão "Baixar PNG" embutido antes de `</body>`.** Conteúdo canônico em `.claude/skills/furadeira-visual/references/botao-baixar-png.html`. Se o HTML for gerado a partir dos templates em `references/templates/`, o bloco já vem junto. Se for gerado do zero, copiar o arquivo de referência inteiro e colar antes de `</body>`. Essa regra vale para qualquer aluno, em qualquer máquina, sem exceção. O botão usa html2canvas via CDN e não depende de Python, Playwright ou Puppeteer.

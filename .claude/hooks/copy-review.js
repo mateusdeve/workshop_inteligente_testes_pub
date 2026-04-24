@@ -106,6 +106,94 @@ process.stdin.on('end', () => {
       }
     });
 
+    // 8. Palavras sem acento (pt_BR)
+    // ERROS claros: forma sem acento quase nunca e valida em texto corrido
+    const acentoErros = [
+      [/\bnao\b/gi,        'nao -> nao'],
+      [/\btambem\b/gi,     'tambem -> tambem'],
+      [/\btres\b/gi,       'tres -> tres'],
+      [/\bestrategia\b/gi, 'estrategia -> estrategia'],
+      [/\bestrategias\b/gi,'estrategias -> estrategias'],
+      [/\bduvida\b/gi,     'duvida -> duvida'],
+      [/\bduvidas\b/gi,    'duvidas -> duvidas'],
+      [/\bintroducao\b/gi, 'introducao -> introducao'],
+      [/\bconclusao\b/gi,  'conclusao -> conclusao'],
+      [/\bmetodo\b/gi,     'metodo -> metodo'],
+      [/\bmetodos\b/gi,    'metodos -> metodos'],
+      [/\banalise\b/gi,    'analise -> analise'],
+      [/\banalises\b/gi,   'analises -> analises'],
+      [/\bespecifico\b/gi, 'especifico -> especifico'],
+      [/\bespecifica\b/gi, 'especifica -> especifica'],
+      [/\bbasico\b/gi,     'basico -> basico'],
+      [/\bbasica\b/gi,     'basica -> basica'],
+      [/\bunico\b/gi,      'unico -> unico'],
+      [/\bunica\b/gi,      'unica -> unica'],
+      [/\bnumero\b/gi,     'numero -> numero'],
+      [/\bnumeros\b/gi,    'numeros -> numeros'],
+      [/\bcodigo\b/gi,     'codigo -> codigo'],
+      [/\bcodigos\b/gi,    'codigos -> codigos'],
+      [/\bpagina\b/gi,     'pagina -> pagina'],
+      [/\bpaginas\b/gi,    'paginas -> paginas'],
+      [/\bvideo\b/gi,      'video -> video'],
+      [/\bvideos\b/gi,     'videos -> videos'],
+      [/\bhistoria\b/gi,   'historia -> historia'],
+      [/\bhistorias\b/gi,  'historias -> historias'],
+      [/\bmemoria\b/gi,    'memoria -> memoria'],
+      [/\bmemoriais\b/gi,  'memorias -> memorias'],
+      [/\btecnica\b/gi,    'tecnica -> tecnica'],
+      [/\btecnicas\b/gi,   'tecnicas -> tecnicas'],
+      [/\bproximo\b/gi,    'proximo -> proximo'],
+      [/\bproxima\b/gi,    'proxima -> proxima'],
+      [/\bultimo\b/gi,     'ultimo -> ultimo'],
+      [/\bultima\b/gi,     'ultima -> ultima'],
+      [/\bpossivel\b/gi,   'possivel -> possivel'],
+      [/\bimpossivel\b/gi, 'impossivel -> impossivel'],
+      [/\bautomatico\b/gi, 'automatico -> automatico'],
+      [/\binicio\b/gi,     'inicio -> inicio'],
+      [/\bsessao\b/gi,     'sessao -> sessao'],
+      [/\bdecisao\b/gi,    'decisao -> decisao'],
+      [/\bopcao\b/gi,      'opcao -> opcao'],
+      [/\bopcoes\b/gi,     'opcoes -> opcoes'],
+      [/\bfuncao\b/gi,     'funcao -> funcao'],
+      [/\bfuncoes\b/gi,    'funcoes -> funcoes'],
+      [/\bacao\b/gi,       'acao -> acao'],
+      [/\bacoes\b/gi,      'acoes -> acoes'],
+      [/\breacao\b/gi,     'reacao -> reacao'],
+      [/\bsolucao\b/gi,    'solucao -> solucao'],
+      [/\bsolucoes\b/gi,   'solucoes -> solucoes'],
+      [/\bsituacao\b/gi,   'situacao -> situacao'],
+      [/\bvoce\b/gi,       'voce -> voce'],
+      [/\bvoces\b/gi,      'voces -> voces'],
+      [/\bestao\b/gi,      'estao -> estao'],
+    ];
+    // AVISOS ambiguos: forma sem acento pode ser valida em certos contextos
+    const acentoAvisos = [
+      [/\besta\b/gi,  'esta (verificar: esta = demonstrativo ou esta = verbo estar?)'],
+      [/\bsao\b/gi,   'sao (verificar: sao = adjetivo ou Sao Paulo / sao = verbo ser?)'],
+      [/\bindice\b/gi,'indice (verificar: indice ou indice = sem acento em slug?)'],
+      [/\bfacil\b/gi, 'facil -> facil'],
+    ];
+
+    acentoErros.forEach(([regex, label]) => {
+      let match2;
+      regex.lastIndex = 0;
+      while ((match2 = regex.exec(content)) !== null) {
+        const lineNum = content.substring(0, match2.index).split('\n').length;
+        const palavra = label.split(' -> ')[0];
+        const correta = label.split(' -> ')[1];
+        issues.push(`[ERRO] L~${lineNum}: palavra sem acento "${match2[0]}" (use "${correta}") — "${lines[lineNum - 1] ? lines[lineNum - 1].trim().slice(0, 60) : ''}"`);
+      }
+    });
+
+    acentoAvisos.forEach(([regex, label]) => {
+      let match3;
+      regex.lastIndex = 0;
+      while ((match3 = regex.exec(content)) !== null) {
+        const lineNum = content.substring(0, match3.index).split('\n').length;
+        issues.push(`[AVISO] L~${lineNum}: ${label} — "${lines[lineNum - 1] ? lines[lineNum - 1].trim().slice(0, 60) : ''}"`);
+      }
+    });
+
     // Relatorio
     const fileName = path.basename(filePath);
     if (issues.length === 0) {

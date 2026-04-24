@@ -1,7 +1,7 @@
 """
 painel_template.py
 
-Shell HTML e funcoes de render das 8 secoes do painel de entregas incremental.
+Shell HTML e funcoes de render das secoes do painel de entregas incremental.
 
 Secoes suportadas (id da secao = id do painel na sidebar):
     pesquisa
@@ -68,29 +68,41 @@ SECOES_RENDERIZAVEIS = {
 # ----- shell HTML -----
 
 _CSS_TOKENS = """\
-:root{
-  --sidebar-bg:#fff;--sidebar-border:#e5e7eb;--main-bg:#f8f9fb;--surface:#fff;
-  --primary:#22c55e;--primary-dark:#16a34a;--primary-light:#dcfce7;
-  --highlight-bg:#f0fdf4;--highlight-border:#bbf7d0;
-  --text-1:#111827;--text-2:#374151;--text-3:#6b7280;
-  --border:#e5e7eb;--border-2:#f3f4f6;
-  --badge-green-bg:#dcfce7;--badge-green-text:#16a34a;
-  --badge-blue-bg:#dbeafe;--badge-blue-text:#1d4ed8;
-  --badge-indigo-bg:#e0e7ff;--badge-indigo-text:#4338ca;
-  --badge-purple-bg:#ede9fe;--badge-purple-text:#7c3aed;
-  --badge-violet-bg:#f3e8ff;--badge-violet-text:#9333ea;
-  --badge-pink-bg:#fce7f3;--badge-pink-text:#db2777;
-  --badge-orange-bg:#fef3c7;--badge-orange-text:#d97706;
-  --badge-dark-bg:#1f2937;--badge-dark-text:#fff;
-  --badge-neutral-bg:#f3f4f6;--badge-neutral-text:#374151;
-  --sidebar-w:220px;--r:10px;--r2:8px;
-  --sh1:0 1px 3px rgba(0,0,0,.06),0 1px 2px rgba(0,0,0,.04);
-  --sh2:0 4px 16px rgba(0,0,0,.08),0 1px 4px rgba(0,0,0,.04);
+:root {
+  --sidebar-bg: #ffffff;
+  --sidebar-border: #e5e7eb;
+  --main-bg: #f8f9fb;
+  --surface: #ffffff;
+  --primary: #22c55e;
+  --primary-dark: #16a34a;
+  --primary-light: #dcfce7;
+  --highlight-bg: #f0fdf4;
+  --highlight-border: #bbf7d0;
+  --text-1: #111827;
+  --text-2: #374151;
+  --text-3: #6b7280;
+  --border: #e5e7eb;
+  --border-2: #f3f4f6;
+  --badge-green-bg: #dcfce7; --badge-green-text: #16a34a;
+  --badge-blue-bg: #dbeafe; --badge-blue-text: #1d4ed8;
+  --badge-indigo-bg: #e0e7ff; --badge-indigo-text: #4338ca;
+  --badge-purple-bg: #ede9fe; --badge-purple-text: #7c3aed;
+  --badge-violet-bg: #f3e8ff; --badge-violet-text: #9333ea;
+  --badge-pink-bg: #fce7f3; --badge-pink-text: #db2777;
+  --badge-orange-bg: #fef3c7; --badge-orange-text: #d97706;
+  --badge-dark-bg: #1f2937; --badge-dark-text: #ffffff;
+  --badge-neutral-bg: #f3f4f6; --badge-neutral-text: #374151;
+  --sidebar-w: 220px;
+  --r: 10px; --r2: 8px;
+  --sh1: 0 1px 3px rgba(0,0,0,.06), 0 1px 2px rgba(0,0,0,.04);
+  --sh2: 0 4px 16px rgba(0,0,0,.08), 0 1px 4px rgba(0,0,0,.04);
 }"""
 
 _CSS_BASE = """\
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Inter',sans-serif;background:var(--main-bg);color:var(--text-1)}
+
+/* SIDEBAR */
 .sidebar{position:fixed;top:0;left:0;width:var(--sidebar-w);height:100vh;background:var(--sidebar-bg);border-right:1px solid var(--sidebar-border);overflow-y:auto;padding:24px 0;z-index:100}
 .sidebar-title{font-size:14px;font-weight:700;color:var(--text-1);padding:0 20px;margin-bottom:4px}
 .sidebar-product{font-size:11px;color:var(--text-3);padding:0 20px;margin-bottom:24px;line-height:1.4}
@@ -101,9 +113,13 @@ body{font-family:'Inter',sans-serif;background:var(--main-bg);color:var(--text-1
 .sidebar-export{position:fixed;bottom:20px;left:0;width:var(--sidebar-w);padding:0 20px}
 .btn-export{display:block;width:100%;background:var(--primary);color:#fff;border:none;border-radius:var(--r2);padding:10px 0;font-size:13px;font-weight:600;text-align:center;cursor:pointer}
 .btn-export:hover{background:var(--primary-dark)}
+
+/* MOBILE TABS */
 .mobile-tabs{display:none;position:sticky;top:0;z-index:99;background:var(--surface);border-bottom:1px solid var(--border);overflow-x:auto;white-space:nowrap}
 .mobile-tab{display:inline-block;padding:10px 16px;font-size:13px;color:var(--text-3);cursor:pointer;border-bottom:2px solid transparent}
 .mobile-tab.active{color:var(--primary-dark);font-weight:600;border-bottom:2px solid var(--primary)}
+
+/* MAIN */
 .main{margin-left:var(--sidebar-w);min-height:100vh;padding:32px 40px}
 .breadcrumb{font-size:13px;color:var(--text-3);margin-bottom:8px}
 .section-title{font-size:26px;font-weight:700;color:var(--text-1);margin-bottom:4px}
@@ -111,21 +127,27 @@ body{font-family:'Inter',sans-serif;background:var(--main-bg);color:var(--text-1
 .panel{display:none;animation:fadeIn .2s ease}
 .panel.active{display:block}
 @keyframes fadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+
+/* CARDS */
 .card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:24px;box-shadow:var(--sh1)}
+.card:hover{box-shadow:var(--sh2);transition:box-shadow .2s}
 .card-label{font-size:11px;font-weight:700;color:var(--text-3);text-transform:uppercase;letter-spacing:.8px;margin-bottom:8px}
 .card-value{font-size:15px;font-weight:600;color:var(--text-1)}
 .card-sub{font-size:13px;color:var(--text-3);margin-top:4px}
 .card-highlight{background:var(--highlight-bg);border:1px solid var(--highlight-border);border-radius:var(--r);padding:20px 24px}
 .card-highlight .card-label{color:var(--primary)}
 .card-highlight .card-value{font-size:18px;font-weight:700;color:var(--primary-dark);line-height:1.4}
+
+/* GRIDS */
 .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
 .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
 .grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
-.stack{display:flex;flex-direction:column;gap:16px}
-.stack-sm{display:flex;flex-direction:column;gap:8px}
-.flex-wrap{display:flex;flex-wrap:wrap;gap:6px}
+
+/* DIVIDER */
 .divider{height:1px;background:var(--border);margin:24px 0}
-.badge{display:inline-block;border-radius:9999px;font-size:11px;font-weight:700;padding:3px 10px;white-space:nowrap}
+
+/* BADGES */
+.badge{border-radius:9999px;font-size:11px;font-weight:700;padding:3px 10px;white-space:nowrap;display:inline-block}
 .badge-green{background:var(--badge-green-bg);color:var(--badge-green-text)}
 .badge-blue{background:var(--badge-blue-bg);color:var(--badge-blue-text)}
 .badge-indigo{background:var(--badge-indigo-bg);color:var(--badge-indigo-text)}
@@ -135,75 +157,128 @@ body{font-family:'Inter',sans-serif;background:var(--main-bg);color:var(--text-1
 .badge-orange{background:var(--badge-orange-bg);color:var(--badge-orange-text)}
 .badge-dark{background:var(--badge-dark-bg);color:var(--badge-dark-text)}
 .badge-neutral{background:var(--badge-neutral-bg);color:var(--badge-neutral-text)}
-.bullet-list{list-style:none;padding:0;margin:0}
-.bullet-list li{position:relative;padding:6px 0 6px 18px;font-size:13px;color:var(--text-2);line-height:1.6}
-.bullet-list li::before{content:"\\2022";position:absolute;left:0;top:6px;color:var(--primary);font-weight:700}
-.step-list{list-style:none;padding:0;margin:0}
-.step{display:flex;gap:12px;padding-bottom:20px;position:relative}
-.step:not(:last-child)::after{content:"";position:absolute;left:15px;top:34px;bottom:6px;width:2px;background:var(--primary-light)}
-.step-num{width:32px;height:32px;border-radius:50%;background:var(--primary);color:#fff;font-size:14px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.step-title{font-size:15px;font-weight:600;color:var(--text-1)}
-.step-desc{font-size:13px;color:var(--text-3);line-height:1.6;margin-top:4px}
-.accordion{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);margin-bottom:8px;box-shadow:var(--sh1)}
-.accordion-header{display:flex;align-items:center;gap:12px;padding:14px 20px;cursor:pointer}
-.accordion-header .acc-caret{margin-left:auto;color:var(--text-3);transition:transform .2s}
-.accordion.open .accordion-header .acc-caret{transform:rotate(180deg)}
+
+/* STATUS CARD */
+.status-card{display:flex;align-items:center;flex-wrap:wrap;gap:10px;font-size:13px;color:var(--text-2)}
+.status-dot{width:8px;height:8px;border-radius:50%;background:var(--primary);display:inline-block;margin-right:6px}
+.status-sep{color:var(--text-3);margin:0 4px}
+
+/* TIMELINE (Furadeira) */
+.timeline{list-style:none}
+.timeline-item{display:flex;gap:16px;padding-bottom:20px;position:relative}
+.timeline-item:last-child{padding-bottom:0}
+.timeline-item:not(:last-child)::before{content:'';position:absolute;left:15px;top:32px;bottom:0;width:2px;background:var(--primary-light)}
+.tl-num{width:32px;height:32px;border-radius:50%;background:var(--primary);color:#fff;font-size:14px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.tl-body{flex:1;padding-top:4px}
+.tl-title{font-size:15px;font-weight:600;color:var(--text-1);margin-bottom:4px}
+.tl-desc{font-size:13px;color:var(--text-3);line-height:1.6}
+
+/* ACCORDION */
+.accordion{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);margin-bottom:8px;box-shadow:var(--sh1);overflow:hidden}
+.accordion-header{display:flex;align-items:center;gap:12px;padding:14px 20px;cursor:pointer;user-select:none}
+.accordion-label{font-size:14px;color:var(--text-1);font-weight:500;flex:1}
+.accordion-arrow{color:var(--text-3);font-size:12px;transition:transform .2s;margin-left:auto}
+.accordion.open .accordion-arrow{transform:rotate(180deg)}
 .accordion-body{max-height:0;overflow:hidden;transition:max-height .3s cubic-bezier(.4,0,.2,1)}
 .accordion.open .accordion-body{max-height:6000px}
-.accordion-body-inner{padding:0 20px 16px}
-.accordion-body-inner ul{list-style:none;padding:0;margin:0}
-.accordion-body-inner li{position:relative;padding:4px 0 4px 18px;font-size:13px;color:var(--text-2);line-height:1.7}
-.accordion-body-inner li::before{content:"\\2022";position:absolute;left:0;color:var(--primary);font-weight:700}
+.accordion-list{padding:0 20px 16px;list-style:none}
+.accordion-list li{font-size:13px;color:var(--text-2);line-height:1.7;padding-left:14px;position:relative}
+.accordion-list li::before{content:'•';color:var(--primary);position:absolute;left:0;font-weight:700}
+
+/* BTN PRIMARY */
+.btn-primary{background:var(--primary);color:#fff;border:none;border-radius:var(--r2);padding:9px 20px;font-size:13px;font-weight:600;display:inline-flex;align-items:center;gap:6px;cursor:pointer;text-decoration:none;margin-top:16px}
+.btn-primary:hover{background:var(--primary-dark)}
+
+/* BULLET LIST */
+.bullet-list{list-style:none;padding:0}
+.bullet-list li{font-size:13px;color:var(--text-2);line-height:1.7;padding-left:16px;position:relative;margin-bottom:4px}
+.bullet-list li::before{content:'•';color:var(--primary);position:absolute;left:0;font-weight:700}
+
+/* PILL CLOUD */
+.pill-cloud,.flex-wrap{display:flex;flex-wrap:wrap;gap:6px}
+
+/* TABLE */
+.table-wrap{overflow-x:auto}
+table,.table{width:100%;border-collapse:collapse}
+th{font-size:11px;text-transform:uppercase;letter-spacing:1px;color:var(--text-3);font-weight:700;padding:10px 12px;text-align:left}
+td{font-size:13px;color:var(--text-2);padding:10px 12px}
+tr{border-bottom:1px solid var(--border-2)}
+
+/* KPI */
+.kpi{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:20px;box-shadow:var(--sh1)}
+.kpi-label{font-size:11px;font-weight:700;color:var(--text-3);text-transform:uppercase;letter-spacing:.8px}
+.kpi-value{font-size:24px;font-weight:800;color:var(--text-1);margin-top:6px}
+.kpi-sub{font-size:12px;color:var(--text-3);margin-top:4px}
+.kpi-trend{font-size:12px;font-weight:600;display:flex;align-items:center;gap:4px;margin-top:4px}
+.trend-up{color:#16a34a}
+.trend-neutral{color:var(--text-3)}
+
+/* ARGUMENTO BLOCKS */
 .arg-block{margin-bottom:18px;padding-bottom:18px;border-bottom:1px solid var(--border-2)}
 .arg-block:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}
 .arg-title{font-size:13px;font-weight:700;color:var(--text-1);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
 .arg-block p{font-size:13px;color:var(--text-2);line-height:1.7;margin-bottom:8px}
 .arg-block p:last-child{margin-bottom:0}
-.table{width:100%;border-collapse:collapse}
-.table th{font-size:11px;text-transform:uppercase;letter-spacing:1px;color:var(--text-3);font-weight:700;padding:10px 12px;text-align:left;border-bottom:1px solid var(--border-2)}
-.table td{font-size:13px;color:var(--text-2);padding:10px 12px;border-bottom:1px solid var(--border-2)}
-.table a{color:var(--primary);text-decoration:none;font-size:12px}
+
+/* PARA */
+.para{font-size:13px;color:var(--text-2);line-height:1.7;margin-top:6px}
+
+/* COMPLAINT BARS */
+.complaint-row{margin-bottom:10px}
+.complaint-label{font-size:13px;color:var(--text-2);margin-bottom:4px;display:flex;justify-content:space-between}
+.complaint-bar-bg{height:6px;background:var(--border-2);border-radius:3px}
+.complaint-bar-fill{height:6px;background:var(--primary);border-radius:3px}
+
+/* OPP LIST */
+.opp-list{list-style:none}
+.opp-item{display:flex;gap:14px;align-items:flex-start;padding:12px 0;border-bottom:1px solid var(--border-2)}
+.opp-item:last-child{border-bottom:none}
+.opp-num{width:28px;height:28px;border-radius:50%;background:var(--primary-light);color:var(--primary-dark);font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.opp-text{font-size:14px;color:var(--text-2);line-height:1.6}
+
+/* ALERT CARD */
+.alert-card{background:#fffbeb;border:1px solid #fde68a;border-radius:var(--r);padding:20px 24px}
+.alert-title{font-size:11px;font-weight:700;color:#d97706;text-transform:uppercase;letter-spacing:.8px;margin-bottom:12px}
+
+/* STACK */
+.stack{display:flex;flex-direction:column;gap:16px}
+.stack-sm{display:flex;flex-direction:column;gap:8px}
+
+/* PLACEHOLDER */
 .placeholder{padding:40px;text-align:center;background:var(--surface);border:1px dashed var(--border);border-radius:var(--r);color:var(--text-3)}
 .placeholder-title{font-size:15px;font-weight:600;color:var(--text-2);margin-bottom:6px}
 .placeholder-sub{font-size:13px;color:var(--text-3)}
-.kpi{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:20px;box-shadow:var(--sh1)}
-.kpi-label{font-size:11px;font-weight:700;color:var(--text-3);text-transform:uppercase;letter-spacing:.8px}
-.kpi-value{font-size:24px;font-weight:800;color:var(--text-1);margin-top:6px}
-.kpi-sub{font-size:12px;color:var(--text-3);margin-top:4px}
-.para{font-size:13px;color:var(--text-2);line-height:1.7;margin-top:6px}
+
 @media(max-width:768px){
   .sidebar{display:none}
   .mobile-tabs{display:block}
-  .main{margin-left:0;padding:20px}
-  .grid-2,.grid-3,.grid-4{grid-template-columns:1fr}
+  .main{margin-left:0;padding:20px 16px}
+  .grid-3,.grid-2,.grid-4{grid-template-columns:1fr}
 }
 @media print{
-  .sidebar,.mobile-tabs,.sidebar-export{display:none!important}
-  .main{margin-left:0}
-  .panel{display:block!important;page-break-after:always}
+  .sidebar,.mobile-tabs,.sidebar-export{display:none}
+  .main{margin-left:0;padding:16px}
+  .panel{display:block!important}
   .accordion-body{max-height:none!important;overflow:visible!important}
-  .card,.kpi{box-shadow:none}
+  .accordion-arrow{display:none}
 }"""
 
 _JS = """\
-function showPanel(id){
-  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
-  const el=document.getElementById('panel-'+id);if(el)el.classList.add('active');
-  document.querySelectorAll('.nav-item,.mobile-tab').forEach(i=>{
-    i.classList.toggle('active',i.dataset.target===id);
+function showPanel(id) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  document.querySelectorAll('.mobile-tab').forEach(t => t.classList.remove('active'));
+  const panel = document.getElementById('panel-' + id);
+  if (panel) panel.classList.add('active');
+  document.querySelectorAll('.nav-item, .mobile-tab').forEach(el => {
+    const oc = el.getAttribute('onclick') || '';
+    if (oc.includes("'" + id + "'")) el.classList.add('active');
   });
 }
-function toggleAcc(e){
-  const a=e.currentTarget.parentElement;a.classList.toggle('open');
+function toggleAccordion(header) {
+  header.closest('.accordion').classList.toggle('open');
 }
-document.addEventListener('DOMContentLoaded',()=>{
-  document.querySelectorAll('.nav-item,.mobile-tab').forEach(i=>{
-    i.addEventListener('click',ev=>{ev.preventDefault();showPanel(i.dataset.target)});
-  });
-  document.querySelectorAll('.accordion-header').forEach(h=>h.addEventListener('click',toggleAcc));
-  document.querySelectorAll('.btn-export').forEach(b=>b.addEventListener('click',()=>window.print()));
-  showPanel('visao-geral');
-});"""
+document.addEventListener('DOMContentLoaded', () => showPanel('visao-geral'));"""
 
 
 def _escape(value: str | None) -> str:
@@ -228,15 +303,18 @@ def _sidebar_items() -> str:
         if secao["grupo"] != grupo_atual:
             grupo_atual = secao["grupo"]
             partes.append(f'<div class="nav-group">{grupo_atual}</div>')
+        sid = secao["id"]
         partes.append(
-            f'<a class="nav-item" data-target="{secao["id"]}">{_escape(secao["titulo"])}</a>'
+            f'<span class="nav-item" onclick="showPanel(\'{sid}\')">'
+            f'{_escape(secao["titulo"])}</span>'
         )
     return "\n".join(partes)
 
 
 def _mobile_tabs() -> str:
     return "\n".join(
-        f'<span class="mobile-tab" data-target="{s["id"]}">{_escape(s["titulo"])}</span>'
+        f'<span class="mobile-tab" onclick="showPanel(\'{s["id"]}\')">'
+        f'{_escape(s["titulo"])}</span>'
         for s in SECOES
     )
 
@@ -246,8 +324,6 @@ def _panels_placeholder(nome_produto: str) -> str:
     partes: list[str] = []
     for secao in SECOES:
         if secao["id"] == "visao-geral":
-            # visao-geral e sempre derivada, nao tem SECTION marker; atualiza junto
-            # com as outras secoes.
             conteudo = render_visao_geral({"nome_produto": nome_produto, "secoes_prontas": []})
         else:
             conteudo = (
@@ -282,12 +358,12 @@ def build_shell(nome_produto: str) -> str:
 </style>
 </head>
 <body>
-<aside class="sidebar">
+<nav class="sidebar">
   <div class="sidebar-title">Painel de Entregas</div>
   <div class="sidebar-product">{_escape(nome_produto)}</div>
   {_sidebar_items()}
-  <div class="sidebar-export"><button class="btn-export">Exportar PDF (Ctrl+P)</button></div>
-</aside>
+  <div class="sidebar-export"><button class="btn-export" onclick="window.print()">Exportar PDF (Ctrl+P)</button></div>
+</nav>
 <div class="mobile-tabs">{_mobile_tabs()}</div>
 <main class="main">
 {painel_list}
@@ -325,14 +401,14 @@ def _accordion(badge_cls: str, badge_txt: str, descricao: str, items: list[str])
     lis = "".join(f"<li>{_escape(i)}</li>" for i in items)
     return (
         '<div class="accordion">'
-        '<div class="accordion-header">'
+        '<div class="accordion-header" onclick="toggleAccordion(this)">'
         f'<span class="badge {badge_cls}">{_escape(badge_txt)}</span>'
-        f'<span>{_escape(descricao)}</span>'
-        '<span class="acc-caret">&#9662;</span>'
+        f'<span class="accordion-label">{_escape(descricao)}</span>'
+        '<span class="accordion-arrow">&#9662;</span>'
         "</div>"
-        '<div class="accordion-body"><div class="accordion-body-inner">'
-        f"<ul>{lis}</ul>"
-        "</div></div>"
+        '<div class="accordion-body">'
+        f'<ul class="accordion-list">{lis}</ul>'
+        "</div>"
         "</div>"
     )
 
@@ -341,7 +417,7 @@ def _pills(items: Iterable[str], cls: str = "badge-neutral") -> str:
     pills = "".join(
         f'<span class="badge {cls}">{_escape(i)}</span>' for i in items if i
     )
-    return f'<div class="flex-wrap">{pills}</div>' if pills else '<div class="card-sub">&mdash;</div>'
+    return f'<div class="pill-cloud">{pills}</div>' if pills else '<div class="card-sub">&mdash;</div>'
 
 
 # ----- renders por secao -----
@@ -357,39 +433,44 @@ def render_visao_geral(dados: dict) -> str:
     secoes_prontas: list[str] = dados.get("secoes_prontas") or []
 
     badges = "".join(
-        f'<span class="badge badge-green" style="margin-right:6px">{_escape(s)}</span>'
+        f'<span class="badge badge-green">{_escape(s)}</span>'
         for s in secoes_prontas
     )
-    if not badges:
-        badges = '<span class="card-sub">Nenhuma secao preenchida ainda.</span>'
 
     grid1 = (
-        '<div class="grid-3">'
+        f'<div class="grid-3" style="margin-bottom:16px">'
         f'{_card("Nome do produto", nome)}'
         f'{_card("Tipo", tipo)}'
         f'{_card("Preco", preco)}'
         "</div>"
     )
     quadro_box = (
-        '<div style="margin-top:16px">'
-        + _card("Quadro (transformacao principal)", quadro, highlight=True)
-        + "</div>"
+        '<div class="card-highlight" style="margin-bottom:16px">'
+        '<div class="card-label">Quadro — Transformacao Principal</div>'
+        f'<div class="card-value">{_escape(quadro)}</div>'
+        "</div>"
     )
     grid2 = (
-        '<div class="grid-2" style="margin-top:16px">'
+        '<div class="grid-2" style="margin-bottom:16px">'
         f'{_card("Nicho", nicho)}'
         f'{_card("Diferencial", diferencial)}'
         "</div>"
     )
+
+    status_extras = ""
+    if tipo and tipo != "a definir":
+        status_extras += f'<span class="status-sep">·</span><span>{_escape(tipo)}</span>'
+    if preco and preco != "a definir":
+        status_extras += f'<span class="status-sep">·</span><span>{_escape(preco)}</span>'
+    if badges:
+        status_extras += f'<span class="status-sep">·</span>{badges}'
+
     status = (
-        '<div class="card" style="margin-top:16px">'
-        '<div class="card-label">Status do produto</div>'
-        '<div class="card-value" style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">'
-        '<span style="width:8px;height:8px;border-radius:50%;background:var(--primary);display:inline-block"></span>'
-        'Produto ativo'
-        "</div>"
-        f'<div style="margin-top:10px">{badges}</div>'
-        "</div>"
+        '<div class="card">'
+        '<div class="status-card">'
+        '<span><span class="status-dot"></span><strong>Produto ativo</strong></span>'
+        + status_extras
+        + "</div></div>"
     )
     return (
         f'<!-- SECTION:visao-geral -->\n{grid1}{quadro_box}{grid2}{status}\n<!-- /SECTION:visao-geral -->'
@@ -410,9 +491,12 @@ def render_quadro(dados: dict) -> str:
             "Se nao, o Quadro ainda esta descrevendo processo, nao resultado."
         )
         miolo = (
-            _card("Quadro aprovado", quadro, highlight=True)
-            + '<div class="grid-2" style="margin-top:16px">'
-            + _card("Como usar o Quadro", como_usar)
+            '<div class="card-highlight" style="margin-bottom:16px">'
+            '<div class="card-label">Quadro Aprovado</div>'
+            f'<div class="card-value">{_escape(quadro)}</div>'
+            "</div>"
+            + '<div class="grid-2">'
+            + _card("Como Usar o Quadro", como_usar)
             + _card("Regra do Quadro", regra)
             + "</div>"
         )
@@ -432,30 +516,29 @@ def render_furadeira(dados: dict) -> str:
             titulo = m.get("titulo") or f"Etapa {idx}"
             desc = m.get("descricao") or ""
             steps_html += (
-                '<li class="step">'
-                f'<div class="step-num">{idx}</div>'
-                '<div>'
-                f'<div class="step-title">{_escape(titulo)}</div>'
-                f'<div class="step-desc">{_escape(desc)}</div>'
+                '<li class="timeline-item">'
+                f'<div class="tl-num">{idx}</div>'
+                '<div class="tl-body">'
+                f'<div class="tl-title">{_escape(titulo)}</div>'
+                f'<div class="tl-desc">{_escape(desc)}</div>'
                 "</div>"
                 "</li>"
             )
         if not steps_html:
             steps_html = (
-                '<li class="step-desc">Nenhuma macroetapa registrada ainda.</li>'
+                '<li class="tl-desc">Nenhuma macroetapa registrada ainda.</li>'
             )
         link_trilha = ""
         if furadeira_html:
             link_trilha = (
-                f'<div style="margin-top:16px"><a href="{_escape(furadeira_html)}" '
-                'class="badge badge-green" style="padding:9px 20px;text-decoration:none">'
-                'Ver Trilha Visual Completa &rarr;</a></div>'
+                f'<a class="btn-primary" href="{_escape(furadeira_html)}" target="_blank">'
+                'Ver Trilha Visual Completa &#8594;</a>'
             )
         miolo = (
-            _card("Nome do metodo", nome_metodo or "(sem nome)")
+            _card("Nome do Metodo", nome_metodo or "(sem nome)")
             + '<div class="card" style="margin-top:16px">'
-            '<div class="card-label">Trilha do metodo</div>'
-            f'<ul class="step-list" style="margin-top:12px">{steps_html}</ul>'
+            '<div class="card-label">Trilha do Metodo</div>'
+            f'<ul class="timeline" style="margin-top:16px">{steps_html}</ul>'
             f"{link_trilha}"
             "</div>"
         )
@@ -557,12 +640,12 @@ def render_identidade_produto(dados: dict) -> str:
                 )
             acc_items.append(
                 '<div class="accordion">'
-                '<div class="accordion-header">'
+                '<div class="accordion-header" onclick="toggleAccordion(this)">'
                 f'<span class="badge badge-pink">Objecao {idx}</span>'
-                f'<span>{_escape(obj.get("texto",""))}</span>'
-                '<span class="acc-caret">&#9662;</span>'
+                f'<span class="accordion-label">{_escape(obj.get("texto",""))}</span>'
+                '<span class="accordion-arrow">&#9662;</span>'
                 "</div>"
-                '<div class="accordion-body"><div class="accordion-body-inner">'
+                '<div class="accordion-body"><div style="padding:12px 20px 16px">'
                 f"{corpo_args or '<p class=\"card-sub\">Sem argumentos registrados.</p>'}"
                 "</div></div>"
                 "</div>"
@@ -591,7 +674,12 @@ def render_identidade_consumidor(dados: dict) -> str:
 
     blocos: list[str] = []
     if para_quem:
-        blocos.append(_card("Para quem e", para_quem, highlight=True))
+        blocos.append(
+            '<div class="card-highlight" style="margin-bottom:16px">'
+            '<div class="card-label">Para quem e</div>'
+            f'<div class="card-value">{_escape(para_quem)}</div>'
+            "</div>"
+        )
 
     def _kv_card(titulo: str, pares: dict) -> str:
         linhas = "".join(
@@ -698,8 +786,7 @@ def render_identidade_comunicador(dados: dict) -> str:
 
 def render_pesquisa(dados: dict) -> str:
     """Versao pragmatica da pesquisa: KPIs, oportunidades, cuidados, tabela
-    completa de concorrentes com links reais. Sem SVG/charts (podem ser adicionados
-    depois sem mudar o contrato)."""
+    completa de concorrentes com links reais."""
     if not dados or not any(dados.values()):
         miolo = _placeholder("Aguardando pesquisa de mercado.")
         return f"<!-- SECTION:pesquisa -->\n{miolo}\n<!-- /SECTION:pesquisa -->"
@@ -711,7 +798,6 @@ def render_pesquisa(dados: dict) -> str:
     concorrentes: list[dict] = dados.get("concorrentes") or []
     fontes: list[str] = dados.get("fontes") or []
 
-    # KPIs
     if not kpis:
         kpis = [
             {"label": "Tamanho do mercado", "valor": dados.get("tamanho_mercado") or "a mapear"},
@@ -754,9 +840,9 @@ def render_pesquisa(dados: dict) -> str:
             url = (c.get("pagina") or "").strip()
             insta = (c.get("instagram") or "").strip()
             if url and not _is_busca(url):
-                links_partes.append(f'<a href="{_escape(url)}" target="_blank" rel="noopener">&uarr; Pagina</a>')
+                links_partes.append(f'<a href="{_escape(url)}" target="_blank" rel="noopener" style="color:var(--primary);font-size:11px">&#8599; Pagina</a>')
             if insta and not _is_busca(insta):
-                links_partes.append(f'<a href="{_escape(insta)}" target="_blank" rel="noopener">&uarr; Instagram</a>')
+                links_partes.append(f'<a href="{_escape(insta)}" target="_blank" rel="noopener" style="color:var(--primary);font-size:11px">&#8599; Instagram</a>')
             links_html = " &middot; ".join(links_partes) if links_partes else "&mdash;"
             preco_badge_cls = _preco_badge(c.get("preco", ""))
             preco = _escape(c.get("preco", ""))
@@ -773,8 +859,8 @@ def render_pesquisa(dados: dict) -> str:
         tabela = (
             '<div class="card" style="margin-top:16px">'
             '<div class="card-label">Analise de concorrentes</div>'
-            '<div style="overflow-x:auto;margin-top:12px">'
-            '<table class="table">'
+            '<div class="table-wrap" style="margin-top:12px">'
+            '<table>'
             "<thead><tr><th>Nome</th><th>Promessa</th><th>Formato</th><th>Preco</th><th>Diferencial</th><th>Links</th></tr></thead>"
             f"<tbody>{''.join(linhas)}</tbody>"
             "</table>"
