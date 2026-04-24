@@ -107,14 +107,20 @@ def parse_perfil(text):
     nm = parse_field(sec, "Nome do Método")
     d["nome_metodo"] = nm if nm else sec.split("\n")[0].strip()
 
-    # parse macroetapas from furadeira - look for numbered items or ### subsections
+    # parse macroetapas from furadeira - look for ### subsections, then numbered bold items
     d["macroetapas"] = []
     subsecs = parse_subsections(sec, level=3)
     if subsecs:
         for i, (title, body) in enumerate(subsecs.items(), 1):
             d["macroetapas"].append({"num": i, "titulo": title, "desc": body.replace("\n", " ").strip()})
     if not d["macroetapas"]:
-        # try parsing description text for structure
+        # try numbered bold items: "1. **Titulo.** descricao" or "1. **Titulo:** descricao"
+        numbered_re = re.compile(r'^\d+\.\s+\*\*(.+?)[.*:]*\*\*\s*(.*)', re.MULTILINE)
+        matches = numbered_re.findall(sec)
+        for i, (title, desc) in enumerate(matches, 1):
+            d["macroetapas"].append({"num": i, "titulo": title.rstrip(".:"), "desc": desc.strip()})
+    if not d["macroetapas"]:
+        # last fallback: single block with method name
         lines = sec.split("\n")
         desc_lines = [l for l in lines if not l.startswith("**Nome")]
         if desc_lines:
@@ -245,7 +251,7 @@ def parse_idconsumidor(text):
     d["baldes"] = []
     sec_baldes = parse_section_fuzzy(text, "Baldes de Para Quem")
     if sec_baldes:
-        balde_blocks = re.split(r'➤\s*Pra quem é\s*-\s*', sec_baldes)
+        balde_blocks = re.split(r'➤\s*Pra quem é\s*[-:]\s*', sec_baldes)
         for block in balde_blocks[1:]:
             lines = block.strip().split("\n")
             nome = lines[0].strip()
@@ -809,6 +815,45 @@ def build_pesquisa_html(pesq, perfil):
 
 # ── main ─────────────────────────────────────────────────────────────
 
+# ── diagnostico de formato ───────────────────────────────────────────
+
+FORMATOS = {
+    "macroetapas": "### Nome da Etapa\\nDescrição  OU  1. **Nome.** Descrição",
+    "decorados": "### {cat}\\n- Item 1\\n- Item 2  (lista com -, 10 por categoria)",
+    "urgencias": "### {cat}\\n- Item 1\\n- Item 2  (lista com -, 10 por categoria)",
+    "argumentos": "- Argumento 1\\n- Argumento 2  (lista com -, dentro de ## Argumentos)",
+    "objecoes": "### Objeção 1: \"Texto\"\\n**1. Argumento incontestável**\\nTexto...",
+    "baldes": "> Pra quem e: Nome\\n1. Item  OU  > Pra quem e - Nome\\n1. Item",
+    "paliativos": "- Paliativo 1\\n- Paliativo 2  (lista com -)",
+    "reclamacoes": "Seção ## Reclamações ou ## Reclame Aqui\\n- Reclamação 1\\n- Reclamação 2",
+    "oportunidades": "- Oportunidade 1\\n- Oportunidade 2  (lista com -)",
+    "concorrentes": "| Nome | Canal | Preço | Obs |\\n|---|---|---|---|",
+    "riscos": "- Risco 1\\n- Risco 2  (lista com -)",
+}
+
+def diagnose(raw_text, keywords, n_items, hint_key, cat=""):
+    """Diagnostica falha de parse: seção ausente vs formato incompatível."""
+    if not raw_text:
+        return ""
+    sec = parse_section_fuzzy(raw_text, *keywords)
+    hint = FORMATOS.get(hint_key, "")
+    if cat:
+        hint = hint.replace("{cat}", cat)
+    if not sec:
+        return f"  >> CAUSA: seção '{keywords[0]}' não encontrada no .md\n      Formato aceito: {hint}"
+    if cat:
+        has_sub = bool(re.search(rf'^###\s+.*{re.escape(cat)}', sec, re.MULTILINE | re.IGNORECASE))
+        if not has_sub:
+            return f"  >> CAUSA: subseção '### {cat}' não encontrada dentro de '{keywords[0]}'\n      Formato aceito: {hint}"
+        sub_match = re.search(rf'^###\s+.*{re.escape(cat)}.*?\n(.*?)(?=^###\s|\Z)', sec, re.MULTILINE | re.DOTALL | re.IGNORECASE)
+        if sub_match and n_items == 0:
+            trecho = sub_match.group(1)[:100].replace('\n', ' ').strip()
+            return f"  >> CAUSA: subseção '### {cat}' existe mas itens não parseados (esperado: lista com -)\n      Trecho: \"{trecho}\"\n      Formato aceito: {hint}"
+    if n_items == 0:
+        trecho = sec[:100].replace('\n', ' ').strip()
+        return f"  >> CAUSA: seção existe mas formato não reconhecido pelo parser\n      Trecho: \"{trecho}\"\n      Formato aceito: {hint}"
+    return ""
+
 # ── validacao ────────────────────────────────────────────────────────
 
 def validate(data, rules):
@@ -858,8 +903,8 @@ def check_min(value, expected):
         return True, "preenchido"
     return False, "vazio"
 
-def run_validation(perfil, idc, pesq, tipo):
-    """Roda todas as validacoes e retorna relatorio."""
+def run_validation(perfil, idc, pesq, tipo, perfil_text="", idc_text="", pesq_text=""):
+    """Roda todas as validacoes e retorna relatorio com diagnostico de formato."""
     is_low = "low" in tipo.lower()
     warnings = []
     total_ok = 0
@@ -886,6 +931,11 @@ def run_validation(perfil, idc, pesq, tipo):
         ("diferencial_raw", "Diferencial", check_not_empty, None),
         ("formato_produto", "Formato", check_not_empty, None),
     ]
+    # mapa de diagnostico para campos estruturados do perfil
+    perfil_diag_map = {
+        "macroetapas": (["Furadeira"], "macroetapas"),
+        "argumentos": (["Argumentos Incontestáveis", "Argumentos Incontestaveis"], "argumentos"),
+    }
     for field, label, fn, expected in perfil_checks:
         value = perfil.get(field, "")
         ok, detail = fn(value, expected)
@@ -895,6 +945,12 @@ def run_validation(perfil, idc, pesq, tipo):
             total_ok += 1
         else:
             total_warn += 1
+            if field in perfil_diag_map:
+                kw, hk = perfil_diag_map[field]
+                n = len(value) if isinstance(value, list) else 0
+                diag = diagnose(perfil_text, kw, n, hk)
+                if diag:
+                    print(diag)
             warnings.append(f"perfil.md > {label}: {detail}")
 
     # decorados
@@ -909,6 +965,9 @@ def run_validation(perfil, idc, pesq, tipo):
             total_ok += 1
         else:
             total_warn += 1
+            diag = diagnose(perfil_text, ["Decorados"], len(items), "decorados", cat)
+            if diag:
+                print(diag)
             warnings.append(f"perfil.md > Decorados > {cat}: {detail}")
 
     # urgencias
@@ -932,6 +991,9 @@ def run_validation(perfil, idc, pesq, tipo):
             total_ok += 1
         else:
             total_warn += 1
+            diag = diagnose(perfil_text, ["Urgências Ocultas", "Urgencias Ocultas"], len(items), "urgencias", key)
+            if diag:
+                print(diag)
             warnings.append(f"perfil.md > Urgencias > {display}: {detail}")
 
     # --- IDCONSUMIDOR.MD ---
@@ -972,6 +1034,9 @@ def run_validation(perfil, idc, pesq, tipo):
             total_ok += 1
         else:
             total_warn += 1
+            diag = diagnose(idc_text, ["Objeções de Compra", "Objecoes de Compra"], len(objs), "objecoes")
+            if diag:
+                print(diag)
             warnings.append(f"idconsumidor.md > Objecoes: {len(objs)}/5")
 
         for i, obj in enumerate(objs, 1):
@@ -983,6 +1048,8 @@ def run_validation(perfil, idc, pesq, tipo):
                 total_ok += 1
             else:
                 total_warn += 1
+                if n_args == 0:
+                    print(f"  CAUSA: argumentos da objeção {i} não parseados. Formato: **1. Argumento incontestável**\\nTexto...")
                 warnings.append(f"idconsumidor.md > Objecao {i}: {n_args}/7 argumentos")
 
         # baldes
@@ -994,6 +1061,9 @@ def run_validation(perfil, idc, pesq, tipo):
             total_ok += 1
         else:
             total_warn += 1
+            diag = diagnose(idc_text, ["Baldes de Para Quem"], len(baldes), "baldes")
+            if diag:
+                print(diag)
             warnings.append(f"idconsumidor.md > Baldes: {len(baldes)} (esperado 3-5)")
 
         # paliativos (so middle ticket)
@@ -1006,6 +1076,9 @@ def run_validation(perfil, idc, pesq, tipo):
                 total_ok += 1
             else:
                 total_warn += 1
+                diag = diagnose(idc_text, ["Paliativos"], len(pals), "paliativos")
+                if diag:
+                    print(diag)
                 warnings.append(f"idconsumidor.md > Paliativos: {len(pals)} itens (minimo 3)")
 
     # --- PESQUISA-MERCADO.MD ---
@@ -1021,6 +1094,12 @@ def run_validation(perfil, idc, pesq, tipo):
             ("reclamacoes", "Reclamacoes", check_min, 2),
             ("riscos", "Cuidados e Riscos", check_min, 2),
         ]
+        pesq_diag_map = {
+            "oportunidades": (["Oportunidades"], "oportunidades"),
+            "concorrentes": (["Principais Concorrentes", "Concorrentes"], "concorrentes"),
+            "reclamacoes": (["Reclame Aqui", "Reclamações Reais", "Reclamações", "Reclamacoes"], "reclamacoes"),
+            "riscos": (["Riscos", "Cuidados"], "riscos"),
+        }
         for field, label, fn, expected in pesq_checks:
             value = pesq.get(field, [])
             ok, detail = fn(value, expected)
@@ -1030,6 +1109,12 @@ def run_validation(perfil, idc, pesq, tipo):
                 total_ok += 1
             else:
                 total_warn += 1
+                if field in pesq_diag_map:
+                    kw, hk = pesq_diag_map[field]
+                    n = len(value) if isinstance(value, list) else 0
+                    diag = diagnose(pesq_text, kw, n, hk)
+                    if diag:
+                        print(diag)
                 warnings.append(f"pesquisa-mercado.md > {label}: {detail}")
 
     # resumo
@@ -1130,7 +1215,7 @@ def main():
     is_low = "low" in tipo.lower()
 
     # validar
-    warnings = run_validation(perfil, idc, pesq, tipo)
+    warnings = run_validation(perfil, idc, pesq, tipo, perfil_text, idc_text, pesq_text)
 
     # salvar cache JSON
     cache_path = save_json_cache(produto_path, perfil, idc, pesq, tipo)

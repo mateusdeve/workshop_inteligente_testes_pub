@@ -284,18 +284,21 @@
     var textoOriginal = btn.textContent;
     btn.disabled = true;
     btn.textContent = 'Gerando PNG...';
-    var corFundo = getComputedStyle(document.body).backgroundColor || '#ffffff';
+    var origBg = document.body.style.background;
+    document.body.style.background = 'transparent';
     html2canvas(document.body, {
-      backgroundColor: corFundo,
+      backgroundColor: null,
       scale: 2,
       useCORS: true,
       ignoreElements: function (el) { return el.id === 'btn-baixar-furadeira'; }
     }).then(function (canvas) {
+      document.body.style.background = origBg;
       var link = document.createElement('a');
       link.download = 'furadeira.png';
       link.href = canvas.toDataURL('image/png');
       link.click();
     }).catch(function (err) {
+      document.body.style.background = origBg;
       console.error(err);
       alert('Não foi possível gerar o PNG: ' + (err && err.message ? err.message : 'erro desconhecido'));
     }).finally(function () {

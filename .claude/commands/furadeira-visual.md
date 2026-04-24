@@ -194,16 +194,31 @@ Digite o número:
 
 **Se escolheu Gemini:**
 
-Leia `.env`. Se `GEMINI_API_KEY` estiver vazio ou ausente, pare e informe:
+Leia `.env`. Se `GEMINI_API_KEY` estiver vazio ou ausente, informe e ofereça o prompt direto:
 
 ```
-Falta a chave do Google Gemini.
+Falta a chave do Google Gemini para gerar automaticamente.
 
+Posso te dar o prompt agora para você colar no chat do Gemini ou do ChatGPT
+e gerar a imagem de graça, sem precisar configurar nada.
+
+1. Me dá o prompt agora (vou colar no Gemini ou ChatGPT)
+2. Quero configurar a chave (leva 2 minutos)
+```
+
+Se escolher **1**: siga o fluxo da **Opção 3** (seção 5) para gerar e apresentar o prompt. Após apresentar o prompt, explique:
+```
+Copie o bloco acima e cole no chat do Gemini (gemini.google.com) ou do ChatGPT (chatgpt.com).
+Eles vão gerar a imagem direto na conversa. Salve a imagem que vier.
+```
+
+Se escolher **2**: informe os passos de configuração:
+```
 Passo a passo:
-1. Acesse https://aistudio.google.com/app/apikey
+1. Acesse aistudio.google.com/app/apikey
 2. Clique em "Create API Key", copie o valor (começa com "AIzaSy")
 3. Abra o arquivo .env na raiz do projeto
-4. Cole na linha GEMINI_API_KEY=
+4. Cole na linha GEMINI_API_KEY=sua_chave_aqui
 5. Salve e rode /furadeira-visual de novo
 ```
 
@@ -225,25 +240,44 @@ Depois de colocar, rode /furadeira-visual de novo.
 
 #### 4.3. Construir o prompt em inglês
 
-Monte um prompt único em inglês com este esqueleto (substitua os placeholders pelos dados do produto):
+**OBJETIVO DO PROMPT:** gerar um infográfico visual que representa o método do produto, não uma foto ou cena realista. O resultado deve parecer um diagrama profissional de etapas, como os que aparecem em apresentações de PowerPoint ou materiais de treinamento corporativo.
+
+Monte um prompt em inglês com os nomes das etapas em português brasileiro. O frame técnico fica em inglês para funcionar melhor nos geradores, mas os textos visíveis do infográfico (nome do método, etapas, rótulos) devem estar em português Brasil.
+
+Esqueleto (substitua os placeholders):
 
 ```
-Photorealistic editorial composition representing a learning journey for
-"{quadro_em_ingles}" in the "{nicho_em_ingles}" niche. Visual metaphor of
-progression through {N} stages: {macroetapas_em_ingles_separadas_por_virgula}.
-Main audience emotional state at the start: "{dor_central_em_ingles}".
-Style: cinematic lighting, neutral studio background, soft depth of field,
-professional color palette, no text overlays, no logos, no readable words,
-no cartoon characters. Aspect ratio 4:3.
+Professional flat design infographic showing a step-by-step method.
+Method name (in Portuguese, keep exactly as written): "{nome_do_metodo_em_portugues}"
+Goal (in Portuguese, keep exactly as written): "{quadro_em_portugues}"
+The infographic displays {N} sequential steps with the following labels
+(keep all labels exactly in Brazilian Portuguese as written):
+Step 1: "{macroetapa_1_em_portugues}"
+Step 2: "{macroetapa_2_em_portugues}"
+Step 3: "{macroetapa_3_em_portugues}"
+Step 4: "{macroetapa_4_em_portugues}"
+Style: clean flat design, transparent background (PNG with alpha channel),
+bold section labels, connecting arrows or lines between steps,
+icon-based illustration for each step,
+professional color palette with {cor_predominante}, no people, no faces,
+no photographs, no realistic scenes, no handwriting, no logos, no watermarks,
+no background color, no background fill.
+All visible text must be in Brazilian Portuguese (pt-BR).
+Output format: PNG with transparent background.
+Layout: horizontal flow or vertical steps. Aspect ratio 4:3.
 ```
 
-Regras de tradução pt → en:
-- **Quadro:** mantém o significado do resultado final.
-- **Nicho:** traduz literal.
-- **Macroetapas:** traduz cada título curto, mantém a ordem, separa por vírgula.
-- **Dor central:** estado emocional em inglês.
+Regras de preenchimento:
+- **Nome do método e Quadro:** manter em português exatamente como estão no perfil.
+- **Macroetapas:** manter em português exatamente como estão no perfil. Não traduzir.
+- **Cor predominante:** escolha uma cor que combine com o produto (ex: "navy blue and gold", "green and white", "orange and dark gray").
 
-Não use o nome do produto nem termos em português. Não inclua placeholders `{}` no prompt final enviado ao script.
+Não inclua placeholders `{}` no prompt final enviado ao script.
+
+**Regras críticas:**
+- Nunca usar "photorealistic", "cinematic", "editorial", "photograph" ou "portrait". Esses termos geram fotos realistas em vez de diagramas.
+- Nunca usar "no foreign text". Isso bloqueia o português, que é o idioma desejado.
+- Sempre incluir "All visible text must be in Brazilian Portuguese (pt-BR)" para garantir que os rótulos saiam em português.
 
 Para regras completas de tradução e ajustes opcionais (paleta, proporção, nicho espiritual vs corporativo), consulte `.claude/skills/gerar-furadeira/SKILL.md`.
 
@@ -325,10 +359,13 @@ Salve em `meus-produtos/{ativo}/entregas/furadeira/prompt-furadeira.md` com esta
 
 ## Onde usar
 
-- Google Gemini (aistudio.google.com)
-- ChatGPT (GPT-4o com geração de imagem)
-- Midjourney, Ideogram, Leonardo, Recraft
-- Qualquer outra IA de imagem que aceite prompt em inglês
+**Recomendado: ChatGPT (chatgpt.com)**
+Cole o prompt no chat e peça para gerar uma imagem. O GPT-4o gera imagens diretamente na conversa.
+
+Alternativas:
+- Google Gemini (gemini.google.com)
+- Ideogram ou Recraft (melhor suporte a fundo transparente)
+- Midjourney, Leonardo
 
 ## Prompt (inglês, recomendado)
 
@@ -344,9 +381,14 @@ Salve em `meus-produtos/{ativo}/entregas/furadeira/prompt-furadeira.md` com esta
 
 ## Dicas
 
+**OBRIGATÓRIO: salvar como PNG com fundo TRANSPARENTE.**
+Após gerar no ChatGPT: clique com o botão direito na imagem e salve como PNG.
+Verifique se o fundo está transparente: ao abrir no editor de imagens, deve aparecer xadrez cinza e branco no lugar do fundo, não branco sólido.
+Se vier com fundo branco, adicione ao prompt: "transparent background, PNG with alpha channel, no background color, no background fill".
+
 - Use proporção 4:3 ou 16:9.
-- Se a IA pedir estilo, repita "photorealistic editorial, cinematic lighting".
-- Se o resultado vier com texto ou logo, adicione "no text, no logos".
+- Se a IA gerar foto de pessoas ou cena realista, adicione: "no people, no faces, no photographs, infographic only".
+- Se o resultado vier com logo ou marca d'água, adicione: "no logos, no watermarks".
 ~~~
 
 #### 5.4. Mensagem final
@@ -356,7 +398,17 @@ Salve em `meus-produtos/{ativo}/entregas/furadeira/prompt-furadeira.md` com esta
 
 Caminho: meus-produtos/{ativo}/entregas/furadeira/prompt-furadeira.md
 
-Copie o bloco "Prompt (inglês, recomendado)" e cole na IA de imagem de sua preferência.
+Como usar:
+1. Acesse https://chatgpt.com/ e entre no chat
+2. Copie todo o bloco abaixo (da primeira até a última linha):
+
+---
+[exibir aqui o prompt em inglês gerado, sem o bloco de código, direto no chat]
+---
+
+3. Cole no campo de mensagem do ChatGPT e envie
+4. O ChatGPT vai gerar a imagem direto na conversa
+5. Clique na imagem gerada e salve como PNG
 ```
 
 Siga para a seção **Próximo passo sugerido**.
@@ -406,4 +458,5 @@ Próximo:
 - Erros sempre em português, sem jargão de stack trace.
 - Anunciar "próximo passo" antes de operações longas (regra global do CLAUDE.md).
 - Não misturar as 3 opções numa mesma execução. O aluno escolhe uma; para rodar outra, executa o comando de novo.
+- **Proibido incluir `<footer>` no HTML gerado.** Não adicionar rodapé com nome do produto nem qualquer outro texto no final da página.
 - **Todo HTML gerado na opção 1 precisa ter o botão "Baixar PNG" embutido antes de `</body>`.** Conteúdo canônico em `.claude/skills/furadeira-visual/references/botao-baixar-png.html`. Se o HTML for gerado a partir dos templates em `references/templates/`, o bloco já vem junto. Se for gerado do zero, copiar o arquivo de referência inteiro e colar antes de `</body>`. Essa regra vale para qualquer aluno, em qualquer máquina, sem exceção. O botão usa html2canvas via CDN e não depende de Python, Playwright ou Puppeteer.
