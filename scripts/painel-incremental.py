@@ -19,6 +19,7 @@ Secoes validas (ids que aparecem na sidebar e marcadores SECTION):
     identidade-produto
     identidade-consumidor
     identidade-comunicador
+    copy-pagina
 
 O painel vive em:
     meus-produtos/{slug}/painel-entregas.html
@@ -581,6 +582,8 @@ def montar_dados(secao: str, produto_dir: Path, slug: str) -> tuple[dict, str]:
         return parse_identidade_comunicador(perfil, idc), nome_produto
     if secao == "pesquisa":
         return parse_pesquisa(pesquisa), nome_produto
+    if secao == "copy-pagina":
+        return tmpl.parse_copy_pagina(produto_dir, slug, REPO_ROOT), nome_produto
     raise ValueError(f"Secao desconhecida: {secao}")
 
 
@@ -598,6 +601,7 @@ def secoes_preenchidas(html_txt: str) -> list[str]:
         "identidade-consumidor": "Identidade do consumidor",
         "identidade-comunicador": "Identidade do comunicador",
         "pesquisa": "Pesquisa de mercado",
+        "copy-pagina": "Copy da pagina",
     }
     for sid, rotulo in rotulo_por_id.items():
         bloco = extrair_bloco_secao(html_txt, sid)

@@ -16,6 +16,12 @@ ROOT = Path(__file__).resolve().parent.parent
 TEMPLATE = ROOT / "scripts" / "templates" / "painel-entregas.html"
 PRODUTOS = ROOT / "meus-produtos"
 
+# reutiliza parser e render da secao copy-pagina (painel_template.py)
+SCRIPT_DIR = Path(__file__).resolve().parent
+if str(SCRIPT_DIR) not in sys.path:
+    sys.path.insert(0, str(SCRIPT_DIR))
+import painel_template as _tmpl  # noqa: E402
+
 # ── helpers ──────────────────────────────────────────────────────────
 
 def read_file(path):
@@ -858,6 +864,34 @@ def check_min(value, expected):
         return True, "preenchido"
     return False, "vazio"
 
+def validate_copy_pagina(produto_path, slug):
+    """Valida e imprime status da secao Copy da Pagina.
+    Retorna dict com blocos, arquivo_relativo, arquivo_existe, warnings."""
+    dados = _tmpl.parse_copy_pagina(produto_path, slug, ROOT)
+    blocos = dados.get("blocos", [])
+    existe = dados.get("arquivo_existe", False)
+    total = len(blocos)
+
+    print("\nCOPY-PAGINA/COPY-{slug}.MD".replace("{slug}", slug))
+    warnings = []
+    if not existe:
+        print("  [!!] Arquivo nao encontrado (entregas/copy-pagina/copy-{}.md)".format(slug))
+        print("       Rode /copy-pagina para gerar a copy nos 16 blocos.")
+        warnings.append("copy-pagina: arquivo nao encontrado")
+    elif total == 0:
+        print("  [!!] Arquivo existe mas nao tem blocos no padrao '## Bloco NN - Nome'")
+        warnings.append("copy-pagina: 0 blocos detectados (checar formato '## Bloco 01 - Hero' etc.)")
+    elif total < 16:
+        print(f"  [!!] Blocos aprovados: {total}/16. Faltam {16 - total} para completar a copy.")
+        numeros_presentes = {b["numero"] for b in blocos}
+        faltantes = [f"{n:02d}" for n in range(1, 17) if n not in numeros_presentes]
+        print(f"       Faltantes: {', '.join(faltantes)}")
+        warnings.append(f"copy-pagina: {total}/16 blocos (faltam {', '.join(faltantes)})")
+    else:
+        print(f"  [OK] Blocos aprovados: {total}/16 (completo)")
+    return dados, warnings
+
+
 def run_validation(perfil, idc, pesq, tipo):
     """Roda todas as validacoes e retorna relatorio."""
     is_low = "low" in tipo.lower()
@@ -1046,8 +1080,9 @@ def run_validation(perfil, idc, pesq, tipo):
     return warnings
 
 
-def save_json_cache(produto_path, perfil, idc, pesq, tipo):
+def save_json_cache(produto_path, perfil, idc, pesq, tipo, copy_dados=None):
     """Salva cache JSON dos dados parseados."""
+    copy_dados = copy_dados or {}
     cache = {
         "perfil": {
             "nome_produto": perfil.get("nome_produto_field", perfil.get("nome_produto", "")),
@@ -1096,6 +1131,14 @@ def save_json_cache(produto_path, perfil, idc, pesq, tipo):
             "reclamacoes": pesq.get("reclamacoes", []),
             "riscos": pesq.get("riscos", []),
         },
+        "copy_pagina": {
+            "arquivo_existe": copy_dados.get("arquivo_existe", False),
+            "arquivo_relativo": copy_dados.get("arquivo_relativo", ""),
+            "total_blocos": len(copy_dados.get("blocos", [])),
+            "numeros_aprovados": sorted(
+                b.get("numero") for b in copy_dados.get("blocos", []) if b.get("numero")
+            ),
+        },
         "tipo": tipo,
     }
 
@@ -1132,8 +1175,12 @@ def main():
     # validar
     warnings = run_validation(perfil, idc, pesq, tipo)
 
+    # validar copy da pagina (secao entregas)
+    copy_dados, copy_warnings = validate_copy_pagina(produto_path, slug)
+    warnings.extend(copy_warnings)
+
     # salvar cache JSON
-    cache_path = save_json_cache(produto_path, perfil, idc, pesq, tipo)
+    cache_path = save_json_cache(produto_path, perfil, idc, pesq, tipo, copy_dados)
     print(f"\nCache JSON salvo em: {cache_path.name}")
 
     # ler template
@@ -1210,6 +1257,9 @@ def main():
     # pesquisa placeholders
     for key, value in pesq_html.items():
         replacements[f"{{{{ {key} }}}}"] = str(value)
+
+    # copy da pagina (usa render centralizado do painel_template)
+    replacements["{{ copy_pagina_html }}"] = _tmpl.render_copy_pagina_miolo(copy_dados)
 
     # aplicar substituicoes
     html = template

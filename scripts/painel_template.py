@@ -59,6 +59,9 @@ SECOES: list[dict] = [
     {"id": "pesquisa", "grupo": "PESQUISA", "titulo": "Pesquisa de Mercado",
      "subtitulo": "Inteligencia de mercado. Use para argumentos, copy e posicionamento.",
      "proxima": "Sera preenchida ao final de /produto-novo (Ramo 2) ou do Bloco 3 de /produto-concepcao."},
+    {"id": "copy-pagina", "grupo": "ENTREGAS", "titulo": "Copy da Página",
+     "subtitulo": "16 blocos da página de vendas 8D. Aprove um bloco por vez em /copy-pagina.",
+     "proxima": "Será preenchida conforme você aprova os blocos em /copy-pagina."},
 ]
 
 SECOES_RENDERIZAVEIS = {
@@ -832,6 +835,357 @@ def _preco_badge(preco: str) -> str:
     return "badge-dark"
 
 
+def _md_bloco_para_html(md: str) -> str:
+    """Conversao simples de markdown para HTML no contexto do painel de copy.
+    Trata listas (- / *), negrito (**), italico (*), cabecalhos ### e paragrafos.
+    Nao pretende ser completa, so exibir os blocos de copy de forma legivel."""
+    if not md:
+        return '<p class="card-sub">Sem conteudo.</p>'
+
+    md = md.strip()
+    # separa em sub-secoes por cabecalho ### (vira titulo + paragrafo)
+    partes: list[str] = []
+    blocos = re.split(r"\n\s*\n", md)
+    for bloco in blocos:
+        bloco = bloco.strip()
+        if not bloco:
+            continue
+        # Cabecalhos isolados
+        m_h = re.match(r"^#{2,6}\s+(.+?)\s*$", bloco)
+        if m_h and "\n" not in bloco:
+            partes.append(
+                '<div style="font-size:13px;font-weight:700;color:var(--text-1);margin-top:10px;margin-bottom:4px">'
+                f"{_md_inline(m_h.group(1))}</div>"
+            )
+            continue
+        # Listas puras (todo o bloco eh bullet)
+        linhas = [ln for ln in bloco.splitlines() if ln.strip()]
+        bullets = [re.match(r"^\s*[-*]\s+(.+?)\s*$", ln) for ln in linhas]
+        if bullets and all(bullets):
+            lis = "".join(f"<li>{_md_inline(b.group(1))}</li>" for b in bullets)
+            partes.append(f'<ul class="bullet-list">{lis}</ul>')
+            continue
+        # Blocos mistos. processa linha a linha, agrupando bullets consecutivos
+        partes.extend(_md_bloco_misto(linhas))
+    return "".join(partes)
+
+
+def _md_bloco_misto(linhas: list[str]) -> list[str]:
+    """Processa um bloco com possivel mistura de titulo, bullets e paragrafo."""
+    saida: list[str] = []
+    buffer_para: list[str] = []
+    buffer_lis: list[str] = []
+
+    def flush_para():
+        if buffer_para:
+            texto = "<br>".join(_md_inline(ln) for ln in buffer_para)
+            saida.append(f'<p class="para">{texto}</p>')
+            buffer_para.clear()
+
+    def flush_lista():
+        if buffer_lis:
+            saida.append(
+                '<ul class="bullet-list">'
+                + "".join(f"<li>{li}</li>" for li in buffer_lis)
+                + "</ul>"
+            )
+            buffer_lis.clear()
+
+    for ln in linhas:
+        m_h = re.match(r"^#{2,6}\s+(.+?)\s*$", ln.strip())
+        m_li = re.match(r"^\s*[-*]\s+(.+?)\s*$", ln)
+        if m_h:
+            flush_para()
+            flush_lista()
+            saida.append(
+                '<div style="font-size:13px;font-weight:700;color:var(--text-1);margin-top:10px;margin-bottom:4px">'
+                f"{_md_inline(m_h.group(1))}</div>"
+            )
+        elif m_li:
+            flush_para()
+            buffer_lis.append(_md_inline(m_li.group(1)))
+        else:
+            flush_lista()
+            buffer_para.append(ln)
+    flush_para()
+    flush_lista()
+    return saida
+
+
+def _md_inline(texto: str) -> str:
+    """Escapa HTML e aplica negrito e italico inline."""
+    escapado = html.escape(texto, quote=False)
+    escapado = re.sub(r"\*\*(.+?)\*\*", r"<strong>\1</strong>", escapado)
+    escapado = re.sub(r"(?<!\*)\*(?!\*)(.+?)(?<!\*)\*(?!\*)", r"<em>\1</em>", escapado)
+    return escapado
+
+
+_NOMES_BLOCOS_COPY = {
+    1: "Hero", 2: "Dor", 3: "Paliativo", 4: "Prova social (primeiro bloco)",
+    5: "CTA intermediário", 6: "Método (Furadeira)", 7: "Para quem é / não é",
+    8: "Entregáveis", 9: "Bônus", 10: "Stack de valor",
+    11: "Prova social (segundo bloco) ou Depoimentos", 12: "Suporte",
+    13: "Garantia", 14: "Autoridade do criador", 15: "FAQ", 16: "Oferta final",
+}
+
+
+def parse_copy_pagina(produto_dir, slug, repo_root=None):
+    """Le meus-produtos/{slug}/entregas/copy-pagina/copy-{slug}.md e extrai
+    os blocos `## Bloco NN - Nome` em uma lista {numero, titulo, conteudo}.
+
+    produto_dir: Path para meus-produtos/{slug}
+    slug: slug do produto
+    repo_root: Path da raiz do repo. Se omitido, assume produto_dir.parent.parent.
+
+    Retorna dict com 'blocos' (lista ordenada pela ordem do arquivo)
+    e 'arquivo_relativo' (string do caminho relativo ao repo_root)."""
+    from pathlib import Path
+
+    produto_dir = Path(produto_dir)
+    if repo_root is None:
+        repo_root = produto_dir.parent.parent
+    else:
+        repo_root = Path(repo_root)
+
+    pasta = produto_dir / "entregas" / "copy-pagina"
+    candidatos = [pasta / f"copy-{slug}.md"]
+    if pasta.is_dir():
+        for md in sorted(pasta.glob("copy-*.md")):
+            if md not in candidatos:
+                candidatos.append(md)
+
+    arquivo = next((p for p in candidatos if p.exists()), None)
+    if not arquivo:
+        return {"blocos": [], "arquivo_relativo": "", "arquivo_existe": False}
+
+    texto = arquivo.read_text(encoding="utf-8")
+    pat = re.compile(
+        r"^##\s+Bloco\s+(\d{1,2})\s*[\-–—\.:]?\s*(.*?)\s*$",
+        re.IGNORECASE | re.MULTILINE,
+    )
+    matches = list(pat.finditer(texto))
+    blocos = []
+    for i, m in enumerate(matches):
+        numero = int(m.group(1))
+        titulo = m.group(2).strip()
+        inicio = m.end()
+        fim = matches[i + 1].start() if i + 1 < len(matches) else len(texto)
+        conteudo = texto[inicio:fim].strip()
+        if 1 <= numero <= 16:
+            blocos.append({
+                "numero": numero,
+                "titulo": titulo,
+                "conteudo": conteudo,
+            })
+
+    try:
+        rel = arquivo.relative_to(repo_root)
+    except ValueError:
+        rel = arquivo
+    return {
+        "blocos": blocos,
+        "arquivo_relativo": str(rel).replace("\\", "/"),
+        "arquivo_existe": True,
+    }
+
+
+def render_copy_pagina_miolo(dados: dict) -> str:
+    """Retorna o HTML interno (sem os marcadores SECTION) da secao copy-pagina.
+    Util para templates que injetam via placeholder, sem precisar dos comentarios."""
+    html_completo = render_copy_pagina(dados)
+    # remove os marcadores SECTION:copy-pagina que sao so do fluxo incremental
+    inicio = html_completo.find("-->") + 3
+    fim = html_completo.rfind("<!--")
+    return html_completo[inicio:fim].strip()
+
+
+_DOC_CSS = """
+<style>
+#panel-copy-pagina { background: #eceff3; padding: 24px 0 48px; margin: -32px -40px -32px; }
+#panel-copy-pagina > .breadcrumb,
+#panel-copy-pagina > .section-title,
+#panel-copy-pagina > .section-sub { padding-left: 40px; padding-right: 40px; }
+.doc-page { max-width: 820px; margin: 24px auto 0; background: #ffffff;
+  box-shadow: 0 1px 3px rgba(0,0,0,.08), 0 8px 32px rgba(0,0,0,.06);
+  border-radius: 4px; padding: 72px 88px; color: #1f2937;
+  font-family: 'Georgia', 'Times New Roman', 'Inter', serif; line-height: 1.75; }
+.doc-head { border-bottom: 1px solid #e5e7eb; padding-bottom: 28px; margin-bottom: 44px; }
+.doc-kicker { font-family: 'Inter', sans-serif; font-size: 11px; letter-spacing: 2.4px;
+  color: #6b7280; text-transform: uppercase; margin-bottom: 10px; font-weight: 600; }
+.doc-title { font-size: 34px; font-weight: 700; color: #111827; margin: 0 0 12px; line-height: 1.25; letter-spacing: -.3px; }
+.doc-subtitle { font-size: 17px; color: #4b5563; font-style: italic; margin: 0 0 18px; line-height: 1.5; }
+.doc-meta { display: flex; gap: 20px; flex-wrap: wrap; font-family: 'Inter', sans-serif;
+  font-size: 12px; color: #6b7280; }
+.doc-meta .approved-count { color: #16a34a; font-weight: 700; }
+.doc-meta .file { font-family: 'Menlo','Consolas',monospace; color: #4b5563; word-break: break-all; }
+.doc-block { margin: 0 0 48px; padding-bottom: 36px; border-bottom: 1px solid #f1f3f6; }
+.doc-block:last-child { border-bottom: none; padding-bottom: 8px; }
+.doc-block-head { display: flex; align-items: baseline; gap: 14px; margin-bottom: 6px; }
+.doc-block-number { font-family: 'Inter', sans-serif; font-size: 11px; letter-spacing: 2px;
+  text-transform: uppercase; color: #9ca3af; font-weight: 700; }
+.doc-block-status { font-family: 'Inter', sans-serif; font-size: 10px; letter-spacing: 1.4px;
+  text-transform: uppercase; font-weight: 700; padding: 2px 8px; border-radius: 3px; }
+.doc-block-status.approved { color: #16a34a; background: #dcfce7; }
+.doc-block-status.pending { color: #9ca3af; background: #f3f4f6; }
+.doc-block h2 { font-size: 26px; font-weight: 700; color: #111827; margin: 4px 0 22px;
+  line-height: 1.3; letter-spacing: -.2px; }
+.doc-block h3 { font-family: 'Inter', sans-serif; font-size: 15px; font-weight: 700;
+  color: #1f2937; margin: 28px 0 10px; text-transform: none; letter-spacing: 0; }
+.doc-block p { font-size: 16px; line-height: 1.8; color: #1f2937; margin: 0 0 18px;
+  text-align: justify; hyphens: auto; }
+.doc-block p em { color: #4b5563; font-size: 15px; }
+.doc-block p strong { color: #111827; font-weight: 700; }
+.doc-block ul { margin: 0 0 22px; padding-left: 26px; list-style: disc; }
+.doc-block li { font-size: 16px; line-height: 1.8; color: #1f2937; margin-bottom: 8px; padding-left: 4px; }
+.doc-block .pending-note { color: #9ca3af; font-style: italic; font-size: 14px; margin-top: 8px; }
+.doc-block blockquote { border-left: 3px solid #e5e7eb; padding: 4px 0 4px 20px; margin: 0 0 22px;
+  color: #4b5563; font-style: italic; }
+@media (max-width: 900px) {
+  #panel-copy-pagina { margin: -20px -20px -20px; padding: 16px 0 32px; }
+  #panel-copy-pagina > .breadcrumb,
+  #panel-copy-pagina > .section-title,
+  #panel-copy-pagina > .section-sub { padding-left: 20px; padding-right: 20px; }
+  .doc-page { padding: 36px 28px; margin: 16px 16px 0; max-width: none; border-radius: 2px; }
+  .doc-title { font-size: 26px; }
+  .doc-block h2 { font-size: 21px; }
+  .doc-block p, .doc-block li { font-size: 15px; text-align: left; hyphens: none; }
+}
+@media print {
+  #panel-copy-pagina { background: #fff; padding: 0; margin: 0; }
+  .doc-page { box-shadow: none; border-radius: 0; padding: 0; max-width: none; margin: 0; }
+  .doc-block { page-break-inside: avoid; }
+}
+</style>
+"""
+
+
+def _md_bloco_para_documento(md: str) -> str:
+    """Conversao markdown -> HTML sem classes (para o layout tipo documento).
+    O CSS dentro de .doc-block controla a tipografia."""
+    if not md:
+        return ""
+    md = md.strip()
+    partes: list[str] = []
+    for bloco in re.split(r"\n\s*\n", md):
+        bloco = bloco.strip()
+        if not bloco or bloco == "---":
+            continue
+        m_h = re.match(r"^#{2,6}\s+(.+?)\s*$", bloco)
+        if m_h and "\n" not in bloco:
+            partes.append(f"<h3>{_md_inline(m_h.group(1))}</h3>")
+            continue
+        linhas = [ln for ln in bloco.splitlines() if ln.strip()]
+        bullets = [re.match(r"^\s*[-*]\s+(.+?)\s*$", ln) for ln in linhas]
+        if bullets and all(bullets):
+            lis = "".join(f"<li>{_md_inline(b.group(1))}</li>" for b in bullets)
+            partes.append(f"<ul>{lis}</ul>")
+            continue
+        if all(ln.lstrip().startswith(">") for ln in linhas):
+            texto = "<br>".join(
+                _md_inline(re.sub(r"^\s*>\s?", "", ln)) for ln in linhas
+            )
+            partes.append(f"<blockquote>{texto}</blockquote>")
+            continue
+        partes.extend(_md_doc_misto(linhas))
+    return "".join(partes)
+
+
+def _md_doc_misto(linhas: list[str]) -> list[str]:
+    saida: list[str] = []
+    buf_p: list[str] = []
+    buf_li: list[str] = []
+
+    def flush_p():
+        if buf_p:
+            saida.append(
+                "<p>" + "<br>".join(_md_inline(ln) for ln in buf_p) + "</p>"
+            )
+            buf_p.clear()
+
+    def flush_l():
+        if buf_li:
+            saida.append(
+                "<ul>" + "".join(f"<li>{li}</li>" for li in buf_li) + "</ul>"
+            )
+            buf_li.clear()
+
+    for ln in linhas:
+        m_h = re.match(r"^#{2,6}\s+(.+?)\s*$", ln.strip())
+        m_li = re.match(r"^\s*[-*]\s+(.+?)\s*$", ln)
+        if m_h:
+            flush_p()
+            flush_l()
+            saida.append(f"<h3>{_md_inline(m_h.group(1))}</h3>")
+        elif m_li:
+            flush_p()
+            buf_li.append(_md_inline(m_li.group(1)))
+        else:
+            flush_l()
+            buf_p.append(ln)
+    flush_p()
+    flush_l()
+    return saida
+
+
+def render_copy_pagina(dados: dict) -> str:
+    blocos: list[dict] = dados.get("blocos") or []
+    if not blocos:
+        miolo = _placeholder(
+            "Aguardando copy da página. Rode /copy-pagina e aprove os blocos."
+        )
+        return f"<!-- SECTION:copy-pagina -->\n{miolo}\n<!-- /SECTION:copy-pagina -->"
+
+    por_numero = {b["numero"]: b for b in blocos if b.get("numero")}
+    total_aprovados = len(por_numero)
+    arquivo = dados.get("arquivo_relativo", "")
+
+    cabecalho = (
+        '<div class="doc-head">'
+        '<div class="doc-kicker">Copy da Página de Vendas</div>'
+        '<h1 class="doc-title">Copy completa em 16 blocos</h1>'
+        '<div class="doc-subtitle">Documento de trabalho. Fonte única para montar a página HTML.</div>'
+        '<div class="doc-meta">'
+        f'<span>Progresso: <span class="approved-count">{total_aprovados}/16 blocos aprovados</span></span>'
+        f'<span class="file">{_escape(arquivo)}</span>'
+        "</div>"
+        "</div>"
+    )
+
+    secoes: list[str] = []
+    for numero in range(1, 17):
+        nome = _NOMES_BLOCOS_COPY[numero]
+        bd = por_numero.get(numero)
+        if bd:
+            status_html = '<span class="doc-block-status approved">Aprovado</span>'
+            corpo = _md_bloco_para_documento(bd.get("conteudo", ""))
+        else:
+            status_html = '<span class="doc-block-status pending">Em breve</span>'
+            corpo = (
+                '<p class="pending-note">Bloco ainda não aprovado. '
+                "Rode /copy-pagina e valide este bloco para ele aparecer aqui.</p>"
+            )
+        secoes.append(
+            '<section class="doc-block">'
+            '<div class="doc-block-head">'
+            f'<span class="doc-block-number">Bloco {numero:02d}</span>'
+            f"{status_html}"
+            "</div>"
+            f"<h2>{_escape(nome)}</h2>"
+            f"{corpo}"
+            "</section>"
+        )
+
+    miolo = _DOC_CSS + '<article class="doc-page">' + cabecalho + "".join(secoes) + "</article>"
+    return f"<!-- SECTION:copy-pagina -->\n{miolo}\n<!-- /SECTION:copy-pagina -->"
+
+
+def _proximo_bloco(por_numero: dict[int, dict]) -> str:
+    for n in range(1, 17):
+        if n not in por_numero:
+            return f"{n:02d}"
+    return "16"
+
+
 RENDERS = {
     "quadro": render_quadro,
     "furadeira": render_furadeira,
@@ -841,4 +1195,5 @@ RENDERS = {
     "identidade-consumidor": render_identidade_consumidor,
     "identidade-comunicador": render_identidade_comunicador,
     "pesquisa": render_pesquisa,
+    "copy-pagina": render_copy_pagina,
 }

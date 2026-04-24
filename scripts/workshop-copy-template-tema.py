@@ -1,5 +1,15 @@
 # -*- coding: utf-8 -*-
 """
+DEPRECATED. Script descontinuado junto com os 5 temas VTSD.
+
+Fluxo atual: /pagina-visual + scripts/montar-pagina-copias.py usa copias
+HTML isoladas em paginas/copias/ (sem temas compartilhados). Este script
+copiava temas VTSD com 16 blocos atomicos, arquitetura abandonada.
+
+Mantido so por compatibilidade. Nao use em novos produtos.
+
+---
+
 Copia para meus-produtos/{slug}/entregas/ todos os blocos atômicos + pasta
 pagina_completa_* de um tema, para editar a copy na cópia sem alterar os
 originais do plugin.
@@ -20,7 +30,8 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-TEMPLATES = (
+TEMPLATES_CANDIDATES = (
+    ROOT / ".claude" / "skills" / "paginas" / "references" / "templates",
     ROOT
     / ".claude"
     / "plugins"
@@ -28,7 +39,11 @@ TEMPLATES = (
     / "skills"
     / "paginas"
     / "references"
-    / "templates"
+    / "templates",
+)
+TEMPLATES = next(
+    (p for p in TEMPLATES_CANDIDATES if p.is_dir()),
+    TEMPLATES_CANDIDATES[0],
 )
 
 THEMES = (

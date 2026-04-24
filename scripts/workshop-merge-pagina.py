@@ -1,5 +1,14 @@
 # -*- coding: utf-8 -*-
 """
+DEPRECATED. Script descontinuado junto com os 5 temas VTSD.
+
+Fluxo atual: scripts/montar-pagina-copias.py monta a pagina a partir de
+copias HTML isoladas em paginas/copias/ (geradas pela /pagina-visual).
+
+Mantido so por compatibilidade. Nao use em novos produtos.
+
+---
+
 Regenera a página completa VTSD via build_merge.py do tema escolhido e,
 opcionalmente, copia para meus-produtos/{slug}/entregas/paginas/vendas-{slug}.html.
 

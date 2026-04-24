@@ -1,15 +1,54 @@
 ---
 name: workshop-marketing:pagina-ajuste
-description: Ajustes pós-merge guiados por perguntas. Diagnóstico, cores para layout, menu (conversão, vídeo, autoridade, SEO, imagens, incrementar copy, headline, placeholders de imagem, ideias de imagens), upload ou geração IA em assets/, só então edita o HTML. Use quando pedir /pagina-ajuste ou ajustes na página.
+description: Ajustes pós-merge guiados por perguntas. Diagnóstico, cores para layout, menu (conversão, vídeo, autoridade, SEO, imagens, incrementar copy, headline, placeholders de imagem, ideias de imagens), upload ou geração IA em assets/, só então edita o bloco atômico e re-roda o merge. Use quando pedir /pagina-ajuste ou ajustes na página.
 ---
 
 # Página ajuste. Etapa pós-merge (modo guiado)
 
-Este comando **não aplica tudo automaticamente no escuro**. O fluxo padrão é: **diagnóstico → você escolhe o que fazer → coleta do que falta (texto, links, imagens) → edição do HTML**.
+Este comando **não aplica tudo automaticamente no escuro**. O fluxo padrão é: **diagnóstico → você escolhe o que fazer → coleta do que falta (texto, links, imagens) → edição do bloco atômico → merge Python**.
 
 Referência técnica dos itens possíveis: `.claude/skills/paginas/references/etapa-ajustes-pagina.md`.
 
 Não substitui `/feedback-pagina` (auditoria Nav) nem `/pagina-performance`.
+
+## REGRA DE OURO (obrigatória, sem exceção)
+
+> **Sempre edite a cópia da seção primeiro, depois rode o merge Python.**
+
+O HTML final em `meus-produtos/{slug}/entregas/paginas/vendas-{slug}.html` é **gerado** pelo script `scripts/montar-pagina-copias.py` a partir das cópias em `paginas/copias/`. Não é a fonte da verdade. Editar direto nele perde a alteração no próximo merge.
+
+**Fluxo obrigatório para qualquer alteração visual ou de texto em uma seção:**
+
+1. **Identificar a cópia da seção.** Listar `meus-produtos/{slug}/entregas/paginas/copias/` e achar o arquivo HTML correspondente à seção (ex: `hero-{slug}.html`, `dor-gerada-{slug}.html`, `faq-gerada-{slug}.html`). O `manifest.json` da mesma pasta tem o mapeamento completo seção → arquivo.
+
+2. **Pré-requisito.** Se a pasta `paginas/copias/` não existir, avise o aluno que a página ainda não foi montada via `/pagina-visual`. Ofereça rodar esse command antes.
+
+3. **Editar o HTML da cópia** mantendo a regra de design isolado:
+   - **Preserve** as cores em HEX literal da cópia (não substitua por tokens globais)
+   - **Preserve** as classes e estrutura do HTML original
+   - **Nunca** introduza `var(--ds-*)` ou variáveis CSS globais em uma cópia
+   - **Nunca** mescle cores/fontes de outras cópias — cada uma é isolada
+   - Adapte a copy ao design existente (Light Copy VTSD: sem travessão, sem "Não é X. É Y.", sem promessa vaga)
+
+4. **Rodar o merge Python** pra regerar o HTML final:
+
+   ```bash
+   py -3 scripts/montar-pagina-copias.py --slug {slug}
+   ```
+
+   O script lê `paginas/copias/manifest.json`, recompõe o HTML final escopando CSS de cada cópia e salva em `paginas/vendas-{slug}.html`.
+
+5. **Confirmar em uma linha:**
+
+   ```
+   ✅ Alteração aplicada na cópia {arquivo} e página remontada. Caminho: meus-produtos/{slug}/entregas/paginas/vendas-{slug}.html
+   ```
+
+**Se a alteração requer mudança estrutural grande** (refazer layout da seção, mudar grid, trocar tipo de componente):
+- Ofereça re-clonar a seção via subagent `clonador-de-bloco-visual` (modo B, sem print, com design-system.json) — entrega HTML novo mantendo o design system local
+- Ou: peça ao aluno um print novo daquela seção e re-rode `/pagina-visual` só pra ela
+
+**Exceção única (ajustes globais pós-merge):** `<title>`, `<meta name="description">`, `<meta og:*>`, script do Pixel, rodapé global. Esses vivem na "casca" do HTML montado, não dentro das cópias. Podem ser editados direto em `vendas-{slug}.html`, mas **serão sobrescritos** no próximo merge. Alternativa: adicionar no topo/fim do script `montar-pagina-copias.py` (seção de head ou footer) pra persistir.
 
 ## Usage
 

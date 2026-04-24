@@ -19,16 +19,53 @@ Cria a copy completa da página de vendas e/ou a página HTML profissional com e
 
 ### 1. Contexto
 
-Leia `meus-produtos/{ativo}/perfil.md` e `meus-produtos/{ativo}/idconsumidor.md` se existir.
+Leia `meus-produtos/.ativo` para obter o slug do produto ativo. Depois leia `meus-produtos/{ativo}/perfil.md` e `meus-produtos/{ativo}/idconsumidor.md` se existir.
 
-### 2. Primeira Pergunta. O que criar
+**Verificação de copy existente (obrigatória antes da Pergunta):**
+
+Cheque se existe `meus-produtos/{ativo}/entregas/copy-pagina/copy-{ativo}.md` **E** se esse arquivo tem os 16 títulos `## Bloco 01` até `## Bloco 16` (numeração com dois dígitos, conforme `.claude/skills/paginas/references/template-copy-pagina-vendas.md`).
+
+- **Copy existe e tem os 16 blocos** → estado **COM_COPY**. Pegue o tamanho do arquivo em KB e a data da última modificação (`stat` ou equivalente) para exibir no aviso.
+- **Copy não existe OU está incompleta (faltando blocos)** → estado **SEM_COPY**.
+
+### 2. Aviso de copy existente (OBRIGATÓRIO antes de qualquer pergunta)
+
+**Se estado = COM_COPY**, mostre ANTES de qualquer outra coisa o bloco abaixo, em destaque, e espere o usuário confirmar:
+
+```
+✓ Copy aprovada encontrada
+
+Arquivo: meus-produtos/{ativo}/entregas/copy-pagina/copy-{ativo}.md
+Tamanho: {X} KB, {N} linhas, 16 blocos completos
+Última modificação: {DD/MM/YYYY HH:MM}
+
+Se regenerar, essa copy será sobrescrita. Como prosseguir?
+
+1. Usar essa copy e gerar só a página HTML (recomendado, sem refazer texto)
+2. Regenerar copy do zero (sobrescreve o arquivo atual)
+3. Editar trechos da copy atual sem regenerar tudo (ajuste cirúrgico)
+
+Digite o número:
+```
+
+Se o usuário escolher:
+
+- **1** → pule a Pergunta 2 abaixo e vá direto para o Fluxo B (Só a página HTML), usando a copy aprovada existente.
+- **2** → siga para o Fluxo A (Só a copy), com aviso de que o arquivo anterior será substituído.
+- **3** → pergunte quais blocos ele quer editar (ex: "Bloco 02, 09 e 15"), faça apenas esses ajustes na copy existente e depois pergunte se quer gerar/regenerar a página HTML em seguida.
+
+**Se estado = SEM_COPY**, não mostre o aviso acima. Siga direto para a Pergunta 2.
+
+### 3. Primeira Pergunta (apenas se estado = SEM_COPY)
 
 ```
 O que você quer criar?
 
-1. Só a copy (texto completo da página de vendas em markdown)
-2. Só a página HTML (para vendas 8D: precisa da copy em 16 blocos já salva ou aceitar exceção no passo B0)
-3. Copy + página HTML (gera o texto primeiro com ## Bloco 01…16, depois monta a página)
+1. Só a copy (texto completo da página de vendas em markdown, pronta para usar em qualquer template)
+2. Só a página HTML (precisa da copy nos 16 blocos já salva, ou aceitar exceção)
+3. Copy + página HTML (gera o texto primeiro nos 16 blocos padrão, depois monta a página usando um dos 5 temas visuais)
+
+Este produto ainda não tem copy aprovada. Recomendo a opção 3 (completo): a copy vai primeiro nos 16 blocos padrão, você aprova, e depois eu monto a página HTML usando um template visual pronto. Assim você sai com copy + página finalizada em uma sessão. Se quiser só a copy por enquanto, escolha 1. A opção 2 fica bloqueada até ter copy aprovada, a não ser que você aceite a exceção no passo B0.
 
 Digite o número:
 ```
@@ -69,6 +106,19 @@ Qual o ângulo de entrada da copy?
 Digite o número:
 ```
 
+**Pergunta de modo de geração (obrigatória antes do resumo):**
+
+```
+Como você quer que eu gere a copy?
+
+1. Bloco a bloco (recomendado). eu gero um bloco, salvo no arquivo, você valida e só então passo para o próximo. Mais lento, qualidade maior, você corrige o rumo antes de acumular erros.
+2. Em 2 partes. eu gero Blocos 01 a 09 de uma vez, depois 10 a 16, e só então você revisa tudo. Mais rápido, exige revisão maior no fim.
+
+Digite o número:
+```
+
+Guarde a escolha como **MODO_GERACAO = bloco_a_bloco** ou **MODO_GERACAO = duas_partes** para usar em A3.
+
 Confirme antes de gerar:
 
 ```
@@ -78,8 +128,7 @@ Resumo do que vou criar:
 - Ângulo: [ângulo escolhido]
 - Bônus: [bônus informados ou "vou criar 3 coerentes"]
 - Depoimentos: [reais ou "vou criar modelos para substituir"]
-
-Aviso: vou gerar em 2 partes para garantir qualidade.
+- Modo de geração: [Bloco a bloco com validação / Em 2 partes]
 
 1. Tudo certo, pode gerar
 2. Quero ajustar algo
@@ -136,13 +185,11 @@ A copy da página de vendas **deve** ser salva com **títulos fixos** alinhados 
 - Não renomeie, não una dois blocos num só, não pule número. Isso garante que a página HTML use **a mesma copy** bloco a bloco.
 - O conteúdo persuasivo segue as regras das seções abaixo, mas **sempre** sob esses títulos.
 
-### A3. Geração em 2 Partes (16 blocos)
+### A3. Geração da copy (16 blocos)
 
-Para garantir qualidade, SEMPRE gere em **duas partes** no **mesmo arquivo** `meus-produtos/{ativo}/entregas/copy-pagina/copy-[produto].md`.
+Use o **MODO_GERACAO** escolhido na confirmação. O arquivo é sempre o mesmo: `meus-produtos/{ativo}/entregas/copy-pagina/copy-[produto].md`.
 
-#### PARTE 1. Blocos 01 a 09
-
-Gere e salve no arquivo, com parágrafos desenvolvidos (persona, cenas, elementos literários onde couber):
+**Lista de referência dos 16 blocos (usada pelos dois modos):**
 
 - **Bloco 01 — Hero:** headline, subheadline, PROIBIDO nome do produto/método/curso/sigla no hero; 3 bullets (UO + decorado); indicação de vídeo; texto do botão.
 - **Bloco 02 — Dor:** dor amplificada, cotidiano.
@@ -153,13 +200,6 @@ Gere e salve no arquivo, com parágrafos desenvolvidos (persona, cenas, elemento
 - **Bloco 07 — Para quem é / não é:** baldes da identidade do consumidor.
 - **Bloco 08 — Entregáveis:** lista com nome + valor de cada item.
 - **Bloco 09 — Bônus:** 3 bônus com nome, descrição e R$ cada.
-
-Ao terminar a Parte 1, informe: `Parte 1 pronta (Blocos 01 a 09). Gerando a Parte 2 agora...`
-
-#### PARTE 2. Blocos 10 a 16
-
-Continue no **mesmo arquivo**, mesmo nível de detalhe:
-
 - **Bloco 10 — Stack de valor:** itens, valores, total, preço real, parcelamento.
 - **Bloco 11 — Prova social (segundo bloco) ou Depoimentos:** 3 a 5 depoimentos completos (antes/depois); modelos se necessário.
 - **Bloco 12 — Suporte**
@@ -167,6 +207,54 @@ Continue no **mesmo arquivo**, mesmo nível de detalhe:
 - **Bloco 14 — Autoridade do criador**
 - **Bloco 15 — FAQ:** 5 a 8 Q&A com objeções da persona.
 - **Bloco 16 — Oferta final:** reprise de valor, preço, último CTA, urgência se houver; linha sobre termos/privacidade se aplicável.
+
+---
+
+#### MODO A3.1. Bloco a bloco (MODO_GERACAO = bloco_a_bloco)
+
+Gere, salve e valide **um bloco por vez**. Loop para NN de 01 a 16:
+
+1. **Anuncie antes:** `🔍 Próximo passo: gerar Bloco NN — {nome do bloco}. Tempo estimado: cerca de 20 segundos.`
+2. Gere o texto do bloco com parágrafos desenvolvidos (persona, cenas, elementos literários onde couber), sob o título exato `## Bloco NN — {Nome}`.
+3. Aplique a revisão A4 só neste bloco (travessão, vícios, nome do produto no hero, emojis, etc.) **antes** de mostrar.
+4. **Salve imediatamente:** se o arquivo `copy-[produto].md` ainda não existir, crie-o com esse bloco. Se já existir, **acrescente** o novo bloco no final preservando os blocos anteriores. Nunca apague blocos aprovados.
+5. **Atualize o painel de entregas** rodando no terminal: `py -3 scripts/build-painel-entregas.py` (no Mac/Linux use `python3`). Esse script faz as validações completas (checa as 7 categorias de urgências ocultas, 5 de decorados, 5 objeções × 7 argumentos, pesquisa de mercado, etc.) e regrava `meus-produtos/{ativo}/painel-entregas.html` inteiro, incluindo a aba **Copy da Página** com o bloco recém-aprovado. Ele imprime no terminal o progresso `COPY-PAGINA/COPY-{slug}.MD → Blocos aprovados: NN/16`. Em caso de erro, não pare o fluxo, apenas avise que o painel pode ser atualizado depois.
+6. Confirme: `✅ Concluído: Bloco NN salvo e painel atualizado. Caminho: meus-produtos/{ativo}/entregas/copy-pagina/copy-[produto].md.`
+7. Mostre o conteúdo do bloco no chat e pergunte:
+
+```
+Bloco NN/16 pronto e salvo no arquivo.
+
+1. Aprovar e ir para o próximo bloco
+2. Ajustar este bloco (diga o que mudar)
+3. Pausar aqui (posso retomar depois com /copy-pagina)
+
+Digite o número:
+```
+
+- Se **1:** avance para o próximo bloco.
+- Se **2:** peça o ajuste, regenere **apenas este bloco**, sobrescreva a seção `## Bloco NN — …` no arquivo (mantendo os demais blocos intactos), rode de novo `py -3 scripts/build-painel-entregas.py` para atualizar o painel, e volte ao passo 7.
+- Se **3:** pare o loop, informe em que bloco parou e encerre. A próxima execução do command vê o arquivo com os blocos até NN-1 e pode continuar de NN. O painel de entregas já reflete o progresso parcial.
+
+Exceção: se o usuário pediu explicitamente "ir direto à versão final" nesta sessão, pule a pergunta em cada bloco, gere os 16 em sequência salvando um a um, e só apresente no fim.
+
+Ao concluir o Bloco 16, siga para A4 (revisão global) e A5 (confirmação final).
+
+---
+
+#### MODO A3.2. Em 2 partes (MODO_GERACAO = duas_partes)
+
+Gere em **duas partes** no mesmo arquivo.
+
+**PARTE 1. Blocos 01 a 09**
+
+Anuncie: `🔍 Próximo passo: gerar Parte 1 (Blocos 01 a 09). Tempo estimado: cerca de 90 segundos.`
+
+Gere e salve no arquivo. **Atualize o painel** rodando `py -3 scripts/build-painel-entregas.py` (Mac/Linux: `python3`). Ao terminar, informe: `Parte 1 pronta (Blocos 01 a 09) e painel atualizado. Gerando a Parte 2 agora...`
+
+**PARTE 2. Blocos 10 a 16**
+
+Continue no **mesmo arquivo**, mesmo nível de detalhe. **Atualize o painel novamente** com `py -3 scripts/build-painel-entregas.py` após salvar. Ao terminar, siga para A4.
 
 ### A4. Revisão e Correção Automática (OBRIGATÓRIO antes de entregar)
 
@@ -416,10 +504,10 @@ Resumo do que vou criar:
 
 **Revisão de texto:** em cada bloco aplicar a **Etapa 0 (vícios proibidos)** do SKILL `paginas`. **Não** abrir o arquivo inteiro `.claude/commands/feedback-pagina.md` a cada seção (ele é pesado). Auditoria completa com Nav fica para quando o usuário usar `/feedback-pagina` ou pedir revisão profunda.
 
-### 3. Geração (vendas 8D). Modo padrão: blocos atômicos + merge
+### 3. Geração (vendas 8D). Modo único: script unificado + merge
 
-> ⛔ **Não** montar um único HTML em `entregas/` colando seções em `<main id="page-sections">` (salvo exceção no §3-alt). **Não** gerar no chat o `pagina_completa_*/code.html` inteiro.  
-> ⛔ **NUNCA** gere a página inteira de uma vez no chat. Trabalhe **bloco a bloco**, com aprovação opcional entre blocos (o usuário pode dizer "ir direto à versão final" para pular pausas).
+> ⛔ **Não** escreva HTML no chat, **não** faça Read/Edit bloco a bloco nos `code.html` atômicos, **não** cole seções em um único arquivo `<main id="page-sections">`. Tudo isso é trabalho do script `build-pagina-vendas.py`.  
+> ✅ O único caminho: rodar o script, que parseia a copy aprovada, preenche os 16 blocos atômicos, roda o merge e entrega o HTML final. Ver Passo 3a abaixo.
 
 **Base de caminhos (padrão):** `meus-produtos/{slug}/entregas/paginas/templates-{estilo}/` após `workshop-copy-template-tema.py`. **Original do plugin (só manutenção):** `.claude/skills/paginas/references/templates/`
 
@@ -444,21 +532,77 @@ Resumo do que vou criar:
 | 15 | `## Bloco 15 — FAQ` | `faq_{estilo}` |
 | 16 | `## Bloco 16 — Oferta final` | `oferta_final_{estilo}` |
 
-**Passo 3a. Antes do primeiro bloco:** garantir que existe `meus-produtos/{slug}/entregas/paginas/templates-{estilo}/` (rodar `workshop-copy-template-tema.py` se ainda não existir). Escolher o tema e anunciar: `Vou preencher os blocos na cópia em entregas/.../templates-[estilo], um por vez. Total: 16 blocos. Depois rodo o merge com --templates-root e entrego vendas-{slug}.html.`
+**Passo 3a. Único caminho de geração: script unificado.**
 
-**Passo 3b. Loop para cada bloco (1 a 16):**
+Depois que o tema estiver escolhido, **SEMPRE** rode o script unificado. Não edite `code.html` manualmente, não faça loop de Read/Edit por bloco, não pergunte "bloco a bloco ou direto": o fluxo é único e direto.
 
-1. Abrir `meus-produtos/{ativo}/entregas/copy-pagina/copy-{slug}.md` e localizar **`## Bloco NN — …`** com o mesmo número do bloco atual (01 a 16). **Exceção B0 opção 3:** usar só `perfil.md` + entrevista, sem arquivo de 16 blocos.
-2. Abrir o `code.html` **da cópia** em `meus-produtos/{slug}/entregas/paginas/templates-{estilo}/{pasta}/code.html` (tabela abaixo com nomes de pasta). Manter o **mesmo** HTML e CSS do arquivo; não reescrever o esqueleto.
-3. Preencher o template com o **texto daquela seção da copy**, sem acrescentar promessas, preços ou depoimentos que não estejam na copy aprovada. Etapas 4 e 5 do SKILL `paginas` só para encaixe visual. Etapa 0 (anti-vícios) **antes** de salvar.
-4. **Salvar só esse arquivo atômico** (não um arquivo grande em `entregas/` ainda).
-5. Resumo curto ao usuário (sem colar HTML no chat). **1. Aprovar próximo bloco** / **2. Ajustar este bloco** (ou "ir direto à versão final" para não pausar mais).
+```
+🔍 Próximo passo: gerar a página de vendas inteira com a copy aprovada no tema {estilo}. Tempo estimado: cerca de 30 segundos.
+```
 
-**Passo 3c. Após o bloco 16 salvo:**
+Comando a executar:
 
-1. Rodar o merge e copiar para entregas (ver B1.5, passos 4 e 5). Preferir: `py -3 scripts/workshop-merge-pagina.py --tema {estilo} --templates-root meus-produtos/{slug}/entregas/paginas/templates-{estilo} --copiar-entregas`
-2. **Etapa de ajustes (pós-merge):** seguir `references/etapa-ajustes-pagina.md` no SKILL `paginas` (checkout, preço, vídeo, autoridade, `<title>` e meta description no HTML em `entregas/`, segunda prova social se duplicada pelo tema, rodapé). O merge pode recolocar placeholders do shell do tema; reaplicar ajustes sempre que rodar o merge de novo.
-3. Checklist anti-vícios (Etapa 0 do SKILL `paginas`) no texto visível do arquivo em `entregas/`. Pixel só se o fluxo pedir (`/pagina-pixel`).
+```bash
+py -3 scripts/build-pagina-vendas.py --slug {slug} --tema {estilo} --force
+```
+
+O script faz tudo automaticamente, de ponta a ponta:
+
+1. Parseia `copy-pagina/copy-{slug}.md` em estrutura por bloco
+2. Copia (ou recopia com `--force`) o tema para `meus-produtos/{slug}/entregas/paginas/templates-{estilo}/`
+3. Substitui os elementos visíveis em cada um dos 16 `code.html` atômicos usando seletores determinísticos
+4. Se existir `entregas/furadeira-visual.html`, injeta a furadeira visual no bloco Método
+5. Roda o merge do tema
+6. Aplica pós-processamento (title, meta description, prova social duplicada, resíduos de sample text)
+7. Entrega `meus-produtos/{slug}/entregas/paginas/vendas-{slug}.html`
+
+Confirme em uma linha:
+
+```
+✅ Concluído: página gerada. Caminho: meus-produtos/{slug}/entregas/paginas/vendas-{slug}.html. Próximo: ajustes pós-merge.
+```
+
+Depois disso, vá direto para o **Passo 3c** (ajustes pós-merge: checkout, vídeo, pixel, rodapé).
+
+Se o script falhar por algum motivo (copy não encontrada, tema não existe), corrija a causa raiz e rode de novo. Não caia em fallback manual de editar `code.html` um por um: isso é trabalho que o script faz.
+
+**Passo 3c. Após o bloco 16 salvo. Padrão "check + próximo passo" também aqui:**
+
+1. **Anúncio:**
+
+   ```
+   🔍 Próximo passo: rodar o merge dos 16 blocos e gerar vendas-{slug}.html em entregas/. Tempo estimado: cerca de 15 segundos.
+   ```
+
+   Rodar: `py -3 scripts/workshop-merge-pagina.py --tema {estilo} --templates-root meus-produtos/{slug}/entregas/paginas/templates-{estilo} --copiar-entregas`
+
+   **Confirmação:**
+
+   ```
+   ✅ Concluído: merge executado. Arquivo: meus-produtos/{slug}/entregas/paginas/vendas-{slug}.html. Próximo: etapa de ajustes pós-merge.
+   ```
+
+2. **Etapa de ajustes pós-merge. Anúncio:**
+
+   ```
+   🔍 Próximo passo: aplicar ajustes pós-merge (title, meta description, checkout, vídeo, autoridade, rodapé). Tempo estimado: cerca de 30 segundos.
+   ```
+
+   Seguir `references/etapa-ajustes-pagina.md` no SKILL `paginas`. O merge pode recolocar placeholders do shell do tema; reaplicar ajustes sempre que rodar o merge de novo.
+
+   **Confirmação:**
+
+   ```
+   ✅ Concluído: ajustes pós-merge aplicados no HTML final. Próximo: revisão anti-vícios e atualização do painel.
+   ```
+
+3. **Checklist anti-vícios (Etapa 0 do SKILL `paginas`)** no texto visível do arquivo em `entregas/`. Pixel só se o fluxo pedir (`/pagina-pixel`).
+
+4. **Atualizar o painel de entregas.** Rodar `py -3 scripts/build-painel-entregas.py` para revalidar as seções e regravar `painel-entregas.html` com o status da copy em 16/16. Confirmar:
+
+   ```
+   ✅ Concluído: página de vendas entregue e painel atualizado. Arquivo: meus-produtos/{slug}/entregas/paginas/vendas-{slug}.html. Próximo: /pagina-ajuste, /pagina-performance, /pagina-pixel ou /pagina-checkout (opcional).
+   ```
 
 ### 3-alt. Exceção (só se o usuário pedir layout fora dos cinco temas)
 

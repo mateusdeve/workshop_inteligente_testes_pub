@@ -175,6 +175,8 @@ tr{border-bottom:1px solid var(--border-2)}
   <span class="nav-item" onclick="showPanel('id-comunicador')">Identidade do Comunicador</span>
   <div class="nav-group">Pesquisa</div>
   <span class="nav-item" onclick="showPanel('pesquisa')">Pesquisa de Mercado</span>
+  <div class="nav-group">Entregas</div>
+  <span class="nav-item" onclick="showPanel('copy-pagina')">Copy da P&aacute;gina</span>
   <div class="sidebar-export">
     <button class="btn-export" onclick="window.print()">Exportar PDF (Ctrl+P)</button>
   </div>
@@ -191,6 +193,7 @@ tr{border-bottom:1px solid var(--border-2)}
   <span class="mobile-tab" onclick="showPanel('id-consumidor')">Consumidor</span>
   <span class="mobile-tab" onclick="showPanel('id-comunicador')">Comunicador</span>
   <span class="mobile-tab" onclick="showPanel('pesquisa')">Pesquisa</span>
+  <span class="mobile-tab" onclick="showPanel('copy-pagina')">Copy da P&aacute;gina</span>
 </div>
 
 <main class="main">
@@ -424,6 +427,14 @@ tr{border-bottom:1px solid var(--border-2)}
     <div class="section-sub">Dashboard de intelig&ecirc;ncia de mercado. Use para argumentos, copy e posicionamento.</div>
     {{ pesquisa_completa_html }}
   </div><!-- /panel-pesquisa -->
+
+  <!-- ==================== TELA 10: COPY DA PAGINA ==================== -->
+  <div id="panel-copy-pagina" class="panel">
+    <div class="breadcrumb">Painel de Entregas &rsaquo; Copy da P&aacute;gina</div>
+    <div class="section-title">Copy da P&aacute;gina</div>
+    <div class="section-sub">16 blocos da p&aacute;gina de vendas 8D. Aprove um bloco por vez em /copy-pagina.</div>
+    {{ copy_pagina_html }}
+  </div><!-- /panel-copy-pagina -->
 
 </main>
 

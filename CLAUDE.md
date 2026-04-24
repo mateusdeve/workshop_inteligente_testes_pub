@@ -567,15 +567,57 @@ Esta regra vale para execução direta E para delegação a agentes — ao deleg
 - **Pronto para usar**: Abre no navegador e está profissional imediatamente
 - **Placeholder de imagens**: Divs com instrução "[Sua foto aqui]" onde o aluno coloca suas imagens
 
-### Custo-benefício na página de vendas (padrão obrigatório)
+### Fluxo oficial de página de vendas. Cópias isoladas + montagem (padrão obrigatório)
 
-- **Ordem de trabalho (recomendado):** (1) **Copiar** o tema inteiro para a pasta do produto com `py -3 scripts/workshop-copy-template-tema.py --tema {estilo}` (lê `meus-produtos/.ativo` ou use `--slug`). Isso cria `meus-produtos/{ativo}/entregas/paginas/templates-{estilo}/` com todos os `*_{estilo}` e `pagina_completa_{estilo}`. (2) **Só então** trocar textos nos `code.html` **dessa cópia**, nunca editar o original do plugin por padrão. (3) **Merge** com `py -3 scripts/workshop-merge-pagina.py --tema {estilo} --templates-root meus-produtos/{ativo}/entregas/paginas/templates-{estilo} --copiar-entregas`. Sem `--templates-root`, o merge usa os arquivos dentro do plugin (útil para quem mantém o repositório do workshop, não para entrega do aluno).
-- **Não** gerar no chat o HTML mergeado completo (`pagina_completa_*/code.html`). **Não** montar um único arquivo em `meus-produtos/{ativo}/entregas/` colando seções manualmente, salvo pedido explícito do aluno fora dos templates.
-- **Sim** preencher os `code.html` dos blocos atômicos (na **cópia** em `meus-produtos/{ativo}/entregas/paginas/templates-{estilo}/` ou, só em exceção, no plugin). Ao final, rodar o merge como acima. Alternativa manual: `build_merge.py` dentro da pasta `pagina_completa_{estilo}` correspondente à mesma raiz de templates.
-- **Não redesenhar o template:** o layout já está pronto em cada bloco atômico. O trabalho é **substituir textos** pela copy aprovada e preencher links, placeholders de mídia e atributos necessários. **Proibido** reescrever estrutura (HTML, CSS do bloco, classes, grids), trocar fontes ou paleta do tema, ou gerar uma página “nova” no lugar do template. Quem quiser visual outro usa o fluxo de exceção do command `copy-pagina` (montagem manual) ou evolução **depois** do merge (`/pagina-ajuste`, playbook de visual).
-- **Após o merge:** etapa de ajustes obrigatória no HTML em `meus-produtos/{ativo}/entregas/` conforme `skills/paginas/references/etapa-ajustes-pagina.md` (checkout, title e meta, placeholders de autoridade e vídeo, rodapé; revisar segunda prova social se o tema duplicar o bloco). Cada novo merge pode exigir reaplicar esses ajustes.
-- **Revisão:** Etapa 0 (vícios proibidos) do SKILL `paginas` no texto visível. Auditoria completa com Nav fica para `/feedback-pagina` ou pedido explícito, não para cada salvamento.
-- **Copy aprovada:** para página de vendas 8D, o texto de cada bloco HTML deve vir do arquivo `meus-produtos/{ativo}/entregas/copy-pagina/copy-{produto}.md` com os títulos `## Bloco 01` a `## Bloco 16` (ver `template-copy-pagina-vendas.md` no plugin de páginas). Sem isso, o fluxo exige gerar a copy antes do HTML ou o usuário aceita exceção explícita no command `copy-pagina` (B0).
+A arquitetura antiga (5 temas VTSD fixos, 16 blocos atômicos com CSS variables globais) **foi descontinuada**. Scripts marcados como DEPRECATED: `build-pagina-vendas.py`, `workshop-merge-pagina.py`, `workshop-copy-template-tema.py`, `criar-tema-custom.py`.
+
+**Fluxo atual:**
+
+1. **Input do aluno.** Aluno cola prints de seções no chat (ou salva em `paginas/referencias/`) e diz qual bloco da copy cada print representa.
+2. **Geração de cópias.** Command `/pagina-visual` invoca a skill `ui-reverse-engineer` (via subagent `clonador-de-bloco-visual`, em paralelo) pra gerar uma cópia HTML por print em `meus-produtos/{slug}/entregas/paginas/copias/`. Cada cópia:
+   - Preserva 100% o design do print (cores HEX literais, fontes específicas, espaçamentos)
+   - Tem a copy aprovada **já adaptada** aos slots (substituindo os textos do print original)
+   - Segue Light Copy VTSD (sem travessão, sem "Não é X. É Y.", sem promessa vaga)
+3. **Seções sem print.** Para blocos da copy que não têm print correspondente, a IA gera uma seção nova usando o `design-system.json` extraído das cópias existentes como ponto de partida (mas cada seção ainda é visualmente independente).
+4. **Montagem.** `py -3 scripts/montar-pagina-copias.py --slug {slug}` lê `copias/manifest.json`, escopa o CSS de cada cópia sob `.secao-{id}` (evita colisão), concatena e entrega `paginas/vendas-{slug}.html`.
+
+**Regra crítica. Isolamento visual entre seções:**
+
+- **Cada cópia é um "island" visual.** Sem CSS variables globais (`:root { --ds-* }`), sem paleta compartilhada, sem mesclagem de cores entre seções.
+- **Cópias com print** são intocadas quanto ao design. Só os textos mudam (copy adaptada).
+- **Cópias sem print** usam o design-system como referência inicial, mas permanecem independentes.
+- O design é parte da cópia. Não é tarefa da montagem final tentar harmonizar.
+
+**Proibições:**
+
+- **Não** gerar HTML no chat. Use `/pagina-visual` + `scripts/montar-pagina-copias.py`.
+- **Não** editar direto `vendas-{slug}.html` (é arquivo gerado). Edite a cópia correspondente em `paginas/copias/` e re-rode o script de montagem.
+- **Não** usar os scripts DEPRECATED (`build-pagina-vendas.py` etc.) em novos produtos.
+- **Não** introduzir CSS variables globais atravessando seções.
+
+**Alteração posterior:**
+
+- Mudou só a copy de uma seção: edite a cópia correspondente em `paginas/copias/{secao}-{slug}.html` e rode `py -3 scripts/montar-pagina-copias.py --slug {slug}`. Zero tokens adicionais.
+- Adicionou print novo pra uma seção antes sem print: atualize `copias/manifest.json` e re-rode só o subagent daquela seção. As outras cópias ficam intactas.
+- Refazer layout estrutural: re-clone a seção via subagent `clonador-de-bloco-visual` com print ou com design-system. Depois rode a montagem.
+
+**Copy aprovada:** continua em `meus-produtos/{ativo}/entregas/copy-pagina/copy-{produto}.md` com títulos `## Bloco 01` a `## Bloco 16`. O `manifest.json` mapeia cada cópia ao bloco correspondente da copy.
+
+**Estrutura de pastas:**
+
+```
+meus-produtos/{slug}/entregas/
+  copy-pagina/copy-{slug}.md            # copy aprovada (16 blocos)
+  paginas/
+    referencias/                         # (opcional) pasta temporária de input de prints
+    copias/                              # cópias HTML geradas pela ui-reverse-engineer
+      manifest.json                      # ordem e mapeamento cópia -> bloco
+      design-system.json                 # extraído das cópias (usado pra seções sem print)
+      hero-{slug}.html
+      ...
+    assets/                              # imagens da página
+    vendas-{slug}.html                   # HTML final montado
+```
 
 ## Fluxo Padrão de Todo Comando (6 Passos)
 

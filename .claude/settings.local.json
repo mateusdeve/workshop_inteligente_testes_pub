@@ -138,7 +138,29 @@
       "Bash(\"/c/Users/Elen/AppData/Local/Programs/Python/Python312/python.exe\" scripts/painel-incremental.py --secao identidade-consumidor)",
       "Bash(start \"\" \"C:\\\\Users\\\\Elen\\\\.cursor\\\\Imersão IA\\\\workshop_inteligente\\\\meus-produtos\\\\workshop-yoga-ansiedade\\\\painel-entregas.html\")",
       "Bash(git fetch *)",
-      "Bash(git checkout *)"
+      "Bash(git checkout *)",
+      "Bash(py -3 scripts/painel-incremental.py --secao copy-pagina --slug mentoria-contador-aprovado)",
+      "Bash(py -3 -c \"p = open\\('meus-produtos/mentoria-contador-aprovado/painel-entregas.html', encoding='utf-8'\\).read\\(\\); print\\('br escapado:', p.count\\('&lt;br&gt;'\\)\\); print\\('br cru:', p.count\\('<br>'\\)\\); print\\('h3 sem renderizar:', p.count\\('### '\\)\\)\")",
+      "Bash(py -3 scripts/build-painel-entregas.py --slug mentoria-contador-aprovado)",
+      "Bash(py -3 scripts/build-pagina-vendas.py --slug mentoria-contador-aprovado --tema flat_claro --dry-run)",
+      "Bash(grep -n \"Contador Aprovado\\\\|Método AFC\\\\|Mentoria\\\\|R\\\\\\\\$ 2.997\\\\|contador CLT\" meus-produtos/mentoria-contador-aprovado/entregas/paginas/vendas-mentoria-contador-aprovado.html)",
+      "Bash(py -3 scripts/build-pagina-vendas.py --slug mentoria-contador-aprovado --tema flat_claro --force)",
+      "Bash(grep -c \"Contador Aprovado\\\\|M\\\\xc3\\\\xa9todo AFC\\\\|Mentoria\\\\|Rafael\\\\|Juliana\\\\|Bruno\\\\|R\\\\\\\\$ 2.997\\\\|contador CLT\" meus-produtos/mentoria-contador-aprovado/entregas/paginas/vendas-mentoria-contador-aprovado.html)",
+      "Bash(grep -c \"Contador Aprovado\\\\|Rafael\\\\|Juliana\\\\|Bruno\\\\|Mariana\\\\|Felipe\\\\|Ana\\\\|contador CLT\\\\|R\\\\\\\\$ 2.997\\\\|Anderson\\\\|Auditor\" meus-produtos/mentoria-contador-aprovado/entregas/paginas/vendas-mentoria-contador-aprovado.html)",
+      "Bash(echo \"=== PRECO R\\\\\\\\$ 2.997 ===\")",
+      "Bash(grep -c \"2.997\\\\|2\\\\\\\\.997\" meus-produtos/mentoria-contador-aprovado/entregas/paginas/vendas-mentoria-contador-aprovado.html)",
+      "Bash(grep -n \"R\\\\\\\\$\\\\|text-5xl\\\\|preco_vista\\\\|price\\\\|197\\\\|2.997\" meus-produtos/mentoria-contador-aprovado/entregas/paginas/vendas-mentoria-contador-aprovado.html)",
+      "Bash(grep -c \"12x de R\\\\\\\\$ 297\\\\|12x R\\\\\\\\$ 297\" meus-produtos/mentoria-contador-aprovado/entregas/paginas/vendas-mentoria-contador-aprovado.html)",
+      "Bash(grep -c \"R\\\\\\\\$ 197,00\\\\|R\\\\\\\\$ 697,00\\\\|R\\\\\\\\$ 397,00\\\\|R\\\\\\\\$ 297,00\\\\|12x R\\\\\\\\$&nbsp;16,42\" meus-produtos/mentoria-contador-aprovado/entregas/paginas/vendas-mentoria-contador-aprovado.html)",
+      "Bash(grep -n \"R\\\\\\\\$ 197,00\\\\|R\\\\\\\\$ 697,00\\\\|R\\\\\\\\$ 397,00\\\\|R\\\\\\\\$ 297,00\\\\|12x R\\\\\\\\$&nbsp;16,42\\\\|Passo 2\\\\|Passo 1\" meus-produtos/mentoria-contador-aprovado/entregas/paginas/vendas-mentoria-contador-aprovado.html)",
+      "Bash(grep -c \"Planilhas Pro\\\\|Atelier\\\\|Marina S\\\\.\\\\|Roberto L\\\\.\\\\|Fernanda K\\\\.\\\\|Passo 1\\\\|Passo 2\\\\|Passo 3\\\\|R\\\\\\\\$ 197,00\\\\|R\\\\\\\\$ 697,00\\\\|R\\\\\\\\$ 397,00\\\\|12x R\\\\\\\\$&nbsp;16,42\\\\|MEI de servi\\\\|Pequeno com\\\\|Freelancer de \" meus-produtos/mentoria-contador-aprovado/entregas/paginas/vendas-mentoria-contador-aprovado.html)",
+      "Bash(grep -c \"R\\\\\\\\$ 2.997\\\\|12x de R\\\\\\\\$ 297\" meus-produtos/mentoria-contador-aprovado/entregas/paginas/vendas-mentoria-contador-aprovado.html)",
+      "Bash(grep -c \"Planilhas Pro\\\\|Atelier\\\\|Marina S\\\\.\\\\|Roberto L\\\\.\\\\|Fernanda K\\\\.\\\\|Passo 1\\\\|Passo 2\\\\|Passo 3\\\\|Modelo Pronto\\\\|R\\\\\\\\$ 197,00\\\\|R\\\\\\\\$ 697,00\\\\|R\\\\\\\\$ 397,00\\\\|16,42\" meus-produtos/mentoria-contador-aprovado/entregas/paginas/vendas-mentoria-contador-aprovado.html)",
+      "Bash(grep -c \"^body\\\\s*{\\\\s*$\\\\|body {\\\\s*background: var\" meus-produtos/mentoria-contador-aprovado/entregas/paginas/vendas-mentoria-contador-aprovado.html)",
+      "Bash(awk '/^body[[:space:]]*\\\\{|^body[[:space:]]*\\\\./{flag=1} flag{print; if\\(/\\\\}/\\){flag=0}}' meus-produtos/mentoria-contador-aprovado/entregas/paginas/vendas-mentoria-contador-aprovado.html)",
+      "Bash(grep -n \"^\\\\s*body\\\\s*{\\\\|^\\\\s*body\\\\s*,\" meus-produtos/mentoria-contador-aprovado/entregas/paginas/vendas-mentoria-contador-aprovado.html)",
+      "Bash(py -3 -c \"import zipfile; zipfile.ZipFile\\('ui-reverse-engineer.skill'\\).extractall\\('.'\\)\")",
+      "Bash(py -3 scripts/criar-tema-custom.py --slug mentoria-contador-aprovado --force)"
     ]
   }
 }
