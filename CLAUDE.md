@@ -243,7 +243,7 @@ Em seguida, liste os comandos disponíveis organizados por categoria:
 - `/copy-emails`. Criar sequências de email (pico de vendas, nutrição)
 - `/elementos-literarios`. Aplicar 1 a 3 dos 26 elementos literários do Light Copy
 - `/img-anuncio`. Gerar imagens prontas para anúncios via IA
-- `/furadeira-visual`. Gerar a Furadeira como diagrama visual em HTML
+- `/furadeira-visual`. Gerar a Furadeira (método do produto) em 3 formatos à escolha: HTML (trilha visual), PNG via API (Gemini ou OpenRouter) ou prompt pronto para IA externa
 - `/avat-whisk`. Briefings visuais prontos para o Whisk (Google Labs)
 - `/criar-gpt`. Criar agente GPT personalizado para infoprodutores
 

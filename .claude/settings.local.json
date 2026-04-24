@@ -121,7 +121,24 @@
       "Bash(cp \"deploy-painel-workshop/index.html\" \"painel-preview.html\")",
       "Bash(ls /c/Python*)",
       "Read(//c/ProgramData/**)",
-      "Bash(python3 scripts/painel-atualizar.py)"
+      "Bash(python3 scripts/painel-atualizar.py)",
+      "Bash(git push *)",
+      "Bash(py -3 --version)",
+      "Bash(winget install *)",
+      "Bash(\"/c/Users/Elen/AppData/Local/Programs/Python/Python312/python.exe\" --version)",
+      "Bash(git log *)",
+      "Bash(\"/c/Users/Elen/AppData/Local/Programs/Python/Python312/python.exe\" scripts/painel-atualizar.py)",
+      "Bash(\"/c/Users/Elen/AppData/Local/Programs/Python/Python312/python.exe\" scripts/painel-incremental.py --secao pesquisa)",
+      "Bash(\"/c/Users/Elen/AppData/Local/Programs/Python/Python312/python.exe\" scripts/painel-incremental.py --secao quadro)",
+      "Bash(\"/c/Users/Elen/AppData/Local/Programs/Python/Python312/python.exe\" scripts/painel-incremental.py --secao furadeira)",
+      "Bash(\"/c/Users/Elen/AppData/Local/Programs/Python/Python312/python.exe\" scripts/painel-incremental.py --secao identidade-produto)",
+      "Bash(\"/c/Users/Elen/AppData/Local/Programs/Python/Python312/python.exe\" scripts/painel-incremental.py --secao identidade-comunicador)",
+      "Bash(\"/c/Users/Elen/AppData/Local/Programs/Python/Python312/python.exe\" scripts/painel-incremental.py --secao decorados)",
+      "Bash(\"/c/Users/Elen/AppData/Local/Programs/Python/Python312/python.exe\" scripts/painel-incremental.py --secao urgencias)",
+      "Bash(\"/c/Users/Elen/AppData/Local/Programs/Python/Python312/python.exe\" scripts/painel-incremental.py --secao identidade-consumidor)",
+      "Bash(start \"\" \"C:\\\\Users\\\\Elen\\\\.cursor\\\\Imersão IA\\\\workshop_inteligente\\\\meus-produtos\\\\workshop-yoga-ansiedade\\\\painel-entregas.html\")",
+      "Bash(git fetch *)",
+      "Bash(git checkout *)"
     ]
   }
 }

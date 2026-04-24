@@ -15,7 +15,8 @@ Não é software tradicional: é um sistema de prompts estruturados (CLAUDE.md, 
 | `scripts/README-creative.md` | Processo de geração de criativos via `generate-creative.py`. |
 | `/configurar-heygen` | Setup de vídeo com avatar IA (slash command). |
 | `/configurar-imagens` | Setup de geração de imagens para anúncios (slash command). |
-| `/gerar-furadeira` | Gerar PNG da Furadeira via IA. Dois fluxos: Gemini direto (rápido) ou OpenRouter com imagens de referência (refinado). Requer `GEMINI_API_KEY` e/ou `OPENROUTER_API_KEY` no `.env`. Referências visuais em `assets/furadeira-referencias/`. |
+| `/furadeira-visual` | Gerar a Furadeira (método do produto) em 3 formatos à escolha: HTML (trilha visual), PNG via API (Gemini ou OpenRouter) ou prompt pronto para colar em IA externa. Comando principal. |
+| `/gerar-furadeira` | Atalho direto para gerar PNG da Furadeira via IA. Dois fluxos: Gemini direto (rápido) ou OpenRouter com imagens de referência (refinado). Requer `GEMINI_API_KEY` e/ou `OPENROUTER_API_KEY` no `.env`. Referências visuais em `assets/furadeira-referencias/`. |
 
 ## Onde roda
 
