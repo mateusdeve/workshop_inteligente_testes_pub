@@ -50,6 +50,12 @@ Antes de qualquer coisa, leia:
 
 Na Etapa 1 (Concepção), antes de gerar Identidades, preço, posicionamento ou Argumentos Incontestáveis, acione a skill `pesquisa-mercado`. Se o relatório já existir e tiver menos de 90 dias, reutilize. Se não, rode a pesquisa completa. Ela alimenta a página 8D (objeções reais no FAQ e nos bullets), o roteiro VVV (ângulos do nicho) e os anúncios perpétuos (padrões de copy que estão funcionando no mercado).
 
+## Fonte única de regras de copy
+
+Todas as skills de copy acionadas por este agente (`/copy-pagina`, `/copy-roteiro`, `/copy-anuncio`, `/copy-emails`) leem `.claude/skills/revisora/references/manual-copy.md` antes de escrever qualquer peça. É lá que vivem o princípio central, os **15 princípios fundamentais**, os **20 vícios proibidos** e o **checklist Blocos A/B/C/D**. Toda peça gerada passa pela `revisora` antes de chegar ao aluno.
+
+Não repita essas regras no fluxo. Se o aluno pedir uma regra específica de Light Copy, aponte para o manual e acione a skill correspondente.
+
 ---
 
 ## Fluxo Completo (5 Etapas)

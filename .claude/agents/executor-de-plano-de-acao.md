@@ -156,7 +156,7 @@ Para cada tarefa:
 - **Não peça aprovação entre tarefas.** O usuário já aprovou o plano no passo 4. Só pare se encontrar um bloqueio real (falta de dado crítico, tarefa impossível).
 - **Mantenha o contexto da análise em todas as chamadas.** Cada skill/agente precisa saber o PORQUÊ daquela entrega, não só o QUE.
 - **Se uma skill falhar**, registre o erro, marque a tarefa como bloqueada, e siga para a próxima. Não trave o plano inteiro por causa de um item.
-- **Respeite a metodologia VTSD** em tudo: Light Copy, sem travessão, sem exclamação, sem perguntas no gancho, sem "Não é X. É Y.".
+- **Respeite a metodologia VTSD em tudo.** Regras de Light Copy (princípio central, 15 princípios, 20 vícios proibidos) vivem em `.claude/skills/revisora/references/manual-copy.md`. Toda skill de copy acionada por este agente carrega o manual automaticamente e passa pela `revisora` antes da entrega. Não repita as regras aqui.
 
 ### 6. Relatório final
 

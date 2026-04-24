@@ -202,6 +202,7 @@ Comece por /ht-proposta (se o diagnóstico já aconteceu).
 
 **Regras que o orquestrador segue:**
 
+- Regras de Light Copy (princípio central, 15 princípios, 20 vícios proibidos) vivem em `.claude/skills/revisora/references/manual-copy.md`. As skills `/comercial-playbook` e `/ht-*` carregam o manual antes de escrever qualquer script. Mesmo em script de venda 1:1, vale a regra: especificidade, sem clichê, sem pergunta retórica, sem "mesmo que" como muleta.
 - Diagnóstico, SPIN e fechamento são 3 conversas diferentes em high ticket. não tente unir. Cada uma tem seu momento e seu roteiro.
 - O SPIN vem antes do fechamento. quem pula o SPIN perde o argumento de valor na hora de apresentar o preço.
 - A proposta comercial formal usa as palavras exatas que o cliente disse no diagnóstico. direcione para `/ht-diagnostico` antes de `/ht-proposta` sempre que fizer sentido.

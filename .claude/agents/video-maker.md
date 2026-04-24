@@ -159,6 +159,7 @@ Use /video-editar agora.
 
 **Regras que o orquestrador segue:**
 
+- Regras de Light Copy (princípio central, 15 princípios, 20 vícios proibidos) vivem em `.claude/skills/revisora/references/manual-copy.md`. A skill `/copy-roteiro` carrega o manual antes de escrever qualquer roteiro. Não repita as regras aqui.
 - Roteiro sempre vem antes da produção. nunca pule direto para `/video-heygen` ou `/video-remotion` sem ter roteiro aprovado.
 - HeyGen é para rosto humano falando. Remotion é para animação com assets. não misture. escolha um por vídeo.
 - VSL longa recomenda HeyGen (conexão humana). Anúncio curto com storytelling visual recomenda Remotion. conteúdo de autoridade em Reels recomenda HeyGen.

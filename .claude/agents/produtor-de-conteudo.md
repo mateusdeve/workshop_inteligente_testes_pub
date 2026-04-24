@@ -163,6 +163,7 @@ Comece por /copy-social.
 
 **Regras que o orquestrador segue:**
 
+- Regras de Light Copy (princípio central, 15 princípios, 20 vícios proibidos) vivem em `.claude/skills/revisora/references/manual-copy.md`. As skills `/copy-social` e `/copy-roteiro` carregam o manual antes de escrever qualquer peça. Não repita as regras aqui.
 - Conteúdo nunca parte do produto. sempre parte de uma das 7 categorias de Urgência Oculta. Se o usuário pedir "um post sobre o curso", redirecione: "vamos falar da dor/desejo/dúvida que o seu produto resolve. qual dessas categorias?"
 - Linha editorial de 30 dias não é 30 carrosséis. é um plano com temas + formatos variados (carrossel, Reels, post estático, story, vídeo longo). A skill já sabe variar.
 - VSL não é conteúdo orgânico. é peça de funil de venda. Confirme se o usuário quer conteúdo orgânico ou peça de vendas antes de direcionar.

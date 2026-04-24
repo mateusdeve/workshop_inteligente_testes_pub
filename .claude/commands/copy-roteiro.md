@@ -282,24 +282,15 @@ Keywords: "whiteboard 3 steps process", "chalkboard writing steps"
 
 ### 4. Regras de Estilo Light Copy (aplicar em TODOS os roteiros)
 
-- Sem ponto de exclamação
-- Sem perguntas no gancho: sempre afirmação contra-intuitiva ou premissa não óbvia
-- Sem "mesmo que" ou "sem precisar" como muletas
-- Sem promessas vagas: usar números concretos, situações reais
-- Travessão longo (—): nunca usar. Substituir por vírgula, ponto ou pausa [pausa]
-- Estrutura "Não é X. É Y.": nunca usar. Reformular de forma mais elaborada
-- Emojis: nunca usar no roteiro
-- O produto não aparece nos primeiros blocos: começar pelo problema ou pelo insight
-- Nomear cria realidade: criar nome próprio para o conceito ensinado quando possível
+**Fonte única e obrigatória:** antes de escrever um roteiro, leia `.claude/skills/revisora/references/manual-copy.md`. Princípio central, **15 princípios**, **20 vícios proibidos** e **checklist Blocos A/B/C/D** vivem ali. Todo roteiro passa pelo `revisora` antes de virar entregável.
 
-**Checklist obrigatório antes de entregar:**
-
-- [ ] Nenhum travessão no texto
-- [ ] Nenhuma pergunta no gancho
-- [ ] Nenhuma estrutura "Não é X. É Y."
-- [ ] Nenhuma frase genérica de vendedor
-- [ ] Produto não mencionado nos primeiros blocos
-- [ ] Nenhum emoji
+**Reforços específicos de roteiro de vídeo:**
+- **Gancho nos primeiros 3 segundos:** afirmação contra-intuitiva, paradoxo ou revelação. NUNCA pergunta, NUNCA frase óbvia.
+- **Entregar conteúdo real dentro do vídeo:** quem assiste aprende, tem uma virada ou se reconhece. Vídeo que só promete sem entregar não funciona.
+- **Produto não aparece nos primeiros blocos:** começar pelo problema ou pelo insight. Nome do método/produto só depois da Conexão, Problema e Paliativo (para VVV) ou depois do Desenvolvimento (para Reels).
+- **Tom de escritor, não de vendedor:** o vídeo explica, mostra, demonstra. Não empurra.
+- **Sem marcações que confundam síntese de voz:** nada de travessão, reticências múltiplas ou emojis no texto que o avatar vai ler.
+- **Argumento antes de oferta:** a pessoa precisa entender por que o problema existe antes de ouvir o nome da solução.
 
 ---
 

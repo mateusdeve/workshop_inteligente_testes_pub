@@ -87,42 +87,26 @@ Aviso: vou gerar em 2 partes para garantir qualidade.
 
 ### A2. Princípios de Copy (Light Copy. SEMPRE)
 
-**Princípio central:** A melhor copy não parece copy. Parece alguém inteligente te explicando algo que você nunca tinha entendido.
+**Fonte única e obrigatória:** antes de gerar uma linha de copy, leia `.claude/skills/revisora/references/manual-copy.md`. É ali que vivem:
 
-**As 7 leis da copy:**
-1. Ensinar em vez de prometer: a copy entrega conhecimento real. Curiosidade vem do aprendizado, não de promessa vaga
-2. Nomear cria realidade: dê nomes próprios para problemas ou soluções. Nome transforma ideia em algo concreto
-3. O produto não aparece no lead: nada de "curso", "treinamento", "compre", nome do método, nome do produto ou sigla do programa no início. Só o leitor e a realidade dele. O nome do produto/método só aparece a partir da seção Solução/Método. Sem exceção, mesmo que o nome pareça um "posicionamento de identidade".
-4. Tom de escritor, não de vendedor: escreva como quem explica, não como quem vende. Mostre, não empurre
-5. Especificidade mata generalização: use números, datas, valores, situações reais. Quanto mais concreto, mais confiável
-6. Informar, não vender: ou você ensina, ou você avisa. Nunca tenta vender diretamente
-7. Crie um inimigo concreto (ou cenário inevitável): um culpado externo facilita a aceitação. Pode ser pessoa, sistema ou método antigo
+- O **princípio central** ("a melhor copy não parece copy").
+- Os **15 princípios fundamentais** (ensinar em vez de prometer; nomear cria realidade; produto não aparece no lead; tom de escritor; especificidade mata generalização; informar, não vender; crie um inimigo; argumente sempre; razão + emoção; Quadro + Decorado; dor real; ancoragem em bônus; headline em toda seção; depoimento com resultado; autoridade com conquista concreta).
+- Os **20 vícios proibidos** (travessão, "não é X, é Y", perguntas no gancho, promessa vaga, "mesmo que/sem precisar", produto no lead, emojis, imperativo, lero-lero, cópia sem tese, sigla sem explicação, depoimento genérico, autoridade sem prova, copy só de promessa, bônus sem valor, seção sem headline, Quadro sem Decorado, dor só sintoma, emoção sem razão, AI slop).
+- O **checklist final** (Blocos A/B/C/D) que a `revisora` aplica antes da entrega.
 
-**Vícios proibidos:**
-- Não usar travessão (. )
-- Não usar estrutura: "Não é X. É Y."
-- Não usar frases genéricas de vendedor
-- Não mencionar o produto no lead
-- Não usar emojis
+A aprovação do usuário só acontece depois que esse checklist passar.
 
-**Checklist obrigatório. revisar antes de entregar qualquer copy:**
+**Princípios específicos de página de vendas (reforço do Manual):**
+1. **Headline em TODA seção:** nenhuma seção começa sem um título curto e curioso. Seção sem headline é seção invisível.
+2. **Facilitação visual do método:** a Furadeira precisa virar diagrama, esquema ou comparativo no HTML, não só parágrafo.
+3. **Depoimento com resultado concreto:** cada depoimento tem antes + depois + número ou prazo. Elogio genérico é marcado para substituição.
+4. **Autoridade com conquista concreta:** o bloco de autoridade precisa da jornada de origem com fragilidade + virada + número ou situação verificável. Para low ticket sem autoridade pessoal, usar "método testado com X pessoas".
+5. **Bônus ancorados em valor:** cada bônus tem nome, descrição e R$ individual. Stack de valor com total maior que o preço.
+6. **Vender Quadro + Decorado, não só Quadro:** a cada bloco de benefício, um Decorado tangível aparece (não só a transformação ampla).
+7. **Parágrafo técnico em itálico:** ao menos um parágrafo ancora a emoção com razão (explica por que aquilo funciona logicamente ou biologicamente).
+8. **Nomear cria realidade:** criar nome próprio para o problema, a causa ou o método ("Programação Emocional Repetitiva", "Negociação Terapêutica"). "Método Exclusivo" não vale.
 
-Antes de entregar, revise e substitua:
-- Travessão (. ) → reescreva a frase sem ele
-- Estrutura "Não é X. É Y." → desenvolva o argumento de outra forma
-- Frases genéricas de vendedor → substitua por dado ou situação concreta
-- Menção ao produto nos primeiros parágrafos (inclui nome do produto, nome do método, nome do curso ou sigla) → remova ou reescreva focando no leitor
-- Emojis → remova sem substituição
-
-- [ ] Nenhum travessão no texto
-- [ ] Nenhuma estrutura "Não é X. É Y."
-- [ ] Nenhuma frase genérica de vendedor
-
-**Nomear cria realidade:** sempre que possível, criar um nome próprio para o conceito, problema ou solução. Nomes como "Negociação Terapêutica" ou "Programação Emocional Repetitiva" funcionam. "Método Exclusivo" não funciona.
-
-**Parágrafo técnico em itálico:** incluir um parágrafo em itálico que ancora a emoção com razão. explica por que aquilo funciona do ponto de vista científico ou lógico.
-
-Use os 26 elementos literários quando apropriado (consulte skill vtsd-completo para lista completa).
+Use os 26 elementos literários quando apropriado (consulte skill `vtsd-completo` para lista completa).
 
 ### A2.5 Estrutura do arquivo de copy (obrigatória para vendas 8D)
 
@@ -170,22 +154,9 @@ Continue no **mesmo arquivo**, mesmo nível de detalhe:
 
 ### A4. Revisão e Correção Automática (OBRIGATÓRIO antes de entregar)
 
-Antes de mostrar a copy ao usuário, aplique a revisão completa da metodologia VTSD.
+Antes de mostrar a copy ao usuário, acione a skill `revisora` passando o texto completo (todos os 16 blocos juntos). A `revisora` aplica o checklist do `.claude/skills/revisora/references/manual-copy.md` (Blocos A/B/C/D) e devolve o texto limpo com os ajustes feitos.
 
-Leia `.claude/commands/feedback-pagina.md` e aplique todos os critérios na copy gerada. Depois corrija tudo que estiver fora do padrão:
-
-**Checklist de revisão. corrigir automaticamente cada item:**
-
-- [ ] **Travessão (. )**: encontrou? Reescreva a frase sem ele
-- [ ] **"Não é X. É Y."**: encontrou? Desenvolva o argumento de outra forma
-- [ ] **Frases genéricas de vendedor**: encontrou? Substitua por dado, situação ou número concreto
-- [ ] **Produto mencionado no hero/lead**: encontrou o nome do produto, nome do método, nome do curso ou sigla na headline ou subheadline? Remova. O hero fala só do leitor e da transformação. O nome do produto/método só aparece a partir da seção Solução/Método. Sem exceção, mesmo que pareça "posicionamento de identidade".
-- [ ] **Emojis**: encontrou? Remova sem substituição
-- [ ] **Headline no imperativo** ("Pare de...", "Aprenda...", "Descubra..."): encontrou? Reescreva como premissa ou observação
-- [ ] **Pergunta no gancho**: encontrou? Transforme em afirmação com tensão
-- [ ] **Promessa vaga sem dado**: encontrou? Especifique com número, situação real ou nome próprio
-- [ ] **Bullets sem padrão urgência oculta + decorado**: encontrou? Reescreva no padrão correto
-- [ ] **Ausência de parágrafo técnico em itálico**: ausente? Adicione ao menos um que ancora a emoção com razão
+Aplique os ajustes propostos antes de mostrar a copy. Se a `revisora` devolver a copy sem ajustes, prossiga direto.
 
 Após a revisão, informe ao usuário:
 ```
@@ -542,20 +513,23 @@ Antes de salvar o arquivo HTML, percorra o **texto visível** da página (ou de 
 
 **Economia de tokens:** use **este checklist** e a Etapa 0 do SKILL `paginas`. **Não** carregue o arquivo inteiro `.claude/commands/feedback-pagina.md` só para salvar uma página (esse documento é longo e serve à **auditoria** quando o usuário chama `/feedback-pagina` ou pede análise tipo Nav). Se o usuário pedir revisão profunda no mesmo fluxo, aí sim use `feedback-pagina.md` com critério.
 
+**Fonte única de regras:** aplicar a Etapa 0 do SKILL `paginas` + o checklist dos Blocos A/B/C/D do `.claude/skills/revisora/references/manual-copy.md` (travessão, "não é X é Y", imperativo, pergunta no gancho, promessa vaga, "mesmo que/sem precisar", produto no lead, emojis, lero-lero, cópia sem tese, sigla sem explicação, depoimento genérico, autoridade sem prova, bônus sem valor, seção sem headline, Quadro sem Decorado, dor só sintoma, emoção sem razão, AI slop).
+
 Corrija diretamente no HTML:
 
-**Checklist de revisão. corrigir automaticamente cada item:**
-
-- [ ] **Travessão (. )**: encontrou? Reescreva a frase sem ele
-- [ ] **"Não é X. É Y."**: encontrou? Desenvolva o argumento de outra forma
-- [ ] **Frases genéricas de vendedor**: encontrou? Substitua por dado, situação ou número concreto
-- [ ] **Produto mencionado no hero**: encontrou o nome do produto, nome do método, nome do curso ou sigla na headline ou subheadline? Remova. O hero fala só do leitor. O nome só aparece a partir da seção Solução/Método.
-- [ ] **Emojis no texto**: encontrou? Remova sem substituição
-- [ ] **Headline no imperativo** ("Pare de...", "Aprenda...", "Descubra..."): encontrou? Reescreva como premissa ou observação
-- [ ] **Pergunta no gancho**: encontrou? Transforme em afirmação com tensão
-- [ ] **Promessa vaga sem dado**: encontrou? Especifique com número, situação real ou nome próprio
-- [ ] **Bullets sem padrão urgência oculta + decorado**: encontrou? Reescreva no padrão correto
-- [ ] **Ausência de parágrafo técnico em itálico**: ausente? Adicione ao menos um que ancora a emoção com razão
+- Travessão → reescreva a frase sem ele
+- "Não é X. É Y." → desenvolva o argumento de outra forma
+- Headline no imperativo → reescreva como premissa ou observação
+- Pergunta no gancho → transforme em afirmação com tensão
+- Promessa vaga → especifique com número, situação real ou nome próprio
+- Produto no hero (nome do produto, método, curso ou sigla) → remova, o hero fala só do leitor
+- Emojis no texto → remova sem substituição
+- Bullets fora do padrão urgência oculta + decorado → reescreva
+- Bloco de autoridade sem conquista concreta → adicione número, prazo ou situação verificável (ou "método testado com X pessoas" se for low ticket sem autoridade pessoal)
+- Depoimento sem antes/depois/número → marque para substituição
+- Bônus sem R$ individual → adicione valor
+- Seção sem headline curiosa → crie headline
+- Ausência de parágrafo técnico em itálico → adicione pelo menos um que ancora a emoção com razão
 
 Após a revisão e correção do HTML, informe internamente o número de ajustes e só então prossiga para salvar.
 

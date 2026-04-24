@@ -1,45 +1,28 @@
 ---
 name: workshop-marketing:app-saas
-description: Criar um SaaS simples (gerenciador de assistente virtual, painel de clientes, minicrm, dashboard interno) a partir de um briefing de negócio. Gera especificação completa, schema do banco, telas e prompt pronto para colar no Lovable.dev.
+description: Lê o perfil do produto ativo, sugere 10 ideias de mini-SaaS relevantes para os alunos do infoprodutor e, após a escolha, gera o PRD completo com schema, telas, user stories e prompt técnico pronto para colar no Lovable.dev.
 ---
 
-# App SaaS. Gerenciador de Assistente Virtual
-
-Transforma uma ideia de aplicativo interno ou SaaS simples em especificação técnica pronta para ser construída no Lovable.dev sem precisar escrever código. Ideal pra gerenciador de assistente virtual, painel de atendimento, CRM leve, dashboard de métricas ou qualquer ferramenta interna do infoprodutor.
-
-## Usage
-
-```
-/app-saas
-```
-
-## O Que Fazer
+# App SaaS. Gerador de Épicos para Alunos
 
 Acione a skill `app-saas` do plugin `workshop-marketing` e siga o roteiro:
 
-1. Ler `meus-produtos/.ativo` e `meus-produtos/{ativo}/perfil.md` pra pegar contexto do negócio.
-2. Coletar (uma pergunta por vez):
-   1. Qual problema esse SaaS resolve? (ex: "perco tempo respondendo as mesmas dúvidas dos alunos", "não tenho onde centralizar leads")
-   2. Quem usa? (só você, seu time, seus alunos, seus clientes)
-   3. Quais dados precisam ser guardados? (ex: nome, email, histórico de mensagens, status, tags)
-   4. Quais ações o usuário precisa fazer? (cadastrar, listar, editar, marcar como concluído, enviar mensagem)
-   5. Precisa de login? Se sim, quantos perfis (admin, usuário comum, etc)?
-3. Gerar em um único arquivo `.md`:
-   - **Visão geral** do SaaS em 3 linhas
-   - **User stories** curtas (como X, eu quero Y, para Z)
-   - **Schema do banco** em formato simples (tabela, campos, tipo, relações)
-   - **Telas** necessárias (login, dashboard, lista, detalhe, formulário)
-   - **Regras de negócio** importantes
-   - **Prompt técnico pronto pro Lovable.dev**, já formatado com stack sugerida (React + Tailwind + Supabase), estrutura de páginas e instruções de UX em português. Incluir esquema de cores baseado na identidade do produto ativo.
-4. Mostrar o conteúdo gerado e pedir aprovação.
-5. Salvar em `meus-produtos/{ativo}/entregas/apps/{nome-do-app}.md`.
-6. Sugerir próximo passo: copiar o prompt técnico e colar no Lovable.dev (lovable.dev > New Project).
+1. Ler `meus-produtos/.ativo` para pegar o slug do produto ativo.
+2. Ler `meus-produtos/{slug}/perfil.md` completo.
+3. Listar arquivos em `meus-produtos/{slug}/` e ler `idconsumidor.md` se existir.
+4. Gerar 10 ideias de mini-SaaS relevantes para o público do produto (tracker, diagnóstico, planner, gerador, checklist interativo, simulador, comparador, dashboard, calculadora, biblioteca de recursos).
+5. Perguntar qual ideia o usuário quer desenvolver (aceitar número, mistura ou pedido de novas ideias).
+6. Gerar o PRD completo: visão geral, problema resolvido, público-alvo, user stories, schema do banco (máximo 5 tabelas), telas na ordem de navegação, regras de negócio, identidade visual puxada do perfil.md e prompt técnico para o Lovable.dev.
+7. Mostrar tudo e pedir aprovação.
+8. Salvar em `meus-produtos/{slug}/entregas/apps/{slug-do-epic}.md` após aprovação.
+9. Orientar os próximos passos no Lovable.
 
-## Regras Resumidas
+## Regras
 
-- Sempre começar pelo problema real, não pela tecnologia.
-- Schema precisa ser simples, no máximo 5 tabelas na primeira versão.
-- Nunca entregar código. Só especificação + prompt pro Lovable.
-- Prompt do Lovable precisa ser em português, direto, com instruções de UX.
-- Respeitar a Mandala de cores e fonte do produto ativo (pegar do `perfil.md` se existir).
+- Nunca gerar o PRD sem o usuário ter escolhido uma ideia.
+- Schema simples, máximo 5 tabelas.
+- Nunca entregar código. Apenas especificação + prompt.
+- Prompt para o Lovable sempre em português do Brasil, direto e sem markdown interno.
+- Identidade visual sempre puxada do `perfil.md`.
 - Não usar travessão em nenhum texto exibido.
+- Não usar ponto de exclamação.

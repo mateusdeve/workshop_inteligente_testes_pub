@@ -200,26 +200,16 @@ Caption:
 - **Vender:** Prova Social, Urgencia, Escassez Narrativa, Transformacao
 - **Atrair seguidores:** Historia Pessoal, Revelacao, Identidade Compartilhada
 
-**Regras de geracao (Light Copy — obrigatorias em todo conteudo):**
+**Regras de geracao (Light Copy):**
 
-Principio central: a melhor copy nao parece copy. Parece alguem inteligente explicando algo que voce nunca tinha entendido.
+**Fonte unica e obrigatoria:** antes de escrever qualquer variacao, leia `.claude/skills/revisora/references/manual-copy.md`. Principio central, **15 principios**, **20 vicios proibidos** e **checklist Blocos A/B/C/D** vivem la. Toda variacao passa pelo `revisora` antes de ir ao usuario.
 
-As 7 leis:
-1. Ensinar em vez de prometer: entrega conhecimento real, curiosidade vem do aprendizado
-2. Nomear cria realidade: de nomes proprios para problemas e solucoes
-3. O produto nao aparece no lead: nada de "curso", "treinamento", "compre" no inicio
-4. Tom de escritor, nao de vendedor: mostre, nao empurre
-5. Especificidade mata generalizacao: numeros, datas, valores, situacoes reais
-6. Informar, nao vender: ou ensina, ou avisa. Nunca vende diretamente
-7. Crie um inimigo concreto: culpado externo facilita a aceitacao
-
-Proibicoes absolutas:
-- Travessao (—) em qualquer frase. Regra sem excecao.
-- Ponto de exclamacao
-- Estrutura "Nao e X. E Y."
-- Perguntas no gancho/titulo
-- Promessas vagas sem dado concreto
-- Emojis
+**Reforcos especificos de variacao de post:**
+- **Preservar o angulo central do post original.** O que muda e a estrutura, o tom e o elemento literario. Se o angulo mudar, nao e variacao, e post novo.
+- **Gancho nao pode ser pergunta nem frase obvia.** Cada variacao usa um elemento literario diferente na abertura (paradoxo, confissao, dado, cena, revelacao).
+- **Entregar valor real dentro do proprio post/video.** Cada variacao ensina, revela ou provoca uma virada de perspectiva. Conteudo que so promete sem entregar nao e publicado.
+- **Produto nao aparece nos primeiros slides / 3s.** So aparece depois de estabelecer a tese ou no slide/momento de CTA.
+- **Uma ideia por variacao.** Cada variacao defende UMA tese e leva a UM CTA. Nao empilhar topicos.
 
 **Profundidade obrigatoria:**
 - Gancho: afirmacao nao obvia, contra-intuitiva ou especifica. NUNCA pergunta. NUNCA generico.
@@ -249,14 +239,7 @@ Caption (post estatico):
 - CTA no final
 - Hashtags
 
-**Checklist antes de entregar cada variacao:**
-- [ ] Nenhum travessao
-- [ ] Nenhum ponto de exclamacao
-- [ ] Nenhuma pergunta no gancho
-- [ ] Nenhuma estrutura "Nao e X. E Y."
-- [ ] Nenhum emoji
-- [ ] Produto nao aparece no lead
-- [ ] Conteudo entrega valor real por si so
+**Checklist antes de entregar cada variacao:** rodar pela `revisora` (Blocos A/B/C/D do `manual-copy.md`). Em caso de duvida, consultar diretamente `.claude/skills/revisora/references/manual-copy.md`.
 
 ### PASSO 6. Aprovacao e Salvamento
 
