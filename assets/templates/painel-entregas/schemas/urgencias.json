@@ -1,0 +1,12 @@
+{
+  "_comentario": "7 categorias obrigatórias, 10 itens cada. Nomes exatos: Dores, Dúvidas, Desejos, Assuntos Relacionados, Urgências Quentes, Urgências Frias, Urgências Inusitadas.",
+  "categorias": [
+    { "nome": "Dores",                 "itens": ["item 1", "item 2", "item 3", "item 4", "item 5", "item 6", "item 7", "item 8", "item 9", "item 10"] },
+    { "nome": "Dúvidas",               "itens": ["item 1", "item 2", "item 3", "item 4", "item 5", "item 6", "item 7", "item 8", "item 9", "item 10"] },
+    { "nome": "Desejos",               "itens": ["item 1", "item 2", "item 3", "item 4", "item 5", "item 6", "item 7", "item 8", "item 9", "item 10"] },
+    { "nome": "Assuntos Relacionados", "itens": ["item 1", "item 2", "item 3", "item 4", "item 5", "item 6", "item 7", "item 8", "item 9", "item 10"] },
+    { "nome": "Urgências Quentes",     "itens": ["item 1", "item 2", "item 3", "item 4", "item 5", "item 6", "item 7", "item 8", "item 9", "item 10"] },
+    { "nome": "Urgências Frias",       "itens": ["item 1", "item 2", "item 3", "item 4", "item 5", "item 6", "item 7", "item 8", "item 9", "item 10"] },
+    { "nome": "Urgências Inusitadas",  "itens": ["item 1", "item 2", "item 3", "item 4", "item 5", "item 6", "item 7", "item 8", "item 9", "item 10"] }
+  ]
+}

@@ -43,15 +43,7 @@ O assistente vai te guiar com perguntas sobre:
 
 Responda uma pergunta por vez.
 
-### 3. Crie a identidade do consumidor
-
-```text
-/produto-consumidor
-```
-
-O assistente cria a identidade do consumidor (cliente ideal): paliativos, objeções e tom de voz. As Urgências Ocultas ficam no `/produto-concepcao` (`perfil.md`).
-
-### 4. Crie seus materiais
+### 3. Crie seus materiais
 
 Use os comandos na ordem que fizer sentido para voce.
 
@@ -59,17 +51,15 @@ Use os comandos na ordem que fizer sentido para voce.
 
 ### Para quem quer comecar a vender
 
-1. `/produto-concepcao` — Cadastrar produto
-2. `/produto-consumidor` — Perfil do cliente ideal
-3. `/texto-de-venda` — Criar copy
-4. `/pagina-de-vendas` — Criar pagina profissional
-5. `/copy-anuncio` — Criar anuncios para trafego
+1. `/produto-concepcao` — Cadastrar produto e gerar identidade do consumidor
+2. `/texto-de-venda` — Criar copy
+3. `/pagina-de-vendas` — Criar pagina profissional
+4. `/copy-anuncio` — Criar anuncios para trafego
 
 ### Para quem vai lancar
 
-1. `/produto-concepcao` — Cadastrar produto
-2. `/produto-consumidor` — Perfil do cliente ideal
-3. `/lancamento` — Planejar o evento completo
+1. `/produto-concepcao` — Cadastrar produto e gerar identidade do consumidor
+2. `/lancamento` — Planejar o evento completo
 4. `/pagina-de-vendas` — Criar pagina do evento + pagina de vendas
 5. `/sequencia-de-emails` — Criar emails do pico de vendas
 6. `/copy-anuncio` — Criar anuncios de captacao
@@ -77,26 +67,23 @@ Use os comandos na ordem que fizer sentido para voce.
 
 ### Para quem quer vender no perpetuo
 
-1. `/produto-concepcao` — Cadastrar produto
-2. `/produto-consumidor` — Perfil do cliente ideal
-3. `/estrategia-funil` — Mapear funil perpetuo
+1. `/produto-concepcao` — Cadastrar produto e gerar identidade do consumidor
+2. `/estrategia-funil` — Mapear funil perpetuo
 4. `/pagina-de-vendas` — Criar paginas (captura + vendas + obrigado)
 5. `/sequencia-de-emails` — Criar email de nutricao
 6. `/copy-anuncio` — Criar anuncios para cada fase do funil
 
 ### Para quem quer vender low ticket (low ticket)
 
-1. `/produto-concepcao` — Cadastrar produto
-2. `/produto-consumidor` — Perfil do cliente ideal
-3. `/low-ticket` — Criar produto de entrada (quiz, desafio, ebook)
+1. `/produto-concepcao` — Cadastrar produto e gerar identidade do consumidor
+2. `/low-ticket` — Criar produto de entrada (quiz, desafio, ebook)
 4. `/copy-anuncio` — Criar anuncios low ticket para o quiz
 5. `/estrategia-funil` — Mapear funil low ticket com upsell
 
 ### Para quem quer vender high ticket
 
-1. `/produto-concepcao` — Cadastrar produto
-2. `/produto-consumidor` — Perfil do cliente ideal
-3. `/lancamento` — Planejar retiro/evento online
+1. `/produto-concepcao` — Cadastrar produto e gerar identidade do consumidor
+2. `/lancamento` — Planejar retiro/evento online
 4. `/playbook-comercial` — Criar scripts SPIN para venda 1:1
 5. `/pagina-de-vendas` — Criar pagina do evento
 
@@ -104,15 +91,9 @@ Use os comandos na ordem que fizer sentido para voce.
 
 ### /produto-concepcao
 
-Cadastra seu produto usando a metodologia VTSD: Quadro (transformacao), Furadeira (metodo), Decorados (beneficios) e 3 Identidades.
+Cadastra seu produto usando a metodologia VTSD: Quadro (transformacao), Furadeira (metodo), Decorados (beneficios), 3 Identidades, Urgencias Ocultas, Identidade do Consumidor (paliativos, objeções, frases) e Painel de Entregas. Tudo em fluxo unico.
 
-Resultado: `meus-produtos/{ativo}/perfil.md`
-
-### /produto-consumidor
-
-Cria a identidade do consumidor (cliente ideal): paliativos, objeções e comunicação. Urgências Ocultas permanecem em `perfil.md`.
-
-Resultado: `meus-produtos/{ativo}/produto-consumidor.md`
+Resultado: `meus-produtos/{ativo}/perfil.md`, `meus-produtos/{ativo}/idconsumidor.md` e `meus-produtos/{ativo}/painel-entregas.html`
 
 ### /pagina-de-vendas
 

@@ -3,10 +3,18 @@ name: concepcao-produto
 description: >
   Base de conhecimento para concepção de produto usando metodologia VTSD.
   Inclui Quadro, Furadeira, Decorados, Urgências Ocultas e 3 Identidades.
-  Acionada automaticamente pelos commands /produto-editar e /produto-consumidor.
+  Acionada automaticamente pelo command /produto-concepcao (que cobre o fluxo unificado, incluindo Identidade do Consumidor e Painel de Entregas).
 ---
 
 # Concepção de Produto. Base de Conhecimento VTSD
+
+> **Regra obrigatória de comunicação:** siga o padrão "Pensar em Voz Alta" do CLAUDE.md. Esta skill envolve várias operações longas (pesquisa de mercado, geração de 50 Decorados, geração de 70 Urgências Ocultas, escrita do perfil.md, montagem das 3 Identidades). Antes de cada uma, anuncie em UMA linha com `🔍 Próximo passo: {ação}. Tempo estimado: cerca de X segundos.` Ao concluir, confirme com `✅ Concluído: {entrega}. Caminho: {caminho}.`
+>
+> Exemplos desta skill:
+> - `🔍 Próximo passo: gerar 50 Decorados a partir do Quadro do produto. Tempo estimado: cerca de 30 segundos.`
+> - `🔍 Próximo passo: gerar as 7 categorias de Urgências Ocultas com 10 itens cada. Tempo estimado: cerca de 60 segundos.`
+> - `🔍 Próximo passo: montar as 3 Identidades (Comunicador, Consumidor, Produto). Tempo estimado: cerca de 45 segundos.`
+> - `✅ Concluído: perfil completo do produto. Caminho: meus-produtos/{ativo}/perfil.md.`
 
 ## Quadro (Transformação Principal)
 

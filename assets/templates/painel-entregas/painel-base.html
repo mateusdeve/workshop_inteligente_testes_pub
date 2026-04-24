@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Painel de Entregas</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{CSS_PATH}}">
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+  <div class="sidebar-title">Painel de Entregas</div>
+  <div class="sidebar-product">{{PRODUTO_NOME}}<br>{{COMUNICADOR_NOME}}</div>
+
+  <div class="nav-group">PRODUTO</div>
+  <span class="nav-item active" onclick="showPanel('visao-geral', this)">Visão Geral</span>
+  <span class="nav-item" onclick="showPanel('quadro', this)">Quadro</span>
+  <span class="nav-item" onclick="showPanel('furadeira', this)">Furadeira</span>
+  <span class="nav-item" onclick="showPanel('decorados', this)">Decorados</span>
+  <span class="nav-item" onclick="showPanel('urgencias', this)">Urgências Ocultas</span>
+
+  <div class="nav-group">IDENTIDADES</div>
+  <span class="nav-item" onclick="showPanel('id-produto', this)">Identidade do Produto</span>
+  <span class="nav-item" onclick="showPanel('id-consumidor', this)">Identidade do Consumidor</span>
+  <span class="nav-item" onclick="showPanel('id-comunicador', this)">Identidade do Comunicador</span>
+
+  <div class="nav-group">PESQUISA</div>
+  <span class="nav-item" onclick="showPanel('pesquisa', this)">Pesquisa de Mercado</span>
+
+  <div class="btn-export">
+    <button onclick="window.print()">Exportar PDF (Ctrl+P)</button>
+  </div>
+</div>
+
+<!-- MOBILE TABS -->
+<div class="mobile-tabs">
+  <div class="mobile-tab active" onclick="showPanel('visao-geral', this)">Visão Geral</div>
+  <div class="mobile-tab" onclick="showPanel('quadro', this)">Quadro</div>
+  <div class="mobile-tab" onclick="showPanel('furadeira', this)">Furadeira</div>
+  <div class="mobile-tab" onclick="showPanel('decorados', this)">Decorados</div>
+  <div class="mobile-tab" onclick="showPanel('urgencias', this)">Urgências</div>
+  <div class="mobile-tab" onclick="showPanel('id-produto', this)">Produto</div>
+  <div class="mobile-tab" onclick="showPanel('id-consumidor', this)">Consumidor</div>
+  <div class="mobile-tab" onclick="showPanel('id-comunicador', this)">Comunicador</div>
+  <div class="mobile-tab" onclick="showPanel('pesquisa', this)">Pesquisa</div>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+  <div class="panel active" id="panel-visao-geral"></div>
+  <div class="panel" id="panel-quadro"></div>
+  <div class="panel" id="panel-furadeira"></div>
+  <div class="panel" id="panel-decorados"></div>
+  <div class="panel" id="panel-urgencias"></div>
+  <div class="panel" id="panel-id-produto"></div>
+  <div class="panel" id="panel-id-consumidor"></div>
+  <div class="panel" id="panel-id-comunicador"></div>
+  <div class="panel" id="panel-pesquisa"></div>
+</div>
+
+<!-- DADOS (injetados pelo script de montagem a partir dos JSONs de dados/) -->
+<script>
+window.PAINEL_DADOS = {{DADOS_JSON}};
+</script>
+
+<script src="{{JS_PATH}}"></script>
+</body>
+</html>

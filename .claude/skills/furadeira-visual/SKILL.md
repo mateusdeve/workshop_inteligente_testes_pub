@@ -26,6 +26,14 @@ O layout é escolhido conforme a estrutura real do método, não pela preferênc
 
 ## O Que Fazer
 
+> **Regra obrigatória de comunicação:** siga o padrão "Pensar em Voz Alta" do CLAUDE.md. Esta skill envolve operações longas (leitura de template, geração do HTML completo, conversão para PNG via Chrome). Antes de cada uma, anuncie em UMA linha com `🔍 Próximo passo: {ação}. Tempo estimado: cerca de X segundos.` Ao concluir, confirme com `✅ Concluído: {entrega}. Caminho: {caminho}.`
+>
+> Exemplos desta skill:
+> - `🔍 Próximo passo: ler o template {nome-do-layout} e adaptar com os dados da Furadeira do produto. Tempo estimado: cerca de 20 segundos.`
+> - `🔍 Próximo passo: gerar o HTML da Furadeira Visual com paleta {cor escolhida}. Tempo estimado: cerca de 30 segundos.`
+> - `🔍 Próximo passo: converter o HTML em PNG usando Chrome headless. Tempo estimado: cerca de 15 segundos.`
+> - `✅ Concluído: Furadeira Visual gerada. Caminho: meus-produtos/{ativo}/entregas/furadeira-visual.html.`
+
 ### 1. Coletar Dados
 
 Leia `meus-produtos/.ativo` e `meus-produtos/{ativo}/perfil.md`.

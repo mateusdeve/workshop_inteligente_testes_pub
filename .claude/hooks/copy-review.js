@@ -20,10 +20,14 @@ process.stdin.on('end', () => {
 
     const filePath = (params.file_path || '').replace(/\\/g, '/');
 
-    // Apenas .md em conteudo-social/, anuncios/, emails/ ou copy-pagina/
-    const isTarget = /\/(conteudo-social|anuncios|emails|copy-pagina)\//.test(filePath);
+    // Alvos de revisao:
+    // 1. .md em conteudo-social/, anuncios/, emails/ ou copy-pagina/ (copy gerada)
+    // 2. perfil.md, idconsumidor.md e pesquisa-mercado.md em meus-produtos/{slug}/
+    //    (fontes do painel de entregas)
+    const isCopy = /\/(conteudo-social|anuncios|emails|copy-pagina)\//.test(filePath);
+    const isPainelFonte = /\/meus-produtos\/[^/]+\/(perfil|idconsumidor|pesquisa-mercado)\.md$/.test(filePath);
     const isMd = filePath.endsWith('.md');
-    if (!isTarget || !isMd) {
+    if ((!isCopy && !isPainelFonte) || !isMd) {
       process.exit(0);
     }
 

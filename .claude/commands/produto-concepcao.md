@@ -37,7 +37,7 @@ A pesquisa de mercado é feita **uma única vez** e salva em `meus-produtos/{ati
 - **Se existir:** leia o arquivo e use os dados em todo o fluxo. Nunca refaça a pesquisa.
 - **Se não existir:** rode a pesquisa completa no Bloco 3 e salve o arquivo. A partir daí, todos os blocos seguintes leem o arquivo salvo.
 
-Nenhum bloco subsequente (Decorados, Urgências, Argumentos), nem o `/produto-consumidor`, faz nova busca. Todos leem `pesquisa-mercado.md`.
+Nenhum bloco subsequente (Decorados, Urgências, Argumentos, Identidade do Consumidor, Painel de Entregas) faz nova busca. Todos leem `pesquisa-mercado.md`.
 
 ### Flexibilidade no fluxo
 
@@ -156,6 +156,26 @@ Pesquise e colete obrigatoriamente:
 Salve tudo em `meus-produtos/{ativo}/pesquisa-mercado.md`.
 
 **A partir daqui, todos os blocos seguintes usam os dados desse arquivo. Nenhuma nova busca é feita.**
+
+**Atualizar Painel de Entregas — seção Pesquisa (primeira seção visível):**
+
+Se o painel ainda não existir, crie-o agora com a seção de pesquisa preenchida. Se já existir (quando o aluno veio de `/produto-novo` Ramo 2), atualize só a seção de pesquisa.
+
+Avise:
+```
+Atualizando seu painel de entregas com a pesquisa de mercado...
+```
+
+Rode:
+```
+py -3 scripts/painel-incremental.py --secao pesquisa
+```
+
+Confirme:
+```
+Painel atualizado: seção Pesquisa de Mercado adicionada.
+Caminho: meus-produtos/{ativo}/painel-entregas.html
+```
 
 Apresente um resumo conversacional dos achados (dados, números, insights principais, não o relatório inteiro) e use os dados para gerar as 3 Identidades:
 
@@ -387,11 +407,333 @@ Estrutura oficial: 7 categorias com exatamente 10 itens cada (totalizando 70 ite
 - [10 conexões inesperadas que chamam atenção]
 ```
 
-### 5. Próximo Passo
+### 4A. Atualizar Painel de Entregas (seções do perfil)
+
+Depois de salvar o `perfil.md`, atualize o painel seção por seção. Cada chamada lê o `perfil.md` recém-salvo, renderiza **apenas** o bloco daquela seção e substitui o HTML in-place. Se o painel ainda não existir (ex.: aluno pulou o `/produto-novo`), a primeira chamada cria o shell com placeholders "Em breve" nas demais seções.
+
+Avise o aluno uma vez:
+```
+Atualizando seu painel de entregas...
+```
+
+Rode no terminal, uma chamada por vez, na ordem abaixo. Entre cada chamada, mostre a mensagem "Painel atualizado: seção X adicionada." para dar visibilidade do progresso:
 
 ```
-Perfil salvo em meus-produtos/{ativo}/perfil.md.
+py -3 scripts/painel-incremental.py --secao quadro
+py -3 scripts/painel-incremental.py --secao furadeira
+py -3 scripts/painel-incremental.py --secao identidade-produto
+py -3 scripts/painel-incremental.py --secao identidade-comunicador
+py -3 scripts/painel-incremental.py --secao decorados
+py -3 scripts/painel-incremental.py --secao urgencias
+```
 
-Próximo passo obrigatório: /produto-consumidor para detalhar a identidade do consumidor
-e gerar o Painel de Entregas completo.
+Ao final, confirme:
+```
+Painel atualizado com todas as seções do perfil.
+Caminho: meus-produtos/{ativo}/painel-entregas.html
+```
+
+**NÃO gere o HTML do painel dentro deste command.** A spec de design inteira vive em `scripts/painel_template.py`. A seção Identidade do Consumidor é atualizada no Bloco 4C, depois de salvar o `idconsumidor.md`.
+
+### 4B. Identidade do Consumidor (encadeamento automático)
+
+Após salvar o `perfil.md`, **NÃO encerre o fluxo**. Anuncie ao aluno:
+
+```
+Concluímos a concepção. Agora vou gerar a identidade do consumidor com base na pesquisa
+e no produto definido.
+```
+
+**REGRA. Paliativos:**
+- **Definição:** paliativo é uma ferramenta, produto ou solução concorrente que existe no mercado e resolve o problema parcialmente, mas não entrega o resultado completo. Paliativo é o CONCORRENTE, não é "o que o público já tentou". Exemplos: Pinterest, perfis de Instagram do nicho, cursos genéricos, apps gratuitos, planilhas baixadas da internet.
+- **Middle Ticket:** gerar paliativos a partir da pesquisa de mercado e dos concorrentes mapeados.
+- **Low Ticket:** NÃO gerar paliativos. Produto de entrada não tem profundidade suficiente para mapear paliativos.
+
+Para verificar o tipo do produto, leia `meus-produtos/{ativo}/tipo.md`.
+
+**Postura: Consultor que gera, não formulário que pergunta.** Você já tem o `perfil.md` e `pesquisa-mercado.md` completos. Use TUDO isso para gerar a persona proativamente. Pergunte apenas dados que só o aluno sabe.
+
+**Pesquisa de mercado já feita:** leia `meus-produtos/{ativo}/pesquisa-mercado.md` para usar os dados já coletados. **Não faça nova pesquisa.**
+
+**Bloco 1/3. Dados Demográficos:**
+
+Pergunta 1:
+```
+Seu cliente ideal é homem, mulher ou ambos? Qual a faixa de idade?
+(ex: "Mulheres, 25-40 anos")
+```
+
+Pergunta 2:
+```
+O que essa pessoa faz no dia a dia? Profissão e ocupação.
+(ex: "Profissional CLT que quer empreender", "Mãe que trabalha de casa")
+```
+
+Pergunta 3:
+```
+Qual a renda média e situação financeira?
+(ex: "R$3-5 mil/mês, apertado no fim do mês")
+```
+
+```
+--- Bloco 1/3 concluído ---
+Perfil: [gênero], [idade], [profissão], [renda]
+Próximo: Comportamento
+---
+```
+
+**Bloco 2/3. Comportamento (Geração Proativa):**
+
+Com base nos dados demográficos + Urgências Ocultas + Identidade do Consumidor do perfil + `pesquisa-mercado.md`, GERE automaticamente:
+
+- **Paliativos** *(somente Middle Ticket)*. ferramentas, produtos e soluções concorrentes que existem no mercado e resolvem o problema parcialmente, sem entregar o resultado completo. Não é "o que o público já tentou e falhou". São os concorrentes diretos e indiretos: Pinterest, perfis de Instagram do nicho, cursos genéricos, apps, planilhas, templates gratuitos, etc. (baseado na pesquisa de mercado e nos concorrentes mapeados)
+- **Sonho**. a frase que ela diria para uma amiga se alcançasse o resultado (baseado nos desejos)
+- **Canais**. onde essa pessoa busca informação (baseado no perfil demográfico e no nicho)
+
+Apresente tudo gerado de uma vez para o aluno validar e ajustar. Não peça item por item.
+
+Mostre progresso ao concluir.
+
+**Bloco 3/3. Objeções (Framework dos 7 Argumentos):**
+
+GERE automaticamente as **5 principais objeções** que um potencial comprador pode ter, com base no perfil do consumidor, preço, nicho, Quadro do produto e dados de `pesquisa-mercado.md` (especialmente Reclame Aqui). NÃO liste opções para o aluno escolher.
+
+Para CADA uma das 5 objeções, gere **7 formas diferentes de quebra**, cada uma com **2 parágrafos**, seguindo estes tipos de argumento (nesta ordem fixa):
+
+1. **Argumento Incontestável**. dado concreto, estatística ou fato irrefutável com fonte.
+2. **Argumento Lógico (causa e efeito)**. raciocínio frio com números e relação de causa-consequência.
+3. **Argumento por Analogia**. comparação visual e acessível. **Nunca cite celebridades**, use situações reais e alcançáveis que o público viva no dia a dia.
+4. **Argumento por Exemplificação**. caso real com nome fictício, situação inicial, decisão tomada e resultado concreto (storytelling curto).
+5. **Argumento de Valor (custo vs. benefício)**. comparação do investimento com o retorno tangível e intangível.
+6. **Argumento de Consequência (de agir ou não agir)**. o que acontece se a pessoa decidir agora versus adiar.
+7. **Argumento de Contradição (refutação de incoerências)**. aponta onde a objeção contradiz outras escolhas ou prioridades da própria pessoa.
+
+Cada parágrafo deve ter sofisticação de advogado construindo raciocínio lógico, combinada com técnica de comunicação persuasiva. Use analogias visuais, números, retórica forte e provocações que desarmem sem gerar resistência. O produto e o Quadro do perfil orientam o conteúdo.
+
+Aplicar Light Copy: sem travessão, sem ponto de exclamação, sem pergunta retórica abrindo parágrafo, afirmações diretas.
+
+Apresente as 5 objeções com as 7 quebras cada para validação. O aluno aprova, ajusta, adiciona ou remove.
+
+**Confirmação antes de gerar:**
+```
+Resumo da identidade do consumidor:
+- Perfil: [gênero], [idade], [profissão]
+- Renda: [renda]
+- Paliativos: [ferramentas e soluções concorrentes do mercado que resolvem o problema parcialmente. incluir apenas se Middle Ticket]
+- Sonho: [resultado mágico]
+- Canais: [onde busca info]
+- Objeções: [principais objeções]
+
+1. Tudo certo, pode gerar
+2. Quero ajustar algo
+```
+
+**Gerar Documento:**
+
+Salve em `meus-produtos/{ativo}/idconsumidor.md`:
+
+```markdown
+# Identidade do Consumidor: [Nome Fictício]
+
+## Para Quem É
+[Frase de posicionamento clara, 1-2 linhas]
+"Este produto é para [perfil específico], que [problema/situação atual], e quer [transformação desejada]."
+
+Não é para: [exclusões que ajudam a posicionar. quem NÃO é o público]
+
+## Identidade do Consumidor
+- **Idade:** / **Gênero:** / **Profissão:**
+- **Renda:** / **Estado civil:** / **Localização:**
+- **Nível de consciência:** [inconsciente até totalmente consciente]
+- **Onde busca informação:** [canais]
+
+## Paliativos (somente Middle Ticket. ferramentas e soluções concorrentes do mercado que resolvem o problema parcialmente)
+- [ferramenta/solução concorrente] → [o que ela oferece e por que não entrega o resultado completo]
+
+*Se Low Ticket: omitir esta seção inteiramente.*
+
+## Objeções de Compra (Framework dos 7 Argumentos)
+
+Para cada uma das 5 principais objeções, gerar 7 formas de quebra com 2 parágrafos cada. Ordem fixa dos argumentos.
+
+### Objeção 1: [texto da objeção]
+
+**1. Argumento Incontestável**
+[Parágrafo 1: dado concreto, estatística, fato irrefutável com fonte.]
+
+[Parágrafo 2: aprofundamento do dado aplicado à realidade do consumidor.]
+
+**2. Argumento Lógico (causa e efeito)**
+[Parágrafo 1: raciocínio frio com números e relação causa-consequência.]
+
+[Parágrafo 2: virada lógica que reposiciona a pergunta.]
+
+**3. Argumento por Analogia**
+[Parágrafo 1: comparação visual, acessível, SEM celebridades, com situação real que o público vive.]
+
+[Parágrafo 2: extensão da analogia conectando ao contexto de compra.]
+
+**4. Argumento por Exemplificação**
+[Parágrafo 1: caso real com nome fictício, situação inicial, decisão tomada.]
+
+[Parágrafo 2: desfecho concreto e moral aplicável ao leitor.]
+
+**5. Argumento de Valor (custo vs. benefício)**
+[Parágrafo 1: comparação do investimento com retorno tangível.]
+
+[Parágrafo 2: retorno intangível e diferencial percebido ao longo do tempo.]
+
+**6. Argumento de Consequência (de agir ou não agir)**
+[Parágrafo 1: cenário de adiar a decisão.]
+
+[Parágrafo 2: cenário de decidir agora.]
+
+**7. Argumento de Contradição**
+[Parágrafo 1: onde a objeção contradiz outras escolhas ou prioridades da própria pessoa.]
+
+[Parágrafo 2: conclusão que reposiciona a prioridade.]
+
+### Objeção 2: [texto da objeção]
+[mesma estrutura dos 7 argumentos, 2 parágrafos cada]
+
+### Objeção 3: [texto da objeção]
+[mesma estrutura dos 7 argumentos, 2 parágrafos cada]
+
+### Objeção 4: [texto da objeção]
+[mesma estrutura dos 7 argumentos, 2 parágrafos cada]
+
+### Objeção 5: [texto da objeção]
+[mesma estrutura dos 7 argumentos, 2 parágrafos cada]
+
+## Frases que Essa Pessoa Diria
+- "[dor]"
+- "[desejo]"
+- "[objeção]"
+
+## Como se Comunicar
+- Tom de voz recomendado
+- Palavras que conectam
+- Palavras que afastam
+
+## Baldes de Para Quem É
+
+O agente cria 5 perfis específicos de segmentação com base nas Urgências Ocultas, no público mapeado e nos dados de `pesquisa-mercado.md`. Cada perfil tem 5 afirmações diretas em linguagem de copy e tráfego pago.
+
+Os 5 perfis devem representar recortes distintos (por profissão, momento de vida, dor dominante, nível de consciência ou objetivo imediato), não variações do mesmo perfil.
+
+➤ Pra quem é - [Perfil específico 1]
+1.
+2.
+3.
+4.
+5.
+
+➤ Pra quem é - [Perfil específico 2]
+1.
+2.
+3.
+4.
+5.
+
+➤ Pra quem é - [Perfil específico 3]
+1.
+2.
+3.
+4.
+5.
+
+➤ Pra quem é - [Perfil específico 4]
+1.
+2.
+3.
+4.
+5.
+
+➤ Pra quem é - [Perfil específico 5]
+1.
+2.
+3.
+4.
+5.
+```
+
+NOTA: As Urgências Ocultas ficam centralizadas em `meus-produtos/{ativo}/perfil.md`. Os baldes são derivados delas, nunca copiados.
+
+### 4C. Atualizar Painel de Entregas (seção Identidade do Consumidor)
+
+Depois de salvar o `idconsumidor.md`, atualize a seção Identidade do Consumidor do painel.
+
+Avise o aluno:
+```
+Atualizando seu painel de entregas...
+```
+
+Rode no terminal:
+```
+py -3 scripts/painel-incremental.py --secao identidade-consumidor
+```
+
+O script lê `idconsumidor.md` e `perfil.md`, renderiza o bloco da seção e substitui **apenas** essa seção no HTML existente. O resto do painel permanece intocado. Se o painel ainda não existir, o script cria o shell com placeholders "Em breve" nas demais seções.
+
+Confirme ao aluno:
+```
+Painel atualizado: seção Identidade do Consumidor adicionada.
+Caminho: meus-produtos/{ativo}/painel-entregas.html
+```
+
+**NÃO gere o HTML do painel dentro deste command.** A spec de design inteira vive em `scripts/painel_template.py`.
+
+### 5. Próximo Passo
+
+Antes de sugerir o próximo comando, pergunte se o aluno quer refazer alguma parte:
+
+```
+Concepção e identidade do consumidor concluídas.
+
+Quer refazer alguma parte antes de seguir?
+
+1. Refazer Quadro
+2. Refazer Furadeira
+3. Refazer Decorados
+4. Refazer Urgências Ocultas
+5. Refazer Argumentos Incontestáveis
+6. Refazer Identidade do Consumidor (objeções, paliativos, baldes)
+7. Regerar Painel de Entregas
+8. Está tudo certo, seguir
+```
+
+Se escolher de 1 a 7, volte ao bloco correspondente e regere apenas aquela parte. Se escolher 8, siga para a recomendação de próximo passo abaixo.
+
+**Se Middle Ticket:**
+```
+Perfil salvo em meus-produtos/{ativo}/perfil.md.
+Identidade do consumidor salva em meus-produtos/{ativo}/idconsumidor.md.
+Painel de Entregas gerado em meus-produtos/{ativo}/painel-entregas.html.
+
+Próximo passo: /copy-pagina para criar a página de vendas 8D do produto.
+```
+
+**Se Low Ticket:**
+
+Aplique o framework de decisão Quiz vs. Página com base no produto:
+
+| Critério | QUIZ | PÁGINA |
+|---|---|---|
+| Tipo de produto | Emocional, dor, identificação | Prático, ferramenta, direto ao ponto |
+| Nível de consciência | Não sabe que tem o problema | Já sabe o que quer |
+| Complexidade | Precisa diagnosticar ou explicar | Decisão simples e direta |
+| Faixa de preço | Até R$47 | Acima de R$97 |
+| Tipo de público | Emocional | Analítico ou pragmático |
+
+Regra: 2 ou mais critérios para o mesmo lado definem a recomendação. Em caso de empate: QUIZ.
+
+Apresente a análise aplicada ao produto específico com justificativa e recomende:
+
+```
+Com base no seu produto, a recomendação é: [QUIZ / PÁGINA]
+
+[Justificativa com os critérios que definiram a escolha]
+
+Próximo passo: /lt-quiz   (se QUIZ)
+              /lt-pagina  (se PÁGINA)
 ```

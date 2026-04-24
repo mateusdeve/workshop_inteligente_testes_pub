@@ -43,7 +43,7 @@ Leia, nesta ordem:
 
 Se `perfil.md` não existir, pare e oriente a usar `/produto-concepcao` antes.
 
-Se `idconsumidor.md` não existir ou não tiver as 5 objeções com as 7 quebras completas, pare e oriente a usar `/produto-consumidor` antes. O playbook depende desses dados para a seção de quebra de objeções.
+Se `idconsumidor.md` não existir ou não tiver as 5 objeções com as 7 quebras completas, pare e oriente a usar `/produto-concepcao` antes (o fluxo gera a identidade do consumidor automaticamente ao final). O playbook depende desses dados para a seção de quebra de objeções.
 
 ### 2. Escolha de produto (pergunta condicional)
 

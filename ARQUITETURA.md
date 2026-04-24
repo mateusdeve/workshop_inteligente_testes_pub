@@ -85,7 +85,7 @@ workshop_inteligente/
 │   ├── index.js                           ← Manifest gerado (alimenta painel/index.html)
 │   └── {slug-do-produto}/                 ← Um diretorio por produto
 │       ├── perfil.md                      ← Gerado por /produto-concepcao
-│       ├── idconsumidor.md                ← Gerado por /produto-consumidor
+│       ├── idconsumidor.md                ← Gerado automaticamente no fim do /produto-concepcao
 │       ├── pesquisa-mercado.md, tipo.md, nome.txt (opcional)
 │       ├── painel-entregas.html           ← Painel por produto
 │       └── entregas/                      ← Output do assistente
@@ -131,8 +131,8 @@ O sistema usa 5 tipos de componentes. Cada um tem um papel especifico:
 **Como o Claude Code encontra:** Automaticamente. qualquer `.md` dentro de `.claude/commands/` vira um slash command. O nome do arquivo (sem extensao) e o nome do comando.
 
 **Como funciona na pratica:**
-1. Usuario digita `/produto-consumidor` no chat
-2. Claude Code carrega `.claude/commands/produto-consumidor.md`
+1. Usuario digita `/produto-concepcao` no chat
+2. Claude Code carrega `.claude/commands/produto-concepcao.md`
 3. O conteudo do arquivo e injetado como instrucao no contexto do Claude
 4. O Claude segue as instrucoes do command + as regras do CLAUDE.md
 
@@ -178,7 +178,7 @@ USUARIO
   ├── digita /comando ──────────► COMMAND (.claude/commands/X.md)
   │                                  │
   │                                  ├── le ► meus-produtos/{ativo}/perfil.md (contexto do produto)
-  │                                  ├── le ► meus-produtos/{ativo}/produto-consumidor.md (contexto do publico)
+  │                                  ├── le ► meus-produtos/{ativo}/idconsumidor.md (contexto do publico)
   │                                  ├── consulta ► SKILL (base de conhecimento)
   │                                  │
   │                                  └── salva ► meus-produtos/{ativo}/entregas/[tipo]/[arquivo]
@@ -186,7 +186,7 @@ USUARIO
   └── (ou agente e acionado) ───► AGENT (.claude/agents/X.md)
                                      │
                                      ├── le ► meus-produtos/{ativo}/perfil.md
-                                     ├── le ► meus-produtos/{ativo}/produto-consumidor.md
+                                     ├── le ► meus-produtos/{ativo}/idconsumidor.md
                                      ├── consulta ► SKILL (base de conhecimento)
                                      ├── le ► .env (chaves opcionais)
                                      │
@@ -194,9 +194,8 @@ USUARIO
 ```
 
 **Ordem recomendada de uso:**
-1. `/produto-concepcao` → gera `meus-produtos/{ativo}/perfil.md`
-2. `/produto-consumidor` → gera `meus-produtos/{ativo}/produto-consumidor.md`
-3. Qualquer outro comando → le perfil.md e idconsumidor.md como contexto
+1. `/produto-concepcao` → gera `meus-produtos/{ativo}/perfil.md`, `idconsumidor.md` e `painel-entregas.html` em fluxo unico
+2. Qualquer outro comando → le perfil.md e idconsumidor.md como contexto
 
 ---
 
@@ -353,7 +352,7 @@ SEMPRE em Portugues do Brasil.
 
 ### 1. Ler Contexto
 - Leia `meus-produtos/{ativo}/perfil.md` para entender o produto
-- Leia `meus-produtos/{ativo}/produto-consumidor.md` para entender o publico
+- Leia `meus-produtos/{ativo}/idconsumidor.md` para entender o publico
 - Use Quadro, Furadeira, Decorados e Urgencias Ocultas como base
 
 ### 2. [Etapa especifica do agente]
@@ -658,7 +657,7 @@ Protegido pelo `.gitignore`:
 |---|---|
 | `.env` | Chaves de API do usuario |
 | `meus-produtos/{ativo}/perfil.md` | Dados do produto do usuario |
-| `meus-produtos/{ativo}/produto-consumidor.md` | Identidade do consumidor (cliente ideal) |
+| `meus-produtos/{ativo}/idconsumidor.md` | Identidade do consumidor (cliente ideal) |
 | `meus-produtos/{ativo}/entregas/` (conteudo) | Materiais gerados sao unicos de cada usuario |
 | `_prompts-gpt/` | Prompts originais de referencia interna |
 | `.claude/projects/`, `.claude/plans/`, etc. | Arquivos de runtime do Claude Code |
@@ -678,8 +677,7 @@ Protegido pelo `.gitignore`:
 ```
 CLAUDE.md (regras globais)
     │
-    ├── /produto-concepcao ──────► skill: concepcao-produto ──► salva: meus-produtos/{ativo}/perfil.md
-    ├── /produto-consumidor ──────────► skill: concepcao-produto ──► salva: meus-produtos/{ativo}/produto-consumidor.md
+    ├── /produto-concepcao ──────► skill: concepcao-produto ──► salva: meus-produtos/{ativo}/perfil.md, idconsumidor.md, painel-entregas.html
     │
     ├── /pagina-de-vendas ─► skill: paginas ────────────► salva: meus-produtos/{ativo}/entregas/paginas/*.html
     ├── /texto-de-venda ───► skill: conteudo ───────────► salva: meus-produtos/{ativo}/entregas/textos-de-venda/*.md
@@ -756,7 +754,7 @@ description: Criar roteiro completo de webinar de vendas com estrutura de 4 atos
 ## O Que Fazer
 
 ### 1. Contexto
-Leia `meus-produtos/{ativo}/perfil.md` e `meus-produtos/{ativo}/produto-consumidor.md`.
+Leia `meus-produtos/{ativo}/perfil.md` e `meus-produtos/{ativo}/idconsumidor.md`.
 
 ### 2. Entrevista
 [... perguntas seguindo o padrao ...]

@@ -15,6 +15,7 @@ Não é software tradicional: é um sistema de prompts estruturados (CLAUDE.md, 
 | `scripts/README-creative.md` | Processo de geração de criativos via `generate-creative.py`. |
 | `/configurar-heygen` | Setup de vídeo com avatar IA (slash command). |
 | `/configurar-imagens` | Setup de geração de imagens para anúncios (slash command). |
+| `/gerar-furadeira` | Gerar PNG da Furadeira via IA. Dois fluxos: Gemini direto (rápido) ou OpenRouter com imagens de referência (refinado). Requer `GEMINI_API_KEY` e/ou `OPENROUTER_API_KEY` no `.env`. Referências visuais em `assets/furadeira-referencias/`. |
 
 ## Onde roda
 
@@ -106,7 +107,7 @@ workshop_inteligente/
 │       ├── pesquisa-mercado.md  Pesquisa de nicho
 │       ├── tipo.md              Low/Middle/High ticket
 │       ├── nome.txt             Nome amigável (opcional, override)
-│       ├── painel-entregas.html Painel por produto (gerado por /produto-consumidor)
+│       ├── painel-entregas.html Painel por produto (gerado por /produto-concepcao)
 │       └── entregas/            Output do assistente (por produto)
 │           ├── paginas/         HTML de vendas, captura, obrigado
 │           ├── copy-pagina/     Copy markdown por bloco
@@ -132,7 +133,7 @@ Observação: a pasta `meus-produtos/` contém os dados de cada aluno e não sob
 ## Comandos disponíveis
 
 ### Produto
-`/produto-novo`, `/produto-concepcao`, `/produto-consumidor`, `/produto-trocar`, `/produto-excluir`, `/produto-zerar`
+`/produto-novo`, `/produto-concepcao`, `/produto-trocar`, `/produto-excluir`, `/produto-zerar`
 
 ### Copy
 `/copy-pagina`, `/copy-anuncio`, `/copy-social`, `/copy-roteiro`, `/copy-emails`, `/elementos-literarios`
@@ -243,10 +244,9 @@ Configuradas via `.env` (veja `.env.example`):
 ## Fluxos recomendados
 
 ### Começar a vender
-1. `/produto-novo` ou `/produto-concepcao`
-2. `/produto-consumidor`
-3. `/copy-pagina`
-4. `/copy-anuncio`
+1. `/produto-novo` ou `/produto-concepcao` (gera perfil + identidade do consumidor + painel)
+2. `/copy-pagina`
+3. `/copy-anuncio`
 
 ### Lançamento
 1. `/produto-concepcao`

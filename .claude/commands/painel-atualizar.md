@@ -12,7 +12,7 @@ Regenera o arquivo `meus-produtos/index.js`, que é lido pelo painel global (`pa
 Rodar esse comando sempre que:
 
 - Você renomeou um produto manualmente no filesystem.
-- Você adicionou ou removeu o arquivo `painel-entregas.html` de algum produto sem passar pelo comando `/produto-consumidor`.
+- Você adicionou ou removeu o arquivo `painel-entregas.html` de algum produto sem passar pelo comando `/produto-concepcao`.
 - O painel global está mostrando produto errado, painel errado ou diz "Manifest não encontrado".
 - Você criou um `nome.txt` novo dentro de algum produto para customizar o display.
 

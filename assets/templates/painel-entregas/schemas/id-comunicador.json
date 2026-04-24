@@ -1,0 +1,17 @@
+{
+  "_comentario": "Identidade do Comunicador. Todos os arrays ficam vazios [] se não houver dado. mantras renderiza como texto simples linha a linha. referencias: nome e motivo.",
+  "nome": "Nome do comunicador",
+  "especialidade": "Especialidade ou área",
+  "valores": ["valor 1", "valor 2", "valor 3"],
+  "mantras": ["Frase própria 1", "Frase própria 2"],
+  "formatos": ["formato 1", "formato 2"],
+  "estiloVisual": ["elemento 1", "elemento 2"],
+  "referencias": [
+    { "nome": "Referência 1", "motivo": "Por que essa referência" },
+    { "nome": "Referência 2", "motivo": "Por que essa referência" }
+  ],
+  "tomDeVoz": "Parágrafo de 3-5 linhas descrevendo tom de voz e tonalidade emocional predominante.",
+  "posicionamento": "Parágrafo de 3-5 linhas descrevendo o posicionamento pessoal.",
+  "palavrasConectam": ["palavra 1", "palavra 2", "palavra 3"],
+  "palavrasAfastam": ["palavra 1", "palavra 2", "palavra 3"]
+}

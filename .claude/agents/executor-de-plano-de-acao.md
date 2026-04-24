@@ -95,7 +95,7 @@ Use esta tabela de mapeamento como referência:
 | Mapear funil perpétuo | skill `estrategia-funil` |
 | Criar script de venda 1:1, SPIN, objeções | skill `comercial-playbook` ou agente `consultor-comercial` |
 | Planejar High Ticket (qualquer fase C10X) | agente `estrategista-ht` ou skills `ht-*` específicas |
-| Criar ou editar perfil do produto | skill `produto-editar` ou `produto-consumidor` |
+| Criar ou editar perfil do produto | skill `produto-editar` ou comando `/produto-concepcao` (que gera Identidade do Consumidor automaticamente no final) |
 | Aplicar elementos literários em copy | skill `elementos-literarios` |
 | Criar GPT personalizado | skill `criar-gpt` |
 

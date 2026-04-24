@@ -1,11 +1,32 @@
 ---
 name: workshop-marketing:produto-novo
-description: Criar um novo produto/projeto e defini-lo como produto ativo.
+description: Porta de entrada do projeto. Verifica produto ativo, cria um novo produto ou gera ideias de produto. Acionada automaticamente em QUALQUER nova conversa pela regra de abertura de sessão do CLAUDE.md.
 ---
+
+<!--
+GOVERNANÇA (NÃO REMOVER):
+
+Esta skill é a PORTA DE ENTRADA do projeto. Ela é acionada automaticamente em
+toda nova conversa, por força da seção "REGRA DE ABERTURA DE SESSÃO" do
+CLAUDE.md, independentemente do texto que o aluno digitou ("olá", "oi",
+"começar", "quero um produto", "vamos lá", etc.).
+
+Por isso, a skill precisa atender três cenários possíveis num mesmo ponto de
+entrada:
+
+  1) Aluno já tem produto ativo → mostrar qual é e perguntar se quer continuar
+     com ele ou criar um novo. NÃO recadastrar sem o aluno pedir.
+  2) Aluno quer criar um produto novo (tem ideia) → seguir o fluxo "Ramo 1".
+  3) Aluno não tem ideia e quer sugestões → seguir o fluxo "Ramo 2" (pesquisa
+     de mercado + 50 ideias).
+
+Futuras edições: mantenham as três opções no Passo 1 e a detecção de produto
+ativo no Passo 0. Não quebrem o comportamento determinístico de abertura.
+-->
 
 # Novo Produto. Criar e Ativar
 
-Cria uma nova pasta de produto dentro de `produtos/` e a define como produto ativo.
+Porta de entrada do projeto. Detecta se já existe produto ativo, cria um produto novo ou ajuda a descobrir qual produto criar.
 
 ## Usage
 
@@ -15,18 +36,52 @@ Cria uma nova pasta de produto dentro de `produtos/` e a define como produto ati
 
 ## O Que Fazer
 
-### 1. Verificar se já tem produto
+> **Regra obrigatória de comunicação:** siga o padrão "Pensar em Voz Alta" do CLAUDE.md. Antes de cada operação longa desta skill (pesquisa de mercado, geração de 50 ideias, criação de pasta e arquivos do produto, escrita do perfil.md), anuncie em UMA linha com `🔍 Próximo passo: {ação}. Tempo estimado: cerca de X segundos.` Ao concluir, confirme com `✅ Concluído: {entrega}. Caminho: {caminho}.`
+>
+> Exemplos desta skill:
+> - `🔍 Próximo passo: pesquisar o nicho de {nicho} no Google e TikTok para coletar ângulos e concorrentes. Tempo estimado: cerca de 90 segundos.`
+> - `🔍 Próximo passo: gerar 50 ideias de produto a partir da pesquisa de mercado. Tempo estimado: cerca de 30 segundos.`
+> - `🔍 Próximo passo: criar a pasta do produto e salvar o tipo.md com o formato escolhido. Tempo estimado: cerca de 5 segundos.`
+> - `✅ Concluído: produto {nome} criado e ativado. Caminho: meus-produtos/{slug}/.`
 
-Primeira pergunta obrigatória:
+### 0. Verificar produto ativo (SEMPRE primeiro)
+
+Antes de qualquer pergunta, leia `meus-produtos/.ativo`.
+
+**Se o arquivo existir e tiver um slug válido**, leia `meus-produtos/{slug}/perfil.md` (ou `meus-produtos/{slug}/tipo.md` se o perfil ainda não existir) para descobrir o nome do produto e apresente:
 
 ```
-Você já tem um produto ou ideia de produto?
+Você já tem um produto ativo: **{nome do produto}** ({tipo}).
 
-1. Sim, já tenho
-2. Não, quero descobrir o que criar
+1. Continuar com este produto
+2. Criar um produto novo
+3. Quero ideias de novo produto
 
 Digite o número:
 ```
+
+- Se escolher **1**: encerre a skill com a mensagem "Seguindo com **{nome}**. Me diga o que quer criar (copy, página, anúncio, funil) ou digite o comando da skill que quer usar." e pare.
+- Se escolher **2**: siga direto para o **Ramo 1** abaixo (pule o Passo 1).
+- Se escolher **3**: siga direto para o **Ramo 2** abaixo (pule o Passo 1).
+
+**Se não houver produto ativo** (arquivo `.ativo` inexistente ou vazio), siga para o Passo 1.
+
+### 1. Verificar se já tem produto ou ideia
+
+Primeira pergunta obrigatória (só quando NÃO há produto ativo):
+
+```
+Você já tem um produto cadastrado, quer criar um novo, ou quer ideias de produto?
+
+1. Já tenho um produto e quero cadastrar agora
+2. Quero criar um produto novo (tenho uma ideia)
+3. Quero ideias de produto (ainda não sei o que criar)
+
+Digite o número:
+```
+
+- Opção **1** ou **2**: siga para o **Ramo 1**.
+- Opção **3**: siga para o **Ramo 2**.
 
 ---
 
@@ -131,7 +186,7 @@ Qual é a sua especialidade? O que você ensina ou entrega para as pessoas?
 
 #### Passo 2. Pesquisa de mercado completa (UMA vez, agora)
 
-Com a especialidade informada, rode imediatamente a **pesquisa de mercado completa** usando WebSearch. Esta é a pesquisa definitiva, que alimentará as 100 ideias, a sugestão de preço e todo o fluxo do `/produto-concepcao`. Não refaça em nenhuma etapa posterior.
+Com a especialidade informada, rode imediatamente a **pesquisa de mercado completa** usando WebSearch. Esta é a pesquisa definitiva, que alimentará as 50 ideias, a sugestão de preço e todo o fluxo do `/produto-concepcao`. Não refaça em nenhuma etapa posterior.
 
 Avise o aluno:
 ```
@@ -149,9 +204,9 @@ Pesquise e colete obrigatoriamente:
 
 Salve o resultado em um arquivo temporário que será movido para `meus-produtos/{slug}/pesquisa-mercado.md` assim que o produto for registrado.
 
-#### Passo 3. Gerar 100 ideias de infoprodutos
+#### Passo 3. Gerar 50 ideias de infoprodutos
 
-Com base na pesquisa de mercado e no conceito de **urgências ocultas**, gere uma tabela com 100 ideias de infoprodutos altamente diferenciados para o nicho informado.
+Com base na pesquisa de mercado e no conceito de **urgências ocultas**, gere **50 ideias DIVERSAS** de infoprodutos para o nicho informado. Não são variações da mesma ideia, são 50 conceitos distintos entre si (ângulo, método, público ou promessa diferentes).
 
 **Conceito de urgências ocultas aplicado às ideias:**
 - **Dores:** problemas que o público sofre e que o produto resolve
@@ -162,14 +217,43 @@ Com base na pesquisa de mercado e no conceito de **urgências ocultas**, gere um
 - **Urgências frias:** volume alto de busca, baixa intenção direta, mas público certo
 - **Urgências inusitadas:** conexões inesperadas e criativas que chamam atenção
 
+**Distribuição obrigatória por formato (10 categorias, mínimo 3 ideias cada, total 50):**
+1. Mentoria em grupo
+2. Mentoria individual
+3. Curso gravado
+4. Curso ao vivo (turma fechada)
+5. Ebook
+6. Template ou kit pronto
+7. Consultoria
+8. Comunidade paga (assinatura)
+9. Workshop (evento curto e intensivo)
+10. Serviço (feito para o cliente)
+
+Distribua as 50 ideias entre as 10 categorias garantindo pelo menos 3 em cada. As 20 restantes vão para as categorias com maior aderência ao nicho pesquisado.
+
+**Organização do output:**
+Apresente a lista **agrupada por formato**, com um subtítulo para cada categoria e as ideias daquela categoria numeradas logo abaixo. Dentro de cada grupo, use tabela:
+
+```
+### Mentoria em grupo
+
+| # | Nome | Público-alvo resumido | Faixa de preço |
+|---|------|----------------------|----------------|
+| 1 | ... | ... | R$ ... |
+```
+
 **Colunas da tabela:**
-| Título do Produto | Subnicho | Diferencial | Formato | Prós |
+| # | Nome | Público-alvo resumido | Faixa de preço |
+
+Numeração **contínua de 1 a 50** (não reinicia a cada grupo), para o aluno escolher pelo número depois.
 
 **Regras para as ideias:**
+- 50 conceitos distintos, nunca variações da mesma ideia
 - Evite ideias genéricas. Use criatividade e ângulos inusitados
 - Gere ofertas com alto desejo e urgência natural
 - Pense em métodos pouco conhecidos, tecnologias emergentes, estratégias exclusivas
 - Os produtos precisam ser simples, fáceis de consumir e permitir picos de vendas
+- Faixa de preço coerente com o formato e com os concorrentes mapeados na pesquisa
 - Use Light Copy nas descrições: sem exageros, sem promessas vazias, sem ponto de exclamação
 
 #### Passo 4. Usuário escolhe a ideia
@@ -204,7 +288,29 @@ Rode no terminal para regenerar `meus-produtos/index.js`:
 py -3 scripts/painel-atualizar.py
 ```
 
-#### Passo 7. Confirmar e sugerir próximo passo
+#### Passo 7. Criar Painel de Entregas com a primeira seção
+
+Agora que `pesquisa-mercado.md` já existe, crie o Painel de Entregas com a seção de pesquisa preenchida e as demais como "Em breve...". O aluno já vai ter algo para visualizar antes de começar a concepção.
+
+Avise:
+```
+Gerando seu painel de entregas com a pesquisa de mercado...
+```
+
+Rode no terminal:
+```
+py -3 scripts/painel-incremental.py --secao pesquisa
+```
+
+O script cria `meus-produtos/{ativo}/painel-entregas.html` com o shell completo (sidebar, navegação e todas as 8 seções como placeholders "Em breve"), e preenche apenas a seção **Pesquisa de Mercado** com os dados do `pesquisa-mercado.md`. Cada bloco seguinte (`/produto-concepcao`) vai atualizando o painel seção por seção.
+
+Confirme ao aluno:
+```
+Painel criado com a seção Pesquisa de Mercado.
+Caminho: meus-produtos/{ativo}/painel-entregas.html
+```
+
+#### Passo 8. Confirmar e sugerir próximo passo
 
 ```
 Produto "{nome}" criado e ativado.

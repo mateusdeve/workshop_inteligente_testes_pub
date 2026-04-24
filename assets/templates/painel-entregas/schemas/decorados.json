@@ -1,0 +1,25 @@
+{
+  "_comentario": "5 categorias obrigatórias, 10 itens cada. Nomes exatos: Financeiro, Tempo, Autoestima, Reputação, Crescimento. As cores das badges são aplicadas automaticamente pelo renderizador com base no nome.",
+  "categorias": [
+    {
+      "nome": "Financeiro",
+      "itens": ["benefício 1", "benefício 2", "benefício 3", "benefício 4", "benefício 5", "benefício 6", "benefício 7", "benefício 8", "benefício 9", "benefício 10"]
+    },
+    {
+      "nome": "Tempo",
+      "itens": ["benefício 1", "benefício 2", "benefício 3", "benefício 4", "benefício 5", "benefício 6", "benefício 7", "benefício 8", "benefício 9", "benefício 10"]
+    },
+    {
+      "nome": "Autoestima",
+      "itens": ["benefício 1", "benefício 2", "benefício 3", "benefício 4", "benefício 5", "benefício 6", "benefício 7", "benefício 8", "benefício 9", "benefício 10"]
+    },
+    {
+      "nome": "Reputação",
+      "itens": ["benefício 1", "benefício 2", "benefício 3", "benefício 4", "benefício 5", "benefício 6", "benefício 7", "benefício 8", "benefício 9", "benefício 10"]
+    },
+    {
+      "nome": "Crescimento",
+      "itens": ["benefício 1", "benefício 2", "benefício 3", "benefício 4", "benefício 5", "benefício 6", "benefício 7", "benefício 8", "benefício 9", "benefício 10"]
+    }
+  ]
+}

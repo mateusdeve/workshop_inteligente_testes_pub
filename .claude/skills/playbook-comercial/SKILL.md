@@ -40,7 +40,7 @@ Antes de gerar qualquer trecho do playbook, leia nesta ordem:
 1. `meus-produtos/.ativo`. Identificador do produto ativo.
 2. Listagem de `meus-produtos/`. Descobrir quantos produtos têm `perfil.md`.
 3. `meus-produtos/{produto}/perfil.md`. Obrigatório. Sem ele, aborte e oriente rodar `/produto-concepcao`. Contém Quadro, Furadeira (macroetapas e microetapas), Decorados (50 benefícios em 5 categorias), Urgências Ocultas (7 categorias × 10 itens = 70 itens), 3 Identidades (Produto, Consumidor, Comunicador), Argumentos Incontestáveis, preço e diferenciais.
-4. `meus-produtos/{produto}/idconsumidor.md`. **Obrigatório para este comando.** Contém as 5 objeções com as 7 quebras de 2 parágrafos cada (Framework dos 7 Argumentos), paliativos, frases do público, tom de comunicação e baldes de para quem é. Sem ele, aborte e oriente rodar `/produto-consumidor`.
+4. `meus-produtos/{produto}/idconsumidor.md`. **Obrigatório para este comando.** Contém as 5 objeções com as 7 quebras de 2 parágrafos cada (Framework dos 7 Argumentos), paliativos, frases do público, tom de comunicação e baldes de para quem é. Sem ele, aborte e oriente rodar `/produto-concepcao` (gera a identidade do consumidor automaticamente ao final do fluxo).
 5. `meus-produtos/{produto}/painel-entregas.html`. Se existir. Fonte visual de referência com os mesmos dados organizados.
 6. Arquivos complementares do produto em `meus-produtos/{produto}/entregas/*` (páginas, concepção, estratégia). Leitura leve, só para capturar linguagem e argumentos já aprovados.
 
@@ -153,7 +153,7 @@ O playbook extrai as **5 objeções** (até 7 se houver) do `idconsumidor.md`, c
 
 Layout visual: uma objeção por accordion (fechado por padrão). No topo da seção, tabela-resumo com uma linha por objeção apontando o argumento mais forte, para o vendedor bater o olho no celular e escolher o ataque.
 
-Nunca reescrever as quebras do `idconsumidor.md`. A versão curta é um recorte da versão completa, nunca um texto novo. Se o texto salvo estiver incompleto, orientar rodar `/produto-consumidor` de novo antes de gerar o playbook.
+Nunca reescrever as quebras do `idconsumidor.md`. A versão curta é um recorte da versão completa, nunca um texto novo. Se o texto salvo estiver incompleto, orientar rodar `/produto-concepcao` de novo (e regenerar a identidade do consumidor no fluxo) antes de gerar o playbook.
 
 ## Follow-up de quem não comprou
 
@@ -362,7 +362,7 @@ Todo playbook gerado **precisa** aparecer no painel de entregas do produto, em `
 
 Passos obrigatórios após salvar o HTML do playbook em `meus-produtos/{produto}/entregas/comercial/playbook-[slug].html`:
 
-1. **Ler** `meus-produtos/{produto}/painel-entregas.html`. Se não existir, gerar um painel mínimo seguindo a especificação do command `/produto-consumidor` (responsável pelo painel). Nunca sobrescrever o painel existente: sempre adicionar a entrega.
+1. **Ler** `meus-produtos/{produto}/painel-entregas.html`. Se não existir, gerar um painel mínimo seguindo a especificação do command `/produto-concepcao` (responsável pelo painel, no Passo 4C do fluxo unificado). Nunca sobrescrever o painel existente: sempre adicionar a entrega.
 2. **Localizar ou criar a seção "Comercial"** (ou equivalente no painel). Se o painel já tiver uma área de entregas por categoria, incluir o playbook nela. Se não tiver, adicionar uma nova seção chamada "Comercial" com o mesmo estilo visual das demais.
 3. **Adicionar um card** para o playbook com: título ("Playbook comercial WhatsApp"), data de geração (formato `YYYY-MM-DD`), link relativo para o arquivo (`entregas/comercial/playbook-[slug].html`), tag de status (`Atualizado` se acabou de gerar, `Gerado em DD/MM/YYYY`), e link "Abrir" que abre o HTML em nova aba (`target="_blank"`).
 4. **Atualizar o card existente** se já houver um registro de playbook para este produto: substituir data, manter histórico apenas se o painel já tiver esse padrão. Não duplicar cards.
@@ -380,5 +380,5 @@ Na mensagem de entrega no chat, confirme os dois caminhos ao usuário: o arquivo
 - Não mostrar o código HTML no chat ao usuário final: salvar o arquivo e informar o caminho, mais a dica de PDF (conforme `CLAUDE.md` para páginas HTML).
 - Não escrever SPIN genérico. Toda pergunta é específica ao nicho, vocabulário e rotina do consumidor.
 - Não escrever mensagens longas de WhatsApp. Uma ideia por mensagem.
-- Não reescrever as 5 objeções do `idconsumidor.md`. Extrair como estão. Se estiverem incompletas, pedir para rodar `/produto-consumidor` antes.
+- Não reescrever as 5 objeções do `idconsumidor.md`. Extrair como estão. Se estiverem incompletas, pedir para rodar `/produto-concepcao` antes (a identidade do consumidor é gerada automaticamente ao final do fluxo).
 - Não usar voz neutra. Usar a voz do comunicador em todo o documento, incluindo títulos, exemplos, frases prontas e notas.

@@ -433,7 +433,7 @@ Gerando sua página. Acompanhe o progresso:
 ⬜ Revisando acentos, grids e checklist de qualidade
 ⬜ Salvando arquivo final
 
-Isso leva cerca de 1–2 minutos. Aguarde...
+🔍 Próximo passo: escrever copy das 16 seções e montar o HTML responsivo. Tempo estimado: cerca de 2 minutos.
 ```
 
 **Passo 3b — Chamar o agente `construtor-de-paginas`** com o brief completo:

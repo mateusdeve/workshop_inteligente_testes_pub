@@ -5,6 +5,104 @@ SEMPRE responda em Português do Brasil. Nunca use inglês, termos técnicos de 
 
 ---
 
+## ACENTUAÇÃO OBRIGATÓRIA EM pt_BR (REGRA GLOBAL)
+
+> Esta regra tem prioridade absoluta sobre qualquer outra diretriz de formatação deste arquivo. Aplica-se a 100% dos textos produzidos no projeto.
+
+TODO texto gerado neste projeto deve estar em português brasileiro (pt_BR) com acentuação ortográfica correta segundo o Acordo Ortográfico de 1990. Isso inclui:
+
+- Respostas no terminal e no chat
+- Conteúdo dentro de HTMLs gerados (páginas, painéis, PDFs)
+- Textos dentro de JSON (valores de campos, mensagens, títulos)
+- Comentários em scripts e códigos auxiliares
+- Mensagens de erro, alerta e confirmação voltadas ao usuário
+- Logs e saídas informativas mostradas ao aluno
+
+**Exceção única:** nomes de arquivo, variáveis de código, slugs de URL, chaves JSON e identificadores internos permanecem em ASCII sem acento (ex: `meus-produtos`, `perfil.md`, `estrategia-lancamento`).
+
+**Palavras que JAMAIS podem aparecer sem acento em texto corrido:**
+não, são, você, está, já, também, três, público, lógico, estratégia, dúvida, introdução, conclusão, método, prática, análise, específico, básico, único, número, código, página, vídeo, área, história, memória, técnica, próximo, último, crítico, fácil, difícil, possível, impossível, automático, sábado, índice, início, sessão, decisão, opção, função, ação, reação, situação, solução.
+
+**Verificação obrigatória antes de entregar qualquer texto:**
+1. Releia o texto gerado frase por frase
+2. Confirme que toda palavra acima aparece acentuada quando for o caso (levando em conta o contexto: `publica` verbo vs. `pública` adjetivo)
+3. Se encontrar erro, corrija antes de mostrar ao usuário
+
+O hook automático em `scripts/verificar-acentuacao.py` roda ao fim de cada geração e sinaliza palavras suspeitas. Se o hook apontar algo, corrija imediatamente.
+
+---
+
+## REGRA DE ABERTURA DE SESSÃO (EXECUÇÃO DETERMINÍSTICA)
+
+> Esta regra tem prioridade sobre qualquer outra instrução deste arquivo, inclusive a seção "Primeira Interação". Não há exceção a não ser as listadas abaixo.
+
+**Ao iniciar QUALQUER nova conversa no projeto, a PRIMEIRA ação obrigatória é acionar a skill `produto-novo` (via Skill tool), independentemente do conteúdo da mensagem do usuário.**
+
+Vale para qualquer mensagem de abertura: "Olá", "oi", "começar", "quero criar um produto", "vamos lá", "começar a imersão", "Oi, meu nome é Alice", mensagem vazia, saudação genérica, etc. Em TODOS esses casos, acione `produto-novo` imediatamente, sem responder "como posso ajudar?" e sem listar comandos antes.
+
+**Únicas exceções (nesses casos NÃO acione `produto-novo`):**
+1. A primeira mensagem do usuário começa com `/` (ele está invocando explicitamente outra skill ou comando, ex: `/copy-pagina`, `/produto-trocar`, `/ht-big-idea`).
+2. A primeira mensagem invoca explicitamente um agente pelo nome (ex: "usar o agente construtor-de-paginas", "chamar estrategista-ht").
+3. A primeira mensagem é uma pergunta técnica específica sobre o projeto que não envolve criar ou trocar produto (ex: "por que o comando X está dando erro?", "o que faz a skill Y?"). Nesse caso, responda a dúvida direto.
+
+Se a mensagem do usuário contiver informações úteis (nome, nicho, ideia de produto), guarde no contexto e use dentro do fluxo da skill `produto-novo` em vez de pedir de novo.
+
+---
+
+## PENSAR EM VOZ ALTA. ANÚNCIO DE PRÓXIMO PASSO (OBRIGATÓRIO)
+
+> Esta regra se aplica a TODA skill, command e agente do projeto. Não há exceção.
+
+O aluno está vendo a tela e precisa saber o que está acontecendo. Silêncio durante operações longas gera dúvida. A experiência percebida de "pensando em voz alta" é parte do valor do produto.
+
+### Regra
+
+**ANTES de qualquer operação que demora mais de 10 segundos** (pesquisa de mercado, geração de HTML, geração de copy longa, criação de pastas, leitura de múltiplos arquivos, chamada de API externa, geração de ideias, execução de script Python), anuncie em UMA linha o que vai fazer:
+
+```
+🔍 Próximo passo: {ação em verbo no infinitivo}. Tempo estimado: cerca de {X} segundos.
+```
+
+**AO TERMINAR a operação**, confirme em UMA linha o resultado:
+
+```
+✅ Concluído: {o que foi entregue}. Caminho: {caminho do arquivo, se aplicável}.
+```
+
+### Padrões obrigatórios
+
+- Verbo sempre no infinitivo ("pesquisar", "gerar", "salvar", "criar", "ler").
+- Tempo estimado realista (15s, 30s, 60s, 90s, 2min). Nunca "alguns segundos" ou "um instante".
+- Caminho relativo a partir da raiz do projeto (ex: `meus-produtos/curso-tarot/perfil.md`).
+- Tom profissional e amigável, nunca robótico.
+- Português brasileiro com acentuação correta.
+- **Proibido travessão (—)** dentro do anúncio. Use ponto, dois pontos ou vírgula.
+- **Proibido "Processando...", "Aguarde...", "Um momento..."** sem contexto.
+
+### Exemplos bons
+
+- `🔍 Próximo passo: pesquisar o mercado de inglês para atletas no Google e TikTok. Tempo estimado: cerca de 90 segundos.`
+- `🔍 Próximo passo: gerar 50 Decorados a partir do Quadro do produto. Tempo estimado: cerca de 30 segundos.`
+- `🔍 Próximo passo: montar a página de vendas em HTML com as 11 seções da estrutura 8D. Tempo estimado: cerca de 60 segundos.`
+- `✅ Concluído: 50 ideias geradas. Caminho: meus-produtos/ingles-atletas/ideias.md.`
+- `✅ Concluído: perfil completo salvo. Caminho: meus-produtos/curso-tarot/perfil.md.`
+
+### Exemplos ruins (proibidos)
+
+- `Vou fazer algumas coisas agora.` (vago)
+- `Processando...` (sem contexto)
+- `Aguarde um momento.` (sem contexto e sem tempo)
+- `Pesquisando — leva uns segundos.` (travessão e tempo vago)
+- `Done! Saved.` (inglês e sem caminho)
+
+### Quando NÃO precisa anunciar
+
+- Resposta direta a uma pergunta do aluno (sem operação longa).
+- Leitura de UM único arquivo pequeno (`.ativo`, `perfil.md` curto).
+- Pergunta da entrevista guiada (a própria pergunta já é o anúncio do que está fazendo).
+
+---
+
 ## VERIFICAÇÃO OBRIGATÓRIA — PROTOCOLO DE QUALIDADE
 
 > Estas regras se aplicam a TODA geração de conteúdo. Execute os dois checklists antes de mostrar qualquer entregável ao usuário. Não há exceções.
@@ -39,7 +137,7 @@ Exemplos de correção:
 
 ### Checklist 2 — Design HTML
 
-**Exceção:** o arquivo `painel-entregas.html` (gerado pelo `/produto-consumidor`) NÃO segue este checklist. Ele tem especificação de design própria descrita diretamente no comando `produto-consumidor.md`. Para o painel, pule os passos abaixo e siga a especificação de design contida naquele comando.
+**Exceção:** o arquivo `painel-entregas.html` (gerado incrementalmente pelos hooks de `/produto-novo` e `/produto-concepcao`) NÃO segue este checklist. O design do painel vive em `scripts/painel_template.py` (shell HTML + CSS + renderers por seção) e é montado pelo script `scripts/painel-incremental.py`. Não edite o HTML do painel diretamente, nem reescreva o design no command: ajuste o template Python quando precisar mudar a aparência. Para o painel, pule os passos abaixo.
 
 Para todo outro HTML (páginas de vendas, captura, obrigado, inscrição HT, low ticket), execute os dois passos abaixo:
 
@@ -108,7 +206,9 @@ Nesses casos, continue no fluxo normal do assistente de marketing, sem criar pas
 
 ### Primeira Interação
 
-Quando o usuário iniciar uma conversa, faça o seguinte:
+> **Atenção:** a seção "REGRA DE ABERTURA DE SESSÃO" no topo deste arquivo tem prioridade sobre esta. Em TODA nova conversa, a primeira ação é acionar a skill `produto-novo` (via Skill tool), independentemente do texto digitado, exceto nas três exceções listadas lá (mensagem começando com `/`, chamada explícita de agente, ou dúvida técnica específica). O fluxo abaixo (Cenário A e Cenário B) só roda **dentro** da skill `produto-novo`, não como resposta direta do assistente.
+
+Quando a skill `produto-novo` for acionada, ela aplica o seguinte:
 
 **Passo 1. Verificar se há produto cadastrado:**
 
@@ -129,8 +229,7 @@ O que quer criar hoje?"
 Em seguida, liste os comandos disponíveis organizados por categoria:
 
 **Produto:**
-- `/produto-concepcao`. Cadastrar ou atualizar Quadro, Furadeira, Decorados e Identidades
-- `/produto-consumidor`. Criar ou atualizar a identidade do consumidor
+- `/produto-concepcao`. Cadastrar ou atualizar Quadro, Furadeira, Decorados, Identidades, Identidade do Consumidor e Painel de Entregas (fluxo unificado)
 - `/produto-trocar`. Alternar entre produtos cadastrados
 - `/produto-novo`. Criar um novo produto
 - `/produto-excluir`. Excluir um produto e todas as suas entregas
