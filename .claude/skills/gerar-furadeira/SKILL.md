@@ -1,13 +1,17 @@
 ---
 name: gerar-furadeira
-description: Apoio tecnico para o comando /gerar-furadeira. Contem o template de prompt, regras de traducao pt to en, e os parametros dos modelos de imagem.
+description: Apoio tecnico para os comandos /gerar-furadeira e /furadeira-visual (opcoes 2 e 3). Contem o template de prompt, regras de traducao pt to en, e os parametros dos modelos de imagem.
 ---
 
 # Skill. Gerar Furadeira (PNG via IA)
 
-Apoio técnico para o comando `/gerar-furadeira`. Consulte este arquivo se precisar:
+Apoio técnico para os comandos que geram a Furadeira em imagem:
+- `/gerar-furadeira`. Atalho direto para PNG (dois fluxos: Gemini ou OpenRouter, ou os dois).
+- `/furadeira-visual`. Comando principal com 3 opções de saída. Usa esta skill nas opções 2 (Imagem via API) e 3 (Prompt pronto).
+
+Consulte este arquivo se precisar:
 - Ajustar o prompt textual que vai para a API de imagem.
-- Entender por que os dois fluxos existem.
+- Entender por que os dois fluxos de API existem.
 - Depurar erros de retorno da API.
 
 ## Por que dois fluxos
