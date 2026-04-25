@@ -113,11 +113,11 @@ Salve `FB_AD_ACCOUNT_ID=valor` no `.env`.
 **Teste de conexao:**
 
 ```bash
-powershell.exe -Command "[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; \$t = (Get-Content .env | Select-String 'FB_ACCESS_TOKEN_PERMANENTE|FB_ACCESS_TOKEN_TEMPORARIO' | Select-Object -First 1) -replace '^[^=]+=',''; \$id = (Get-Content .env | Select-String 'FB_AD_ACCOUNT_ID' | Select-Object -First 1) -replace '^[^=]+=',''; Invoke-RestMethod \"https://graph.facebook.com/v25.0/act_\${id}?fields=name,account_status&access_token=\${t}\" | ConvertTo-Json"
+powershell.exe -ExecutionPolicy Bypass -File "scripts/relatorio-ads.ps1"
 ```
 
-Se retornar `{"name":"...","id":"..."}`: confirmado, conta encontrada.
-Se retornar `{"error":...}`: token invalido ou ID errado.
+Se o script buscar metricas sem erro, a conexao com Facebook Ads esta valida.
+Se retornar erro de credencial, token invalido ou ID errado, corrija o `.env`.
 
 ### 1.2 Credenciais do Canal de Envio
 
@@ -125,14 +125,7 @@ Se retornar `{"error":...}`: token invalido ou ID errado.
 
 Verifique se `TELEGRAM_BOT_TOKEN` e `TELEGRAM_CHAT_ID` existem no `.env`.
 
-Se existirem, faca o teste de conexao:
-
-```bash
-powershell.exe -Command "[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; \$bot = (Get-Content .env | Select-String 'TELEGRAM_BOT_TOKEN' | Select-Object -First 1) -replace '^[^=]+=',''; \$chat = (Get-Content .env | Select-String 'TELEGRAM_CHAT_ID' | Select-Object -First 1) -replace '^[^=]+=',''; Invoke-RestMethod -Uri \"https://api.telegram.org/bot\${bot}/sendMessage\" -Method POST -ContentType 'application/json' -Body \"{`\"chat_id`\":`\"\${chat}`\",`\"text`\":`\"Conexao confirmada. Workshop Marketing IA.`\"}\" | ConvertTo-Json"
-```
-
-Se retornar `"ok":true`: Telegram conectado.
-Se retornar erro: credenciais invalidas. Execute a skill `configurar-telegram`.
+Se existirem, avance sem imprimir o token no terminal. Para testar Telegram, execute a skill `configurar-telegram`, que valida a conexao sem expor credenciais no chat.
 
 Se nao existirem: **execute a skill `configurar-telegram`**
 
@@ -174,11 +167,11 @@ Salve os tres no `.env`.
 **Teste de conexao Z-API:**
 
 ```bash
-INSTANCE=$(grep -m1 ZAPI_INSTANCE_ID .env | cut -d= -f2); TOKEN=$(grep -m1 ZAPI_TOKEN .env | cut -d= -f2); CLIENT=$(grep -m1 ZAPI_CLIENT_TOKEN .env | cut -d= -f2); curl -s "https://api.z-api.io/instances/${INSTANCE}/token/${TOKEN}/status" -H "Client-Token: ${CLIENT}"
+powershell.exe -ExecutionPolicy Bypass -File "scripts/relatorio-ads.ps1"
 ```
 
-Se retornar `"connected":true`: WhatsApp conectado.
-Se retornar erro ou `"connected":false`: instancia nao encontrada ou QR Code nao escaneado.
+Se o envio concluir sem erro, WhatsApp conectado.
+Se retornar erro de credencial ou conexao, instancia nao encontrada, token invalido ou QR Code nao escaneado.
 
 ### 1.3 Numero de destino (somente para WhatsApp)
 

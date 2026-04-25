@@ -1,7 +1,7 @@
 ---
 name: workshop-marketing:enviar-relatorio-ads
 description: Busca as métricas do dia anterior no Facebook Ads e envia o relatório pelo Telegram ou WhatsApp via Z-API. Roda direto no CLI, sem agendamento.
-allowed-tools: Read, Bash, WebFetch
+allowed-tools: Read, Bash
 model: sonnet
 ---
 
@@ -92,15 +92,15 @@ date -d "30 days ago" +%Y-%m-%d 2>/dev/null || date -v-30d +%Y-%m-%d
 
 Guarde `INICIO_ISO`, `FIM_ISO` e `LABEL_PERIODO`.
 
-## PASSO 3. Buscar metricas no Facebook Ads
+## PASSO 3. Executar envio seguro
 
-Use WebFetch na URL abaixo, substituindo os valores reais:
+Use o script local. Ele le `.env`, envia o token do Facebook por header, mascara segredos nos logs e envia pelo canal configurado.
 
 ```
-https://graph.facebook.com/v25.0/act_{FB_AD_ACCOUNT_ID}/insights?access_token={FB_ACCESS_TOKEN}&time_range%5Bsince%5D={INICIO_ISO}&time_range%5Buntil%5D={FIM_ISO}&fields=spend,impressions,reach,clicks,ctr,cpm,cpc,actions,cost_per_action_type&level=account
+powershell.exe -ExecutionPolicy Bypass -File "scripts/relatorio-ads.ps1"
 ```
 
-Prompt para o WebFetch: "Retorne o JSON completo exatamente como recebido."
+Nunca passe `access_token`, `ZAPI_TOKEN`, `TELEGRAM_BOT_TOKEN` ou qualquer chave pela URL, pelo chat ou por comando que possa aparecer no historico do terminal.
 
 ## PASSO 4. Montar a mensagem
 
@@ -163,36 +163,13 @@ Se opcao 2: encerre sem chamar nenhuma API de envio.
 
 ## PASSO 6. Enviar
 
-**Se `RELATORIO_CANAL=TELEGRAM`:**
-
-Use Bash com curl:
+Execute novamente o script seguro se o usuario confirmar envio:
 
 ```bash
-BOT_TOKEN="{TELEGRAM_BOT_TOKEN}"
-CHAT_ID="{TELEGRAM_CHAT_ID}"
-MENSAGEM="{MENSAGEM_ESCAPADA_JSON}"
-
-curl -s -X POST \
-  "https://api.telegram.org/bot${BOT_TOKEN}/sendMessage" \
-  -H "Content-Type: application/json" \
-  -d "{\"chat_id\":\"${CHAT_ID}\",\"text\":\"${MENSAGEM}\",\"parse_mode\":\"Markdown\"}"
+powershell.exe -ExecutionPolicy Bypass -File "scripts/relatorio-ads.ps1"
 ```
 
-A mensagem deve ter as quebras de linha substituidas por `\n` para caber no JSON.
-
-**Se `RELATORIO_CANAL=WHATSAPP`:**
-
-Use Bash com curl:
-
-```bash
-curl -s -X POST \
-  "https://api.z-api.io/instances/{ZAPI_INSTANCE_ID}/token/{ZAPI_TOKEN}/send-text" \
-  -H "Content-Type: application/json" \
-  -H "Client-Token: {ZAPI_CLIENT_TOKEN}" \
-  -d "{\"phone\":\"{RELATORIO_WHATSAPP_NUMERO}\",\"message\":\"{MENSAGEM_ESCAPADA}\"}"
-```
-
-A mensagem deve ter as quebras de linha substituidas por `\n` para caber no JSON.
+Nao use `curl` manual com token em URL ou header escrito no comando.
 
 ## PASSO 7. Resultado
 

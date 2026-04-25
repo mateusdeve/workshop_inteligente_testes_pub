@@ -565,11 +565,13 @@ O arquivo `.claude/settings.json` controla quais acoes o Claude Code pode execut
       "Write(meus-produtos/{ativo}/entregas/**)",        ← Pode criar/editar arquivos em meus-produtos/{ativo}/entregas/
       "Write(meus-produtos/{ativo}/**)",     ← Pode criar/editar perfil.md e idconsumidor.md
       "Write(docs/**)",            ← Pode criar/editar documentacao
-      "Read(**)",                  ← Pode ler qualquer arquivo
+      "Read(.claude/commands/**)", ← Pode ler comandos
+      "Read(.claude/skills/**)",   ← Pode ler skills
+      "Read(scripts/**)",          ← Pode ler scripts
+      "Read(meus-produtos/**)",    ← Pode ler produtos locais
       "Bash(ls *)",               ← Pode listar arquivos
-      "Bash(cat .env)",           ← Pode ler chaves de API
       "Bash(vercel *)",           ← Pode fazer deploy
-      "Bash(curl *)"             ← Pode fazer requisicoes HTTP
+      "Bash(python3)"             ← Pode rodar Python quando necessario
     ]
   }
 }
@@ -580,8 +582,9 @@ Adicione uma nova linha no array `allow` com o padrao `"Bash(comando *)"`.
 
 **Padroes de permissao:**
 - `Write(pasta/**)`. Permite escrita recursiva na pasta
-- `Read(**)`. Permite leitura em qualquer lugar
+- `Read(pasta/**)`. Permite leitura recursiva apenas na pasta definida
 - `Bash(comando *)`. Permite executar o comando com qualquer argumento
+- Nao autorize `cat .env`, `curl *`, tokens em URL ou comandos amplos com segredos. Scripts devem ler o `.env` internamente e mascarar logs.
 
 ---
 
