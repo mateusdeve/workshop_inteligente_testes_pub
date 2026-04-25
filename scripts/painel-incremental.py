@@ -20,6 +20,7 @@ Secoes validas (ids que aparecem na sidebar e marcadores SECTION):
     identidade-consumidor
     identidade-comunicador
     copy-pagina
+    comercial-playbook   (exclusivo de /comercial-playbook)
 
 O painel vive em:
     meus-produtos/{slug}/painel-entregas.html
@@ -31,6 +32,7 @@ from __future__ import annotations
 
 import argparse
 import re
+import shutil
 import sys
 from pathlib import Path
 from typing import Iterable
@@ -45,6 +47,26 @@ import painel_template as tmpl  # noqa: E402
 PRODUTOS_DIR = REPO_ROOT / "meus-produtos"
 ATIVO_FILE = PRODUTOS_DIR / ".ativo"
 PAINEL_NOME = "painel-entregas.html"
+PAINEL_ASSETS_SRC = SCRIPT_DIR / "painel-assets"
+PAINEL_ASSETS_NOME = "painel-assets"
+
+
+def garantir_assets(produto_dir: Path) -> None:
+    """Copia os assets do design Fluxo Criativo (logo do gorila, banner) da
+    pasta do template (scripts/painel-assets/) para a pasta do produto.
+    Faz apenas se o arquivo destino ainda nao existir, para nao sobrescrever
+    eventuais customizacoes do usuario."""
+    if not PAINEL_ASSETS_SRC.is_dir():
+        return
+    destino = produto_dir / PAINEL_ASSETS_NOME
+    destino.mkdir(exist_ok=True)
+    for arquivo in PAINEL_ASSETS_SRC.iterdir():
+        if not arquivo.is_file():
+            continue
+        alvo = destino / arquivo.name
+        if alvo.exists():
+            continue
+        shutil.copy2(arquivo, alvo)
 
 SECOES_VALIDAS = sorted(tmpl.SECOES_RENDERIZAVEIS)
 
@@ -556,6 +578,31 @@ def _extrai_url(s: str) -> str:
     return s.strip() if s.startswith("http") else ""
 
 
+def parse_comercial_playbook(slug: str, produto_dir: Path) -> dict:
+    """Detecta se o playbook comercial foi gerado e devolve metadados para
+    o renderer. Fonte da verdade: existencia do HTML em entregas/comercial/.
+    Nunca e preenchido por /produto-concepcao, so por /comercial-playbook."""
+    from datetime import datetime
+
+    arquivo = produto_dir / "entregas" / "comercial" / f"playbook-{slug}.html"
+    if not arquivo.exists():
+        return {"existe": False}
+
+    try:
+        mtime = arquivo.stat().st_mtime
+        gerado_em = datetime.fromtimestamp(mtime).strftime("%d/%m/%Y as %H:%M")
+    except OSError:
+        gerado_em = ""
+
+    caminho_rel = arquivo.relative_to(produto_dir).as_posix()
+    return {
+        "existe": True,
+        "caminho": caminho_rel,
+        "nome_arquivo": arquivo.name,
+        "gerado_em": gerado_em,
+    }
+
+
 # ----- monta dados por secao -----
 
 def montar_dados(secao: str, produto_dir: Path, slug: str) -> tuple[dict, str]:
@@ -584,6 +631,8 @@ def montar_dados(secao: str, produto_dir: Path, slug: str) -> tuple[dict, str]:
         return parse_pesquisa(pesquisa), nome_produto
     if secao == "copy-pagina":
         return tmpl.parse_copy_pagina(produto_dir, slug, REPO_ROOT), nome_produto
+    if secao == "comercial-playbook":
+        return parse_comercial_playbook(slug, produto_dir), nome_produto
     raise ValueError(f"Secao desconhecida: {secao}")
 
 
@@ -602,6 +651,7 @@ def secoes_preenchidas(html_txt: str) -> list[str]:
         "identidade-comunicador": "Identidade do comunicador",
         "pesquisa": "Pesquisa de mercado",
         "copy-pagina": "Copy da pagina",
+        "comercial-playbook": "Playbook comercial",
     }
     for sid, rotulo in rotulo_por_id.items():
         bloco = extrair_bloco_secao(html_txt, sid)
@@ -701,6 +751,10 @@ def main() -> int:
     tipo_md = ler_arquivo(produto_dir / "tipo.md").strip() or "a definir"
     nome_produto = extrair_titulo_produto(perfil, slug)
 
+    # Garante que os assets do design Fluxo Criativo (logo do gorila, banner)
+    # estejam na pasta do produto, para que o CSS relativo funcione.
+    garantir_assets(produto_dir)
+
     # Cria shell se nao existir ou se o existente nao tem marcadores (legado)
     existente = painel_path.read_text(encoding="utf-8") if painel_path.exists() else ""
     tem_markers = "<!-- SECTION:" in existente
@@ -708,6 +762,21 @@ def main() -> int:
     if not existente or args.rebuild_shell or not tem_markers:
         existente = tmpl.build_shell(nome_produto)
         criou_shell = True
+
+    # Auto-upgrade: se o painel existe mas nao tem a secao pedida (pq o template
+    # ganhou seccao nova depois da criacao do painel), reconstroi o shell
+    # preservando todos os blocos ja preenchidos.
+    marcador_pedido = f"<!-- SECTION:{args.secao} -->"
+    if not criou_shell and marcador_pedido not in existente:
+        preservados: dict[str, str] = {}
+        for sid in list(tmpl.SECOES_RENDERIZAVEIS) + ["visao-geral"]:
+            bloco = extrair_bloco_secao(existente, sid)
+            if bloco and "placeholder-title" not in bloco:
+                preservados[sid] = bloco
+        existente = tmpl.build_shell(nome_produto)
+        for sid, bloco in preservados.items():
+            existente = substituir_secao(existente, sid, bloco)
+        criou_shell = True  # sinaliza no print final
 
     # Atualiza secao pedida
     dados, _ = montar_dados(args.secao, produto_dir, slug)

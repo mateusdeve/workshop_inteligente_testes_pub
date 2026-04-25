@@ -109,20 +109,12 @@ Guarde o tipo escolhido. Ele será salvo no arquivo `meus-produtos/{slug}/tipo.m
 
 #### Passo 3. Gerar slug automaticamente
 
-Com o nome fornecido, gere um slug em kebab-case (letras minúsculas, sem acentos, palavras separadas por hífen).
+Com o nome fornecido, gere um slug em kebab-case (letras minúsculas, sem acentos, palavras separadas por hífen). Salve e siga direto, sem pedir confirmação do slug ao usuário (é um detalhe técnico irrelevante para ele).
 
 Exemplos:
 - "Curso de Inglês Fluente" → `curso-ingles-fluente`
 - "Mentoria Fitness Online" → `mentoria-fitness-online`
 - "Tarô para Iniciantes" → `taro-para-iniciantes`
-
-Apresente para confirmação:
-```
-Vou criar o produto com o identificador: curso-ingles-fluente
-
-1. Confirmar
-2. Quero usar outro nome
-```
 
 #### Passo 4. Verificar se já existe
 
@@ -288,29 +280,9 @@ Rode no terminal para regenerar `meus-produtos/index.js`:
 py -3 scripts/painel-atualizar.py
 ```
 
-#### Passo 7. Criar Painel de Entregas com a primeira seção
+#### Passo 7. Confirmar e sugerir próximo passo
 
-Agora que `pesquisa-mercado.md` já existe, crie o Painel de Entregas com a seção de pesquisa preenchida e as demais como "Em breve...". O aluno já vai ter algo para visualizar antes de começar a concepção.
-
-Avise:
-```
-Gerando seu painel de entregas com a pesquisa de mercado...
-```
-
-Rode no terminal:
-```
-py -3 scripts/painel-incremental.py --secao pesquisa
-```
-
-O script cria `meus-produtos/{ativo}/painel-entregas.html` com o shell completo (sidebar, navegação e todas as 8 seções como placeholders "Em breve"), e preenche apenas a seção **Pesquisa de Mercado** com os dados do `pesquisa-mercado.md`. Cada bloco seguinte (`/produto-concepcao`) vai atualizando o painel seção por seção.
-
-Confirme ao aluno:
-```
-Painel criado com a seção Pesquisa de Mercado.
-Caminho: meus-produtos/{ativo}/painel-entregas.html
-```
-
-#### Passo 8. Confirmar e sugerir próximo passo
+O Painel de Entregas será gerado completo pelo `/produto-concepcao` (Seção 5), após todos os dados estarem prontos. Não gere o painel aqui.
 
 ```
 Produto "{nome}" criado e ativado.

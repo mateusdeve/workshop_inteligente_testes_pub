@@ -109,31 +109,16 @@ Cada email deve usar Light Copy e incluir:
 - Corpo (conversacional, com elementos literários)
 - CTA claro
 
-**Regras de estilo Light Copy. obrigatórias em todos os emails:**
-- Sem ponto de exclamação.
-- Sem perguntas no gancho.
-- Sem "mesmo que" / "sem precisar" como muletas.
-- Sem promessas vagas.
-- Travessão longo (. ): nunca usar. Substituir por vírgula, ponto ou reformulação.
-- Estrutura "Não é X. É Y.": nunca usar. Reformular de forma mais elaborada.
-- Emojis: nunca usar.
-- O produto não aparece nas primeiras linhas do email: começar pelo contexto do leitor.
-- Frases genéricas: "Transforme sua vida", "Método revolucionário", "Isso pode mudar tudo."
-- Nomear cria realidade: criar nome próprio para o conceito ou problema quando possível.
-- Especificidade: usar números concretos, situações reais. "3 dias sem dormir" > "noites difíceis".
+**Regras de estilo Light Copy:**
 
-**Checklist obrigatório. revisar antes de entregar qualquer email:**
+**Fonte única e obrigatória:** antes de escrever qualquer email, leia `.claude/skills/revisora/references/manual-copy.md`. Princípio central, **15 princípios**, **20 vícios proibidos** e **checklist Blocos A/B/C/D** vivem ali. Toda sequência passa pelo `revisora` antes de chegar ao usuário.
 
-Antes de entregar, revise e substitua:
-- Travessão (. ) → reescreva a frase sem ele
-- Estrutura "Não é X. É Y." → desenvolva o argumento de outra forma
-- Frases genéricas de vendedor → substitua por dado ou situação concreta
-- Menção ao produto nas primeiras linhas → remova ou reescreva focando no leitor
-- Emojis → remova sem substituição
-
-- [ ] Nenhum travessão no texto
-- [ ] Nenhuma estrutura "Não é X. É Y."
-- [ ] Nenhuma frase genérica de vendedor
+**Reforços específicos de email:**
+- **Assunto curto, curioso, sem clickbait:** afirmação ou fragmento de cena, nunca pergunta retórica nem promessa vaga.
+- **Produto não aparece nas primeiras linhas:** email começa pelo contexto/cena do leitor. Nome do curso, método ou sigla só depois de estabelecer o argumento.
+- **Uma ideia por email:** o email defende UMA tese e leva a UM CTA. Acumular tópicos dilui conversão.
+- **Especificidade em tudo:** "3 dias sem dormir" supera "noites difíceis"; "R$ 120 por leitura" supera "cobrar bem".
+- **CTA claro e único** por email, coerente com a fase da sequência (convite, lembrete, abertura, objeção, fechamento).
 
 ### 4. Salvar
 `meus-produtos/{ativo}/entregas/emails/sequencia-[tipo]-[produto].md`

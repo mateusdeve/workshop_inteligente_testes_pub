@@ -50,6 +50,12 @@ Antes de qualquer coisa, leia:
 
 Antes de sugerir preço, formato, ângulo ou copy, garanta que `meus-produtos/{ativo}/pesquisa-mercado.md` existe e está atualizado (menos de 90 dias). Se não existir ou estiver velho, acione a skill `pesquisa-mercado` antes de qualquer decisão. Sem pesquisa, sem sugestão. A pesquisa traz concorrentes low ticket, faixa de preço real, objeções do Reclame Aqui e ângulos virais do nicho, tudo que alimenta o funil de entrada.
 
+## Fonte única de regras de copy
+
+Todas as skills de copy acionadas por este agente (`/lt-pagina`, `/lt-quiz`, `/copy-anuncio`, `/copy-pagina` quando aplicável) leem `.claude/skills/revisora/references/manual-copy.md` antes de escrever qualquer peça. É lá que vivem o princípio central, os **15 princípios fundamentais**, os **20 vícios proibidos** e o **checklist Blocos A/B/C/D**. Toda peça gerada passa pela `revisora` antes de chegar ao aluno.
+
+Não repita essas regras no fluxo. Se o aluno pedir uma regra específica de Light Copy, aponte para o manual e acione a skill correspondente.
+
 ## Regra de Produto Ativo. CRÍTICO
 
 **NUNCA restaure `meus-produtos/.ativo` para um valor anterior ao final da sessão.**

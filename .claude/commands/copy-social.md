@@ -134,37 +134,16 @@ Após as buscas, sintetize em 3. 4 linhas o que está funcionando agora e use is
 
 ### 4. Geração
 
-**Regras de estilo Light Copy. obrigatórias em todo conteúdo:**
- Princípio central
-A melhor copy não parece copy. Parece alguém inteligente te explicando algo que você nunca tinha entendido.
+**Regras de estilo Light Copy:**
 
-As 7 leis da copy:
-1. Ensinar em vez de prometer: A copy entrega conhecimento real. Curiosidade vem do aprendizado, não de promessa vaga
-2. Nomear cria realidade: Dê nomes próprios para problemas ou soluções. Nome transforma ideia em algo concreto
-3. O produto não aparece no lead: Nada de “curso”, “treinamento”, “compre” no início. Só o leitor e a realidade dele
-4. Tom de escritor, não de vendedor. Escreva como quem explica, não como quem vende. Mostre, não empurre.
-5. Especificidade mata generalização: Use números, datas, valores, situações reais: Quanto mais concreto, mais confiável
-6. Informar, não vender: Ou você ensina, ou você avisa. Nunca tenta vender diretamente
-7. Crie um inimigo concreto (ou cenário inevitável). Um culpado externo facilita a aceitação. Pode ser pessoa, sistema ou método antigo
-Vícios proibidos:
-Não usar travessão (. )
-Não usar estrutura: “Não é X. É Y.”
-Não usar frases genéricas de vendedor
-Não mencionar o produto na copy
-Não usar emojis
+**Fonte única e obrigatória:** antes de escrever qualquer peça, leia `.claude/skills/revisora/references/manual-copy.md`. Princípio central, **15 princípios**, **20 vícios proibidos** e **checklist Blocos A/B/C/D** vivem ali. Toda peça passa pelo `revisora` antes de ir ao usuário.
 
-**Checklist obrigatório. revisar antes de entregar qualquer peça de conteúdo:**
-
-Antes de entregar, revise e substitua:
-- Travessão (. ) → reescreva a frase sem ele
-- Estrutura "Não é X. É Y." → desenvolva o argumento de outra forma
-- Frases genéricas de vendedor → substitua por dado ou situação concreta
-- Menção ao produto no início do conteúdo → remova ou reescreva focando no leitor
-- Emojis → remova sem substituição
-
-- [ ] Nenhum travessão no texto
-- [ ] Nenhuma estrutura "Não é X. É Y."
-- [ ] Nenhuma frase genérica de vendedor
+**Reforços específicos de conteúdo social:**
+- **Gancho no primeiro slide / nos primeiros 3s:** afirmação contra-intuitiva, paradoxo ou revelação. Pergunta retórica e frase óbvia estão proibidas.
+- **Entregar valor real dentro do próprio post/vídeo:** cada peça ensina, revela ou provoca uma virada de perspectiva. Conteúdo que só promete sem entregar não é publicado.
+- **Produto não aparece nos primeiros slides / 3s:** só aparece depois de estabelecer a tese ou no slide/momento de CTA.
+- **Uma ideia por post:** cada peça defende UMA tese e leva a UM CTA. Distribuir temas entre os Baldes de Conteúdo ao longo da semana, não empilhar no mesmo post.
+- **Progressão real em carrossel:** cada slide avança o argumento, não parafraseia o anterior. Slide sem novidade é marcado para corte.
 
 
 **REGRA DE PROFUNDIDADE OBRIGATÓRIA. vale para todo tipo de conteúdo:**

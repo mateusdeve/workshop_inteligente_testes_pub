@@ -149,6 +149,7 @@ Use /ht-pagina-inscricao agora.
 
 **Regras que o orquestrador segue:**
 
+- Regras de Light Copy (princípio central, 15 princípios, 20 vícios proibidos) vivem em `.claude/skills/revisora/references/manual-copy.md`. A skill `/copy-pagina` carrega o manual antes de escrever qualquer bloco. Não repita as regras aqui, aponte para o manual se o usuário pedir.
 - Nunca gere HTML direto. sempre delegue para a skill específica. As skills têm os templates do design system modular, as paletas por nicho e o checklist anti vícios de copy.
 - Antes de gerar página de vendas 8D, ofereça rodar `/furadeira-visual` para criar o diagrama do método (linear, roadmap, pirâmide, hub ou fluxograma). A imagem PNG fica embutida na seção Método da página. Diagrama visual diferencia a página de concorrentes que usam só texto e aumenta a percepção de método estruturado.
 - Se o usuário quer ajustar uma página existente, redirecione para `/feedback-pagina` (ou `/feedback-low-ticket` se for low ticket), que já faz análise de copy + design + gera HTML corrigido.

@@ -167,6 +167,7 @@ Use /lt-otimizar agora. Deixe a planilha exportada do Meta pronta.
 
 **Regras que o orquestrador segue:**
 
+- Regras de Light Copy (princípio central, 15 princípios, 20 vícios proibidos) vivem em `.claude/skills/revisora/references/manual-copy.md`. As skills `/copy-anuncio` e `/ht-anuncios` carregam o manual antes de escrever qualquer anúncio. Não repita as regras aqui.
 - Anúncio sem página de destino pronta não vai a lugar nenhum. Sempre confirme que existe página antes de gerar a campanha. Se não existir, redirecione para `/copy-pagina` primeiro.
 - A Mandala dos 18 tipos não é aleatória. cada tipo tem um objetivo e um momento de consumo. Deixe isso para a skill `/copy-anuncio` decidir. você só fala o objetivo do funil.
 - Campanha perpétua precisa dos 3 blocos (Descoberta, Conversão, Remarketing). Campanha de lançamento precisa dos blocos por fase (aquecimento, carrinho, fechamento). Não confunda os dois.

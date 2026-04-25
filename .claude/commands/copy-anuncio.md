@@ -312,25 +312,16 @@ Use esses 5 elementos para calibrar as 3 variações. O **conteúdo** (o que diz
 
 **REGRA CRÍTICA para TODO vídeo (qualquer fase, qualquer objetivo):** o vídeo deve entregar conteúdo real. A pessoa que assiste até o final aprende uma técnica, recebe um insight concreto ou tem uma virada de perspectiva. Vídeo que só promete sem entregar nada dentro do próprio vídeo não funciona. O CTA é consequência do valor entregue. não substituto.
 
-**Regras de Copy:** 
+**Regras de Copy:**
 
- Princípio central
-A melhor copy não parece copy. Parece alguém inteligente te explicando algo que você nunca tinha entendido.
+**Fonte única e obrigatória:** antes de escrever qualquer gancho, desenvolvimento ou CTA, leia `.claude/skills/revisora/references/manual-copy.md`. É ali que vivem o princípio central, os **15 princípios fundamentais**, os **20 vícios proibidos** e o **checklist final (Blocos A/B/C/D)**. Toda variação passa pelo `revisora` antes de virar entregável.
 
-As 7 leis da copy:
-1. Ensinar em vez de prometer: A copy entrega conhecimento real. Curiosidade vem do aprendizado, não de promessa vaga
-2. Nomear cria realidade: Dê nomes próprios para problemas ou soluções. Nome transforma ideia em algo concreto
-3. O produto não aparece no lead: Nada de “curso”, “treinamento”, “compre” no início. Só o leitor e a realidade dele
-4. Tom de escritor, não de vendedor. Escreva como quem explica, não como quem vende. Mostre, não empurre.
-5. Especificidade mata generalização: Use números, datas, valores, situações reais: Quanto mais concreto, mais confiável
-6. Informar, não vender: Ou você ensina, ou você avisa. Nunca tenta vender diretamente
-7. Crie um inimigo concreto (ou cenário inevitável). Um culpado externo facilita a aceitação. Pode ser pessoa, sistema ou método antigo
-Vícios proibidos:
-Não usar travessão (. )
-Não usar estrutura: “Não é X. É Y.”
-Não usar frases genéricas de vendedor
-Não mencionar o produto na copy
-Não usar emojis
+**Reforços específicos de anúncio:**
+- **Gancho nos primeiros 3 segundos:** afirmação contra-intuitiva, paradoxo, revelação ou quebra-padrão. NUNCA pergunta, NUNCA frase óbvia.
+- **Inimigo concreto ou método antigo:** o anúncio precisa de um culpado externo (sistema, método ensinado, mito do nicho), não "você é o problema".
+- **Entregar valor real no próprio post/vídeo:** a pessoa que lê ou assiste aprende algo concreto. Anúncio que só promete não converte.
+- **Produto não aparece no gancho:** nada de "curso", "treinamento", nome do método nos 3s iniciais. Só a realidade do leitor.
+- **CTA adequado à fase do funil** (ver tabela abaixo).
 
 **Estrutura obrigatória para TODO vídeo (~45. 60s / ~150. 200 palavras):**
 

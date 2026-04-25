@@ -117,14 +117,14 @@ Resumo do que vou criar:
 
 Escreva a copy de todos os slides aplicando Light Copy. Revise cada slide antes de escrever o próximo.
 
-**Checklist obrigatório por slide:**
-- Sem travessão em nenhuma frase
-- Sem ponto de exclamação
-- Sem perguntas no gancho ou título
-- Sem estrutura "Não é X. É Y."
-- Sem promessas vagas sem dado concreto
-- Produto não aparece nos primeiros 5 slides
-- Linguagem cotidiana, sem jargão técnico de nicho
+**Fonte única e obrigatória:** antes de escrever o primeiro slide, leia `.claude/skills/revisora/references/manual-copy.md`. Princípio central, **15 princípios**, **20 vícios proibidos** e **checklist Blocos A/B/C/D** vivem ali. Toda a copy do carrossel passa pelo `revisora` antes de virar HTML.
+
+**Reforços específicos de carrossel:**
+- **Slide 1 = gancho do leitor:** monólogo interno na primeira pessoa, não narrador de fora.
+- **Progressão real:** cada slide avança o argumento. Slide sem novidade é marcado para corte.
+- **Produto não aparece nos primeiros 5 slides.** Nome só no slide de CTA, se couber.
+- **Linguagem cotidiana:** sem jargão técnico de nicho. Sigla só com explicação no mesmo slide.
+- **Slide como unidade independente:** quem olha UM slide isolado entende o ponto daquele slide.
 
 **Estrutura dos slides:**
 
