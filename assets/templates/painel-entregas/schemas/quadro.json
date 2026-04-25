@@ -1,6 +1,0 @@
-{
-  "_comentario": "Dados da aba Quadro. comoUsar e regra aceitam HTML simples (tags <strong>, <br>) porque são renderizados como texto formatado no card.",
-  "quadro": "Verbo no infinitivo + transformação final",
-  "comoUsar": "O Quadro é o elemento central de toda a comunicação do produto. Use-o:<br><br><strong>Headline da página de vendas:</strong> primeira frase visível acima da dobra.<br><strong>Assunto de emails:</strong> versão adaptada como promessa do email.<br><strong>Primeiro slide de carrossel:</strong> o resultado que o post vai mostrar como chegar.<br><strong>Anúncios:</strong> base do gancho de qualquer formato.<br><strong>Script de venda:</strong> ponto de chegada de toda conversa comercial.",
-  "regra": "Teste obrigatório antes de usar qualquer variação do Quadro:<br><br>\"A pessoa pode dizer 'isso aconteceu na minha vida' ao usar o produto?\"<br><br><strong>Aprovado:</strong> exemplo positivo específico do produto.<br><br><strong>Reprovado:</strong> exemplo negativo específico do produto.<br><br>O Quadro é sempre o destino, nunca o caminho."
-}

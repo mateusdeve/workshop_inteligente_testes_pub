@@ -46,6 +46,12 @@ meus-produtos/
 # Node
 node_modules/
 
+# Assets locais. A pasta fica no Git via assets/.gitkeep,
+# mas todo conteudo gerado ou colocado pelo usuario fica fora.
+assets/**
+!assets/
+!assets/.gitkeep
+
 # ══════════════════════════════════════════
 # Arquivos de teste (nao subir)
 # ══════════════════════════════════════════

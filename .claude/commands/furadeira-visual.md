@@ -1,6 +1,6 @@
----
+﻿---
 name: workshop-marketing:furadeira-visual
-description: Gerar a Furadeira (método do produto) em 3 formatos à escolha. HTML (trilha visual), PNG via API (Gemini ou OpenRouter) ou prompt pronto para colar em IA externa.
+description: Gerar a Furadeira (método do produto) em 3 formatos à escolha. HTML (trilha visual), PNG via OpenRouter (Gemini Flash, Gemini Pro ou GPT-5.4 Image 2) ou prompt pronto para colar em IA externa.
 allowed-tools: Read, Write, Bash
 model: sonnet
 ---
@@ -46,7 +46,7 @@ Leia `meus-produtos/{ativo}/idconsumidor.md` se existir. Extraia do perfil e do 
 Como você quer gerar a Furadeira?
 
 1. HTML. Trilha visual em página navegável (rápido, sem IA de imagem)
-2. Imagem via API. PNG gerado por Gemini ou OpenRouter (precisa de chave)
+2. Imagem via API. PNG gerado via OpenRouter (precisa de chave do OpenRouter)
 3. Prompt pronto. Texto otimizado para você colar em qualquer IA externa
    (Gemini, ChatGPT, Midjourney, Ideogram, etc.)
 
@@ -179,117 +179,227 @@ Siga para a seção **Próximo passo sugerido**.
 
 ### 4. Opção 2. Imagem via API
 
-#### 4.1. Perguntar qual API
+Toda geração de imagem usa OpenRouter. A escolha é apenas de modelo.
+
+#### 4.1. Validar chave
+
+Leia `.env`. Se `OPENROUTER_API_KEY` estiver vazio ou ausente, informe e ofereça o prompt direto:
 
 ```
-Qual API usar?
+Falta a chave do OpenRouter para gerar automaticamente.
 
-1. Gemini. Rápido (cerca de 30s), sem imagens de referência
-2. OpenRouter. Refinado (até 3min), usa imagens de referência em assets/furadeira-referencias/
+Posso te dar o prompt agora para você colar no ChatGPT e gerar sem configurar nada.
+
+1. Me dá o prompt agora (vou colar no ChatGPT)
+2. Quero configurar a chave do OpenRouter (leva 2 minutos)
+```
+
+Se escolher **1**: siga o fluxo da **Opção 3** (seção 5).
+
+Se escolher **2**: informe os passos:
+```
+Passo a passo:
+1. Acesse openrouter.ai/settings/keys
+2. Clique em "Create Key", copie o valor
+3. Abra o arquivo .env na raiz do projeto
+4. Cole na linha OPENROUTER_API_KEY=sua_chave_aqui
+5. Salve e rode /furadeira-visual de novo
+```
+
+#### 4.2. Referências e modelo
+
+Pergunte sobre imagens de referência:
+
+```
+Quer usar imagens de referência para guiar o estilo visual?
+
+1. Sim, já estão salvas na pasta (assets/furadeira-referencias/)
+2. Sim, quero enviar aqui no chat agora
+3. Não, gerar sem referências
+
+As referências ajudam o modelo a replicar cores, layout e estilo de um design que você já gosta.
 
 Digite o número:
 ```
 
-#### 4.2. Validar pré-condições
+**Se escolheu 1 (pasta local):**
 
-**Se escolheu Gemini:**
-
-Leia `.env`. Se `GEMINI_API_KEY` estiver vazio ou ausente, informe e ofereça o prompt direto:
+Conte arquivos `.png`, `.jpg`, `.jpeg`, `.webp` em `assets/furadeira-referencias/`. Se menos de 3, informe:
 
 ```
-Falta a chave do Google Gemini para gerar automaticamente.
+Encontrei apenas {N} imagem(ns) em assets/furadeira-referencias/.
+Para melhores resultados, coloque pelo menos 3 imagens de referência.
 
-Posso te dar o prompt agora para você colar no chat do Gemini ou do ChatGPT
-e gerar a imagem de graça, sem precisar configurar nada.
-
-1. Me dá o prompt agora (vou colar no Gemini ou ChatGPT)
-2. Quero configurar a chave (leva 2 minutos)
+1. Vou adicionar mais imagens (retome depois)
+2. Usar as {N} que já estão lá mesmo assim
+3. Enviar as referências aqui no chat agora
 ```
 
-Se escolher **1**: siga o fluxo da **Opção 3** (seção 5) para gerar e apresentar o prompt. Após apresentar o prompt, explique:
-```
-Copie o bloco acima e cole no chat do Gemini (gemini.google.com) ou do ChatGPT (chatgpt.com).
-Eles vão gerar a imagem direto na conversa. Salve a imagem que vier.
-```
-
-Se escolher **2**: informe os passos de configuração:
-```
-Passo a passo:
-1. Acesse aistudio.google.com/app/apikey
-2. Clique em "Create API Key", copie o valor (começa com "AIzaSy")
-3. Abra o arquivo .env na raiz do projeto
-4. Cole na linha GEMINI_API_KEY=sua_chave_aqui
-5. Salve e rode /furadeira-visual de novo
-```
-
-**Se escolheu OpenRouter:**
-
-Leia `.env`. Se `OPENROUTER_API_KEY` estiver vazio, pare e instrua rodar `/configurar-imagens` antes.
-
-Conte arquivos `.png`, `.jpg`, `.jpeg`, `.webp` em `assets/furadeira-referencias/`. Se menos de 3, pare:
+**Se escolheu 2 (enviar no chat):**
 
 ```
-Faltam imagens de referência.
+Envie as imagens de referência aqui no chat.
+Pode arrastar do explorador de arquivos, colar ou usar o botão de anexo.
+Aceito de 1 a 16 imagens (PNG, JPG ou WEBP).
 
-Coloque de 3 a 16 imagens (PNG, JPG ou WEBP) em:
-assets/furadeira-referencias/
-
-São as referências visuais que o modelo vai usar para manter consistência.
-Depois de colocar, rode /furadeira-visual de novo.
+Quando terminar de enviar todas, diga "pronto".
 ```
 
-#### 4.3. Construir o prompt em inglês
+Aguarde o aluno enviar as imagens e confirmar com "pronto". Após receber:
 
-**OBJETIVO DO PROMPT:** gerar um infográfico visual que representa o método do produto, não uma foto ou cena realista. O resultado deve parecer um diagrama profissional de etapas, como os que aparecem em apresentações de PowerPoint ou materiais de treinamento corporativo.
+1. Limpe as referências antigas com Bash:
+   ```
+   bash -c "rm -f assets/furadeira-referencias/ref-*.png assets/furadeira-referencias/ref-*.jpg assets/furadeira-referencias/ref-*.jpeg assets/furadeira-referencias/ref-*.webp"
+   ```
 
-Monte um prompt em inglês com os nomes das etapas em português brasileiro. O frame técnico fica em inglês para funcionar melhor nos geradores, mas os textos visíveis do infográfico (nome do método, etapas, rótulos) devem estar em português Brasil.
+2. Para cada imagem recebida, identifique o caminho do arquivo. Use Bash para copiar para `assets/furadeira-referencias/` com nome sequencial (`ref-01.png`, `ref-02.jpg`, etc.):
+   ```
+   cp "{caminho_original}" "assets/furadeira-referencias/ref-{NN}.{ext}"
+   ```
 
-Esqueleto (substitua os placeholders):
+3. Se a imagem veio como conteúdo inline, leia-a com o Read tool pelo caminho temporário e salve em `assets/furadeira-referencias/ref-{NN}.png` com o Write tool.
+
+4. Confirme quantas foram salvas:
+   ```
+   {N} imagens salvas em assets/furadeira-referencias/. Seguindo...
+   ```
+
+**Se escolheu 3 (sem referências):**
+
+Guarde internamente `max_refs = 0` para usar no passo 4.5.
+
+Após definir as referências, pergunte o modelo:
 
 ```
-Professional flat design infographic showing a step-by-step method.
-Method name (in Portuguese, keep exactly as written): "{nome_do_metodo_em_portugues}"
-Goal (in Portuguese, keep exactly as written): "{quadro_em_portugues}"
-The infographic displays {N} sequential steps with the following labels
-(keep all labels exactly in Brazilian Portuguese as written):
-Step 1: "{macroetapa_1_em_portugues}"
-Step 2: "{macroetapa_2_em_portugues}"
-Step 3: "{macroetapa_3_em_portugues}"
-Step 4: "{macroetapa_4_em_portugues}"
-Style: clean flat design, transparent background (PNG with alpha channel),
-bold section labels, connecting arrows or lines between steps,
-icon-based illustration for each step,
-professional color palette with {cor_predominante}, no people, no faces,
-no photographs, no realistic scenes, no handwriting, no logos, no watermarks,
-no background color, no background fill.
-All visible text must be in Brazilian Portuguese (pt-BR).
-Output format: PNG with transparent background.
-Layout: horizontal flow or vertical steps. Aspect ratio 4:3.
+Qual modelo usar para gerar a Furadeira?
+
+1. Gemini 2.5 Flash Image (padrão). O mais rápido e econômico. Bom para a maioria dos casos.
+2. Gemini 2.5 Pro Image. Qualidade visual superior, mais fiel às referências. Custa um pouco mais por geração.
+3. GPT-5.4 Image 2 (OpenAI). O mais avançado da lista. Raciocínio superior para seguir instruções complexas, ótimo para diagramas limpos. Mais caro por geração.
+
+Todos os três recebem suas imagens de referência e geram PNG com fundo transparente.
+
+Digite o número:
 ```
 
-Regras de preenchimento:
-- **Nome do método e Quadro:** manter em português exatamente como estão no perfil.
-- **Macroetapas:** manter em português exatamente como estão no perfil. Não traduzir.
-- **Cor predominante:** escolha uma cor que combine com o produto (ex: "navy blue and gold", "green and white", "orange and dark gray").
+Mapeamento interno (não mostrar ao usuário):
 
-Não inclua placeholders `{}` no prompt final enviado ao script.
+- 1 → `google/gemini-2.5-flash-image`
+- 2 → `google/gemini-2.5-pro-image`
+- 3 → `openai/gpt-5.4-image-2`
+
+Guarde o model ID e `max_refs` para usar no passo 4.5.
+
+#### 4.3. Analisar as referências e construir o prompt em inglês
+
+**OBJETIVO DO PROMPT:** gerar um infográfico visual que representa o método do produto, não uma foto ou cena realista. O resultado deve parecer um diagrama profissional de etapas. O prompt precisa ser altamente assertivo: o modelo recebe as imagens de referência E uma descrição textual detalhada delas, reforçando duplamente o que deve ser replicado.
+
+---
+
+**Passo 4.3.1 — Analisar cada imagem de referência**
+
+Examine as imagens em `assets/furadeira-referencias/` e registre internamente os seguintes atributos para o conjunto:
+
+**Paleta de cores:**
+- Cor dominante do fundo dos cards ou elementos (ex: branco, azul royal #2B4AE8, escuro #1A1A2E)
+- Cor de destaque/acento usada em ícones, setas ou bordas (ex: dourado #F5A623, verde #00C875)
+- Cor dos textos dos títulos e subtítulos
+
+**Tipografia:**
+- Família: sem serifa moderna (Poppins, Inter), serifada clássica, display bold, script
+- Peso predominante dos títulos (thin, regular, bold, black/heavy)
+- Peso dos subtítulos ou descrições
+- Tamanho relativo: compacto e denso, ou amplo e arejado
+
+**Layout das etapas:**
+- Estrutura: horizontal com setas, vertical tipo timeline, cards em grid, círculo central com ramificações
+- Conexão entre etapas: setas finas, linha pontilhada, numeração progressiva, nenhuma conexão explícita
+- Proporção dos cards: quadrado, retângulo largo, retângulo alto, forma orgânica
+
+**Ícones:**
+- Estilo: outline fino, preenchido sólido, ilustrativo com gradiente, emoji-like, pictograma geométrico
+- Tamanho relativo ao texto: grande acima do texto, pequeno ao lado esquerdo, centralizado
+
+**Fundo geral:**
+- Sem fundo (transparente), branco limpo, gradiente suave, cor sólida, textura
+
+**Elementos decorativos:**
+- Formas geométricas no fundo (círculos, hexágonos, ondas)
+- Separadores entre etapas
+- Sombras nos cards (flat sem sombra, sombra suave, sombra longa)
+
+**Tom visual geral:**
+- Corporativo sóbrio, espiritualizado/etéreo, vibrante e moderno, acadêmico clean, minimalista premium
+
+Com base na análise, monte uma descrição consolidada de 4 a 6 frases em inglês que capture a essência visual do conjunto. Ela entrará diretamente no prompt. Exemplo de boa descrição consolidada:
+
+> "The references show a modern flat design style. Each step is represented as a rounded rectangle card with a thin-outline icon centered above the label text. Cards are connected by thin horizontal arrows. The dominant color is deep navy blue (#1A3A6B) with golden accents (#E8A200) on the icons and arrows. Typography is bold sans-serif (similar to Poppins or Inter) for step titles and regular weight for descriptions. The overall tone is professional and corporate, with no background fill."
+
+---
+
+**Passo 4.3.2 — Montar o prompt em inglês**
+
+Monte o prompt usando o esqueleto abaixo. Substitua todos os placeholders. O frame técnico fica em inglês, mas os textos visíveis do infográfico (nome do método, macroetapas, rótulos) ficam em português brasileiro exatamente como estão no perfil.
+
+```
+Professional flat design infographic. Transparent background, PNG with alpha channel. No background color, no background fill, no solid or gradient fill behind the entire composition.
+
+VISUAL STYLE — replicate faithfully from the provided reference images:
+{descricao_consolidada_das_referencias_em_ingles}
+
+METHOD CONTENT:
+Method name (keep exactly in Brazilian Portuguese, do not translate): "{nome_do_metodo}"
+Goal/transformation (keep exactly in Brazilian Portuguese, do not translate): "{quadro}"
+
+STEPS — keep all labels exactly in Brazilian Portuguese, do not translate or paraphrase. Preserve all accented characters exactly as written (ã, é, ç, ó, ú, â, ê, etc.):
+Step 1: "{macroetapa_1}"
+Step 2: "{macroetapa_2}"
+Step 3: "{macroetapa_3}"
+[add more steps as needed]
+
+LAYOUT: {horizontal flow with connecting arrows | vertical timeline | side-by-side cards} — use the layout most consistent with the references.
+ICON STYLE: {outline thin icons | filled solid icons | illustrative gradient icons} — match the reference exactly.
+COLOR PALETTE: {cores_em_ingles, ex: "deep navy blue #1A3A6B as dominant, golden #E8A200 as accent, white text on dark cards"}
+TYPOGRAPHY: {estilo_tipografico_em_ingles, ex: "bold sans-serif titles similar to Poppins, regular weight for descriptions, tight line-height"}
+SPACING: {compact and dense | balanced | airy and spacious} — match the references.
+DECORATIVE ELEMENTS: {descricao_dos_elementos_decorativos_se_houver, ex: "thin horizontal arrows between cards, subtle drop shadow on cards, no other decoration"}
+
+HARD CONSTRAINTS:
+- Transparent background (PNG with alpha channel). No white fill, no colored fill, no gradient wash behind the full canvas. Only the infographic elements themselves should be visible.
+- All visible text must be in Brazilian Portuguese (pt-BR). Never translate method name or step labels.
+- Render all accented characters correctly: ã, á, â, à, é, ê, í, ó, ô, õ, ú, ç. Do NOT strip, replace, or ignore accents. "Açao" is wrong; "Ação" is correct.
+- No people, no faces, no photographs, no realistic scenes, no handwriting.
+- No logos, no watermarks, no decorative frames around the full canvas.
+- Output format: PNG with transparent background, aspect ratio 4:3, minimum width 1200px.
+- The result must look like a professional training material or presentation slide.
+- No foreign text, no English labels visible in the final image.
+```
+
+**Regras de preenchimento:**
+- `{descricao_consolidada_das_referencias_em_ingles}`: a descrição de 4 a 6 frases montada no passo 4.3.1, traduzida para inglês. Seja específico: cite cores HEX, estilo de ícone, tipo de layout, peso da tipografia.
+- `{nome_do_metodo}` e `{quadro}`: extraídos do perfil, mantidos exatamente em português.
+- `{macroetapas}`: exatamente como estão no perfil. Não traduzir, não parafrasear.
+- Layout e ícones: escolha o que domina nas referências.
+- Não inclua placeholders `{}` no prompt final enviado ao script.
 
 **Regras críticas:**
-- Nunca usar "photorealistic", "cinematic", "editorial", "photograph" ou "portrait". Esses termos geram fotos realistas em vez de diagramas.
-- Nunca usar "no foreign text". Isso bloqueia o português, que é o idioma desejado.
-- Sempre incluir "All visible text must be in Brazilian Portuguese (pt-BR)" para garantir que os rótulos saiam em português.
+- Nunca usar "photorealistic", "cinematic", "editorial", "photograph" ou "portrait".
+- Nunca usar "no foreign text" no prompt (bloqueia o português).
+- Sempre incluir `"All visible text must be in Brazilian Portuguese (pt-BR)"`.
+- Fundo transparente deve aparecer em pelo menos 3 pontos do prompt: na abertura, em HARD CONSTRAINTS, e em Output format.
+- **Acentuação obrigatória:** o prompt deve instruir explicitamente o modelo a renderizar os acentos do português (ã, é, ç, ó, â, etc.). Inclua a linha de acentos em HARD CONSTRAINTS e repita na instrução de STEPS. Modelos de imagem tendem a omitir ou substituir acentos se não forem instruídos com exemplo concreto ("Ação" não "Açao").
 
-Para regras completas de tradução e ajustes opcionais (paleta, proporção, nicho espiritual vs corporativo), consulte `.claude/skills/gerar-furadeira/SKILL.md`.
+Para ajustes opcionais por nicho (espiritual vs corporativo, proporção, paleta alternativa), consulte `.claude/skills/gerar-furadeira/SKILL.md`.
 
 #### 4.4. Confirmação
 
 ```
 Vou gerar:
-- API: {Gemini | OpenRouter}
+- Modelo: {nome do modelo escolhido, ex: "Gemini 2.5 Flash Image"}
 - Produto: {nome}
 - Quadro: {quadro}
 - Etapas retratadas: {macroetapas}
-- Referências (se OpenRouter): {N} imagens
+- Referências: {N} imagens | sem referências
 
 1. Tudo certo, pode gerar
 2. Quero ajustar algo
@@ -300,20 +410,21 @@ Vou gerar:
 Anuncie antes:
 
 ```
-🔍 Próximo passo: gerar PNG via {Gemini|OpenRouter}. Tempo estimado: cerca de {30s|3min}.
+🔍 Próximo passo: gerar PNG via OpenRouter. Tempo estimado: cerca de 2 a 3 minutos.
 ```
 
-**Gemini:**
+Execute:
+
 ```
-py -3 scripts/gerar-furadeira-gemini.py --slug {ativo} --prompt "{prompt}"
+py -3 scripts/gerar-furadeira-openrouter.py --slug {ativo} --prompt "{prompt}" --model {model_id} --max-refs {N}
 ```
 
-**OpenRouter:**
-```
-py -3 scripts/gerar-furadeira-openrouter.py --slug {ativo} --prompt "{prompt}"
-```
+Onde:
 
-Timeout interno do script: 60s (Gemini) ou 180s (OpenRouter). Se estourar, o script aborta com mensagem.
+- `{model_id}` é o ID do modelo escolhido (ex: `openai/gpt-5.4-image-2`)
+- `{N}` é o número de referências em `assets/furadeira-referencias/` (use `0` se o aluno optou por gerar sem referências)
+
+Timeout interno do script: 180s. Se estourar, o script aborta com mensagem.
 
 #### 4.6. Apresentar resultado
 
@@ -359,10 +470,18 @@ Salve em `meus-produtos/{ativo}/entregas/furadeira/prompt-furadeira.md` com esta
 
 ## Onde usar
 
-**Recomendado: ChatGPT (chatgpt.com)**
-Cole o prompt no chat e peça para gerar uma imagem. O GPT-4o gera imagens diretamente na conversa.
+**Recomendado: ChatGPT (chatgpt.com) com imagens de referência**
+O ChatGPT processa imagens de referência de forma nativa — muito mais fiel do que via API.
+Envie as referências E o prompt no mesmo chat para o melhor resultado possível.
 
-Alternativas:
+**Como usar com referências no ChatGPT:**
+1. Acesse chatgpt.com e abra um chat novo
+2. Clique no ícone de clipe (anexo) e selecione suas imagens de referência
+3. Cole o prompt abaixo no campo de texto
+4. Envie tudo junto (referências + prompt) em uma única mensagem
+5. O ChatGPT vai analisar as referências e gerar a imagem no estilo delas
+
+Alternativas (sem referências visuais):
 - Google Gemini (gemini.google.com)
 - Ideogram ou Recraft (melhor suporte a fundo transparente)
 - Midjourney, Leonardo
@@ -423,16 +542,15 @@ Erros sempre em português claro, sem stack trace. Tabela por contexto:
 - PNG não gerou → instrução manual (F12 → screenshot ou Ctrl+P → salvar como PDF).
 - Erro ao salvar HTML → problema de permissão na pasta `entregas/`. Pedir para conferir se a pasta existe.
 
-**Opção 2 (API):**
+**Opção 2 (API via OpenRouter):**
+
 | Mensagem | Causa | Ação |
 |---|---|---|
-| `HTTP 401` Gemini | Chave inválida ou expirada | Gerar nova em https://aistudio.google.com/app/apikey |
-| `HTTP 401` OpenRouter | Chave inválida | Rodar `/configurar-imagens` |
-| `HTTP 402` OpenRouter | Sem crédito | Recarregar em https://openrouter.ai/settings/credits |
+| `HTTP 401` | Chave do OpenRouter inválida | Conferir `OPENROUTER_API_KEY` no `.env` |
+| `HTTP 402` | Sem crédito | Recarregar em openrouter.ai/settings/credits |
 | `HTTP 429` | Rate limit | Esperar 1 a 2 min e tentar de novo |
-| `RESOURCE_EXHAUSTED` | Cota diária do free tier Gemini | Esperar 24h ou ativar billing no Google Cloud |
 | "Nenhuma imagem retornada" | Modelo devolveu só texto | Reforçar no prompt: `Generate an image, not text` |
-| "Faltam imagens de referência" | Pasta com menos de 3 arquivos | Adicionar referências em `assets/furadeira-referencias/` |
+| "Faltam imagens de referência" | Pasta com menos de 3 arquivos e `--max-refs` não é 0 | Adicionar referências ou escolher "sem referências" |
 
 **Opção 3 (prompt pronto):**
 - Só pode falhar na escrita do arquivo (permissão). Mensagem simples pedindo para conferir a pasta `entregas/furadeira/`.
