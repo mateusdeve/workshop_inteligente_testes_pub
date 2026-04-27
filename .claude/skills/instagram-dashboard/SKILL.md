@@ -315,6 +315,7 @@ powershell -ExecutionPolicy Bypass -File .claude\skills\instagram-dashboard\scri
 - Nunca sobrescrever `entregas/conta.md` inteiro. Usar Edit cirurgico para atualizar so o campo `Instagram:`.
 - Dashboard em HTML puro. Sem libs externas alem de Google Fonts. Canvas puro para grafico.
 - Nao usar travessao em nenhum texto exibido no dashboard.
+- Design system Fluxo Criativo: fundo `#000000`, surface `#111111`, borda `#252525`, texto `#e8e8e6`, muted `#a8a8a3`, neon `#c4ff5e` como cor de destaque principal. Fontes JetBrains Mono + Space Grotesk via Google Fonts. Cards com `border-top:2px solid`, sem sombra, sem border-radius.
 - Se o perfil for privado, informar e sugerir export manual via Metricool ou Instagram Insights.
 - **CRITICO — Thumbnails obrigatorios em base64:** NUNCA usar a URL do CDN do Instagram diretamente como `src` de `<img>`. O CDN bloqueia carregamento de arquivos HTML locais. O script DEVE baixar cada thumbnail com `requests` (Python) ou `WebClient` (PowerShell) com User-Agent e Referer do Instagram e converter para `data:image/jpeg;base64,...` antes de embutir no JSON. Isso e inegociavel para as imagens aparecerem no dashboard.
 - **CRITICO — Usar apenas `apify~instagram-scraper` com chamadas sync:** NAO usar atores `nH2AHrwxeTRJoN5hX` nem `xMc5Ga1oCONPmWJIa` (retornam run IDs inacessiveis no polling). Usar sempre o endpoint `run-sync-get-dataset-items` com `resultsType:"details"` (perfil) e `resultsType:"posts"` (posts), ambos via `directUrls` com a URL do perfil.

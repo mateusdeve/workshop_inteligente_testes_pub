@@ -322,118 +322,225 @@ def gerar_html(perfil, posts, metricas, historico=None, variacoes=None):
         'atualizadoEm':      agora,
     }, ensure_ascii=False, default=str)
 
+    recharts_js = r"""
+(function () {
+  if (typeof Recharts === 'undefined' || typeof React === 'undefined') {
+    console.warn('Recharts ou React nao encontrado. Graficos nao serao renderizados via Recharts.');
+    return;
+  }
+  var R = Recharts;
+  var h = React.createElement;
+  var TOOLTIP_STYLE = {
+    background: '#141414', border: '1px solid #252525', color: '#fff',
+    fontFamily: "'JetBrains Mono', monospace", fontSize: 12, borderRadius: 0, padding: '8px 12px'
+  };
+  var TICK_STYLE = { fill: '#a8a8a3', fontSize: 10, fontFamily: "'JetBrains Mono', monospace" };
+  var COR = { Reel: '#c4ff5e', Carrossel: '#9a7bb5', Foto: '#7aa8c9' };
+
+  function makeTimelineChart(containerId, data, height) {
+    var container = document.getElementById(containerId);
+    if (!container || !data.length) return;
+    var tipos = ['Reel', 'Carrossel', 'Foto'].filter(function (t) {
+      return data.some(function (d) { return d[t] !== null && d[t] !== undefined; });
+    });
+    var lines = tipos.map(function (tipo) {
+      return h(R.Line, {
+        key: tipo, type: 'monotone', dataKey: tipo,
+        stroke: COR[tipo], strokeWidth: 2,
+        dot: { r: 3, fill: COR[tipo], strokeWidth: 0 },
+        activeDot: { r: 5 }, connectNulls: true, name: tipo
+      });
+    });
+    var args = [R.LineChart, { data: data, margin: { top: 8, right: 40, left: 10, bottom: 20 } },
+      h(R.CartesianGrid, { strokeDasharray: '3 3', stroke: '#252525', vertical: false }),
+      h(R.XAxis, { dataKey: 'date', stroke: '#a8a8a3', tick: TICK_STYLE, interval: 'preserveStartEnd' }),
+      h(R.YAxis, { stroke: '#a8a8a3', tick: TICK_STYLE, tickFormatter: fmt, width: 52 }),
+      h(R.Tooltip, {
+        contentStyle: TOOLTIP_STYLE,
+        formatter: function (v, name) { return [fmt(v), name]; },
+        labelStyle: { color: '#a8a8a3' }
+      })
+    ].concat(lines);
+    var chart = h(R.ResponsiveContainer, { width: '100%', height: height },
+      h.apply(null, args)
+    );
+    ReactDOM.createRoot(container).render(chart);
+  }
+
+  function makeHistChart(containerId, dataKey, hist) {
+    var container = document.getElementById(containerId);
+    if (!container) return;
+    var data = hist.map(function (entry) {
+      return { date: (entry.data || '').substring(0, 10), value: entry[dataKey] };
+    });
+    var chart = h(R.ResponsiveContainer, { width: '100%', height: 120 },
+      h(R.LineChart, { data: data, margin: { top: 8, right: 40, left: 10, bottom: 20 } },
+        h(R.CartesianGrid, { strokeDasharray: '3 3', stroke: '#252525', vertical: false }),
+        h(R.XAxis, { dataKey: 'date', stroke: '#a8a8a3', tick: TICK_STYLE, interval: 'preserveStartEnd' }),
+        h(R.YAxis, { stroke: '#a8a8a3', tick: TICK_STYLE, tickFormatter: fmt, width: 52 }),
+        h(R.Tooltip, {
+          contentStyle: TOOLTIP_STYLE,
+          formatter: function (v) { return [fmt(v)]; },
+          labelStyle: { color: '#a8a8a3' }
+        }),
+        h(R.Line, {
+          type: 'monotone', dataKey: 'value',
+          stroke: '#c4ff5e', strokeWidth: 2,
+          dot: { r: 3, fill: '#c4ff5e', strokeWidth: 0 },
+          activeDot: { r: 5 }
+        })
+      )
+    );
+    ReactDOM.createRoot(container).render(chart);
+  }
+
+  window.renderRechartsTimeline = function () {
+    var posts = D.postsCronologicos;
+    if (!posts || !posts.length) return;
+    function buildData(getVal) {
+      return posts.map(function (p, i) {
+        var row = { date: p.data || String(i + 1) };
+        row['Reel']      = p.tipo === 'Reel'      ? getVal(p) : null;
+        row['Carrossel'] = p.tipo === 'Carrossel' ? getVal(p) : null;
+        row['Foto']      = p.tipo === 'Foto'      ? getVal(p) : null;
+        return row;
+      });
+    }
+    makeTimelineChart('chartLikes',  buildData(function (p) { return Math.max(p.likes, 0); }), 160);
+    makeTimelineChart('chartViews',  buildData(function (p) { return p.views || 0; }),          110);
+    makeTimelineChart('chartEng',    buildData(function (p) { return p.engajamento || 0; }),    110);
+    if (D.posts && D.posts.some(function (p) { return p.shares > 0; })) {
+      makeTimelineChart('chartShares', buildData(function (p) { return p.shares || 0; }), 110);
+    }
+  };
+
+  window.renderRechartsHistorico = function () {
+    var hist = D.historico;
+    if (!hist || hist.length < 2) return;
+    makeHistChart('chartHistSeg', 'seguidores', hist);
+    makeHistChart('chartHistEng', 'engMedio', hist);
+  };
+})();
+"""
+
     return f'''<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Dashboard Instagram</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+<script src="https://unpkg.com/prop-types/prop-types.min.js" crossorigin></script>
+<script src="https://unpkg.com/recharts@2/umd/Recharts.js" crossorigin></script>
 <style>
 *,*::before,*::after{{box-sizing:border-box;margin:0;padding:0}}
 :root{{
-  --bg:#f8fafc;--card:#fff;--border:#e2e8f0;--text:#1e293b;--muted:#64748b;
-  --accent:#4338ca;--accent-lt:#eef2ff;
-  --reel:#7c3aed;--carrossel:#0369a1;--foto:#059669;
-  --sh:0 1px 3px rgba(0,0,0,.08),0 1px 2px rgba(0,0,0,.04);
-  --sh-md:0 4px 6px -1px rgba(0,0,0,.07);
-  --r:12px;--r-sm:8px
+  --ink-0:#000000;--ink-1:#0a0a0a;--ink-2:#111111;--ink-3:#141414;--ink-4:#1a1a1a;--ink-5:#242424;
+  --line-1:#1a1a1a;--line-2:#252525;--line-3:#303030;
+  --text-hi:#ffffff;--text-mid:#e8e8e6;--text-dim:#cfcfcb;--text-faint:#a8a8a3;
+  --neon:#c4ff5e;--neon-dim:#9acc2e;
+  --reel:#c4ff5e;--carrossel:#9a7bb5;--foto:#7aa8c9;
+  --accent:#c4ff5e;--accent-lt:#1a1a1a;--muted:#a8a8a3;
+  --text:#e8e8e6;--bg:#000000;--card:#111111;--border:#252525;
+  --r:0px;--r-sm:0px;--sh:none;--sh-md:none
 }}
-body{{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text)}}
+body{{font-family:'Space Grotesk','Inter',sans-serif;background:var(--ink-0);color:var(--text-mid)}}
 .wrap{{max-width:1200px;margin:0 auto;padding:24px 16px}}
-.hdr{{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:24px;display:flex;align-items:center;gap:20px;margin-bottom:24px;box-shadow:var(--sh)}}
-.avatar{{width:72px;height:72px;border-radius:50%;border:3px solid var(--accent);flex-shrink:0;background:var(--accent-lt);display:flex;align-items:center;justify-content:center;font-size:26px;font-weight:700;color:var(--accent);overflow:hidden}}
+.hdr{{background:var(--ink-2);border-top:2px solid var(--neon);border-bottom:1px solid var(--line-2);padding:24px;display:flex;align-items:center;gap:20px;margin-bottom:24px}}
+.avatar{{width:72px;height:72px;border-radius:50%;border:2px solid var(--neon);flex-shrink:0;background:var(--ink-3);display:flex;align-items:center;justify-content:center;font-size:26px;font-weight:700;color:var(--neon);overflow:hidden;font-family:'JetBrains Mono',monospace}}
 .avatar img{{width:100%;height:100%;object-fit:cover}}
-.hinfo h1{{font-size:20px;font-weight:700}}
-.hinfo .un{{color:var(--accent);font-size:14px;font-weight:500}}
-.hinfo .bio{{color:var(--muted);font-size:13px;margin-top:4px;line-height:1.4}}
-.hinfo .upd{{font-size:12px;color:var(--muted);margin-top:6px}}
+.hinfo h1{{font-size:20px;font-weight:700;color:var(--text-hi)}}
+.hinfo .un{{color:var(--neon);font-size:14px;font-weight:500;font-family:'JetBrains Mono',monospace}}
+.hinfo .bio{{color:var(--text-dim);font-size:13px;margin-top:4px;line-height:1.4}}
+.hinfo .upd{{font-size:12px;color:var(--text-faint);margin-top:6px;font-family:'JetBrains Mono',monospace}}
 .kpi-grid{{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:24px}}
-.kpi{{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:20px;box-shadow:var(--sh)}}
-.kpi-lbl{{font-size:11px;font-weight:500;color:var(--muted);text-transform:uppercase;letter-spacing:.5px}}
-.kpi-val{{font-size:28px;font-weight:700;margin-top:4px}}
-.kpi-sub{{font-size:12px;color:var(--muted);margin-top:2px}}
-.kpi-accent .kpi-val{{color:var(--accent)}}
+.kpi{{background:var(--ink-2);border-top:2px solid var(--line-3);border-bottom:1px solid var(--line-2);padding:20px}}
+.kpi-lbl{{font-size:11px;font-weight:500;color:var(--text-faint);text-transform:uppercase;letter-spacing:.5px;font-family:'JetBrains Mono',monospace}}
+.kpi-val{{font-size:28px;font-weight:700;margin-top:4px;color:var(--text-hi)}}
+.kpi-sub{{font-size:12px;color:var(--text-faint);margin-top:2px}}
+.kpi-accent .kpi-val{{color:var(--neon)}}
 .fmt-grid{{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:24px}}
-.fmt-card{{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:20px;box-shadow:var(--sh)}}
-.fmt-nome{{font-size:14px;font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:8px}}
+.fmt-card{{background:var(--ink-2);border-top:2px solid var(--line-3);border-bottom:1px solid var(--line-2);padding:20px}}
+.fmt-nome{{font-size:14px;font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:8px;color:var(--text-hi)}}
 .dot{{width:10px;height:10px;border-radius:50%}}
 .dot-r{{background:var(--reel)}}.dot-c{{background:var(--carrossel)}}.dot-f{{background:var(--foto)}}
 .mets{{display:flex;gap:16px;flex-wrap:wrap}}
-.met-lbl{{font-size:11px;color:var(--muted)}}
-.met-val{{font-size:18px;font-weight:700}}
-.sec{{font-size:16px;font-weight:700;margin-bottom:16px}}
+.met-lbl{{font-size:11px;color:var(--text-faint)}}
+.met-val{{font-size:18px;font-weight:700;color:var(--text-hi)}}
+.sec{{font-size:16px;font-weight:700;margin-bottom:16px;color:var(--text-hi)}}
 .top3-grid{{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:24px}}
-.t3c{{background:var(--card);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;box-shadow:var(--sh)}}
-.t3c img,.t3c .t3ph{{width:100%;aspect-ratio:1;object-fit:cover;display:block;background:var(--accent-lt)}}
-.t3c .t3ph{{display:flex;align-items:center;justify-content:center;font-size:12px;color:var(--muted)}}
+.t3c{{background:var(--ink-2);border-top:2px solid var(--line-3);overflow:hidden}}
+.t3c img,.t3c .t3ph{{width:100%;aspect-ratio:1;object-fit:cover;display:block;background:var(--ink-3)}}
+.t3c .t3ph{{display:flex;align-items:center;justify-content:center;font-size:12px;color:var(--text-faint)}}
 .t3b{{padding:12px}}
-.badge{{display:inline-block;padding:2px 8px;border-radius:99px;font-size:11px;font-weight:600;margin-bottom:8px}}
-.br{{background:#f3e8ff;color:var(--reel)}}.bc{{background:#e0f2fe;color:var(--carrossel)}}.bf{{background:#d1fae5;color:var(--foto)}}
-.t3stats{{display:flex;gap:10px;font-size:13px;flex-wrap:wrap;margin-bottom:4px}}
-.t3sv{{font-weight:700}}
-.t3eng{{font-size:13px;font-weight:600;color:var(--accent)}}
-.vlink{{display:inline-block;margin-top:6px;font-size:12px;color:var(--accent);text-decoration:none;font-weight:500}}
+.badge{{display:inline-block;padding:2px 8px;font-size:11px;font-weight:600;margin-bottom:8px;font-family:'JetBrains Mono',monospace;border:1px solid}}
+.br{{border-color:var(--reel);color:var(--reel);background:transparent}}.bc{{border-color:var(--carrossel);color:var(--carrossel);background:transparent}}.bf{{border-color:var(--foto);color:var(--foto);background:transparent}}
+.t3stats{{display:flex;gap:10px;font-size:13px;flex-wrap:wrap;margin-bottom:4px;color:var(--text-dim)}}
+.t3sv{{font-weight:700;color:var(--text-hi)}}
+.t3eng{{font-size:13px;font-weight:600;color:var(--neon)}}
+.vlink{{display:inline-block;margin-top:6px;font-size:12px;color:var(--neon);text-decoration:none;font-weight:500;font-family:'JetBrains Mono',monospace}}
 .vlink:hover{{text-decoration:underline}}
-.chart-card{{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:20px;margin-bottom:24px;box-shadow:var(--sh)}}
-.ch-title{{font-size:13px;font-weight:600;color:var(--muted);margin-bottom:8px}}
+.chart-card{{background:var(--ink-2);border-top:2px solid var(--line-3);border-bottom:1px solid var(--line-2);padding:20px;margin-bottom:24px}}
+.ch-title{{font-size:13px;font-weight:600;color:var(--text-faint);margin-bottom:8px;font-family:'JetBrains Mono',monospace}}
 .ch-legend{{display:flex;gap:14px;margin-bottom:8px;flex-wrap:wrap}}
-.leg{{display:flex;align-items:center;gap:5px;font-size:12px}}
+.leg{{display:flex;align-items:center;gap:5px;font-size:12px;color:var(--text-dim)}}
 .ldot{{width:10px;height:10px;border-radius:50%}}
-canvas{{width:100%!important;display:block}}
+.recharts-wrapper{{overflow:visible}}
 .pg{{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:14px;margin-bottom:24px}}
-.pc{{background:var(--card);border:1px solid var(--border);border-radius:var(--r-sm);overflow:hidden;box-shadow:var(--sh)}}
-.pw{{position:relative;width:100%;aspect-ratio:1;background:var(--accent-lt);cursor:pointer}}
+.pc{{background:var(--ink-2);border-top:2px solid var(--line-3);overflow:hidden}}
+.pw{{position:relative;width:100%;aspect-ratio:1;background:var(--ink-3);cursor:pointer}}
 .pw img{{width:100%;height:100%;object-fit:cover;display:block}}
-.ci{{position:absolute;bottom:6px;right:6px;background:rgba(0,0,0,.55);color:#fff;font-size:10px;padding:2px 6px;border-radius:99px}}
+.ci{{position:absolute;bottom:6px;right:6px;background:rgba(0,0,0,.75);color:var(--text-hi);font-size:10px;padding:2px 6px;font-family:'JetBrains Mono',monospace}}
 .pb{{padding:10px}}
-.pstats{{display:flex;gap:8px;font-size:12px;flex-wrap:wrap}}
-.psv{{font-weight:700}}
-.pdata{{font-size:11px;color:var(--muted);margin-top:3px}}
-.pleg{{font-size:11px;color:var(--muted);margin-top:3px;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}}
+.pstats{{display:flex;gap:8px;font-size:12px;flex-wrap:wrap;color:var(--text-dim)}}
+.psv{{font-weight:700;color:var(--text-hi)}}
+.pdata{{font-size:11px;color:var(--text-faint);margin-top:3px;font-family:'JetBrains Mono',monospace}}
+.pleg{{font-size:11px;color:var(--text-faint);margin-top:3px;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}}
 .hist-grid{{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px}}
-.hist-card{{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:20px;box-shadow:var(--sh)}}
+.hist-card{{background:var(--ink-2);border-top:2px solid var(--line-3);border-bottom:1px solid var(--line-2);padding:20px}}
 .heatmap-wrap{{overflow-x:auto;margin-bottom:24px}}
 .heatmap{{display:grid;grid-template-columns:48px repeat(24,1fr);gap:2px;min-width:600px}}
-.hm-lbl{{font-size:10px;color:var(--muted);display:flex;align-items:center;justify-content:center}}
-.hm-cell{{aspect-ratio:1;border-radius:4px;position:relative;cursor:default;min-width:16px}}
+.hm-lbl{{font-size:10px;color:var(--text-faint);display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace}}
+.hm-cell{{aspect-ratio:1;position:relative;cursor:default;min-width:16px}}
 .hm-cell:hover .hm-tip{{display:block}}
-.hm-tip{{display:none;position:absolute;bottom:calc(100% + 6px);left:50%;transform:translateX(-50%);background:#1e293b;color:#fff;padding:5px 8px;border-radius:6px;font-size:11px;white-space:nowrap;z-index:10;pointer-events:none}}
-.freq-wrap{{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:20px;margin-bottom:24px;box-shadow:var(--sh)}}
+.hm-tip{{display:none;position:absolute;bottom:calc(100% + 6px);left:50%;transform:translateX(-50%);background:var(--ink-3);color:var(--text-hi);border:1px solid var(--line-2);padding:5px 8px;font-size:11px;white-space:nowrap;z-index:10;pointer-events:none;font-family:'JetBrains Mono',monospace}}
+.freq-wrap{{background:var(--ink-2);border-top:2px solid var(--line-3);border-bottom:1px solid var(--line-2);padding:20px;margin-bottom:24px}}
 .freq-bars{{display:flex;align-items:flex-end;gap:4px;height:120px;margin-top:12px}}
 .freq-bar{{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:2px;min-width:0;height:100%}}
-.freq-bar-inner{{width:100%;border-radius:4px 4px 0 0;transition:height .3s}}
-.freq-bar-lbl{{font-size:9px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%;text-align:center}}
-.freq-insight{{font-size:13px;color:var(--muted);margin-top:12px;line-height:1.5}}
-.hash-wrap{{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:20px;margin-bottom:24px;box-shadow:var(--sh)}}
+.freq-bar-inner{{width:100%;transition:height .3s}}
+.freq-bar-lbl{{font-size:9px;color:var(--text-faint);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%;text-align:center;font-family:'JetBrains Mono',monospace}}
+.freq-insight{{font-size:13px;color:var(--text-dim);margin-top:12px;line-height:1.5}}
+.hash-wrap{{background:var(--ink-2);border-top:2px solid var(--line-3);border-bottom:1px solid var(--line-2);padding:20px;margin-bottom:24px}}
 .hash-row{{display:flex;align-items:center;gap:10px;margin-bottom:8px}}
-.hash-tag{{font-size:12px;font-weight:600;min-width:120px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}}
-.hash-bar-wrap{{flex:1;height:20px;background:var(--accent-lt);border-radius:4px;overflow:hidden}}
-.hash-bar{{height:100%;background:var(--accent);border-radius:4px;transition:width .3s}}
-.hash-stat{{font-size:11px;color:var(--muted);white-space:nowrap;min-width:100px}}
+.hash-tag{{font-size:12px;font-weight:600;min-width:120px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--text-hi);font-family:'JetBrains Mono',monospace}}
+.hash-bar-wrap{{flex:1;height:20px;background:var(--ink-4);overflow:hidden}}
+.hash-bar{{height:100%;background:var(--neon);transition:width .3s}}
+.hash-stat{{font-size:11px;color:var(--text-faint);white-space:nowrap;min-width:100px;font-family:'JetBrains Mono',monospace}}
 .cap-grid{{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:8px}}
-.cap-card{{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:20px;text-align:center;box-shadow:var(--sh)}}
-.cap-label{{font-size:12px;color:var(--muted);margin-bottom:4px}}
-.cap-val{{font-size:24px;font-weight:700;color:var(--accent)}}
-.cap-count{{font-size:11px;color:var(--muted);margin-top:2px}}
-.cap-insight{{font-size:13px;color:var(--muted);margin-bottom:24px;line-height:1.5}}
-.var-wrap{{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:20px;margin-bottom:24px;box-shadow:var(--sh)}}
-.var-post{{margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid var(--border)}}
+.cap-card{{background:var(--ink-2);border-top:2px solid var(--neon);border-bottom:1px solid var(--line-2);padding:20px;text-align:center}}
+.cap-label{{font-size:12px;color:var(--text-faint);margin-bottom:4px;font-family:'JetBrains Mono',monospace}}
+.cap-val{{font-size:24px;font-weight:700;color:var(--neon)}}
+.cap-count{{font-size:11px;color:var(--text-faint);margin-top:2px}}
+.cap-insight{{font-size:13px;color:var(--text-dim);margin-bottom:24px;line-height:1.5}}
+.var-wrap{{background:var(--ink-2);border-top:2px solid var(--line-3);border-bottom:1px solid var(--line-2);padding:20px;margin-bottom:24px}}
+.var-post{{margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid var(--line-2)}}
 .var-post:last-child{{margin-bottom:0;padding-bottom:0;border-bottom:none}}
 .var-header{{display:flex;align-items:center;gap:12px;margin-bottom:12px}}
-.var-thumb{{width:56px;height:56px;border-radius:var(--r-sm);object-fit:cover;flex-shrink:0}}
+.var-thumb{{width:56px;height:56px;object-fit:cover;flex-shrink:0}}
 .var-info{{flex:1}}
-.var-info h4{{font-size:14px;font-weight:700;margin-bottom:2px}}
-.var-info .var-eng{{font-size:12px;color:var(--accent);font-weight:600}}
+.var-info h4{{font-size:14px;font-weight:700;margin-bottom:2px;color:var(--text-hi)}}
+.var-info .var-eng{{font-size:12px;color:var(--neon);font-weight:600}}
 .var-chips{{display:flex;gap:6px;flex-wrap:wrap}}
-.var-chip{{display:inline-block;padding:4px 10px;border-radius:99px;font-size:11px;font-weight:500;background:var(--accent-lt);color:var(--accent)}}
-.var-gancho{{font-size:12px;color:var(--muted);margin-top:4px;line-height:1.4}}
+.var-chip{{display:inline-block;padding:4px 10px;font-size:11px;font-weight:500;border:1px solid var(--line-3);color:var(--text-dim);font-family:'JetBrains Mono',monospace}}
+.var-gancho{{font-size:12px;color:var(--text-faint);margin-top:4px;line-height:1.4}}
 .filter-bar{{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;align-items:center}}
 .filter-group{{display:flex;gap:4px;align-items:center}}
-.filter-group-lbl{{font-size:11px;color:var(--muted);font-weight:600;margin-right:4px;text-transform:uppercase;letter-spacing:.5px}}
-.fbtn{{padding:5px 14px;border-radius:99px;border:1px solid var(--border);background:var(--card);font-size:12px;font-weight:500;cursor:pointer;transition:all .15s;font-family:inherit;color:var(--text)}}
-.fbtn:hover{{border-color:var(--accent);color:var(--accent)}}
-.fbtn.active{{background:var(--accent);color:#fff;border-color:var(--accent)}}
+.filter-group-lbl{{font-size:11px;color:var(--text-faint);font-weight:600;margin-right:4px;text-transform:uppercase;letter-spacing:.5px;font-family:'JetBrains Mono',monospace}}
+.fbtn{{padding:5px 14px;border:1px solid var(--line-3);background:var(--ink-2);font-size:12px;font-weight:500;cursor:pointer;transition:all .15s;font-family:'Space Grotesk','Inter',sans-serif;color:var(--text-dim)}}
+.fbtn:hover{{border-color:var(--neon);color:var(--neon)}}
+.fbtn.active{{background:var(--neon);color:#000;border-color:var(--neon)}}
 @media(max-width:768px){{
   .kpi-grid{{grid-template-columns:repeat(2,1fr)}}
   .fmt-grid,.top3-grid,.hist-grid,.cap-grid{{grid-template-columns:1fr}}
@@ -493,7 +600,7 @@ function render(){{
   <div class="hdr">
     <div class="avatar">${{avInner}}</div>
     <div class="hinfo">
-      <h1>${{p.nome||p.username}}${{p.verificado?' <svg style="display:inline-block;vertical-align:middle;margin-left:6px" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#4338ca"/><path d="M6 10.5l2.5 2.5 5.5-5.5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>':''}}</h1>
+      <h1>${{p.nome||p.username}}${{p.verificado?' <svg style="display:inline-block;vertical-align:middle;margin-left:6px" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#c4ff5e"/><path d="M6 10.5l2.5 2.5 5.5-5.5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>':''}}</h1>
       <div class="un">@${{p.username}}</div>
       ${{p.bio?`<div class="bio">${{p.bio}}</div>`:''}}
       <div class="upd">Atualizado em ${{atualizadoEm}}</div>
@@ -572,12 +679,12 @@ function render(){{
       <div class="leg"><div class="ldot" style="background:var(--foto)"></div>Foto</div>
     </div>
     <div class="ch-title">Curtidas</div>
-    <canvas id="cLikes" height="120"></canvas>
+    <div id="chartLikes" style="width:100%;height:160px"></div>
     <div class="ch-title" style="margin-top:20px">Visualizacoes (Reels)</div>
-    <canvas id="cViews" height="80"></canvas>
+    <div id="chartViews" style="width:100%;height:110px"></div>
     <div class="ch-title" style="margin-top:20px">Engajamento (%)</div>
-    <canvas id="cEng" height="80"></canvas>
-    ${{posts.some(p=>p.shares>0)?'<div class="ch-title" style="margin-top:20px">Compartilhamentos</div><canvas id="cShares" height="80"></canvas>':''}}
+    <div id="chartEng" style="width:100%;height:110px"></div>
+    ${{posts.some(p=>p.shares>0)?'<div class="ch-title" style="margin-top:20px">Compartilhamentos</div><div id="chartShares" style="width:100%;height:110px"></div>':''}}
   </div>
 
   <div id="filterBar"></div>
@@ -593,7 +700,7 @@ function render(){{
   renderHashtags();
   renderCaptionAnalysis();
   renderVariacoes();
-  setTimeout(renderCharts,100);
+  setTimeout(renderRechartsTimeline,100);
 }}
 
 function renderFilterBar(){{
@@ -712,68 +819,16 @@ function renderHistorico(){{
     <div class="hist-grid">
       <div class="hist-card">
         <div class="ch-title">Seguidores ao longo do tempo</div>
-        <canvas id="cHistSeg" height="100"></canvas>
+        <div id="chartHistSeg" style="width:100%;height:120px"></div>
       </div>
       <div class="hist-card">
         <div class="ch-title">Engajamento medio ao longo do tempo</div>
-        <canvas id="cHistEng" height="100"></canvas>
+        <div id="chartHistEng" style="width:100%;height:120px"></div>
       </div>
     </div>`;
-  setTimeout(()=>{{
-    drawHistLine('cHistSeg',h,d=>d.seguidores);
-    drawHistLine('cHistEng',h,d=>d.engMedio);
-  }},120);
+  setTimeout(renderRechartsHistorico,120);
 }}
 
-function drawHistLine(canvasId,data,getVal){{
-  const canvas=document.getElementById(canvasId);
-  if(!canvas||!data.length)return;
-  canvas.width=canvas.parentElement.offsetWidth||400;
-  const W=canvas.width,H=canvas.height;
-  const PAD={{t:10,r:16,b:28,l:52}};
-  const cw=W-PAD.l-PAD.r,ch=H-PAD.t-PAD.b;
-  const ctx=canvas.getContext('2d');
-  ctx.clearRect(0,0,W,H);
-  const vals=data.map(d=>getVal(d));
-  const maxV=Math.max(...vals,1);
-  const minV=Math.min(...vals,0);
-  const range=maxV-minV||1;
-  const xStep=data.length>1?cw/(data.length-1):0;
-  ctx.strokeStyle='#e2e8f0';ctx.lineWidth=1;
-  for(let i=0;i<=3;i++){{
-    const y=PAD.t+ch*(1-i/3);
-    ctx.beginPath();ctx.moveTo(PAD.l,y);ctx.lineTo(PAD.l+cw,y);ctx.stroke();
-  }}
-  ctx.fillStyle='#64748b';ctx.font='11px Inter,sans-serif';ctx.textAlign='right';
-  [0,0.5,1].forEach(f=>{{
-    const v=minV+range*f;
-    const y=PAD.t+ch*(1-f);
-    ctx.fillText(fmt(Math.round(v*100)/100),PAD.l-5,y+4);
-  }});
-  ctx.strokeStyle='#4338ca';ctx.lineWidth=2;
-  ctx.beginPath();
-  data.forEach((d,i)=>{{
-    const x=PAD.l+i*xStep;
-    const y=PAD.t+ch*(1-(getVal(d)-minV)/range);
-    i===0?ctx.moveTo(x,y):ctx.lineTo(x,y);
-  }});
-  ctx.stroke();
-  ctx.fillStyle='#4338ca';
-  data.forEach((d,i)=>{{
-    const x=PAD.l+i*xStep;
-    const y=PAD.t+ch*(1-(getVal(d)-minV)/range);
-    ctx.beginPath();ctx.arc(x,y,3,0,Math.PI*2);ctx.fill();
-  }});
-  ctx.fillStyle='#64748b';ctx.font='10px Inter,sans-serif';
-  ctx.textAlign='left';
-  const fmtDate=iso=>{{
-    try{{return new Date(iso).toLocaleDateString('pt-BR',{{day:'2-digit',month:'2-digit'}})}}
-    catch(e){{return''}}
-  }};
-  ctx.fillText(fmtDate(data[0].data),PAD.l,H-6);
-  ctx.textAlign='right';
-  ctx.fillText(fmtDate(data[data.length-1].data),PAD.l+cw,H-6);
-}}
 
 function renderHeatmap(){{
   const el=document.getElementById('heatmapSection');
@@ -810,7 +865,7 @@ function renderHeatmap(){{
       }}else{{
         const avg=Math.round(cell.totalEng/cell.count*100)/100;
         const opacity=Math.max(0.15,avg/maxAvg);
-        html+=`<div class="hm-cell" style="background:rgba(67,56,202,${{opacity.toFixed(2)}})"><div class="hm-tip">${{cell.count}} post${{cell.count>1?'s':''}} | ${{avg}}% eng</div></div>`;
+        html+=`<div class="hm-cell" style="background:rgba(196,255,94,${{opacity.toFixed(2)}})"><div class="hm-tip">${{cell.count}} post${{cell.count>1?'s':''}} | ${{avg}}% eng</div></div>`;
       }}
     }}
   }}
@@ -954,107 +1009,9 @@ function renderVariacoes(){{
   el.innerHTML=`<div class="var-wrap"><div class="sec">Variacoes de Conteudo</div>${{items}}</div>`;
 }}
 
-function renderCharts(){{
-  const posts=D.postsCronologicos;
-  if(!posts.length)return;
-  const COR={{Reel:'#7c3aed',Carrossel:'#0369a1',Foto:'#059669'}};
-
-  function draw(canvasId,getVal){{
-    const canvas=document.getElementById(canvasId);
-    if(!canvas)return;
-    canvas.width=canvas.parentElement.offsetWidth||800;
-    const W=canvas.width,H=canvas.height;
-    const PAD={{t:10,r:20,b:28,l:52}};
-    const cw=W-PAD.l-PAD.r,ch=H-PAD.t-PAD.b;
-    const ctx=canvas.getContext('2d');
-    ctx.clearRect(0,0,W,H);
-
-    ctx.strokeStyle='#e2e8f0';ctx.lineWidth=1;
-    for(let i=0;i<=4;i++){{
-      const y=PAD.t+ch*(1-i/4);
-      ctx.beginPath();ctx.moveTo(PAD.l,y);ctx.lineTo(PAD.l+cw,y);ctx.stroke();
-    }}
-
-    const series=['Reel','Carrossel','Foto'].map(tipo=>{{
-      return{{tipo,pts:posts.filter(p=>p.tipo===tipo).map(p=>{{return{{ts:p.timestamp,v:getVal(p)}}}})}}
-    }}).filter(s=>s.pts.length>0);
-
-    const allV=series.flatMap(s=>s.pts.map(pt=>pt.v));
-    const maxV=Math.max(...allV,1);
-    const allTs=posts.map(p=>p.timestamp).sort();
-    const t0=new Date(allTs[0]),t1=new Date(allTs[allTs.length-1]);
-    const tRange=t1-t0||1;
-
-    const xOf=ts=>PAD.l+((new Date(ts)-t0)/tRange)*cw;
-    const yOf=v=>PAD.t+ch*(1-v/maxV);
-
-    ctx.fillStyle='#64748b';ctx.font='11px Inter,sans-serif';ctx.textAlign='right';
-    [0,0.5,1].forEach(f=>{{
-      const v=maxV*f;
-      ctx.fillText(fmt(v),PAD.l-5,yOf(v)+4);
-    }});
-
-    ctx.textAlign='left';
-    const fd=ts=>new Date(ts).toLocaleDateString('pt-BR',{{day:'2-digit',month:'2-digit'}});
-    ctx.fillText(fd(allTs[0]),PAD.l,H-6);
-    ctx.textAlign='right';
-    ctx.fillText(fd(allTs[allTs.length-1]),PAD.l+cw,H-6);
-
-    series.forEach(s=>{{
-      const cor=COR[s.tipo]||'#999';
-      ctx.strokeStyle=cor;ctx.fillStyle=cor;ctx.lineWidth=2;
-      ctx.beginPath();
-      s.pts.forEach((pt,i)=>{{
-        const x=xOf(pt.ts),y=yOf(pt.v);
-        i===0?ctx.moveTo(x,y):ctx.lineTo(x,y);
-      }});
-      ctx.stroke();
-      s.pts.forEach(pt=>{{
-        ctx.beginPath();ctx.arc(xOf(pt.ts),yOf(pt.v),4,0,Math.PI*2);ctx.fill();
-      }});
-    }});
-
-    canvas._s=series;canvas._xOf=xOf;canvas._yOf=yOf;canvas._COR=COR;
-    if(!canvas._tt){{
-      canvas._tt=true;
-      canvas.addEventListener('mousemove',e=>ttMove(canvas,e));
-      canvas.addEventListener('mouseleave',ttHide);
-    }}
-  }}
-
-  draw('cLikes',p=>Math.max(p.likes,0));
-  draw('cViews',p=>p.views||0);
-  draw('cEng',p=>p.engajamento||0);
-  draw('cShares',p=>p.shares||0);
-}}
-
-let ttEl=null;
-function ttMove(canvas,e){{
-  const r=canvas.getBoundingClientRect();
-  const mx=e.clientX-r.left,my=e.clientY-r.top;
-  let closest=null,minD=20;
-  canvas._s.forEach(s=>s.pts.forEach(pt=>{{
-    const x=canvas._xOf(pt.ts),y=canvas._yOf(pt.v);
-    const d=Math.hypot(mx-x,my-y);
-    if(d<minD){{minD=d;closest={{...pt,tipo:s.tipo}};}}
-  }}));
-  if(!closest)return ttHide();
-  if(!ttEl){{
-    ttEl=document.createElement('div');
-    ttEl.style.cssText='position:fixed;background:#1e293b;color:#fff;padding:7px 11px;border-radius:8px;font-size:12px;font-family:Inter,sans-serif;pointer-events:none;z-index:9999';
-    document.body.appendChild(ttEl);
-  }}
-  const dt=new Date(closest.ts).toLocaleDateString('pt-BR',{{day:'2-digit',month:'2-digit',year:'2-digit'}});
-  ttEl.innerHTML=`<b style="color:${{canvas._COR[closest.tipo]||'#fff'}}">${{closest.tipo}}</b><br>${{fmt(closest.v)}} | ${{dt}}`;
-  ttEl.style.display='block';
-  ttEl.style.left=(e.clientX+14)+'px';
-  ttEl.style.top=(e.clientY-10)+'px';
-}}
-function ttHide(){{if(ttEl)ttEl.style.display='none';}}
-
 window.addEventListener('load',render);
-window.addEventListener('resize',()=>{{if(typeof renderCharts==='function')renderCharts();}});
 </script>
+<script>{recharts_js}</script>
 </body>
 </html>'''
 

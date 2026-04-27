@@ -114,6 +114,7 @@ Apos receber, verifique se o arquivo existe com `ls` ou `Read`. Se nao existir, 
 > 12. Adicionar marca dagua ou logo
 > 13. Juntar audio novo em video existente (dublagem)
 > 14. Outra operacao (descrever)
+> 15. Efeitos visuais (texto de gancho, lower third, color grade, progress bar, CTA final, vinheta)
 
 ### Pergunta 3 em diante
 
@@ -126,6 +127,13 @@ Depende da operacao escolhida. Pergunte APENAS os parametros necessarios, UM por
 - **Musica:** caminho do audio, se deve mixar com audio original ou substituir, volume da musica
 - **Acelerar/desacelerar:** fator (0.5x, 1.5x, 2x)
 - **Comprimir:** qualidade alvo (alta, media, baixa) ou tamanho alvo em MB
+- **Efeitos visuais:** pergunte quais efeitos quer combinar (pode ser mais de um). Para cada efeito:
+  - **Texto de gancho:** texto, tamanho (pequeno=60px, medio=90px, grande=120px), posicao (topo/centro/base), cor HEX, duracao em tela (segundos), com ou sem sombra
+  - **Lower third:** nome, cargo, cor do texto HEX, quando aparece (segundos) e por quanto tempo
+  - **Color grade:** warm (quente/alaranjado), cool (frio/cinematico), neutro com contraste, ou sem alteracao de cor
+  - **Progress bar:** cor HEX da barra, altura em pixels (padrao 8px), posicao topo ou base
+  - **CTA final:** texto, cor HEX, quantos segundos antes do fim aparece (padrao 3s)
+  - **Vinheta:** intensidade suave, media ou forte
 - **Marca dagua:** caminho do logo .png e posicao (canto superior direito, inferior direito, etc)
 
 ---
@@ -311,6 +319,96 @@ Posicoes do overlay:
 - Canto inferior esquerdo: `overlay=20:H-h-20`
 - Canto inferior direito: `overlay=W-w-20:H-h-20`
 - Centro: `overlay=(W-w)/2:(H-h)/2`
+
+### Efeitos visuais com FFmpeg
+
+Obtenha a duracao do video antes de qualquer efeito:
+
+```bash
+DUR=$(ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 "entrada.mp4")
+```
+
+**Texto de gancho animado (fade-in nos primeiros segundos):**
+
+```bash
+ffmpeg -i "entrada.mp4" \
+  -vf "drawtext=text='TEXTO AQUI':fontfile='C\\:/Windows/Fonts/arialbd.ttf':fontsize=100:fontcolor=white:x=(w-text_w)/2:y=(h/2-60):alpha='min(t/0.4\,1)':shadowcolor=black:shadowx=4:shadowy=4:enable='between(t\,0\,DURACAO_SEGUNDOS)'" \
+  -c:v libx264 -preset fast -crf 22 -c:a copy "saida.mp4"
+```
+
+Observacoes: substitua `TEXTO AQUI` e `DURACAO_SEGUNDOS`. Para posicao no topo: `y=120`. Para base: `y=h-200`.
+
+**Lower third animado (nome + cargo):**
+
+```bash
+ffmpeg -i "entrada.mp4" \
+  -vf "drawtext=text='NOME DA PESSOA':fontfile='C\\:/Windows/Fonts/arialbd.ttf':fontsize=48:fontcolor=white:x=60:y=h-190:alpha='if(lt(t\,0.8)\,t/0.8\,if(lt(t\,SAIDA)\,1\,if(lt(t\,SAIDA+0.5)\,(SAIDA+0.5-t)/0.5\,0)))':shadowcolor=black:shadowx=2:shadowy=2,drawtext=text='CARGO OU ESPECIALIDADE':fontfile='C\\:/Windows/Fonts/arial.ttf':fontsize=32:fontcolor=#dddddd:x=60:y=h-128:alpha='if(lt(t\,1.0)\,t/1.0\,if(lt(t\,SAIDA)\,1\,if(lt(t\,SAIDA+0.5)\,(SAIDA+0.5-t)/0.5\,0)))':shadowcolor=black:shadowx=2:shadowy=2" \
+  -c:v libx264 -preset fast -crf 22 -c:a copy "saida.mp4"
+```
+
+Substitua `SAIDA` pelo segundo em que o lower third deve sair (ex: 4 para sair nos 4 segundos).
+
+**Color grade warm (tons quentes, mais energia):**
+
+```bash
+ffmpeg -i "entrada.mp4" \
+  -vf "curves=red='0/0 0.5/0.57 1/1':green='0/0 0.5/0.48 1/0.95':blue='0/0 0.5/0.40 1/0.82',eq=contrast=1.08:saturation=1.12" \
+  -c:v libx264 -preset fast -crf 22 -c:a copy "saida.mp4"
+```
+
+**Color grade cool (tons frios, cinematico):**
+
+```bash
+ffmpeg -i "entrada.mp4" \
+  -vf "curves=red='0/0 0.5/0.45 1/0.92':green='0/0 0.5/0.50 1/0.96':blue='0/0 0.5/0.60 1/1',eq=contrast=1.10:saturation=0.88" \
+  -c:v libx264 -preset fast -crf 22 -c:a copy "saida.mp4"
+```
+
+**Progress bar de atencao (barra cresce conforme o video avanca):**
+
+```bash
+DUR=$(ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 "entrada.mp4")
+ffmpeg -i "entrada.mp4" \
+  -vf "drawbox=x=0:y=0:w='min(iw\,iw*t/$DUR)':h=8:color=HEXCOR@1:t=fill" \
+  -c:v libx264 -preset fast -crf 22 -c:a copy "saida.mp4"
+```
+
+Substitua `HEXCOR` pela cor sem # (ex: `ff4444` para vermelho).
+
+**CTA final animado (aparece nos ultimos segundos):**
+
+```bash
+DUR=$(ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 "entrada.mp4")
+INICIO=$(echo "$DUR - 3" | bc)
+ffmpeg -i "entrada.mp4" \
+  -vf "drawtext=text='SALVA ESSE VIDEO':fontfile='C\\:/Windows/Fonts/arialbd.ttf':fontsize=72:fontcolor=yellow:x=(w-text_w)/2:y=h-260:alpha='min((t-$INICIO)/0.5\,1)':enable='gte(t\,$INICIO)':shadowcolor=black:shadowx=4:shadowy=4" \
+  -c:v libx264 -preset fast -crf 22 -c:a copy "saida.mp4"
+```
+
+**Vinheta (escurece as bordas, foco no centro):**
+
+```bash
+# Suave
+ffmpeg -i "entrada.mp4" -vf "vignette=angle=PI/5:mode=forward" -c:v libx264 -preset fast -crf 22 -c:a copy "saida.mp4"
+# Media
+ffmpeg -i "entrada.mp4" -vf "vignette=angle=PI/3:mode=forward" -c:v libx264 -preset fast -crf 22 -c:a copy "saida.mp4"
+# Forte
+ffmpeg -i "entrada.mp4" -vf "vignette=angle=PI/2:mode=forward" -c:v libx264 -preset fast -crf 22 -c:a copy "saida.mp4"
+```
+
+**Combinando multiplos efeitos:**
+
+Encadeie os filtros com virgula dentro do mesmo `-vf`. Exemplo: color grade + vinheta + texto de gancho:
+
+```bash
+ffmpeg -i "entrada.mp4" \
+  -vf "curves=red='0/0 0.5/0.57 1/1':green='0/0 0.5/0.48 1/0.95':blue='0/0 0.5/0.40 1/0.82',vignette=angle=PI/5:mode=forward,drawtext=text='GANCHO AQUI':fontfile='C\\:/Windows/Fonts/arialbd.ttf':fontsize=100:fontcolor=white:x=(w-text_w)/2:y=160:alpha='min(t/0.4\,1)':shadowcolor=black:shadowx=4:shadowy=4:enable='between(t\,0\,3)'" \
+  -c:v libx264 -preset fast -crf 22 -c:a copy "saida.mp4"
+```
+
+Regra: coloque color grade primeiro, vinheta depois, drawtext por ultimo. Nunca mostre o comando FFmpeg cru ao aluno. Execute silenciosamente.
+
+Para efeitos mais avancados (contador animado, letras voando, cards de estatistica, confetti), use `/video-efeitos`.
 
 ---
 

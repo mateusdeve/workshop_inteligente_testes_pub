@@ -286,7 +286,7 @@ Perfil monitorado: @{username}
 - O token Apify e o username ficam no `.env` (`APIFY_API_TOKEN` e `TIKTOK_USER`). Nunca hardcodar no script.
 - Dashboard em HTML puro. Sem libs externas alem de Google Fonts. Canvas puro para graficos.
 - Nao usar travessao em nenhum texto exibido no dashboard.
-- Tema claro: fundo #f8fafc, cards brancos, accent a definir (sugestao: roxo TikTok #69c9d0 ou neutro indigo).
+- Design system Fluxo Criativo: fundo `#000000`, surface `#111111`, borda `#252525`, texto `#e8e8e6`, muted `#a8a8a3`, neon `#c4ff5e` como cor de destaque principal. Fontes JetBrains Mono + Space Grotesk via Google Fonts. Cards com `border-top:2px solid`, sem sombra, sem border-radius.
 - Se o perfil for privado, informar e encerrar com orientacao.
 - **CRITICO — Thumbnails obrigatorias em base64:** NUNCA usar URL do CDN do TikTok diretamente como src de img. Baixar via requests com User-Agent adequado.
 - **CRITICO — Engajamento no TikTok e calculado sobre views, nao sobre seguidores.** Formula: (likes + comentarios + shares) / views * 100.

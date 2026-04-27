@@ -93,7 +93,7 @@ Estrutura:
 - `<section class="tabela">`: tabela com data, tipo, tema, legenda curta (primeiras 80 caracteres), curtidas, comentários
 - `<section class="insights">`: bullets com os insights principais
 
-Tudo em CSS inline e JS vanilla. Paleta: preto + branco + uma cor de destaque (#E1306C rosa Instagram ou cor do produto). Fonte Inter via Google Fonts.
+Tudo em CSS inline e JS vanilla. Design system Fluxo Criativo: fundo `#000000`, surface `#111111`, borda `#252525`, texto `#e8e8e6`, muted `#a8a8a3`, neon `#c4ff5e` como cor de destaque principal. Fontes JetBrains Mono + Space Grotesk via Google Fonts. Cards com `border-top:2px solid`, sem sombra, sem border-radius.
 
 **OBRIGATORIO:** os dados dos posts devem ser embutidos diretamente no HTML como variável JS (`var dados = [...];`), nunca via `fetch()` de arquivo externo. Arquivos abertos via `file://` bloqueiam `fetch()` por CORS na maioria dos browsers. O HTML deve ser autossuficiente.
 

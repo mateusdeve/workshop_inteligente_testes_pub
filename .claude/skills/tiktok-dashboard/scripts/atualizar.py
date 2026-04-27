@@ -541,6 +541,65 @@ def gerar_html(perfil, videos, metricas, historico, usuario, output_dir, log):
     hashtags_json = json.dumps(metricas.get("top_hashtags", []))
     videos_json = json.dumps(videos_js, ensure_ascii=False)
 
+    recharts_js = r"""
+(function () {
+  var R = window.Recharts;
+  if (!R || !window.React) { console.error('Recharts nao encontrado'); return; }
+  var h = React.createElement;
+  var TT_STYLE = { background: '#141414', border: '1px solid #252525', borderRadius: 0, fontSize: 11, fontFamily: '"JetBrains Mono", monospace', color: '#e8e8e6' };
+  var TICK = { fontSize: 10, fontFamily: '"JetBrains Mono", monospace', fill: '#a8a8a3' };
+  function renderLinha(id, labels, data, cor, fmtFn) {
+    var el = document.getElementById(id);
+    if (!el || !labels || !labels.length) return;
+    var d = labels.map(function (l, i) { return { x: l, v: data[i] }; });
+    ReactDOM.createRoot(el).render(
+      h(R.ResponsiveContainer, { width: '100%', height: 170 },
+        h(R.LineChart, { data: d, margin: { top: 8, right: 40, left: 10, bottom: 20 } },
+          h(R.CartesianGrid, { strokeDasharray: '3 3', stroke: '#252525', vertical: false }),
+          h(R.XAxis, { dataKey: 'x', stroke: '#a8a8a3', tick: TICK, interval: 'preserveStartEnd' }),
+          h(R.YAxis, { stroke: '#a8a8a3', tick: TICK, tickFormatter: fmtFn, width: 52 }),
+          h(R.Tooltip, { contentStyle: TT_STYLE, formatter: function (v) { return [fmtFn(v)]; } }),
+          h(R.Line, { type: 'monotone', dataKey: 'v', stroke: cor, strokeWidth: 2,
+            dot: { r: 3, fill: cor, strokeWidth: 0 }, activeDot: { r: 5 }, connectNulls: true })
+        )
+      )
+    );
+  }
+  function renderBarra(id, labels, data, cor) {
+    var el = document.getElementById(id);
+    if (!el || !labels || !labels.length) return;
+    var d = labels.map(function (l, i) { return { x: l, v: data[i] }; });
+    ReactDOM.createRoot(el).render(
+      h(R.ResponsiveContainer, { width: '100%', height: 150 },
+        h(R.BarChart, { data: d, margin: { top: 8, right: 20, left: 10, bottom: 30 } },
+          h(R.CartesianGrid, { strokeDasharray: '3 3', stroke: '#252525', vertical: false }),
+          h(R.XAxis, { dataKey: 'x', stroke: '#a8a8a3', tick: TICK, interval: 0, angle: -45, textAnchor: 'end' }),
+          h(R.YAxis, { stroke: '#a8a8a3', tick: TICK, width: 40 }),
+          h(R.Tooltip, { contentStyle: TT_STYLE }),
+          h(R.Bar, { dataKey: 'v', fill: cor || '#c4ff5e', radius: [3, 3, 0, 0] })
+        )
+      )
+    );
+  }
+  function fmtK(v) { return v >= 1e6 ? (v / 1e6).toFixed(1) + 'M' : v >= 1e3 ? (v / 1e3).toFixed(0) + 'K' : String(v); }
+  function fmtPct(v) { return v.toFixed(1) + '%'; }
+  function fmtSeg(v) { return v >= 1000 ? (v / 1000).toFixed(1) + 'K' : String(Math.round(v)); }
+  window.renderRechartsAll = function () {
+    if (typeof TEM !== 'undefined' && TEM && typeof HL !== 'undefined' && HL.length >= 2) {
+      renderLinha('c-seg', HL, HS, '#c4ff5e', fmtSeg);
+      renderLinha('c-eh', HL, HE, '#9a7bb5', fmtPct);
+    }
+    if (typeof SL !== 'undefined' && SL.length) renderBarra('c-freq', SL, SC, '#c4ff5e');
+    if (typeof TL !== 'undefined' && TL.length > 1) {
+      renderLinha('c-tv', TL, TV, '#c4ff5e', fmtK);
+      renderLinha('c-tl', TL, TLk, '#f59e0b', fmtK);
+      renderLinha('c-te', TL, TE, '#9a7bb5', fmtPct);
+      renderLinha('c-ts', TL, TS, '#7aa8c9', fmtK);
+    }
+  };
+})();
+"""
+
     badges = [("badge-gold", "#1"), ("badge-silver", "#2"), ("badge-bronze", "#3")]
 
     def top3_card(v, i):
@@ -553,7 +612,7 @@ def gerar_html(perfil, videos, metricas, historico, usuario, output_dir, log):
         texto = v["texto"][:80] + "..." if len(v["texto"]) > 80 else v["texto"]
         link_tag = f'<a class="vlink" href="{v["link"]}" target="_blank">Ver no TikTok</a>' if v.get("link") else ""
         return f"""<div class="top3-card">{thumb}<div class="top3-body">
-<span class="top3-badge {bc}">{bt} — {v["duracao_fmt"]}</span>
+<span class="top3-badge {bc}">{bt}: {v["duracao_fmt"]}</span>
 <div class="top3-texto">{texto}</div>
 <div class="top3-stats">
   <span><b>{v["views_fmt"]}</b> views</span>
@@ -600,80 +659,83 @@ def gerar_html(perfil, videos, metricas, historico, usuario, output_dir, log):
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>TikTok Dashboard - @{usuario}</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+<script src="https://unpkg.com/prop-types/prop-types.min.js" crossorigin></script>
+<script src="https://unpkg.com/recharts@2/umd/Recharts.js" crossorigin></script>
 <style>
-:root{{--bg:#f8fafc;--sur:#fff;--bdr:#e2e8f0;--tx:#1e293b;--mu:#64748b;--ac:#4338ca;--acl:#eef2ff;--tk:#69c9d0;--r:12px;--sh:0 1px 3px rgba(0,0,0,.08),0 4px 12px rgba(0,0,0,.04)}}
+:root{{--bg:#000000;--sur:#111111;--bdr:#252525;--tx:#e8e8e6;--mu:#a8a8a3;--ac:#c4ff5e;--acl:#1a1a1a;--tk:#c4ff5e;--r:0px;--sh:none}}
 *{{box-sizing:border-box;margin:0;padding:0}}
-body{{font-family:'Inter',sans-serif;background:var(--bg);color:var(--tx);padding-bottom:80px}}
-.topbar{{background:#010101;color:#fff;padding:14px 24px;display:flex;align-items:center;gap:12px;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.3)}}
+body{{font-family:'Space Grotesk','Inter',sans-serif;background:var(--bg);color:var(--tx);padding-bottom:80px}}
+.topbar{{background:#000000;color:#fff;padding:14px 24px;display:flex;align-items:center;gap:12px;position:sticky;top:0;z-index:100;border-bottom:1px solid #1a1a1a}}
 .topbar h1{{font-size:1.05rem;font-weight:600}}
-.topbar .sub{{font-size:.78rem;color:#aaa;margin-left:auto}}
+.topbar .sub{{font-size:.78rem;color:#a8a8a3;margin-left:auto;font-family:'JetBrains Mono',monospace}}
 .wrap{{max-width:1280px;margin:0 auto;padding:20px 16px}}
-.sec{{background:var(--sur);border-radius:var(--r);box-shadow:var(--sh);padding:20px;margin-bottom:18px}}
-.sec-title{{font-size:.85rem;font-weight:600;color:var(--mu);text-transform:uppercase;letter-spacing:.06em;margin-bottom:14px}}
+.sec{{background:var(--sur);border-top:2px solid #303030;border-bottom:1px solid var(--bdr);padding:20px;margin-bottom:18px}}
+.sec-title{{font-size:.85rem;font-weight:600;color:var(--mu);text-transform:uppercase;letter-spacing:.06em;margin-bottom:14px;font-family:'JetBrains Mono',monospace}}
 .profile-row{{display:flex;align-items:center;gap:18px}}
-.avatar{{width:76px;height:76px;border-radius:50%;object-fit:cover;border:3px solid var(--bdr);flex-shrink:0}}
-.avatar-fb{{width:76px;height:76px;border-radius:50%;background:linear-gradient(135deg,#69c9d0,#4338ca);display:flex;align-items:center;justify-content:center;font-size:1.8rem;font-weight:700;color:#fff;flex-shrink:0}}
-.profile-info h2{{font-size:1.3rem;font-weight:700}}
-.handle{{color:var(--mu);font-size:.88rem;margin-bottom:4px}}
+.avatar{{width:76px;height:76px;border-radius:50%;object-fit:cover;border:2px solid var(--ac);flex-shrink:0}}
+.avatar-fb{{width:76px;height:76px;border-radius:50%;background:var(--ac);display:flex;align-items:center;justify-content:center;font-size:1.8rem;font-weight:700;color:#000;flex-shrink:0}}
+.profile-info h2{{font-size:1.3rem;font-weight:700;color:#ffffff}}
+.handle{{color:var(--ac);font-size:.88rem;margin-bottom:4px;font-family:'JetBrains Mono',monospace}}
 .bio{{font-size:.83rem;color:var(--mu);max-width:560px;line-height:1.45;margin-top:4px}}
-.badge-ver{{background:#dbeafe;color:#1d4ed8;font-size:.7rem;font-weight:600;padding:2px 8px;border-radius:20px;margin-left:6px}}
+.badge-ver{{background:transparent;border:1px solid var(--ac);color:var(--ac);font-size:.7rem;font-weight:600;padding:2px 8px;margin-left:6px;font-family:'JetBrains Mono',monospace}}
 .kpi-grid{{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px}}
-.kpi{{background:var(--acl);border-radius:10px;padding:14px;text-align:center}}
+.kpi{{background:var(--acl);border-top:2px solid var(--ac);border-bottom:1px solid var(--bdr);padding:14px;text-align:center}}
 .kpi-v{{font-size:1.7rem;font-weight:700;color:var(--ac)}}
-.kpi-l{{font-size:.75rem;color:var(--mu);margin-top:3px}}
+.kpi-l{{font-size:.75rem;color:var(--mu);margin-top:3px;font-family:'JetBrains Mono',monospace}}
 .chart-row{{display:grid;grid-template-columns:1fr 1fr;gap:14px}}
 @media(max-width:640px){{.chart-row{{grid-template-columns:1fr}}}}
-canvas{{max-width:100%}}
 .hm-wrap{{overflow-x:auto}}
 .hm-table{{border-collapse:collapse;font-size:.7rem}}
 .hm-table td,.hm-table th{{padding:2px;text-align:center;min-width:22px}}
-.hm-table th{{color:var(--mu);font-weight:500}}
-.hm-rl{{color:var(--mu);font-size:.7rem;padding-right:6px;white-space:nowrap}}
+.hm-table th{{color:var(--mu);font-weight:500;font-family:'JetBrains Mono',monospace}}
+.hm-rl{{color:var(--mu);font-size:.7rem;padding-right:6px;white-space:nowrap;font-family:'JetBrains Mono',monospace}}
 .dur-grid{{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:12px}}
-.dur-card{{border:1px solid var(--bdr);border-radius:10px;padding:12px;text-align:center}}
-.dur-label{{font-size:.78rem;font-weight:600;color:var(--mu);margin-bottom:6px}}
+.dur-card{{border-top:2px solid #303030;border-bottom:1px solid var(--bdr);padding:12px;text-align:center;background:var(--sur)}}
+.dur-label{{font-size:.78rem;font-weight:600;color:var(--mu);margin-bottom:6px;font-family:'JetBrains Mono',monospace}}
 .dur-views{{font-size:1.3rem;font-weight:700;color:var(--ac)}}
 .dur-sub{{font-size:.72rem;color:var(--mu);margin-top:2px}}
 .top3-grid{{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}}
-.top3-card{{border:1px solid var(--bdr);border-radius:12px;overflow:hidden;transition:box-shadow .2s}}
-.top3-card:hover{{box-shadow:0 4px 16px rgba(0,0,0,.1)}}
-.top3-thumb{{width:100%;aspect-ratio:9/16;object-fit:cover;background:#e2e8f0;display:block;max-height:200px}}
-.no-thumb{{display:flex;align-items:center;justify-content:center;color:#94a3b8;font-size:.75rem}}
+.top3-card{{border-top:2px solid #303030;overflow:hidden;background:var(--sur)}}
+.top3-card:hover{{border-top-color:var(--ac)}}
+.top3-thumb{{width:100%;aspect-ratio:9/16;object-fit:cover;background:#141414;display:block;max-height:200px}}
+.no-thumb{{display:flex;align-items:center;justify-content:center;color:#a8a8a3;font-size:.75rem}}
 .top3-body{{padding:12px}}
-.top3-badge{{display:inline-block;font-size:.7rem;font-weight:700;padding:2px 8px;border-radius:20px;margin-bottom:6px}}
-.badge-gold{{background:#fef3c7;color:#92400e}}
-.badge-silver{{background:#f1f5f9;color:#475569}}
-.badge-bronze{{background:#fff7ed;color:#9a3412}}
+.top3-badge{{display:inline-block;font-size:.7rem;font-weight:700;padding:2px 8px;margin-bottom:6px;font-family:'JetBrains Mono',monospace;border:1px solid}}
+.badge-gold{{border-color:#f59e0b;color:#f59e0b;background:transparent}}
+.badge-silver{{border-color:#a8a8a3;color:#a8a8a3;background:transparent}}
+.badge-bronze{{border-color:#9a7bb5;color:#9a7bb5;background:transparent}}
 .top3-texto{{font-size:.8rem;color:var(--mu);margin-bottom:8px;line-height:1.4}}
 .top3-stats{{display:flex;flex-wrap:wrap;gap:6px;font-size:.76rem;color:var(--mu)}}
 .top3-stats b{{color:var(--tx)}}
-.vlink{{font-size:.76rem;color:var(--ac);text-decoration:none;display:block;margin-top:8px}}
+.vlink{{font-size:.76rem;color:var(--ac);text-decoration:none;display:block;margin-top:8px;font-family:'JetBrains Mono',monospace}}
 .vlink:hover{{text-decoration:underline}}
 .hb{{display:flex;align-items:center;gap:8px;margin-bottom:5px}}
-.hb-name{{font-size:.8rem;color:var(--ac);min-width:110px}}
-.hb-track{{flex:1;height:14px;background:var(--bdr);border-radius:7px;overflow:hidden}}
-.hb-fill{{height:100%;background:linear-gradient(90deg,var(--ac),#818cf8);border-radius:7px}}
-.hb-val{{font-size:.75rem;color:var(--mu);min-width:80px;text-align:right}}
+.hb-name{{font-size:.8rem;color:var(--ac);min-width:110px;font-family:'JetBrains Mono',monospace}}
+.hb-track{{flex:1;height:14px;background:#1a1a1a;overflow:hidden}}
+.hb-fill{{height:100%;background:var(--ac)}}
+.hb-val{{font-size:.75rem;color:var(--mu);min-width:80px;text-align:right;font-family:'JetBrains Mono',monospace}}
 .leg-grid{{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}}
-.leg-card{{border:1px solid var(--bdr);border-radius:10px;padding:12px;text-align:center}}
-.leg-label{{font-size:.78rem;color:var(--mu);margin-bottom:4px}}
+.leg-card{{border-top:2px solid #303030;border-bottom:1px solid var(--bdr);padding:12px;text-align:center;background:var(--sur)}}
+.leg-label{{font-size:.78rem;color:var(--mu);margin-bottom:4px;font-family:'JetBrains Mono',monospace}}
 .leg-val{{font-size:1.25rem;font-weight:700;color:var(--ac)}}
-.leg-sub{{font-size:.72rem;color:#94a3b8}}
+.leg-sub{{font-size:.72rem;color:#a8a8a3}}
 .filtros{{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:10px}}
-.fb{{padding:5px 13px;border:1px solid var(--bdr);border-radius:20px;font-size:.78rem;cursor:pointer;background:var(--sur);transition:all .15s}}
-.fb.on{{background:var(--ac);color:#fff;border-color:var(--ac)}}
+.fb{{padding:5px 13px;border:1px solid #303030;font-size:.78rem;cursor:pointer;background:var(--sur);transition:all .15s;color:var(--mu);font-family:'Space Grotesk',sans-serif}}
+.fb.on{{background:var(--ac);color:#000;border-color:var(--ac)}}
 .vg{{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:10px}}
-.vc{{border:1px solid var(--bdr);border-radius:10px;overflow:hidden;cursor:pointer;transition:box-shadow .2s}}
-.vc:hover{{box-shadow:0 4px 14px rgba(0,0,0,.1)}}
-.vt-wrap{{position:relative;aspect-ratio:9/16;max-height:190px;background:#e2e8f0}}
+.vc{{border-top:2px solid #303030;overflow:hidden;cursor:pointer;background:var(--sur)}}
+.vc:hover{{border-top-color:var(--ac)}}
+.vt-wrap{{position:relative;aspect-ratio:9/16;max-height:190px;background:#141414}}
 .vt{{width:100%;height:100%;object-fit:cover;display:block}}
-.vdur{{position:absolute;bottom:3px;right:5px;background:rgba(0,0,0,.65);color:#fff;font-size:.62rem;padding:1px 5px;border-radius:4px}}
+.vdur{{position:absolute;bottom:3px;right:5px;background:rgba(0,0,0,.75);color:#fff;font-size:.62rem;padding:1px 5px;font-family:'JetBrains Mono',monospace}}
 .vi{{padding:8px}}
 .vtxt{{font-size:.73rem;color:var(--mu);margin-bottom:4px;line-height:1.3;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}}
 .vm{{font-size:.7rem;color:var(--mu);display:flex;flex-wrap:wrap;gap:3px}}
-.vlink2{{font-size:.7rem;color:var(--ac);text-decoration:none}}
-.freq-insight{{background:var(--acl);border-radius:10px;padding:12px;font-size:.85rem;color:var(--ac);margin-top:12px;font-weight:500}}
+.vlink2{{font-size:.7rem;color:var(--ac);text-decoration:none;font-family:'JetBrains Mono',monospace}}
+.freq-insight{{background:var(--acl);border-top:2px solid var(--ac);padding:12px;font-size:.85rem;color:var(--ac);margin-top:12px;font-weight:500}}
 @media(max-width:480px){{.profile-row{{flex-direction:column;align-items:flex-start}}.leg-grid{{grid-template-columns:1fr}}.dur-grid{{grid-template-columns:1fr 1fr}}}}
 </style>
 </head>
@@ -713,8 +775,8 @@ canvas{{max-width:100%}}
 <div class="sec" id="sec-ev"{'' if len(historico)>=2 else ' style="display:none"'}>
   <div class="sec-title">Evolucao ao Longo do Tempo</div>
   <div class="chart-row">
-    <div><canvas id="c-seg" height="170"></canvas></div>
-    <div><canvas id="c-eh" height="170"></canvas></div>
+    <div><div id="c-seg"></div></div>
+    <div><div id="c-eh"></div></div>
   </div>
 </div>
 
@@ -738,14 +800,14 @@ canvas{{max-width:100%}}
 <!-- 6. Frequencia -->
 <div class="sec">
   <div class="sec-title">Frequencia de Postagem</div>
-  <canvas id="c-freq" height="150"></canvas>
+  <div id="c-freq"></div>
   <div class="freq-insight" id="freq-insight"></div>
 </div>
 
 <!-- 7. Top 3 -->
 <div class="sec">
   <div class="sec-title">Top 3 Videos</div>
-  <div class="top3-grid">{top3_html}</div>
+  <div class="top3-grid" id="top3-grid">{top3_html}</div>
 </div>
 
 <!-- 8. Hashtags -->
@@ -764,12 +826,12 @@ canvas{{max-width:100%}}
 <div class="sec">
   <div class="sec-title">Linha do Tempo</div>
   <div class="chart-row">
-    <div><canvas id="c-tv" height="170"></canvas></div>
-    <div><canvas id="c-tl" height="170"></canvas></div>
+    <div><div id="c-tv"></div></div>
+    <div><div id="c-tl"></div></div>
   </div>
   <div class="chart-row" style="margin-top:14px">
-    <div><canvas id="c-te" height="170"></canvas></div>
-    <div><canvas id="c-ts" height="170"></canvas></div>
+    <div><div id="c-te"></div></div>
+    <div><div id="c-ts"></div></div>
   </div>
 </div>
 
@@ -821,7 +883,7 @@ function fmtN(n){{if(n>=1e6)return(n/1e6).toFixed(1)+'M';if(n>=1e3)return(n/1e3)
     for(let h=0;h<24;h++){{
       const td=document.createElement('td');
       const v=HM[di][h];const a=(0.08+((mx>0?v/mx:0)*0.92)).toFixed(2);
-      td.style.cssText=`background:rgba(67,56,202,${{a}});width:22px;height:17px;border-radius:3px;`;
+      td.style.cssText=`background:rgba(196,255,94,${{a}});width:22px;height:17px;`;
       td.title=`${{d}} ${{h}}h: ${{v.toFixed(1)}}%`;tr.appendChild(td);
     }}
     tb.appendChild(tr);
@@ -831,7 +893,7 @@ function fmtN(n){{if(n>=1e6)return(n/1e6).toFixed(1)+'M';if(n>=1e3)return(n/1e3)
 // Hashtags
 (function(){{
   const c=document.getElementById('hb-container');
-  if(!TH.length){{c.innerHTML='<p style="color:#94a3b8;font-size:.83rem">Nenhuma hashtag encontrada.</p>';return;}}
+  if(!TH.length){{c.innerHTML='<p style="color:#a8a8a3;font-size:.83rem">Nenhuma hashtag encontrada.</p>';return;}}
   const mx=Math.max(...TH.map(h=>h.media_eng));
   c.innerHTML=TH.map(h=>{{
     const p=mx>0?(h.media_eng/mx*100).toFixed(1):0;
@@ -844,10 +906,23 @@ let curD='todos',curP=0;
 function renderGrade(vids){{
   const g=document.getElementById('vg');
   g.innerHTML=vids.map(v=>{{
-    const th=v.thumbnail_b64?`<img class="vt" src="${{v.thumbnail_b64}}" alt="">`:`<div class="vt" style="display:flex;align-items:center;justify-content:center;color:#94a3b8;font-size:.72rem">Sem imagem</div>`;
+    const th=v.thumbnail_b64?`<img class="vt" src="${{v.thumbnail_b64}}" alt="">`:`<div class="vt" style="display:flex;align-items:center;justify-content:center;color:#a8a8a3;font-size:.72rem">Sem imagem</div>`;
     const lk=v.link?`<a class="vlink2" href="${{v.link}}" target="_blank">Ver no TikTok</a>`:'';
     const tx=v.texto.length>60?v.texto.substring(0,60)+'...':v.texto;
     return`<div class="vc"><div class="vt-wrap">${{th}}<span class="vdur">${{v.duracao_fmt}}</span></div><div class="vi"><div class="vtxt">${{tx}}</div><div class="vm"><span>👁 ${{v.views_fmt}}</span><span>❤ ${{v.likes_fmt}}</span><span>💬 ${{v.comentarios}}</span><span>↗ ${{v.shares}}</span><span>🔖 ${{v.saves}}</span></div><div class="vm" style="margin-top:3px"><span>${{v.engajamento.toFixed(1)}}% eng.</span><span>${{v.data_fmt}}</span></div>${{lk}}</div></div>`;
+  }}).join('');
+}}
+
+function renderTop3(vids){{
+  const el=document.getElementById('top3-grid');if(!el)return;
+  const bCls=['badge-gold','badge-silver','badge-bronze'];
+  const bTxt=['#1','#2','#3'];
+  const top=[...vids].sort((a,b)=>b.engajamento-a.engajamento||b.views-a.views).slice(0,3);
+  el.innerHTML=top.map((v,i)=>{{
+    const th=v.thumbnail_b64?`<img class="top3-thumb" src="${{v.thumbnail_b64}}" alt="">`:'<div class="top3-thumb no-thumb">Sem imagem</div>';
+    const tx=v.texto.length>80?v.texto.substring(0,80)+'...':v.texto;
+    const lk=v.link?`<a class="vlink" href="${{v.link}}" target="_blank">Ver no TikTok</a>`:'';
+    return`<div class="top3-card">${{th}}<div class="top3-body"><span class="top3-badge ${{bCls[i]}}">${{bTxt[i]}}: ${{v.duracao_fmt}}</span><div class="top3-texto">${{tx}}</div><div class="top3-stats"><span><b>${{v.views_fmt}}</b> views</span><span><b>${{fmtN(v.likes)}}</b> likes</span><span><b>${{fmtN(v.comentarios)}}</b> coment.</span><span><b>${{fmtN(v.shares)}}</b> shares</span><span><b>${{fmtN(v.saves)}}</b> saves</span><span><b>${{v.engajamento.toFixed(1)}}%</b> eng.</span></div>${{lk}}</div></div>`;
   }}).join('');
 }}
 
@@ -857,6 +932,7 @@ function filtrar(){{
   const ranges={{ate_15s:[0,15],'16_30s':[16,30],'31_60s':[31,60],acima_60s:[61,1e9]}};
   if(curD!=='todos'){{const[mn,mx]=ranges[curD]||[0,1e9];vids=vids.filter(v=>v.duracao>=mn&&v.duracao<=mx);}}
   renderGrade(vids);
+  renderTop3(vids);
   if(vids.length){{
     const me=vids.reduce((s,v)=>s+v.engajamento,0)/vids.length;
     const mv=vids.reduce((s,v)=>s+v.views,0)/vids.length;
@@ -885,6 +961,7 @@ document.querySelectorAll('#fp .fb').forEach(b=>b.addEventListener('click',()=>{
 }})();
 
 // Graficos canvas puro
+let _ttEl=null;
 function lineChart(id,labels,datasets,opts={{}}){{
   const cv=document.getElementById(id);if(!cv)return;
   const ctx=cv.getContext('2d');
@@ -897,47 +974,36 @@ function lineChart(id,labels,datasets,opts={{}}){{
   const maxV=Math.max(...all)||1;const rng=maxV-minV||1;
   const xS=labels.length>1?w/(labels.length-1):w;
   const fmtY=opts.fmtY||(v=>v.toFixed(1));
-  ctx.strokeStyle='#e2e8f0';ctx.lineWidth=1;
-  for(let i=0;i<=4;i++){{const y=pad.t+(h/4)*i;ctx.beginPath();ctx.moveTo(pad.l,y);ctx.lineTo(pad.l+w,y);ctx.stroke();ctx.fillStyle='#94a3b8';ctx.font='10px Inter,sans-serif';ctx.textAlign='right';ctx.fillText(fmtY(maxV-(rng/4)*i),pad.l-3,y+4);}}
-  const step=Math.ceil(labels.length/7);ctx.fillStyle='#94a3b8';ctx.font='10px Inter,sans-serif';ctx.textAlign='center';
+  ctx.strokeStyle='#1a1a1a';ctx.lineWidth=1;
+  for(let i=0;i<=4;i++){{const y=pad.t+(h/4)*i;ctx.beginPath();ctx.moveTo(pad.l,y);ctx.lineTo(pad.l+w,y);ctx.stroke();ctx.fillStyle='#a8a8a3';ctx.font='10px "JetBrains Mono",monospace';ctx.textAlign='right';ctx.fillText(fmtY(maxV-(rng/4)*i),pad.l-3,y+4);}}
+  const step=Math.ceil(labels.length/7);ctx.fillStyle='#a8a8a3';ctx.font='10px "JetBrains Mono",monospace';ctx.textAlign='center';
   labels.forEach((l,i)=>{{if(i%step===0||i===labels.length-1)ctx.fillText(l,pad.l+i*xS,H-6);}});
-  const colors=['#4338ca','#69c9d0','#f59e0b','#10b981'];
+  const colors=['#c4ff5e','#9a7bb5','#f59e0b','#7aa8c9'];
+  cv._pts=[];
   datasets.forEach((ds,di)=>{{
     const col=ds.color||colors[di%4];ctx.strokeStyle=col;ctx.lineWidth=2;ctx.lineJoin='round';ctx.beginPath();
     let st=false;ds.data.forEach((v,i)=>{{if(v==null)return;const x=pad.l+i*xS,y=pad.t+h-((v-minV)/rng)*h;st?(ctx.lineTo(x,y)):(ctx.moveTo(x,y),st=true);}});ctx.stroke();
-    ctx.fillStyle=col;ds.data.forEach((v,i)=>{{if(v==null)return;const x=pad.l+i*xS,y=pad.t+h-((v-minV)/rng)*h;ctx.beginPath();ctx.arc(x,y,3,0,Math.PI*2);ctx.fill();}});
-    if(ds.label){{ctx.fillStyle=col;ctx.font='10px Inter,sans-serif';ctx.textAlign='left';ctx.fillText(ds.label,pad.l,pad.t-4);}}
+    ctx.fillStyle=col;ds.data.forEach((v,i)=>{{if(v==null)return;const x=pad.l+i*xS,y=pad.t+h-((v-minV)/rng)*h;ctx.beginPath();ctx.arc(x,y,3,0,Math.PI*2);ctx.fill();cv._pts.push({{x,y,col,label:ds.label||'',val:fmtY(v),date:labels[i]||''}});}});
+    if(ds.label){{ctx.fillStyle=col;ctx.font='10px "JetBrains Mono",monospace';ctx.textAlign='left';ctx.fillText(ds.label,pad.l,pad.t-4);}}
   }});
+  if(!cv._tt){{cv._tt=true;cv.addEventListener('mousemove',e=>{{const r=cv.getBoundingClientRect(),mx=e.clientX-r.left,my=e.clientY-r.top;let cl=null,md=20;(cv._pts||[]).forEach(p=>{{const d=Math.hypot(mx-p.x,my-p.y);if(d<md){{md=d;cl=p;}}}});if(!cl){{if(_ttEl)_ttEl.style.display='none';return;}};if(!_ttEl){{_ttEl=document.createElement('div');_ttEl.style.cssText='position:fixed;background:#141414;color:#fff;border:1px solid #252525;padding:6px 10px;font-size:11px;font-family:"JetBrains Mono",monospace;pointer-events:none;z-index:9999';document.body.appendChild(_ttEl);}}_ttEl.innerHTML=`<b style="color:${{cl.col}}">${{cl.label}}</b><br>${{cl.val}} | ${{cl.date}}`;_ttEl.style.display='block';_ttEl.style.left=(e.clientX+14)+'px';_ttEl.style.top=(e.clientY-10)+'px';}});cv.addEventListener('mouseleave',()=>{{if(_ttEl)_ttEl.style.display='none';}});}}
 }}
 
-function barChart(id,labels,vals,color='#4338ca'){{
+function barChart(id,labels,vals,color='#c4ff5e'){{
   const cv=document.getElementById(id);if(!cv)return;
   const ctx=cv.getContext('2d');const W=cv.offsetWidth||480,H=cv.height||150;cv.width=W;
   const pad={{t:16,r:16,b:44,l:40}};const w=W-pad.l-pad.r,h=H-pad.t-pad.b;
   ctx.clearRect(0,0,W,H);
   const mx=Math.max(...vals)||1;const bw=w/vals.length*.7,gap=w/vals.length;
-  ctx.strokeStyle='#e2e8f0';ctx.lineWidth=1;
-  for(let i=0;i<=4;i++){{const y=pad.t+(h/4)*i;ctx.beginPath();ctx.moveTo(pad.l,y);ctx.lineTo(pad.l+w,y);ctx.stroke();ctx.fillStyle='#94a3b8';ctx.font='10px Inter,sans-serif';ctx.textAlign='right';ctx.fillText((mx*(1-i/4)).toFixed(0),pad.l-3,y+4);}}
-  vals.forEach((v,i)=>{{const x=pad.l+i*gap+(gap-bw)/2,bh=(v/mx)*h,y=pad.t+h-bh;ctx.fillStyle=color;ctx.beginPath();if(ctx.roundRect)ctx.roundRect(x,y,bw,bh,3);else ctx.rect(x,y,bw,bh);ctx.fill();ctx.fillStyle='#64748b';ctx.font='9px Inter,sans-serif';ctx.textAlign='center';const l=(labels[i]||'').substring(0,8);ctx.fillText(l,x+bw/2,H-6);}});
+  ctx.strokeStyle='#1a1a1a';ctx.lineWidth=1;
+  for(let i=0;i<=4;i++){{const y=pad.t+(h/4)*i;ctx.beginPath();ctx.moveTo(pad.l,y);ctx.lineTo(pad.l+w,y);ctx.stroke();ctx.fillStyle='#a8a8a3';ctx.font='10px "JetBrains Mono",monospace';ctx.textAlign='right';ctx.fillText((mx*(1-i/4)).toFixed(0),pad.l-3,y+4);}}
+  vals.forEach((v,i)=>{{const x=pad.l+i*gap+(gap-bw)/2,bh=(v/mx)*h,y=pad.t+h-bh;ctx.fillStyle=color;ctx.beginPath();if(ctx.roundRect)ctx.roundRect(x,y,bw,bh,3);else ctx.rect(x,y,bw,bh);ctx.fill();ctx.fillStyle='#a8a8a3';ctx.font='9px "JetBrains Mono",monospace';ctx.textAlign='center';const l=(labels[i]||'').substring(0,8);ctx.fillText(l,x+bw/2,H-6);}});
 }}
 
-function renderAll(){{
-  if(TEM&&HL.length>=2){{
-    lineChart('c-seg',HL,[{{label:'Seguidores',data:HS,color:'#4338ca'}}],{{fmtY:v=>v>=1000?(v/1000).toFixed(1)+'K':v.toFixed(0)}});
-    lineChart('c-eh',HL,[{{label:'Engajamento (%)',data:HE,color:'#69c9d0'}}],{{fmtY:v=>v.toFixed(1)+'%',min:0}});
-  }}
-  if(SL.length)barChart('c-freq',SL,SC,'#4338ca');
-  if(TL.length>1){{
-    lineChart('c-tv',TL,[{{label:'Views',data:TV,color:'#4338ca'}}],{{fmtY:v=>v>=1000?(v/1000).toFixed(0)+'K':v.toFixed(0)}});
-    lineChart('c-tl',TL,[{{label:'Likes',data:TLk,color:'#f59e0b'}}],{{fmtY:v=>v>=1000?(v/1000).toFixed(0)+'K':v.toFixed(0)}});
-    lineChart('c-te',TL,[{{label:'Engajamento (%)',data:TE,color:'#69c9d0'}}],{{fmtY:v=>v.toFixed(1)+'%',min:0}});
-    lineChart('c-ts',TL,[{{label:'Saves',data:TS,color:'#10b981'}}],{{fmtY:v=>v>=1000?(v/1000).toFixed(0)+'K':v.toFixed(0)}});
-  }}
-}}
 
-window.addEventListener('DOMContentLoaded',()=>{{renderGrade(VD);renderAll();}});
-window.addEventListener('resize',renderAll);
+window.addEventListener('DOMContentLoaded',()=>{{renderGrade(VD);setTimeout(renderRechartsAll,100);}});
 </script>
+<script>{recharts_js}</script>
 </body>
 </html>"""
 
