@@ -1139,6 +1139,78 @@ def check_min(value, expected):
         return True, "preenchido"
     return False, "vazio"
 
+def build_quiz_card(produto_path):
+    """
+    Le quiz-meta.json (gerado por /lt-quiz no passo 6.3) e devolve HTML do card.
+    Se nao houver quiz gerado, devolve string vazia (card nao aparece).
+    """
+    meta_path = produto_path / "entregas" / "quiz" / "quiz-meta.json"
+    if not meta_path.exists():
+        # detecta fallback: arquivo do prompt foi gerado mas o meta ainda nao
+        quiz_dir = produto_path / "entregas" / "quiz"
+        if quiz_dir.exists():
+            md_files = list(quiz_dir.glob("quiz-*.md"))
+            if md_files:
+                rel_path = md_files[0].relative_to(produto_path.parent.parent).as_posix()
+                return (
+                    '<div class="card" style="margin-bottom:24px;border-left:4px solid var(--gold-light, #D4A373);">'
+                    '<div class="card-label" style="display:flex;align-items:center;gap:8px;">'
+                    '<span>Funil. Quiz no Lovable</span>'
+                    '<span class="badge badge-yellow" style="font-size:11px;">Sem metadados</span>'
+                    '</div>'
+                    '<div style="margin-top:12px;font-size:13px;color:var(--text-2);">'
+                    f'<strong>Prompt salvo em:</strong> <code>{esc(rel_path)}</code><br>'
+                    'Rode <code>/lt-quiz</code> de novo para registrar o link do Lovable e gerar o <code>quiz-meta.json</code>.'
+                    '</div>'
+                    '</div>'
+                )
+        return ""
+
+    try:
+        meta = json.loads(meta_path.read_text(encoding="utf-8"))
+    except Exception:
+        return ""
+
+    prompt_path = meta.get("prompt_path", "")
+    lovable_url = meta.get("lovable_url", "nao_publicado")
+    generated_at = meta.get("generated_at", "")
+    url_updated_at = meta.get("url_updated_at", "")
+
+    is_published = lovable_url and lovable_url != "nao_publicado" and (
+        lovable_url.startswith("http://") or lovable_url.startswith("https://")
+    )
+
+    if is_published:
+        link_html = (
+            f'<a href="{esc(lovable_url)}" target="_blank" rel="noopener" '
+            'style="color:var(--gold-light, #D4A373);text-decoration:underline;font-weight:600;">'
+            f'{esc(lovable_url)}</a>'
+        )
+        status_badge = '<span class="badge badge-green" style="font-size:11px;">Publicado</span>'
+    else:
+        link_html = (
+            '<span style="color:var(--text-3);font-style:italic;">Quiz ainda nao publicado no Lovable. '
+            'Rode <code>/lt-quiz</code> ou <code>/quiz-link</code> para registrar o link.</span>'
+        )
+        status_badge = '<span class="badge badge-yellow" style="font-size:11px;">Pendente</span>'
+
+    return (
+        '<div class="card" style="margin-bottom:24px;border-left:4px solid var(--gold-light, #D4A373);">'
+        '<div class="card-label" style="display:flex;align-items:center;gap:8px;">'
+        '<span>Funil. Quiz no Lovable</span>'
+        f'{status_badge}'
+        '</div>'
+        '<div style="margin-top:12px;display:grid;gap:8px;font-size:13px;color:var(--text-2);">'
+        f'<div><strong>Prompt para Lovable:</strong> <code>{esc(prompt_path)}</code></div>'
+        f'<div><strong>Link publicado:</strong> {link_html}</div>'
+        f'<div style="font-size:11px;color:var(--text-3);">Gerado em: {esc(generated_at)}'
+        + (f' &middot; Link atualizado em: {esc(url_updated_at)}' if url_updated_at else '')
+        + '</div>'
+        '</div>'
+        '</div>'
+    )
+
+
 def validate_copy_pagina(produto_path, slug):
     """Valida e imprime status da secao Copy da Pagina.
     Retorna dict com blocos, arquivo_relativo, arquivo_existe, warnings."""
@@ -1519,10 +1591,16 @@ def main():
     # pesquisa html
     pesq_html = build_pesquisa_html(pesq, perfil)
 
-    # furadeira link
-    furadeira_path = produto_path / "entregas" / "furadeira-visual.html"
+    # furadeira PNG (gerada por /furadeira-visual)
+    furadeira_path = produto_path / "entregas" / "furadeira" / "furadeira.png"
     if furadeira_path.exists():
-        botao_furadeira = '<a class="btn-primary" href="entregas/furadeira-visual.html" target="_blank">Ver Trilha Visual Completa &#8594;</a>'
+        botao_furadeira = (
+            '<div style="margin-top:24px;padding:16px;background:rgba(255,255,255,0.04);'
+            'border:1px solid rgba(255,255,255,0.08);border-radius:8px;text-align:center;">'
+            '<img src="entregas/furadeira/furadeira.png" alt="Furadeira do metodo" '
+            'style="max-width:100%;height:auto;border-radius:4px;display:block;margin:0 auto;" />'
+            '</div>'
+        )
     else:
         botao_furadeira = ''
 
@@ -1575,6 +1653,9 @@ def main():
 
     # copy da pagina (usa render centralizado do painel_template)
     replacements["{{ copy_pagina_html }}"] = _tmpl.render_copy_pagina_miolo(copy_dados)
+
+    # quiz card (le quiz-meta.json gerado por /lt-quiz)
+    replacements["{{ quiz_card }}"] = build_quiz_card(produto_path)
 
     # aplicar substituicoes
     html = template

@@ -123,28 +123,31 @@ PESQUISA                    <- FIXO (rotulo de grupo)
 
 | # | Componente | Layout | Conteudo |
 |---|---|---|---|
-| 1 | Card padrao | Full-width | Nome do metodo |
-| 2 | Card padrao | Full-width | Trilha do metodo (step timeline) |
-| 3 | Botao verde | Dentro do card 2 | Ver Trilha Visual Completa |
+| 1 | Card padrao | Full-width | Nome do metodo + badges (Mecanica, Eficiencia) |
+| 2 | Card padrao | Full-width | Trilha do metodo (step timeline) - quando mecanica for Fases |
+| 3 | Imagem PNG | Abaixo do card 2 | Furadeira visual gerada por /furadeira-visual |
 
 ### Dados dinamicos
 
 | Placeholder | Fonte | Campo |
 |---|---|---|
 | `{nome_metodo}` | perfil.md | Furadeira > Nome do Metodo |
-| `{macroetapas[]}` | perfil.md | Array de macroetapas, cada uma com: numero, titulo, descricao (incluindo microetapas) |
-| `{link_furadeira_visual}` | Verificar existencia | entregas/furadeira-visual.html (se existir) ou # |
+| `{mecanica}` | perfil.md | Furadeira > Mecanica(s) |
+| `{eficiencia_principal}` | perfil.md | Furadeira > Eficiencia principal |
+| `{macroetapas[]}` | perfil.md | Array de macroetapas (apenas quando mecanica for Fases e Sequencias) |
+| `{img_furadeira_png}` | Verificar existencia | entregas/furadeira/furadeira.png (se existir) ou vazio |
 
 ### Elementos fixos
 
-- Labels: "NOME DO METODO", "TRILHA DO METODO"
-- Estrutura visual: circulos verdes numerados + linha conectora vertical
-- Botao "Ver Trilha Visual Completa →" (texto fixo, link dinamico)
+- Labels: "NOME DO METODO", "TRILHA DO METODO", "MECANICA", "EFICIENCIA"
+- Badges: Mecanica em destaque + Eficiencia principal abaixo do nome do metodo
+- Imagem PNG embutida (`<img>`) quando furadeira.png existir, dentro de card com fundo escuro
 
 ### Nota
 
-- Quantidade de macroetapas e variavel (pode ter 3, 4, 5, etc.)
-- O template precisa iterar sobre o array de macroetapas
+- Quantidade de macroetapas e variavel (pode ter 3, 4, 5, etc.) e so aparece quando a mecanica for "Fases e Sequencias"
+- Para outras mecanicas (Listas, Enquadramento, Logica Condicional, Empecilhos, Dinamica de Entrega) o painel renderiza apenas o nome + badges + imagem PNG (a estrutura textual completa fica no perfil.md, nao no painel)
+- O template precisa iterar sobre o array de macroetapas quando aplicavel
 
 ---
 

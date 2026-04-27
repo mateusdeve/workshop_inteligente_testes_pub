@@ -222,10 +222,17 @@ NOTA: As Urgências Ocultas ficam centralizadas em `meus-produtos/{ativo}/perfil
 Apos salvar o `idconsumidor.md`, gere o Painel de Entregas rodando o script Python:
 
 ```bash
-py -3 scripts/build-painel-entregas.py
+py -3 scripts/painel-incremental.py --secao pesquisa
+py -3 scripts/painel-incremental.py --secao quadro
+py -3 scripts/painel-incremental.py --secao furadeira
+py -3 scripts/painel-incremental.py --secao decorados
+py -3 scripts/painel-incremental.py --secao urgencias
+py -3 scripts/painel-incremental.py --secao identidade-produto
+py -3 scripts/painel-incremental.py --secao identidade-comunicador
+py -3 scripts/painel-incremental.py --secao identidade-consumidor
 ```
 
-O script le `perfil.md`, `idconsumidor.md`, `pesquisa-mercado.md` e `tipo.md`, e gera `meus-produtos/{ativo}/painel-entregas.html` em menos de 1 segundo usando o template em `scripts/templates/painel-entregas.html`.
+O script `painel-incremental.py` cria o shell do painel na primeira execução (com design escuro Fluxo Criativo definido em `scripts/painel_template.py`) e atualiza apenas a seção pedida em cada chamada subsequente, preservando o que já está preenchido. Ele lê `perfil.md`, `idconsumidor.md`, `pesquisa-mercado.md` e `tipo.md`, e gera `meus-produtos/{ativo}/painel-entregas.html` em menos de 1 segundo por seção.
 
 **NAO gere o HTML manualmente.** O script cuida de tudo: sidebar, 9 telas, accordions, timelines, badges, graficos SVG e responsivo.
 

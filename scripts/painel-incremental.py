@@ -86,6 +86,31 @@ def ler_arquivo(p: Path) -> str:
     return p.read_text(encoding="utf-8")
 
 
+def normalizar_tipo(conteudo: str) -> str:
+    """Extrai apenas "Low Ticket" ou "Middle Ticket" do conteudo do tipo.md.
+
+    O arquivo deveria conter so uma linha (Low Ticket ou Middle Ticket),
+    mas em casos antigos pode vir com header markdown, justificativa e
+    formato escolhido. Esta funcao varre o texto e devolve a primeira
+    ocorrencia de Low/Middle Ticket que encontrar, ignorando o resto.
+    Se nao achar nenhuma, devolve "a definir".
+    """
+    if not conteudo:
+        return "a definir"
+    texto = conteudo.strip()
+    if not texto:
+        return "a definir"
+    match = re.search(r"\b(low\s+ticket|middle\s+ticket|high\s+ticket)\b", texto, re.IGNORECASE)
+    if not match:
+        return "a definir"
+    bruto = match.group(1).lower()
+    if "low" in bruto:
+        return "Low Ticket"
+    if "middle" in bruto:
+        return "Middle Ticket"
+    return "High Ticket"
+
+
 # ----- helpers de parsing do markdown -----
 
 _H2_RE = re.compile(r"^##\s+(.+?)\s*$", re.MULTILINE)
@@ -206,7 +231,10 @@ def parse_furadeira(perfil: str, produto_dir: Path) -> dict:
     bloco = extrair_secao(perfil, "Furadeira (Metodo)") \
         or extrair_secao(perfil, "Furadeira")
     nome_metodo = valor_label(bloco, "Nome do Metodo") or valor_label(bloco, "Nome do Método")
-    furadeira_html = valor_label(bloco, "Furadeira HTML")
+    mecanica = valor_label(bloco, "Mecanica") or valor_label(bloco, "Mecânica") \
+        or valor_label(bloco, "Mecanicas") or valor_label(bloco, "Mecânica(s)") \
+        or valor_label(bloco, "Mecanica(s)")
+    eficiencia = valor_label(bloco, "Eficiencia principal") or valor_label(bloco, "Eficiência principal")
 
     macro = []
     for m in re.finditer(
@@ -216,27 +244,18 @@ def parse_furadeira(perfil: str, produto_dir: Path) -> dict:
     ):
         macro.append({"titulo": m.group(1).strip(), "descricao": m.group(2).strip()})
 
-    # checa existencia fisica do trilha visual
-    if furadeira_html:
-        rel = furadeira_html
-        if rel.startswith("meus-produtos/"):
-            rel = rel.split("/", 2)[-1]  # tira meus-produtos/{slug}/
-            if rel.startswith(produto_dir.name + "/"):
-                rel = rel[len(produto_dir.name) + 1 :]
-        caminho_abs = produto_dir / rel
-        if not caminho_abs.exists():
-            furadeira_html = ""
-        else:
-            furadeira_html = rel
-    else:
-        fallback = produto_dir / "entregas" / "furadeira-visual.html"
-        if fallback.exists():
-            furadeira_html = "entregas/furadeira-visual.html"
+    # checa existencia da imagem PNG (gerada por /furadeira-visual)
+    furadeira_png = ""
+    png_path = produto_dir / "entregas" / "furadeira" / "furadeira.png"
+    if png_path.exists():
+        furadeira_png = "entregas/furadeira/furadeira.png"
 
     return {
         "nome_metodo": nome_metodo,
+        "mecanica": mecanica,
+        "eficiencia": eficiencia,
         "macroetapas": macro,
-        "furadeira_html": furadeira_html,
+        "furadeira_png": furadeira_png,
     }
 
 
@@ -897,7 +916,7 @@ def main() -> int:
     painel_path = produto_dir / PAINEL_NOME
 
     perfil = ler_arquivo(produto_dir / "perfil.md")
-    tipo_md = ler_arquivo(produto_dir / "tipo.md").strip() or "a definir"
+    tipo_md = normalizar_tipo(ler_arquivo(produto_dir / "tipo.md"))
     nome_produto = extrair_titulo_produto(perfil, slug)
 
     # Garante que os assets do design Fluxo Criativo (logo do gorila, banner)

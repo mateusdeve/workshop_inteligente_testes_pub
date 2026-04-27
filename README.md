@@ -15,8 +15,8 @@ Não é software tradicional: é um sistema de prompts estruturados (CLAUDE.md, 
 | `scripts/README-creative.md` | Processo de geração de criativos via `generate-creative.py`. |
 | `/configurar-heygen` | Setup de vídeo com avatar IA (slash command). |
 | `/configurar-imagens` | Setup de geração de imagens para anúncios (slash command). |
-| `/furadeira-visual` | Gerar a Furadeira (método do produto) em 3 formatos: HTML, PNG via API ou prompt para IA externa. |
-| `/gerar-furadeira` | Atalho direto para gerar PNG da Furadeira via IA. Requer `GEMINI_API_KEY` e/ou `OPENROUTER_API_KEY` no `.env`. |
+| `/gerar-furadeira` | Gerar a Furadeira (método) do produto ativo no `perfil.md`. Decide automaticamente qual das 6 mecânicas (Fases, Lógica Condicional, Enquadramento, Listas, Empecilhos, Dinâmica de Entrega) cabe melhor no nicho. |
+| `/furadeira-visual` | Gerar a imagem PNG da Furadeira já escrita no `perfil.md`. Monta um prompt em inglês para o aluno colar no ChatGPT, recebe a imagem de volta e salva no projeto + painel de entregas. |
 
 ## Onde roda
 

@@ -83,30 +83,79 @@ Após a escolha, gerar o documento PRD com a seguinte estrutura:
 [Puxado do perfil.md: quem são, que situação vivem, quando vão usar o app]
 
 ## User stories
-- Como [perfil], eu quero [ação], para [benefício]
-- (mínimo 5, máximo 10)
 
-## Schema do banco (máximo 5 tabelas)
+Separar por perfil. Mínimo 3 stories por perfil.
+
+### Como usuário comum
+- Como usuário, eu quero [ação], para [benefício]
+- ...
+
+### Como administrador
+- Como admin, eu quero ver a lista de usuários cadastrados, para acompanhar o crescimento do app
+- Como admin, eu quero promover ou rebaixar usuários, para conceder acesso administrativo a outras pessoas
+- Como admin, eu quero [ação específica do app], para [benefício de gestão]
+
+## Perfis de usuário (obrigatório, sempre 2 perfis)
+
+Todo app gerado por esta skill tem 2 perfis de acesso:
+
+### Perfil `admin`
+- O criador do produto (infoprodutor) e quem ele autorizar.
+- Acesso total ao app, mais a área administrativa em `/admin/*`.
+- Pode ver todos os usuários, todos os dados, métricas gerais e fazer ações de gestão (ativar, desativar, promover, excluir).
+- Primeiro usuário cadastrado vira admin automaticamente (ou definido via SQL no Supabase).
+
+### Perfil `user`
+- Aluno, cliente ou consumidor que usa a ferramenta.
+- Acesso apenas às próprias rotas e aos próprios dados.
+- Default ao se cadastrar via signup.
+- Não enxerga `/admin/*`. Se tentar acessar, é redirecionado com mensagem.
+
+## Schema do banco (máximo 5 tabelas + tabela `profiles` obrigatória)
+
+### Tabela `profiles` (obrigatória, sempre incluir)
+- `id` (uuid, pk, referencia `auth.users.id` com `on delete cascade`)
+- `email` (text, unique)
+- `nome` (text)
+- `role` (text, valores permitidos `'admin'` ou `'user'`, default `'user'`)
+- `ativo` (boolean, default true)
+- `created_at` (timestamp, default now())
+
+Trigger obrigatório: ao inserir em `auth.users` via signup, inserir automaticamente em `profiles` com `role = 'user'`.
 
 ### Tabela `nome_da_tabela`
 - `id` (uuid, pk)
+- `user_id` (uuid, fk → `profiles.id`, para isolar dados por usuário)
 - `campo` (tipo)
 - `created_at` (timestamp)
 
-(repetir para cada tabela)
+(repetir para cada tabela do app, sempre com `user_id` quando for dado pessoal do usuário)
 
 ## Telas (ordem de navegação)
-1. **[Nome da tela]** — [descrição do que contém e o que o usuário faz]
+
+### Telas do usuário comum
+1. **[Nome da tela]** — [descrição]
 2. ...
 
+### Telas do admin
+1. **Dashboard admin** — métricas gerais do app (total de usuários, ativos, novos no período, atividade)
+2. **Lista de usuários** — tabela com nome, email, role, status, data de cadastro; busca, filtro por role, paginação; ações por linha (promover a admin, rebaixar, ativar/desativar, excluir)
+3. **Detalhe do usuário** — dados completos, atividade no app, histórico, ações
+4. [outras telas administrativas específicas do app]
+
 ## Mapa de rotas
-- `/` → [Componente] (pública)
+- `/` → Landing ou redirect para login (pública)
 - `/login` → Login (pública)
-- `/dashboard` → Dashboard (protegida)
-- `/[feature]` → [Componente] (protegida)
+- `/cadastro` → Cadastro (pública)
+- `/dashboard` → Dashboard do usuário (protegida, qualquer role)
+- `/[feature]` → [Componente] (protegida, qualquer role)
+- `/admin` → Dashboard admin (protegida, role admin)
+- `/admin/usuarios` → Lista de usuários (protegida, role admin)
+- `/admin/usuarios/:id` → Detalhe do usuário (protegida, role admin)
+- `/admin/[feature]` → [Componente admin] (protegida, role admin)
 - `*` → NotFound (pública)
 
-(preencher com todas as rotas reais do app, sem deixar nenhuma em branco)
+(preencher com todas as rotas reais do app, sem deixar nenhuma em branco; sempre manter o bloco `/admin/*` e marcar `protegida (admin)` nas rotas administrativas)
 
 ## Regras de negócio
 - [regra 1]
@@ -294,6 +343,67 @@ Especificar stack: React + Tailwind + Supabase.
 >
 > 7. Não armazenar senhas, tokens ou dados sensíveis em `localStorage` ou `sessionStorage`. Usar apenas os cookies httpOnly gerenciados pelo Supabase Auth."
 
+**Bloco 5. Perfis de usuário (admin + usuário comum) — incluir sempre este texto literal**
+
+> "Sistema obrigatório de 2 perfis de acesso (admin e usuário comum). Implementar exatamente assim:
+>
+> 1. Criar tabela `profiles` no Supabase com os seguintes campos:
+>    - `id` (uuid, primary key, referencia `auth.users(id)` com `on delete cascade`)
+>    - `email` (text, not null, unique)
+>    - `nome` (text)
+>    - `role` (text, not null, default `'user'`, check constraint aceitando apenas `'admin'` ou `'user'`)
+>    - `ativo` (boolean, not null, default true)
+>    - `created_at` (timestamp with time zone, default now())
+>
+> 2. Criar trigger no Supabase que insere automaticamente um registro em `profiles` quando um novo usuário é criado em `auth.users` (via signup). O `role` default é `'user'`. Exemplo:
+>    ```
+>    create or replace function public.handle_new_user()
+>    returns trigger as $$
+>    begin
+>      insert into public.profiles (id, email, nome, role)
+>      values (new.id, new.email, coalesce(new.raw_user_meta_data->>'nome', ''), 'user');
+>      return new;
+>    end;
+>    $$ language plpgsql security definer;
+>
+>    create trigger on_auth_user_created
+>      after insert on auth.users
+>      for each row execute procedure public.handle_new_user();
+>    ```
+>
+> 3. Lógica de primeiro admin: o primeiro usuário cadastrado no app vira admin automaticamente. Implementar isso na função `handle_new_user` checando se já existe algum admin antes de inserir o role.
+>
+> 4. Após o login, buscar o `role` do usuário em `profiles` e armazenar em um Context global (`AuthContext`) acessível por toda a aplicação. Esse role decide:
+>    - Quais rotas o usuário pode acessar
+>    - Quais itens aparecem no menu lateral
+>    - Quais ações ficam visíveis na interface
+>
+> 5. Criar dois componentes de proteção de rota:
+>    - `<ProtectedRoute>`: permite acesso a qualquer usuário autenticado. Redireciona para `/login` se não estiver logado.
+>    - `<AdminRoute>`: permite acesso apenas se `role === 'admin'`. Se um usuário comum tentar acessar, redirecionar para `/dashboard` com toast de erro: 'Você não tem permissão para acessar esta área.'
+>
+> 6. Estrutura de rotas obrigatória (incluir todas):
+>    - Rotas públicas: `/`, `/login`, `/cadastro`
+>    - Rotas do usuário (envolvidas por `<ProtectedRoute>`): `/dashboard`, e demais rotas do fluxo do usuário
+>    - Rotas do admin (envolvidas por `<AdminRoute>`, todas com prefixo `/admin/`): `/admin` (dashboard), `/admin/usuarios` (lista), `/admin/usuarios/:id` (detalhe), e demais rotas administrativas específicas do app
+>
+> 7. Telas obrigatórias da área admin (sempre criar, mesmo que o app seja simples):
+>    - Dashboard admin: cards com total de usuários, usuários ativos, novos no último mês, atividade recente.
+>    - Lista de usuários: tabela com nome, email, role, status (ativo/inativo), data de cadastro. Busca por nome/email, filtro por role, paginação (20 por página). Ações por linha: promover a admin, rebaixar para usuário, ativar/desativar, excluir.
+>    - Detalhe do usuário: dados completos, atividade no app, histórico de ações. Botões para editar role, ativar/desativar e excluir.
+>
+> 8. Políticas de RLS (Row Level Security) refletem os 2 perfis. Em todas as tabelas:
+>    - Admin tem acesso total. Política exemplo: `USING (EXISTS (SELECT 1 FROM profiles WHERE id = auth.uid() AND role = 'admin'))`.
+>    - Usuário comum acessa apenas registros próprios. Política exemplo: `USING (user_id = auth.uid())`.
+>    - A tabela `profiles` tem RLS específica: usuário comum lê apenas o próprio perfil; admin lê e edita todos.
+>
+> 9. Diferenciação visual da área admin:
+>    - Quando o usuário com role admin estiver logado, exibir um badge 'Admin' no header (ao lado do nome ou avatar).
+>    - O menu lateral tem uma seção 'Administração' separada, que só aparece para admins, com link para `/admin`.
+>    - Dentro de `/admin/*`, mudar a cor de destaque do header ou da sidebar para indicar visualmente que está em modo admin (ex: faixa superior com cor secundária do design system).
+>
+> 10. Cadastro: na tela de cadastro pública, NUNCA permitir o usuário escolher o role. O role é sempre `'user'` por default e só muda via promoção feita por outro admin no painel."
+
 **Bloco 6. Direção de design (incluir antes das telas)**
 
 > "Siga esta direção de design desde a primeira tela. Configure os tokens de cor e tipografia no `tailwind.config.ts`. Importe as fontes via Google Fonts no `index.html`. Proibido usar fontes serifadas. Use apenas [fonte de títulos] para títulos e [fonte de corpo] para corpo. Paleta: primary [hex], background [hex], surface [hex], text-primary [hex] — conforme tokens definidos abaixo. Referência visual: [app de referência definido no PRD]. Use Lucide React para todos os ícones (nenhuma outra biblioteca de ícones). Implemente estados de loading (skeleton), empty (ícone + CTA), error (mensagem + retry) e success (toast) em todas as telas que carregam dados."
@@ -368,7 +478,11 @@ Próximos passos:
 ## Regras
 
 - Nunca pular a Etapa 2 (ideias). O usuário sempre escolhe, nunca recebe um PRD sem ter escolhido.
-- Schema simples. Máximo 5 tabelas. Se a ideia exigir mais, simplificar o escopo.
+- Schema simples. Máximo 5 tabelas DE NEGÓCIO, sem contar a tabela `profiles` (que é obrigatória e adicional). Se a ideia exigir mais, simplificar o escopo.
+- Todo PRD obrigatoriamente entrega 2 perfis: `admin` (criador do produto) e `user` (aluno ou consumidor). Nunca gerar app com perfil único, mesmo que a ideia pareça simples. O perfil admin sempre tem dashboard administrativo, lista de usuários e gestão básica.
+- A tabela `profiles` é sempre incluída no schema, com campos `id`, `email`, `nome`, `role`, `ativo`, `created_at`. Nunca substituir essa estrutura por algo diferente.
+- Mapa de rotas sempre inclui o bloco `/admin/*` com pelo menos `/admin`, `/admin/usuarios` e `/admin/usuarios/:id`. Marcar essas rotas como `protegida (admin)`.
+- Prompt do Lovable sempre contém o Bloco 5 (Perfis de usuário) literal, com a estrutura de `profiles`, trigger de signup, primeiro admin automático, componentes `<ProtectedRoute>` e `<AdminRoute>`, e políticas de RLS para os 2 perfis.
 - Nunca entregar código. Código é responsabilidade do Lovable. A skill entrega especificação + prompt.
 - Prompt para o Lovable sempre em português, direto, sem markdown interno (usar listas numeradas e marcadores comuns).
 - Todo PRD deve ter a seção "Mapa de rotas" preenchida com todos os paths reais antes de avançar para a Etapa 5.

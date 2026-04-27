@@ -56,7 +56,7 @@ O `perfil.md` cresce **bloco a bloco** ao longo do fluxo (upsert da seção corr
 1. **Upsert da seção no `perfil.md`**. Se o arquivo ainda não existir, crie com um skeleton contendo os H2 headers de todas as seções ainda pendentes (vazios). Se já existir, substitua apenas o conteúdo da seção correspondente.
 2. **Confirmar ao aluno em UMA linha**: `✅ Seção {Nome} salva no perfil.`
 
-**NÃO rode `painel-incremental.py` durante os blocos.** O painel é montado de uma só vez na Seção 5 com `py -3 scripts/build-painel-entregas.py`.
+**NÃO rode `painel-incremental.py` durante os blocos.** O painel é montado de uma só vez na Seção 5 chamando `painel-incremental.py --secao {secao}` para cada seção preenchida.
 
 **Skeleton inicial do `perfil.md`** (usar no primeiro upsert, logo após a aprovação do Quadro):
 
@@ -70,8 +70,6 @@ O `perfil.md` cresce **bloco a bloco** ao longo do fluxo (upsert da seção corr
 
 ## Identidade do Produto
 
-## Identidade do Consumidor
-
 ## Identidade do Comunicador
 
 ## Decorados (Benefícios)
@@ -80,6 +78,8 @@ O `perfil.md` cresce **bloco a bloco** ao longo do fluxo (upsert da seção corr
 
 ## Urgências Ocultas
 ```
+
+> **Nota importante:** o `perfil.md` NÃO contém uma seção `## Identidade do Consumidor`. A Identidade do Consumidor é gerada UMA ÚNICA VEZ na Seção 4 (depois de todos os blocos do perfil), incluindo persona completa, objeções com 7 quebras E os baldes "Para quem é", e vive em `idconsumidor.md`. Nunca duplicar, nunca gerar parcialmente em outro bloco.
 
 A partir daí, cada bloco aprovado substitui o conteúdo abaixo do seu H2, sem mexer nos outros.
 
@@ -365,7 +365,7 @@ Confirme ao aluno em UMA linha:
 ✅ Seção Identidade do Comunicador salva no perfil.
 ```
 
-**Bloco 3/6. Pesquisa de Mercado + Identidades e Posicionamento:**
+**Bloco 3/6. Pesquisa de Mercado + Identidade do Produto:**
 
 **VERIFIQUE PRIMEIRO:** tente ler `meus-produtos/{ativo}/pesquisa-mercado.md` com o Read tool.
 
@@ -374,23 +374,23 @@ Confirme ao aluno em UMA linha:
 
 **A partir daqui, todos os blocos seguintes usam os dados desse arquivo. Nenhuma nova busca é feita.**
 
-Apresente um resumo conversacional dos achados (dados, números, insights principais, não o relatório inteiro) e use os dados para gerar as Identidades do Produto e do Consumidor:
+Apresente um resumo conversacional dos achados (dados, números, insights principais, não o relatório inteiro) e use os dados para gerar a **Identidade do Produto**:
 
-- **Identidade do Produto.** diferencial vs concorrentes da tabela, posicionamento sugerido
-- **Identidade do Consumidor.** perfil real baseado na pesquisa (demografia, comportamento, onde consome conteúdo, objeções típicas extraídas do Reclame Aqui, nível de consciência Schwartz)
+- **Identidade do Produto.** diferencial vs concorrentes da tabela, posicionamento sugerido (Nome, Formato, Preço, Diferencial)
 
-Apresente as duas para validação.
+Apresente para validação.
 
-**Salvar Identidade do Produto + Identidade do Consumidor:**
+> **Importante:** NÃO gere a Identidade do Consumidor neste bloco. Ela é gerada inteira (perfil + persona + objeções com 7 quebras + baldes "Para quem é" + frases + canais + sonho) UMA ÚNICA VEZ na Seção 4 deste fluxo, depois de todos os blocos do perfil. Os blocos seguintes (Decorados, Urgências, Argumentos) usam diretamente o público mapeado em `pesquisa-mercado.md`, não precisam de uma Identidade do Consumidor formalizada antes.
 
-Após o aluno validar, faça upsert no `perfil.md` das duas seções:
+**Salvar Identidade do Produto:**
+
+Após o aluno validar, faça upsert no `perfil.md` da seção:
 - `## Identidade do Produto` (Nome, Formato, Preço, Diferencial)
-- `## Identidade do Consumidor` (Público-alvo, Nicho, Nível de consciência, Comportamento, Objeções típicas)
 
 Confirme ao aluno:
 
 ```
-✅ Seções Identidade do Produto e Identidade do Consumidor salvas no perfil.
+✅ Seção Identidade do Produto salva no perfil.
 ```
 
 **Formato e Preço. SUGIRA com base na pesquisa:**
@@ -483,12 +483,7 @@ Estrutura final esperada do `perfil.md`:
 - **Preço:** [preço]
 - **Diferencial:** [o que torna único]
 
-## Identidade do Consumidor
-- **Público-alvo:** [descrição]
-- **Nicho:** [nicho]
-- **Nível de consciência:** [classificação Schwartz]
-- **Comportamento:** [onde consome, como compra]
-- **Objeções típicas:** [objeções mapeadas]
+> A Identidade do Consumidor (perfil + persona + objeções com 7 quebras + baldes "Para quem é" + frases + canais + sonho) NÃO vive aqui. Ela é gerada inteira na Seção 4 e salva em `idconsumidor.md`.
 
 ## Identidade do Comunicador
 - **Nome:** [nome coletado no Bloco 0]
@@ -545,13 +540,15 @@ Estrutura oficial: 7 categorias com exatamente 10 itens cada (totalizando 70 ite
 - [10 conexões inesperadas que chamam atenção]
 ```
 
-### 4. Identidade do Consumidor
+### 4. Identidade do Consumidor (geração ÚNICA, completa)
+
+> **Princípio.** A Identidade do Consumidor é gerada UMA ÚNICA VEZ neste passo. Tudo abaixo (perfil demográfico + persona com nome fictício + paliativos para Middle Ticket + objeções com 7 quebras + frases que diria + canais + sonho + **baldes "Para quem é"**) é gerado no MESMO momento, em UM único documento `idconsumidor.md`. Os baldes "Para quem é" são parte integrante da Identidade do Consumidor, nunca uma seção separada nem um passo posterior. Não duplicar nada no `perfil.md`.
 
 **NÃO encerre o fluxo após a consolidação.** Anuncie ao aluno:
 
 ```
-Concluímos a concepção. Agora vou gerar a identidade do consumidor com base na pesquisa
-e no produto definido.
+Concluímos a concepção. Agora vou gerar a identidade do consumidor completa
+(perfil, persona, objeções com 7 quebras e baldes "Para quem é") em um único documento.
 ```
 
 **REGRA. Paliativos:**
@@ -672,7 +669,7 @@ Após o aluno aprovar:
    - Se a saída contiver `[!!]`: informe o aluno dos problemas encontrados antes de reconstruir o painel. Ex: `⚠ Identidade do consumidor gerada com 2 problema(s): [lista resumida]. O painel foi atualizado mesmo assim. Recomendo refazer a seção afetada com /produto-concepcao opção 6.`
    - Se a saída for `OK`: siga direto para o próximo passo sem mencionar o script ao aluno.
 
-3. Rode `py -3 scripts/build-painel-entregas.py` para reconstruir o painel com a identidade do consumidor completa.
+3. Rode `py -3 scripts/painel-incremental.py --secao identidade-consumidor` para atualizar o painel com a identidade do consumidor completa, preservando as outras seções já preenchidas.
 
 4. Confirme ao aluno: `✅ Identidade do consumidor gerada. Atualize a página do painel para ver completo.`
 
@@ -813,12 +810,19 @@ NOTA: As Urgências Ocultas ficam centralizadas em `meus-produtos/{ativo}/perfil
 
 Neste ponto o sub-agente da identidade do consumidor ainda está rodando em background. `perfil.md`, `pesquisa-mercado.md` e `tipo.md` já estão completos. Gere o painel agora com o que está disponível.
 
-Rode no terminal:
+Rode no terminal, uma chamada por seção. O script `painel-incremental.py` cria o shell do painel na primeira execução (com design escuro Fluxo Criativo) e atualiza apenas a seção pedida em cada chamada subsequente, preservando o que já está preenchido:
+
 ```
-py -3 scripts/build-painel-entregas.py
+py -3 scripts/painel-incremental.py --secao pesquisa
+py -3 scripts/painel-incremental.py --secao quadro
+py -3 scripts/painel-incremental.py --secao furadeira
+py -3 scripts/painel-incremental.py --secao decorados
+py -3 scripts/painel-incremental.py --secao urgencias
+py -3 scripts/painel-incremental.py --secao identidade-produto
+py -3 scripts/painel-incremental.py --secao identidade-comunicador
 ```
 
-O script trata `idconsumidor.md` ausente graciosamente: gera o painel sem as seções de identidade do consumidor e adiciona um warning interno. O aluno já tem o painel navegável com todas as outras seções (Quadro, Furadeira, Decorados, Urgências, etc.).
+A seção `identidade-consumidor` é atualizada depois, quando o sub-agente em background termina (veja final da Seção 4). O aluno já tem o painel navegável com todas as outras seções (Quadro, Furadeira, Decorados, Urgências, etc.) imediatamente após esta etapa.
 
 Confirme ao aluno:
 ```

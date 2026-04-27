@@ -54,7 +54,7 @@ Antes de qualquer pergunta, leia `meus-produtos/.ativo`.
 Você já tem um produto ativo: **{nome do produto}** ({tipo}).
 
 1. Continuar com este produto
-2. Criar um produto novo
+2. Criar um produto novo (Já tenho nome, formato e preço)
 3. Quero ideias de novo produto
 
 Digite o número:
@@ -145,6 +145,22 @@ Salve o slug em `meus-produtos/.ativo` (sobrescreva o conteúdo anterior).
 
 Salve o tipo escolhido em `meus-produtos/{slug}/tipo.md`.
 
+**Formato OBRIGATÓRIO do `tipo.md`:** o arquivo deve conter APENAS uma única linha com o texto literal `Low Ticket` OU `Middle Ticket`. Nada mais. Sem `#` de header, sem `**` de negrito, sem justificativa, sem faixa de preço, sem "formato escolhido", sem comentário, sem linha em branco no final.
+
+Exemplos do conteúdo correto do arquivo:
+
+```
+Low Ticket
+```
+
+ou
+
+```
+Middle Ticket
+```
+
+**Por quê:** o `tipo.md` é lido por scripts (painel de entregas, validadores, detecção condicional de Furadeira/Paliativos) que esperam apenas o rótulo do tipo. Qualquer conteúdo extra vai aparecer cru no card "Tipo" da página de Visão Geral do painel e quebrar a detecção condicional. Justificativa, faixa de preço, preço definido e formato escolhido pertencem ao `perfil.md`, nunca ao `tipo.md`.
+
 #### Passo 8. Atualizar o manifest do painel
 
 Rode no terminal para regenerar `meus-produtos/index.js` (o painel global em `painel.html` lê esse arquivo):
@@ -204,7 +220,7 @@ Com base na pesquisa de mercado e no conceito de **urgências ocultas**, gere **
 - **Urgências frias:** volume alto de busca, baixa intenção direta, mas público certo
 - **Urgências inusitadas:** conexões inesperadas e criativas que chamam atenção
 
-**Distribuição obrigatória por formato (10 categorias, mínimo 3 ideias cada, total 50):**
+**Distribuição obrigatória por formato (15 categorias, mínimo 3 ideias cada, total 50):**
 1. Mentoria em grupo
 2. Mentoria individual
 3. Curso gravado
@@ -215,8 +231,13 @@ Com base na pesquisa de mercado e no conceito de **urgências ocultas**, gere **
 8. Comunidade paga (assinatura)
 9. Workshop (evento curto e intensivo)
 10. Serviço (feito para o cliente)
+11. Agente GPT (assistente personalizado treinado para resolver uma dor específica do nicho)
+12. Mini-SaaS ou ferramenta web (microaplicativo simples, página única, que entrega um resultado em segundos)
+13. Planilha pronta (Excel ou Google Sheets com cálculo, automação ou diagnóstico)
+14. Checklist (PDF ou Notion com lista validada passo a passo, baixo ticket, alta percepção de valor)
+15. Desafio (jornada cronometrada de 3, 7, 21 ou 30 dias com entrega diária)
 
-Distribua as 50 ideias entre as 10 categorias garantindo pelo menos 3 em cada. As 20 restantes vão para as categorias com maior aderência ao nicho pesquisado.
+Distribua as 50 ideias entre as 15 categorias garantindo **pelo menos 3 em cada**. Em particular, as 5 categorias finais (Agente GPT, Mini-SaaS, Planilha, Checklist, Desafio) **NUNCA podem ficar de fora**, mesmo que o nicho pareça pouco tecnológico. Sempre encaixe pelo menos 3 ideias em cada uma, traduzindo a metodologia do mestre/criador para o formato. As 5 ideias restantes (50 - 15×3 = 5) vão para as categorias com maior aderência ao nicho pesquisado.
 
 **Organização do output:**
 Apresente a lista **agrupada por formato**, com um subtítulo para cada categoria e as ideias daquela categoria numeradas logo abaixo. Dentro de cada grupo, use tabela:

@@ -569,14 +569,66 @@ Salve o arquivo em:
 
 `meus-produtos/{ativo}/entregas/quiz/quiz-[produto].md`
 
-### 6. Entrega Final
+### 6. Entrega + Captura do Link do Lovable + Registro no Painel
+
+Após salvar o arquivo `.md` do prompt, **NÃO encerre o fluxo**. O quiz só está completo quando o link publicado no Lovable também estiver registrado, para o painel de entregas exibir os dois.
+
+> **Princípio de comunicação:** o aluno SÓ INTERAGE pelo chat. Em nenhuma mensagem visível ao aluno mencione `quiz-meta.json`, `perfil.md`, `painel-incremental.py`, "rode no terminal", "edite o arquivo" ou qualquer detalhe técnico de bastidor. Esses arquivos existem nos bastidores e o agente cuida deles silenciosamente. Para o aluno, só existem: o painel de entregas (que ele abre no navegador) e o chat (onde ele fala comigo).
+
+**Passo 6.1. Confirmar que o prompt foi salvo (mensagem visível ao aluno):**
 
 ```
-✅ Quiz completo entregue. Arquivo salvo:
+✅ Quiz pronto. Para gerar o funil:
 
-📄 meus-produtos/{ativo}/entregas/quiz/quiz-[produto].md
+1. Abra https://lovable.dev em uma aba nova
+2. Copie todo o conteúdo do prompt que está no painel de entregas (aba Copy da Página)
+3. Cole no chat do Lovable e aguarde gerar
+4. Quando terminar, volte aqui e me mande o link do quiz publicado
+```
 
-Próximo passo: abra o arquivo, copie todo o conteúdo e cole no Lovable.dev para construir o funil completo.
+**Passo 6.2. Pedir o link do quiz publicado:**
+
+Pergunte de forma direta:
+
+```
+Você já tem o link do quiz que o Lovable gerou?
+
+Se sim, é só colar aqui no chat (ex: https://desafio-cura-coracao.lovable.app).
+Se ainda não publicou, é só responder "ainda não". Quando publicar, é só voltar aqui no chat e me mandar o link, que eu atualizo o painel automaticamente.
+```
+
+**Comportamento esperado do agente:**
+
+- Se o aluno responder com um texto que começa com `http://` ou `https://` (em qualquer momento da conversa, mesmo depois de horas/dias): tratar como link novo do quiz, sobrescrever os arquivos automaticamente e reconstruir o painel. Não pedir confirmação.
+- Se o aluno responder "ainda não", "não publiquei", "depois", ou similar: registrar como pendente e seguir.
+- **Nunca** peça ao aluno para editar arquivo, abrir arquivo, rodar script ou qualquer coisa fora do chat. Tudo é resolvido pelo agente nos bastidores.
+
+**Passo 6.3 a 6.5. Bastidores do agente (silencioso, NÃO mostrar nada disso ao aluno):**
+
+Após capturar o link (ou registrar como pendente), o agente faz silenciosamente:
+
+1. Salva os metadados do quiz em `meus-produtos/{ativo}/entregas/quiz/quiz-meta.json` (estrutura: `prompt_path`, `lovable_url`, `generated_at`, `url_updated_at`, `produto_nome`, `produto_slug`)
+2. Faz upsert da seção `## Quiz` no `perfil.md` (campos `_prompt`, `_lovable_url`, `_meta`, `_atualizado`)
+3. Roda `py -3 scripts/painel-incremental.py --secao copy-pagina` para atualizar a aba do quiz no painel
+
+O painel já renderiza o card do Quiz lendo o JSON automaticamente. Tudo isso é invisível para o aluno, ele só vê a mensagem do passo 6.6.
+
+**Passo 6.6. Confirmação final ao aluno (UMA mensagem curta, sem mencionar arquivos internos):**
+
+Se o aluno colou um link válido:
+```
+✅ Link salvo no painel de entregas. O card do quiz agora mostra: {link}
+
+Próximo passo: /copy-anuncio para criar os anúncios que vão direcionar tráfego para o quiz.
+```
+
+Se ainda não publicou:
+```
+✅ Quiz registrado no painel como pendente.
+
+Quando publicar no Lovable, é só voltar aqui no chat e me mandar o link. Eu atualizo o painel automaticamente.
+
+Próximo passo: /copy-anuncio para criar os anúncios que vão direcionar tráfego para o quiz quando estiver no ar.
 ```
 
 ---

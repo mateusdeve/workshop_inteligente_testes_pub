@@ -1,13 +1,15 @@
-﻿---
+---
 name: workshop-marketing:furadeira-visual
-description: Gerar a Furadeira (método do produto) em 3 formatos à escolha. HTML (trilha visual), PNG via OpenRouter (Gemini Flash, Gemini Pro ou GPT-5.4 Image 2) ou prompt pronto para colar em IA externa.
-allowed-tools: Read, Write, Bash
+description: Gerar a imagem PNG da Furadeira do produto ativo. Le a Furadeira ja escrita no perfil.md (gerada por /gerar-furadeira), decide o layout visual conforme mecanica + nicho, monta um prompt em ingles para o aluno colar no ChatGPT, recebe a imagem de volta e salva no projeto + painel de entregas.
+allowed-tools: Read, Write, Edit, Bash
 model: sonnet
 ---
 
-# Furadeira Visual. Gerar o Método do Produto
+# Furadeira Visual (Imagem PNG via ChatGPT)
 
-Gera a representação visual do método (Furadeira) do produto ativo. O aluno escolhe entre três formatos de saída. Coexiste com `/gerar-furadeira` (atalho direto para imagem).
+Gera a imagem PNG da Furadeira a partir da Furadeira já escrita no `perfil.md`. A skill decide o layout sozinha (com base na mecânica registrada e no nicho), monta o prompt em inglês, exibe pra colar no ChatGPT, recebe a imagem de volta e salva.
+
+Pré-requisito: a Furadeira precisa estar gerada no `perfil.md`. Se não estiver, redireciona para `/gerar-furadeira`.
 
 ## Usage
 
@@ -17,7 +19,7 @@ Gera a representação visual do método (Furadeira) do produto ativo. O aluno e
 
 ## O Que Fazer
 
-### 1. Carregar contexto do produto ativo
+### 1. Carregar contexto
 
 Leia `meus-produtos/.ativo`. Se vazio, pare e informe:
 
@@ -25,556 +27,234 @@ Leia `meus-produtos/.ativo`. Se vazio, pare e informe:
 Nenhum produto ativo. Use /produto-novo ou /produto-trocar primeiro.
 ```
 
-Leia `meus-produtos/{ativo}/perfil.md`. Se não tiver Quadro ou Furadeira preenchidos, pare:
+Leia `meus-produtos/{ativo}/perfil.md`. Procure pela seção "## Furadeira (Método)".
+
+**Se a seção não existir ou não tiver o campo `**Mecânica(s):**`** definido, pare e informe:
 
 ```
-O perfil ainda não tem Quadro ou Furadeira. Use /produto-concepcao antes.
+A Furadeira ainda não foi gerada no perfil.md. Use /gerar-furadeira primeiro para criar o método estruturado. Depois rode /furadeira-visual para gerar a imagem.
 ```
 
-Leia `meus-produtos/{ativo}/idconsumidor.md` se existir. Extraia do perfil e do idconsumidor:
+Extraia da seção Furadeira:
+- **Nome do método**
+- **Mecânica(s)** declarada(s)
+- **Estrutura específica** (fases, ramificações, categorias, pilares, ritual, etc., conforme a mecânica)
+- **Eficiência principal**
 
-- **Nicho** (ex: "Tarô", "Finanças para MEI").
-- **Quadro** (transformação principal).
-- **Macroetapas** da Furadeira (títulos, até 5).
-- **Microetapas** dentro de cada macroetapa.
-- **Dor central** (primeira dor das Urgências Ocultas).
-- **Avatar** (descrição curta do consumidor, se houver).
+Extraia também do perfil.md:
+- **Nicho** (extrair também de idconsumidor.md se existir, para refinar o tom)
 
-### 2. Perguntar o modo de geração
+### 2. Carregar bases de conhecimento
 
-```
-Como você quer gerar a Furadeira?
+Leia:
+- `.claude/skills/furadeira-visual/SKILL.md` (regras de mapeamento mecânica → layout, paleta por nicho, estrutura do prompt)
+- `.claude/skills/furadeira-visual/references/6-mecanicas.md` (definição das 6 mecânicas)
+- `.claude/skills/furadeira-visual/references/metodo-visual.md` (descrição estrutural de cada layout)
 
-1. HTML. Trilha visual em página navegável (rápido, sem IA de imagem)
-2. Imagem via API. PNG gerado via OpenRouter (precisa de chave do OpenRouter)
-3. Prompt pronto. Texto otimizado para você colar em qualquer IA externa
-   (Gemini, ChatGPT, Midjourney, Ideogram, etc.)
+### 3. Decidir o layout automaticamente
 
-Digite o número:
-```
+Aplique a tabela mecânica → layout da skill `furadeira-visual`:
 
-Siga o fluxo correspondente à escolha. As três opções são mutuamente exclusivas.
+| Mecânica registrada | Layouts compatíveis (preferência decrescente) |
+|---|---|
+| Fases e Sequências | Roadmap Vertical, Linear Horizontal, Hexágonos em Cadeia, Trilha Ondulada, Pirâmide Invertida |
+| Lógica Condicional | Fluxograma Condicional, Régua de Comportamento |
+| Enquadramento | Grid de Categorias, Quadrantes 2x2, Hub Numerado com Quadrantes |
+| Listas | Hub Central / Diamante, Roda Eneagrama, Roda Octogonal, Mandala Concêntrica |
+| Empecilhos (com Fases) | Roadmap Vertical com caixas de obstáculo lateral, Linear Horizontal com bloqueios |
+| Dinâmica de Entrega | Curva Exponencial, Régua de Comportamento, Trilha Ondulada com frequência |
 
----
+Desempate por nicho (consulte tabela completa na skill):
+- Espiritual → preferir Mandala, Roda, Hub
+- Corporativo → preferir Linear, Hub Numerado
+- Feminino → preferir Trilha Ondulada, Grid Categorias
+- Esportivo / Saúde → preferir Roadmap, Curva Exponencial
+- Educação / Idiomas → preferir Hexágonos, Pirâmide
+- Criativo → preferir Mandala, Hub Central
 
-### 3. Opção 1. HTML (trilha visual)
+### 4. Inferir paleta pelo nicho
 
-#### 3.1. Perguntar paleta de cores
+Aplique a tabela de paleta por nicho da skill `furadeira-visual` (cada nicho tem cor dominante + acento + texto em HEX). Não perguntar ao aluno. Se o nicho não encaixar em nenhuma categoria, usar a paleta genérica (Azul royal `#2563EB` + Dourado `#E8A200` + Branco).
 
-```
-Qual paleta de cores para a trilha visual?
-
-1. Verde e dourado (clássico, autoridade)
-2. Azul e branco (moderno, confiança)
-3. Roxo e rosa (criativo, feminino)
-4. Laranja e escuro (energia, impacto)
-5. Personalizada (informe as cores principais)
-
-Digite o número:
-```
-
-#### 3.2. Anunciar próximo passo e gerar o HTML
-
-```
-🔍 Próximo passo: gerar trilha HTML com {N} macroetapas e microetapas. Tempo estimado: cerca de 30 segundos.
-```
-
-Gere o HTML de trilha progressiva. Consulte `.claude/skills/furadeira-visual/` para o template completo.
-
-A trilha deve mostrar:
-- Nome do método em destaque.
-- Cada macroetapa como marco numerado com título e frase-resumo.
-- Microetapas como checkpoints visuais dentro de cada macroetapa.
-- Cores da paleta escolhida aplicadas no design.
-
-#### 3.3. Salvar HTML
-
-Salve em `meus-produtos/{ativo}/entregas/furadeira-visual.html`.
-
-**REGRA OBRIGATÓRIA. Botão Baixar PNG embutido no HTML.**
-
-Todo HTML gerado nesta opção precisa incluir o bloco de botão de download ANTES de `</body>`. Conteúdo exato do bloco em `.claude/skills/furadeira-visual/references/botao-baixar-png.html`. Copie o arquivo inteiro (comentários e tudo) e cole imediatamente antes de `</body>`.
-
-Por quê:
-- O aluno precisa conseguir exportar a Furadeira como imagem sem depender de Python, Playwright, Puppeteer nem de habilidade técnica para usar DevTools.
-- A conversão backend (passo 3.4) pode falhar em máquinas sem as ferramentas instaladas. O botão embutido garante que qualquer usuário, em qualquer máquina, baixe o PNG com um clique.
-- Se os templates de referência em `.claude/skills/furadeira-visual/references/templates/` forem usados como base, o bloco já vem incluso. Se o HTML for gerado do zero, incluir manualmente é obrigatório.
-
-Checklist antes de salvar o HTML:
-- [ ] O arquivo contém o comentário `<!-- ===== Botão Baixar PNG` antes de `</body>`.
-- [ ] O ID `btn-baixar-furadeira` aparece exatamente uma vez.
-- [ ] O script carrega `html2canvas` via CDN (`cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1`).
-- [ ] O botão usa `position: fixed; top: 20px; right: 20px` (não invade o conteúdo).
-- [ ] O botão tem `@media print { display: none; }` (não aparece em PDF nem screenshot manual).
-
-Se qualquer item falhar, corrija antes de salvar.
-
-#### 3.4. Converter para PNG (tente todas as opções)
-
-Tente nesta ordem de prioridade. Se uma funcionar, pare.
-
-**A. Script Python:**
-```
-py -3 scripts/html-to-png.py --input meus-produtos/{ativo}/entregas/furadeira-visual.html --output meus-produtos/{ativo}/entregas/furadeira-visual.png
-```
-
-**B. Playwright (se instalado):**
-```
-python -c "
-from playwright.sync_api import sync_playwright
-with sync_playwright() as p:
-    browser = p.chromium.launch()
-    page = browser.new_page(viewport={'width':1200,'height':800})
-    page.goto('file:///[caminho_absoluto]/meus-produtos/{ativo}/entregas/furadeira-visual.html')
-    page.screenshot(path='meus-produtos/{ativo}/entregas/furadeira-visual.png', full_page=True)
-    browser.close()
-"
-```
-
-**C. Puppeteer (se Node disponível):**
-```
-node -e "
-const puppeteer = require('puppeteer');
-(async () => {
-  const browser = await puppeteer.launch();
-  const page = await browser.newPage();
-  await page.setViewport({width:1200,height:800});
-  await page.goto('file:///[caminho_absoluto]/meus-produtos/{ativo}/entregas/furadeira-visual.html');
-  await page.screenshot({path:'meus-produtos/{ativo}/entregas/furadeira-visual.png',fullPage:true});
-  await browser.close();
-})();
-"
-```
-
-#### 3.5. Mensagem final
-
-Se PNG gerado:
-```
-✅ Concluído: trilha visual gerada.
-
-HTML: meus-produtos/{ativo}/entregas/furadeira-visual.html
-PNG:  meus-produtos/{ativo}/entregas/furadeira-visual.png
-
-Para visualizar o HTML, cole no navegador:
-file:///C:/Users/Elen/.cursor/Imersão IA/workshop_inteligente/meus-produtos/{ativo}/entregas/furadeira-visual.html
-```
-
-Se só HTML (todas as conversões falharam):
-```
-✅ Concluído: trilha HTML gerada.
-
-HTML: meus-produtos/{ativo}/entregas/furadeira-visual.html
-
-Para baixar como PNG:
-1. Abra o arquivo no navegador
-2. Clique no botão "Baixar PNG" no canto superior direito da página
-3. O download começa automaticamente (arquivo furadeira.png)
-
-O botão é embutido no HTML e funciona em qualquer máquina com internet.
-```
-
-Siga para a seção **Próximo passo sugerido**.
-
----
-
-### 4. Opção 2. Imagem via API
-
-Toda geração de imagem usa OpenRouter. A escolha é apenas de modelo.
-
-#### 4.1. Validar chave
-
-Leia `.env`. Se `OPENROUTER_API_KEY` estiver vazio ou ausente, informe e ofereça o prompt direto:
+### 5. Anunciar a decisão
 
 ```
-Falta a chave do OpenRouter para gerar automaticamente.
-
-Posso te dar o prompt agora para você colar no ChatGPT e gerar sem configurar nada.
-
-1. Me dá o prompt agora (vou colar no ChatGPT)
-2. Quero configurar a chave do OpenRouter (leva 2 minutos)
+🔍 Próximo passo: montar o prompt para um {nome do layout escolhido} com paleta {nome da paleta}, baseado na mecânica {mecânica registrada}. Tempo estimado: cerca de 30 segundos.
 ```
 
-Se escolher **1**: siga o fluxo da **Opção 3** (seção 5).
+### 6. Montar o prompt em inglês
 
-Se escolher **2**: informe os passos:
-```
-Passo a passo:
-1. Acesse openrouter.ai/settings/keys
-2. Clique em "Create Key", copie o valor
-3. Abra o arquivo .env na raiz do projeto
-4. Cole na linha OPENROUTER_API_KEY=sua_chave_aqui
-5. Salve e rode /furadeira-visual de novo
-```
-
-#### 4.2. Referências e modelo
-
-Pergunte sobre imagens de referência:
+Estrutura obrigatória do prompt (preencher os placeholders):
 
 ```
-Quer usar imagens de referência para guiar o estilo visual?
+Professional flat design infographic for a method called "{nome do método}".
+Transparent background, PNG with alpha channel. No background color, no background fill.
 
-1. Sim, já estão salvas na pasta (assets/furadeira-referencias/)
-2. Sim, quero enviar aqui no chat agora
-3. Não, gerar sem referências
+VISUAL STYLE:
+{descrição textual rica do layout escolhido em 4 a 6 frases — estrutura, conexões,
+hierarquia, espaçamento, ícones, decoração}
 
-As referências ajudam o modelo a replicar cores, layout e estilo de um design que você já gosta.
+METHOD CONTENT (keep all text exactly in Brazilian Portuguese, do not translate):
 
-Digite o número:
-```
+{conteúdo específico da mecânica:
+ - Fases: cada fase numerada com nome + 1 frase
+ - Condicional: a decisão crítica + as ramificações com seus protocolos
+ - Enquadramento: as categorias com nomes próprios e características
+ - Listas: os pilares com seus nomes e 1 frase de explicação
+ - Empecilhos: os 3 a 5 obstáculos com nomes
+ - Dinâmica: o ritual com frequência e duração}
 
-**Se escolheu 1 (pasta local):**
-
-Conte arquivos `.png`, `.jpg`, `.jpeg`, `.webp` em `assets/furadeira-referencias/`. Se menos de 3, informe:
-
-```
-Encontrei apenas {N} imagem(ns) em assets/furadeira-referencias/.
-Para melhores resultados, coloque pelo menos 3 imagens de referência.
-
-1. Vou adicionar mais imagens (retome depois)
-2. Usar as {N} que já estão lá mesmo assim
-3. Enviar as referências aqui no chat agora
-```
-
-**Se escolheu 2 (enviar no chat):**
-
-```
-Envie as imagens de referência aqui no chat.
-Pode arrastar do explorador de arquivos, colar ou usar o botão de anexo.
-Aceito de 1 a 16 imagens (PNG, JPG ou WEBP).
-
-Quando terminar de enviar todas, diga "pronto".
-```
-
-Aguarde o aluno enviar as imagens e confirmar com "pronto". Após receber:
-
-1. Limpe as referências antigas com Bash:
-   ```
-   bash -c "rm -f assets/furadeira-referencias/ref-*.png assets/furadeira-referencias/ref-*.jpg assets/furadeira-referencias/ref-*.jpeg assets/furadeira-referencias/ref-*.webp"
-   ```
-
-2. Para cada imagem recebida, identifique o caminho do arquivo. Use Bash para copiar para `assets/furadeira-referencias/` com nome sequencial (`ref-01.png`, `ref-02.jpg`, etc.):
-   ```
-   cp "{caminho_original}" "assets/furadeira-referencias/ref-{NN}.{ext}"
-   ```
-
-3. Se a imagem veio como conteúdo inline, leia-a com o Read tool pelo caminho temporário e salve em `assets/furadeira-referencias/ref-{NN}.png` com o Write tool.
-
-4. Confirme quantas foram salvas:
-   ```
-   {N} imagens salvas em assets/furadeira-referencias/. Seguindo...
-   ```
-
-**Se escolheu 3 (sem referências):**
-
-Guarde internamente `max_refs = 0` para usar no passo 4.5.
-
-Após definir as referências, pergunte o modelo:
-
-```
-Qual modelo usar para gerar a Furadeira?
-
-1. Gemini 2.5 Flash Image (padrão). O mais rápido e econômico. Bom para a maioria dos casos.
-2. Gemini 2.5 Pro Image. Qualidade visual superior, mais fiel às referências. Custa um pouco mais por geração.
-3. GPT-5.4 Image 2 (OpenAI). O mais avançado da lista. Raciocínio superior para seguir instruções complexas, ótimo para diagramas limpos. Mais caro por geração.
-
-Todos os três recebem suas imagens de referência e geram PNG com fundo transparente.
-
-Digite o número:
-```
-
-Mapeamento interno (não mostrar ao usuário):
-
-- 1 → `google/gemini-2.5-flash-image`
-- 2 → `google/gemini-2.5-pro-image`
-- 3 → `openai/gpt-5.4-image-2`
-
-Guarde o model ID e `max_refs` para usar no passo 4.5.
-
-#### 4.3. Analisar as referências e construir o prompt em inglês
-
-**OBJETIVO DO PROMPT:** gerar um infográfico visual que representa o método do produto, não uma foto ou cena realista. O resultado deve parecer um diagrama profissional de etapas. O prompt precisa ser altamente assertivo: o modelo recebe as imagens de referência E uma descrição textual detalhada delas, reforçando duplamente o que deve ser replicado.
-
----
-
-**Passo 4.3.1 — Analisar cada imagem de referência**
-
-Examine as imagens em `assets/furadeira-referencias/` e registre internamente os seguintes atributos para o conjunto:
-
-**Paleta de cores:**
-- Cor dominante do fundo dos cards ou elementos (ex: branco, azul royal #2B4AE8, escuro #1A1A2E)
-- Cor de destaque/acento usada em ícones, setas ou bordas (ex: dourado #F5A623, verde #00C875)
-- Cor dos textos dos títulos e subtítulos
-
-**Tipografia:**
-- Família: sem serifa moderna (Poppins, Inter), serifada clássica, display bold, script
-- Peso predominante dos títulos (thin, regular, bold, black/heavy)
-- Peso dos subtítulos ou descrições
-- Tamanho relativo: compacto e denso, ou amplo e arejado
-
-**Layout das etapas:**
-- Estrutura: horizontal com setas, vertical tipo timeline, cards em grid, círculo central com ramificações
-- Conexão entre etapas: setas finas, linha pontilhada, numeração progressiva, nenhuma conexão explícita
-- Proporção dos cards: quadrado, retângulo largo, retângulo alto, forma orgânica
-
-**Ícones:**
-- Estilo: outline fino, preenchido sólido, ilustrativo com gradiente, emoji-like, pictograma geométrico
-- Tamanho relativo ao texto: grande acima do texto, pequeno ao lado esquerdo, centralizado
-
-**Fundo geral:**
-- Sem fundo (transparente), branco limpo, gradiente suave, cor sólida, textura
-
-**Elementos decorativos:**
-- Formas geométricas no fundo (círculos, hexágonos, ondas)
-- Separadores entre etapas
-- Sombras nos cards (flat sem sombra, sombra suave, sombra longa)
-
-**Tom visual geral:**
-- Corporativo sóbrio, espiritualizado/etéreo, vibrante e moderno, acadêmico clean, minimalista premium
-
-Com base na análise, monte uma descrição consolidada de 4 a 6 frases em inglês que capture a essência visual do conjunto. Ela entrará diretamente no prompt. Exemplo de boa descrição consolidada:
-
-> "The references show a modern flat design style. Each step is represented as a rounded rectangle card with a thin-outline icon centered above the label text. Cards are connected by thin horizontal arrows. The dominant color is deep navy blue (#1A3A6B) with golden accents (#E8A200) on the icons and arrows. Typography is bold sans-serif (similar to Poppins or Inter) for step titles and regular weight for descriptions. The overall tone is professional and corporate, with no background fill."
-
----
-
-**Passo 4.3.2 — Montar o prompt em inglês**
-
-Monte o prompt usando o esqueleto abaixo. Substitua todos os placeholders. O frame técnico fica em inglês, mas os textos visíveis do infográfico (nome do método, macroetapas, rótulos) ficam em português brasileiro exatamente como estão no perfil.
-
-```
-Professional flat design infographic. Transparent background, PNG with alpha channel. No background color, no background fill, no solid or gradient fill behind the entire composition.
-
-VISUAL STYLE — replicate faithfully from the provided reference images:
-{descricao_consolidada_das_referencias_em_ingles}
-
-METHOD CONTENT:
-Method name (keep exactly in Brazilian Portuguese, do not translate): "{nome_do_metodo}"
-Goal/transformation (keep exactly in Brazilian Portuguese, do not translate): "{quadro}"
-
-STEPS — keep all labels exactly in Brazilian Portuguese, do not translate or paraphrase. Preserve all accented characters exactly as written (ã, é, ç, ó, ú, â, ê, etc.):
-Step 1: "{macroetapa_1}"
-Step 2: "{macroetapa_2}"
-Step 3: "{macroetapa_3}"
-[add more steps as needed]
-
-LAYOUT: {horizontal flow with connecting arrows | vertical timeline | side-by-side cards} — use the layout most consistent with the references.
-ICON STYLE: {outline thin icons | filled solid icons | illustrative gradient icons} — match the reference exactly.
-COLOR PALETTE: {cores_em_ingles, ex: "deep navy blue #1A3A6B as dominant, golden #E8A200 as accent, white text on dark cards"}
-TYPOGRAPHY: {estilo_tipografico_em_ingles, ex: "bold sans-serif titles similar to Poppins, regular weight for descriptions, tight line-height"}
-SPACING: {compact and dense | balanced | airy and spacious} — match the references.
-DECORATIVE ELEMENTS: {descricao_dos_elementos_decorativos_se_houver, ex: "thin horizontal arrows between cards, subtle drop shadow on cards, no other decoration"}
+LAYOUT: {nome do layout + posicionamento dos elementos no canvas}
+ICON STYLE: {outline thin / filled solid / illustrative — escolher conforme nicho}
+COLOR PALETTE: dominant {HEX e nome}, accent {HEX e nome}, text {HEX e nome}
+TYPOGRAPHY: {sans-serif moderna / serif clássica / display bold}
+TONE: {corporate sober / spiritual ethereal / vibrant modern / clean academic / minimalist premium}
 
 HARD CONSTRAINTS:
-- Transparent background (PNG with alpha channel). No white fill, no colored fill, no gradient wash behind the full canvas. Only the infographic elements themselves should be visible.
-- All visible text must be in Brazilian Portuguese (pt-BR). Never translate method name or step labels.
-- Render all accented characters correctly: ã, á, â, à, é, ê, í, ó, ô, õ, ú, ç. Do NOT strip, replace, or ignore accents. "Açao" is wrong; "Ação" is correct.
+- Transparent background (PNG with alpha channel). No white fill, no colored fill, no gradient wash behind the full canvas.
+- All visible text must be in Brazilian Portuguese (pt-BR). Never translate names, phases, categories or labels.
+- Render all accented characters correctly: ã, á, â, à, é, ê, í, ó, ô, õ, ú, ç. "Ação" not "Acao".
 - No people, no faces, no photographs, no realistic scenes, no handwriting.
 - No logos, no watermarks, no decorative frames around the full canvas.
-- Output format: PNG with transparent background, aspect ratio 4:3, minimum width 1200px.
-- The result must look like a professional training material or presentation slide.
-- No foreign text, no English labels visible in the final image.
+- Aspect ratio 4:3, minimum width 1200px.
+- Output: clean professional infographic ready for presentation slide or sales page.
 ```
 
-**Regras de preenchimento:**
-- `{descricao_consolidada_das_referencias_em_ingles}`: a descrição de 4 a 6 frases montada no passo 4.3.1, traduzida para inglês. Seja específico: cite cores HEX, estilo de ícone, tipo de layout, peso da tipografia.
-- `{nome_do_metodo}` e `{quadro}`: extraídos do perfil, mantidos exatamente em português.
-- `{macroetapas}`: exatamente como estão no perfil. Não traduzir, não parafrasear.
-- Layout e ícones: escolha o que domina nas referências.
-- Não inclua placeholders `{}` no prompt final enviado ao script.
+Use a estrutura completa do prompt detalhada em `.claude/skills/furadeira-visual/SKILL.md`.
 
-**Regras críticas:**
-- Nunca usar "photorealistic", "cinematic", "editorial", "photograph" ou "portrait".
-- Nunca usar "no foreign text" no prompt (bloqueia o português).
-- Sempre incluir `"All visible text must be in Brazilian Portuguese (pt-BR)"`.
-- Fundo transparente deve aparecer em pelo menos 3 pontos do prompt: na abertura, em HARD CONSTRAINTS, e em Output format.
-- **Acentuação obrigatória:** o prompt deve instruir explicitamente o modelo a renderizar os acentos do português (ã, é, ç, ó, â, etc.). Inclua a linha de acentos em HARD CONSTRAINTS e repita na instrução de STEPS. Modelos de imagem tendem a omitir ou substituir acentos se não forem instruídos com exemplo concreto ("Ação" não "Açao").
-
-Para ajustes opcionais por nicho (espiritual vs corporativo, proporção, paleta alternativa), consulte `.claude/skills/gerar-furadeira/SKILL.md`.
-
-#### 4.4. Confirmação
-
-```
-Vou gerar:
-- Modelo: {nome do modelo escolhido, ex: "Gemini 2.5 Flash Image"}
-- Produto: {nome}
-- Quadro: {quadro}
-- Etapas retratadas: {macroetapas}
-- Referências: {N} imagens | sem referências
-
-1. Tudo certo, pode gerar
-2. Quero ajustar algo
-```
-
-#### 4.5. Executar o script
-
-Anuncie antes:
-
-```
-🔍 Próximo passo: gerar PNG via OpenRouter. Tempo estimado: cerca de 2 a 3 minutos.
-```
-
-Execute:
-
-```
-py -3 scripts/gerar-furadeira-openrouter.py --slug {ativo} --prompt "{prompt}" --model {model_id} --max-refs {N}
-```
-
-Onde:
-
-- `{model_id}` é o ID do modelo escolhido (ex: `openai/gpt-5.4-image-2`)
-- `{N}` é o número de referências em `assets/furadeira-referencias/` (use `0` se o aluno optou por gerar sem referências)
-
-Timeout interno do script: 180s. Se estourar, o script aborta com mensagem.
-
-#### 4.6. Apresentar resultado
-
-Leia o stdout. O script retorna `OK\t{caminho}\t...` ou erro no stderr.
-
-**Sucesso:**
-```
-✅ Concluído: Furadeira gerada.
-
-Caminho: meus-produtos/{ativo}/entregas/furadeira/{arquivo}.png
-
-Abra no explorador de arquivos para visualizar. Se quiser regenerar com outro estilo, rode /furadeira-visual de novo.
-```
-
-**Falha:** mostre a mensagem exata do script e sugira a ação correspondente (ver seção Tratamento de erros).
-
-Siga para a seção **Próximo passo sugerido**.
-
----
-
-### 5. Opção 3. Prompt pronto (sem API)
-
-#### 5.1. Construir o prompt em inglês
-
-Use o mesmo esqueleto da Opção 2 (seção 4.3). Mesmas regras de tradução.
-
-#### 5.2. Construir a versão em português
-
-Traduza o prompt inglês para português mantendo o significado. Serve como fallback para alunos que preferem colar em português ou para conferência de conteúdo.
-
-#### 5.3. Salvar o arquivo
+### 7. Salvar prompt em arquivo
 
 Anuncie:
 
 ```
-🔍 Próximo passo: salvar prompt pronto em arquivo Markdown. Tempo estimado: cerca de 5 segundos.
+🔍 Próximo passo: salvar prompt em arquivo Markdown. Tempo estimado: cerca de 5 segundos.
 ```
 
-Salve em `meus-produtos/{ativo}/entregas/furadeira/prompt-furadeira.md` com esta estrutura exata:
+Salve em `meus-produtos/{ativo}/entregas/furadeira/prompt-furadeira.md` com este conteúdo:
 
 ~~~markdown
-# Prompt para gerar a Furadeira em IA externa
+# Prompt para gerar a imagem da Furadeira no ChatGPT
 
-## Onde usar
+## Como usar
 
-**Recomendado: ChatGPT (chatgpt.com) com imagens de referência**
-O ChatGPT processa imagens de referência de forma nativa — muito mais fiel do que via API.
-Envie as referências E o prompt no mesmo chat para o melhor resultado possível.
+1. Acesse https://chatgpt.com/ e abra um chat novo.
+2. Cole o prompt abaixo no campo de mensagem.
+3. Envie e aguarde o ChatGPT gerar a imagem.
+4. Quando a imagem aparecer, clique com o botão direito > Salvar imagem como > escolha PNG.
+5. Volte aqui no chat do Workshop e cole a imagem (ou salve em `meus-produtos/{ativo}/entregas/furadeira/furadeira.png` e diga "imagem salva").
 
-**Como usar com referências no ChatGPT:**
-1. Acesse chatgpt.com e abra um chat novo
-2. Clique no ícone de clipe (anexo) e selecione suas imagens de referência
-3. Cole o prompt abaixo no campo de texto
-4. Envie tudo junto (referências + prompt) em uma única mensagem
-5. O ChatGPT vai analisar as referências e gerar a imagem no estilo delas
+**Importante:** verifique se o fundo da imagem está transparente (xadrez cinza/branco no editor). Se vier com fundo branco sólido, peça pro ChatGPT regenerar com a instrução "transparent background, PNG with alpha channel".
 
-Alternativas (sem referências visuais):
-- Google Gemini (gemini.google.com)
-- Ideogram ou Recraft (melhor suporte a fundo transparente)
-- Midjourney, Leonardo
-
-## Prompt (inglês, recomendado)
+## Prompt
 
 ```
-{prompt em inglês}
+{prompt em inglês completo, montado no passo 6}
 ```
 
-## Prompt (português, fallback)
+## Detalhes da decisão
 
-```
-{versão em português}
-```
-
-## Dicas
-
-**OBRIGATÓRIO: salvar como PNG com fundo TRANSPARENTE.**
-Após gerar no ChatGPT: clique com o botão direito na imagem e salve como PNG.
-Verifique se o fundo está transparente: ao abrir no editor de imagens, deve aparecer xadrez cinza e branco no lugar do fundo, não branco sólido.
-Se vier com fundo branco, adicione ao prompt: "transparent background, PNG with alpha channel, no background color, no background fill".
-
-- Use proporção 4:3 ou 16:9.
-- Se a IA gerar foto de pessoas ou cena realista, adicione: "no people, no faces, no photographs, infographic only".
-- Se o resultado vier com logo ou marca d'água, adicione: "no logos, no watermarks".
+- **Mecânica do método:** {mecânica registrada}
+- **Layout escolhido:** {nome do layout + por que combina com a mecânica}
+- **Paleta:** {nome da paleta + cores HEX, justificativa pelo nicho}
+- **Tom visual:** {tom escolhido pelo nicho}
 ~~~
 
-#### 5.4. Mensagem final
+### 8. Exibir o prompt no chat
+
+Mostre o prompt em inglês completo no chat (sem o bloco de código markdown — direto, pronto pra copiar):
 
 ```
-✅ Concluído: prompt pronto salvo.
+✅ Prompt gerado. Caminho: meus-produtos/{ativo}/entregas/furadeira/prompt-furadeira.md
 
-Caminho: meus-produtos/{ativo}/entregas/furadeira/prompt-furadeira.md
-
-Como usar:
-1. Acesse https://chatgpt.com/ e entre no chat
-2. Copie todo o bloco abaixo (da primeira até a última linha):
+Copie o bloco abaixo e cole no ChatGPT (https://chatgpt.com/):
 
 ---
-[exibir aqui o prompt em inglês gerado, sem o bloco de código, direto no chat]
+
+{prompt em inglês completo}
+
 ---
 
-3. Cole no campo de mensagem do ChatGPT e envie
-4. O ChatGPT vai gerar a imagem direto na conversa
-5. Clique na imagem gerada e salve como PNG
+**⚠ Aviso importante.** O ChatGPT costuma errar texto em português brasileiro (acentos, palavras técnicas). A imagem geralmente sai com layout e paleta corretos, mas com palavras tipo "Metodo" no lugar de "Método" ou "Coracao" no lugar de "Coração". Isso é limitação do modelo de imagem, não do prompt. Use a imagem como referência de layout. Para produção (página de vendas, anúncios), reproduza no Canva ou Figma com o texto correto (gasta uns 15 minutos).
+
+Quando o ChatGPT gerar a imagem:
+
+1. Clique com o botão direito > Salvar imagem como > escolha PNG
+2. Volte aqui e cole a imagem no chat (arrastar ou Ctrl+V)
+   OU salve manualmente em:
+   meus-produtos/{ativo}/entregas/furadeira/furadeira.png
+   e me avise "imagem salva"
+
+Estou esperando a imagem.
 ```
 
-Siga para a seção **Próximo passo sugerido**.
+### 9. Receber a imagem
 
----
+Aguarde o aluno responder. Há 3 cenários possíveis:
 
-## Tratamento de erros (por opção)
+**A. Aluno cola a imagem no chat.**
+1. Identifique o caminho temporário da imagem.
+2. Crie a pasta `meus-produtos/{ativo}/entregas/furadeira/` se não existir:
+   ```
+   bash -c "mkdir -p 'meus-produtos/{ativo}/entregas/furadeira'"
+   ```
+3. Copie a imagem para `meus-produtos/{ativo}/entregas/furadeira/furadeira.png` (sobrescreve se já existir).
 
-Erros sempre em português claro, sem stack trace. Tabela por contexto:
+**B. Aluno diz "imagem salva".**
+1. Verifique se `meus-produtos/{ativo}/entregas/furadeira/furadeira.png` existe.
+2. Se não existir, peça pro aluno conferir o caminho.
 
-**Opção 1 (HTML):**
-- PNG não gerou → instrução manual (F12 → screenshot ou Ctrl+P → salvar como PDF).
-- Erro ao salvar HTML → problema de permissão na pasta `entregas/`. Pedir para conferir se a pasta existe.
+**C. Aluno desiste / quer regenerar prompt.**
+- Se ele pedir outra opção de layout, sugira o segundo layout da preferência (passo 3) e reconstrua o prompt.
+- Se ele pedir outra paleta, refaça com a próxima da tabela.
 
-**Opção 2 (API via OpenRouter):**
+### 10. Atualizar o painel de entregas
 
-| Mensagem | Causa | Ação |
-|---|---|---|
-| `HTTP 401` | Chave do OpenRouter inválida | Conferir `OPENROUTER_API_KEY` no `.env` |
-| `HTTP 402` | Sem crédito | Recarregar em openrouter.ai/settings/credits |
-| `HTTP 429` | Rate limit | Esperar 1 a 2 min e tentar de novo |
-| "Nenhuma imagem retornada" | Modelo devolveu só texto | Reforçar no prompt: `Generate an image, not text` |
-| "Faltam imagens de referência" | Pasta com menos de 3 arquivos e `--max-refs` não é 0 | Adicionar referências ou escolher "sem referências" |
-
-**Opção 3 (prompt pronto):**
-- Só pode falhar na escrita do arquivo (permissão). Mensagem simples pedindo para conferir a pasta `entregas/furadeira/`.
-
----
-
-## Próximo passo sugerido
-
-Após qualquer uma das 3 opções, mostre:
+Anuncie:
 
 ```
+🔍 Próximo passo: atualizar o painel de entregas com a nova furadeira. Tempo estimado: cerca de 10 segundos.
+```
+
+Rode:
+
+```
+py -3 scripts/painel-incremental.py --slug {ativo}
+```
+
+Se o script falhar, avise:
+```
+Não foi possível atualizar o painel automaticamente. Rode manualmente quando puder:
+py -3 scripts/painel-incremental.py --slug {ativo}
+```
+
+### 11. Mensagem final
+
+```
+✅ Concluído: imagem da Furadeira salva.
+
+Caminho: C:\Users\Elen\.cursor\Imersão IA\workshop_inteligente\meus-produtos\{ativo}\entregas\furadeira\furadeira.png
+
 Próximo:
-- /copy-pagina para usar a Furadeira na seção Método da página de vendas
-- /furadeira-visual de novo se quiser testar outro formato
+- /copy-pagina para usar a Furadeira na seção Método da página de vendas (a imagem é embutida automaticamente)
+- /furadeira-visual de novo se quiser regenerar com outro layout ou paleta
 ```
 
----
+## Tratamento de erros
+
+| Cenário | Mensagem ao aluno |
+|---|---|
+| Sem produto ativo | "Nenhum produto ativo. Use /produto-novo ou /produto-trocar primeiro." |
+| Furadeira não gerada no perfil | "A Furadeira ainda não foi gerada no perfil.md. Use /gerar-furadeira primeiro." |
+| Falha ao salvar PNG | "Não consegui salvar a imagem. Confira se a pasta meus-produtos/{ativo}/entregas/furadeira/ existe e tem permissão de escrita." |
+| Aluno cola arquivo que não é PNG/JPG | "O arquivo enviado não é uma imagem. Aceito apenas PNG, JPG ou WEBP. Tente de novo." |
+| painel-incremental.py falhou | Avisar caminho do PNG e instruir o aluno a rodar manualmente. |
 
 ## Regras
 
-- Nunca mostrar código dos scripts ao usuário.
-- Não chamar a skill `revisora` (prompts técnicos em inglês não passam por revisão de copy).
-- Erros sempre em português, sem jargão de stack trace.
+- Sem entrevista. Decidir layout e paleta sozinha com base em mecânica + nicho.
+- Não chamar a skill `revisora` (prompt técnico em inglês não é copy de venda).
+- Prompts sempre em inglês para o ChatGPT, mas conteúdo do método (nomes de fases, categorias, etc.) sempre em português brasileiro.
+- Caminho fixo do PNG: `meus-produtos/{ativo}/entregas/furadeira/furadeira.png`. Sobrescrever se já existir.
 - Anunciar "próximo passo" antes de operações longas (regra global do CLAUDE.md).
-- Não misturar as 3 opções numa mesma execução. O aluno escolhe uma; para rodar outra, executa o comando de novo.
-- **Proibido incluir `<footer>` no HTML gerado.** Não adicionar rodapé com nome do produto nem qualquer outro texto no final da página.
-- **Todo HTML gerado na opção 1 precisa ter o botão "Baixar PNG" embutido antes de `</body>`.** Conteúdo canônico em `.claude/skills/furadeira-visual/references/botao-baixar-png.html`. Se o HTML for gerado a partir dos templates em `references/templates/`, o bloco já vem junto. Se for gerado do zero, copiar o arquivo de referência inteiro e colar antes de `</body>`. Essa regra vale para qualquer aluno, em qualquer máquina, sem exceção. O botão usa html2canvas via CDN e não depende de Python, Playwright ou Puppeteer.
+- Não gerar HTML. Não usar templates HTML antigos. Não chamar API de imagem (Gemini, OpenRouter etc.). A imagem é gerada pelo ChatGPT do aluno e devolvida pra cá.
+- Se o aluno regenerar a Furadeira via `/gerar-furadeira` depois, ele precisa rodar `/furadeira-visual` de novo. A imagem antiga continua válida até ser sobrescrita.

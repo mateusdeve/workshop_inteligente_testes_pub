@@ -217,9 +217,13 @@ Corrige pagina de produto low ticket (copy, estrutura, design) e gera HTML novo.
 
 Aplica 1 a 3 dos 26 elementos literarios do Light Copy em um texto existente.
 
+### /gerar-furadeira
+
+Gera a Furadeira (metodo) do produto ativo no perfil.md. Decide automaticamente qual das 6 mecanicas (Fases, Logica Condicional, Enquadramento, Listas, Empecilhos, Dinamica de Entrega) faz mais sentido para o nicho, sugere o nome do metodo e aplica o teste de eficiencia.
+
 ### /furadeira-visual
 
-Gera a Furadeira do produto em 3 formatos a escolha: HTML (trilha visual), PNG via API ou prompt para IA externa.
+Le a Furadeira ja escrita no perfil.md, decide o layout visual conforme a mecanica + nicho, monta um prompt em ingles para o aluno colar no ChatGPT e salva a imagem PNG retornada em entregas/furadeira/furadeira.png.
 
 ### /instagram-dashboard, /tiktok-dashboard, /youtube-dashboard
 

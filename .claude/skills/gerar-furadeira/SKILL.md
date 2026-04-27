@@ -1,76 +1,171 @@
 ---
 name: gerar-furadeira
-description: Apoio tecnico para os comandos /gerar-furadeira e /furadeira-visual (opcoes 2 e 3). Contem o template de prompt, regras de traducao pt to en, e os parametros dos modelos de imagem.
+description: Apoio tecnico para o command /gerar-furadeira. Decide automaticamente qual das 6 mecanicas (ou combinacao) faz mais sentido para o produto ativo e gera a Furadeira no perfil.md aplicando o teste de eficiencia. Sem entrevista, gera tudo a partir do contexto ja existente.
 ---
 
-# Skill. Gerar Furadeira (PNG via IA)
+# Skill. Gerar Furadeira (Texto Estruturado)
 
-Apoio técnico para os comandos que geram a Furadeira em imagem:
-- `/gerar-furadeira`. Atalho direto para PNG (dois fluxos: Gemini ou OpenRouter, ou os dois).
-- `/furadeira-visual`. Comando principal com 3 opções de saída. Usa esta skill nas opções 2 (Imagem via API) e 3 (Prompt pronto).
+Apoio técnico do command `/gerar-furadeira`. A skill decide a mecânica, gera a estrutura, sugere o nome do método, mapeia a eficiência e salva no `perfil.md`. Sem entrevista. O aluno só aprova ou ajusta no final.
 
-Consulte este arquivo se precisar:
-- Ajustar o prompt textual que vai para a API de imagem.
-- Entender por que os dois fluxos de API existem.
-- Depurar erros de retorno da API.
+Coexiste com `/furadeira-visual`, que lê a Furadeira gerada por aqui e produz o prompt para o ChatGPT desenhar a imagem.
 
-## Por que dois fluxos
+## Pré-requisitos de contexto
 
-| Critério | Rápido (Gemini direto) | Refinado (OpenRouter com refs) |
-|---|---|---|
-| Tempo | ~30s | 1 a 3 min |
-| Consistência com marca | Baixa (sem referência) | Alta (usa fotos de inspiração) |
-| Custo | Gratuito no tier free do AI Studio | ~US$ 0,04 por imagem no OpenRouter |
-| Chave necessária | `GEMINI_API_KEY` | `OPENROUTER_API_KEY` |
-| Script | `scripts/gerar-furadeira-gemini.py` | `scripts/gerar-furadeira-openrouter.py` |
-| Modelo | `gemini-2.5-flash-image` (direto) | `google/gemini-2.5-flash-image` (via OpenRouter) |
+Antes de gerar, a skill PRECISA ter acesso a estes 3 arquivos do produto ativo:
 
-Ambos os modelos são o mesmo motor (Nano Banana). A diferença prática é que o segundo aceita imagens de entrada, então pega estilo das suas referências.
+- `meus-produtos/{ativo}/perfil.md` (Quadro, Decorados, Urgências Ocultas, 3 Identidades, Argumentos Incontestáveis)
+- `meus-produtos/{ativo}/idconsumidor.md` (perfil do comprador, paliativos, objeções, frases que público diria)
+- `meus-produtos/{ativo}/pesquisa-mercado.md` (concorrentes, ângulos, biblioteca de anúncios)
 
-## Template de prompt (inglês)
+Se faltar um desses, parar e redirecionar para `/produto-concepcao`. Não tentar adivinhar do nada.
 
+## As 6 Mecânicas (decisão automática)
+
+A skill cruza sinais do contexto e escolhe 1 mecânica principal (e às vezes 1 complementar). Detalhamento completo das mecânicas em `.claude/skills/furadeira-visual/references/6-mecanicas.md`.
+
+### Tabela de decisão
+
+Aplicar nesta ordem. A primeira regra que casar define a mecânica principal. Se duas casarem com força similar, registra uma como principal e a outra como complementar.
+
+| Sinal no contexto | Mecânica principal |
+|---|---|
+| Quadro tem prazo definido (ex: "em 90 dias", "em 6 meses") OU Quadro descreve uma progressão clara (ex: "do iniciante ao avançado") | **Fases e Sequências** |
+| `idconsumidor.md` lista 2 ou mais perfis de comprador com necessidades opostas (ex: "iniciante vs avançado", "mãe de criança reativa vs passiva") E o protocolo muda conforme o perfil | **Lógica Condicional** |
+| `idconsumidor.md` mostra que o aluno precisa primeiro se identificar com uma categoria antes de seguir o método (ex: "qual o seu temperamento?", "qual o seu tipo?") | **Enquadramento** |
+| `perfil.md` lista 3 a 7 Argumentos Incontestáveis ou pilares que precisam coexistir para o resultado funcionar | **Listas** |
+| `idconsumidor.md` ou `pesquisa-mercado.md` mostram que o público tenta sozinho e falha por causas específicas (ex: "falta de consistência", "pouco tempo", "medo de errar") | **Empecilhos** (geralmente combinada com Fases) |
+| O resultado do Quadro depende de repetição diária ou hábito (ex: "leitura diária", "30 min por dia", "toda segunda e quinta") | **Dinâmica de Entrega** (geralmente combinada com Fases) |
+| Nenhum sinal forte | **Fases e Sequências** (default) |
+
+### Combinações comuns
+
+- **Fases + Empecilhos**: produto com público que falha sozinho. Cada fase ataca um empecilho.
+- **Fases + Dinâmica de Entrega**: produto que depende de hábito. As fases são a progressão; o ritual é a marca.
+- **Condicional + Enquadramento**: produto com perfis distintos. O enquadramento classifica, a lógica condicional ramifica.
+- **Listas + Fases**: produto com pilares que precisam ser instalados em ordem.
+
+Limite: no máximo 2 mecânicas combinadas. Mais que isso vira complexidade desnecessária.
+
+## Geração da Furadeira por mecânica
+
+A estrutura no `perfil.md` muda conforme a mecânica. Não force "macroetapas + microetapas" sempre.
+
+### Fases e Sequências
+- 3 a 5 fases ordenadas, cada uma com:
+  - Nome da fase (curto, ação ou estado)
+  - 1 frase descrevendo o que acontece nela
+  - 2 a 4 microetapas (ações práticas)
+  - 1 forma de eficiência (das 14)
+- Inferir as fases a partir dos Decorados (cada Decorado é um benefício; agrupe por estágio do progresso) e Urgências Ocultas (Dores no início, Desejos no fim).
+
+### Lógica Condicional
+- 1 decisão crítica (ex: "criança reativa, equilibrada ou passiva?")
+- 2 ou 3 ramificações, cada uma com:
+  - Nome da ramificação
+  - Descrição curta de quem se enquadra
+  - Protocolo específico (3 a 5 passos)
+- 1 método de diagnóstico (questionário, autoavaliação, observação)
+
+### Enquadramento
+- Nome do sistema de categorias (próprio, não genérico)
+- 3 ou 4 categorias, cada uma com:
+  - Nome
+  - Características observáveis
+  - Protocolo específico ou ajuste de aplicação
+- 1 método de diagnóstico
+
+### Listas
+- 3 a 7 pilares finitos
+- Sugerir acrônimo se as iniciais formarem palavra memorável
+- Cada pilar com:
+  - Nome
+  - 1 frase de explicação
+  - 1 forma de eficiência
+
+### Empecilhos
+- 3 a 5 empecilhos comuns do nicho (extrair de `idconsumidor.md` e `pesquisa-mercado.md`)
+- Para cada empecilho:
+  - Nome
+  - Por que ele acontece
+  - Qual fase do método remove ele
+- Geralmente combinada com Fases.
+
+### Dinâmica de Entrega
+- Nome do ritual (verbo+ação memorável: "Aperta e Solta", "Liga e Desliga")
+- Frequência (diária, semanal, etc.)
+- Duração (3 min, 10 min, 30 min)
+- Em qual momento (ao acordar, antes de dormir, segunda e quinta)
+- O que o aluno faz exatamente
+- Por quanto tempo total (4 semanas, 5 semanas)
+
+## Nome do método (7 técnicas)
+
+Sugerir 1 nome principal + 2 alternativas. Cada uma usando uma técnica diferente das 7:
+
+| Técnica | Exemplo |
+|---|---|
+| Acrônimo | CAVE, VTSD, 3F |
+| Nome do Autor | Método {Nome do Aluno} |
+| Curioso | Furadeira, Aperta e Solta |
+| Impactante | Escudo do Comportamento, Blindagem Financeira |
+| Benefício | Fluência em 90 Dias, Zero Dívida em 6 Meses |
+| Mistério | Tecnologia de Alinhamento Postural Titanium |
+| Número + Substantivo | 3 Pilares, 4 C's, Sistema Tríplice |
+
+Evitar: termos genéricos ("Método Online"), técnicos demais ("Protocolo de Regulação Neuroemocional"), parecidos com o normal ("Curso de Emagrecimento").
+
+## Teste de Eficiência (14 formas)
+
+Para cada componente da Furadeira (cada fase, pilar, ramificação, ritual), mapear qual das 14 formas de eficiência ele entrega. Se um componente não carregar nenhuma, reescrever ou descartar.
+
+| Forma | O que entrega |
+|---|---|
+| Mais rápido | Reduz o tempo até o resultado |
+| Mais barato | Reduz o investimento necessário |
+| Menos esforço | Reduz o trabalho ou a dificuldade |
+| Menos dor | Reduz o sofrimento ou desconforto |
+| Menos erro | Reduz a chance de falhar |
+| Menos desperdício | Reduz perda de tempo ou dinheiro |
+| Mais adesão | Aumenta a chance de continuar |
+| Mais prazeroso | Torna o processo mais agradável |
+| Mais ético | Sem atalhos duvidosos |
+| Mais bonito | Resultado esteticamente superior |
+| Mais sustentável | Resultado duradouro |
+| Mais saudável | Menos dano colateral |
+| Mais gostoso | Experiência mais satisfatória |
+| Menos apelativo | Sem manipulação ou exagero |
+
+Cada componente carrega no mínimo 1, no máximo 2 formas. Mais que isso dilui o argumento.
+
+## Estrutura no perfil.md
+
+A seção "Furadeira (Método)" no `perfil.md` passa a seguir este schema:
+
+```markdown
+## Furadeira (Método)
+
+**Nome do método:** {nome principal}
+**Mecânica(s):** {principal} + {complementar se houver}
+**Eficiência principal:** {qual das 14 formas é o argumento mais forte}
+
+### Estrutura
+
+{conteúdo específico da mecânica, conforme schema acima}
+
+### Eficiência por componente
+
+- {Componente 1}: {forma de eficiência}
+- {Componente 2}: {forma de eficiência}
+- {...}
 ```
-Photorealistic editorial composition representing a learning journey for
-"{QUADRO_EN}" in the "{NICHO_EN}" niche. Visual metaphor of progression
-through {N} stages: {MACROETAPAS_EN_COMMA}. Main audience emotional state
-at the start: "{DOR_CENTRAL_EN}". Style: cinematic lighting, neutral studio
-background, soft depth of field, professional color palette, no text overlays,
-no logos, no readable words, no cartoon characters. Aspect ratio 4:3.
-```
 
-## Regras de tradução pt → en
+Mantém os campos antigos `### Macroetapas` e microetapas APENAS se a mecânica for "Fases e Sequências" (compatível com o que `painel-incremental.py` já parseia).
 
-- Quadro: mantém o significado do resultado final. "Falar inglês em 90 dias" → "speaking fluent English in 90 days".
-- Nicho: traduz termo literal. "Finanças para MEI" → "small business finance in Brazil".
-- Macroetapas: traduz cada título curto, mantém a ordem. Separar por vírgula.
-- Dor central: pega a primeira dor das Urgências Ocultas, traduz como estado emocional. "Estou perdida com contas" → "feeling lost and overwhelmed with finances".
+## Erros comuns e como evitar
 
-Se não houver tradução natural, use a versão em inglês mais próxima. Nunca deixe palavras em português no prompt final (o modelo responde pior).
-
-## Ajustes possíveis no prompt
-
-- Proporção: trocar `4:3` por `16:9` (banner horizontal) ou `1:1` (instagram).
-- Paleta: adicionar `warm golden tones` / `cool blue palette` / `earth tones` conforme o nicho.
-- Se o nicho for espiritual (tarô, astrologia), substituir `editorial` por `mystical editorial` e adicionar `subtle ethereal atmosphere`.
-- Se o nicho for corporativo, manter `editorial` e reforçar `clean minimalist layout`.
-
-## Erros comuns e o que significam
-
-| Mensagem | Causa | Ação |
+| Sintoma | Causa | Correção |
 |---|---|---|
-| `HTTP 401` Gemini | Chave inválida ou expirada | Gerar nova em aistudio.google.com |
-| `HTTP 401` OpenRouter | Chave inválida | Rodar `/configurar-imagens` |
-| `HTTP 402` OpenRouter | Sem crédito | Recarregar em openrouter.ai/settings/credits |
-| `HTTP 429` | Rate limit | Esperar 1 a 2 min e tentar de novo |
-| `RESOURCE_EXHAUSTED` Gemini | Cota diária do free tier | Esperar 24h ou ativar billing no Google Cloud |
-| "Nenhuma imagem retornada" | Modelo devolveu só texto | Reforçar no prompt: `Generate an image, not text` |
-| "Faltam imagens de referência" | Pasta `assets/furadeira-referencias/` tem menos de 3 arquivos | Adicionar referências |
-
-## Por que o output é PNG e não HTML
-
-O comando `/furadeira-visual` já cobre o caso HTML de trilha esquemática. Este comando é pra quando o aluno quer:
-- Uma peça visual pronta pra usar no topo da página de vendas.
-- Um criativo para anúncio do método.
-- Um mockup pra thumbnail de aula.
-
-Imagem de IA converte melhor para esses casos do que CSS/SVG.
+| Furadeira sai sempre como "Fases" | Não cruzou sinais do idconsumidor | Verificar perfis no idconsumidor antes de decidir |
+| Componente sem eficiência | Pulou o teste das 14 formas | Aplicar o teste antes de salvar |
+| Nome genérico ("Método Completo") | Não aplicou as 7 técnicas | Sugerir 3 nomes, cada um com técnica diferente |
+| Microetapas vagas ("estudar mais") | Não usou os Decorados como insumo | Cada microetapa deve ser ação concreta |

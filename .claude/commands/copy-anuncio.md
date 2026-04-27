@@ -122,8 +122,6 @@ Qual o tipo de anúncio?
 
 1. Imagem estática
 2. Vídeo
-3. Carrossel
-4. Stories
 
 Digite o número:
 ```
@@ -198,121 +196,9 @@ Resumo do que vou criar:
 2. Quero ajustar algo
 ```
 
-**REGRA:** nunca indicar duração do vídeo no resumo de confirmação. A duração é calibrada na pesquisa de tendências (Passo 3) e definida apenas na geração.
+**REGRA:** nunca indicar duração do vídeo no resumo de confirmação. A duração é definida apenas na geração da copy.
 
-### 3. Pesquisa de Tendências (OBRIGATÓRIO antes de gerar. qualquer formato)
-
-**Antes de escrever qualquer anúncio**, faça obrigatoriamente as seguintes buscas. independentemente do formato escolhido (vídeo, imagem, carrossel ou texto):
-
-#### Busca Base. SEMPRE obrigatória (todos os formatos)
-
-Pesquise os dois canais obrigatoriamente:
-- `reels instagram virais [mês e ano atual]`. todos os nichos
-- `tiktok trends virais [mês e ano atual]`. todos os nichos
-
-**REGRA ABSOLUTA:** Pesquisar virais de **todos os nichos** (não apenas o nicho do produto). O objetivo é captar o padrão de estrutura, tom e formato que está funcionando agora na plataforma. não o conteúdo em si. O conteúdo (o que diz) vem do produto e das urgências ocultas. O formato e o estilo (como diz) vêm dos virais encontrados.
-
-O que extrair dessa busca base:
-- **Estrutura de abertura**: o que está parando o scroll nos primeiros 2. 3 segundos (afirmação contra-intuitiva, dado específico, paradoxo, revelação)
-- **Tom predominante no momento**: didático, emocional, provocativo, informal, confissão, polêmica suave
-- **O que os virais entregam**: conteúdo real dentro do próprio post/vídeo, ou apenas teasers que prometem sem entregar. **modelar sempre os que entregam conteúdo real**
-- **Padrão de CTA**: o que está gerando ação agora (salva, comenta, segue, marca alguém, clica)
-
----
-
-#### Busca Complementar. Por formato
-
-**Se Vídeo**, pesquise adicionalmente:
-- `estrutura roteiro viral reels tiktok [mês e ano atual]`
-
-O que extrair:
-- **Duração predominante** dos vídeos com mais alcance (7s, 15s, 30s, 45s, 60s). usar duração similar
-- **Estilo de edição**: cortes rápidos, talking head estático, câmera na mão, B-roll, texto animado
-- **Se o vídeo entrega conteúdo real ou apenas teaser**. modelar o que entrega conteúdo real
-
-**Se Imagem estática**, pesquise:
-- `posts imagem instagram viral engajamento [mês e ano atual]`
-- `trending static image ads instagram [mês e ano atual]`
-
-O que extrair:
-- **Estilo visual predominante**: fundo clean, foto real, mockup, texto sobre imagem, collage
-- **Uso de texto na imagem**: headline grande, subtítulo, bullets, nenhum texto
-- **Proporção que performa mais**: quadrado (1:1), retrato (4:5), stories (9:16)
-- **Paleta e estética** dos posts com mais engajamento (minimalista, colorido, escuro, orgânico)
-- **Tipo de gancho visual**: o elemento que para o scroll (rosto, número, contraste, cor, palavra)
-
-**Se Carrossel**, pesquise:
-- `carrossel instagram viral [mês e ano atual]`
-- `trending carousel instagram formato [mês e ano atual]`
-
-O que extrair:
-- **Estrutura de slides**: quantos slides, como começa, como termina (cliffhanger, CTA, revelação)
-- **Estilo do primeiro slide**: é o gancho. texto grande, pergunta visual, dado, afirmação
-- **Progressão**: cada slide avança a narrativa ou repete o mesmo ponto?
-- **Uso de continuidade visual**: seta, borda cortada, elemento que "puxa" para o próximo slide
-- **CTA do último slide**: o que está funcionando (salva, comenta uma palavra, segue)
-
----
-
-#### Busca 2. Por objetivo
-
-**Se Descoberta**, pesquise:
-- `como ganhar seguidores instagram organico [mês e ano atual]`
-- `conteudo que vira seguidor instagram [mês e ano atual]`
-
-O que extrair:
-- **Que tipo de gancho atrai seguidor novo** (não quem já segue. quem nunca viu o perfil)
-- **Tema do conteúdo que mais converte em follow**: curiosidade, utilidade, identidade, polêmica leve
-- **Tom que faz o estranho confiar rápido**: autoridade discreta, autenticidade, resultado visível
-- **CTA que converte em seguidor**: "me segue", "salva para não perder", "ativa o sino"
-
-**Se Relacionamento**, pesquise:
-- `conteudo que gera comentarios instagram [mês e ano atual]`
-- `posts mais compartilhados instagram [mês e ano atual]`
-
-O que extrair:
-- **O que faz a pessoa comentar** (identificação, discordância leve, completar a frase, opinião)
-- **O que faz a pessoa compartilhar** (conteúdo que ela quer que alguém veja, utilidade pública)
-- **O que faz a pessoa salvar** (referência futura, checklist, passo a passo, revelação)
-- **Tom que gera conversa**: provocação suave, opinião contrária ao senso comum, história pessoal
-
-**Se Conversão**, pesquise:
-- `anuncio que converte instagram infoproduto [mês e ano atual]`
-- `copy anuncio link na bio instagram [mês e ano atual]`
-
-O que extrair:
-- **Estrutura de copy que leva ao clique**: gancho de resultado, prova rápida, CTA direto
-- **Quanto de prova social aparece**: depoimento, número de alunos, print de resultado
-- **Tom do CTA de conversão**: urgência, curiosidade, benefício direto
-- **Formato que mais converte para link**: vídeo curto, carrossel de prova, imagem com resultado
-
-**Se RMKT**, pesquise:
-- `remarketing anuncio instagram copy [mês e ano atual]`
-- `retargeting ad copy que converte [mês e ano atual]`
-
-O que extrair:
-- **Abordagem para quem já viu**: urgência, objeção quebrada, prova adicional, desconto, bônus
-- **Tom**: não pode parecer perseguição. precisa ser relevância
-- **Gatilhos mais usados no RMKT**: escassez, prova social, garantia, comparação de custo
-- **CTA de RMKT**: "última chance", "garante agora", "ainda dá tempo"
-
----
-
-#### Como aplicar o que encontrou
-
-Após as pesquisas, antes de gerar os anúncios, sintetize:
-
-1. **Formato do gancho**. como os virais do momento estão abrindo (estrutura dos primeiros 2. 3 segundos)
-2. **Estilo visual/edição**. o que está funcionando esteticamente agora
-3. **Tom**. o que está ressoando com o público nesse objetivo específico
-4. **CTA**. o padrão de chamada que está gerando ação agora
-5. **O vídeo entrega ou apenas promete?**. modelar os que entregam conteúdo real dentro do vídeo
-
-Use esses 5 elementos para calibrar as 3 variações. O **conteúdo** (o que diz) segue VTSD + perfil do negócio. O **formato e estilo** (como diz) seguem o que está funcionando agora.
-
-**REGRA CRÍTICA para TODO vídeo (qualquer fase, qualquer objetivo):** o vídeo deve entregar conteúdo real. A pessoa que assiste até o final aprende uma técnica, recebe um insight concreto ou tem uma virada de perspectiva. Vídeo que só promete sem entregar nada dentro do próprio vídeo não funciona. O CTA é consequência do valor entregue. não substituto.
-
-**Regras de Copy:**
+### 3. Regras de Copy
 
 **Fonte única e obrigatória:** antes de escrever qualquer gancho, desenvolvimento ou CTA, leia `.claude/skills/revisora/references/manual-copy.md`. É ali que vivem o princípio central, os **15 princípios fundamentais**, os **20 vícios proibidos** e o **checklist final (Blocos A/B/C/D)**. Toda variação passa pelo `revisora` antes de virar entregável.
 
@@ -363,8 +249,9 @@ Use a Mandala de 18 Tipos (skill vtsd-completo):
 - Texto principal (Light Copy. sem ponto de exclamação, sem perguntas no gancho)
 - Headline (máx 40 caracteres)
 - Descrição
-- Direção criativa para imagem/vídeo
 - CTA adequado à fase
+
+**Visual da variação. NÃO escreva direção criativa nesta skill.** Após apresentar as 3 variações de copy e o aluno aprovar, **acione automaticamente a skill `criativo-estatico`** (uma vez por variação) passando o headline, o gancho e o tom de cada variação como contexto. A `criativo-estatico` é responsável por gerar o prompt visual final pronto para colar no ChatGPT (ou outra IA escolhida pelo aluno). A `copy-anuncio` cuida só da copy. nunca duplica o trabalho de prompt visual.
 
 **CTAs por fase:**
 | Fase | CTA típico |
@@ -432,18 +319,18 @@ Após salvar a copy, gere automaticamente os visuais usando `scripts/generate-cr
 
 ---
 
-**Se Imagem Estática ou Stories:**
+**Se Imagem Estática:**
 
 Para cada variação, monte um prompt de background baseado no tipo de anúncio e no nicho do produto. O prompt deve descrever:
 - Cena ou atmosfera visual que reforça o clima da copy
 - Estilo fotográfico (foto real, clean, minimalista, etc.)
 - Paleta de cores alinhada ao produto
 - Texto overlay com o headline da variação (quando aplicável)
-- Proporção: 1:1 para feed, 9:16 para stories
+- Proporção: 1:1 ou 4:5 para feed
 
-Antes de gerar qualquer prompt, pergunte qual ferramenta a pessoa vai usar. Monte a lista de opções de acordo com o formato escolhido na Pergunta 1.
+Antes de gerar qualquer prompt, pergunte qual ferramenta a pessoa vai usar.
 
-**Se o formato for Imagem Estática, Carrossel ou Stories:**
+**Se o formato for Imagem Estática:**
 
 ```
 Qual IA você vai usar para gerar a imagem?
@@ -561,7 +448,7 @@ Salve em: `meus-produtos/{ativo}/entregas/criativos/prompts-visuais-[formato]-[i
 
 #### Opção 1 — Geração via API
 
-**Se Imagem Estática ou Carrossel:**
+**Se Imagem Estática:**
 
 Monte o prompt de imagem para cada variação (mesma lógica descrita acima). Leia o `.env` do projeto e verifique se existe `FREEPIK_API_KEY`.
 
@@ -695,47 +582,6 @@ HEYGEN_VOICE_ID=id_da_voz_aqui
 Quando o usuário configurar, gere os vídeos automaticamente.
 
 ---
-
-**Se Carrossel:**
-
-Para cada card do carrossel, gere um prompt de imagem individual baseado no texto e tema daquele slide. Cada prompt deve incluir:
-- Identidade visual consistente entre todos os cards (mesma paleta, mesmo estilo)
-- Composição específica para o conteúdo do card (ex: card 1 = gancho visual impactante, card final = CTA com destaque)
-- Texto overlay com o conteúdo principal do card
-- Proporção 1:1 (1080x1080)
-
-Leia o `.env` e verifique `FREEPIK_API_KEY`.
-
-**Se existir**, gere uma imagem por card:
-```bash
-# Repita para cada card (substituir N pelo número do card)
-curl -X POST "https://api.freepik.com/v1/ai/text-to-image" \
-  -H "x-freepik-api-key: $FREEPIK_API_KEY" \
-  -H "Content-Type: application/json" \
-  -d '{"prompt": "PROMPT_CARD_N", "num_images": 1, "image": {"size": "square_1_1"}}'
-```
-Salve cada card em: `meus-produtos/{ativo}/entregas/criativos/carrossel-[N]-[produto].png`
-
-**Se não existir**, ensine como configurar, com esta mensagem exata:
-
----
-Configure o Freepik:
-
-**Como configurar o Freepik AI:**
-1. Acesse freepik.com e crie uma conta gratuita (ou faça login)
-2. Vá em: perfil > API Keys > Create API Key
-3. Copie a chave gerada
-4. Abra (ou crie) o arquivo `.env` na raiz deste projeto
-5. Adicione: `FREEPIK_API_KEY=sua_chave_aqui`
-6. Salve
-
-Em seguida gere as imagens de carrossel 
----
-
----
-
-**Se Stories:**
-Trate como imagem estática com proporção vertical. Substitua `"size": "square_1_1"` por `"size": "portrait_9_16"` no parâmetro da API.
 
 ### 8. Próximo Passo
 "Anúncios e visuais salvos em [caminho]. Use `/copy-pagina` para criar a página de destino, ou `/criativo-estatico` para gerar mais visuais para a campanha."

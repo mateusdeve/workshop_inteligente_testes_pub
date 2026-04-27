@@ -869,10 +869,12 @@ def render_quadro(dados: dict) -> str:
 
 def render_furadeira(dados: dict) -> str:
     nome_metodo = dados.get("nome_metodo") or ""
+    mecanica = dados.get("mecanica") or ""
+    eficiencia = dados.get("eficiencia") or ""
     macroetapas: list[dict] = dados.get("macroetapas") or []
-    furadeira_html = dados.get("furadeira_html") or ""
+    furadeira_png = dados.get("furadeira_png") or ""
 
-    if not nome_metodo and not macroetapas:
+    if not nome_metodo and not macroetapas and not furadeira_png:
         miolo = _placeholder("Aguardando Furadeira do Bloco 2.")
     else:
         steps_html = ""
@@ -890,23 +892,41 @@ def render_furadeira(dados: dict) -> str:
                 "</div>"
             )
 
-        link_trilha = ""
-        if furadeira_html:
-            link_trilha = (
-                f'<a href="{_escape(furadeira_html)}" target="_blank" '
-                'style="display:inline-flex;align-items:center;gap:8px;font-family:var(--font-mono);'
-                'font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--neon);'
-                'margin-top:var(--s-6);border-bottom:1px solid var(--neon-deep);padding-bottom:2px;">'
-                'Ver Trilha Visual &#8594;</a>'
+        badges_html = ""
+        if mecanica:
+            badges_html += (
+                f'<span style="display:inline-block;background:var(--neon-deep);color:var(--bg-1);'
+                'font-family:var(--font-mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;'
+                'padding:4px 10px;border-radius:999px;margin-right:8px;margin-bottom:8px;">'
+                f'{_escape(mecanica)}</span>'
+            )
+        if eficiencia:
+            badges_html += (
+                f'<span style="display:inline-block;background:transparent;color:var(--neon);'
+                'border:1px solid var(--neon-deep);'
+                'font-family:var(--font-mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;'
+                'padding:3px 10px;border-radius:999px;margin-bottom:8px;">'
+                f'Eficiencia: {_escape(eficiencia)}</span>'
+            )
+
+        imagem_html = ""
+        if furadeira_png:
+            imagem_html = (
+                f'<div style="margin-top:var(--s-7);padding:var(--s-5);background:var(--bg-2);'
+                'border:1px solid var(--border);border-radius:8px;text-align:center;">'
+                f'<img src="{_escape(furadeira_png)}" alt="Furadeira do metodo" '
+                'style="max-width:100%;height:auto;border-radius:4px;display:block;margin:0 auto;" />'
+                '</div>'
             )
 
         miolo = (
             f'<div class="card" style="margin-bottom:var(--s-7)">'
             f'<span class="card-label">Nome do metodo</span>'
             f'<div class="card-headline" style="font-size:32px;color:var(--neon)">{_escape(nome_metodo or "(sem nome)")}</div>'
+            f'<div style="margin-top:var(--s-5)">{badges_html}</div>'
             "</div>"
             f'<div class="steps">{steps_html}</div>'
-            f"{link_trilha}"
+            f"{imagem_html}"
         )
     return f"<!-- SECTION:furadeira -->\n{miolo}\n<!-- /SECTION:furadeira -->"
 

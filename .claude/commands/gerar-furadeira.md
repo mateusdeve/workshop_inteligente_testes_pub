@@ -1,13 +1,15 @@
 ---
 name: workshop-marketing:gerar-furadeira
-description: Gerar imagem PNG da Furadeira do produto ativo via IA. Dois fluxos: rapido (Gemini direto, ~30s) ou refinado (OpenRouter com imagens de referencia, ate 3min). Nao gera HTML.
-allowed-tools: Read, Write, Bash
+description: Gerar a Furadeira (metodo) do produto ativo no perfil.md. Decide automaticamente qual das 6 mecanicas usar (Logica Condicional, Enquadramento, Listas, Fases, Empecilhos, Dinamica de Entrega), gera a estrutura, sugere nome do metodo e aplica teste de eficiencia. Sem entrevista.
+allowed-tools: Read, Write, Edit, Bash
 model: sonnet
 ---
 
-# Gerar Furadeira (Imagem PNG)
+# Gerar Furadeira (Método Escrito no perfil.md)
 
-Gera a peça visual da Furadeira do produto ativo como PNG. Coexiste com `/furadeira-visual` (que gera trilha HTML).
+Gera a Furadeira do produto ativo seguindo as 6 mecânicas do VTSD. A skill decide a mecânica sozinha com base no contexto, gera a estrutura completa, sugere o nome do método e mapeia a eficiência. Sem entrevista guiada. O aluno só aprova ou ajusta no final.
+
+Coexiste com `/furadeira-visual`, que lê a Furadeira gerada por aqui e produz o prompt para o ChatGPT desenhar a imagem PNG.
 
 ## Usage
 
@@ -17,200 +19,237 @@ Gera a peça visual da Furadeira do produto ativo como PNG. Coexiste com `/furad
 
 ## O Que Fazer
 
-### 1. Contexto
+### 1. Carregar contexto do produto ativo
 
-Leia `meus-produtos/.ativo`. Se vazio, informe:
+Leia `meus-produtos/.ativo`. Se vazio, pare e informe:
 
 ```
 Nenhum produto ativo. Use /produto-novo ou /produto-trocar primeiro.
 ```
 
-Leia `meus-produtos/{ativo}/perfil.md`. Se nao tiver Quadro e Furadeira preenchidos, informe:
+Leia, na ordem:
+- `meus-produtos/{ativo}/perfil.md` (Quadro, Decorados, Urgências Ocultas, 3 Identidades, Argumentos Incontestáveis, nicho)
+- `meus-produtos/{ativo}/idconsumidor.md` (perfil do comprador, paliativos, objeções, frases que o público diria)
+- `meus-produtos/{ativo}/pesquisa-mercado.md` (concorrentes, ângulos, biblioteca de anúncios)
 
+**Se faltar o Quadro no perfil.md**, pare e informe:
 ```
-O perfil ainda nao tem Quadro ou Furadeira. Use /produto-concepcao antes.
-```
-
-Extraia do perfil:
-- **Nicho** (ex: "Tarô", "Finanças para MEI").
-- **Quadro** (transformação principal).
-- **Macroetapas da Furadeira** (títulos, ate 5).
-- **Dor central** (primeira dor das Urgências Ocultas).
-- **Avatar** (descrição curta do consumidor, de `idconsumidor.md` se existir).
-
-### 2. Pergunta de fluxo
-
-```
-Qual fluxo de geração da furadeira você quer?
-
-1. Rápido. Gemini direto, cerca de 30s, sem referências visuais
-2. Refinado. OpenRouter com imagens de referência, até 3 minutos
-3. Os dois. Gera as duas versões para comparar
+O perfil ainda não tem o Quadro definido. Use /produto-concepcao antes para preencher Quadro, Decorados, Urgências e Identidades. Sem isso, a Furadeira sai genérica.
 ```
 
-### 3. Validações antes de gerar
+**Se idconsumidor.md ou pesquisa-mercado.md não existirem**, gere mesmo assim mas avise no final que a qualidade da Furadeira aumenta com esses arquivos.
 
-**Se o usuário escolheu 2 ou 3 (OpenRouter):**
+### 2. Carregar a base de conhecimento
 
-Conte arquivos `.png`, `.jpg`, `.jpeg`, `.webp` em `assets/furadeira-referencias/`.
+Leia `.claude/skills/furadeira-visual/references/6-mecanicas.md`. Esse arquivo contém as 6 mecânicas detalhadas, as 14 formas de eficiência, as 7 técnicas de nome de método e a tabela de combinação.
 
-Se < 3 arquivos, pare e informe:
-
-```
-Faltam imagens de referência.
-
-Coloque de 3 a 16 imagens (PNG, JPG ou WEBP) em:
-assets/furadeira-referencias/
-
-São as referências visuais que o modelo vai usar para manter consistência.
-Depois de colocar, rode /gerar-furadeira novamente.
-```
-
-**Se o usuário escolheu 1 ou 3 (Gemini):**
-
-Leia `.env`. Se `GEMINI_API_KEY` estiver vazio ou ausente, pare e informe:
+### 3. Anunciar próximo passo
 
 ```
-Falta a chave do Google Gemini.
-
-Passo a passo:
-1. Acesse https://aistudio.google.com/app/apikey
-2. Clique em "Create API Key", copie o valor (começa com "AIzaSy")
-3. Abra o arquivo .env na raiz do projeto
-4. Cole na linha GEMINI_API_KEY=
-5. Salve e rode /gerar-furadeira de novo
+🔍 Próximo passo: gerar a Furadeira do seu produto, decidindo a mecânica certa para o nicho. Tempo estimado: cerca de 1 minuto.
 ```
 
-**Se escolheu 2 ou 3 (OpenRouter):**
+### 4. Decidir a mecânica automaticamente
 
-Leia `.env`. Se `OPENROUTER_API_KEY` estiver vazio, pare e instrua rodar `/configurar-imagens` antes.
+Aplique a tabela de decisão da skill `gerar-furadeira` (em `.claude/skills/gerar-furadeira/SKILL.md`). Cruze sinais do perfil + idconsumidor + pesquisa-mercado:
 
-### 4. Construir o prompt
+| Sinal detectado | Mecânica principal |
+|---|---|
+| Quadro tem prazo definido OU descreve progressão clara | Fases e Sequências |
+| 2+ perfis de comprador com necessidades opostas no idconsumidor | Lógica Condicional |
+| Aluno precisa se identificar com categoria antes de seguir | Enquadramento |
+| 3 a 7 Argumentos Incontestáveis que coexistem | Listas |
+| Público falha sozinho por causas específicas | Empecilhos (combina com Fases) |
+| Resultado depende de hábito/repetição | Dinâmica de Entrega (combina) |
+| Nenhum sinal forte | Fases e Sequências (default) |
 
-Monte um prompt único em inglês, com este esqueleto (substitua os placeholders pelos dados do produto):
+Limite: máximo 2 mecânicas combinadas. Anote internamente qual é a principal e qual é a complementar (se houver).
 
-```
-Photorealistic editorial composition representing a learning journey for
-"{quadro_em_ingles}" in the "{nicho_em_ingles}" niche. Visual metaphor of
-progression through {N} stages: {macroetapas_em_ingles_separadas_por_virgula}.
-Main audience emotional state at the start: "{dor_central_em_ingles}".
-Style: cinematic lighting, neutral studio background, soft depth of field,
-professional color palette, no text overlays, no logos, no readable words,
-no cartoon characters. Aspect ratio 4:3.
-```
+### 5. Gerar a estrutura específica da mecânica
 
-Traduza as partes para inglês mantendo o significado. Não use o nome do produto nem termos em português no prompt final (o modelo responde melhor em inglês).
+A estrutura no perfil.md varia conforme a mecânica. Use os Decorados, Urgências Ocultas, idconsumidor e pesquisa-mercado como insumo.
 
-Salve o prompt completo numa variável para reutilizar nos dois fluxos.
+#### Se Fases e Sequências
+- 3 a 5 fases ordenadas, cada uma com:
+  - Nome da fase (curto, ação ou estado)
+  - 1 frase descrevendo o que acontece nela
+  - 2 a 4 microetapas (ações práticas concretas)
+  - 1 forma de eficiência (das 14)
 
-### 5. Confirmação
+#### Se Lógica Condicional
+- 1 decisão crítica (ex: "criança reativa, equilibrada ou passiva?")
+- 2 ou 3 ramificações, cada uma com:
+  - Nome próprio
+  - Descrição curta de quem se enquadra
+  - Protocolo específico (3 a 5 passos)
+- 1 método de diagnóstico (questionário, autoavaliação, observação)
 
-Mostre um resumo:
+#### Se Enquadramento
+- Nome do sistema de categorias (próprio)
+- 3 ou 4 categorias, cada uma com:
+  - Nome
+  - Características observáveis
+  - Protocolo específico
+- 1 método de diagnóstico
 
-```
-Vou gerar:
-- Fluxo: {Rápido | Refinado | Os dois}
-- Produto: {nome}
-- Quadro: {quadro}
-- Etapas retratadas: {macroetapas}
-- Referências (se refinado): {N} imagens
+#### Se Listas
+- 3 a 7 pilares finitos
+- Sugerir acrônimo se as iniciais formarem palavra memorável
+- Cada pilar com:
+  - Nome
+  - 1 frase de explicação
+  - 1 forma de eficiência
 
-1. Tudo certo, pode gerar
-2. Quero ajustar algo
-```
+#### Se Empecilhos (combinada com Fases)
+- 3 a 5 empecilhos comuns do nicho (extrair do idconsumidor e pesquisa-mercado)
+- Para cada empecilho: nome, por que acontece, qual fase do método remove ele
+- Junto, gerar as Fases (como na mecânica Fases e Sequências)
 
-### 6. Executar o(s) script(s)
+#### Se Dinâmica de Entrega (combinada)
+- Nome do ritual (verbo + ação memorável)
+- Frequência (diária, semanal)
+- Duração (3 min, 10 min, 30 min)
+- Em qual momento (ao acordar, antes de dormir, segunda e quinta)
+- O que o aluno faz exatamente
+- Por quanto tempo total (4 semanas, 5 semanas)
 
-**Fluxo Rápido (Gemini):**
+### 6. Sugerir nome do método (3 opções, 7 técnicas)
 
-```bash
-py -3 scripts/gerar-furadeira-gemini.py --slug {ativo} --prompt "{prompt}"
-```
+Sugira 1 nome principal + 2 alternativas, cada uma usando uma técnica diferente das 7:
 
-Timeout interno do script é 60s. Se demorar mais que isso, o script aborta com mensagem.
+- Acrônimo (CAVE, VTSD, 3F)
+- Nome do Autor (Método {Nome do Aluno})
+- Curioso (Furadeira, Aperta e Solta)
+- Impactante (Escudo do Comportamento)
+- Benefício (Fluência em 90 Dias)
+- Mistério (Tecnologia de Alinhamento Postural Titanium)
+- Número + Substantivo (3 Pilares, 4 C's)
 
-**Fluxo Refinado (OpenRouter):**
+Evite genéricos ("Método Online"), técnicos demais ("Protocolo de Regulação Neuroemocional") ou parecidos com o normal ("Curso de Emagrecimento").
 
-```bash
-py -3 scripts/gerar-furadeira-openrouter.py --slug {ativo} --prompt "{prompt}"
-```
+### 7. Aplicar teste de eficiência
 
-Timeout interno 180s.
+Para cada componente da Furadeira (cada fase, pilar, ramificação, ritual), mapeie qual das 14 formas de eficiência ele entrega:
 
-**Se escolheu "Os dois"**, rode os dois comandos em sequência. Se um falhar, continue com o outro e informe a falha no final.
+Mais rápido | Mais barato | Menos esforço | Menos dor | Menos erro | Menos desperdício | Mais adesão | Mais prazeroso | Mais ético | Mais bonito | Mais sustentável | Mais saudável | Mais gostoso | Menos apelativo
 
-### 7. Apresentar resultado
+Se um componente não conseguir carregar nenhuma forma, reescreva ou descarte. Cada componente carrega no mínimo 1, no máximo 2 formas.
 
-Leia o stdout de cada script. Ele retorna `OK\t{caminho}\t...` ou erro no stderr.
+### 8. Mostrar o resumo na tela
 
-**Se só um PNG foi gerado:**
-
-```
-Furadeira gerada.
-
-Caminho: meus-produtos/{ativo}/entregas/furadeira/{arquivo}.png
-
-Abra no explorador de arquivos para visualizar. Se quiser regenerar com outro estilo, rode /gerar-furadeira de novo.
-```
-
-**Se os dois foram gerados:**
-
-Gere um arquivo `comparacao.html` simples em `meus-produtos/{ativo}/entregas/furadeira/comparacao.html` com as duas imagens lado a lado:
-
-```html
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-<meta charset="UTF-8">
-<title>Furadeira. Comparação</title>
-<style>
-  body { font-family: system-ui, sans-serif; margin: 0; padding: 24px; background: #111; color: #eee; }
-  h1 { font-size: 20px; margin-bottom: 16px; }
-  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-  .card { background: #1a1a1a; border-radius: 12px; padding: 16px; }
-  .card h2 { font-size: 14px; margin: 0 0 12px; color: #aaa; text-transform: uppercase; letter-spacing: .05em; }
-  .card img { width: 100%; border-radius: 8px; display: block; }
-  @media (max-width: 800px) { .grid { grid-template-columns: 1fr; } }
-</style>
-</head>
-<body>
-  <h1>Furadeira. Comparação dos dois fluxos</h1>
-  <div class="grid">
-    <div class="card"><h2>Rápido. Gemini</h2><img src="furadeira-gemini.png" alt="Furadeira Gemini"></div>
-    <div class="card"><h2>Refinado. OpenRouter com referências</h2><img src="furadeira-openrouter.png" alt="Furadeira OpenRouter"></div>
-  </div>
-</body>
-</html>
-```
-
-Informe:
+Formato exato:
 
 ```
-Duas versões geradas.
+✅ Furadeira gerada para "{nome do produto}":
 
-Gemini:     meus-produtos/{ativo}/entregas/furadeira/furadeira-gemini.png
-OpenRouter: meus-produtos/{ativo}/entregas/furadeira/furadeira-openrouter.png
-Comparação: meus-produtos/{ativo}/entregas/furadeira/comparacao.html
+Mecânica: {Principal}{ + Complementar se houver}
+Nome principal: {nome do método sugerido com técnica entre parênteses}
+Eficiência principal: {qual das 14 formas é o argumento mais forte}
 
-Abra a comparação no navegador para decidir qual usar.
+{Estrutura específica da mecânica, formatada legível:
+
+Para Fases:
+  Fase 1. {Nome}
+     Eficiência: {forma}
+     Microetapas: {ação 1}, {ação 2}, {ação 3}
+  
+  Fase 2. {Nome}
+     ...
+
+Para Condicional:
+  Decisão crítica: {qual é}
+  
+  Ramificação 1: {Nome}
+     Quem se enquadra: {descrição}
+     Protocolo: 1) ... 2) ... 3) ...
+  
+  Ramificação 2: ...
+  
+  Diagnóstico: {método}
+
+Para Enquadramento, Listas, etc. — análogo, sempre legível.}
+
+Nomes alternativos:
+- {alternativa 1} ({técnica})
+- {alternativa 2} ({técnica})
+
+1. Aprovar e salvar no perfil.md
+2. Quero trocar o nome
+3. Quero ajustar algum bloco específico
 ```
 
-**Se algum falhou**, informe a mensagem exata que o script retornou e sugira:
-- Erro de chave: rodar `/configurar-imagens` ou conferir `GEMINI_API_KEY` no `.env`.
-- Sem crédito: recarregar em https://openrouter.ai/settings/credits.
-- Referências insuficientes: adicionar em `assets/furadeira-referencias/`.
+### 9. Tratar resposta do aluno
 
-### 8. Próximo passo sugerido
+**Se 1 (aprovar):** seguir para passo 10.
+
+**Se 2 (trocar nome):** mostrar os nomes alternativos numerados, pedir o número escolhido, atualizar nome principal e voltar a mostrar o resumo (passo 8) com o novo nome destacado.
+
+**Se 3 (ajustar bloco):** perguntar qual bloco específico (ex: "Fase 2", "Ramificação Trilha Vermelha", "Pilar 3"), o aluno descreve o ajuste, regenerar só aquele bloco, voltar a mostrar o resumo.
+
+### 10. Salvar no perfil.md
+
+Anuncie:
 
 ```
+🔍 Próximo passo: salvar a Furadeira no perfil.md. Tempo estimado: cerca de 5 segundos.
+```
+
+Substitua a seção "## Furadeira (Método)" do `meus-produtos/{ativo}/perfil.md` por este schema:
+
+```markdown
+## Furadeira (Método)
+
+**Nome do método:** {nome aprovado}
+**Mecânica(s):** {Principal}{ + Complementar se houver}
+**Eficiência principal:** {forma}
+
+### Estrutura
+
+{conteúdo específico da mecânica, no formato da seção 5}
+
+### Eficiência por componente
+
+- {Componente 1}: {forma}
+- {Componente 2}: {forma}
+- {...}
+```
+
+**Compatibilidade com painel:** se a mecânica for "Fases e Sequências", manter também os campos `### Macroetapas` (com `**Etapa N — Nome:** descrição` no formato antigo) para o `painel-incremental.py` parsear sem mudança. Para outras mecânicas, o painel renderiza a partir do bloco "Estrutura".
+
+### 11. Atualizar o painel de entregas
+
+Rode:
+
+```
+py -3 scripts/painel-incremental.py --slug {ativo}
+```
+
+Se o script não existir ou falhar, avise:
+```
+Não foi possível atualizar o painel automaticamente. Rode manualmente quando puder:
+py -3 scripts/painel-incremental.py --slug {ativo}
+```
+
+### 12. Mensagem final
+
+```
+✅ Concluído: Furadeira salva no perfil.md.
+
+Nome do método: {nome}
+Mecânica: {mecânica}
+Caminho: C:\Users\Elen\.cursor\Imersão IA\workshop_inteligente\meus-produtos\{ativo}\perfil.md
+
 Próximo:
-- /copy-pagina para montar a página de vendas (vai usar essa imagem na seção do método)
-- /furadeira-visual se preferir a versão em trilha HTML
+- /furadeira-visual para gerar o prompt do ChatGPT e criar a imagem PNG do método
+- /copy-pagina para usar a Furadeira na seção Método da página de vendas
 ```
 
 ## Regras
 
-- Nunca gerar HTML do método neste comando. Só PNG.
-- Não mostrar o código dos scripts ao usuário.
-- Não chamar a revisora (não há copy aqui, só prompt técnico interno em inglês).
-- Erros de API sempre em português claro, sem jargão de stack trace.
+- Não fazer entrevista guiada. Decidir tudo a partir do contexto e mostrar o resultado.
+- Não chamar a skill `revisora` (não é copy de venda, é estrutura de método).
+- Não gerar imagem aqui. Imagem é responsabilidade do `/furadeira-visual`.
+- Se o contexto for insuficiente (sem Quadro ou sem Decorados), redirecionar para `/produto-concepcao` em vez de adivinhar.
+- Erros sempre em português claro, sem stack trace.
+- Anunciar "próximo passo" antes de operações longas (regra global do CLAUDE.md).
+- Português brasileiro com acentuação correta. Aplicar as palavras críticas listadas no CLAUDE.md.

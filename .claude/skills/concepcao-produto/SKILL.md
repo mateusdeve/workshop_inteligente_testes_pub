@@ -41,14 +41,27 @@ Até 10 palavras. Verbo no infinitivo. Único resultado. Atrativo, claro, espec�
 
 ## Furadeira (Método)
 
-Caminho claro, replicável e exclusivo. 3-5 macroetapas + microetapas.
+Caminho claro, replicável e exclusivo do método. A Furadeira pode usar uma das 6 mecânicas (ou combinação de até 2):
 
-**Exemplo. Protocolo Anticoceira:**
-1. Raiz do Problema. identificar causa
-2. Pele Blindada. higienização + produtos
-3. Nutrição Antialérgica. alimentação preventiva
+1. **Lógica Condicional.** Decisão crítica que muda o caminho conforme perfil/situação (ex: "se criança reativa, então X; se passiva, então Y")
+2. **Enquadramento.** Sistema próprio de categorias que classifica o aluno (ex: DISC, Trilha Vermelha/Azul/Verde, 4 perfis do vendedor)
+3. **Listas.** 3 a 7 pilares finitos que coexistem (ex: 4 C's, 3 Pilares, 6 Erros)
+4. **Fases e Sequências.** 3 a 5 etapas ordenadas A → B → C (ex: Método 3F: Fonética → Fluência → Fixação)
+5. **Identificando Empecilhos.** Mapa de obstáculos + como o método remove cada um (geralmente combinada com Fases)
+6. **Dinâmica de Entrega.** Ritual/rotina fixa que vira marca registrada (ex: Aperta e Solta 3 min ao acordar)
 
-**Visualização da Furadeira (opcional):** depois que a Furadeira estiver definida no `perfil.md`, você pode gerar um diagrama visual da metodologia usando a skill `furadeira-visual`. Ela oferece 5 layouts (linear, roadmap, pirâmide, hub, fluxograma), gera HTML estático e converte para PNG. Útil para usar na seção Método da página de vendas (8D), em carrosséis, slides de pitch e stories. Acione `/furadeira-visual` após o produto estar com a Furadeira cadastrada.
+A mecânica certa para cada produto varia conforme nicho, Quadro e perfil do consumidor. A skill `gerar-furadeira` (acionada via `/gerar-furadeira`) decide a mecânica automaticamente com base no contexto do produto e gera a estrutura correta.
+
+**Cada componente da Furadeira precisa carregar pelo menos 1 das 14 formas de eficiência** (mais rápido, mais barato, menos esforço, menos dor, menos erro, menos desperdício, mais adesão, mais prazeroso, mais ético, mais bonito, mais sustentável, mais saudável, mais gostoso, menos apelativo). Essa é a Teoria da Eficiência: o método só vale se torna o resultado mais eficiente que o aluno tentaria sozinho.
+
+**Exemplos por mecânica:**
+- Fases: "Protocolo Anticoceira: Raiz do Problema → Pele Blindada → Nutrição Antialérgica"
+- Lógica Condicional: "Régua RCC: criança reativa segue protocolo de regulação; criança passiva segue protocolo de estímulo"
+- Listas: "Os 4 C's da Lapidação: Compreensão, Convicção, Compromisso, Conversão"
+
+**Detalhamento completo das 6 mecânicas, 14 formas de eficiência e 7 técnicas de nome de método:** `.claude/skills/furadeira-visual/references/6-mecanicas.md`.
+
+**Visualização da Furadeira (depois de gerada):** acione `/furadeira-visual` para gerar a imagem PNG do método. A skill decide automaticamente o layout visual conforme a mecânica registrada (roadmap, fluxograma, mandala, hub, etc.) e o nicho do produto, monta um prompt em inglês para o aluno colar no ChatGPT e salva a imagem em `entregas/furadeira/furadeira.png`. Útil para a seção Método da página de vendas (8D), carrosséis, slides de pitch e stories.
 
 ## Decorados (50 Benefícios)
 
