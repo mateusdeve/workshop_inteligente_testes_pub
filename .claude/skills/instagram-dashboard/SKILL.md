@@ -13,7 +13,7 @@ description: >
 ## Quando Usar
 
 - Quando o aluno quiser monitorar o crescimento do proprio perfil no Instagram de forma automatica, sem precisar abrir ferramentas toda manha.
-- Como base de dados para `/copy-social` (conteudo baseado no que ja funciona) e `/dados-instagram` (analise profunda com insights de copy).
+- Como base de dados para `/copy-carrossel` (conteudo baseado no que ja funciona) e `/dados-instagram` (analise profunda com insights de copy).
 - Quando o aluno precisar mostrar evolucao de metricas para clientes ou parceiros.
 
 **Nao usar para:**
@@ -324,5 +324,5 @@ powershell -ExecutionPolicy Bypass -File .claude\skills\instagram-dashboard\scri
 ## Proximos Passos Apos Configurar
 
 - `/copy-variacao-post` — criar variacoes dos posts com mais engajamento (le thumbnails e insights.json do dashboard)
-- `/copy-social` — criar conteudo novo baseado nos posts com mais engajamento
+- `/copy-carrossel` — criar conteudo novo baseado nos posts com mais engajamento
 - `/copy-anuncio` — transformar os dados em anuncios com angulos testados

@@ -30,7 +30,7 @@ Apos gerar o HTML, o Claude Code executa `vercel deploy` e retorna a URL publica
 ### Freepik. Geracao de Imagens com IA
 
 **O que faz:** Gera imagens a partir de prompts de texto (text-to-image).
-**Usada por:** `/img-anuncio`
+**Usada por:** `/criativo-estatico`
 **Chave necessaria:** `FREEPIK_API_KEY`
 
 **Como configurar:**
@@ -53,7 +53,7 @@ Apos gerar os prompts de imagem, o Claude Code envia cada prompt para a API do F
 ### HeyGen. Videos com Avatar IA
 
 **O que faz:** Cria videos com avatares virtuais a partir de scripts de texto.
-**Usada por:** `/copy-roteiro` (formato avatar)
+**Usada por:** `/video-heygen` (formato avatar)
 **Chave necessaria:** `HEYGEN_API_KEY`
 
 **Como configurar:**
@@ -62,7 +62,7 @@ Apos gerar os prompts de imagem, o Claude Code envia cada prompt para a API do F
 3. Copie a chave para o arquivo `.env`
 
 **Como o toolkit usa:**
-Quando o aluno escolhe o formato "Avatar" no `/copy-roteiro`, o Claude Code envia o script para a API do HeyGen. O video e gerado em segundo plano e o link e informado quando pronto.
+Quando o aluno escolhe o formato "Avatar" no `/video-heygen`, o Claude Code envia o script para a API do HeyGen. O video e gerado em segundo plano e o link e informado quando pronto.
 
 **Sem a chave:** O roteiro e salvo em arquivo. O aluno copia o script e cola no app.heygen.com para gravar manualmente.
 
@@ -153,7 +153,7 @@ Ao gerar paginas de vendas, o Claude Code pode inserir automaticamente o link co
 ### WhatsApp Business. Automacoes
 
 **O que faz:** Envia mensagens automaticas (lembretes, confirmacoes, abertura de carrinho).
-**Usada por:** `/copy-emails`, `/estrategia-lancamento`
+**Usada por:** `/estrategia-lancamento`
 **Chaves necessarias:** `WHATSAPP_PHONE_ID`, `WHATSAPP_ACCESS_TOKEN`
 
 **Como configurar:**
@@ -170,7 +170,7 @@ Ao gerar paginas de vendas, o Claude Code pode inserir automaticamente o link co
 ### OpenRouter. Geracao de Imagens para Anuncios
 
 **O que faz:** Acessa dezenas de modelos de IA para gerar imagens reais de anuncios (feed, stories, banners).
-**Usada por:** `/img-anuncio`
+**Usada por:** `/criativo-estatico`
 **Chaves necessarias:** `OPENROUTER_API_KEY`, `OPENROUTER_IMAGE_MODEL` (opcional)
 
 **Como configurar:**
@@ -180,7 +180,7 @@ Ao gerar paginas de vendas, o Claude Code pode inserir automaticamente o link co
 4. Opcionalmente, defina o modelo preferido em `OPENROUTER_IMAGE_MODEL`
 
 **Como o toolkit usa:**
-Quando o aluno usa `/img-anuncio` e aprova o prompt gerado, o Claude Code envia o prompt para a API do OpenRouter e salva a imagem em `entregas/criativos/`. A imagem fica pronta para usar diretamente no Meta Ads ou Google Ads.
+Quando o aluno usa `/criativo-estatico` em modo "api" e aprova o prompt gerado, o Claude Code envia o prompt para a API do OpenRouter e salva a imagem em `entregas/criativos/`. A imagem fica pronta para usar diretamente no Meta Ads ou Google Ads.
 
 **Fluxo de chamada (curl):**
 ```
@@ -209,7 +209,7 @@ Authorization: Bearer $OPENROUTER_API_KEY
 
 **Para anuncios de video:**
 O OpenRouter nao gera video diretamente. Para videos, use o fluxo:
-1. `/copy-roteiro` → gera o roteiro completo do video
+1. O aluno escreve o roteiro completo do video (ou usa um modelo pronto)
 2. O aluno grava o video com o roteiro, ou usa HeyGen (se configurado) para avatar IA
 3. OpenRouter pode ser usado para gerar a **miniatura do video** (thumbnail) como imagem
 
@@ -260,7 +260,7 @@ Anuncio -> Quiz (Lovable) -> Pagina Final do Quiz (toolkit) -> Checkout (Hotmart
 | Ferramenta | Chave .env | Nivel | Automacao |
 | --- | --- | --- | --- |
 | Vercel | VERCEL_TOKEN | Intermediario | Deploy de paginas |
-| OpenRouter | OPENROUTER_API_KEY | Intermediario | Anuncios (`/img-anuncio`) e assets de landing (`generate-openrouter-nano-banana-images.py`, ver playbook) |
+| OpenRouter | OPENROUTER_API_KEY | Intermediario | Criativos de anuncio (`/criativo-estatico`) e assets de landing (`generate-openrouter-nano-banana-images.py`, ver playbook) |
 | Freepik | FREEPIK_API_KEY | Intermediario | Geracao de imagens (alternativa) |
 | HeyGen | HEYGEN_API_KEY | Intermediario | Criacao de videos com avatar IA |
 | Meta Pixel | META_PIXEL_ID | Intermediario | Tracking nas paginas |

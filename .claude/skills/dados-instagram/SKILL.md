@@ -15,7 +15,7 @@ Pega um perfil do Instagram público e entrega duas coisas: um dashboard HTML in
 ## Quando Usar
 
 - Quando o aluno disser "analisa meu Instagram", "quero entender o que funciona no meu perfil", "estuda o perfil @fulano", "o que os concorrentes estão postando".
-- Como input pra `/copy-social` e `/copy-roteiro` (insights viram ideias de conteúdo).
+- Como input pra `/copy-carrossel` (insights viram ideias de conteúdo).
 
 ## O Que Fazer
 
@@ -158,7 +158,7 @@ Dados brutos: entregas/dados/instagram-{perfil}.json
 Abra o dashboard no navegador pra ver os gráficos e filtros.
 
 Próximos passos:
-- Use os insights em /copy-social pra criar conteúdo alinhado ao que funciona
+- Use os insights em /copy-carrossel pra criar conteúdo alinhado ao que funciona
 - Rode /dados-nicho pra descobrir mais perfis de referência no seu nicho
 ```
 

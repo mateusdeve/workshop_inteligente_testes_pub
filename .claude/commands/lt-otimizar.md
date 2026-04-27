@@ -277,4 +277,4 @@ Salvar em: `meus-produtos/{ativo}/entregas/trafego/otimizacao-metaads-[data].md`
 
 Sugerir proximo passo:
 - `/copy-anuncio`. para criar novos criativos para os testes recomendados
-- `/img-anuncio` para gerar imagens dos novos anuncios
+- `/criativo-estatico` para gerar imagens dos novos anuncios

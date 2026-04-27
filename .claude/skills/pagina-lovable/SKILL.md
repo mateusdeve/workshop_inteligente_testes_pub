@@ -160,7 +160,6 @@ Histórico:    entregas/{ativo}/.lovable
 Próximos passos sugeridos:
 - Cole o link na bio do Instagram
 - Use no /copy-anuncio como destino dos anúncios
-- Compartilhe com sua lista via /copy-emails
 ```
 
 ## Regras

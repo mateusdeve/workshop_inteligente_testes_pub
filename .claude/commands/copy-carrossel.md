@@ -362,8 +362,7 @@ Para publicar:
 4. Suba os 7 prints como carrossel no Instagram
 
 Próximos passos:
-- Caption para o carrossel: /copy-social (opção 2. Caption)
-- Anúncio com a mesma urgência: /criativo-aida
+- Anúncio com a mesma urgência: /criativo-estatico
 - Mais carrosséis: /copy-carrossel novamente
 ```
 

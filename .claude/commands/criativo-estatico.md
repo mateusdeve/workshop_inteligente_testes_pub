@@ -1,13 +1,12 @@
 ---
-name: workshop-marketing:criativo-aida
-description: Gera um criativo de anuncio em imagem com base no AIDA. 3 passos sequenciais: imagem de fundo (Atencao), layout e cores (Interesse e Desejo), texto da imagem (Acao). Entrega um prompt consolidado em ingles pronto para colar na ferramenta de imagem escolhida.
-allowed-tools: Read, Write, Bash
+name: workshop-marketing:criativo-estatico
+description: Gerar criativo estatico de anuncio (imagem) em 3 passos AIDA. Comeca perguntando o modo (prompt para colar em ferramenta externa OU geracao automatica via API OpenRouter/Freepik). Os 3 passos sao sequenciais. cena (Atencao), layout e cores (Interesse e Desejo), texto da imagem (Acao). No modo prompt entrega prompt consolidado em ingles. No modo API gera as imagens diretamente.
+allowed-tools: Read, Write, Bash, WebSearch
 ---
 
-# Criativo AIDA. Anuncio em Imagem em 3 Passos
+# Criativo Estatico. Anuncio em Imagem AIDA com Modo Prompt ou API
 
-Gera o criativo completo dividido em 3 passos sequenciais baseados no AIDA.
-Cada passo e validado antes de avancar para o proximo.
+Gera criativo estatico de anuncio dividido em 3 passos AIDA. Antes de iniciar pergunta o modo: prompt para ferramenta externa ou geracao automatica via API. Cada passo e validado antes de avancar para o proximo.
 
 **Por que 3 passos separados:**
 A maioria dos criativos falha porque o texto e escrito antes do layout ser definido.
@@ -17,7 +16,7 @@ Este fluxo inverte: primeiro a imagem que para o scroll, depois onde cada coisa 
 ## Usage
 
 ```
-/criativo-aida
+/criativo-estatico
 ```
 
 ## O Que Fazer
@@ -33,7 +32,82 @@ Extraia:
 - Top 5 Urgencias Ocultas mais fortes (priorizando Dores, Desejos e Urgencias Quentes)
 - Identidade do Consumidor (estetica, tom, cultura visual se disponivel)
 
-### 1. Entrevista (2 perguntas)
+### 1. Modo de Execucao (PRIMEIRA pergunta, antes de tudo)
+
+```
+Como voce quer gerar o criativo?
+
+1. Prompt para colar em ferramenta externa (gratuito, sem API)
+   Eu monto o prompt em ingles ja consolidado e voce cola no Midjourney,
+   Gemini, ImageFX, Ideogram, Leonardo ou outra ferramenta da sua escolha.
+
+2. Geracao automatica via API (OpenRouter ou Freepik)
+   Eu gero as 3 variacoes ja salvas como PNG na sua pasta de entregas.
+   Precisa ter OPENROUTER_API_KEY ou FREEPIK_API_KEY no .env.
+
+Digite o numero:
+```
+
+**Se escolher 2:** verifique `.env` na ordem:
+1. `OPENROUTER_API_KEY` existe e nao vazio. usar OpenRouter
+2. `FREEPIK_API_KEY` existe e nao vazio. usar Freepik (fallback)
+3. Nenhuma chave. orientar:
+
+```
+Para o modo API voce precisa configurar uma chave primeiro.
+Recomendado: OpenRouter (custa menos de R$ 0,10 por imagem).
+
+1. Configurar agora (uso o /configurar-imagens para guiar)
+2. Voltar e usar o modo prompt
+```
+
+Se escolher 1 do submenu, oriente conforme `/configurar-imagens` e retome aqui apos a chave salva.
+
+```
+--- Modo definido ---
+Execucao: [Prompt externo / OpenRouter / Freepik]
+Proximo: Pesquisa de referencias virais (opcional)
+---
+```
+
+### 2. Pesquisa de Referencias Virais (opcional, recomendado)
+
+Pergunte:
+
+```
+Quer que eu pesquise referencias virais antes de criar?
+Demora cerca de 60 segundos e melhora a qualidade visual.
+
+1. Sim, pesquisar agora
+2. Nao, pular e ir direto para a entrevista
+```
+
+**Se escolher 1**, anuncie e execute:
+
+```
+🔍 Próximo passo: pesquisar formatos virais de anúncio estático no nicho. Tempo estimado: cerca de 1 minuto.
+```
+
+Faca 2 buscas (WebSearch):
+- `"Instagram static ad formats high converting [mes/ano atual]"`
+- `"Instagram ad examples [nicho do produto] [ano atual]"`
+
+Cruze com a referencia interna em `.claude/skills/anuncios/references/formatos-virais-instagram.md`.
+
+Apresente:
+
+```
+✅ Concluído: pesquisa de virais.
+
+Os formatos que mais estao convertendo no seu nicho:
+1. [Formato A]. [por que funciona]
+2. [Formato B]. [por que funciona]
+3. [Formato C]. [por que funciona]
+
+Vou usar essas referencias como inspiracao para a cena do Passo 1.
+```
+
+### 3. Entrevista (2 perguntas)
 
 **Pergunta 1/2. Formato:**
 
@@ -49,7 +123,7 @@ Digite o numero:
 
 **Pergunta 2/2. Urgencia base:**
 
-Liste as top 5 urgencias ocultas do perfil numeradas, priorizando Dores, Urgencias Quentes e Desejos. Apresente assim:
+Liste as top 5 urgencias ocultas do perfil numeradas, priorizando Dores, Urgencias Quentes e Desejos.
 
 ```
 Qual situacao vai inspirar o criativo?
@@ -73,7 +147,7 @@ Proximo: Passo 1 de 3 (imagem de fundo)
 ---
 ```
 
-### 2. Passo 1 de 3: Imagem de Fundo (Atencao)
+### 4. Passo 1 de 3: Imagem de Fundo (Atencao)
 
 **Objetivo:** gerar a imagem de fundo que para o scroll.
 Sem texto. Sem botao. Apenas o visual que cria impacto emocional imediato.
@@ -110,14 +184,6 @@ A urgencia oculta escolhida mapeia para uma categoria visual:
 [mood emocional final]. --no text, faces, watermark, logo
 ```
 
-**Adaptar o prompt base para sua ferramenta:**
-
-- Midjourney: adicionar `--ar [ratio] --v 6.1 --style raw --s 250 --no text, faces, watermark`
-- ImageFX: prompt descritivo, 4 a 6 frases, sem parametros tecnicos
-- Ideogram: adicionar ao final `Style: Realistic, Aspect Ratio: [ratio]`
-- Leonardo.ai: prompt principal + negative prompt separado em campo proprio
-- Gemini: prompt descritivo em ingles, 4 a 6 frases, sem parametros tecnicos (mesmo formato do ImageFX)
-
 **Derivar os ingredientes visuais do produto antes de criar as opcoes:**
 
 Antes de escrever qualquer prompt, extraia do perfil do produto:
@@ -134,7 +200,7 @@ Esses 4 ingredientes sao a materia-prima das 3 opcoes. Nao gere opcoes sem eles.
 - Opcao B: cena de cotidiano exata. O consumidor no ambiente e momento especifico da urgencia, angulo de camera natural como se alguem fotografasse sem que a pessoa soubesse. Luz realista do ambiente. Ex: ela sentada na beira da cama olhando para o espelho, ele na mesa de trabalho as 22h.
 - Opcao C: composicao de contraste ou surpresa. Elemento fora do lugar, angulo inesperado (de cima para baixo, de baixo para cima, close em detalhe minusculo), ou dois elementos opostos no mesmo quadro. Cria curiosidade antes de qualquer leitura de texto.
 
-Apresente as 3 opcoes com apenas descricao em portugues. O prompt em ingles e derivado internamente apos a escolha e aparece somente no prompt consolidado final.
+Apresente as 3 opcoes com apenas descricao em portugues. O prompt em ingles e derivado internamente apos a escolha e aparece somente no prompt consolidado final (ou no JSON de config se modo API).
 
 ```
 Passo 1 de 3: imagem de fundo
@@ -162,7 +228,7 @@ Cada opcao representa um momento especifico da urgencia escolhida. O kicker do P
 
 Apos aprovacao, avance para o Passo 2.
 
-### 3. Passo 2 de 3: Layout e Cores (Interesse e Desejo)
+### 5. Passo 2 de 3: Layout e Cores (Interesse e Desejo)
 
 **Objetivo:** definir onde cada elemento vai ficar e como vai se parecer.
 Esta etapa acontece ANTES de escrever o texto para que as palavras sejam escritas
@@ -235,7 +301,7 @@ Layout definido: [cor hex] ([nome da cor]). Gerando as versoes de texto.
 
 Avance diretamente para o Passo 3 sem pedir aprovacao do layout.
 
-### 4. Passo 3 de 3: Texto da Imagem (Acao)
+### 6. Passo 3 de 3: Texto da Imagem (Acao)
 
 **Objetivo:** escrever o texto exato de cada zona definida no Passo 2.
 O texto e escrito para caber no espaco real, nao o contrario.
@@ -274,6 +340,8 @@ O texto e escrito para caber no espaco real, nao o contrario.
 - O kicker soa como pensamento humano ou como narrador/marca descrevendo de fora? Teste: a pessoa poderia pensar isso com essas palavras exatas? Se nao, reescrever na voz interna do leitor antes de continuar.
 - O apoio usa termos tecnicos ou nomes de categorias (grupo alimentar, sedentarismo, gestao emocional, renda passiva)? Se sim, substituir por exemplos concretos do vocabulario cotidiano antes de continuar.
 
+**Antes de mostrar as versoes:** aplicar a rotina de auto-revisao de copy obrigatoria do CLAUDE.md (carregar Manual da Copy + acionar revisora) e corrigir direto no texto. Nao mostrar versao bruta.
+
 **Gere 2 versoes completas do anuncio**, cada uma com kicker, titulo, apoio (2 linhas) e botao ja combinados.
 Nao apresentar opcoes separadas por zona. O usuario escolhe a versao inteira.
 
@@ -302,14 +370,13 @@ Versao 2:
 3. Quero ajustar algo
 ```
 
-Apos o usuario escolher, monte o prompt final consolidado.
+Apos o usuario escolher, montar a saida de acordo com o modo definido no Passo 1.
 
-### 5. Confirmacao e Entrega
+### 7. Saida Condicional
 
-Apos o usuario confirmar a versao do Passo 3, monte o PROMPT FINAL CONSOLIDADO em ingles.
-Este e o unico output que o aluno precisa para gerar o criativo. Um prompt unico que combina os 3 passos.
+#### Modo Prompt (escolha 1 do Passo 1)
 
-**Estrutura do prompt final consolidado (sempre em ingles):**
+Monte o PROMPT FINAL CONSOLIDADO em ingles. Esse e o unico output que o aluno precisa para gerar o criativo.
 
 REGRA CRITICA: usar linguagem visual espacial (upper area, lower band, centered),
 NUNCA porcentagens numericas. Porcentagens sao apenas para calculo interno no Passo 2.
@@ -356,8 +423,22 @@ No background bands, no colored rectangles, no overlay boxes,
 no percentage labels, no zone markers, no annotations.
 ```
 
-Salve os dois arquivos imediatamente apos o usuario escolher a versao de texto, sem pedir aprovacao adicional.
-Depois apresente assim:
+Salve dois arquivos imediatamente apos o usuario escolher a versao de texto, sem pedir aprovacao adicional.
+
+**Arquivo 1: JSON completo**
+`meus-produtos/{ativo}/entregas/criativos/criativo-estatico-{slug}-{numero}.json`
+
+**Arquivo 2: Briefing legivel**
+`meus-produtos/{ativo}/entregas/criativos/criativo-estatico-{slug}-{numero}.md`
+
+Conteudo do briefing:
+- Nome do criativo, data, formato, urgencia base
+- Cena escolhida (descricao em portugues)
+- Layout em topicos (zonas, fontes, cores)
+- Texto escolhido (kicker, headline, apoio, instrucao)
+- Prompt final consolidado em ingles em bloco de codigo
+
+Depois apresente:
 
 ```
 Pronto. Cole esse prompt no seu gerador de imagem:
@@ -378,103 +459,96 @@ Quer ajustar algum dos 3 passos?
 3. Reescrever o texto
 ```
 
-Salve dois arquivos:
+#### Modo API (escolha 2 do Passo 1)
 
-**Arquivo 1: JSON completo**
-`meus-produtos/{ativo}/entregas/criativos/criativo-aida-{slug}-{numero}.json`
+Anuncie:
+
+```
+🔍 Próximo passo: gerar 3 variacoes via [OpenRouter/Freepik]. Tempo estimado: cerca de 2 minutos.
+```
+
+Sistema hibrido em 3 camadas:
+1. IA gera o visual de fundo (foto, textura) via OpenRouter ou Freepik
+2. Template HTML compoe texto + layout + cores por cima
+3. Chrome/Edge headless exporta PNG final
+
+Crie um arquivo JSON de config em `meus-produtos/{ativo}/entregas/criativos/config-criativo-estatico-{slug}.json` com 3 slides (3 variacoes da versao escolhida no Passo 3, com leves ajustes de cena), todos no tema `theme-custom` com a cor de destaque definida no Passo 2.
+
+REGRA ABSOLUTA: textos do JSON em portugues com acentos corretos (UTF-8). "não", "padrão", "você". Nunca "nao", "voce". Os prompts de IA (em ingles) nao precisam de acentos.
+
+Estrutura do JSON:
 
 ```json
 {
-  "produto": "{ativo}",
-  "criativo": "criativo-aida-{slug}-{numero}",
-  "data": "{data}",
-  "formato": "{formato}",
-  "ratio": "{ratio}",
-  "urgencia_base": "{urgencia escolhida}",
-  "ferramenta_imagem": "{ferramenta}",
-  "aida": {
-    "atencao": {
-      "passo": 1,
-      "objetivo": "parar o scroll com visual emocional sem texto",
-      "cena": "{descricao em portugues da opcao escolhida}",
-      "prompt": "{prompt em ingles escolhido}",
-      "parametros": "{parametros da ferramenta se aplicavel}"
+  "output_dir": "meus-produtos/{ativo}/entregas/criativos/",
+  "colors": {"bg": "#0F0F0F", "text": "#FFFFFF", "accent": "[cor hex destaque]"},
+  "slides": [
+    {
+      "theme": "theme-custom",
+      "layout": "layout-gancho",
+      "kicker": "[kicker em portugues]",
+      "headline": "[HEADLINE EM CAIXA ALTA]",
+      "apoio_1": "[apoio linha 1]",
+      "apoio_2": "[apoio linha 2]",
+      "cta": "[CTA] e [complemento]",
+      "ai_prompt": "[prompt de cena em ingles, da Opcao escolhida no Passo 1]",
+      "filename": "criativo-estatico-v1-{slug}"
     },
-    "interesse_desejo": {
-      "passo": 2,
-      "zonas": {
-        "zona_a": {
-          "nome": "titulo",
-          "altura_pct": 0,
-          "fonte_familia": "",
-          "fonte_peso": "",
-          "cor_texto": "",
-          "max_chars": 0
-        },
-        "zona_b": {
-          "nome": "fundo",
-          "altura_pct": 0,
-          "overlay": "",
-          "espaco_negativo": ""
-        },
-        "zona_c": {
-          "nome": "apoio_botao",
-          "altura_pct": 0,
-          "apoio_max_chars": 0,
-          "botao_max_chars": 0,
-          "cor_fundo_botao": "",
-          "cor_texto_botao": ""
-        }
-      },
-      "paleta": {
-        "texto_principal": "",
-        "destaque": "",
-        "overlay": ""
-      }
-    },
-    "acao": {
-      "passo": 3,
-      "copy": {
-        "titulo": "",
-        "apoio": "",
-        "botao": ""
-      }
-    }
-  },
-  "prompt_final": "{prompt consolidado em ingles pronto para colar}"
+    { "...slide 2 com pequena variacao de cena..." },
+    { "...slide 3 com pequena variacao de cena..." }
+  ]
 }
 ```
 
-**Arquivo 2: Briefing legivel**
-`meus-produtos/{ativo}/entregas/criativos/criativo-aida-{slug}-{numero}.md`
+Rode o script:
 
-Conteudo:
-- Nome do criativo, data, formato, urgencia base e ferramenta
-- Cena escolhida (descricao em portugues)
-- Prompt de fundo em bloco de codigo pronto para copiar
-- Layout em topicos (divisao das zonas, fontes, cores)
-- Texto escolhido (titulo, apoio, botao)
-- Prompt final consolidado em ingles em bloco de codigo
-
-### 6. Proximo Passo
-
-Apos salvar:
-
-```
-Criativo salvo em:
-- meus-produtos/{ativo}/entregas/criativos/criativo-aida-{slug}-{numero}.json
-- meus-produtos/{ativo}/entregas/criativos/criativo-aida-{slug}-{numero}.md
-
-Proximos passos:
-
-1. Cole o prompt acima no seu gerador de imagem para gerar o criativo completo
-2. Abra a imagem gerada no Canva e aplique o layout do Passo 2 como guia
-3. Adicione o texto do Passo 3 em cada zona
-4. Para criar mais variacoes: rode /criativo-aida novamente
-5. Para escrever a copy do anuncio que acompanha a imagem: use /copy-anuncio
+```bash
+py -3 scripts/generate-creative.py --config meus-produtos/{ativo}/entregas/criativos/config-criativo-estatico-{slug}.json
 ```
 
-### 7. Modo Iterativo
+Router inteligente de modelos (definido em `scripts/openrouter_model_router.py`):
+
+| Categoria | Modelo escolhido | Quando usar |
+|---|---|---|
+| photorealistic | Flux 2 Pro (`black-forest-labs/flux.2-pro`) | Fotos reais, retratos, produtos |
+| complex_scene | GPT-5 Image Mini (`openai/gpt-5-image-mini`) | Composicoes complexas, mockups |
+| infographic | GPT-5 Image Mini (`openai/gpt-5-image-mini`) | Infograficos, dashboards |
+| clean_minimal | Gemini 3.1 Flash | Backgrounds, texturas, CTAs |
+| abstract_mood | Gemini 3.1 Flash | Gradientes, vidro, 3D |
+| artistic | Flux 2 Flex | Arte digital, colagens |
+
+Se preferir forcar um modelo:
+
+```bash
+py -3 scripts/generate-creative.py \
+  --config meus-produtos/{ativo}/entregas/criativos/config-criativo-estatico-{slug}.json \
+  --force-model google/gemini-3.1-flash-image-preview
+```
+
+Para Freepik (caso `OPENROUTER_API_KEY` ausente e `FREEPIK_API_KEY` presente), o `generate-creative.py` chama a API do Freepik internamente.
+
+Apos a execucao do script:
+
+```
+✅ Concluído: 3 variacoes geradas.
+
+Imagens salvas em:
+- meus-produtos/{ativo}/entregas/criativos/criativo-estatico-v1-{slug}.png
+- meus-produtos/{ativo}/entregas/criativos/criativo-estatico-v2-{slug}.png
+- meus-produtos/{ativo}/entregas/criativos/criativo-estatico-v3-{slug}.png
+
+Briefing tecnico salvo em:
+- meus-produtos/{ativo}/entregas/criativos/criativo-estatico-{slug}.md
+
+Proximo passo: use /copy-anuncio para criar a copy (texto) dos anuncios que vao acompanhar essas imagens.
+
+Quer ajustar algum dos 3 passos?
+1. Trocar a cena
+2. Mudar a cor ou o layout
+3. Reescrever o texto
+```
+
+### 8. Modo Iterativo
 
 Se o usuario quiser refinar um passo especifico depois de salvar:
 
@@ -483,31 +557,31 @@ Qual passo quer ajustar?
 
 1. Passo 1: imagem de fundo (trocar a cena)
 2. Passo 2: layout e cores (ajustar zonas, fontes ou paleta)
-3. Passo 3: texto da imagem (titulo, apoio ou botao)
+3. Passo 3: texto da imagem (kicker, headline, apoio ou botao)
 
 O que quer mudar?
 ```
 
-Ajuste apenas o passo solicitado, atualize os dois arquivos mantendo os outros passos intactos.
+Ajuste apenas o passo solicitado, atualize os arquivos mantendo os outros passos intactos. No modo API, regere apenas a imagem afetada.
 
 ## Regras
 
-- Nao escrever texto antes do Passo 2 estar aprovado. O texto do Passo 3 depende dos limites de caractere definidos no layout.
+- Nao escrever texto antes do Passo 2 estar definido. O texto do Passo 3 depende dos limites de caractere definidos no layout.
 - Nunca inventar urgencia. A urgencia base vem obrigatoriamente das Urgencias Ocultas do perfil.
 - Prompt do Passo 1 sempre em ingles, adaptado ao formato nativo da ferramenta escolhida.
-- Passo 2 sempre em JSON valido no arquivo salvo, mesmo que apresentado como texto para o usuario.
 - Light Copy obrigatoria no Passo 3: sem travessao, sem ponto de exclamacao, sem pergunta, sem promessa vaga.
+- Auto-revisao obrigatoria de copy (Manual + revisora) antes de mostrar as versoes ao usuario.
 - O numero do criativo e sequencial dentro da pasta do produto. Verificar arquivos existentes antes de numerar.
-- No Passo 1, mostrar apenas descricoes em portugues para as 3 opcoes. O prompt em ingles da cena escolhida e derivado internamente e incluido somente no prompt consolidado final.
-- Passo 3 gera SEMPRE 2 versoes completas (titulo+apoio+botao juntos), nunca opcoes isoladas por zona.
+- No Passo 1, mostrar apenas descricoes em portugues para as 3 opcoes. O prompt em ingles da cena escolhida e derivado internamente e incluido somente no prompt consolidado final (ou no JSON de config se modo API).
+- Passo 3 gera SEMPRE 2 versoes completas (kicker+headline+apoio+botao juntos), nunca opcoes isoladas por zona.
 - Prompt final consolidado usa linguagem visual espacial (upper area, lower band, centered). NUNCA incluir porcentagens numericas. Porcentagens sao apenas para calculo interno do limite de caracteres no Passo 2.
-- Sujeito humano no prompt do Passo 1 deve estar vestido de forma adequada para anuncios. Especificar a roupa explicitamente no prompt (ex: "wearing a bikini", "in a floral dress"). Nunca omitir a vestimenta.
-- CTA: o padrao e "Saiba mais". Se o usuario indicou outro em qualquer momento, usar esse. Nunca inventar. O CTA aparece apenas na instrucao de clique, nao como botao flutuante separado.
-- Headline: sempre em CAIXA ALTA (ALL CAPS), max 30 chars, todo na cor de destaque brilhante da categoria (ver tabela do Passo 2). Nunca warm white. Nunca destacar so uma palavra.
-- Texto no Passo 3: sem sombra. O fundo escuro natural e a cor saturada do headline garantem contraste sem shadow. Nao incluir instrucoes de shadow no prompt consolidado.
-- Kicker deve nomear tensao presente ou padrao recorrente. Nunca derrota passada concluida. Estado aberto (tensao que quer resolucao) nao estado fechado (resignacao ja aceita). O kicker deve capturar o MOMENTO ESPECIFICO da cena escolhida no Passo 1, nao uma versao generica da urgencia.
-- Kicker na voz do leitor, nao do narrador: e um monologo interno (o pensamento da pessoa), nao uma marca descrevendo a situacao de fora. Teste: a pessoa poderia pensar isso com essas palavras exatas? Se nao, reescrever.
-- Apoio sem jargao tecnico: nunca usar nomes de categorias (grupo alimentar, sedentarismo, gestao emocional, renda passiva, etc). Usar as palavras especificas que a pessoa usa no dia a dia com amigos. Dois ou tres exemplos concretos valem mais que um nome de categoria.
-- Cenas de dor: preferir objetos, maos ou detalhe de costas. Silhueta com postura caida e luz fria gera imagem de derrota (estado fechado). Usar silhueta apenas em cenas aspiracionais ou de movimento.
-- Opcoes do Passo 1: cada cena deve usar pelo menos um elemento visual concreto do nicho do produto (objeto, ambiente ou situacao especifica). Proibido gerar cenas genericas que poderiam servir para qualquer produto de qualquer nicho.
-- Opcoes do Passo 1: as 3 opcoes devem diferir em tecnica de composicao (close de objeto, cena cotidiana, composicao de contraste ou surpresa), nao apenas em "tom emocional". Tres variacoes do mesmo tipo de cena nao sao 3 opcoes.
+- Sujeito humano no prompt do Passo 1 deve estar vestido de forma adequada para anuncios. Especificar a roupa explicitamente no prompt. Nunca omitir a vestimenta.
+- CTA: o padrao e "Saiba mais". Se o usuario indicou outro em qualquer momento, usar esse. Nunca inventar.
+- Headline: sempre em CAIXA ALTA (ALL CAPS), max 30 chars, todo na cor de destaque brilhante da categoria. Nunca warm white. Nunca destacar so uma palavra.
+- Texto no Passo 3: sem sombra. O fundo escuro natural e a cor saturada do headline garantem contraste.
+- Kicker: tensao presente ou padrao recorrente ainda ativo. Nunca derrota passada concluida. Voz de monologo interno do leitor, nao narrador. Captura o MOMENTO ESPECIFICO da cena do Passo 1.
+- Apoio sem jargao tecnico: nunca usar nomes de categorias (grupo alimentar, sedentarismo, gestao emocional, renda passiva). Usar palavras especificas que a pessoa usa no dia a dia.
+- Cenas de dor: preferir objetos, maos ou detalhe de costas. Silhueta com postura caida e luz fria gera imagem de derrota (estado fechado).
+- Opcoes do Passo 1: cada cena deve usar pelo menos um elemento visual concreto do nicho. Proibido cenas genericas que poderiam servir para qualquer produto.
+- Opcoes do Passo 1: as 3 opcoes devem diferir em tecnica de composicao, nao apenas em "tom emocional".
+- Modo API: textos do JSON em portugues com acentos UTF-8 corretos. Prompts de IA em ingles.

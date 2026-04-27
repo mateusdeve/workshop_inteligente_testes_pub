@@ -61,9 +61,8 @@ Use os comandos na ordem que fizer sentido para voce.
 1. `/produto-concepcao` — Cadastrar produto e gerar identidade do consumidor
 2. `/lancamento` — Planejar o evento completo
 4. `/pagina-de-vendas` — Criar pagina do evento + pagina de vendas
-5. `/sequencia-de-emails` — Criar emails do pico de vendas
-6. `/copy-anuncio` — Criar anuncios de captacao
-7. `/copy-social` — Criar conteudo pre-lancamento
+5. `/copy-anuncio` — Criar anuncios de captacao
+6. `/copy-carrossel` — Criar conteudo pre-lancamento
 
 ### Para quem quer vender no perpetuo
 
@@ -115,17 +114,11 @@ Cria pacotes de anuncios usando a Mandala de 18 Tipos. Inclui copy, direcao cria
 
 Resultado: `meus-produtos/{ativo}/entregas/anuncios/anuncios-[plataforma]-[produto].md`
 
-### /copy-social
+### /copy-carrossel
 
-Cria carrosseis, captions, roteiros de Reels, linha editorial e calendario de publicacao.
+Cria carrosseis com 7 a 10 slides baseados nas urgencias ocultas do produto.
 
-Resultado: `meus-produtos/{ativo}/entregas/conteudo-social/[tipo]-[produto].md`
-
-### /roteiro-de-video
-
-Cria roteiros para VVV (video de vendas), Reels 60s, YouTube e scripts para avatar HeyGen.
-
-Resultado: `meus-produtos/{ativo}/entregas/textos-de-venda/roteiro-[formato]-[produto].md`
+Resultado: `meus-produtos/{ativo}/entregas/conteudo-social/carrossel-[tema]-[produto].md`
 
 ### /sequencia-de-emails
 
@@ -151,11 +144,11 @@ Cria scripts de venda 1:1 usando SPIN Selling: roteiro de call, pitch, quebra de
 
 Resultado: `meus-produtos/{ativo}/entregas/comercial/playbook-[produto].html` (abrir no navegador; Imprimir → Salvar como PDF)
 
-### /img-anuncio
+### /criativo-estatico
 
-Gera prompts detalhados para Midjourney, DALL-E ou Freepik AI. Inclui direcao criativa e especificacoes tecnicas.
+Gera criativos estáticos para anúncios (formato AIDA + 18 tipos da Mandala). Pergunta no início se voce quer apenas o prompt para colar em ferramenta externa (Midjourney, DALL-E, Freepik AI) ou geracao automatica via API (OpenRouter ou Freepik).
 
-Resultado: `meus-produtos/{ativo}/entregas/criativos/prompts-[tipo]-[produto].md`
+Resultado: `meus-produtos/{ativo}/entregas/criativos/`
 
 ### /low-ticket
 

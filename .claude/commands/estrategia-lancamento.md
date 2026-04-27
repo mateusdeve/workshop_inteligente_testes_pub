@@ -117,4 +117,4 @@ Resumo do lançamento:
 `meus-produtos/{ativo}/entregas/textos-de-venda/lancamento-[evento].md`
 
 ### 5. Próximo Passo
-"Plano salvo. Comece criando os materiais: `/copy-pagina` para a página do evento, `/copy-emails` para a comunicação."
+"Plano salvo. Comece criando os materiais: `/copy-pagina` para a página do evento e `/copy-anuncio` para os anúncios de aquecimento."

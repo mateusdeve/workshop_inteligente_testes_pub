@@ -127,8 +127,8 @@ node server.js                    # Runs on http://localhost:4000
 - **Sales pages:** `/pagina-de-vendas` (8D structure)
 - **Lead magnets:** `/paginas-low-ticket` (low ticket: Inadequação, Identificação, Plug & Play, Promessa Boa Demais)
 - **Ads:** `/copy-anuncio` (Mandala da Criatividade: 18 types × 3 objectives × 3 consumption moments)
-- **Content:** `/copy-social`, `/roteiro-de-video`
-- **Sales:** `/playbook-comercial` (SPIN Selling), `/sequencia-de-emails`
+- **Content:** `/copy-carrossel`, `/copy-variacao-post`
+- **Sales:** `/comercial-playbook` (SPIN Selling)
 - **Strategy:** `/lancamento`, `/estrategia-funil`
 
 ## Autonomous Agents

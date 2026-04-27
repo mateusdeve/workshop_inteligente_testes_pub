@@ -29,7 +29,7 @@ O sistema gera o prompt e chama a API automaticamente apos aprovacao.
 **Caminho 2 — Geracao via prompt em ferramenta externa**
 O sistema gera o prompt no formato nativo da ferramenta escolhida.
 Ferramentas suportadas: Midjourney (premium), DALL·E via Bing (gratis), Whisk, Ideogram, ImageFX, Leonardo, Krea.
-Redirecionar para `/imagem-prompt` com o contexto ja preenchido.
+Use `/criativo-estatico` (modo "prompt") para entregar um prompt consolidado em ingles pronto para colar.
 
 **Caminho 3 — Direcao criativa para designer ou Canva**
 O sistema entrega: briefing completo (conceito + composicao + paleta HEX + tipografia + instrucoes passo a passo para o Canva).

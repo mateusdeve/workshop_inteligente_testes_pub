@@ -191,7 +191,7 @@ O Workshop tem um fluxo proprietário para conduzir projetos de marketing grande
 5. Para pausas entre sessões, use `/toolkit-pausar` e `/toolkit-retomar`. Pra capturar ideias soltas, use `/toolkit-anotar`. Pra ver onde parou, use `/toolkit-progresso`.
 
 **NÃO use o Modo Toolkit para tarefas simples e diretas:**
-- Criar um único anúncio, um email, um post. Use as skills diretas (`copy-anuncio`, `copy-emails`, etc.)
+- Criar um único anúncio, um post. Use as skills diretas (`copy-anuncio`, `copy-carrossel`, etc.)
 - Ajustes pontuais numa página existente
 - Perguntas de explicação ou dúvidas rápidas
 - Tarefas de 1 a 2 passos
@@ -236,11 +236,8 @@ Em seguida, liste os comandos disponíveis organizados por categoria:
 **Copy:**
 - `/copy-pagina`. Criar copy e/ou página HTML profissional (vendas, captura ou obrigado)
 - `/copy-anuncio`. Criar anúncios para Meta Ads (Mandala da Criatividade, 18 tipos)
-- `/copy-social`. Criar posts, carrosséis, roteiros de Reels
-- `/copy-roteiro`. Criar roteiros de VSL, Reels e YouTube
-- `/copy-emails`. Criar sequências de email (pico de vendas, nutrição)
 - `/elementos-literarios`. Aplicar 1 a 3 dos 26 elementos literários do Light Copy
-- `/img-anuncio`. Gerar imagens prontas para anúncios via IA
+- `/criativo-estatico`. Gerar criativos estáticos para anúncios (prompt para colar em ferramenta externa OU geração automática via API)
 - `/furadeira-visual`. Gerar a Furadeira (método do produto) em 3 formatos à escolha: HTML (trilha visual), PNG via API (Gemini ou OpenRouter) ou prompt pronto para IA externa
 - `/avat-whisk`. Briefings visuais prontos para o Whisk (Google Labs)
 - `/criar-gpt`. Criar agente GPT personalizado para infoprodutores

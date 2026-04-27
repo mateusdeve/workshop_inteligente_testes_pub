@@ -81,13 +81,12 @@ Use esta tabela de mapeamento como referência:
 | Criar página de vendas / captura / obrigado | skill `copy-pagina` ou agente `construtor-de-paginas` |
 | Corrigir página de vendas existente | skill `feedback-pagina` ou `feedback-low-ticket` |
 | Criar anúncio Meta/Google | skill `copy-anuncio` ou agente `criador-de-campanhas` |
-| Gerar imagem para anúncio | skill `img-anuncio` |
-| Criar roteiro de vídeo (VSL, Reels, YouTube) | skill `copy-roteiro` |
+| Gerar imagem para anúncio | skill `criativo-estatico` |
 | Produzir vídeo com avatar IA | skill `video-heygen` |
 | Produzir vídeo animado Meta Ads | skill `video-remotion` |
 | Editar vídeo existente | skill `video-editar` |
-| Criar sequência de emails | skill `copy-emails` |
-| Criar posts, carrosséis, conteúdo social | skill `copy-social` ou agente `produtor-de-conteudo` |
+| Criar carrossel para Instagram | skill `copy-carrossel` |
+| Criar variações de um post existente | skill `copy-variacao-post` |
 | Criar produto low ticket (quiz, low ticket) | skill `lt-funil`, `lt-quiz`, `lt-pagina` |
 | Criar conteúdo do produto (e-book, mini-curso) | skill `lt-criar-produto` |
 | Otimizar campanha low ticket | skill `lt-otimizar` |

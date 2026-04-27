@@ -219,8 +219,7 @@ Confirme ao usuario:
 HeyGen configurado.
 
 Voce pode usar agora:
-- /video-heygen para criar videos com avatar IA
-- /copy-roteiro para criar o roteiro antes de gerar o video
+- /video-heygen para criar videos com avatar IA (escreva o roteiro antes)
 ```
 
 Retorne ao fluxo que chamou esta skill (ex: `/video-heygen`) e continue de onde parou.

@@ -137,10 +137,10 @@ Observação: a pasta `meus-produtos/` contém os dados de cada aluno e não sob
 `/produto-novo`, `/produto-concepcao`, `/produto-trocar`, `/produto-excluir`, `/produto-zerar`
 
 ### Copy
-`/copy-pagina`, `/copy-anuncio`, `/copy-social`, `/copy-roteiro`, `/copy-emails`, `/elementos-literarios`
+`/copy-pagina`, `/copy-anuncio`, `/copy-carrossel`, `/copy-variacao-post`, `/elementos-literarios`
 
 ### Imagem e vídeo
-`/img-anuncio`, `/imagem-prompt`, `/criativo-de-imagem`, `/avat-whisk`, `/furadeira-visual`, `/video-heygen`, `/video-remotion`, `/video-editar`
+`/criativo-estatico`, `/avat-whisk`, `/furadeira-visual`, `/video-heygen`, `/video-remotion`, `/video-editar`
 
 ### Low Ticket
 `/lt-funil`, `/lt-criar-produto`, `/lt-quiz`, `/lt-pagina`, `/lt-otimizar`
@@ -253,16 +253,14 @@ Configuradas via `.env` (veja `.env.example`):
 1. `/produto-concepcao`
 2. `/estrategia-lancamento`
 3. `/copy-pagina` (evento + vendas)
-4. `/copy-emails`
-5. `/copy-anuncio`
-6. `/copy-social`
+4. `/copy-anuncio`
+5. `/copy-carrossel`
 
 ### Perpétuo
 1. `/produto-concepcao`
 2. `/estrategia-funil`
 3. `/copy-pagina` (captura + vendas + obrigado)
-4. `/copy-emails` (nutrição)
-5. `/copy-anuncio`
+4. `/copy-anuncio`
 
 ### Low Ticket
 1. `/produto-concepcao`

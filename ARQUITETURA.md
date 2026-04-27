@@ -682,13 +682,12 @@ CLAUDE.md (regras globais)
     ├── /pagina-de-vendas ─► skill: paginas ────────────► salva: meus-produtos/{ativo}/entregas/paginas/*.html
     ├── /texto-de-venda ───► skill: conteudo ───────────► salva: meus-produtos/{ativo}/entregas/textos-de-venda/*.md
     ├── /copy-anuncio ─────► skill: anuncios ───────────► salva: meus-produtos/{ativo}/entregas/anuncios/*.md
-    ├── /copy-social ──────► skill: conteudo ───────────► salva: meus-produtos/{ativo}/entregas/conteudo-social/*.md
-    ├── /roteiro-de-video ─► skill: conteudo ───────────► salva: meus-produtos/{ativo}/entregas/textos-de-venda/*.md
-    ├── /sequencia-de-emails► skill: conteudo ──────────► salva: meus-produtos/{ativo}/entregas/emails/*.md
+    ├── /copy-carrossel ───► skill: conteudo ───────────► salva: meus-produtos/{ativo}/entregas/conteudo-social/*.md
+    ├── /copy-variacao-post► skill: copy-variacao-post ─► salva: meus-produtos/{ativo}/entregas/conteudo-social/*.md
     ├── /lancamento ───────► skill: vtsd-completo ──────► salva: meus-produtos/{ativo}/entregas/textos-de-venda/*.md
     ├── /estrategia-funil ─► skill: trafego-pago ──────► salva: meus-produtos/{ativo}/entregas/textos-de-venda/*.md
     ├── /playbook-comercial► skill: playbook-comercial ► salva: meus-produtos/{ativo}/entregas/comercial/*.html
-    ├── /img-anuncio ──────► skill: anuncios ───────────► salva: meus-produtos/{ativo}/entregas/criativos/*.md
+    ├── /criativo-estatico ► skill: criativo-estatico ──► salva: meus-produtos/{ativo}/entregas/criativos/*.md
     ├── /low-ticket ───────► skill: vtsd-completo ──────► salva: meus-produtos/{ativo}/entregas/ (multiplas pastas)
     │
     ├── agent: estrategista ► skill: concepcao-produto ► salva: meus-produtos/{ativo}/perfil.md

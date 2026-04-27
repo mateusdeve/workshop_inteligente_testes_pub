@@ -738,4 +738,4 @@ Em seguida gere as imagens de carrossel
 Trate como imagem estática com proporção vertical. Substitua `"size": "square_1_1"` por `"size": "portrait_9_16"` no parâmetro da API.
 
 ### 8. Próximo Passo
-"Anúncios e visuais salvos em [caminho]. Use `/copy-pagina` para criar a página de destino, ou `/copy-emails` para criar os emails da campanha."
+"Anúncios e visuais salvos em [caminho]. Use `/copy-pagina` para criar a página de destino, ou `/criativo-estatico` para gerar mais visuais para a campanha."

@@ -1,6 +1,6 @@
 ---
 name: workshop-marketing:configurar-imagens
-description: Guia para conectar uma API de geração de imagens (OpenRouter) ao projeto. Salva OPENROUTER_API_KEY no .env, usado pelas skills /img-anuncio e /criativo-de-imagem.
+description: Guia para conectar uma API de geração de imagens (OpenRouter) ao projeto. Salva OPENROUTER_API_KEY no .env, usado pela skill /criativo-estatico.
 allowed-tools: Read, Edit, Bash
 model: sonnet
 ---
@@ -9,7 +9,7 @@ model: sonnet
 
 Guia interativo para conectar o OpenRouter ao projeto. So precisa fazer uma vez.
 
-Quando voce usa o comando `/img-anuncio`, o assistente cria imagens prontas para usar nos seus anuncios do Instagram e Facebook. Imagens profissionais, no tamanho certo, com o estilo que voce escolher.
+Quando voce usa o comando `/criativo-estatico`, o assistente cria imagens prontas para usar nos seus anuncios do Instagram e Facebook. Imagens profissionais, no tamanho certo, com o estilo que voce escolher.
 
 Para isso funcionar automaticamente, voce precisa conectar uma API de geracao de imagens. E como dar ao assistente acesso a uma "impressora de imagens".
 
@@ -44,7 +44,7 @@ Leia `.env`. Verifique se `OPENROUTER_API_KEY` existe e tem valor nao vazio.
 ```
 Sua chave do OpenRouter ja esta configurada e funcionando.
 
-Nao precisa fazer nada. Pode usar /img-anuncio ou /criativo-de-imagem direto.
+Nao precisa fazer nada. Pode usar /criativo-estatico direto.
 ```
 
 Encerre a skill.
@@ -196,12 +196,10 @@ Confirme ao usuario:
 Geracao de imagens configurada.
 
 Voce pode usar agora:
-- /img-anuncio para gerar imagens prontas para anuncios
-- /criativo-de-imagem para criativos visuais completos
-- /imagem-prompt para gerar prompts para ferramentas gratuitas (sem gastar API)
+- /criativo-estatico para gerar criativos de anuncio (prompt para colar em ferramenta externa OU geracao automatica via API)
 ```
 
-Retorne ao fluxo que chamou esta skill (ex: `/img-anuncio`) e continue de onde parou.
+Retorne ao fluxo que chamou esta skill (ex: `/criativo-estatico`) e continue de onde parou.
 
 ---
 
@@ -217,7 +215,7 @@ Depende de quantas imagens voce gera. Com OpenRouter, a maioria dos usuarios gas
 Sim. As imagens geradas por IA sao de uso comercial. Voce pode usar em anuncios, posts, paginas, onde quiser.
 
 **E se eu nao quiser pagar nada?**
-Sem problema. O assistente gera os prompts detalhados e voce usa qualquer ferramenta gratuita para criar a imagem: Canva, Leonardo.ai (plano free), ou o proprio site do Freepik (com limite de geracoes gratuitas). Use o comando `/imagem-prompt` para isso.
+Sem problema. O assistente gera os prompts detalhados e voce usa qualquer ferramenta gratuita para criar a imagem: Canva, Leonardo.ai (plano free), ou o proprio site do Freepik (com limite de geracoes gratuitas). Use `/criativo-estatico` no modo "prompt" (entrega prompt consolidado em ingles, sem API) para isso.
 
 **Posso trocar de API depois?**
 Sim. Basta mudar a chave no arquivo `.env`. O assistente detecta automaticamente qual API esta configurada.
