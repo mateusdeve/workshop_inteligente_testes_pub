@@ -232,7 +232,15 @@
       "Bash(py -3 scripts/painel-incremental.py --secao identidade-consumidor)",
       "Bash(py -3 scripts/painel-incremental.py --secao identidade-comunicador)",
       "Bash(/c/Users/Elen/AppData/Roaming/npm/vercel --prod --yes)",
-      "Bash(grep -oE \"\\(Top 10 videos|Oportunidades identificadas|PL 108|Confiabilidade da pesquisa|248k views|DASN 2025|Janela de R\\\\\\\\\\\\$ 47\\)\")"
+      "Bash(grep -oE \"\\(Top 10 videos|Oportunidades identificadas|PL 108|Confiabilidade da pesquisa|248k views|DASN 2025|Janela de R\\\\\\\\\\\\$ 47\\)\")",
+      "Bash(py -3 scripts/playbook-montar.py --slug fic-demo-ingles-reunioes)",
+      "Bash(py -3 -c 'import json; total=0 *)",
+      "Bash(py -3 scripts/playbook-aplicar-criativas.py --slug fic-demo-ingles-reunioes --json scripts/.tmp-criativas-4-5.json --json scripts/.tmp-criativas-6-7.json --json scripts/.tmp-criativas-10-11.json --cleanup)",
+      "Bash(py -3 scripts/painel-incremental.py --secao comercial-playbook --slug fic-demo-ingles-reunioes)",
+      "Bash(py -3 scripts/playbook-briefing.py --slug fic-demo-ingles-reunioes --stdout)",
+      "Bash(py -3 scripts/playbook-briefing.py --slug taro-para-iniciantes --stdout)",
+      "Bash(py -3 scripts/playbook-briefing.py --slug workshop-yoga-ansiedade)",
+      "Bash(py -3 scripts/playbook-aplicar-criativas.py --slug workshop-yoga-ansiedade --json scripts/.tmp-criativas-4.json --json scripts/.tmp-criativas-5.json --json scripts/.tmp-criativas-6.json --json scripts/.tmp-criativas-7.json --json scripts/.tmp-criativas-10.json --json scripts/.tmp-criativas-11.json --cleanup)"
     ]
   }
 }

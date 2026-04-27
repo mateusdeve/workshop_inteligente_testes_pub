@@ -79,20 +79,84 @@ def carregar_json(caminhos: list[Path]) -> dict[str, str]:
     return dados
 
 
-def _aplicar_placeholders(html_str: str, textos: dict[str, str]) -> tuple[str, int, list[str]]:
-    """Substitui {{chave}} pelo texto escapado. Retorna (html, substituídas, faltantes)."""
+# ============================================================================
+# Limpeza determinística (substitui parte do trabalho da revisora)
+# ============================================================================
+# A regra "AUTO-REVISÃO OBRIGATÓRIA DE COPY" do CLAUDE.md exige que toda copy
+# passe pelo Manual antes da entrega. Para o playbook comercial, em vez de
+# rodar a revisora 6 vezes (uma vez dentro de cada sub-agente), aplicamos
+# aqui as regras MECANIZÁVEIS do Manual (vícios óbvios) em uma única passada.
+#
+# Os 6 agentes recebem essas mesmas regras no prompt, então a maioria dos
+# textos já chega limpa. Esta camada é o último filtro de segurança.
+
+_PADROES_PROIBIDOS = [
+    # (regex, pattern_descritivo). Apenas detecção, vira warning.
+    (re.compile(r"\bn[aã]o\s+[eé]\s+\w[\w\s,]*?[.!?]\s*[ÉéEe]\s+\w", re.IGNORECASE), "estrutura 'não é X. é Y'"),
+    (re.compile(r"\bmesmo\s+que\b", re.IGNORECASE), "muleta 'mesmo que'"),
+    (re.compile(r"\bsem\s+precisar\b", re.IGNORECASE), "muleta 'sem precisar'"),
+    (re.compile(r"\bquer\s+comprar\??", re.IGNORECASE), "frase proibida 'quer comprar?'"),
+]
+
+
+def _limpar_vicios(texto: str) -> tuple[str, list[str]]:
+    """Aplica correções mecanizáveis e devolve avisos para o que não é seguro corrigir.
+
+    Correções automáticas:
+      - travessão (—) e en-dash (–) viram vírgula
+      - "!" no fim de frase ou no meio vira "."
+
+    Detecções (apenas avisos, sem reescrever):
+      - "não é X. é Y."
+      - "mesmo que" / "sem precisar"
+      - "quer comprar?"
+    """
+    avisos: list[str] = []
+
+    # Correção 1: travessões
+    if "—" in texto or "–" in texto:
+        texto = texto.replace(" — ", ", ").replace("—", ", ")
+        texto = texto.replace(" – ", ", ").replace("–", ", ")
+        # Limpa duplicatas "  " e " ," que possam ter sobrado
+        texto = re.sub(r"\s{2,}", " ", texto)
+        texto = re.sub(r"\s+,", ",", texto)
+
+    # Correção 2: ponto de exclamação vira ponto final
+    if "!" in texto:
+        texto = texto.replace("!", ".")
+        # Evita ".." caso já tivesse ponto antes
+        texto = re.sub(r"\.{2,}", ".", texto)
+
+    # Detecções (avisos)
+    for padrao, descricao in _PADROES_PROIBIDOS:
+        if padrao.search(texto):
+            avisos.append(descricao)
+
+    return texto, avisos
+
+
+def _aplicar_placeholders(html_str: str, textos: dict[str, str]) -> tuple[str, int, list[str], dict[str, list[str]]]:
+    """Substitui {{chave}} pelo texto LIMPO e escapado.
+
+    Retorna (html, substituídas, faltantes, avisos_por_chave).
+    avisos_por_chave: {chave: [vícios detectados]} — útil pro usuário revisar.
+    """
     substituidas = 0
     faltantes: list[str] = []
+    avisos_por_chave: dict[str, list[str]] = {}
     for chave, texto in textos.items():
         marcador = "{{" + chave + "}}"
         if marcador not in html_str:
             faltantes.append(chave)
             continue
-        substituto = html.escape(texto)
+        texto_limpo, avisos = _limpar_vicios(texto)
+        if avisos:
+            avisos_por_chave[chave] = avisos
+        substituto = html.escape(texto_limpo)
         ocorrencias = html_str.count(marcador)
         html_str = html_str.replace(marcador, substituto)
         substituidas += ocorrencias
-    return html_str, substituidas, faltantes
+    return html_str, substituidas, faltantes, avisos_por_chave
 
 
 def _aplicar_legado(html_str: str, secoes: dict[str, str]) -> tuple[str, int]:
@@ -120,23 +184,24 @@ def _aplicar_legado(html_str: str, secoes: dict[str, str]) -> tuple[str, int]:
     return html_str, substituidas
 
 
-def aplicar(html_str: str, dados: dict[str, str]) -> tuple[str, int, list[str]]:
+def aplicar(html_str: str, dados: dict[str, str]) -> tuple[str, int, list[str], dict[str, list[str]]]:
     # Separa chaves no formato novo (contém ponto, ex: "7.b1.a") das legadas
     textos = {k: v for k, v in dados.items() if not k.startswith("secao_")}
     legado = {k: v for k, v in dados.items() if k.startswith("secao_")}
 
     total = 0
     faltantes: list[str] = []
+    avisos_por_chave: dict[str, list[str]] = {}
 
     if textos:
-        html_str, sub_novo, faltantes = _aplicar_placeholders(html_str, textos)
+        html_str, sub_novo, faltantes, avisos_por_chave = _aplicar_placeholders(html_str, textos)
         total += sub_novo
 
     if legado:
         html_str, sub_legado = _aplicar_legado(html_str, legado)
         total += sub_legado
 
-    return html_str, total, faltantes
+    return html_str, total, faltantes, avisos_por_chave
 
 
 def main() -> int:
@@ -174,7 +239,7 @@ def main() -> int:
     caminhos = [Path(p) for p in args.jsons]
     dados = carregar_json(caminhos)
     html_str = html_path.read_text(encoding="utf-8")
-    novo_html, n, faltantes = aplicar(html_str, dados)
+    novo_html, n, faltantes, avisos_por_chave = aplicar(html_str, dados)
     html_path.write_text(novo_html, encoding="utf-8")
 
     print(f"{n} textos aplicados em {html_path}")
@@ -185,6 +250,18 @@ def main() -> int:
         )
         if args.strict:
             return 1
+
+    # Avisos de vícios de Light Copy detectados nos textos (já corrigidos os
+    # mecanizáveis, esses são os que precisam de revisão humana)
+    if avisos_por_chave:
+        sys.stderr.write(
+            f"\nAviso: {len(avisos_por_chave)} textos ainda têm vícios que dependem "
+            "de reescrita (não foi seguro corrigir automaticamente):\n"
+        )
+        for chave, vicios in list(avisos_por_chave.items())[:8]:
+            sys.stderr.write(f"  - {chave}: {', '.join(vicios)}\n")
+        if len(avisos_por_chave) > 8:
+            sys.stderr.write(f"  ... e mais {len(avisos_por_chave) - 8} chaves.\n")
 
     # Detecta marcadores {{...}} que sobraram no HTML (não preenchidos)
     restantes = re.findall(r"\{\{([0-9]+\.[^}\s]+)\}\}", novo_html)
