@@ -157,42 +157,6 @@ A única exceção são os alertas `[REVISORA: ...]` gerados pela Checagem 4, qu
 
 A skill chamadora pega o texto limpo e segue para o passo de aprovação com o usuário.
 
-## Checklist rápido antes de devolver
+## Antes de devolver
 
-Referência completa em [references/manual-copy.md](references/manual-copy.md), Parte 4.
-
-**Bloco A. Vícios absolutos (tolerância zero):**
-- [ ] Zero travessões (—, –)
-- [ ] Zero pontos de exclamação
-- [ ] Zero perguntas no gancho ou primeira linha
-- [ ] Zero "Não é X. É Y."
-- [ ] Zero "mesmo que" ou "sem precisar" como muleta
-- [ ] Zero emojis
-- [ ] Nome do produto/método/curso/sigla ausente das primeiras linhas
-
-**Bloco B. Argumento e especificidade:**
-- [ ] Toda promessa tem dado concreto (número, prazo, cenário)
-- [ ] Copy tem tese (explica por que o problema existe)
-- [ ] Zero lero-lero
-- [ ] Zero siglas ou técnicas sem explicação
-- [ ] Zero advérbios vazios
-- [ ] Variação de ritmo nas frases
-- [ ] Soa como pessoa falando, não IA escrevendo
-
-**Bloco C. Estrutura VTSD:**
-- [ ] Copy ensina ou avisa (não vende)
-- [ ] Pelo menos um conceito com nome próprio
-- [ ] Inimigo concreto identificado
-- [ ] Razão **e** emoção presentes (flag 4.12 se faltar)
-- [ ] Quadro **e** Decorado defendidos (flag 4.9 se só Quadro)
-- [ ] Dor real, não superficial (flag 4.10 se superficial)
-
-**Bloco D. Página (quando aplicável):**
-- [ ] Toda seção tem headline curiosa (flag 4.8)
-- [ ] Depoimentos com antes + resultado + prazo (flag 4.5)
-- [ ] Autoridade com números concretos (flag 4.6)
-- [ ] Bônus ancorados com preço de mercado (flag 4.7)
-- [ ] Facilitação visual do método (flag 4.3)
-- [ ] Blocos com mecanismo + antes/depois + especificação + prova (flag 4.11)
-
-Se passou em tudo, entregue.
+Aplique o checklist completo em [references/manual-copy.md](references/manual-copy.md) Parte 4 (Blocos A, B, C e D). Se passou em tudo, entregue.

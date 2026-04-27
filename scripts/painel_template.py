@@ -141,6 +141,9 @@ button{font-family:inherit;}
 .user-block .label{font-family:var(--font-mono);font-size:9px;color:var(--text-faint);letter-spacing:.18em;text-transform:uppercase;}
 .user-block .product{font-family:var(--font-display);font-size:15px;font-weight:400;margin-top:var(--s-2);letter-spacing:-.015em;color:var(--text-hi);}
 .user-block .owner{color:var(--text-dim);font-size:11px;font-weight:300;margin-top:3px;}
+.product-select{width:100%;margin-top:var(--s-3);font-family:var(--font-display);font-size:12px;font-weight:400;padding:5px var(--s-3);background:var(--ink-3);border:1px solid var(--line-2);border-radius:var(--r-md);color:var(--text-hi);cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 10 10'%3E%3Cpath fill='%23a8a8a3' d='M5 7L1 3h8z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 8px center;padding-right:24px;}
+.product-select:focus{outline:none;border-color:var(--neon-deep);}
+.product-select option{background:var(--ink-3);}
 .nav{padding:var(--s-3) var(--s-3);flex:1;}
 .nav-group{margin-bottom:var(--s-5);}
 .nav-group-title{font-family:var(--font-mono);font-size:9px;color:var(--text-faint);letter-spacing:.2em;text-transform:uppercase;padding:0 var(--s-3);margin-bottom:var(--s-2);font-weight:400;}
@@ -538,6 +541,39 @@ _JS = """\
   window.showPanel = show;
   window.toggleAcc = toggleAcc;
   window.toggleObjecao = toggleObjecao;
+
+  // Seletor de produtos: carrega ../index.js e popula o <select>
+  function initProductSelect() {
+    var sel = document.getElementById('product-select');
+    if (!sel) return;
+    var manifest = window.MEUS_PRODUTOS;
+    if (!manifest || !manifest.produtos || !manifest.produtos.length) {
+      sel.style.display = 'none';
+      return;
+    }
+    var parts = location.pathname.split('/').filter(Boolean);
+    var currentSlug = parts[parts.length - 2] || '';
+    manifest.produtos.forEach(function(p) {
+      var opt = document.createElement('option');
+      opt.value = p.slug;
+      opt.textContent = p.nome || p.slug;
+      if (p.slug === currentSlug) opt.selected = true;
+      sel.appendChild(opt);
+    });
+    sel.addEventListener('change', function() {
+      var slug = sel.value;
+      location.href = '../' + slug + '/painel-entregas.html';
+    });
+  }
+
+  var s = document.createElement('script');
+  s.src = '../index.js';
+  s.onload = function() { initProductSelect(); };
+  s.onerror = function() {
+    var sel = document.getElementById('product-select');
+    if (sel) sel.style.display = 'none';
+  };
+  document.head.appendChild(s);
 })();"""
 
 
@@ -682,6 +718,7 @@ def build_shell(nome_produto: str, owner: str = "", timestamp: str = "") -> str:
       <div class="label">Produto ativo</div>
       <div class="product" id="sidebar-product">{_escape(nome_produto)}</div>
       {owner_html}
+      <select class="product-select" id="product-select" title="Trocar produto"></select>
     </div>
     <nav class="nav">
 {_sidebar_items()}

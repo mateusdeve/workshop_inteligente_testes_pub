@@ -20,7 +20,7 @@
 | 9 | Copy sem tese: descreve o problema sem argumentar por que ele existe | Adicione a causa do problema. "Você procrastina" vira "Você procrastina porque seu cérebro foi programado para ação imediata e não para acumular reservas" |
 | 10 | Sigla ou nome de técnica sem explicação no mesmo parágrafo | Insira explicação entre parênteses ou reescreva sem a sigla |
 | 11 | Depoimento que só elogia sem resultado concreto ("material lindo", "mudou minha vida", "professor incrível") | Sinalizar para substituição. Depoimento que converte: antes + resultado específico + número ou prazo |
-| 12 | Unicidade rompida: vários pontos centrais sem fio condutor (crenças + energia + confiança + processos como se fossem a mesma coisa) | Escolher um ponto central e bater nele. Conectar explicitamente cada novo assunto ao ponto central |
+| 12 | Venda só do Quadro sem Decorado: defende só a transformação técnica sem a consequência emocional ou financeira que o Quadro traz | Adicionar o Decorado: o que muda na vida da pessoa depois do resultado (fila de espera, reconhecimento, faturamento, tempo livre) |
 
 ---
 

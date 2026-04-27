@@ -33,6 +33,14 @@
         "hooks": [
           {
             "type": "command",
+            "command": "bash .claude/hooks/setup-node.sh"
+          }
+        ]
+      },
+      {
+        "hooks": [
+          {
+            "type": "command",
             "command": "node .claude/hooks/gsd-check-update.js"
           }
         ]
