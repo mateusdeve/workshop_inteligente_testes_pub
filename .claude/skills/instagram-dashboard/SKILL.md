@@ -13,7 +13,7 @@ description: >
 ## Quando Usar
 
 - Quando o aluno quiser monitorar o crescimento do proprio perfil no Instagram de forma automatica, sem precisar abrir ferramentas toda manha.
-- Como base de dados para `/copy-social` (conteudo baseado no que ja funciona) e `/dados-instagram` (analise profunda com insights de copy).
+- Como base de dados para `/copy-carrossel` (conteudo baseado no que ja funciona) e `/dados-instagram` (analise profunda com insights de copy).
 - Quando o aluno precisar mostrar evolucao de metricas para clientes ou parceiros.
 
 **Nao usar para:**
@@ -119,6 +119,50 @@ pip install requests
 **NUNCA omitir nenhuma dessas 12 secoes.** Nao existe versao simplificada do dashboard.
 
 ## Fluxo
+
+### PASSO -1. Verificar Plataforma Ativa (OBRIGATORIO — executar antes de qualquer outra coisa)
+
+Leia `.env`. Verifique o valor de `INSTAGRAM_ATIVO`.
+
+**Cenario: `INSTAGRAM_ATIVO=false` (aluno ja disse que nao tem Instagram)**
+
+```
+Voce marcou que nao tem um perfil ativo no Instagram.
+
+Quer atualizar essa preferencia?
+
+1. Sim, tenho Instagram agora — configurar o dashboard
+2. Nao, pode ignorar
+```
+
+Se escolher 1: troque `INSTAGRAM_ATIVO=false` por `INSTAGRAM_ATIVO=true` no `.env` e continue para o PASSO 0.
+Se escolher 2: encerre sem fazer nada.
+
+---
+
+**Cenario: `INSTAGRAM_ATIVO` nao existe no `.env` (primeira vez)**
+
+```
+Voce tem um perfil ativo no Instagram que quer monitorar?
+
+1. Sim, tenho Instagram
+2. Nao tenho Instagram
+```
+
+Se escolher 1: salve `INSTAGRAM_ATIVO=true` no `.env` (Edit cirurgico, adicionar linha). Continue para o PASSO 0.
+Se escolher 2: salve `INSTAGRAM_ATIVO=false` no `.env`. Encerre com:
+
+```
+Tudo bem. Se um dia criar um perfil no Instagram, e so chamar essa skill de novo.
+```
+
+---
+
+**Cenario: `INSTAGRAM_ATIVO=true` (aluno confirmou que tem Instagram)**
+
+Continue direto para o PASSO 0 sem perguntar nada.
+
+---
 
 ### PASSO 0. Detectar Estado
 
@@ -280,5 +324,5 @@ powershell -ExecutionPolicy Bypass -File .claude\skills\instagram-dashboard\scri
 ## Proximos Passos Apos Configurar
 
 - `/copy-variacao-post` — criar variacoes dos posts com mais engajamento (le thumbnails e insights.json do dashboard)
-- `/copy-social` — criar conteudo novo baseado nos posts com mais engajamento
+- `/copy-carrossel` — criar conteudo novo baseado nos posts com mais engajamento
 - `/copy-anuncio` — transformar os dados em anuncios com angulos testados

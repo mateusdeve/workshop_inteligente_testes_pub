@@ -135,4 +135,4 @@ Se o aluno escolher salvar, salve em `meus-produtos/{ativo}/entregas/copy-pagina
 - Variação escolhida e elemento aplicado
 - Observações de uso
 
-Informe o caminho e sugira próximo passo: "Quer que eu aplique essa copy em uma página (`/copy-pagina`), anúncio (`/copy-anuncio`) ou roteiro (`/copy-roteiro`)?"
+Informe o caminho e sugira próximo passo: "Quer que eu aplique essa copy em uma página (`/copy-pagina`), anúncio (`/copy-anuncio`) ou carrossel (`/copy-carrossel`)?"

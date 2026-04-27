@@ -1,17 +1,11 @@
-﻿---
+---
 name: workshop-marketing:copy-social
-description: Criar conteúdo para redes sociais. carrosséis, captions, roteiros de Reels, linha editorial e calendário de publicação. Baseado nas Urgências Ocultas e elementos literários do VTSD.
+description: Criar conteúdo para redes sociais. Carrossel, roteiro de Reels e linha editorial de 30 dias. Baseado nas Urgências Ocultas e Decorados do produto ativo.
 ---
 
-# Conteúdo Social. Criador de Conteúdo para Redes
+# Conteúdo Social
 
-Cria conteúdo usando as Urgências Ocultas como fonte de temas e os elementos literários para engajar.
-
-## Usage
-
-```
-/copy-social
-```
+Cria conteúdo usando Urgências Ocultas como fonte de temas e Light Copy como estilo.
 
 ## O Que Fazer
 
@@ -19,87 +13,56 @@ Cria conteúdo usando as Urgências Ocultas como fonte de temas e os elementos l
 
 Leia `meus-produtos/{ativo}/perfil.md` e `meus-produtos/{ativo}/idconsumidor.md` se existir.
 
-**Extraia e liste internamente (não precisa mostrar ao usuário):**
-- Todos os **Decorados** do perfil. cada decorado é um benefício que pode virar tema de post
-- Todas as **Urgências Ocultas** do perfil, organizadas em 7 categorias com 10 itens cada (dores, dúvidas, desejos, assuntos relacionados, urgências quentes, frias e inusitadas). Cada item é um ângulo de entrada possível para conteúdo.
-- Os **Baldes de Conteúdo** do `idconsumidor.md` se existir. usá-los para distribuir os temas entre os baldes corretos
+Extraia internamente: Decorados, Urgências Ocultas (7 categorias, 10 itens cada), Baldes de Conteúdo do idconsumidor.
 
-**Verifique o histórico:** leia todos os arquivos em `meus-produtos/{ativo}/entregas/criativos/`. Identifique quais urgências ocultas e decorados já foram explorados em conteúdos anteriores.
+Verifique conteúdos existentes em `meus-produtos/{ativo}/entregas/criativos/` para evitar repetir urgências já usadas.
 
-**Regra de não repetição:** nas novas peças, priorize urgências ocultas e decorados ainda não usados. Se todos já foram usados, escolha os de maior potencial e anote que está retomando esse tema.
+### 2. Entrevista (UMA pergunta por vez)
 
-Apresente ao usuário (antes de perguntar sobre o tipo de conteúdo):
-```
-Temos [X] decorados e [Y] urgências ocultas disponíveis como fonte de ideias.
-Já explorados em conteúdos anteriores: [lista resumida]
-Disponíveis para este pacote: [lista resumida dos ainda não usados]
-```
-
-Se não houver conteúdos anteriores: "É o primeiro conteúdo. vamos usar as urgências e decorados mais relevantes para o objetivo escolhido."
-
-### 2. Entrevista (UMA pergunta por vez, com progresso visual)
-
-**Bloco 1/3. Tipo de Conteúdo:**
+**Bloco 1/3 — Tipo:**
 
 ```
 O que quer criar?
 
-1. Carrossel (post com múltiplos slides)
-2. Caption (legenda de post)
-3. Roteiro de Reels (vídeo curto 30-60s)
-4. Linha editorial (planejamento de 30 dias)
-5. Calendário semanal (pauta da semana)
+1. Carrossel (7-10 slides)
+2. Roteiro de Reels (30-60s)
+3. Linha editorial (30 dias)
 
 Digite o número:
 ```
 
-```
---- Bloco 1/3 concluído ---
-Tipo: [tipo escolhido]
-Próximo: Rede social
----
-```
-
-**Bloco 2/3. Rede Social:**
+**Bloco 2/3 — Rede:**
 
 ```
 Para qual rede?
 
 1. Instagram
 2. TikTok
-3. YouTube
-4. LinkedIn
-5. Várias (quais?)
+3. LinkedIn
+4. Várias
 
 Digite o número:
 ```
 
-```
---- Bloco 2/3 concluído ---
-Tipo: [tipo]
-Rede: [rede]
-Próximo: Objetivo
----
-```
-
-**Bloco 3/3. Objetivo:**
+**Bloco 3/3 — Objetivo:**
 
 ```
-Qual o objetivo principal?
+Objetivo principal?
 
-1. Educar (ensinar algo prático)
+1. Educar (entregar algo prático)
 2. Engajar (gerar comentários e compartilhamentos)
-3. Vender (levar para página/checkout)
-4. Atrair seguidores (crescer a base)
+3. Vender (levar para página ou checkout)
+4. Atrair seguidores
 
 Digite o número:
 ```
 
-**Confirmação antes de gerar:**
+**Confirmação:**
+
 ```
-Resumo do que vou criar:
-- Tipo: [tipo de conteúdo]
-- Rede: [rede social]
+Resumo:
+- Tipo: [tipo]
+- Rede: [rede]
 - Objetivo: [objetivo]
 - Base: Urgências Ocultas do perfil
 
@@ -107,80 +70,61 @@ Resumo do que vou criar:
 2. Quero ajustar algo
 ```
 
-### 3. Pesquisa de Virais (OBRIGATÓRIO antes de gerar. qualquer tipo de conteúdo)
+### 3. Geração por Tipo
 
-**Antes de escrever qualquer peça de conteúdo**, faça obrigatoriamente as seguintes buscas. independentemente do formato (carrossel, caption, reels, linha editorial):
+**Regras de estilo (aplicar em todo conteúdo):**
 
-Pesquise os dois canais obrigatoriamente:
-- `reels instagram virais [mês e ano atual]`. todos os nichos
-- `tiktok trends virais [mês e ano atual]`. todos os nichos
+Antes de escrever, leia `.claude/skills/revisora/references/manual-copy.md` e aplique. Toda peça passa pela skill `revisora` antes de ir ao usuário.
 
-**REGRA ABSOLUTA:** Pesquisar virais de **todos os nichos** (não apenas o nicho do produto). O objetivo é captar o padrão de estrutura, tom e abertura que está funcionando agora. O conteúdo (o que diz) vem das urgências ocultas e decorados. O formato e o estilo (como diz) vêm dos virais encontrados.
-
-O que extrair:
-- **Estrutura de abertura**: o que está parando o scroll nos primeiros 2. 3 segundos (afirmação contra-intuitiva, dado específico, paradoxo, confissão, revelação)
-- **Tom predominante no momento**: didático, emocional, provocativo, informal, polêmica suave, história pessoal
-- **O que os virais entregam**: identificar se entregam conteúdo real dentro do próprio post/vídeo ou apenas prometem. **modelar sempre os que entregam conteúdo real**
-- **Estrutura de progressão**: como o conteúdo se desenvolve. começo, meio, fim, cliffhanger, resolução
-- **Padrão de CTA**: o que está gerando engajamento agora (salva, comenta, segue, compartilha)
-
-**Se o formato for Reels**, pesquise adicionalmente:
-- `estrutura roteiro viral reels tiktok [mês e ano atual]`
-- Extrair: duração predominante, estilo de edição, ritmo, se usa texto na tela
-
-Após as buscas, sintetize em 3. 4 linhas o que está funcionando agora e use isso para calibrar o estilo e a abertura de cada peça gerada.
-
----
-
-### 4. Geração
-
-**Regras de estilo Light Copy:**
-
-**Fonte única e obrigatória:** antes de escrever qualquer peça, leia `.claude/skills/revisora/references/manual-copy.md`. Princípio central, **15 princípios**, **20 vícios proibidos** e **checklist Blocos A/B/C/D** vivem ali. Toda peça passa pelo `revisora` antes de ir ao usuário.
-
-**Reforços específicos de conteúdo social:**
-- **Gancho no primeiro slide / nos primeiros 3s:** afirmação contra-intuitiva, paradoxo ou revelação. Pergunta retórica e frase óbvia estão proibidas.
-- **Entregar valor real dentro do próprio post/vídeo:** cada peça ensina, revela ou provoca uma virada de perspectiva. Conteúdo que só promete sem entregar não é publicado.
-- **Produto não aparece nos primeiros slides / 3s:** só aparece depois de estabelecer a tese ou no slide/momento de CTA.
-- **Uma ideia por post:** cada peça defende UMA tese e leva a UM CTA. Distribuir temas entre os Baldes de Conteúdo ao longo da semana, não empilhar no mesmo post.
-- **Progressão real em carrossel:** cada slide avança o argumento, não parafraseia o anterior. Slide sem novidade é marcado para corte.
-
-
-**REGRA DE PROFUNDIDADE OBRIGATÓRIA. vale para todo tipo de conteúdo:**
-- **Gancho:** afirmação não óbvia, contra-intuitiva ou específica. NUNCA uma pergunta. NUNCA algo genérico.
-- **Desenvolvimento:** mínimo 2 parágrafos substanciais. Cada parágrafo precisa entregar um argumento, ensinamento ou insight concreto. Raso, vago e curto são proibidos.
-- **O conteúdo precisa entregar valor por si só**. quem lê ou assiste aprende algo, tem uma virada de perspectiva ou se reconhece. Conteúdo que só promete sem entregar nada dentro dele mesmo não é publicado.
+- Gancho: afirmação contra-intuitiva, paradoxo ou revelação. NUNCA pergunta.
+- Entregar valor real dentro do post: quem lê aprende ou se reconhece.
+- Produto não aparece nos primeiros slides ou nos primeiros 3 segundos.
+- Uma ideia por post, um CTA por post.
+- Sem travessão em nenhuma frase.
 
 ---
 
 **Carrossel (7-10 slides):**
-- Slide 1: Gancho forte baseado nos virais pesquisados (use elemento literário + abertura modelada nos virais)
-- Slides 2-8: Conteúdo de valor real. cada slide avança o argumento, não repete o anterior. Baseado em Urgências Ocultas e Decorados.
-- Slide final: CTA + identidade visual
-- Caption: mínimo 2 parágrafos de desenvolvimento antes do CTA. Com hashtags relevantes.
 
-**Roteiro de Reels:**
+- Slide 1: gancho forte (elemento literário + abertura não óbvia)
+- Slides 2-8: cada slide avança o argumento com base em Urgência Oculta ou Decorado. Sem slide que parafraseia o anterior.
+- Slide final: CTA + branding mínimo
+- Caption: mínimo 2 parágrafos de desenvolvimento antes do CTA, com hashtags relevantes
 
-Estrutura obrigatória (~45. 60s):
+---
+
+**Roteiro de Reels (30-60s):**
+
 ```
-[0. 3s]   GANCHO    → Afirmação contra-intuitiva ou quebra-padrão. Texto na tela + fala simultâneos.
-[4. 15s]  TEASE     → Expande o gancho, contextualiza o problema ou a promessa.
-[16. 42s] ENTREGA   → Ensina, demonstra ou revela algo real e concreto. NUNCA apenas prometer.
-[43. 48s] REGANCHO  → Texto na tela sintetizando a ideia central (âncora visual para quem assiste sem som).
-[49. 55s] CTA       → Convite direto e leve. Sem urgência forçada.
+[0-3s]   GANCHO    — Afirmação não óbvia. Texto na tela + fala simultâneos.
+[4-15s]  TEASE     — Expande o gancho, contextualiza o problema.
+[16-42s] ENTREGA   — Ensina ou revela algo concreto. NUNCA apenas prometer.
+[43-48s] REGANCHO  — Texto síntese (âncora para quem assiste sem som).
+[49-55s] CTA       — Convite direto e leve.
 ```
 
-Duração e estilo de edição: calibrar com base nos virais encontrados na pesquisa.
+---
 
 **Linha editorial (30 dias):**
-- Distribuir entre as 7 categorias de urgências ocultas do perfil: Dores, Dúvidas, Desejos, Assuntos Relacionados, Urgências Quentes, Urgências Frias e Urgências Inusitadas (10 itens em cada)
-- Cada tema distribuído em um balde de conteúdo do `idconsumidor.md` (se existir)
-- Alternar formatos: carrossel, reels, stories, post estático
-- Incluir CTAs estratégicos (seguidores → leads → vendas)
-- Para cada dia: indicar tema, urgência/decorado de origem, formato e objetivo
 
-### 4. Salvar
+- Distribuir temas entre as 7 categorias de Urgências Ocultas
+- Distribuir nos Baldes de Conteúdo do idconsumidor (se existir)
+- Alternar formatos: carrossel, reels, stories, post estático
+- CTAs estratégicos progredindo: seguidores, leads, vendas
+- Para cada dia: tema, urgência ou decorado de origem, formato e objetivo
+
+### 4. Aprovação e Salvar
+
+Mostrar o conteúdo gerado e perguntar:
+
+```
+1. Aprovar e salvar
+2. Quero ajustar algo
+```
+
+Após aprovação, salvar em:
 `meus-produtos/{ativo}/entregas/criativos/[tipo]-[produto].md`
 
 ### 5. Próximo Passo
-"Conteúdo salvo. Use `/img-anuncio` para gerar as artes, ou `/copy-roteiro` para roteiros mais elaborados."
+
+"Use `/criativo` para gerar as artes que acompanham esse conteúdo."

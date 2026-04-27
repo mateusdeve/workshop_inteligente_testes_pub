@@ -14,7 +14,7 @@ Cria videos com avatar IA que NAO sao "avatares falando em fundo branco". Cada v
 1. **Multiplas cenas por video** usando o array `video_inputs` da API.
 2. **Background configurado por cena** (cor solida, imagem ou video de b-roll) via campo `background`.
 3. **Rotacao de avatares** quando fizer sentido (2 avatares no mesmo video, tipo corte entre narrador e testemunho).
-4. **Pesquisa visual previa** inspirada na skill `img-anuncio` para descobrir referencias virais do nicho antes de montar a direcao das cenas.
+4. **Pesquisa visual previa** inspirada na skill `criativo-estatico` para descobrir referencias virais do nicho antes de montar a direcao das cenas.
 5. **Mapeamento Mandala para direcao visual**: cada um dos 18 tipos de anuncio tem sugestao automatica de cor, ritmo, tipo de background e combinacao de avatares.
 6. **Variacao entre videos**: quando o usuario gera varias pecas da mesma campanha, a skill evita repetir a mesma combinacao de avatar + background.
 
@@ -372,7 +372,7 @@ Use esta tabela para a direcao base. Combine com a direcao visual do Passo 3 par
 
 1. **Cor solida:** basta mandar `{"type": "color", "value": "#HEXCODE"}` no payload.
 2. **Imagem:**
-   - **Opcao A (recomendada).** Acionar a skill `img-anuncio` internamente para gerar 2 a 3 imagens de background (cenarios, contextos, SEM pessoas e SEM texto) que casam com o roteiro. Salvar em `meus-produtos/{ativo}/entregas/videos/backgrounds/video-{data}/`. Fazer upload no HeyGen e usar o `image_key` retornado.
+   - **Opcao A (recomendada).** Acionar a skill `criativo-estatico` internamente para gerar 2 a 3 imagens de background (cenarios, contextos, SEM pessoas e SEM texto) que casam com o roteiro. Salvar em `meus-produtos/{ativo}/entregas/videos/backgrounds/video-{data}/`. Fazer upload no HeyGen e usar o `image_key` retornado.
    - **Opcao B.** Stock gratuito (Unsplash, Pexels) via WebFetch + download + upload.
 3. **Video b-roll:** so se o plano permitir. Mesma logica.
 
@@ -486,8 +486,8 @@ Apos escolher, buscar vozes pt-BR compativeis com o genero e listar 5 opcoes.
 
 Para cada cena que usa `background.type == "image"`:
 
-**Opcao A. Usar img-anuncio (recomendado):**
-Acione a skill `img-anuncio` em modo silencioso, passando:
+**Opcao A. Usar criativo-estatico (recomendado):**
+Acione a skill `criativo-estatico` em modo silencioso, passando:
 - Produto ativo
 - Briefing da cena ("cenario de [descricao], SEM pessoas, SEM texto, proporcao 9:16")
 - Paleta da direcao visual do Passo 3
@@ -672,7 +672,6 @@ Quer criar variacoes?
 
 PROXIMO PASSO SUGERIDO:
 - /copy-anuncio para montar a campanha Meta Ads com esse video
-- /copy-social para gerar a legenda do post
 - /video-editar se quiser cortar, legendar ou comprimir
 ```
 
@@ -699,7 +698,7 @@ Nunca pule um checkpoint.
 
 - Videos de 30 a 45 segundos quebrados em 4 cenas sao o ponto ideal de custo/impacto.
 - Backgrounds de cor solida nao consomem upload nem minutos extras. Use eles como default.
-- Imagens de background custam so o tempo de geracao da `img-anuncio`, nao somam no HeyGen.
+- Imagens de background custam so o tempo de geracao da `criativo-estatico`, nao somam no HeyGen.
 - Um video de 35s custa ~US$ 0,30 na HeyGen. Rodar 5 variacoes por campanha sai ~US$ 1,50.
 - O plano Creator (US$ 24/mes) inclui 15 minutos = ~25 videos de 35s.
 - Para A/B, reaproveite o mesmo roteiro trocando so avatar ou so paleta. Evita reescrever texto.

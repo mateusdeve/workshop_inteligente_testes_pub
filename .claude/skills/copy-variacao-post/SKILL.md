@@ -6,9 +6,9 @@
 - Para criar novas versoes de posts que ja funcionaram, sem inventar angulos do zero.
 - Como acelerador: em vez de partir das urgencias ocultas, parte de prova social do proprio algoritmo.
 
-**Diferenca em relacao ao `/copy-social`:**
+**Diferenca em relacao ao `/copy-carrossel`:**
 
-| `/copy-social` | `/copy-variacao-post` |
+| `/copy-carrossel` | `/copy-variacao-post` |
 |---|---|
 | Cria conteudo do zero a partir das urgencias ocultas | Cria variacoes de posts que ja tiveram alto engajamento |
 | Qualquer perfil, qualquer nicho | Depende do `insights.json` gerado pelo `/instagram-dashboard` |
@@ -287,8 +287,7 @@ URL: {url}
 Variacoes salvas em meus-produtos/{ativo}/entregas/criativos/variacoes-{slug}-{data}.md
 
 Proximos passos:
-- /img-anuncio para gerar as artes dos carrosseis
-- /copy-roteiro para expandir os roteiros de Reels
+- /criativo-estatico para gerar as artes dos carrosseis
 - /copy-anuncio para transformar os angulos validados em anuncios pagos
 ```
 

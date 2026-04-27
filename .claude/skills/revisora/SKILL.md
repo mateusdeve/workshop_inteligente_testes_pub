@@ -1,6 +1,6 @@
 ---
 name: revisora
-description: Revisora final de copy. Roda ANTES de entregar qualquer texto gerado (página, anúncio, email, post, roteiro, headline, bullet) para eliminar vícios proibidos do VTSD e padrões de AI writing. Aplica travessão zero, vícios proibidos do Ladeira, produto fora do lead, e regras de Light Copy. Use sempre ao final das skills copy-pagina, copy-anuncio, copy-emails, copy-social, copy-roteiro, lt-pagina, ht-* e qualquer skill que gere texto de venda. Não substitui feedback-pagina (que audita páginas publicadas via URL). Esta é filtro interno no pipeline, antes do usuário ver o resultado.
+description: Revisora final de copy. Roda ANTES de entregar qualquer texto gerado (página, anúncio, post, headline, bullet) para eliminar vícios proibidos do VTSD e padrões de AI writing. Aplica travessão zero, vícios proibidos do Ladeira, produto fora do lead, e regras de Light Copy. Use sempre ao final das skills copy-pagina, copy-anuncio, copy-carrossel, copy-variacao-post, lt-pagina, ht-* e qualquer skill que gere texto de venda. Não substitui feedback-pagina (que audita páginas publicadas via URL). Esta é filtro interno no pipeline, antes do usuário ver o resultado.
 metadata:
   trigger: Toda vez que uma skill de copy VTSD gerar texto e ANTES de mostrar ao usuário
   adapted_from: stop-slop (Hardik Pandya, MIT)

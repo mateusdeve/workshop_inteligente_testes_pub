@@ -281,7 +281,7 @@ Proximo passo:
 4. Baixe as imagens e salve em meus-produtos/{ativo}/entregas/criativos/ com o nome indicado em cada cena
 5. Depois volte aqui e use:
    - /copy-anuncio. para escrever a copy dos anuncios que vao usar essas imagens
-   - /copy-social. para montar o carrossel com as imagens
+   - /copy-carrossel. para montar o carrossel com as imagens
    - /video-remotion. para jogar as cenas num video
 ```
 

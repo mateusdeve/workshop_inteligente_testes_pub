@@ -3,7 +3,7 @@ name: conteudo
 description: >
   Base de conhecimento para criação de conteúdo. Reels, carrosséis, linha editorial,
   elementos literários e formatos de vídeo. Baseado nos módulos de conteúdo e elementos
-  literários do VTSD. Acionada pelos commands /copy-social e /copy-roteiro.
+  literários do VTSD. Acionada pelos commands /copy-carrossel e /copy-variacao-post.
 ---
 
 # Conteúdo. Base de Conhecimento

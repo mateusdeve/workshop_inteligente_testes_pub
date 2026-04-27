@@ -110,8 +110,7 @@ Próximo passo: começar a criar as peças de venda.
 
 → /copy-pagina    Página de vendas 8D
 → /copy-anuncio   Anúncios para levar tráfego
-→ /copy-emails    Sequências de email
-→ /copy-social    Conteúdo orgânico para aquecer audiência
+→ /copy-carrossel Carrossel para reforço orgânico
 
 Se quiser outro produto, use /produto-novo.
 Se quiser trocar de produto, use /produto-trocar.

@@ -35,7 +35,7 @@ Acione a skill `dados-instagram` do plugin `workshop-marketing` e siga o roteiro
    - Tabela filtrável por tipo, tema, engajamento (JS vanilla, sem libs externas)
    - Seção de insights (bullets curtos)
 6. Gerar também um relatório em `.md` no mesmo diretório com insights escritos em português simples e sugestões de conteúdo baseadas no que já funciona.
-7. Sugerir próximo passo: usar os insights em `/copy-social` pra criar conteúdo alinhado ao que funciona.
+7. Sugerir próximo passo: usar os insights em `/copy-carrossel` pra criar conteúdo alinhado ao que funciona.
 
 ## Regras Resumidas
 

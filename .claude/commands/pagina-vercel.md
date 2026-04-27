@@ -30,7 +30,7 @@ Acione a skill `pagina-vercel` do plugin `workshop-marketing` e siga o roteiro:
 7. Se o deploy voltar como `QUEUED` ou `BUILDING`, fazer polling em `GET /v13/deployments/{id}` até virar `READY` (máximo 30 segundos).
 8. Tratar erros de API (até 3 tentativas com ajuste). Se persistir, mostrar erro completo e perguntar como prosseguir.
 9. Salvar histórico em `meus-produtos/{ativo}/entregas/.vercel` e atualizar `meus-produtos/{ativo}/entregas/paginas/.vercel-link.md` com o link público.
-10. Mostrar resumo final com URL pública (`https://{projeto}.vercel.app`) e sugerir próximos passos: usar o link no `/copy-anuncio` e em `/copy-emails`.
+10. Mostrar resumo final com URL pública (`https://{projeto}.vercel.app`) e sugerir próximos passos: usar o link no `/copy-anuncio` para tráfego pago.
 
 ## Regras Resumidas
 

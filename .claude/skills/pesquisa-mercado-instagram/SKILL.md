@@ -219,6 +219,6 @@ python .claude/skills/pesquisa-mercado-instagram/scripts/pesquisar.py --abrir
 ## Proximos Passos Apos Pesquisar
 
 - `/instagram-dashboard` para monitorar um dos perfis descobertos em detalhes
-- `/copy-social` para criar conteudo baseado nos padroes encontrados
+- `/copy-carrossel` para criar conteudo baseado nos padroes encontrados
 - `/copy-anuncio` para criar anuncios com angulos validados pelo nicho
 - `/produto-concepcao` para usar os dados na concepcao de produto

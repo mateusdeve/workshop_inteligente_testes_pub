@@ -273,8 +273,8 @@ Depois de gerar o relatório, o assistente DEVE:
 1. **Cruzar com as Urgências Ocultas já definidas no perfil** (se houver). Objeções e assuntos quentes da pesquisa viram insumo para enriquecer as 7 categorias de Urgências Ocultas.
 2. **Usar os dados de preço e posicionamento** para sugerir (não perguntar) o preço e a oferta do produto no fluxo em andamento.
 3. **Usar as objeções reais** como base para o bloco de quebra de objeções do `comercial-playbook`, `ht-objecoes`, páginas de vendas (FAQ) e sequências de email.
-4. **Usar os ângulos virais e padrões de anúncio** como insumo direto para `copy-anuncio`, `img-anuncio`, `copy-social` e `copy-roteiro`.
-4.1. **Usar os 10 vídeos do YouTube** como referência de thumb (`img-anuncio`, `criativo-de-imagem`), gancho de título (`copy-anuncio`, `copy-roteiro`) e dor viva dos comentários (`copy-emails`, `copy-social`, `comercial-playbook`).
+4. **Usar os ângulos virais e padrões de anúncio** como insumo direto para `copy-anuncio`, `criativo-estatico` e `copy-carrossel`.
+4.1. **Usar os 10 vídeos do YouTube** como referência de thumb (`criativo-estatico`), gancho de título (`copy-anuncio`) e dor viva dos comentários (`copy-carrossel`, `comercial-playbook`).
 5. **Marcar no perfil.md** que a pesquisa foi feita, com data. Antes de qualquer novo fluxo de concepção, verificar se a pesquisa tem mais de 90 dias. Se tiver, sugerir refazer.
 
 ## Regras de qualidade

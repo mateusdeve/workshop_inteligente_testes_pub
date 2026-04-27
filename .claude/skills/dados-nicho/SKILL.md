@@ -15,7 +15,7 @@ Mapeia o ecossistema do nicho do aluno. Faz 4 a 6 buscas combinadas de WebSearch
 
 - Quando o aluno disser "quem devo seguir no meu nicho", "quais os perfis referência em X", "não sei o que postar, me mostra o que os outros fazem", "quero estudar a concorrência".
 - Como primeiro passo antes de começar a produzir conteúdo novo.
-- Como input pra `/copy-social`, `/copy-roteiro` e `/dados-instagram`.
+- Como input pra `/copy-carrossel` e `/dados-instagram`.
 
 ## O Que Fazer
 
@@ -142,8 +142,7 @@ Pronto. Relatório do nicho salvo.
 Arquivo: entregas/{ativo}/dados/nicho-{data}.md
 
 Próximos passos:
-- Leve as sugestões pro /copy-social pra virar posts e carrosséis
-- Leve as ideias de Reel pro /copy-roteiro
+- Leve as sugestões pro /copy-carrossel pra virar posts e carrosséis
 - Rode /dados-instagram no seu próprio perfil pra comparar com o que os outros fazem
 ```
 

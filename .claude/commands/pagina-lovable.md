@@ -29,7 +29,7 @@ Acione a skill `pagina-lovable` do plugin `workshop-marketing` e siga o roteiro:
 6. Publicar via `curl` POST/PATCH na API do Lovable. Usar arquivo de payload temporário pra evitar problema de tamanho. Apagar depois.
 7. Tratar erros de API (até 3 tentativas com ajuste). Se persistir, mostrar erro completo e perguntar como prosseguir.
 8. Salvar histórico em `meus-produtos/{ativo}/entregas/.lovable` e atualizar `meus-produtos/{ativo}/entregas/paginas/.lovable-link.md` com o link público.
-9. Mostrar resumo final com URL pública e sugerir próximos passos: usar o link no `/copy-anuncio` e em `/copy-emails`.
+9. Mostrar resumo final com URL pública e sugerir próximos passos: usar o link no `/copy-anuncio` para tráfego pago.
 
 ## Regras Resumidas
 
