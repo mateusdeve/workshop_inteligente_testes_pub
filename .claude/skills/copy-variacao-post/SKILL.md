@@ -18,7 +18,7 @@
 
 Para cada post selecionado: 3 variacoes com elementos literarios diferentes, formato escolhido pelo usuario, e caption com hashtags.
 
-Salvo em: `meus-produtos/{ativo}/entregas/conteudo-social/variacoes-[slug].md`
+Salvo em: `meus-produtos/{ativo}/entregas/criativos/variacoes-[slug].md`
 
 ---
 
@@ -251,7 +251,7 @@ Apresente todas as variacoes geradas e pergunte:
 ```
 
 Apos aprovacao, salve em:
-`meus-produtos/{ativo}/entregas/conteudo-social/variacoes-{slug-produto}-{data}.md`
+`meus-produtos/{ativo}/entregas/criativos/variacoes-{slug-produto}-{data}.md`
 
 Formato do arquivo:
 ```markdown
@@ -284,7 +284,7 @@ URL: {url}
 ### PASSO 7. Proximo Passo
 
 ```
-Variacoes salvas em meus-produtos/{ativo}/entregas/conteudo-social/variacoes-{slug}-{data}.md
+Variacoes salvas em meus-produtos/{ativo}/entregas/criativos/variacoes-{slug}-{data}.md
 
 Proximos passos:
 - /criativo-estatico para gerar as artes dos carrosseis

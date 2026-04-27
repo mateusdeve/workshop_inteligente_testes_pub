@@ -4,6 +4,8 @@
 
 $ErrorActionPreference = "Stop"
 $ScriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
+$ProjectRoot = Split-Path -Parent $ScriptDir
+$EnvFile = Join-Path $ProjectRoot ".env"
 $LogFile = Join-Path $ScriptDir "relatorio-ads.log"
 
 function Log($msg) {
@@ -13,10 +15,59 @@ function Log($msg) {
     Add-Content -Path $LogFile -Value $linha -Encoding UTF8
 }
 
+function Load-DotEnv($path) {
+    $config = @{}
+    if (-not (Test-Path $path)) {
+        return $config
+    }
+
+    Get-Content -Path $path -Encoding UTF8 | ForEach-Object {
+        $line = $_.Trim()
+        if (-not $line -or $line.StartsWith("#") -or -not $line.Contains("=")) {
+            return
+        }
+
+        $parts = $line.Split("=", 2)
+        $key = $parts[0].Trim()
+        $value = $parts[1].Trim().Trim('"').Trim("'")
+        if ($key) {
+            $config[$key] = $value
+        }
+    }
+    return $config
+}
+
+function Get-Config($name, $config, $default = "") {
+    $fromEnv = [Environment]::GetEnvironmentVariable($name)
+    if ($fromEnv) {
+        return $fromEnv
+    }
+    if ($config.ContainsKey($name) -and $config[$name]) {
+        return $config[$name]
+    }
+    return $default
+}
+
+function Redact-Secrets($text) {
+    if (-not $text) {
+        return ""
+    }
+
+    $safe = "$text"
+    $safe = $safe -replace '(access_token=)[^&\s]+', '$1[removido]'
+    $safe = $safe -replace '(token/)[^/\s]+', '$1[removido]'
+    $safe = $safe -replace '(bot)[0-9]+:[A-Za-z0-9_-]+', '$1[removido]'
+    $safe = $safe -replace '(Client-Token["'':=\s]+)[A-Za-z0-9_-]+', '$1[removido]'
+    $safe = $safe -replace '(Bearer\s+)[A-Za-z0-9._-]+', '$1[removido]'
+    return $safe
+}
+
+$Config = Load-DotEnv $EnvFile
+
 # --- Credenciais Facebook ---
-$FB_ACCESS_TOKEN_PERMANENTE = "EAAVUZAIy8ZAE4BRLAaGBnFBsboZApqPNvQZCvaRWi0s3s8gzTF5bZAApvwNBpsuLjZAXUHg3pR6uWtVR9zTCxGtMWKjyF9nWvPHq4Ru1o2iViWIaVYnJvVhgT1KtZCZCZAMSWcdZAq48mjQ6xb83ozfaUgC2bs8WAjYgM5ZCUHi6fKU5wUaWOpfZCd7UmlsxDKKMc3UYkAZDZD"
-$FB_ACCESS_TOKEN_TEMPORARIO = ""
-$FB_AD_ACCOUNT_ID           = "956832473206286"
+$FB_ACCESS_TOKEN_PERMANENTE = Get-Config "FB_ACCESS_TOKEN_PERMANENTE" $Config
+$FB_ACCESS_TOKEN_TEMPORARIO = Get-Config "FB_ACCESS_TOKEN_TEMPORARIO" $Config
+$FB_AD_ACCOUNT_ID           = Get-Config "FB_AD_ACCOUNT_ID" $Config
 
 # Prioriza token permanente
 if ($FB_ACCESS_TOKEN_PERMANENTE -and $FB_ACCESS_TOKEN_PERMANENTE -ne "") {
@@ -24,22 +75,27 @@ if ($FB_ACCESS_TOKEN_PERMANENTE -and $FB_ACCESS_TOKEN_PERMANENTE -ne "") {
 } elseif ($FB_ACCESS_TOKEN_TEMPORARIO -and $FB_ACCESS_TOKEN_TEMPORARIO -ne "") {
     $FB_ACCESS_TOKEN = $FB_ACCESS_TOKEN_TEMPORARIO
 } else {
-    Log "ERRO: Nenhum token encontrado. Configure FB_ACCESS_TOKEN_PERMANENTE ou FB_ACCESS_TOKEN_TEMPORARIO no script."
+    Log "ERRO: Nenhum token encontrado. Configure FB_ACCESS_TOKEN_PERMANENTE ou FB_ACCESS_TOKEN_TEMPORARIO no .env."
+    exit 1
+}
+
+if (-not $FB_AD_ACCOUNT_ID) {
+    Log "ERRO: FB_AD_ACCOUNT_ID nao encontrado. Configure no .env."
     exit 1
 }
 
 # --- Canal de envio ---
-$RELATORIO_CANAL = "WHATSAPP"
+$RELATORIO_CANAL = (Get-Config "RELATORIO_CANAL" $Config "TELEGRAM").ToUpperInvariant()
 
 # --- Credenciais Telegram (usado se RELATORIO_CANAL = TELEGRAM) ---
-$TELEGRAM_BOT_TOKEN = ""
-$TELEGRAM_CHAT_ID   = ""
+$TELEGRAM_BOT_TOKEN = Get-Config "TELEGRAM_BOT_TOKEN" $Config
+$TELEGRAM_CHAT_ID   = Get-Config "TELEGRAM_CHAT_ID" $Config
 
 # --- Credenciais Z-API / WhatsApp (usado se RELATORIO_CANAL = WHATSAPP) ---
-$ZAPI_INSTANCE_ID   = "3F1BE42A76BF134CBBEE06ABA24BC57F"
-$ZAPI_TOKEN         = "40D4CEF2F70639DC22877991"
-$ZAPI_CLIENT_TOKEN  = "F8e2521f13b3e4b05aa2908001542b598S"
-$WHATSAPP_NUMERO    = "5511988095786"
+$ZAPI_INSTANCE_ID   = Get-Config "ZAPI_INSTANCE_ID" $Config
+$ZAPI_TOKEN         = Get-Config "ZAPI_TOKEN" $Config
+$ZAPI_CLIENT_TOKEN  = Get-Config "ZAPI_CLIENT_TOKEN" $Config
+$WHATSAPP_NUMERO    = Get-Config "RELATORIO_WHATSAPP_NUMERO" $Config
 
 Log "=== Iniciando relatorio Meta Ads ==="
 
@@ -52,14 +108,15 @@ Log "Data: $ontemBR"
 # --- Buscar metricas ---
 $timeRange = "{`"since`":`"$ontemISO`",`"until`":`"$ontemISO`"}"
 $fields    = "spend,impressions,reach,clicks,ctr,cpm,cpc,actions,cost_per_action_type"
-$urlFB     = "https://graph.facebook.com/v25.0/act_$($FB_AD_ACCOUNT_ID)/insights?access_token=$FB_ACCESS_TOKEN&time_range=$([uri]::EscapeDataString($timeRange))&fields=$fields&level=account"
+$urlFB     = "https://graph.facebook.com/v25.0/act_$($FB_AD_ACCOUNT_ID)/insights?time_range=$([uri]::EscapeDataString($timeRange))&fields=$fields&level=account"
+$headersFB = @{ "Authorization" = "Bearer $FB_ACCESS_TOKEN" }
 
 try {
     Log "Buscando metricas no Facebook Ads..."
-    $resp  = Invoke-RestMethod -Uri $urlFB -Method GET -TimeoutSec 30
+    $resp  = Invoke-RestMethod -Uri $urlFB -Method GET -Headers $headersFB -TimeoutSec 30
     $dados = $resp.data
 } catch {
-    Log "ERRO ao buscar metricas: $_"
+    Log "ERRO ao buscar metricas: $(Redact-Secrets $_)"
     exit 1
 }
 
@@ -109,6 +166,11 @@ Log "Mensagem montada."
 
 # --- Enviar ---
 if ($RELATORIO_CANAL -eq "TELEGRAM") {
+    if (-not $TELEGRAM_BOT_TOKEN -or -not $TELEGRAM_CHAT_ID) {
+        Log "ERRO: Configure TELEGRAM_BOT_TOKEN e TELEGRAM_CHAT_ID no .env."
+        exit 1
+    }
+
     $urlTelegram     = "https://api.telegram.org/bot$TELEGRAM_BOT_TOKEN/sendMessage"
     $payloadTelegram = @{
         chat_id    = $TELEGRAM_CHAT_ID
@@ -120,10 +182,15 @@ if ($RELATORIO_CANAL -eq "TELEGRAM") {
         $resultado = Invoke-RestMethod -Uri $urlTelegram -Method POST -ContentType "application/json" -Body $payloadTelegram -TimeoutSec 30
         Log "=== Relatorio enviado com sucesso ==="
     } catch {
-        Log "ERRO ao enviar Telegram: $_"
+        Log "ERRO ao enviar Telegram: $(Redact-Secrets $_)"
         exit 1
     }
 } else {
+    if (-not $ZAPI_INSTANCE_ID -or -not $ZAPI_TOKEN -or -not $ZAPI_CLIENT_TOKEN -or -not $WHATSAPP_NUMERO) {
+        Log "ERRO: Configure ZAPI_INSTANCE_ID, ZAPI_TOKEN, ZAPI_CLIENT_TOKEN e RELATORIO_WHATSAPP_NUMERO no .env."
+        exit 1
+    }
+
     $urlZapi  = "https://api.z-api.io/instances/$ZAPI_INSTANCE_ID/token/$ZAPI_TOKEN/send-text"
     $headers  = @{ "Content-Type" = "application/json"; "Client-Token" = $ZAPI_CLIENT_TOKEN }
     $payload  = @{ phone = $WHATSAPP_NUMERO; message = $mensagem } | ConvertTo-Json
@@ -133,7 +200,7 @@ if ($RELATORIO_CANAL -eq "TELEGRAM") {
         Log "Z-API resposta: $($resultado | ConvertTo-Json -Compress)"
         Log "=== Relatorio enviado com sucesso ==="
     } catch {
-        Log "ERRO ao enviar Z-API: $_"
+        Log "ERRO ao enviar Z-API: $(Redact-Secrets $_)"
         exit 1
     }
 }

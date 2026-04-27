@@ -23,6 +23,7 @@ meus-produtos/
 .claude/projects/
 .claude/plans/
 .claude/debug/
+.claude/settings.local.json
 .claude/file-history/
 .claude/shell-snapshots/
 .claude/ide/
@@ -45,11 +46,20 @@ meus-produtos/
 # Node
 node_modules/
 
+# Assets locais. A pasta fica no Git via assets/.gitkeep,
+# mas todo conteudo gerado ou colocado pelo usuario fica fora.
+assets/**
+!assets/
+!assets/.gitkeep
+
 # ══════════════════════════════════════════
 # Arquivos de teste (nao subir)
 # ══════════════════════════════════════════
 test-*
 scripts/__pycache__/
+__pycache__/
+**/__pycache__/
+*.pyc
 
 # ══════════════════════════════════════════
 # Arquivos efêmeros (lock, logs, notas de sessão)
@@ -88,8 +98,7 @@ desktop.ini
 # ══════════════════════════════════════════
 # Vercel (deploy e configurações de projeto)
 # ══════════════════════════════════════════
-.vercel
-vercel.json
+.vercel/
 .env*.local
 
 # ══════════════════════════════════════════
@@ -97,6 +106,13 @@ vercel.json
 # conta.md tem dados da conta do aluno; use conta.exemplo.md como template.
 # Os demais sao outputs do instagram-dashboard (gerados a cada execucao).
 # ══════════════════════════════════════════
+deploy-painel-workshop/
+deploy-playbook-eff/
+entregas/
+galeria-furadeira/
+painel-preview.html
+pesquisa-mercado-export.html
+pesquisa-mercado.pdf
 entregas/conta.md
 entregas/instagram-dashboard/dashboard.html
 entregas/instagram-dashboard/insights.json

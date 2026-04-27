@@ -15,8 +15,8 @@ Não é software tradicional: é um sistema de prompts estruturados (CLAUDE.md, 
 | `scripts/README-creative.md` | Processo de geração de criativos via `generate-creative.py`. |
 | `/configurar-heygen` | Setup de vídeo com avatar IA (slash command). |
 | `/configurar-imagens` | Setup de geração de imagens para anúncios (slash command). |
-| `/furadeira-visual` | Gerar a Furadeira (método do produto) em 3 formatos à escolha: HTML (trilha visual), PNG via API (Gemini ou OpenRouter) ou prompt pronto para colar em IA externa. Comando principal. |
-| `/gerar-furadeira` | Atalho direto para gerar PNG da Furadeira via IA. Dois fluxos: Gemini direto (rápido) ou OpenRouter com imagens de referência (refinado). Requer `GEMINI_API_KEY` e/ou `OPENROUTER_API_KEY` no `.env`. Referências visuais em `assets/furadeira-referencias/`. |
+| `/furadeira-visual` | Gerar a Furadeira (método do produto) em 3 formatos: HTML, PNG via API ou prompt para IA externa. |
+| `/gerar-furadeira` | Atalho direto para gerar PNG da Furadeira via IA. Requer `GEMINI_API_KEY` e/ou `OPENROUTER_API_KEY` no `.env`. |
 
 ## Onde roda
 
@@ -25,6 +25,36 @@ Abra a pasta do projeto, instale a extensão Claude Code, use os slash commands 
 
 ### Cursor
 Abra a pasta com **File → Open Folder**. As regras em `.cursor/rules/` e o `CLAUDE.md` passam a orientar o chat. No Cursor, a barra `/` não é equivalente à do Claude Code. Para seguir um fluxo, diga no chat "segue o comando copy-pagina" ou anexe o arquivo `.claude/commands/copy-pagina.md` com `@`.
+
+## Pré-requisitos
+
+### Obrigatórios (o toolkit não funciona sem eles)
+
+| Ferramenta | Como instalar | Para que serve |
+|---|---|---|
+| **Claude Code** | Extensão do VS Code (recomendado) ou `npm install -g @anthropic-ai/claude-code` | Runtime do assistente |
+| **Python 3** | 3.10+ — o assistente guia a instalação se necessário | Scripts do painel, playbook e páginas |
+| **Git** | [git-scm.com](https://git-scm.com) | Clonar e atualizar o repositório |
+
+### Opcionais (instalados automaticamente pelo assistente quando necessário)
+
+| Ferramenta | Ativa |
+|---|---|
+| **Vercel CLI** | `/pagina-vercel` (publicar páginas) |
+| **FFmpeg** | `/video-editar` (corte, legenda, compressão) |
+| **Remotion** | `/video-remotion` (vídeo animado para Ads) |
+
+### APIs (todas opcionais — o toolkit funciona 100% sem nenhuma)
+
+Copie `.env.example` para `.env` e preencha apenas o que for usar:
+
+| Nível | O que preencher | O que desbloqueia |
+|---|---|---|
+| **Básico** | Nada | Todos os entregáveis em arquivo local |
+| **Intermediário** | `VERCEL_TOKEN`, `FREEPIK_API_KEY` ou `OPENROUTER_API_KEY` | Páginas publicadas + criativos automáticos |
+| **Avançado** | `HEYGEN_API_KEY`, `FB_ACCESS_TOKEN_PERMANENTE`, `TELEGRAM_BOT_TOKEN` | Vídeo com avatar IA + relatório diário de Ads automático |
+
+Para configurar qualquer integração, use o comando correspondente no chat (`/configurar-heygen`, `/configurar-apify`, `/ads-relatorio`, etc.) — ele guia o processo completo.
 
 ## Metodologias base
 
@@ -42,7 +72,7 @@ Abra a pasta com **File → Open Folder**. As regras em `.cursor/rules/` e o `CL
 5. **Uma pergunta por vez** nas entrevistas, com progresso visual entre blocos.
 6. **Produto não aparece no lead.** Sem "curso", "treinamento", nome do produto ou sigla no início da copy.
 
-Checklists completos (Copy Light Copy + Design HTML) estão no topo do `CLAUDE.md`.
+Checklists completos (Light Copy + Design HTML) estão no topo do `CLAUDE.md`.
 
 ## Arquitetura
 
@@ -73,14 +103,12 @@ Usuário digita /comando
 workshop_inteligente/
 ├── CLAUDE.md                    Regras e papel do assistente (autoritativo)
 ├── AGENTS.md                    Mapa para IDEs
-├── ARQUITETURA.md               Guia técnico completo (como inserir novas capacidades)
+├── ARQUITETURA.md               Guia técnico completo
 ├── COMO-USAR.md                 Guia passo a passo
 ├── README.md                    Este arquivo
-├── painel/                      Painel global de visualização dos produtos
-│   └── index.html
 │
 ├── .claude/                     Núcleo do assistente
-│   ├── commands/                Slash commands (90+ arquivos .md)
+│   ├── commands/                Slash commands (60+ arquivos .md)
 │   ├── agents/                  Agentes orquestradores e especialistas
 │   ├── skills/                  Base de conhecimento (vtsd-completo, paginas, anuncios, etc.)
 │   └── settings.json            Permissões
@@ -88,15 +116,16 @@ workshop_inteligente/
 ├── .cursor/rules/               Regras específicas do Cursor (.mdc)
 │
 ├── scripts/                     Utilitários Python e PowerShell
-│   ├── README-creative.md                Processo de criação de criativos
-│   ├── workshop-copy-template-tema.py    Copia tema para a pasta do produto
-│   ├── workshop-merge-pagina.py          Faz o merge dos blocos 8D em um HTML final
-│   ├── generate-avatar-video.py          Aciona HeyGen via API
-│   ├── generate-creative.py              Geração de criativos visuais
-│   ├── generate-openrouter-nano-banana-images.py
-│   ├── openrouter_model_router.py
-│   ├── painel-atualizar.py               Regenera manifest meus-produtos/index.js
-│   ├── relatorio-ads.ps1                 Rotina diária de relatório Facebook Ads
+│   ├── README-creative.md           Processo de criação de criativos
+│   ├── painel-incremental.py        Gera/atualiza painel-entregas.html por produto (seção a seção)
+│   ├── painel_template.py           Shell HTML e renderers de cada seção do painel
+│   ├── painel-atualizar.py          Regenera manifest meus-produtos/index.js
+│   ├── montar-pagina-copias.py      Monta HTML final a partir das cópias de seção (/pagina-visual)
+│   ├── playbook-montar.py           Monta HTML do playbook comercial
+│   ├── playbook-briefing.py         Gera briefing do playbook a partir do perfil
+│   ├── generate-avatar-video.py     Aciona HeyGen via API
+│   ├── generate-creative.py         Geração de criativos visuais
+│   ├── relatorio-ads.ps1            Rotina diária de relatório Facebook Ads
 │   └── creative-templates/
 │
 ├── meus-produtos/               Produtos do aluno (ignorado pelo git)
@@ -108,11 +137,11 @@ workshop_inteligente/
 │       ├── pesquisa-mercado.md  Pesquisa de nicho
 │       ├── tipo.md              Low/Middle/High ticket
 │       ├── nome.txt             Nome amigável (opcional, override)
-│       ├── painel-entregas.html Painel por produto (gerado por /produto-concepcao)
+│       ├── painel-entregas.html Painel do produto (gerado por /produto-concepcao)
 │       └── entregas/            Output do assistente (por produto)
 │           ├── paginas/         HTML de vendas, captura, obrigado
+│           │   └── copias/      Cópias de seção geradas por /pagina-visual
 │           ├── copy-pagina/     Copy markdown por bloco
-│           ├── emails/          Sequências de email
 │           ├── anuncios/        Pacotes de anúncios
 │           ├── conteudo-social/ Posts, carrosséis, Reels
 │           ├── criativos/       Prompts de imagem e referências
@@ -121,8 +150,6 @@ workshop_inteligente/
 │           └── produto/         E-book, checklist, mini-curso final
 │
 ├── docs/                        Área local de desenvolvimento (ignorada pelo git)
-│                                Plans, rascunhos e anotações durante o dev.
-│
 ├── _prompts-gpt/                Material complementar do workshop
 ├── package.json
 ├── vercel.json
@@ -131,22 +158,26 @@ workshop_inteligente/
 
 Observação: a pasta `meus-produtos/` contém os dados de cada aluno e não sobe para o git. A `docs/` também é ignorada e serve para plans/rascunhos locais.
 
+## Painel de entregas
+
+Cada produto tem seu `painel-entregas.html` em `meus-produtos/{slug}/`. O painel é gerado e atualizado seção a seção pelo `painel-incremental.py` conforme o aluno avança nos commands. Inclui um seletor de produto no sidebar para navegar entre todos os produtos cadastrados.
+
+- **Gerar/atualizar uma seção:** `py -3 scripts/painel-incremental.py --secao quadro`
+- **Atualizar o manifest:** `py -3 scripts/painel-atualizar.py` (ou `/painel-atualizar` no chat)
+
 ## Comandos disponíveis
 
 ### Produto
 `/produto-novo`, `/produto-concepcao`, `/produto-trocar`, `/produto-excluir`, `/produto-zerar`
 
 ### Copy
-`/copy-pagina`, `/copy-anuncio`, `/copy-carrossel`, `/copy-variacao-post`, `/elementos-literarios`
+`/copy-pagina`, `/copy-anuncio`, `/copy-social`, `/copy-roteiro`, `/copy-variacao-post`, `/elementos-literarios`
 
 ### Imagem e vídeo
-`/criativo-estatico`, `/avat-whisk`, `/furadeira-visual`, `/video-heygen`, `/video-remotion`, `/video-editar`
+`/criativo-estatico`, `/criativo`, `/avat-whisk`, `/furadeira-visual`, `/video-heygen`, `/video-remotion`, `/video-editar`
 
 ### Low Ticket
 `/lt-funil`, `/lt-criar-produto`, `/lt-quiz`, `/lt-pagina`, `/lt-otimizar`
-
-### High Ticket (C10X)
-`/ht-big-idea`, `/ht-oferta`, `/ht-pagina-inscricao`, `/ht-cronograma`, `/ht-conteudo`, `/ht-pitch-palco`, `/ht-comunicacao-pre`, `/ht-anuncios`, `/ht-spin`, `/ht-fechamento`, `/ht-objecoes`, `/ht-whatsapp`, `/ht-follow-up`, `/ht-diagnostico`, `/ht-proposta`, `/ht-apresentacao-proposta`, `/ht-onboarding`, `/ht-repitch`
 
 ### Estratégia
 `/estrategia-funil`, `/estrategia-lancamento`
@@ -155,10 +186,10 @@ Observação: a pasta `meus-produtos/` contém os dados de cada aluno e não sob
 `/comercial-playbook`
 
 ### Infraestrutura de página (após gerar o HTML)
-`/pagina-ajuste`, `/pagina-performance`, `/pagina-pixel`, `/pagina-checkout`, `/pagina-active`, `/pagina-precheckout`, `/pagina-lovable`, `/pagina-vercel`
+`/pagina-ajuste`, `/pagina-performance`, `/pagina-pixel`, `/pagina-checkout`, `/pagina-active`, `/pagina-precheckout`, `/pagina-lovable`, `/pagina-vercel`, `/pagina-visual`
 
 ### Feedback e auditoria
-`/feedback-pagina`, `/feedback-low-ticket`, `/feedback-de-pv`
+`/feedback-pagina`, `/feedback-low-ticket`
 
 ### Toolkit (projetos estruturados)
 `/toolkit-novo`, `/toolkit-planejar`, `/toolkit-executar`, `/toolkit-verificar`, `/toolkit-progresso`, `/toolkit-anotar`, `/toolkit-pausar`, `/toolkit-retomar`
@@ -166,10 +197,15 @@ Observação: a pasta `meus-produtos/` contém os dados de cada aluno e não sob
 Fluxo proprietário para conduzir projetos grandes (lançamento, funil completo, reestruturação). Quebra o objetivo em etapas, aciona as skills certas uma a uma e mantém o estado em `meus-produtos/{ativo}/projeto/{slug}/` entre sessões. Não use para tarefa simples de uma skill só.
 
 ### Dados e automações
-`/ads-relatorio`, `/enviar-relatorio-ads`, `/instagram-dashboard`, `/dados-instagram`, `/app-saas`, `/criar-gpt`
+`/ads-relatorio`, `/enviar-relatorio-ads`, `/dados-instagram`, `/app-saas`, `/criar-gpt`, `/adaptar-plataforma`
+
+### Dashboards de redes sociais
+`/instagram-dashboard`, `/tiktok-dashboard`, `/youtube-dashboard`
+
+Dashboards HTML com métricas de Instagram, TikTok e YouTube via Apify. O aluno roda o script de cada plataforma para atualizar os dados manualmente.
 
 ### Configuração de integrações
-`/configurar-apify`, `/configurar-zapi`, `/gerar-token-permanente-facebook-ads`, `/obter-id-conta-anuncios`, `/criar-aplicativo-analise-ads`
+`/configurar-apify`, `/configurar-zapi`, `/configurar-heygen`, `/configurar-imagens`, `/gerar-token-permanente-facebook-ads`, `/obter-id-conta-anuncios`, `/criar-aplicativo-analise-ads`
 
 A lista completa com descrições está no `CLAUDE.md`.
 
@@ -180,12 +216,11 @@ Orquestradores autônomos que executam tarefas completas acionando múltiplas sk
 - `estrategista-de-produto`. Sessão completa de concepção VTSD.
 - `estrategista-low-ticket`. Funil low ticket do zero à página publicável.
 - `estrategista-middle-ticket`. Funil perpétuo de produto principal.
-- `estrategista-ht`. Funil High Ticket C10X completo.
 - `construtor-de-paginas`. Páginas profissionais do zero.
+- `clonador-de-bloco-visual`. Reproduz seções de página a partir de prints de referência (usado internamente por `/pagina-visual`).
 - `criador-de-campanhas`. Campanha de tráfego completa.
-- `produtor-de-conteudo`. Plano de conteúdo e roteiros.
 - `consultor-comercial`. Playbook comercial 1:1.
-- `copywriter`. Orquestrador de copy (página, anúncio, email, roteiro, social).
+- `copywriter`. Orquestrador de copy (página, anúncio, roteiro, social).
 - `video-maker`. Orquestrador de produção de vídeo.
 - `executor-de-plano-de-acao`. Executa plano de ação acionando skills e agentes.
 
@@ -197,25 +232,36 @@ Dentro de `.claude/skills/`:
 
 - `vtsd-completo/`. Metodologia VTSD integral.
 - `concepcao-produto/`. Quadro, Furadeira, 3 Identidades, Urgências Ocultas.
-- `paginas/`. Estrutura 8D, design system, referências de blocos atômicos, etapa de ajustes pós-merge.
+- `paginas/`. Estrutura 8D, design system, referências de blocos atômicos.
 - `anuncios/`, `anuncios-texto/`, `anuncios-video/`. Mandala, formatos Meta Ads e Google Ads.
 - `conteudo/`. Frameworks de copy, gatilhos, exemplos de VSL.
 - `trafego-pago/`. Pixel, métricas, campanhas.
-- `playbook-comercial/`. SPIN Selling, fechamento, objeções.
+- `instagram-dashboard/`, `tiktok-dashboard/`, `youtube-dashboard/`. Dashboards de métricas por plataforma via Apify.
+- `revisora/`. Checklist Light Copy e manual de copy aplicado a todo material gerado.
 - `ferramentas/`. Integrações externas.
 
 Skills não são acionadas pelo usuário: são consultadas pelos commands e agents quando precisam de conhecimento especializado.
 
 ## Scripts principais
 
-### Páginas de vendas (fluxo 8D)
+### Painel de entregas
 ```
-py -3 scripts/workshop-copy-template-tema.py --tema flat_claro
-py -3 scripts/workshop-merge-pagina.py --tema flat_claro \
-     --templates-root meus-produtos/{ativo}/entregas/paginas/templates-flat_claro \
-     --copiar-entregas
+py -3 scripts/painel-incremental.py --secao quadro
+py -3 scripts/painel-atualizar.py
 ```
-O primeiro copia o tema inteiro para a pasta do produto. O segundo mescla os blocos preenchidos num HTML final. Detalhes no command `copy-pagina` e na skill `paginas`.
+O primeiro atualiza uma seção específica do `painel-entregas.html` do produto ativo. O segundo regenera o manifest `meus-produtos/index.js` (lista de produtos usada pelo seletor no painel).
+
+### Páginas de vendas (fluxo visual)
+```
+py -3 scripts/montar-pagina-copias.py --slug {slug}
+```
+Monta o HTML final a partir das cópias de seção geradas por `/pagina-visual` em `meus-produtos/{slug}/entregas/paginas/copias/`.
+
+### Playbook comercial
+```
+py -3 scripts/playbook-briefing.py --slug {slug}
+py -3 scripts/playbook-montar.py --slug {slug}
+```
 
 ### Geração de vídeo e imagens
 - `scripts/generate-avatar-video.py`. HeyGen via API.
@@ -223,9 +269,6 @@ O primeiro copia o tema inteiro para a pasta do produto. O segundo mescla os blo
 
 ### Relatório diário de Ads
 - `scripts/relatorio-ads.ps1`. Busca métricas do Facebook Ads e envia no WhatsApp via Z-API, agendado na nuvem do Claude.
-
-### Painel
-- `scripts/painel-atualizar.py`. Regenera o manifest `meus-produtos/index.js` usado pelo painel global em `painel/index.html`.
 
 ## Integrações externas (opcionais)
 
@@ -235,7 +278,7 @@ Configuradas via `.env` (veja `.env.example`):
 |---|---|---|
 | Facebook Marketing API | Relatório diário de Ads, otimização low ticket | `/gerar-token-permanente-facebook-ads`, `/criar-aplicativo-analise-ads` |
 | Z-API | Envio de mensagens WhatsApp automatizadas | `/configurar-zapi` |
-| Apify | Coleta de dados do Instagram | `/configurar-apify` |
+| Apify | Coleta de dados do Instagram, TikTok e YouTube | `/configurar-apify` |
 | HeyGen | Vídeo com avatar IA | `/configurar-heygen` |
 | OpenRouter | Geração de imagens via nano-banana | `/configurar-imagens` |
 | Lovable / Vercel | Publicação de páginas | `/pagina-lovable`, `/pagina-vercel` |
@@ -254,7 +297,7 @@ Configuradas via `.env` (veja `.env.example`):
 2. `/estrategia-lancamento`
 3. `/copy-pagina` (evento + vendas)
 4. `/copy-anuncio`
-5. `/copy-carrossel`
+5. `/carrossel`
 
 ### Perpétuo
 1. `/produto-concepcao`
@@ -291,9 +334,9 @@ Configuradas via `.env` (veja `.env.example`):
 
 ## O que sobe para o git
 
-**Sobe:** `.claude/commands/`, `.claude/agents/`, `.claude/skills/`, `.claude/settings.json`, `CLAUDE.md`, `AGENTS.md`, `ARQUITETURA.md`, `README.md`, `COMO-USAR.md`, `.env.example`, `scripts/`, `painel/`.
+**Sobe:** `.claude/commands/`, `.claude/agents/`, `.claude/skills/`, `.claude/settings.json`, `CLAUDE.md`, `AGENTS.md`, `ARQUITETURA.md`, `README.md`, `COMO-USAR.md`, `.env.example`, `scripts/`.
 
-**Não sobe:** `.env`, `meus-produtos/` (dados do aluno), `docs/` (plans e rascunhos locais), `.claude/projects/` e demais arquivos de runtime.
+**Não sobe:** `.env`, `meus-produtos/` (dados do aluno), `docs/` (plans e rascunhos locais), `deploy-painel-workshop/`, `.claude/projects/` e demais arquivos de runtime.
 
 ## Adicionando novas capacidades
 

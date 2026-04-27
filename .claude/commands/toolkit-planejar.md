@@ -57,7 +57,7 @@ Com base no roteiro, monte uma sequência de etapas. Cada etapa é uma linha da 
 | 5 | Conteúdo dos blocos | /ht-conteudo | meus-produtos/{ativo}/entregas/comercial/conteudo-blocos.md | 4 | pendente |
 | 6 | Pitch de palco | /ht-pitch-palco | meus-produtos/{ativo}/entregas/comercial/pitch-palco.md | 2, 5 | pendente |
 | 7 | Comunicação pré-evento | /ht-comunicacao-pre | meus-produtos/{ativo}/entregas/emails/pre-evento.md | 3 | pendente |
-| 8 | Anúncios de captação | /ht-anuncios | meus-produtos/{ativo}/entregas/anuncios/captacao.md | 3 | pendente |
+| 8 | Anúncios de captação | /ht-anuncios | meus-produtos/{ativo}/entregas/criativos/captacao.md | 3 | pendente |
 | 9 | Follow-up pós-evento | /ht-follow-up | meus-produtos/{ativo}/entregas/emails/follow-up.md | 6 | pendente |
 ```
 

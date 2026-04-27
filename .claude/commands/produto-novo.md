@@ -130,10 +130,8 @@ Crie as seguintes pastas:
 meus-produtos/{slug}/
 meus-produtos/{slug}/entregas/
 meus-produtos/{slug}/entregas/paginas/
-meus-produtos/{slug}/entregas/anuncios/
 meus-produtos/{slug}/entregas/emails/
 meus-produtos/{slug}/entregas/copy-pagina/
-meus-produtos/{slug}/entregas/conteudo-social/
 meus-produtos/{slug}/entregas/criativos/
 meus-produtos/{slug}/entregas/comercial/
 meus-produtos/{slug}/entregas/textos-de-venda/

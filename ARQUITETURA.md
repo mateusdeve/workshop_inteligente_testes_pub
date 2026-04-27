@@ -39,7 +39,6 @@ workshop_inteligente/
 ├── COMO-USAR.md                           ← Guia passo a passo para o usuario
 ├── .env.example                           ← Modelo de chaves API (opcional)
 ├── .gitignore                             ← Protege .env, meus-produtos/ e dados do aluno
-├── painel/index.html                      ← Painel global (le meus-produtos/index.js)
 ├── .cursor/rules/                         ← Regras Cursor (.mdc, alwaysApply ou globs)
 │
 ├── .claude/                               ← NUCLEO DO SISTEMA Claude Code
@@ -50,31 +49,35 @@ workshop_inteligente/
 │   │   /video-*, /toolkit-*, /configurar-*, /estrategia-*, /feedback-*, etc.
 │   │
 │   ├── agents/                            ← AGENTES AUTONOMOS (subprocessos)
-│   │   Orquestradores e especialistas: estrategista-de-produto, estrategista-ht,
-│   │   construtor-de-paginas, criador-de-campanhas, copywriter, video-maker,
-│   │   consultor-comercial, produtor-de-conteudo, executor-de-plano-de-acao, etc.
+│   │   Orquestradores e especialistas: estrategista-de-produto, estrategista-low-ticket,
+│   │   estrategista-middle-ticket, construtor-de-paginas, clonador-de-bloco-visual,
+│   │   criador-de-campanhas, copywriter, video-maker, consultor-comercial,
+│   │   executor-de-plano-de-acao.
 │   │
-│   └── skills/                            ← BASE DE CONHECIMENTO (30 skills)
+│   └── skills/                            ← BASE DE CONHECIMENTO
 │       ├── vtsd-completo/                 ← Metodologia VTSD integral
 │       ├── concepcao-produto/             ← Quadro, Furadeira, 3 Identidades, Urgencias
-│       ├── paginas/                       ← Estrutura 8D, design system, 65+ templates HTML
+│       ├── paginas/                       ← Estrutura 8D, design system, referencias HTML
 │       ├── anuncios/, anuncios-texto/, anuncios-video/ ← Mandala 18 tipos, formatos
 │       ├── conteudo/                      ← Reels, carrosseis, elementos literarios
 │       ├── trafego-pago/                  ← Campanhas, pixel, metricas
-│       ├── playbook-comercial/            ← SPIN Selling, fechamento, objecoes
-│       ├── revisora/                      ← Filtro final de copy (vicios VTSD)
+│       ├── revisora/                      ← Checklist Light Copy aplicado a todo output
 │       ├── pesquisa-mercado/              ← Reclame Aqui, SEBRAE, concorrentes
 │       ├── pagina-checkout/, pagina-pixel/, pagina-lovable/, pagina-performance/,
 │       │   pagina-active/, pagina-precheckout/ ← Skills de infraestrutura de pagina
-│       ├── furadeira-visual/, canvas-design/ ← Visualizacoes HTML
-│       ├── dados-instagram/, dados-nicho/, instagram-dashboard/ ← Analise
+│       ├── instagram-dashboard/, tiktok-dashboard/, youtube-dashboard/ ← Dashboards
+│       ├── dados-instagram/, dados-nicho/ ← Analise pontual de perfis e nicho
+│       ├── furadeira-visual/, canvas-design/, ui-reverse-engineer/ ← Visuais
 │       └── tutorial-ferramentas/, ferramentas/, agente-gpt/, app-saas/, etc.
 │
 ├── scripts/                               ← UTILITARIOS PYTHON/POWERSHELL
 │   ├── README-creative.md                 ← Processo de criacao de criativos
-│   ├── workshop-copy-template-tema.py     ← Copia tema para a pasta do produto
-│   ├── workshop-merge-pagina.py           ← Faz merge dos blocos 8D em HTML final
+│   ├── painel-incremental.py              ← Gera/atualiza painel-entregas.html por secao
+│   ├── painel_template.py                 ← Shell HTML e renderers do painel
 │   ├── painel-atualizar.py                ← Regenera meus-produtos/index.js
+│   ├── montar-pagina-copias.py            ← Monta HTML final de copias de secao
+│   ├── playbook-montar.py                 ← Monta HTML do playbook comercial
+│   ├── playbook-briefing.py               ← Gera briefing do playbook
 │   ├── generate-avatar-video.py           ← Aciona HeyGen via API
 │   ├── generate-creative.py               ← Geracao de criativos visuais
 │   ├── generate-openrouter-nano-banana-images.py
@@ -82,7 +85,7 @@ workshop_inteligente/
 │
 ├── meus-produtos/                         ← DADOS DO ALUNO (ignorado pelo git)
 │   ├── .ativo                             ← Slug do produto ativo
-│   ├── index.js                           ← Manifest gerado (alimenta painel/index.html)
+│   ├── index.js                           ← Manifest gerado (alimenta seletor do painel-entregas.html)
 │   └── {slug-do-produto}/                 ← Um diretorio por produto
 │       ├── perfil.md                      ← Gerado por /produto-concepcao
 │       ├── idconsumidor.md                ← Gerado automaticamente no fim do /produto-concepcao
@@ -90,7 +93,7 @@ workshop_inteligente/
 │       ├── painel-entregas.html           ← Painel por produto
 │       └── entregas/                      ← Output do assistente
 │           ├── paginas/                   ← Arquivos .html
-│           ├── copy-pagina/, emails/, anuncios/, conteudo-social/, criativos/,
+│           ├── copy-pagina/, emails/, criativos/,
 │           │   comercial/, videos/, produto/, textos-de-venda/
 │
 ├── docs/                                  ← PLANS E RASCUNHOS LOCAIS (ignorado pelo git)
@@ -565,11 +568,13 @@ O arquivo `.claude/settings.json` controla quais acoes o Claude Code pode execut
       "Write(meus-produtos/{ativo}/entregas/**)",        ← Pode criar/editar arquivos em meus-produtos/{ativo}/entregas/
       "Write(meus-produtos/{ativo}/**)",     ← Pode criar/editar perfil.md e idconsumidor.md
       "Write(docs/**)",            ← Pode criar/editar documentacao
-      "Read(**)",                  ← Pode ler qualquer arquivo
+      "Read(.claude/commands/**)", ← Pode ler comandos
+      "Read(.claude/skills/**)",   ← Pode ler skills
+      "Read(scripts/**)",          ← Pode ler scripts
+      "Read(meus-produtos/**)",    ← Pode ler produtos locais
       "Bash(ls *)",               ← Pode listar arquivos
-      "Bash(cat .env)",           ← Pode ler chaves de API
       "Bash(vercel *)",           ← Pode fazer deploy
-      "Bash(curl *)"             ← Pode fazer requisicoes HTTP
+      "Bash(python3)"             ← Pode rodar Python quando necessario
     ]
   }
 }
@@ -580,8 +585,9 @@ Adicione uma nova linha no array `allow` com o padrao `"Bash(comando *)"`.
 
 **Padroes de permissao:**
 - `Write(pasta/**)`. Permite escrita recursiva na pasta
-- `Read(**)`. Permite leitura em qualquer lugar
+- `Read(pasta/**)`. Permite leitura recursiva apenas na pasta definida
 - `Bash(comando *)`. Permite executar o comando com qualquer argumento
+- Nao autorize `cat .env`, `curl *`, tokens em URL ou comandos amplos com segredos. Scripts devem ler o `.env` internamente e mascarar logs.
 
 ---
 
@@ -594,9 +600,7 @@ Esta tabela e definida no CLAUDE.md e deve ser respeitada por TODOS os commands 
 | Paginas (vendas, captura, obrigado) | `meus-produtos/{ativo}/entregas/paginas/` | `.html` | `vendas-curso-ingles.html` |
 | Textos de venda (copy, headlines, VSL) | `meus-produtos/{ativo}/entregas/textos-de-venda/` | `.md` | `headlines-curso-ingles.md` |
 | Sequencias de email | `meus-produtos/{ativo}/entregas/emails/` | `.md` | `sequencia-pico-curso-ingles.md` |
-| Anuncios (Meta, Google) | `meus-produtos/{ativo}/entregas/anuncios/` | `.md` | `anuncios-meta-curso-ingles.md` |
-| Conteudo para redes sociais | `meus-produtos/{ativo}/entregas/conteudo-social/` | `.md` | `carrossel-curso-ingles.md` |
-| Criativos e prompts de imagem | `meus-produtos/{ativo}/entregas/criativos/` | `.md` | `prompts-midjourney-curso-ingles.md` |
+| Criativos (anuncios, conteudo social, imagens) | `meus-produtos/{ativo}/entregas/criativos/` | `.md`, `.png`, `.mp4` | `anuncios-meta-curso-ingles.md` |
 | Scripts comerciais | `meus-produtos/{ativo}/entregas/comercial/` | `.html` | `playbook-curso-ingles.html` |
 
 **Se precisar de uma nova pasta de entrega:**
@@ -663,12 +667,12 @@ Protegido pelo `.gitignore`:
 | `.claude/projects/`, `.claude/plans/`, etc. | Arquivos de runtime do Claude Code |
 
 **O que SOBE para o git:**
-- `.claude/commands/`, `.claude/agents/`, `.claude/plugins/` (o sistema em si)
+- `.claude/commands/`, `.claude/agents/`, `.claude/skills/` (o sistema em si)
 - `.claude/settings.json` (permissoes)
-- `CLAUDE.md`, `README.md`, `COMO-USAR.md` (documentacao)
+- `CLAUDE.md`, `README.md`, `COMO-USAR.md`, `ARQUITETURA.md`, `AGENTS.md` (documentacao)
 - `.env.example` (modelo de chaves, sem valores)
+- `scripts/` (utilitarios Python e PowerShell)
 - `.gitkeep` dentro das pastas de entrega (mantem a estrutura)
-- `docs/` (documentacao tecnica)
 
 ---
 
@@ -677,24 +681,24 @@ Protegido pelo `.gitignore`:
 ```
 CLAUDE.md (regras globais)
     │
-    ├── /produto-concepcao ──────► skill: concepcao-produto ──► salva: meus-produtos/{ativo}/perfil.md, idconsumidor.md, painel-entregas.html
+    ├── /produto-concepcao ────► skill: concepcao-produto ──► salva: perfil.md, idconsumidor.md, painel-entregas.html
     │
-    ├── /pagina-de-vendas ─► skill: paginas ────────────► salva: meus-produtos/{ativo}/entregas/paginas/*.html
-    ├── /texto-de-venda ───► skill: conteudo ───────────► salva: meus-produtos/{ativo}/entregas/textos-de-venda/*.md
-    ├── /copy-anuncio ─────► skill: anuncios ───────────► salva: meus-produtos/{ativo}/entregas/anuncios/*.md
-    ├── /copy-carrossel ───► skill: conteudo ───────────► salva: meus-produtos/{ativo}/entregas/conteudo-social/*.md
-    ├── /copy-variacao-post► skill: copy-variacao-post ─► salva: meus-produtos/{ativo}/entregas/conteudo-social/*.md
-    ├── /lancamento ───────► skill: vtsd-completo ──────► salva: meus-produtos/{ativo}/entregas/textos-de-venda/*.md
-    ├── /estrategia-funil ─► skill: trafego-pago ──────► salva: meus-produtos/{ativo}/entregas/textos-de-venda/*.md
-    ├── /playbook-comercial► skill: playbook-comercial ► salva: meus-produtos/{ativo}/entregas/comercial/*.html
-    ├── /criativo-estatico ► skill: criativo-estatico ──► salva: meus-produtos/{ativo}/entregas/criativos/*.md
-    ├── /low-ticket ───────► skill: vtsd-completo ──────► salva: meus-produtos/{ativo}/entregas/ (multiplas pastas)
+    ├── /copy-pagina ──────────► skill: paginas ────────────► salva: entregas/paginas/*.html + entregas/copy-pagina/*.md
+    ├── /copy-anuncio ─────────► skill: anuncios ───────────► salva: entregas/anuncios/*.md
+    ├── /copy-social ──────────► skill: conteudo ───────────► salva: entregas/conteudo-social/*.md
+    ├── /copy-roteiro ─────────► skill: conteudo ───────────► salva: entregas/videos/*.md
+    ├── /carrossel ────────────► skill: conteudo ───────────► salva: entregas/conteudo-social/*.md
+    ├── /estrategia-lancamento ► skill: vtsd-completo ──────► salva: entregas/
+    ├── /estrategia-funil ─────► skill: trafego-pago ───────► salva: entregas/
+    ├── /comercial-playbook ───► skill: playbook-comercial ► salva: entregas/comercial/*.html
+    ├── /lt-funil ─────────────► skill: criacao-produto-lt ─► salva: entregas/ (multiplas pastas)
+    ├── /criativo-estatico ────► skill: anuncios ───────────► salva: entregas/criativos/*.md
     │
-    ├── agent: estrategista ► skill: concepcao-produto ► salva: meus-produtos/{ativo}/perfil.md
-    ├── agent: construtor ──► skill: paginas ───────────► salva: meus-produtos/{ativo}/entregas/paginas/*.html
-    ├── agent: campanhas ───► skill: anuncios + trafego ► salva: meus-produtos/{ativo}/entregas/anuncios/*.md
-    ├── agent: conteudo ────► skill: conteudo ──────────► salva: meus-produtos/{ativo}/entregas/conteudo-social/*.md
-    └── agent: comercial ──► skill: playbook-comercial ► salva: meus-produtos/{ativo}/entregas/comercial/*.html
+    ├── agent: estrategista-de-produto ──► skill: concepcao-produto ► salva: perfil.md, idconsumidor.md
+    ├── agent: construtor-de-paginas ────► skill: paginas ───────────► salva: entregas/paginas/*.html
+    ├── agent: clonador-de-bloco-visual ► skill: ui-reverse-engineer ► salva: entregas/paginas/copias/
+    ├── agent: criador-de-campanhas ─────► skill: anuncios + trafego ► salva: entregas/anuncios/*.md
+    └── agent: consultor-comercial ──────► skill: playbook-comercial ► salva: entregas/comercial/*.html
 ```
 
 ---

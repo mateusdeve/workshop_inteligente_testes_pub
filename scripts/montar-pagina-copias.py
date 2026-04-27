@@ -226,9 +226,9 @@ def main() -> None:
 {tailwind_head}
 <style>
 /* Reset minimo pra wrappers nao colidirem com margens do body */
-html, body {{ margin: 0; padding: 0; }}
+html, body {{ margin: 0; padding: 0; overflow-x: hidden; }}
 body {{ font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; }}
-[class^="secao-"] {{ width: 100%; }}
+[class^="secao-"] {{ width: 100%; max-width: 100%; }}
 
 {merged_css}
 </style>

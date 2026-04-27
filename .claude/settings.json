@@ -2,19 +2,41 @@
   "permissions": {
     "allow": [
       "Write(meus-produtos/**)",
-      "Read(**)",
+      "Read(.claude/commands/**)",
+      "Read(.claude/agents/**)",
+      "Read(.claude/skills/**)",
+      "Read(.claude/hooks/**)",
+      "Read(.cursor/rules/**)",
+      "Read(.github/**)",
+      "Read(assets/**)",
+      "Read(painel/**)",
+      "Read(scripts/**)",
+      "Read(meus-produtos/**)",
+      "Read(AGENTS.md)",
+      "Read(ARQUITETURA.md)",
+      "Read(CLAUDE.md)",
+      "Read(COMO-USAR.md)",
+      "Read(README.md)",
+      "Read(.env.example)",
+      "Read(package.json)",
+      "Read(vercel.json)",
       "WebFetch(*)",
       "WebSearch(*)",
       "Bash(ls *)",
-      "Bash(cat .env)",
       "Bash(vercel *)",
-      "Bash(curl *)",
-      "Bash(python3)",
-      "Bash(python3 -c ':*)"
+      "Bash(python3)"
     ]
   },
   "hooks": {
     "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash .claude/hooks/setup-node.sh"
+          }
+        ]
+      },
       {
         "hooks": [
           {

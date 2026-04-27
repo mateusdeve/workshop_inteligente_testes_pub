@@ -60,6 +60,10 @@ def load_env_file(path: Path) -> None:
             os.environ[key] = val
 
 
+MAX_REF_PX = 1024   # lado máximo após redimensionamento
+MAX_REF_BYTES = 512 * 1024  # 512 KB por referência após compressão
+
+
 def collect_references(max_refs: int) -> list[Path]:
     if not REFS_DIR.is_dir():
         return []
@@ -70,28 +74,71 @@ def collect_references(max_refs: int) -> list[Path]:
     return paths[:max_refs]
 
 
+def _resize_image_bytes(data: bytes, mime: str) -> tuple[bytes, str]:
+    """Redimensiona para MAX_REF_PX e comprime para MAX_REF_BYTES usando Pillow.
+    Retorna (bytes, mime). Se Pillow não estiver disponível, devolve original."""
+    try:
+        from PIL import Image  # type: ignore
+        import io
+        img = Image.open(io.BytesIO(data))
+        img = img.convert("RGBA" if img.mode in ("RGBA", "LA", "PA") else "RGB")
+        w, h = img.size
+        if w > MAX_REF_PX or h > MAX_REF_PX:
+            ratio = min(MAX_REF_PX / w, MAX_REF_PX / h)
+            img = img.resize((int(w * ratio), int(h * ratio)), Image.LANCZOS)
+        buf = io.BytesIO()
+        fmt = "PNG" if img.mode == "RGBA" else "JPEG"
+        quality = 85
+        img.save(buf, format=fmt, optimize=True, quality=quality)
+        result = buf.getvalue()
+        # se ainda grande, reduz qualidade progressivamente
+        while len(result) > MAX_REF_BYTES and fmt == "JPEG" and quality > 40:
+            quality -= 15
+            buf = io.BytesIO()
+            img.save(buf, format="JPEG", optimize=True, quality=quality)
+            result = buf.getvalue()
+        return result, f"image/{'png' if fmt == 'PNG' else 'jpeg'}"
+    except Exception:
+        return data, mime
+
+
 def to_data_url(path: Path) -> str:
     mime, _ = mimetypes.guess_type(str(path))
     if not mime:
         mime = "image/png"
     data = path.read_bytes()
+    data, mime = _resize_image_bytes(data, mime)
     b64 = base64.b64encode(data).decode("ascii")
     return f"data:{mime};base64,{b64}"
 
 
 def _extract_png_data_url(message: dict[str, Any]) -> str | None:
+    # Formato Gemini via OpenRouter: message.images[]
     images = message.get("images")
-    if not images:
-        return None
-    first = images[0]
-    if isinstance(first, dict):
-        iu = first.get("image_url") or first.get("imageUrl")
-        if isinstance(iu, dict):
-            url = iu.get("url")
-        else:
-            url = iu if isinstance(iu, str) else None
-        if isinstance(url, str) and url.startswith("data:image"):
-            return url
+    if images:
+        first = images[0]
+        if isinstance(first, dict):
+            iu = first.get("image_url") or first.get("imageUrl")
+            if isinstance(iu, dict):
+                url = iu.get("url")
+            else:
+                url = iu if isinstance(iu, str) else None
+            if isinstance(url, str) and url.startswith("data:image"):
+                return url
+
+    # Formato OpenAI (GPT Image 1 e outros): message.content[] com type=image_url
+    content = message.get("content")
+    if isinstance(content, list):
+        for item in content:
+            if not isinstance(item, dict):
+                continue
+            if item.get("type") == "image_url":
+                iu = item.get("image_url")
+                if isinstance(iu, dict):
+                    url = iu.get("url", "")
+                    if url.startswith("data:image"):
+                        return url
+
     return None
 
 
@@ -121,7 +168,20 @@ def _post_json(url: str, headers: dict[str, str], payload: dict[str, Any]) -> di
 
 
 def build_content(prompt: str, refs: list[Path]) -> list[dict[str, Any]]:
-    content: list[dict[str, Any]] = [{"type": "text", "text": prompt}]
+    # Instrução de estilo reforçada antes das imagens quando há referências
+    if refs:
+        style_prefix = (
+            f"IMPORTANT — STYLE REFERENCE IMAGES ATTACHED ({len(refs)} images):\n"
+            "Carefully analyze every reference image before generating anything. "
+            "Your output MUST replicate their visual style: layout structure, color palette, "
+            "typography weight, icon style, card shapes, spacing, and decorative elements. "
+            "Treat these images as your primary visual specification — not as inspiration, "
+            "but as the exact style target to match.\n\n"
+        )
+        full_prompt = style_prefix + prompt
+    else:
+        full_prompt = prompt
+    content: list[dict[str, Any]] = [{"type": "text", "text": full_prompt}]
     for ref in refs:
         content.append(
             {"type": "image_url", "image_url": {"url": to_data_url(ref)}}
@@ -183,15 +243,19 @@ def main() -> int:
         )
         return 1
 
-    refs = collect_references(max(MIN_REFS, min(args.max_refs, MAX_REFS)))
-    if len(refs) < MIN_REFS:
-        print(
-            f"Faltam imagens de referencia. Coloque pelo menos {MIN_REFS} arquivos "
-            f"(PNG, JPG ou WEBP) em: {REFS_DIR}\n"
-            f"Encontrei {len(refs)} no momento.",
-            file=sys.stderr,
-        )
-        return 1
+    if args.max_refs == 0:
+        refs = []
+    else:
+        refs = collect_references(min(args.max_refs, MAX_REFS))
+        if len(refs) < MIN_REFS:
+            print(
+                f"Faltam imagens de referencia. Coloque pelo menos {MIN_REFS} arquivos "
+                f"(PNG, JPG ou WEBP) em: {REFS_DIR}\n"
+                f"Encontrei {len(refs)} no momento.\n"
+                f"Para gerar sem referencias, passe --max-refs 0.",
+                file=sys.stderr,
+            )
+            return 1
 
     raw_out = args.output.strip().replace("\\", "/")
     if ".." in raw_out or raw_out.startswith("/"):

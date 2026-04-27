@@ -200,7 +200,7 @@ Estrutura do produto:
 | Material | Destino |
 | --- | --- |
 | Página final do quiz (HTML) | `meus-produtos/{ativo}/entregas/meus-produtos/{ativo}/entregas/paginas/quiz-[produto].html` |
-| Anúncios low ticket | `meus-produtos/{ativo}/entregas/anuncios/caixa-rapido-[produto].md` |
+| Anúncios low ticket | `meus-produtos/{ativo}/entregas/criativos/caixa-rapido-[produto].md` |
 | Produto desafio | `meus-produtos/{ativo}/entregas/textos-de-venda/desafio-[produto].md` |
 | Copy Hotmart/Kiwify | `meus-produtos/{ativo}/entregas/textos-de-venda/copy-plataforma-[produto].md` |
 | Agente GPT (estrutura) | `meus-produtos/{ativo}/entregas/textos-de-venda/agente-gpt-[produto].md` |
