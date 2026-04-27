@@ -91,6 +91,25 @@ Leia `meus-produtos/.ativo` para obter o produto ativo. Leia `meus-produtos/{ati
 
 Verifique também se `meus-produtos/{ativo}/pesquisa-mercado.md` já existe (pesquisa feita anteriormente no `/produto-novo`).
 
+**Verificação de pendências do perfil existente (obrigatória quando perfil.md já existe):**
+
+Após ler o `perfil.md`, verifique se a Furadeira foi preenchida mas o visual não foi gerado:
+- Se a seção `## Furadeira (Método)` tiver conteúdo E os três campos `Furadeira HTML`, `Furadeira PNG` e `Furadeira Prompt` estiverem todos como `não gerado`, sinalize antes de continuar:
+
+```
+Encontrei uma pendência do fluxo anterior:
+
+A Furadeira está preenchida mas o visual ainda não foi gerado.
+
+1. Gerar o visual agora (recomendado)
+2. Pular e continuar sem gerar
+
+Digite o número:
+```
+
+- Se escolher **1**: acione `/furadeira-visual` completo (pergunta de formato, geração, salvamento e registro no perfil.md) antes de seguir para qualquer outro bloco.
+- Se escolher **2**: continue o fluxo normalmente sem gerar o visual.
+
 ### 2. Entrevista guiada (UMA pergunta por vez, com progresso visual)
 
 **Bloco 0/6. Nome do Comunicador:**
@@ -163,7 +182,14 @@ Qual ferramenta o comprador vai receber? O que ela faz? Como ele usa no dia a di
 (ex: "Planilha com fórmulas prontas para calcular precificação de doces. O comprador preenche os custos e vê o preço sugerido automaticamente", "30 vídeos curtos de 10 minutos com exercício de sombra. O comprador assiste 1 por dia durante 30 dias", "Agente GPT que responde dúvidas sobre legislação trabalhista. O comprador cola a pergunta e recebe a resposta em segundos")
 ```
 
-Registre no perfil: "A ferramenta é a Furadeira. [tipo da ferramenta + o que resolve + como o comprador usa]". Depois siga para o Bloco 3.
+Com a resposta, derive automaticamente **3 macroetapas** que representem a jornada de uso da ferramenta, no formato:
+1. **O que o comprador recebe.** descrição do conteúdo ou ferramenta entregue
+2. **Como ele aplica no dia a dia.** ritual, frequência ou rotina de uso
+3. **O que ele conquista ao final.** resultado concreto ligado ao Quadro
+
+As macroetapas devem ser específicas para o produto descrito, não genéricas. Use os detalhes informados (número de vídeos, dias, protocolos, tipo de ferramenta) para torná-las concretas.
+
+Apresente as 3 macroetapas para validação antes de salvar. Depois siga para o Bloco 3.
 
 **Se for produto Middle Ticket:**
 
@@ -216,11 +242,22 @@ Só siga para o Bloco 3 após confirmar que o arquivo da Furadeira foi salvo.
 
 **Salvar Furadeira (obrigatório, imediato):**
 
-Após a Furadeira estar aprovada e o arquivo visual salvo, faça upsert da seção `## Furadeira (Método)` no `perfil.md` com:
-- Nome do Método
-- Formato gerado (HTML, PNG ou Prompt)
-- Caminhos do arquivo visual (`furadeira_html`, `furadeira_png`, `furadeira_prompt` conforme o formato)
-- Lista numerada das macroetapas no formato `1. **Macroetapa**. microetapas`
+Após a Furadeira estar aprovada e o arquivo visual salvo, faça upsert da seção `## Furadeira (Método)` no `perfil.md` com a estrutura exata abaixo. Os campos de metadados (`_formato`, `_html`, `_png`, `_prompt`) ficam em bloco separado no topo, antes das macroetapas, com prefixo `_` para que o script do painel os ignore na renderização:
+
+```markdown
+## Furadeira (Método)
+**Nome do Método:** [nome]
+_formato: [HTML | PNG | Prompt | não gerado]
+_html: [caminho ou não gerado]
+_png: [caminho ou não gerado]
+_prompt: [caminho ou não gerado]
+
+1. **[Macroetapa 1]**. [descrição curta]
+2. **[Macroetapa 2]**. [descrição curta]
+3. **[Macroetapa 3]**. [descrição curta]
+```
+
+**Regra crítica:** as macroetapas numeradas (`1.`, `2.`, `3.`) são o que o painel renderiza como trilha visual. Os campos com prefixo `_` são metadados internos e nunca devem aparecer como itens da trilha. Nunca misture metadados e macroetapas no mesmo bloco.
 
 Confirme ao aluno em UMA linha:
 

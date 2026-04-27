@@ -51,16 +51,19 @@ O `dashboard.html` e sempre autossuficiente. Nao depende de servidor local. Func
 
 ## APIs Utilizadas
 
-> **A definir durante o desenvolvimento do script:** pesquisar o ator Apify mais confiavel para YouTube no momento da implementacao. Candidatos: `apify~youtube-scraper`, `bernardo/youtube-scraper`.
+Ator utilizado: `apify~youtube-scraper` (o mais estavel e completo para YouTube publico em 2026).
 
 | # | Ator Apify | Tipo | Parametro chave | Retorna |
 |---|---|---|---|---|
-| 1 | TBD (canal) | sync | `channelUrl` ou `channelId` | inscritos, total views, descricao, avatar |
-| 2 | TBD (videos) | sync | `channelUrl`, `maxResults` | lista de videos com todas as metricas |
+| 1 | `apify~youtube-scraper` | sync, timeout 300s | `startUrls` (URL do canal), `maxResults: 30` | lista de videos com metadados do canal embutidos em cada item (`channelInfo`, `channelName`, `numberOfSubscribers` etc.) |
 
-**Thumbnails do YouTube:** o YouTube disponibiliza thumbnails em URLs publicas (`https://i.ytimg.com/vi/{videoId}/hqdefault.jpg`). Testar se carregam sem base64 em HTML local. Se bloquearem, baixar via requests como no Instagram/TikTok.
+Uma unica chamada sync retorna os videos e os dados do canal (via campos embutidos nos itens). O script extrai as informacoes do canal percorrendo os itens e priorizando o que tiver mais dados.
 
-Custo por execucao: a definir (depende do ator escolhido).
+**Por que sync e nao async:** mesmo motivo do Instagram/TikTok. Endpoints async retornam run IDs que podem ficar inacessiveis dependendo do plano. Sync e mais simples e confiavel.
+
+**Thumbnails do YouTube:** o script baixa thumbnails via `https://i.ytimg.com/vi/{videoId}/hqdefault.jpg` com `requests`. Se a URL vier preenchida no campo `thumbnailUrl` do Apify, usa essa. Caso contrario, monta a URL padrao com o `videoId`. Converte para base64 para funcionar em HTML local.
+
+Custo por execucao: cerca de US$0,05-0,30 no plano gratuito Apify (varia com o numero de videos coletados).
 
 ## Compatibilidade por Sistema Operacional
 
@@ -103,18 +106,18 @@ pip install requests
 
 ## Metricas YouTube (diferente do Instagram e TikTok)
 
-| Metrica | Campo Apify | Observacao |
+| Metrica | Campos Apify tentados (em ordem) | Observacao |
 |---|---|---|
-| Views | `viewCount` | Metrica principal no YouTube |
-| Likes | `likes` ou `likeCount` | YouTube removeu dislikeCount da API publica |
-| Comentarios | `commentCount` ou `commentsCount` | |
-| Duracao | `duration` (formato ISO 8601 ou segundos) | Necessario converter PT1H2M3S para segundos |
-| Titulo | `title` | |
-| Thumbnail | `thumbnailUrl` ou montar de `videoId` | URL publica: `i.ytimg.com/vi/{id}/hqdefault.jpg` |
-| Inscritos | `subscriberCount` | No nivel do canal |
+| Views | `views`, `viewCount` | Metrica principal no YouTube |
+| Likes | `likes`, `likeCount` | YouTube removeu dislikeCount da API publica |
+| Comentarios | `commentsCount`, `commentCount`, `comments` | |
+| Duracao | `duration`, `durationSeconds` | Script converte ISO 8601 (PT1H2M3S), HH:MM:SS e segundos para int |
+| Titulo | `title`, `name` | |
+| Thumbnail | `thumbnailUrl`, `thumbnail`, ou montar de `videoId` | URL padrao: `i.ytimg.com/vi/{id}/hqdefault.jpg` |
+| Video ID | `id`, `videoId`, ou extraido de `url` (`v=...`) | |
+| Inscritos | `numberOfSubscribers`, `subscriberCount` (no item ou em `channelInfo`) | |
+| Total views canal | `channelInfo.viewCount`, `channelInfo.totalViews`, `channelTotalViews` | Fallback: soma dos videos coletados |
 | Engajamento YouTube | (likes + comentarios) / views * 100 | Benchmark: acima de 3% e bom |
-
-> **Nota de implementacao:** os nomes exatos dos campos dependem do ator Apify escolhido. Verificar no JSON de retorno antes de codar.
 
 ## Fluxo
 

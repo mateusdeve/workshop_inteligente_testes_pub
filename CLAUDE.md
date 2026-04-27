@@ -342,6 +342,8 @@ Em seguida, faça o onboarding completo **UMA pergunta por vez**, nesta sequênc
 
 4. **NUNCA mostre código ao usuário.** Quando gerar HTML/CSS, salve o arquivo silenciosamente e diga apenas: "Pronto. Sua página foi salva em [caminho]. Abra no navegador para visualizar."
 
+4a. **SEMPRE retorne o caminho absoluto do arquivo no chat após salvar qualquer arquivo.** Isso vale para HTML, Markdown, PDF, imagem ou qualquer outro entregável. O caminho deve ser exibido como texto copiável (não como link clicável), no formato: `C:\Users\gabri\Documents\GitHub\workshop_inteligente\{caminho-relativo-do-arquivo}`. Isso permite que o usuário abra o arquivo direto no navegador ou explorador de arquivos sem precisar navegar pelas pastas.
+
 5. **SEMPRE pedir aprovação antes de salvar. Regra padrão, sem exceção.** Apresente o conteúdo gerado na tela e pergunte:
 ```
 1. Aprovar e salvar

@@ -16,6 +16,7 @@ import time
 import base64
 import logging
 import argparse
+import webbrowser
 from datetime import datetime
 from pathlib import Path
 from collections import defaultdict
@@ -72,15 +73,16 @@ def carregar_env() -> dict:
 def get_output_dir() -> Path:
     raiz = raiz_projeto()
     ativo_path = raiz / "meus-produtos" / ".ativo"
-    if ativo_path.exists():
-        slug = ativo_path.read_text(encoding="utf-8").strip()
-        if slug:
-            out = raiz / "meus-produtos" / slug / "entregas" / "tiktok-dashboard"
-            out.mkdir(parents=True, exist_ok=True)
-            return out
-    fallback = raiz / "meus-produtos" / "tiktok-dashboard"
-    fallback.mkdir(parents=True, exist_ok=True)
-    return fallback
+    if not ativo_path.exists():
+        print("ERRO: meus-produtos/.ativo nao encontrado. Use /produto-novo para criar um produto.")
+        sys.exit(1)
+    slug = ativo_path.read_text(encoding="utf-8").strip()
+    if not slug:
+        print("ERRO: meus-produtos/.ativo esta vazio. Use /produto-novo para criar um produto.")
+        sys.exit(1)
+    out = raiz / "meus-produtos" / slug / "entregas" / "tiktok-dashboard"
+    out.mkdir(parents=True, exist_ok=True)
+    return out
 
 
 def configurar_log(output_dir: Path) -> logging.Logger:
@@ -150,33 +152,39 @@ def chamar_apify(token: str, usuario: str, log: logging.Logger) -> list:
         "resultsPerPage": MAX_VIDEOS,
         "scrapeType": "user",
     }
-    log.info(f"Chamando Apify para @{usuario} (timeout {TIMEOUT_SYNC}s)...")
-    try:
-        resp = requests.post(
-            url,
-            params={"token": token},
-            json=payload,
-            timeout=TIMEOUT_SYNC + 30,
-        )
-        if resp.status_code == 401:
-            log.error("Token Apify invalido. Verifique APIFY_API_TOKEN no .env")
-            sys.exit(1)
-        if resp.status_code == 402:
-            log.error("Limite de uso do Apify atingido. Verifique seu plano em console.apify.com")
-            sys.exit(1)
-        resp.raise_for_status()
-        dados = resp.json()
-        if isinstance(dados, list):
-            log.info(f"Apify retornou {len(dados)} itens.")
-            return dados
-        log.error(f"Resposta inesperada: {type(dados)}")
-        return []
-    except requests.exceptions.Timeout:
-        log.error(f"Timeout ({TIMEOUT_SYNC}s). Tente novamente.")
-        sys.exit(1)
-    except Exception as e:
-        log.error(f"Erro ao chamar Apify: {e}")
-        sys.exit(1)
+    max_tentativas = 3
+    for tentativa in range(1, max_tentativas + 1):
+        log.info(f"Chamando Apify para @{usuario} (tentativa {tentativa}/{max_tentativas}, timeout {TIMEOUT_SYNC}s)...")
+        try:
+            resp = requests.post(
+                url,
+                params={"token": token},
+                json=payload,
+                timeout=TIMEOUT_SYNC + 30,
+            )
+            if resp.status_code == 401:
+                log.error("Token Apify invalido. Verifique APIFY_API_TOKEN no .env")
+                sys.exit(1)
+            if resp.status_code == 402:
+                log.error("Limite de uso do Apify atingido. Verifique seu plano em console.apify.com")
+                sys.exit(1)
+            resp.raise_for_status()
+            dados = resp.json()
+            if isinstance(dados, list):
+                log.info(f"Apify retornou {len(dados)} itens.")
+                return dados
+            log.error(f"Resposta inesperada: {type(dados)}")
+            return []
+        except requests.exceptions.Timeout:
+            log.warning(f"Timeout na tentativa {tentativa}.")
+        except Exception as e:
+            log.warning(f"Erro na tentativa {tentativa}: {e}")
+        if tentativa < max_tentativas:
+            espera = tentativa * 10
+            log.info(f"Aguardando {espera}s antes de tentar novamente...")
+            time.sleep(espera)
+    log.error(f"Todas as {max_tentativas} tentativas falharam. Verifique sua conexao e tente novamente.")
+    sys.exit(1)
 
 # ---------------------------------------------------------------------------
 # Normalizacao
@@ -695,9 +703,9 @@ canvas{{max-width:100%}}
   <div class="kpi-grid">
     <div class="kpi"><div class="kpi-v">{formatar_numero(perfil.get("seguidores",0))}</div><div class="kpi-l">Seguidores</div></div>
     <div class="kpi"><div class="kpi-v">{formatar_numero(perfil.get("likes_totais",0))}</div><div class="kpi-l">Curtidas Totais</div></div>
-    <div class="kpi"><div class="kpi-v">{metricas.get("media_engajamento",0):.1f}%</div><div class="kpi-l">Engajamento Medio</div></div>
-    <div class="kpi"><div class="kpi-v">{formatar_numero(metricas.get("media_views",0))}</div><div class="kpi-l">Media de Views</div></div>
-    <div class="kpi"><div class="kpi-v">{metricas.get("total_videos_coletados",0)}</div><div class="kpi-l">Videos Analisados</div></div>
+    <div class="kpi"><div class="kpi-v" id="kpi-eng">{metricas.get("media_engajamento",0):.1f}%</div><div class="kpi-l">Engajamento Medio</div></div>
+    <div class="kpi"><div class="kpi-v" id="kpi-views">{formatar_numero(metricas.get("media_views",0))}</div><div class="kpi-l">Media de Views</div></div>
+    <div class="kpi"><div class="kpi-v" id="kpi-count">{metricas.get("total_videos_coletados",0)}</div><div class="kpi-l">Videos Analisados</div></div>
   </div>
 </div>
 
@@ -849,6 +857,16 @@ function filtrar(){{
   const ranges={{ate_15s:[0,15],'16_30s':[16,30],'31_60s':[31,60],acima_60s:[61,1e9]}};
   if(curD!=='todos'){{const[mn,mx]=ranges[curD]||[0,1e9];vids=vids.filter(v=>v.duracao>=mn&&v.duracao<=mx);}}
   renderGrade(vids);
+  if(vids.length){{
+    const me=vids.reduce((s,v)=>s+v.engajamento,0)/vids.length;
+    const mv=vids.reduce((s,v)=>s+v.views,0)/vids.length;
+    const ke=document.getElementById('kpi-eng');
+    const kv=document.getElementById('kpi-views');
+    const kc=document.getElementById('kpi-count');
+    if(ke)ke.textContent=me.toFixed(1)+'%';
+    if(kv)kv.textContent=fmtN(Math.round(mv));
+    if(kc)kc.textContent=vids.length;
+  }}
   document.querySelectorAll('#fd .fb').forEach(b=>b.classList.toggle('on',b.dataset.d===curD));
   document.querySelectorAll('#fp .fb').forEach(b=>b.classList.toggle('on',parseInt(b.dataset.p)===curP));
 }}
@@ -951,7 +969,9 @@ def main():
         sys.exit(1)
 
     usuario = usuario.lstrip("@").lower()
-    output_dir = get_output_dir()
+    base_dir = get_output_dir()
+    output_dir = base_dir / usuario
+    output_dir.mkdir(parents=True, exist_ok=True)
     log = configurar_log(output_dir)
     log.info(f"=== TikTok Dashboard iniciado para @{usuario} ===")
 
@@ -975,7 +995,7 @@ def main():
     metricas = calcular_metricas(videos)
     log.info(f"Engajamento medio: {metricas.get('media_engajamento',0):.2f}%")
 
-    historico = atualizar_historico(output_dir, perfil, metricas)
+    historico = atualizar_historico(base_dir, perfil, metricas)
     log.info(f"Historico: {len(historico)} snapshots")
 
     salvar_insights(output_dir, perfil, videos, metricas)
@@ -985,15 +1005,7 @@ def main():
     log.info(f"=== Pronto: {html_path} ===")
 
     if args.abrir:
-        import platform
-        s = str(html_path)
-        p = platform.system()
-        if p == "Windows":
-            os.startfile(s)
-        elif p == "Darwin":
-            os.system(f"open '{s}'")
-        else:
-            os.system(f"xdg-open '{s}'")
+        webbrowser.open(html_path.as_uri())
 
 
 if __name__ == "__main__":

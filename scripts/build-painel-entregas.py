@@ -376,7 +376,7 @@ def parse_pesquisa(text):
                         if n in h:
                             return i
                 return None
-            idx_nome = _col("nome", "concorrente", "marca")
+            idx_nome = _col("nome", "concorrente", "marca", "produto", "plataforma")
             idx_preco = _col("preço", "preco", "valor")
             idx_obs = _col("diferencial", "entregáveis", "entregaveis", "observ")
             idx_canal = _col("instagram", "insta")
@@ -419,12 +419,12 @@ def parse_pesquisa(text):
     d["termos_alta"] = parse_bullet_items(sec_termos) if sec_termos else []
 
     # padroes de anuncio
-    sec_ads = parse_section_fuzzy(text, "Padrões de Anúncio", "Padroes de Anuncio", "Anúncios que Performam")
+    sec_ads = parse_section_fuzzy(text, "Padrões de Anúncio", "Padroes de Anuncio", "Anúncios que Performam", "Ângulos de Anúncios", "Angulos de Anuncios")
     d["padroes_anuncio"] = parse_bullet_items(sec_ads) if sec_ads else []
 
     # youtube top 10 — tenta formato rico ### Vídeo X primeiro, tabela como fallback
     d["youtube"] = []
-    sec_yt = parse_section_fuzzy(text, "Top 10 Vídeos", "Top 10 Videos", "Top 10 YouTube", "YouTube")
+    sec_yt = parse_section_fuzzy(text, "Top 10 Vídeos", "Top 10 Videos", "YouTube Top 10", "Top 10 YouTube")
     if sec_yt:
         rich = parse_youtube_rich(sec_yt)
         if rich:
@@ -441,9 +441,16 @@ def parse_pesquisa(text):
                     "thumb_texto": row[4].strip() if len(row) > 4 else "",
                     "comentarios": [], "thumbnail": {}, "angulo": "", "lacuna": "",
                 })
+        # fallback: bullets "Padrão X: titulo" ou lista simples
+        if not d["youtube"]:
+            for item in parse_bullet_items(sec_yt):
+                titulo = re.sub(r'^Padr[aã]o\s*\d+[:\s]+', '', item, flags=re.IGNORECASE).strip()
+                titulo = re.sub(r'\s*\([^)]+\)\s*$', '', titulo).strip().strip('"')
+                if titulo:
+                    d["youtube"].append({"titulo": titulo, "canal": "", "views": "", "link": "", "thumb_texto": "", "comentarios": [], "thumbnail": {}, "angulo": "", "lacuna": ""})
 
     # alertas regulatorios
-    sec_alert = parse_section_fuzzy(text, "Alertas Regulatórios", "Alertas", "Regulatórios")
+    sec_alert = parse_section_fuzzy(text, "Alertas Regulatórios", "Alertas Regulatorios", "Alertas")
     d["alertas"] = parse_bullet_items(sec_alert) if sec_alert else []
 
     # fontes
