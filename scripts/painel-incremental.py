@@ -451,6 +451,46 @@ def parse_identidade_comunicador(perfil: str, idc: str) -> dict:
     }
 
 
+def parse_youtube_rich(sec_yt: str) -> list[dict]:
+    """Parse formato ### Vídeo X em lista de dicts ricos (comentarios, thumbnail, lacuna)."""
+    videos = []
+    blocks = re.split(r'\n###\s+V[íi]deo\s+\d+', "\n" + sec_yt, flags=re.IGNORECASE)
+    for block in blocks:
+        if not block.strip():
+            continue
+        v: dict = {}
+        m = re.search(r'\*\*T[ií]tulo:\*\*\s*(.+)', block)
+        v["titulo"] = m.group(1).strip() if m else ""
+        m = re.search(r'\*\*Canal:\*\*\s*(.+)', block)
+        v["canal"] = m.group(1).strip() if m else ""
+        m = re.search(r'\*\*Link:\*\*\s*(https?://\S+)', block)
+        v["link"] = m.group(1).strip().rstrip(").,") if m else ""
+        m = re.search(r'\*\*Visualiza[çc][oõ]es:\*\*\s*(.+)', block, re.IGNORECASE)
+        v["views"] = m.group(1).strip() if m else ""
+        m = re.search(r'\*\*Data de publica[çc][aã]o:\*\*\s*(.+)', block, re.IGNORECASE)
+        v["data"] = m.group(1).strip() if m else ""
+        m = re.search(r'\*\*[Âa]ngulo.*?:\*\*\s*(.+)', block)
+        v["angulo"] = m.group(1).strip() if m else ""
+        m = re.search(r'\*\*Lacuna.*?:\*\*\s*(.+)', block)
+        v["lacuna"] = m.group(1).strip() if m else ""
+        v["comentarios"] = [c.strip() for c in re.findall(r'"([^"]{10,200})"', block)][:5]
+        thumb: dict = {}
+        for field, pat in [
+            ("cores", r'- \*?Cores[:\*]*\s*(.+)'),
+            ("expressao", r'- \*?Express[aã]o[:\*]*\s*(.+)'),
+            ("texto", r'- \*?Texto em destaque[:\*]*\s*(.+)'),
+            ("elementos", r'- \*?Elementos visuais[:\*]*\s*(.+)'),
+            ("composicao", r'- \*?Composi[çc][aã]o[:\*]*\s*(.+)'),
+        ]:
+            m2 = re.search(pat, block, re.IGNORECASE)
+            if m2:
+                thumb[field] = m2.group(1).strip()
+        v["thumbnail"] = thumb
+        if v["titulo"] or v["canal"]:
+            videos.append(v)
+    return videos
+
+
 def parse_pesquisa(texto: str) -> dict:
     """Extracao pragmatica: os campos mais comuns de pesquisa-mercado.md.
     Estrutura do arquivo varia, entao usamos heuristicas tolerantes."""
@@ -496,6 +536,111 @@ def parse_pesquisa(texto: str) -> dict:
     fontes_bloco = extrair_secao(texto, "Fontes") or extrair_secao(texto, "Fontes Consultadas")
     fontes = bullets(fontes_bloco) if fontes_bloco else []
 
+    # YouTube top 10 — tenta formato rico ### Vídeo X primeiro
+    sec_yt = (
+        extrair_secao(texto, "Top 10 Vídeos")
+        or extrair_secao(texto, "Top 10 Videos")
+        or extrair_secao(texto, "Top 10 YouTube")
+        or extrair_secao(texto, "YouTube")
+    )
+    # fallback: header ## N. YouTube... (padrão da skill pesquisa-mercado)
+    if not sec_yt:
+        m_yt = re.search(
+            r'^##[^\n]*YouTube[^\n]*\n(.*?)(?=^##\s|\Z)',
+            texto, re.MULTILINE | re.DOTALL | re.IGNORECASE,
+        )
+        if m_yt:
+            sec_yt = m_yt.group(1).strip()
+    youtube: list[dict] = []
+    if sec_yt:
+        rich = parse_youtube_rich(sec_yt)
+        youtube = rich if rich else []
+
+    # Público-Alvo Real (seção ## 4. Público-Alvo Real)
+    sec_publico = (
+        extrair_secao(texto, "4. Público-Alvo Real")
+        or extrair_secao(texto, "4. Publico-Alvo Real")
+        or extrair_secao(texto, "Público-Alvo Real")
+        or extrair_secao(texto, "Publico-Alvo Real")
+    )
+    if not sec_publico:
+        m_pa = re.search(
+            r'^##[^\n]*P[uú]blico[- ]Alvo[^\n]*\n(.*?)(?=^##\s|\Z)',
+            texto, re.MULTILINE | re.DOTALL | re.IGNORECASE,
+        )
+        if m_pa:
+            sec_publico = m_pa.group(1).strip()
+    publico_alvo: dict = {}
+    if sec_publico:
+        demo = bullets(extrair_subsecao(sec_publico, "Demografic") or extrair_subsecao(sec_publico, "Perfil"))
+        comport = bullets(extrair_subsecao(sec_publico, "Comportamento"))
+        consci = bullets(
+            extrair_subsecao(sec_publico, "Consciência")
+            or extrair_subsecao(sec_publico, "Nivel de Consciencia")
+            or extrair_subsecao(sec_publico, "Schwartz")
+        )
+        publico_alvo = {"demo": demo, "comportamento": comport, "consciencia": consci}
+        if not any(publico_alvo.values()):
+            publico_alvo = {"raw": bullets(sec_publico)}
+
+    # Assuntos Quentes e Ângulos Virais (seção 6)
+    sec_assuntos = (
+        extrair_secao(texto, "6. Assuntos Quentes e Ângulos Virais")
+        or extrair_secao(texto, "Assuntos Quentes e Ângulos Virais")
+        or extrair_secao(texto, "Assuntos Quentes")
+    )
+    if not sec_assuntos:
+        m_aq = re.search(
+            r'^##[^\n]*Assuntos Quentes[^\n]*\n(.*?)(?=^##\s|\Z)',
+            texto, re.MULTILINE | re.DOTALL | re.IGNORECASE,
+        )
+        if m_aq:
+            sec_assuntos = m_aq.group(1).strip()
+    assuntos_quentes: dict = {}
+    if sec_assuntos:
+        termos_sub = extrair_subsecao(sec_assuntos, "Termos em alta") or extrair_subsecao(sec_assuntos, "Termos em Alta")
+        virais_sub = extrair_subsecao(sec_assuntos, "Conteúdos virais recentes") or extrair_subsecao(sec_assuntos, "Conteudos virais recentes")
+        ganchos_sub = extrair_subsecao(sec_assuntos, "Ganchos que estão performando") or extrair_subsecao(sec_assuntos, "Ganchos")
+        def _bullets_e_numerados(txt: str) -> list[str]:
+            out = []
+            for ln in txt.splitlines():
+                ln = ln.rstrip()
+                m = re.match(r"^\s*(?:[-*]|\d+\.)\s+(.+?)\s*$", ln)
+                if m:
+                    out.append(m.group(1).strip())
+            return out
+        assuntos_quentes = {
+            "termos": bullets(termos_sub) if termos_sub else [],
+            "virais": _bullets_e_numerados(virais_sub) if virais_sub else [],
+            "ganchos": bullets(ganchos_sub) if ganchos_sub else [],
+        }
+
+    # Biblioteca de Anúncios (seção 8)
+    sec_bibl = (
+        extrair_secao(texto, "8. Biblioteca de Anúncios (insights)")
+        or extrair_secao(texto, "Biblioteca de Anúncios")
+        or extrair_secao(texto, "Biblioteca de Anuncios")
+    )
+    if not sec_bibl:
+        m_bibl = re.search(
+            r'^##[^\n]*Biblioteca de An[uú]ncios[^\n]*\n(.*?)(?=^##\s|\Z)',
+            texto, re.MULTILINE | re.DOTALL | re.IGNORECASE,
+        )
+        if m_bibl:
+            sec_bibl = m_bibl.group(1).strip()
+    biblioteca_anuncios: dict = {}
+    if sec_bibl:
+        headlines_sub = extrair_subsecao(sec_bibl, "Padrões de headline") or extrair_subsecao(sec_bibl, "Padroes de headline")
+        oferta_sub = extrair_subsecao(sec_bibl, "Padrões de oferta") or extrair_subsecao(sec_bibl, "Padroes de oferta")
+        criativos_sub = extrair_subsecao(sec_bibl, "Criativos ativos no nicho") or extrair_subsecao(sec_bibl, "Criativos ativos")
+        obs_sub = extrair_subsecao(sec_bibl, "Observações") or extrair_subsecao(sec_bibl, "Observacoes")
+        biblioteca_anuncios = {
+            "headlines": bullets(headlines_sub) if headlines_sub else [],
+            "padroes_oferta": bullets(oferta_sub) if oferta_sub else [],
+            "criativos": bullets(criativos_sub) if criativos_sub else [],
+            "observacoes": bullets(obs_sub) if obs_sub else [],
+        }
+
     return {
         "tamanho_mercado": tamanho,
         "crescimento": crescimento,
@@ -505,6 +650,10 @@ def parse_pesquisa(texto: str) -> dict:
         "reclamacoes": reclamacoes,
         "concorrentes": concorrentes,
         "fontes": fontes,
+        "youtube": youtube,
+        "publico_alvo": publico_alvo,
+        "assuntos_quentes": assuntos_quentes,
+        "biblioteca_anuncios": biblioteca_anuncios,
     }
 
 

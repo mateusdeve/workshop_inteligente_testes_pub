@@ -120,6 +120,50 @@ pip install requests
 
 ## Fluxo
 
+### PASSO -1. Verificar Plataforma Ativa (OBRIGATORIO — executar antes de qualquer outra coisa)
+
+Leia `.env`. Verifique o valor de `INSTAGRAM_ATIVO`.
+
+**Cenario: `INSTAGRAM_ATIVO=false` (aluno ja disse que nao tem Instagram)**
+
+```
+Voce marcou que nao tem um perfil ativo no Instagram.
+
+Quer atualizar essa preferencia?
+
+1. Sim, tenho Instagram agora — configurar o dashboard
+2. Nao, pode ignorar
+```
+
+Se escolher 1: troque `INSTAGRAM_ATIVO=false` por `INSTAGRAM_ATIVO=true` no `.env` e continue para o PASSO 0.
+Se escolher 2: encerre sem fazer nada.
+
+---
+
+**Cenario: `INSTAGRAM_ATIVO` nao existe no `.env` (primeira vez)**
+
+```
+Voce tem um perfil ativo no Instagram que quer monitorar?
+
+1. Sim, tenho Instagram
+2. Nao tenho Instagram
+```
+
+Se escolher 1: salve `INSTAGRAM_ATIVO=true` no `.env` (Edit cirurgico, adicionar linha). Continue para o PASSO 0.
+Se escolher 2: salve `INSTAGRAM_ATIVO=false` no `.env`. Encerre com:
+
+```
+Tudo bem. Se um dia criar um perfil no Instagram, e so chamar essa skill de novo.
+```
+
+---
+
+**Cenario: `INSTAGRAM_ATIVO=true` (aluno confirmou que tem Instagram)**
+
+Continue direto para o PASSO 0 sem perguntar nada.
+
+---
+
 ### PASSO 0. Detectar Estado
 
 Antes de qualquer pergunta, leia em paralelo:

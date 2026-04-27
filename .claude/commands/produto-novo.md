@@ -178,7 +178,7 @@ Qual é a sua especialidade? O que você ensina ou entrega para as pessoas?
 
 #### Passo 2. Pesquisa de mercado completa (UMA vez, agora)
 
-Com a especialidade informada, rode imediatamente a **pesquisa de mercado completa** usando WebSearch. Esta é a pesquisa definitiva, que alimentará as 50 ideias, a sugestão de preço e todo o fluxo do `/produto-concepcao`. Não refaça em nenhuma etapa posterior.
+Com a especialidade informada, execute a SKILL `pesquisa-mercado` completa (9 eixos: tamanho de mercado, concorrentes, faixa de preço, público-alvo, objeções reais, assuntos quentes, YouTube Top 10, biblioteca de anúncios e riscos regulatórios). Esta é a pesquisa definitiva, que alimentará as 50 ideias, a sugestão de preço e todo o fluxo do `/produto-concepcao`. Não refaça em nenhuma etapa posterior.
 
 Avise o aluno:
 ```
@@ -186,15 +186,12 @@ Vou fazer uma pesquisa completa do mercado de {nicho} agora.
 Isso leva alguns minutos e vai embasar todas as sugestões daqui em diante.
 ```
 
-Pesquise e colete obrigatoriamente:
-- Dados gerais do mercado (tamanho estimado, crescimento, tendências)
-- Mínimo 10 concorrentes com: nome, link do Instagram, link da página de vendas, faixa de preço praticada
-- Oportunidades identificadas (ângulos pouco explorados, nichos adjacentes, formatos em alta)
-- Cuidados e riscos do nicho (saturação, regulatórios, promessas problemáticas)
-- Resumo das reclamações do Reclame Aqui dos principais produtores (problemas reais de entrega, resultado, suporte)
-- Público real (demografias, comportamento de compra, canais de consumo)
+Use como inputs para a SKILL:
+- **Nicho:** a especialidade informada pelo aluno
+- **Quadro:** ainda não definido (use a especialidade como promessa inicial)
+- **Formato pretendido:** ainda não definido
 
-Salve o resultado em um arquivo temporário que será movido para `meus-produtos/{slug}/pesquisa-mercado.md` assim que o produto for registrado.
+Salve o resultado diretamente em `meus-produtos/.pesquisa-temp.md` (o arquivo será movido para o caminho definitivo `meus-produtos/{slug}/pesquisa-mercado.md` no Passo 5, após o produto ser registrado).
 
 #### Passo 3. Gerar 50 ideias de infoprodutos
 

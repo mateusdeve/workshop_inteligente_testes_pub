@@ -459,6 +459,26 @@ button{font-family:inherit;}
 .regra{margin-top:var(--s-5);padding:var(--s-4) var(--s-5);border:1px solid var(--neon-deep);background:rgba(196,255,94,0.04);font-family:var(--font-mono);font-size:11px;color:var(--text-hi);letter-spacing:.02em;line-height:1.7;font-weight:300;}
 .regra::before{content:"REGRA \00b7 ";color:var(--neon);letter-spacing:.2em;font-weight:500;}
 
+/* YouTube cards (pesquisa de mercado) */
+.yt-video-card{border-top:1px solid var(--line-1);overflow:hidden;}
+.yt-video-header{display:flex;align-items:center;gap:var(--s-4);padding:var(--s-4) 0;cursor:pointer;user-select:none;}
+.yt-video-header:hover .yt-title{color:var(--neon);}
+.yt-rank{font-family:var(--font-mono);font-size:11px;color:var(--text-faint);width:20px;flex-shrink:0;text-align:right;}
+.yt-thumb{width:72px;height:40px;border-radius:3px;border:1px solid var(--line-1);display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--text-faint);flex-shrink:0;font-family:var(--font-mono);}
+.yt-info{flex:1;min-width:0;}
+.yt-title{font-size:13px;color:var(--text-hi);font-weight:400;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;transition:color .15s;}
+.yt-canal{font-family:var(--font-mono);font-size:10px;color:var(--text-faint);letter-spacing:.04em;margin-top:2px;}
+.yt-meta{font-size:11px;color:var(--text-dim);margin-top:3px;display:flex;align-items:center;gap:var(--s-3);}
+.yt-toggle{font-size:10px;color:var(--text-faint);flex-shrink:0;transition:transform .2s;margin-left:auto;}
+.yt-open .yt-toggle{transform:rotate(180deg);}
+.yt-detail{display:none;padding:var(--s-3) 0 var(--s-5) calc(20px + var(--s-4) + 72px + var(--s-4));border-top:1px solid var(--line-1);}
+.yt-open .yt-detail{display:block;}
+.yt-section-title{font-family:var(--font-mono);font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--text-faint);margin:var(--s-4) 0 var(--s-2);}
+.yt-comment{font-size:12px;color:var(--text-mid);font-style:italic;padding:var(--s-2) 0;border-bottom:1px solid var(--line-1);font-weight:300;line-height:1.55;}
+.yt-comment:last-of-type{border-bottom:0;}
+.yt-insight{font-size:12px;color:var(--text-mid);line-height:1.55;font-weight:300;margin-bottom:var(--s-2);}
+.yt-thumb-detail{font-size:12px;color:var(--text-mid);line-height:1.55;font-weight:300;}
+
 @media(max-width:1100px){
   .stage{grid-template-columns:1fr;}
   .stage-head{border-right:0;border-bottom:1px solid var(--line-1);padding:0 0 var(--s-4);}
@@ -525,6 +545,12 @@ def _escape(value: str | None) -> str:
     if not value:
         return ""
     return html.escape(str(value), quote=True)
+
+
+def _md(value: str | None) -> str:
+    """Escapa HTML e converte **bold** para <strong>."""
+    escaped = _escape(value)
+    return re.sub(r'\*\*(.+?)\*\*', r'<strong>\1</strong>', escaped)
 
 
 def _placeholder(proxima: str) -> str:
@@ -697,7 +723,7 @@ def build_shell(nome_produto: str, owner: str = "", timestamp: str = "") -> str:
 # ----- helpers de render -----
 
 def _ul(items: Iterable[str], cls: str = "acc-list") -> str:
-    lis = "".join(f"<li>{_escape(i)}</li>" for i in items if i)
+    lis = "".join(f"<li>{_md(i)}</li>" for i in items if i)
     if not lis:
         return '<p class="card-body" style="margin-top:var(--s-3)">Nenhum item ainda.</p>'
     return f'<ul class="{cls}">{lis}</ul>'
@@ -705,7 +731,7 @@ def _ul(items: Iterable[str], cls: str = "acc-list") -> str:
 
 def _acc(cat_cls: str, titulo: str, meta: str, items: list[str], open_: bool = False) -> str:
     open_cls = " open" if open_ else ""
-    lis = "".join(f"<li>{_escape(i)}</li>" for i in items)
+    lis = "".join(f"<li>{_md(i)}</li>" for i in items)
     return (
         f'<div class="acc{open_cls} {cat_cls}">'
         '<div class="acc-head" onclick="toggleAcc(this)">'
@@ -921,7 +947,7 @@ def render_identidade_produto(dados: dict) -> str:
 
     args_html = ""
     if argumentos:
-        lis = "".join(f"<li>{_escape(a)}</li>" for a in argumentos)
+        lis = "".join(f"<li>{_md(a)}</li>" for a in argumentos)
         args_html = (
             '<div class="section-h">Argumentos incontestaveis</div>'
             f'<ul class="acc-list" style="padding-left:0;margin-bottom:var(--s-8)">{lis}</ul>'
@@ -1004,7 +1030,7 @@ def render_identidade_consumidor(dados: dict) -> str:
         )
 
     if paliativos:
-        lis = "".join(f"<li>{_escape(p)}</li>" for p in paliativos)
+        lis = "".join(f"<li>{_md(p)}</li>" for p in paliativos)
         blocos.append(
             '<div class="section-h">Paliativos (concorrentes do mercado)</div>'
             f'<ul class="acc-list" style="margin-bottom:var(--s-8)">{lis}</ul>'
@@ -1117,7 +1143,7 @@ def render_pesquisa(dados: dict) -> str:
 
     opo_html = ""
     if oportunidades:
-        lis = "".join(f"<li>{_escape(o)}</li>" for o in oportunidades)
+        lis = "".join(f"<li>{_md(o)}</li>" for o in oportunidades)
         opo_html = (
             '<div class="section-h">Oportunidades identificadas</div>'
             f'<ul class="acc-list" style="margin-bottom:var(--s-8)">{lis}</ul>'
@@ -1126,7 +1152,7 @@ def render_pesquisa(dados: dict) -> str:
     cuid_rec = ""
     if cuidados or reclamacoes:
         def _col(titulo, items):
-            lis = "".join(f"<li>{_escape(i)}</li>" for i in items)
+            lis = "".join(f"<li>{_md(i)}</li>" for i in items)
             return (
                 f'<div class="card"><span class="card-label">{_escape(titulo)}</span>'
                 f'<ul class="acc-list" style="margin-top:var(--s-3)">{lis}</ul></div>'
@@ -1172,17 +1198,194 @@ def render_pesquisa(dados: dict) -> str:
 
     fontes_html = ""
     if fontes:
-        lis = "".join(f"<li>{_escape(f)}</li>" for f in fontes)
+        lis = "".join(f"<li>{_md(f)}</li>" for f in fontes)
         fontes_html = (
             '<div class="section-h">Fontes consultadas</div>'
             f'<ul class="acc-list">{lis}</ul>'
         )
+
+    # publico-alvo real
+    pa_html = ""
+    pa = dados.get("publico_alvo") or {}
+    if pa:
+        def _pa_col(titulo: str, items: list) -> str:
+            if not items:
+                return ""
+            lis = "".join(f"<li>{_md(i)}</li>" for i in items)
+            return (
+                f'<div><span class="card-label">{_escape(titulo)}</span>'
+                f'<ul class="acc-list" style="margin-top:var(--s-3);grid-template-columns:1fr">{lis}</ul></div>'
+            )
+        raw = pa.get("raw") or []
+        demo = pa.get("demo") or []
+        comport = pa.get("comportamento") or []
+        consci = pa.get("consciencia") or []
+        if raw:
+            lis = "".join(f"<li>{_md(i)}</li>" for i in raw)
+            pa_html = (
+                '<div class="section-h">Publico-alvo real</div>'
+                f'<ul class="acc-list" style="margin-bottom:var(--s-8)">{lis}</ul>'
+            )
+        elif any([demo, comport, consci]):
+            cols = _pa_col("Perfil demografico", demo) + _pa_col("Comportamento", comport) + _pa_col("Nivel de consciencia (Schwartz)", consci)
+            pa_html = (
+                '<div class="section-h">Publico-alvo real</div>'
+                f'<div class="grid grid-2" style="margin-bottom:var(--s-8)">{cols}</div>'
+            )
+
+    # youtube top 10
+    yt_html = ""
+    yt_videos = dados.get("youtube") or []
+    if yt_videos:
+        cards = ""
+        for i, v in enumerate(yt_videos[:10]):
+            link = (v.get("link") or "").strip()
+            link_html = (
+                f'<a href="{_escape(link)}" target="_blank" rel="noopener" '
+                f'style="font-family:var(--font-mono);font-size:9px;color:var(--neon);letter-spacing:.1em" '
+                f'onclick="event.stopPropagation()">&#8599;</a>'
+            ) if link else ""
+            views = _escape(v.get("views") or "")
+            meta_parts = []
+            if views:
+                meta_parts.append(
+                    f'<span style="font-family:var(--font-mono);font-size:10px;color:var(--neon)">{views}</span>'
+                )
+            if link_html:
+                meta_parts.append(link_html)
+            meta_html = " ".join(meta_parts)
+            header = (
+                f'<div class="yt-video-header" onclick="this.closest(\'.yt-video-card\').classList.toggle(\'yt-open\')">'
+                f'<div class="yt-rank">{i + 1}</div>'
+                f'<div class="yt-thumb">&#9654;</div>'
+                f'<div class="yt-info">'
+                f'<div class="yt-title">{_escape(v.get("titulo") or "")}</div>'
+                f'<div class="yt-canal">{_escape(v.get("canal") or "")}</div>'
+                f'<div class="yt-meta">{meta_html}</div>'
+                f'</div><span class="yt-toggle">&#9662;</span></div>'
+            )
+            detail_parts = []
+            for c in (v.get("comentarios") or [])[:3]:
+                detail_parts.append(f'<div class="yt-comment">&ldquo;{_escape(c)}&rdquo;</div>')
+            if detail_parts:
+                detail_parts.insert(0, '<div class="yt-section-title">Comentarios</div>')
+            if v.get("angulo"):
+                detail_parts.append(
+                    f'<div class="yt-section-title">Angulo do titulo</div>'
+                    f'<div class="yt-insight">{_escape(v["angulo"])}</div>'
+                )
+            if v.get("lacuna"):
+                detail_parts.append(
+                    f'<div class="yt-section-title">Lacuna para o produto</div>'
+                    f'<div class="yt-insight">{_escape(v["lacuna"])}</div>'
+                )
+            thumb = v.get("thumbnail") or {}
+            if thumb:
+                td = []
+                for k, lbl in [("cores", "Cores"), ("expressao", "Expressao"), ("texto", "Texto"), ("elementos", "Elementos"), ("composicao", "Composicao")]:
+                    if thumb.get(k):
+                        td.append(
+                            f'<div class="yt-thumb-detail">'
+                            f'<span style="color:var(--text-faint)">{lbl}:</span> {_escape(thumb[k])}</div>'
+                        )
+                if td:
+                    detail_parts.append(f'<div class="yt-section-title">Thumbnail</div>{"".join(td)}')
+            cards += (
+                f'<div class="yt-video-card">{header}'
+                f'<div class="yt-detail">{"".join(detail_parts)}</div></div>'
+            )
+        yt_html = (
+            '<div class="section-h">Top 10 videos do YouTube</div>'
+            f'<div style="margin-bottom:var(--s-8)">{cards}</div>'
+        )
+
+    # Assuntos Quentes e Ângulos Virais
+    assuntos_html = ""
+    assuntos = dados.get("assuntos_quentes") or {}
+    if assuntos and any(assuntos.values()):
+        termos_aq = assuntos.get("termos") or []
+        virais_aq = assuntos.get("virais") or []
+        ganchos_aq = assuntos.get("ganchos") or []
+        partes_aq = []
+        if termos_aq:
+            lis = "".join(f"<li>{_md(t)}</li>" for t in termos_aq)
+            partes_aq.append(
+                '<span class="card-label">Termos em alta</span>'
+                f'<ul class="acc-list" style="margin-bottom:var(--s-7)">{lis}</ul>'
+            )
+        if ganchos_aq:
+            lis = "".join(f"<li>{_md(g)}</li>" for g in ganchos_aq)
+            partes_aq.append(
+                '<span class="card-label">Ganchos que performam</span>'
+                f'<ul class="acc-list" style="margin-bottom:var(--s-7)">{lis}</ul>'
+            )
+        if virais_aq:
+            lis = "".join(f"<li>{_md(v)}</li>" for v in virais_aq)
+            partes_aq.append(
+                '<span class="card-label">Conteúdos virais recentes</span>'
+                f'<ul class="acc-list">{lis}</ul>'
+            )
+        if partes_aq:
+            assuntos_html = (
+                '<div class="section-h">Assuntos quentes e ângulos virais</div>'
+                + "".join(partes_aq)
+                + '<div style="margin-bottom:var(--s-8)"></div>'
+            )
+
+    # Biblioteca de Anúncios
+    bibl_html = ""
+    bibl = dados.get("biblioteca_anuncios") or {}
+    if bibl and any(bibl.values()):
+        headlines_bl = bibl.get("headlines") or []
+        padroes_of = bibl.get("padroes_oferta") or []
+        criativos_bl = bibl.get("criativos") or []
+        obs_bl = bibl.get("observacoes") or []
+        col_esq = ""
+        col_dir = ""
+        if headlines_bl:
+            lis = "".join(f"<li>{_md(h)}</li>" for h in headlines_bl)
+            col_esq += (
+                '<span class="card-label">Padrões de headline</span>'
+                f'<ul class="acc-list" style="grid-template-columns:1fr;margin-bottom:var(--s-5)">{lis}</ul>'
+            )
+        if padroes_of:
+            lis = "".join(f"<li>{_md(p)}</li>" for p in padroes_of)
+            col_esq += (
+                '<span class="card-label">Padrões de oferta</span>'
+                f'<ul class="acc-list" style="grid-template-columns:1fr">{lis}</ul>'
+            )
+        if criativos_bl:
+            lis = "".join(f"<li>{_md(c)}</li>" for c in criativos_bl)
+            col_dir += (
+                '<span class="card-label">Criativos ativos no nicho</span>'
+                f'<ul class="acc-list" style="grid-template-columns:1fr;margin-bottom:var(--s-5)">{lis}</ul>'
+            )
+        if obs_bl:
+            lis = "".join(f"<li>{_md(o)}</li>" for o in obs_bl)
+            col_dir += (
+                '<span class="card-label">Observações</span>'
+                f'<ul class="acc-list" style="grid-template-columns:1fr">{lis}</ul>'
+            )
+        if col_esq or col_dir:
+            if col_esq and col_dir:
+                content_bl = f'<div class="grid grid-2"><div>{col_esq}</div><div>{col_dir}</div></div>'
+            else:
+                content_bl = f'<div>{col_esq}{col_dir}</div>'
+            bibl_html = (
+                '<div class="section-h">Biblioteca de anúncios</div>'
+                + content_bl
+                + '<div style="margin-bottom:var(--s-8)"></div>'
+            )
 
     miolo = (
         f'<div class="kpi-grid">{kpis_html}</div>'
         + opo_html
         + cuid_rec
         + conc_html
+        + pa_html
+        + yt_html
+        + assuntos_html
+        + bibl_html
         + fontes_html
     )
     return f"<!-- SECTION:pesquisa -->\n{miolo}\n<!-- /SECTION:pesquisa -->"
@@ -1237,7 +1440,7 @@ def render_comercial_playbook(dados: dict) -> str:
         "15. Checklist de atendimento",
         "16. Dicionario do Comercial",
     ]
-    lis = "".join(f"<li>{_escape(b)}</li>" for b in blocos)
+    lis = "".join(f"<li>{_md(b)}</li>" for b in blocos)
     blocos_card = (
         '<div class="section-h">Blocos cobertos</div>'
         f'<ul class="acc-list">{lis}</ul>'

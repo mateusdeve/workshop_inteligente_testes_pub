@@ -68,6 +68,45 @@ def parse_section_fuzzy(text, *keywords, level=2):
             return m.group(1).strip()
     return ""
 
+def parse_youtube_rich(sec_yt):
+    """Parse formato ### Vídeo X em lista de dicts ricos (comentarios, thumbnail, lacuna)."""
+    videos = []
+    blocks = re.split(r'\n###\s+V[íi]deo\s+\d+', "\n" + sec_yt, flags=re.IGNORECASE)
+    for block in blocks:
+        if not block.strip():
+            continue
+        v = {}
+        m = re.search(r'\*\*T[ií]tulo:\*\*\s*(.+)', block)
+        v["titulo"] = m.group(1).strip() if m else ""
+        m = re.search(r'\*\*Canal:\*\*\s*(.+)', block)
+        v["canal"] = m.group(1).strip() if m else ""
+        m = re.search(r'\*\*Link:\*\*\s*(https?://\S+)', block)
+        v["link"] = m.group(1).strip().rstrip(").,") if m else ""
+        m = re.search(r'\*\*Visualiza[çc][oõ]es:\*\*\s*(.+)', block, re.IGNORECASE)
+        v["views"] = m.group(1).strip() if m else ""
+        m = re.search(r'\*\*Data de publica[çc][aã]o:\*\*\s*(.+)', block, re.IGNORECASE)
+        v["data"] = m.group(1).strip() if m else ""
+        m = re.search(r'\*\*[Âa]ngulo.*?:\*\*\s*(.+)', block)
+        v["angulo"] = m.group(1).strip() if m else ""
+        m = re.search(r'\*\*Lacuna.*?:\*\*\s*(.+)', block)
+        v["lacuna"] = m.group(1).strip() if m else ""
+        v["comentarios"] = [c.strip() for c in re.findall(r'"([^"]{10,200})"', block)][:5]
+        thumb = {}
+        for field, pat in [
+            ("cores", r'- \*?Cores[:\*]*\s*(.+)'),
+            ("expressao", r'- \*?Express[aã]o[:\*]*\s*(.+)'),
+            ("texto", r'- \*?Texto em destaque[:\*]*\s*(.+)'),
+            ("elementos", r'- \*?Elementos visuais[:\*]*\s*(.+)'),
+            ("composicao", r'- \*?Composi[çc][aã]o[:\*]*\s*(.+)'),
+        ]:
+            m2 = re.search(pat, block, re.IGNORECASE)
+            if m2:
+                thumb[field] = m2.group(1).strip()
+        v["thumbnail"] = thumb
+        if v["titulo"] or v["canal"]:
+            videos.append(v)
+    return videos
+
 def parse_bullet_items(text):
     """Extrai itens de lista markdown (- ou 1. ou *)."""
     items = []
@@ -305,31 +344,71 @@ def parse_pesquisa(text):
                 valor = re.sub(r'\(.+\)', '', val).strip()
                 d["kpis"][key] = {"valor": valor, "trend": trend}
     else:
-        sec_tam = parse_section_fuzzy(text, "Tamanho", "Mercado")
-        d["kpis"] = extract_kpis_from_text(sec_tam) if sec_tam else {}
+        d["kpis"] = {}
+        sec_tam = parse_section_fuzzy(text, "Tamanho", "Saúde do Mercado", "Tamanho e Saúde")
+        if sec_tam:
+            m = re.search(r'R\$\s*([\d,\.]+\s*(?:bilh[oõ]es?|milh[oõ]es?|bi|mi)\b)', sec_tam, re.IGNORECASE)
+            if m:
+                d["kpis"]["tamanho_mercado"] = {"valor": f"R$ {m.group(1).strip()}", "trend": ""}
+            m = re.search(r'crescimento[^.]{0,60}?([\d,\.]+%)', sec_tam, re.IGNORECASE)
+            if m:
+                d["kpis"]["crescimento_anual"] = {"valor": m.group(1), "trend": "crescimento"}
+        sec_preco = parse_section_fuzzy(text, "Faixa de Preço", "Faixa de Preco", "Preços")
+        if sec_preco:
+            m = re.search(r'[Ff]aixa mais comum[^:]*:\s*(R\$\s*[\d.,]+(?:\s*a\s*R\$\s*[\d.,]+)?)', sec_preco)
+            if m:
+                d["kpis"]["ticket_medio"] = {"valor": m.group(1).strip(), "trend": "faixa mais comum"}
 
     # oportunidades
     sec_op = parse_section_fuzzy(text, "Oportunidades")
     d["oportunidades"] = parse_bullet_items(sec_op)
 
-    # concorrentes
+    # concorrentes — detecta colunas pelo cabeçalho da tabela
     d["concorrentes"] = []
     sec_conc = parse_section_fuzzy(text, "Principais Concorrentes", "Concorrentes")
-    table_rows = re.findall(r'\|\s*([^|]+)\s*\|\s*([^|]+)\s*\|\s*([^|]+)\s*\|\s*([^|]+)\s*\|', sec_conc)
-    for row in table_rows:
-        nome = row[0].strip()
-        if nome.startswith("---") or nome.lower() == "nome":
-            continue
-        d["concorrentes"].append({
-            "nome": nome,
-            "canal": row[1].strip(),
-            "preco": row[2].strip(),
-            "obs": row[3].strip()
-        })
+    if sec_conc:
+        conc_lines = [ln.strip() for ln in sec_conc.splitlines() if ln.strip().startswith("|")]
+        if len(conc_lines) >= 2:
+            hdr = [h.strip().lower() for h in conc_lines[0].strip("|").split("|")]
+            def _col(*names):
+                for n in names:
+                    for i, h in enumerate(hdr):
+                        if n in h:
+                            return i
+                return None
+            idx_nome = _col("nome", "concorrente", "marca")
+            idx_preco = _col("preço", "preco", "valor")
+            idx_obs = _col("diferencial", "entregáveis", "entregaveis", "observ")
+            idx_canal = _col("instagram", "insta")
+            idx_link = _col("link da oferta", "pagina", "página", "site", "link")
+            idx_prom = _col("promessa")
+            if idx_nome is not None:
+                for ln in conc_lines[2:]:
+                    cells = [c.strip() for c in ln.strip("|").split("|")]
+                    def _cell(idx, _cells=cells):
+                        if idx is None or idx >= len(_cells):
+                            return ""
+                        return re.sub(r'\*+', '', _cells[idx]).strip()
+                    nome = _cell(idx_nome)
+                    if not nome or re.match(r'^[-:\s]+$', nome):
+                        continue
+                    d["concorrentes"].append({
+                        "nome": nome,
+                        "canal": _cell(idx_canal) or _cell(idx_link),
+                        "preco": _cell(idx_preco),
+                        "obs": _cell(idx_obs) or _cell(idx_prom),
+                    })
 
     # reclamacoes (testar keywords mais especificas primeiro)
-    sec_recl = parse_section_fuzzy(text, "Reclame Aqui", "Reclamações Reais", "Reclamações dos Alunos", "Reclamações", "Reclamacoes")
-    d["reclamacoes"] = parse_bullet_items(sec_recl)
+    sec_recl = parse_section_fuzzy(text, "Reclame Aqui", "Reclamações Reais", "Reclamações dos Alunos", "Reclamações", "Reclamacoes", "Objeções Reais")
+    recl = parse_bullet_items(sec_recl)
+    # fallback: extrair coluna "Objeção" de tabela markdown (formato da skill pesquisa-mercado)
+    if not recl and sec_recl:
+        for row in re.findall(r'^\|\s*\d+\s*\|\s*([^|]+)', sec_recl, re.MULTILINE):
+            val = row.strip().strip('"')
+            if val and not val.startswith('-'):
+                recl.append(val)
+    d["reclamacoes"] = recl
 
     # riscos
     sec_risk = parse_section_fuzzy(text, "Riscos", "Cuidados")
@@ -343,22 +422,25 @@ def parse_pesquisa(text):
     sec_ads = parse_section_fuzzy(text, "Padrões de Anúncio", "Padroes de Anuncio", "Anúncios que Performam")
     d["padroes_anuncio"] = parse_bullet_items(sec_ads) if sec_ads else []
 
-    # youtube top 10 (keywords especificas pra nao casar com "Oportunidade no TikTok" que menciona YouTube)
+    # youtube top 10 — tenta formato rico ### Vídeo X primeiro, tabela como fallback
     d["youtube"] = []
-    sec_yt = parse_section_fuzzy(text, "Top 10 Vídeos", "Top 10 Videos", "Top 10 YouTube")
+    sec_yt = parse_section_fuzzy(text, "Top 10 Vídeos", "Top 10 Videos", "Top 10 YouTube", "YouTube")
     if sec_yt:
-        yt_rows = re.findall(r'\|\s*([^|]+)\s*\|\s*([^|]+)\s*\|\s*([^|]+)\s*\|\s*([^|]+)\s*\|\s*([^|]+)\s*\|', sec_yt)
-        for row in yt_rows:
-            titulo = row[0].strip()
-            if titulo.startswith("---") or titulo.lower() in ("titulo", "título", "ranking", "#"):
-                continue
-            d["youtube"].append({
-                "titulo": titulo,
-                "canal": row[1].strip(),
-                "views": row[2].strip(),
-                "link": row[3].strip(),
-                "thumb_texto": row[4].strip() if len(row) > 4 else ""
-            })
+        rich = parse_youtube_rich(sec_yt)
+        if rich:
+            d["youtube"] = rich
+        else:
+            yt_rows = re.findall(r'\|\s*([^|]+)\s*\|\s*([^|]+)\s*\|\s*([^|]+)\s*\|\s*([^|]+)\s*\|\s*([^|]+)\s*\|', sec_yt)
+            for row in yt_rows:
+                titulo = row[0].strip()
+                if titulo.startswith("---") or titulo.lower() in ("titulo", "título", "ranking", "#"):
+                    continue
+                d["youtube"].append({
+                    "titulo": titulo, "canal": row[1].strip(),
+                    "views": row[2].strip(), "link": row[3].strip(),
+                    "thumb_texto": row[4].strip() if len(row) > 4 else "",
+                    "comentarios": [], "thumbnail": {}, "angulo": "", "lacuna": "",
+                })
 
     # alertas regulatorios
     sec_alert = parse_section_fuzzy(text, "Alertas Regulatórios", "Alertas", "Regulatórios")
@@ -367,6 +449,48 @@ def parse_pesquisa(text):
     # fontes
     sec_fontes = parse_section_fuzzy(text, "Fontes", "Fontes Consultadas")
     d["fontes"] = parse_bullet_items(sec_fontes) if sec_fontes else []
+
+    # Público-Alvo Real
+    sec_pa = parse_section_fuzzy(text, "4. Público-Alvo Real", "4. Publico-Alvo Real", "Público-Alvo Real", "Publico-Alvo Real")
+    publico_alvo: dict = {}
+    if sec_pa:
+        demo = parse_bullet_items(parse_section_fuzzy(sec_pa, "Demografic", "Perfil", level=3))
+        comport = parse_bullet_items(parse_section_fuzzy(sec_pa, "Comportamento", level=3))
+        consci = parse_bullet_items(parse_section_fuzzy(sec_pa, "Consciência", "Nivel de Consciencia", "Schwartz", level=3))
+        publico_alvo = {"demo": demo, "comportamento": comport, "consciencia": consci}
+        if not any(publico_alvo.values()):
+            publico_alvo = {"raw": parse_bullet_items(sec_pa)}
+    d["publico_alvo"] = publico_alvo
+
+    # Assuntos Quentes e Ângulos Virais (seção 6)
+    sec_assuntos = parse_section_fuzzy(text, "Assuntos Quentes", "Ângulos Virais", "Angulos Virais")
+    assuntos_quentes: dict = {}
+    if sec_assuntos:
+        termos_sub = parse_section_fuzzy(sec_assuntos, "Termos em Alta", "Termos em alta", level=3)
+        virais_sub = parse_section_fuzzy(sec_assuntos, "Conteúdos virais", "Conteudos virais", level=3)
+        ganchos_sub = parse_section_fuzzy(sec_assuntos, "Ganchos", level=3)
+        assuntos_quentes = {
+            "termos": parse_bullet_items(termos_sub) if termos_sub else [],
+            "virais": parse_bullet_items(virais_sub) if virais_sub else [],
+            "ganchos": parse_bullet_items(ganchos_sub) if ganchos_sub else [],
+        }
+    d["assuntos_quentes"] = assuntos_quentes
+
+    # Biblioteca de Anúncios (seção 8)
+    sec_bibl = parse_section_fuzzy(text, "Biblioteca de Anúncios", "Biblioteca de Anuncios")
+    biblioteca_anuncios: dict = {}
+    if sec_bibl:
+        headlines_sub = parse_section_fuzzy(sec_bibl, "Padrões de headline", "Padroes de headline", level=3)
+        oferta_sub = parse_section_fuzzy(sec_bibl, "Padrões de oferta", "Padroes de oferta", level=3)
+        criativos_sub = parse_section_fuzzy(sec_bibl, "Criativos ativos", level=3)
+        obs_sub = parse_section_fuzzy(sec_bibl, "Observações", "Observacoes", level=3)
+        biblioteca_anuncios = {
+            "headlines": parse_bullet_items(headlines_sub) if headlines_sub else [],
+            "padroes_oferta": parse_bullet_items(oferta_sub) if oferta_sub else [],
+            "criativos": parse_bullet_items(criativos_sub) if criativos_sub else [],
+            "observacoes": parse_bullet_items(obs_sub) if obs_sub else [],
+        }
+    d["biblioteca_anuncios"] = biblioteca_anuncios
 
     return d
 
@@ -472,9 +596,13 @@ def build_baldes_html(baldes):
 def build_pills(items, badge_class="badge-green"):
     return "".join(f'<span class="badge {badge_class}">{esc(item)}</span>\n' for item in items)
 
+def _md_bold(text):
+    """Converte **texto** para <strong>texto</strong> (após esc())."""
+    return re.sub(r'\*\*(.+?)\*\*', r'<strong>\1</strong>', text)
+
 def build_bullet_list(items, style=""):
     style_attr = f' style="{style}"' if style else ""
-    return "".join(f'<li{style_attr}>{esc(item)}</li>\n' for item in items)
+    return "".join(f'<li{style_attr}>{_md_bold(esc(item))}</li>\n' for item in items)
 
 def build_mantras_html(mantras):
     if not mantras:
@@ -607,8 +735,8 @@ def build_bar_chart_svg(concorrentes, preco_produto):
         svg += f'  <text x="{x + bar_w//2}" y="{y - 5}" font-size="11" fill="#374151" text-anchor="middle" font-weight="600">R${val}</text>\n'
         svg += f'  <text x="{x + bar_w//2}" y="215" font-size="10" fill="#6b7280" text-anchor="middle">{esc(cat)}</text>\n'
         if is_product:
-            svg += f'  <rect x="{x - 5}" y="{y - 25}" width="60" height="16" rx="8" fill="#dcfce7"/>\n'
-            svg += f'  <text x="{x + bar_w//2}" y="{y - 14}" font-size="9" fill="#16a34a" text-anchor="middle" font-weight="700">SEU PRODUTO</text>\n'
+            svg += f'  <rect x="{x - 5}" y="{y - 44}" width="60" height="16" rx="8" fill="#dcfce7"/>\n'
+            svg += f'  <text x="{x + bar_w//2}" y="{y - 33}" font-size="9" fill="#16a34a" text-anchor="middle" font-weight="700">SEU PRODUTO</text>\n'
     svg += '</svg>'
     return svg
 
@@ -647,7 +775,7 @@ def build_pesquisa_html(pesq, perfil):
     # oportunidades
     opp_html = ""
     for i, opp in enumerate(pesq.get("oportunidades", []), 1):
-        opp_html += f'<li class="opp-item"><div class="opp-num">{i}</div><div class="opp-text">{esc(opp)}</div></li>\n'
+        opp_html += f'<li class="opp-item"><div class="opp-num">{i}</div><div class="opp-text">{_md_bold(esc(opp))}</div></li>\n'
 
     # concorrentes top 5
     cores_avatar = ["#22c55e", "#1d4ed8", "#7c3aed", "#d97706", "#6b7280"]
@@ -792,15 +920,110 @@ def build_pesquisa_html(pesq, perfil):
         elif left or right:
             blocks.append(f'<div style="margin-bottom:16px">{left}{right}</div>')
 
-    # YouTube (so se tem videos)
+    # YouTube — cards expandiveis com analise completa
     if yt_videos:
-        blocks.append(f'''<div class="card" style="margin-bottom:16px">
-      <div class="card-label">Top 10 V\u00eddeos do YouTube no Nicho</div>
-      <div class="table-wrap"><table style="width:100%">
-        <thead><tr><th style="width:40px">#</th><th style="width:100px">Thumb</th><th>T\u00edtulo + Canal</th><th style="width:110px">Views</th><th style="width:60px">Link</th></tr></thead>
-        <tbody>{yt_tabela}</tbody>
-      </table></div>
-    </div>''')
+        cards_html = ""
+        for i, v in enumerate(yt_videos[:10]):
+            cores = yt_cores[i % len(yt_cores)]
+            c1, c2 = cores.split(",")
+            thumb_label = esc(v.get("thumb_texto") or v.get("titulo", "")[:20])
+            link = v.get("link", "") or "#"
+            link_html = f'<a href="{esc(link)}" target="_blank" rel="noopener" style="color:var(--primary);font-size:11px" onclick="event.stopPropagation()">&#8599; Assistir</a>' if link != "#" else ""
+            meta = ""
+            if v.get("views"):
+                meta += f'<span class="badge badge-green">{esc(v["views"])}</span> '
+            if v.get("data"):
+                meta += f'<span style="font-size:10px;color:var(--text-3)">{esc(v["data"])}</span>'
+            header = (
+                f'<div class="yt-video-header" onclick="this.closest(\'.yt-video-card\').classList.toggle(\'yt-open\')">'
+                f'<div class="yt-rank">{i+1}</div>'
+                f'<div class="yt-thumb" style="background:linear-gradient(135deg,{c1},{c2})">{thumb_label[:28]}</div>'
+                f'<div class="yt-info">'
+                f'<div class="yt-title">{esc(v.get("titulo",""))}</div>'
+                f'<div class="yt-canal">{esc(v.get("canal",""))}</div>'
+                f'<div class="yt-meta">{meta}{link_html}</div>'
+                f'</div><span class="yt-toggle">&#9662;</span></div>'
+            )
+            detail_parts = []
+            if v.get("comentarios"):
+                coms = "".join(f'<div class="yt-comment">&ldquo;{esc(c)}&rdquo;</div>' for c in v["comentarios"])
+                detail_parts.append(f'<div class="yt-section-title">Comentarios em destaque</div>{coms}')
+            if v.get("angulo"):
+                detail_parts.append(f'<div class="yt-section-title">Angulo do titulo</div><div class="yt-insight" style="background:#eff6ff;color:#1e40af">{esc(v["angulo"])}</div>')
+            if v.get("lacuna"):
+                detail_parts.append(f'<div class="yt-section-title">Lacuna para o produto</div><div class="yt-insight">{esc(v["lacuna"])}</div>')
+            thumb = v.get("thumbnail", {})
+            if thumb:
+                td = []
+                if thumb.get("cores"): td.append(f"<strong>Cores:</strong> {esc(thumb['cores'])}")
+                if thumb.get("expressao"): td.append(f"<strong>Expressao:</strong> {esc(thumb['expressao'])}")
+                if thumb.get("texto"): td.append(f"<strong>Texto:</strong> {esc(thumb['texto'])}")
+                if thumb.get("elementos"): td.append(f"<strong>Elementos:</strong> {esc(thumb['elementos'])}")
+                if thumb.get("composicao"): td.append(f"<strong>Composicao:</strong> {esc(thumb['composicao'])}")
+                if td:
+                    detail_parts.append(f'<div class="yt-section-title">Analise da thumbnail</div><div class="yt-thumb-detail">{"<br>".join(td)}</div>')
+            detail = f'<div class="yt-detail">{"".join(detail_parts)}</div>' if detail_parts else ""
+            cards_html += f'<div class="yt-video-card">{header}{detail}</div>\n'
+        blocks.append(f'<div class="card" style="margin-bottom:16px"><div class="card-label">Top 10 V\u00eddeos do YouTube no Nicho</div><div style="margin-top:12px">{cards_html}</div></div>')
+
+    # Público-Alvo Real
+    pa = pesq.get("publico_alvo") or {}
+    if pa:
+        raw = pa.get("raw") or []
+        demo = pa.get("demo") or []
+        comport = pa.get("comportamento") or []
+        consci = pa.get("consciencia") or []
+        if raw:
+            lis = build_bullet_list(raw)
+            blocks.append(f'<div class="card" style="margin-bottom:16px"><div class="card-label">P\u00fablico-Alvo Real</div><ul class="bullet-list" style="margin-top:12px">{lis}</ul></div>')
+        elif any([demo, comport, consci]):
+            left = f'<div class="card"><div class="card-label">Perfil Demogr\u00e1fico</div><ul class="bullet-list" style="margin-top:12px">{build_bullet_list(demo)}</ul></div>' if demo else ''
+            mid = f'<div class="card"><div class="card-label">Comportamento</div><ul class="bullet-list" style="margin-top:12px">{build_bullet_list(comport)}</ul></div>' if comport else ''
+            right = f'<div class="card"><div class="card-label">N\u00edvel de Consci\u00eancia (Schwartz)</div><ul class="bullet-list" style="margin-top:12px">{build_bullet_list(consci)}</ul></div>' if consci else ''
+            blocks.append(f'<div class="grid-3" style="margin-bottom:16px">{left}{mid}{right}</div>')
+
+    # Assuntos Quentes e Ângulos Virais
+    assuntos = pesq.get("assuntos_quentes") or {}
+    if assuntos and any(assuntos.values()):
+        termos_aq = assuntos.get("termos", [])
+        virais_aq = assuntos.get("virais", [])
+        ganchos_aq = assuntos.get("ganchos", [])
+        partes_aq = []
+        if termos_aq:
+            pills = "".join(f'<span class="badge badge-blue" style="font-size:12px">{esc(t)}</span>\n' for t in termos_aq)
+            partes_aq.append(f'<div class="card-label" style="margin-bottom:8px;margin-top:4px">Termos em alta</div><div class="pill-cloud" style="margin-bottom:16px">{pills}</div>')
+        if ganchos_aq:
+            lis = build_bullet_list(ganchos_aq)
+            partes_aq.append(f'<div class="card-label" style="margin-bottom:8px">Ganchos que performam</div><ul class="bullet-list" style="margin-bottom:16px">{lis}</ul>')
+        if virais_aq:
+            lis = build_bullet_list(virais_aq)
+            partes_aq.append(f'<div class="card-label" style="margin-bottom:8px">Conteúdos virais recentes</div><ul class="bullet-list">{lis}</ul>')
+        if partes_aq:
+            blocks.append(f'<div class="card" style="margin-bottom:16px"><div class="card-label" style="color:var(--primary)">Assuntos Quentes e Ângulos Virais</div><div style="margin-top:12px">{"".join(partes_aq)}</div></div>')
+
+    # Biblioteca de Anúncios
+    bibl = pesq.get("biblioteca_anuncios") or {}
+    if bibl and any(bibl.values()):
+        headlines_bl = bibl.get("headlines", [])
+        padroes_of = bibl.get("padroes_oferta", [])
+        criativos_bl = bibl.get("criativos", [])
+        obs_bl = bibl.get("observacoes", [])
+        col_esq = ""
+        col_dir = ""
+        if headlines_bl:
+            col_esq += f'<div class="card-label" style="margin-bottom:8px">Padrões de headline</div><ul class="bullet-list" style="margin-bottom:16px">{build_bullet_list(headlines_bl)}</ul>'
+        if padroes_of:
+            col_esq += f'<div class="card-label" style="margin-bottom:8px">Padrões de oferta</div><ul class="bullet-list">{build_bullet_list(padroes_of)}</ul>'
+        if criativos_bl:
+            col_dir += f'<div class="card-label" style="margin-bottom:8px">Criativos ativos no nicho</div><ul class="bullet-list" style="margin-bottom:16px">{build_bullet_list(criativos_bl)}</ul>'
+        if obs_bl:
+            col_dir += f'<div class="card-label" style="margin-bottom:8px">Observações</div><ul class="bullet-list">{build_bullet_list(obs_bl)}</ul>'
+        if col_esq and col_dir:
+            content_bl = f'<div style="display:grid;grid-template-columns:1fr 1fr;gap:16px"><div>{col_esq}</div><div>{col_dir}</div></div>'
+        else:
+            content_bl = f'<div>{col_esq}{col_dir}</div>'
+        if col_esq or col_dir:
+            blocks.append(f'<div class="card" style="margin-bottom:16px"><div class="card-label" style="color:var(--primary)">Biblioteca de Anúncios</div><div style="margin-top:12px">{content_bl}</div></div>')
 
     # Alertas
     if alertas_section:
