@@ -24,7 +24,7 @@ Leia `meus-produtos/{ativo}/perfil.md` e `meus-produtos/{ativo}/idconsumidor.md`
 - Todas as **Urgências Ocultas** do perfil, organizadas em 7 categorias com 10 itens cada (dores, dúvidas, desejos, assuntos relacionados, urgências quentes, frias e inusitadas). Cada item é um ângulo de entrada possível para conteúdo.
 - Os **Baldes de Conteúdo** do `idconsumidor.md` se existir. usá-los para distribuir os temas entre os baldes corretos
 
-**Verifique o histórico:** leia todos os arquivos em `meus-produtos/{ativo}/entregas/conteudo-social/`. Identifique quais urgências ocultas e decorados já foram explorados em conteúdos anteriores.
+**Verifique o histórico:** leia todos os arquivos em `meus-produtos/{ativo}/entregas/criativos/`. Identifique quais urgências ocultas e decorados já foram explorados em conteúdos anteriores.
 
 **Regra de não repetição:** nas novas peças, priorize urgências ocultas e decorados ainda não usados. Se todos já foram usados, escolha os de maior potencial e anote que está retomando esse tema.
 
@@ -180,7 +180,7 @@ Duração e estilo de edição: calibrar com base nos virais encontrados na pesq
 - Para cada dia: indicar tema, urgência/decorado de origem, formato e objetivo
 
 ### 4. Salvar
-`meus-produtos/{ativo}/entregas/conteudo-social/[tipo]-[produto].md`
+`meus-produtos/{ativo}/entregas/criativos/[tipo]-[produto].md`
 
 ### 5. Próximo Passo
 "Conteúdo salvo. Use `/img-anuncio` para gerar as artes, ou `/copy-roteiro` para roteiros mais elaborados."

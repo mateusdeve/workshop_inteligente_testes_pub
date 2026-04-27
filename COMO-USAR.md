@@ -16,6 +16,24 @@
 
 **Comandos `/alguma-coisa` no Cursor:** a barra `/` nao e a mesma do Claude Code. Para seguir um fluxo (ex.: copy-pagina), diga no chat **"segue o comando copy-pagina"** ou anexe o arquivo **`.claude/commands/copy-pagina.md`** com `@`. O assistente executa o mesmo roteiro do `.md`.
 
+### Opção C. Codex
+
+1. Abra a pasta `workshop_inteligente` no Codex.
+2. O Codex deve ler `AGENTS.md` como mapa do projeto.
+3. No Codex, os comandos do workshop funcionam por texto. Em vez de depender da barra `/`, escreva no chat:
+
+```text
+segue o comando produto-concepcao
+```
+
+Ou:
+
+```text
+segue o comando copy-pagina
+```
+
+O Codex deve localizar o roteiro em `.claude/commands/{nome}.md`, ler o comando e executar a versão adaptada para Codex. O produto ativo fica em `meus-produtos/.ativo` e as entregas ficam em `meus-produtos/{slug}/entregas/`.
+
 ---
 
 ## Seu primeiro uso
@@ -113,13 +131,13 @@ Resultado: `meus-produtos/{ativo}/entregas/copy-pagina/copy-[produto].md`
 
 Cria pacotes de anuncios usando a Mandala de 18 Tipos. Inclui copy, direcao criativa e estrategia de campanha.
 
-Resultado: `meus-produtos/{ativo}/entregas/anuncios/anuncios-[plataforma]-[produto].md`
+Resultado: `meus-produtos/{ativo}/entregas/criativos/anuncios-[plataforma]-[produto].md`
 
 ### /copy-social
 
 Cria carrosseis, captions, roteiros de Reels, linha editorial e calendario de publicacao.
 
-Resultado: `meus-produtos/{ativo}/entregas/conteudo-social/[tipo]-[produto].md`
+Resultado: `meus-produtos/{ativo}/entregas/criativos/[tipo]-[produto].md`
 
 ### /roteiro-de-video
 
@@ -161,7 +179,7 @@ Resultado: `meus-produtos/{ativo}/entregas/criativos/prompts-[tipo]-[produto].md
 
 Cria produto de entrada usando a metodologia low ticket (R$37-97): pagina final do quiz (12 blocos), anuncios low ticket, produto desafio, agente GPT vendavel e copy para Hotmart/Kiwify.
 
-Resultado: `meus-produtos/{ativo}/entregas/paginas/quiz-[produto].html`, `meus-produtos/{ativo}/entregas/anuncios/caixa-rapido-[produto].md`, `meus-produtos/{ativo}/entregas/textos-de-venda/desafio-[produto].md`
+Resultado: `meus-produtos/{ativo}/entregas/paginas/quiz-[produto].html`, `meus-produtos/{ativo}/entregas/criativos/caixa-rapido-[produto].md`, `meus-produtos/{ativo}/entregas/textos-de-venda/desafio-[produto].md`
 
 ## Dicas para melhores resultados
 

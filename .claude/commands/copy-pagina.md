@@ -63,7 +63,7 @@ O que você quer criar?
 
 1. Só a copy (texto completo nos 16 blocos, pronta para qualquer template)
 2. Só a página HTML (bloqueada sem copy aprovada)
-3. Copy + página HTML (recomendado: copy nos 16 blocos primeiro, depois página com tema visual)
+3. Copy + página HTML (recomendado: copy nos 16 blocos primeiro, depois /pagina-visual)
 
 Este produto ainda não tem copy aprovada. Recomendo a opção 3: a copy vai nos 16 blocos padrão, você aprova, e depois acionamos o /pagina-visual para montar a página HTML seção por seção. Assim você sai com copy + página finalizada em uma sessão.
 

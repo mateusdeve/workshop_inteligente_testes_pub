@@ -35,7 +35,7 @@ Conduzir uma sessão completa em 5 etapas que entrega:
 2. O produto digital criado e salvo em `meus-produtos/{ativo}/entregas/produto/`
 3. Identidade do consumidor salva em `meus-produtos/{ativo}/idconsumidor.md`
 4. Página de vendas (produto de entrada ou quiz) salva em `meus-produtos/{ativo}/entregas/paginas/`
-5. Anúncios prontos salvos em `meus-produtos/{ativo}/entregas/anuncios/`
+5. Anúncios prontos salvos em `meus-produtos/{ativo}/entregas/criativos/`
 
 ## Leitura Obrigatória ao Iniciar
 
@@ -320,11 +320,11 @@ Siga o fluxo completo conforme a skill de anúncios:
 2. Faça as 2 pesquisas de tendências obrigatórias antes de gerar (por formato e por objetivo)
 3. Gere os anúncios com estrutura explícita: **GANCHO:** / **DESENVOLVIMENTO:** / **CTA:**
 4. Mostre os anúncios, peça aprovação
-5. Salve em `meus-produtos/{ativo}/entregas/anuncios/anuncios-low-ticket-[produto].md` somente após aprovação
+5. Salve em `meus-produtos/{ativo}/entregas/criativos/anuncios-low-ticket-[produto].md` somente após aprovação
 
 ```
 --- Etapa 5/5 concluída ---
-Anúncios: [tipos gerados] salvos em meus-produtos/{ativo}/entregas/anuncios/[arquivo].md
+Anúncios: [tipos gerados] salvos em meus-produtos/{ativo}/entregas/criativos/[arquivo].md
 ---
 ```
 
@@ -340,7 +340,7 @@ O que foi criado:
 [v] Produto digital criado: meus-produtos/{ativo}/entregas/produto/[arquivo]
 [v] Identidade do consumidor: meus-produtos/{ativo}/idconsumidor.md
 [v] Página de vendas: meus-produtos/{ativo}/entregas/paginas/[arquivo].html
-[v] Anúncios: meus-produtos/{ativo}/entregas/anuncios/[arquivo].md
+[v] Anúncios: meus-produtos/{ativo}/entregas/criativos/[arquivo].md
 
 Próximo passo sugerido: use o Estrategista de Pico de Vendas quando quiser fazer um evento ou lançamento.
 ```

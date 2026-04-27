@@ -230,7 +230,7 @@ O Workshop tem um fluxo proprietário para conduzir projetos de marketing grande
 5. Para pausas entre sessões, use `/toolkit-pausar` e `/toolkit-retomar`. Pra capturar ideias soltas, use `/toolkit-anotar`. Pra ver onde parou, use `/toolkit-progresso`.
 
 **NÃO use o Modo Toolkit para tarefas simples e diretas:**
-- Criar um único anúncio, um email, um post. Use as skills diretas (`copy-anuncio`, `copy-emails`, etc.)
+- Criar um único anúncio, um email, um post, um carrossel. Use `/criativo` ou `/copy-emails` diretamente.
 - Ajustes pontuais numa página existente
 - Perguntas de explicação ou dúvidas rápidas
 - Tarefas de 1 a 2 passos
@@ -274,12 +274,9 @@ Em seguida, liste os comandos disponíveis organizados por categoria:
 
 **Copy:**
 - `/copy-pagina`. Criar copy e/ou página HTML profissional (vendas, captura ou obrigado)
-- `/copy-anuncio`. Criar anúncios para Meta Ads (Mandala da Criatividade, 18 tipos)
-- `/copy-social`. Criar posts, carrosséis, roteiros de Reels
-- `/copy-roteiro`. Criar roteiros de VSL, Reels e YouTube
+- `/criativo`. Criar qualquer criativo: anúncio (Meta Ads, Google Ads), post, carrossel, roteiro de vídeo ou imagem/banner
 - `/copy-emails`. Criar sequências de email (pico de vendas, nutrição)
 - `/elementos-literarios`. Aplicar 1 a 3 dos 26 elementos literários do Light Copy
-- `/img-anuncio`. Gerar imagens prontas para anúncios via IA
 - `/furadeira-visual`. Gerar a Furadeira (método do produto) em 3 formatos à escolha: HTML (trilha visual), PNG via API (Gemini ou OpenRouter) ou prompt pronto para IA externa
 - `/avat-whisk`. Briefings visuais prontos para o Whisk (Google Labs)
 - `/criar-gpt`. Criar agente GPT personalizado para infoprodutores
@@ -560,9 +557,7 @@ Cada produto tem sua pasta em `meus-produtos/{ativo}/`. Os arquivos de **context
 | Páginas (vendas, captura, obrigado) | `meus-produtos/{ativo}/entregas/paginas/` | `.html` |
 | Copy de página de vendas | `meus-produtos/{ativo}/entregas/copy-pagina/` | `.md` |
 | Sequências de email | `meus-produtos/{ativo}/entregas/emails/` | `.md` |
-| Anúncios (Meta, Google) | `meus-produtos/{ativo}/entregas/anuncios/` | `.md` |
-| Conteúdo para redes sociais | `meus-produtos/{ativo}/entregas/conteudo-social/` | `.md` |
-| Criativos e prompts de imagem | `meus-produtos/{ativo}/entregas/criativos/` | `.md` |
+| Criativos (anúncios, conteúdo social, imagens) | `meus-produtos/{ativo}/entregas/criativos/` | `.md`, `.png`, `.mp4` |
 | Scripts comerciais | `meus-produtos/{ativo}/entregas/comercial/` | `.html` (playbook comercial; PDF via navegador) |
 | Vídeos (HeyGen, Remotion) | `meus-produtos/{ativo}/entregas/videos/` | `.mp4` + `.md` |
 

@@ -319,10 +319,10 @@ Keywords: "whiteboard 3 steps process", "chalkboard writing steps"
 ### 6. Salvar Roteiro
 
 ### 4. Salvar
-`meus-produtos/{ativo}/entregas/textos-de-venda/roteiro-[formato]-[produto].md`
+`meus-produtos/{ativo}/entregas/criativos/roteiro-[formato]-[produto].md`
 
 Se caminho 3 (direção criativa), salvar briefing separado:
-`meus-produtos/{ativo}/entregas/textos-de-venda/briefing-video-[formato]-[produto].md`
+`meus-produtos/{ativo}/entregas/criativos/briefing-video-[formato]-[produto].md`
 
 ---
 
@@ -366,7 +366,7 @@ curl "https://api.heygen.com/v1/video_status.get?video_id=VIDEO_ID" \
 ```
 
 Quando `status: completed`, fazer download do `video_url` e salvar em:
-`meus-produtos/{ativo}/entregas/textos-de-venda/video-[formato]-[produto].mp4`
+`meus-produtos/{ativo}/entregas/criativos/video-[formato]-[produto].mp4`
 
 **Se faltar alguma variável**, instruir como configurar:
 

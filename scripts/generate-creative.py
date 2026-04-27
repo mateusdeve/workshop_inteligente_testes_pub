@@ -587,6 +587,9 @@ def build_slide_html(template: str, slide: dict[str, Any],
     # Monta o conteudo HTML baseado no layout
     content_html = build_content_html(slide, layout)
 
+    width = slide.get("width", 1080)
+    height = slide.get("height", 1080)
+
     html = template
     html = html.replace("{{THEME}}", theme)
     html = html.replace("{{LAYOUT}}", layout)
@@ -594,6 +597,8 @@ def build_slide_html(template: str, slide: dict[str, Any],
     html = html.replace("{{SLIDE_NUM}}", str(slide_num))
     html = html.replace("{{TOTAL}}", str(total))
     html = html.replace("{{PROGRESS}}", str(progress))
+    html = html.replace("{{WIDTH}}", str(width))
+    html = html.replace("{{HEIGHT}}", str(height))
 
     # Remover tag <img> quando nao tem background (evita erro no browser)
     if bg_path:
@@ -710,10 +715,17 @@ def screenshot_html(browser: Path, html_path: Path, output_path: Path,
     """Usa Edge/Chrome headless para capturar screenshot do HTML.
 
     Compativel com Windows, Mac e Linux.
+    Usa janela ligeiramente maior (+50px) para evitar gutter de scrollbar do
+    Chrome no Windows, depois recorta o PNG para as dimensoes exatas.
     """
     output_path.parent.mkdir(parents=True, exist_ok=True)
 
-    win_w = width
+    # Margem extra só na largura para acomodar o gutter de scrollbar
+    # (~17px reservado pelo Chrome no Windows para barra vertical).
+    # Altura não precisa de gutter: o --screenshot captura o documento
+    # na altura exata e não reserva espaço para scrollbar horizontal.
+    GUTTER = 50
+    win_w = width + GUTTER
     win_h = height
 
     # Caminho do screenshot: nativo no Windows, posix no resto
@@ -741,12 +753,28 @@ def screenshot_html(browser: Path, html_path: Path, output_path: Path,
             cmd, capture_output=True, timeout=30,
             cwd=str(output_path.parent.resolve()),
         )
-        if output_path.exists() and output_path.stat().st_size > 0:
-            return True
-        stderr = result.stderr.decode("utf-8", errors="replace")
-        if stderr.strip():
-            print(f"      STDERR: {stderr[:200]}", file=sys.stderr)
-        return False
+        if not (output_path.exists() and output_path.stat().st_size > 0):
+            stderr = result.stderr.decode("utf-8", errors="replace")
+            if stderr.strip():
+                print(f"      STDERR: {stderr[:200]}", file=sys.stderr)
+            return False
+
+        # Recortar para dimensoes exatas (remove gutter e qualquer sobra)
+        try:
+            from PIL import Image as PilImage
+            img = PilImage.open(output_path)
+            img_w, img_h = img.size
+            if img_w != width or img_h != height:
+                crop_w = min(width, img_w)
+                crop_h = min(height, img_h)
+                img = img.crop((0, 0, crop_w, crop_h))
+                img.save(output_path, "PNG")
+        except ImportError:
+            pass  # Pillow nao instalado, mantém o arquivo original
+        except Exception:
+            pass
+
+        return True
     except Exception as e:
         print(f"      ERRO screenshot: {e}", file=sys.stderr)
         return False

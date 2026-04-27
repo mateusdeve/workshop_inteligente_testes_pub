@@ -90,7 +90,7 @@ Quando o aluno escolhe o formato "Avatar" no `/copy-roteiro`, o Claude Code envi
 **Como o toolkit usa:**
 OPCIONAL e AVANCADO. O toolkit gera a copy e a estrutura de campanha em arquivo. Com as chaves, pode criar rascunhos de campanhas diretamente no Gerenciador.
 
-**Sem as chaves:** Os anuncios sao salvos em `entregas/anuncios/`. O aluno copia a copy e cria a campanha manualmente no Gerenciador de Anuncios.
+**Sem as chaves:** Os anuncios sao salvos em `entregas/criativos/`. O aluno copia a copy e cria a campanha manualmente no Gerenciador de Anuncios.
 
 ---
 

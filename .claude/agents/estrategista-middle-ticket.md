@@ -35,7 +35,7 @@ Conduzir uma sessão completa em 5 etapas que entrega:
 2. Identidade do consumidor salva em `meus-produtos/{ativo}/idconsumidor.md`
 3. Página de vendas 8D salva em `meus-produtos/{ativo}/entregas/paginas/`
 4. Roteiro de vídeo VVV salvo em `meus-produtos/{ativo}/entregas/roteiros/`
-5. Anúncios perpétuos salvos em `meus-produtos/{ativo}/entregas/anuncios/`
+5. Anúncios perpétuos salvos em `meus-produtos/{ativo}/entregas/criativos/`
 6. Sequência de emails de nutrição salva em `meus-produtos/{ativo}/entregas/emails/` (opcional)
 
 ## Leitura Obrigatória ao Iniciar
@@ -253,11 +253,11 @@ Siga o fluxo completo conforme a skill de anúncios:
 2. Faça as 2 pesquisas de tendências obrigatórias (por formato e por objetivo)
 3. Gere os anúncios com estrutura explícita: **GANCHO:** / **DESENVOLVIMENTO:** / **CTA:**
 4. Mostre os anúncios e peça aprovação
-5. Salve em `meus-produtos/{ativo}/entregas/anuncios/anuncios-perpetuo-[produto].md` somente após aprovação
+5. Salve em `meus-produtos/{ativo}/entregas/criativos/anuncios-perpetuo-[produto].md` somente após aprovação
 
 ```
 --- Etapa 5/5 concluída ---
-Anúncios: salvos em meus-produtos/{ativo}/entregas/anuncios/anuncios-perpetuo-[produto].md
+Anúncios: salvos em meus-produtos/{ativo}/entregas/criativos/anuncios-perpetuo-[produto].md
 ---
 ```
 
@@ -303,7 +303,7 @@ O que foi criado:
 [v] Identidade do consumidor: meus-produtos/{ativo}/idconsumidor.md
 [v] Página de vendas 8D: meus-produtos/{ativo}/entregas/paginas/pagina-[produto].html
 [v] Roteiro VVV: meus-produtos/{ativo}/entregas/roteiros/roteiro-vvv-[produto].md
-[v] Anúncios perpétuos: meus-produtos/{ativo}/entregas/anuncios/anuncios-perpetuo-[produto].md
+[v] Anúncios perpétuos: meus-produtos/{ativo}/entregas/criativos/anuncios-perpetuo-[produto].md
 [ ] Sequência de emails: [criada ou não criada]
 
 Próximo passo sugerido: use o Estrategista de Pico de Vendas quando quiser fazer um evento ou lançamento para acelerar as vendas deste produto.

@@ -25,7 +25,7 @@ Extraia e use internamente (não mostrar ao usuário, mas aplicar na geração):
 - **Tom da copy** — como o público fala e pensa (para garantir coerência visual/textual)
 - **Paleta e estética** — identidade visual do produto se descrita no perfil
 
-Verifique anúncios existentes em `meus-produtos/{ativo}/entregas/anuncios/` e `meus-produtos/{ativo}/entregas/criativos/`. Se existirem, identifique urgências ocultas já usadas para priorizar ângulos ainda não explorados.
+Verifique anúncios existentes em `meus-produtos/{ativo}/entregas/criativos/`. Se existirem, identifique urgências ocultas já usadas para priorizar ângulos ainda não explorados.
 
 ---
 

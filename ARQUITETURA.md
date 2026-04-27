@@ -90,7 +90,7 @@ workshop_inteligente/
 │       ├── painel-entregas.html           ← Painel por produto
 │       └── entregas/                      ← Output do assistente
 │           ├── paginas/                   ← Arquivos .html
-│           ├── copy-pagina/, emails/, anuncios/, conteudo-social/, criativos/,
+│           ├── copy-pagina/, emails/, criativos/,
 │           │   comercial/, videos/, produto/, textos-de-venda/
 │
 ├── docs/                                  ← PLANS E RASCUNHOS LOCAIS (ignorado pelo git)
@@ -597,9 +597,7 @@ Esta tabela e definida no CLAUDE.md e deve ser respeitada por TODOS os commands 
 | Paginas (vendas, captura, obrigado) | `meus-produtos/{ativo}/entregas/paginas/` | `.html` | `vendas-curso-ingles.html` |
 | Textos de venda (copy, headlines, VSL) | `meus-produtos/{ativo}/entregas/textos-de-venda/` | `.md` | `headlines-curso-ingles.md` |
 | Sequencias de email | `meus-produtos/{ativo}/entregas/emails/` | `.md` | `sequencia-pico-curso-ingles.md` |
-| Anuncios (Meta, Google) | `meus-produtos/{ativo}/entregas/anuncios/` | `.md` | `anuncios-meta-curso-ingles.md` |
-| Conteudo para redes sociais | `meus-produtos/{ativo}/entregas/conteudo-social/` | `.md` | `carrossel-curso-ingles.md` |
-| Criativos e prompts de imagem | `meus-produtos/{ativo}/entregas/criativos/` | `.md` | `prompts-midjourney-curso-ingles.md` |
+| Criativos (anuncios, conteudo social, imagens) | `meus-produtos/{ativo}/entregas/criativos/` | `.md`, `.png`, `.mp4` | `anuncios-meta-curso-ingles.md` |
 | Scripts comerciais | `meus-produtos/{ativo}/entregas/comercial/` | `.html` | `playbook-curso-ingles.html` |
 
 **Se precisar de uma nova pasta de entrega:**
@@ -684,8 +682,8 @@ CLAUDE.md (regras globais)
     │
     ├── /pagina-de-vendas ─► skill: paginas ────────────► salva: meus-produtos/{ativo}/entregas/paginas/*.html
     ├── /texto-de-venda ───► skill: conteudo ───────────► salva: meus-produtos/{ativo}/entregas/textos-de-venda/*.md
-    ├── /copy-anuncio ─────► skill: anuncios ───────────► salva: meus-produtos/{ativo}/entregas/anuncios/*.md
-    ├── /copy-social ──────► skill: conteudo ───────────► salva: meus-produtos/{ativo}/entregas/conteudo-social/*.md
+    ├── /copy-anuncio ─────► skill: anuncios ───────────► salva: meus-produtos/{ativo}/entregas/criativos/*.md
+    ├── /copy-social ──────► skill: conteudo ───────────► salva: meus-produtos/{ativo}/entregas/criativos/*.md
     ├── /roteiro-de-video ─► skill: conteudo ───────────► salva: meus-produtos/{ativo}/entregas/textos-de-venda/*.md
     ├── /sequencia-de-emails► skill: conteudo ──────────► salva: meus-produtos/{ativo}/entregas/emails/*.md
     ├── /lancamento ───────► skill: vtsd-completo ──────► salva: meus-produtos/{ativo}/entregas/textos-de-venda/*.md
@@ -696,8 +694,8 @@ CLAUDE.md (regras globais)
     │
     ├── agent: estrategista ► skill: concepcao-produto ► salva: meus-produtos/{ativo}/perfil.md
     ├── agent: construtor ──► skill: paginas ───────────► salva: meus-produtos/{ativo}/entregas/paginas/*.html
-    ├── agent: campanhas ───► skill: anuncios + trafego ► salva: meus-produtos/{ativo}/entregas/anuncios/*.md
-    ├── agent: conteudo ────► skill: conteudo ──────────► salva: meus-produtos/{ativo}/entregas/conteudo-social/*.md
+    ├── agent: campanhas ───► skill: anuncios + trafego ► salva: meus-produtos/{ativo}/entregas/criativos/*.md
+    ├── agent: conteudo ────► skill: conteudo ──────────► salva: meus-produtos/{ativo}/entregas/criativos/*.md
     └── agent: comercial ──► skill: playbook-comercial ► salva: meus-produtos/{ativo}/entregas/comercial/*.html
 ```
 
