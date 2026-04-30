@@ -3533,6 +3533,8 @@
   // Idle ambient: agente faz wander tile-by-tile DENTRO da própria sala.
   // Não sai pra outras salas por conta própria. Só sai se o polling marcar
   // status como "commuting" (Passo 2). Cede a vez quando working/moving.
+  // 30% de chance no idle de ir até a mesa de reunião do hall (se não tiver
+  // ido na última volta). Agentes que estão working continuam na estação.
   function scheduleIdleStep(s) {
     clearTimeout(s.idleTimer);
     const delay = IDLE_MIN_MS + Math.random() * (IDLE_MAX_MS - IDLE_MIN_MS);
@@ -3541,6 +3543,16 @@
         scheduleIdleStep(s);
         return;
       }
+      // Já chegou na mesa de reunião: fica lá (balão circula no tickMeeting).
+      if (s.inMeeting && s.meetingSeat &&
+          s.tileX === s.meetingSeat.x && s.tileY === s.meetingSeat.y) {
+        scheduleIdleStep(s);
+        return;
+      }
+      // 30% de chance de tentar ir pra reunião
+      if (Math.random() < 0.30 && tryGoToMeeting(s)) return;
+      // Se estava marcado pra reunião mas falhou, libera
+      if (s.inMeeting) leaveMeeting(s);
       // 35% de chance de ficar parado (respirando)
       if (Math.random() < 0.35) {
         scheduleIdleStep(s);
@@ -3553,6 +3565,81 @@
       if (path) moveAlongPath(s, path, () => scheduleIdleStep(s));
       else scheduleIdleStep(s);
     }, delay);
+  }
+
+  // ════════════════════════════════════════════════════════════════════
+  // Reunião dos ociosos (mesa central do hall)
+  // ════════════════════════════════════════════════════════════════════
+  // 7 cadeiras ao redor da coffee-table do hall (9,7). Cada agente ocioso
+  // escolhe um seat livre e fica lá, soltando balões temáticos a cada 5-9s.
+  // Quando o polling marca o agente como working, ele libera o seat e volta
+  // pra estação.
+  const MEETING_SEATS = [
+    { x: 8,  y: 7 },
+    { x: 10, y: 7 },
+    { x: 8,  y: 8 },
+    { x: 10, y: 8 },
+    { x: 9,  y: 6 },
+    { x: 9,  y: 9 },
+    { x: 11, y: 8 },
+  ];
+  const MEETING_BUBBLES = {
+    prod:  ['qual nicho será dessa vez?', 'low ou middle ticket?', 'tô curioso pelo Quadro',
+            'aposto numa Furadeira de fases', 'urgência oculta vai pegar bem aqui'],
+    copy:  ['já tô pensando no gancho', 'sem travessão dessa vez', 'que dor abre o lead?',
+            'cabe um setup-punchline', 'lembra: produto fora do lead'],
+    pag:   ['8D ou low ticket?', 'tomara que tenha depoimento em vídeo', 'já marquei o tema dark',
+            'CTA flutuante no mobile combina', 'precisa de selo de garantia'],
+    ad:    ['mandala da criatividade na mira', 'fase de descoberta primeiro',
+            'estático ou Reels?', 'tem 18 tipos pra cobrir', 'remarketing depois'],
+    vid:   ['avatar HeyGen ou VVV?', 'tô preparando o b-roll', 'roteiro de 60s pega bem',
+            'qual formato vai ser?', 'tripé já tá montado'],
+    sales: ['SPIN ou direto pro fechamento?', 'WhatsApp playbook em punho',
+            'tem que ter follow-up bom', 'se for high ticket, call', 'objeções já mapeadas?'],
+    data:  ['vou puxar tendências do nicho', 'biblioteca de anúncios aberta',
+            'quero o YouTube top 10', 'Reclame Aqui já já', 'já vi caso que dobrou em 6 meses'],
+  };
+  const meetingOccupancy = new Map(); // "x,y" -> agentId
+
+  function seatKey(seat) { return seat.x + ',' + seat.y; }
+
+  function tryGoToMeeting(s) {
+    if (s.working || s.moving) return false;
+    if (s.inMeeting) return true;
+    const free = MEETING_SEATS.find(seat => !meetingOccupancy.has(seatKey(seat)));
+    if (!free) return false;
+    const path = findPath({ x: s.tileX, y: s.tileY }, free);
+    if (!path) return false;
+    s.inMeeting = true;
+    s.meetingSeat = free;
+    s.meetingBubbleAt = 0;
+    meetingOccupancy.set(seatKey(free), s.def.id);
+    moveAlongPath(s, path, () => scheduleIdleStep(s));
+    return true;
+  }
+
+  function leaveMeeting(s) {
+    if (!s.inMeeting) return;
+    if (s.meetingSeat) meetingOccupancy.delete(seatKey(s.meetingSeat));
+    s.inMeeting = false;
+    s.meetingSeat = null;
+    s.meetingBubbleAt = 0;
+  }
+
+  function tickMeetingBubbles() {
+    const now = Date.now();
+    Object.values(state).forEach(s => {
+      if (!s.inMeeting || s.working || s.moving) return;
+      // Só solta balão depois de chegar no seat
+      if (!s.meetingSeat || s.tileX !== s.meetingSeat.x || s.tileY !== s.meetingSeat.y) return;
+      if (s.bubbleTimer && now < s.bubbleTimer) return;
+      if (s.meetingBubbleAt && now < s.meetingBubbleAt) return;
+      const pool = MEETING_BUBBLES[s.def.id] || [];
+      if (!pool.length) return;
+      const text = pool[Math.floor(Math.random() * pool.length)];
+      showBubble(s, text);
+      s.meetingBubbleAt = now + 5000 + Math.random() * 4000;
+    });
   }
 
   // ════════════════════════════════════════════════════════════════════
@@ -3603,6 +3690,7 @@
   function setWorking(s, task, command) {
     const wasWorking = s.working;
     const commandChanged = s.currentCommand !== command;
+    leaveMeeting(s);
     s.working = true;
     s.currentTask = task || '';
     s.currentCommand = command || null;
@@ -3884,6 +3972,7 @@
   // e os devolve pra idle. Sem inventar nada além do que o polling diz.
   setInterval(() => {
     tickBubbles();
+    tickMeetingBubbles();
     const status = window.__lastStatus || { _meta: {}, categories: {} };
     const now = Date.now();
     const cats = status.categories || {};
