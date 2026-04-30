@@ -515,7 +515,7 @@ button{font-family:inherit;}
 <div class="tabstrip-item" data-id="copy-pagina" onclick="showPanel('copy-pagina')">Copy da Página</div>
     </div>
     <div id="pages">
-<div class="section" id="section-visao-geral"><!-- HERO:visao-geral --><div class="hero-strip"></div><!-- /HERO:visao-geral --><div class="page"><div class="page-head"><div><h1 class="page-title"><span class="accent">01/</span>Visao Geral</h1><p class="page-sub">Resumo do produto e informacoes principais.</p></div><div class="page-meta">Última atualização<br/><strong>30/04/2026 11:03</strong></div></div><!-- SECTION:visao-geral -->
+<div class="section" id="section-visao-geral"><!-- HERO:visao-geral --><div class="hero-strip"></div><!-- /HERO:visao-geral --><div class="page"><div class="page-head"><div><h1 class="page-title"><span class="accent">01/</span>Visao Geral</h1><p class="page-sub">Resumo do produto e informacoes principais.</p></div><div class="page-meta">Última atualização<br/><strong>30/04/2026 11:12</strong></div></div><!-- SECTION:visao-geral -->
 <div class="grid grid-3" style="margin-bottom:var(--s-7)"><div class="card"><span class="card-label">Nome do produto</span><div class="card-headline">(sem produto)</div></div><div class="card"><span class="card-label">Tipo</span><div class="card-headline">a definir</div></div><div class="card"><span class="card-label">Preco</span><div class="metric" style="font-size:32px">a definir</div></div></div><div class="quadro-card" style="margin-bottom:var(--s-7)"><div class="big-quote">Quadro ainda nao definido.</div></div><div class="grid grid-2" style="margin-bottom:var(--s-5)"><div class="card"><span class="card-label">Nicho</span><div class="card-headline" style="font-size:20px">a definir</div></div><div class="card glow"><span class="card-label">Diferencial</span><div class="card-headline" style="font-size:20px;color:var(--neon)">a definir</div></div></div><div class="chip-group"><span class="chip active"><span class="dot"></span>produto ativo</span><span class="chip">a definir</span><span class="chip">a definir</span></div>
 <!-- /SECTION:visao-geral --></div></div>
 <div class="section" id="section-quadro"><div class="page"><div class="page-head"><div><h1 class="page-title"><span class="accent">02/</span>Quadro</h1><p class="page-sub">A transformacao principal que o produto entrega ao cliente.</p></div></div><!-- SECTION:quadro -->
@@ -612,8 +612,8 @@ button{font-family:inherit;}
 
   document.addEventListener('DOMContentLoaded', function(){
     var hash = location.hash.replace('#','');
-    if(hash === 'sala-dos-agentes') showSala();
-    else show(hash || 'visao-geral');
+    if(hash && hash !== 'sala-dos-agentes') show(hash);
+    else showSala();
   });
 
   window.showPanel = show;

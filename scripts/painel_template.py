@@ -579,8 +579,8 @@ _JS = """\
 
   document.addEventListener('DOMContentLoaded', function(){
     var hash = location.hash.replace('#','');
-    if(hash === 'sala-dos-agentes') showSala();
-    else show(hash || 'visao-geral');
+    if(hash && hash !== 'sala-dos-agentes') show(hash);
+    else showSala();
   });
 
   window.showPanel = show;

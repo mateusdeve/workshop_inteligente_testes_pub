@@ -57,16 +57,16 @@ Cole este link na barra de endereço:
 
   file://{caminho-absoluto-do-projeto}/painel/index.html
 
-Deixa essa aba aberta de lado. Ela vai te dar duas visões enquanto trabalhamos:
+Deixa essa aba aberta de lado. O painel já abre com a estrutura completa do produto (Visão Geral, Quadro, Furadeira, Decorados, Urgências, Identidades, Pesquisa, Copy, Anúncios, Vídeos), com cada seção marcada como "Em breve". Conforme a gente avança, os blocos vão sendo preenchidos sozinhos.
 
-• Sala dos Agentes — um mapa estilo videogame com 7 salas (PROD, COPY, PAG, AD, VID, SALES, DATA). Cada ferramenta que eu rodar, o boneco caminha até a estação certa e a bolha mostra o que estou fazendo.
-
-• Painel de Entregas — quando seu produto for criado, todas as seções (Quadro, Furadeira, Decorados, copy, anúncios, vídeos) vão sendo preenchidas sozinhas conforme avançamos.
+Pra ver os agentes trabalhando em tempo real (mapa estilo videogame com 7 salas: PROD, COPY, PAG, AD, VID, SALES, DATA), clique em "Sala dos Agentes" no menu lateral do painel. Cada ferramenta que eu rodar, o boneco caminha até a estação certa e a bolha mostra o que estou fazendo.
 
 Quando estiver com a aba aberta, me responde a próxima pergunta. Vamos começar.
 ```
 
-Para descobrir o `{caminho-absoluto-do-projeto}`, rode `pwd` no Bash, ou use o caminho do projeto que o aluno está executando. No Mac costuma ser algo como `/Users/{usuario}/Dev/workshop_inteligente`.
+Para descobrir o `{caminho-absoluto-do-projeto}`, rode `git rev-parse --show-toplevel` no Bash. **Se a saída contiver `/.claude/worktrees/`, corte ali e use só a parte ANTES.** Worktrees são pastas internas do Claude Code que o aluno não acessa pelo navegador. O aluno só consegue abrir o caminho real do projeto.
+
+Exemplo: se a saída for `/Users/foo/Dev/workshop_inteligente/.claude/worktrees/abc-123`, o caminho que o aluno usa é `/Users/foo/Dev/workshop_inteligente`. Se a saída já for `/Users/foo/Dev/workshop_inteligente`, use ela direto.
 
 #### Sub-etapas opcionais (faça se conseguir, mas a mensagem acima é o que importa)
 
