@@ -555,7 +555,8 @@ _JS = """\
         var f = document.createElement('iframe');
         f.id = 'sala-frame';
         f.title = 'Sala dos Agentes';
-        f.src = '../../workshop-live-office.html?embed=1';
+        var prefix = location.pathname.indexOf('/painel/') >= 0 ? '../' : '../../';
+        f.src = prefix + 'workshop-live-office.html?embed=1';
         salaWrap.appendChild(f);
       }
       salaWrap.hidden = false;

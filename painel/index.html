@@ -216,7 +216,7 @@
     </div>
   </header>
   <main>
-    <iframe id="painel-frame" class="hidden" title="Painel de entregas do produto selecionado"></iframe>
+    <iframe id="painel-frame" class="hidden" title="Painel de entregas"></iframe>
     <div id="aviso" class="aviso hidden">
       <div class="aviso-card">
         <div class="aviso-icon">
@@ -316,10 +316,10 @@
     const produtos = window.MEUS_PRODUTOS.produtos || [];
     if (produtos.length === 0) {
       $select.innerHTML = '<option>Sem produtos</option>';
-      renderAviso({
-        titulo: 'Nenhum produto cadastrado ainda',
-        texto: 'Rode <code>/produto-novo</code> no assistente para criar seu primeiro produto.'
-      });
+      $subtitle.textContent = 'Selecione um produto';
+      $aviso.classList.add('hidden');
+      $frame.classList.remove('hidden');
+      $frame.src = 'skeleton-painel-entregas.html';
       return;
     }
     $select.innerHTML = produtos
