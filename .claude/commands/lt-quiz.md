@@ -505,7 +505,7 @@ Quiz completo gerado (perguntas, diagnóstico e página de oferta).
 
 ### 5. Gerar e Salvar o Arquivo Único
 
-Após aprovação, leia o template em `C:\Users\Elen\Downloads\prompt-quiz-funnel-detalhado (1).md`.
+Após aprovação, gere o conteúdo completo do zero com base no produto do aluno.
 
 Gere um **único arquivo** que contém, em sequência:
 1. As perguntas do quiz (com prompts de imagem, tipos de pergunta e valores de banco)

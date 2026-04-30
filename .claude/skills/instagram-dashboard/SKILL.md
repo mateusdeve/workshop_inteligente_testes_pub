@@ -6,6 +6,7 @@ description: >
   comentarios, views). Todas as imagens embutidas em base64. Busca expandida
   para substituir posts com likes ocultos (ate 100 posts). Roda localmente
   na maquina do mentorado, sem servidor, sem GitHub, sem agendamento automatico.
+user-invocable: false
 ---
 
 # Instagram Dashboard. Metricas Diarias Automaticas
@@ -287,16 +288,34 @@ tail -10 meus-produtos/{ativo}/entregas/instagram-dashboard/log.txt
 
 ### PASSO 3. Entrega
 
+Apos confirmar sucesso no log, atualize o painel de entregas:
+
+```bash
+py -3 scripts/painel-incremental.py --secao dashboards
 ```
-Dashboard criado.
 
-Arquivos:
-- Dashboard: meus-produtos/{ativo}/entregas/instagram-dashboard/dashboard.html
-- Script:    .claude/skills/instagram-dashboard/scripts/atualizar.py
-- Log:       meus-produtos/{ativo}/entregas/instagram-dashboard/log.txt
+(macOS/Linux: `python3 scripts/painel-incremental.py --secao dashboards`)
 
-Para atualizar quando quiser:
-python .claude/skills/instagram-dashboard/scripts/atualizar.py --abrir
+Isso embute o dashboard como aba dentro do painel de entregas do produto ativo.
+
+Se o painel ainda nao existir (produto recente sem /produto-concepcao), informe:
+
+```
+O painel de entregas ainda nao foi criado para este produto.
+Rode /produto-concepcao primeiro para gerar o painel, depois atualize os dashboards.
+```
+
+Informe ao aluno:
+
+```
+Dashboard do Instagram gerado.
+
+Acesse pelo Painel de Entregas:
+meus-produtos/{ativo}/painel-entregas.html  (aba Dashboards)
+
+Para atualizar os dados quando quiser:
+python .claude/skills/instagram-dashboard/scripts/atualizar.py
+(depois rode: py -3 scripts/painel-incremental.py --secao dashboards)
 
 Perfil monitorado: @{username}
 ```
@@ -307,6 +326,46 @@ Backup PowerShell (Windows):
 ```
 powershell -ExecutionPolicy Bypass -File .claude\skills\instagram-dashboard\scripts\atualizar_powershell.ps1 -Abrir
 ```
+
+---
+
+### PASSO 4. Verificar Proxima Plataforma na Fila
+
+Apos confirmar entrega com sucesso, verifique se `meus-produtos/{ativo}/.dashboard-queue.json` existe.
+
+**Se o arquivo NAO existir:** exibir os "Proximos Passos" normalmente e encerrar. (Skill foi chamada diretamente, sem fila.)
+
+**Se o arquivo EXISTIR:**
+
+1. Leia o conteudo do arquivo.
+2. Mova `"instagram"` de `pendentes` para `concluidos` (Edit cirurgico no JSON).
+3. Verifique se ainda ha itens em `pendentes`.
+
+**Se `pendentes` estiver vazio:** delete o arquivo `.dashboard-queue.json`. Exiba:
+
+```
+Todos os dashboards foram gerados.
+```
+
+E encerre.
+
+**Se `pendentes` tiver proxima plataforma**, exiba a oferta de continuacao:
+
+```
+Instagram concluido.
+
+Proximo na fila: {Plataforma} ({@username ou canal, se ja estiver no .env})
+
+1. Gerar o dashboard do {Plataforma} agora
+2. Parar por aqui (posso continuar depois chamando /dashboard-social)
+```
+
+- Opcao 1: executar a skill correspondente (`tiktok-dashboard` ou `youtube-dashboard`).
+- Opcao 2: encerrar sem alterar a fila. Na proxima chamada a `/dashboard-social`, o arquivo sera detectado e oferecera retomada automatica.
+
+**Regra:** nunca exibir os "Proximos Passos" quando o arquivo de fila existir. A fila tem prioridade sobre as sugestoes de conteudo.
+
+---
 
 ## Regras
 

@@ -249,7 +249,7 @@ Identidade do consumidor salva em meus-produtos/{ativo}/idconsumidor.md.
 Painel de entregas gerado com todas as informacoes do produto.
 
 Para visualizar, copie e cole no navegador:
-file:///C:/Users/gabri/Documents/GitHub/workshop_inteligente/meus-produtos/{ativo}/painel-entregas.html
+file:///{raiz-do-projeto}/meus-produtos/{ativo}/painel-entregas.html
 ```
 
 ### 5. Próximo Passo

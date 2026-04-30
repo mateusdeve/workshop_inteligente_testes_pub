@@ -41,6 +41,47 @@ description: >
 15. **Oferta Final (CTA)**. Ancoragem de valor + preço + parcelamento + CTA grande
 16. **Rodapé**. Termos, privacidade, copyright
 
+### Primeira Dobra — Regras da Premissa
+
+A premissa é o headline principal da hero. É o argumento que leva o leitor à Big Idea sem parecer uma promessa direta. Toda página de vendas começa com ela.
+
+**Critérios obrigatórios:**
+- Até 10 palavras
+- Foco em um único resultado (sem conjunção aditiva "e")
+- Gera curiosidade e desejo imediato de saber mais
+- Memorável e específica para o nicho
+- Não revela todos os detalhes — instiga
+
+**O que a premissa NÃO é:**
+- Slogan ou frase motivacional
+- Explicação longa sobre o produto
+- Promessa vaga ou abstrata
+- Começa com verbo no imperativo
+- Contém interrogação ou exclamação
+- Usa "através de" ou "com" para sugerir o caminho
+- Usa conjunção aditiva ("e") — a premissa transmite um único resultado
+
+**Exemplos validados de premissa:**
+- Tem gente cobrando R$800 por uma página feita com IA em 3 horas.
+- O segredo das finanças não é quanto você ganha, mas quanto você consegue manter.
+- Guardar dinheiro é bom, mas fazer o dinheiro trabalhar por você é melhor.
+- Quem vende barato vende menos.
+- Ansiedade não é normal.
+- Todo paciente tem cura.
+- Pessoas bonitas usam maquiagem.
+- Não precisa abrir uma empresa para ficar rico.
+- A melhor receita de sobremesa não exige forno nem açúcar.
+- Economizar pode ser o maior erro financeiro que você pode cometer.
+- Falhar mais vezes pode ser a maneira mais rápida de alcançar seus sonhos.
+- O método certo pode transformar uma rotina exaustiva em um negócio que roda sozinho.
+- Você pode criar um estilo de vida saudável com apenas 15 minutos por dia.
+
+**Padrões de estrutura que funcionam:**
+- "O melhor jeito de [conseguir X] é [fazer Y]."
+- "Todo mundo pode [alcançar X] se souber [fazer Y]."
+- "Afirmação contra-intuitiva que inverte a crença mais comum do nicho."
+- "Dado ou fato específico que o público não esperava ver."
+
 ## Regras Universais
 
 - **Texto SEMPRE em pt-BR com acentos** (Módulos, não Modulos)

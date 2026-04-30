@@ -22,9 +22,37 @@ description: >
 
 ## Carrosséis
 
-- Slide 1: Gancho forte (elemento literário)
-- Slides 2-8: Conteúdo de valor
-- Slide final: CTA
+### Estrutura de slides
+
+- Slide 1: Gancho forte (título que para o scroll, sem clichê)
+- Slides 2-8: Conteúdo de valor — use storytelling, analogia, dado real, bastidor, curiosidade ou comparação criativa. Nunca slides genéricos de "dica 1, dica 2, dica 3"
+- Slide final: CTA direto e específico (ex: "link na bio pra aprender isso também", não "me segue para mais conteúdo")
+
+### Copy proibida no gancho (clichês que não geram interesse)
+
+- "Como emagrecer mesmo sem tempo para malhar"
+- "Como ganhar dinheiro trabalhando de casa"
+- "Descubra o segredo que ninguém te conta"
+- "5 dicas para melhorar sua vida financeira"
+
+### Copy que funciona no gancho (premissas específicas e emocionais)
+
+- "Ela jurava que não conseguiria emagrecer sem abrir mão do pão francês. Então a gente não tirou o pão."
+- "Curso de R$97 tem média de conversão de 2%. Existe um jeito de quebrar essa média com copy."
+- "Modelo escasso vs modelo abundante. Por que quem cobra caro costuma trabalhar menos horas."
+- Frases que soam como pensamento do próprio público, não como título de post
+
+### Adaptação por nicho
+
+**Saúde:** linguagem visual e emocional, analogias com sintomas, sensações e experiências corporais. O leitor precisa sentir que você entende o que ele sente, não só o que ele pensa.
+
+**Finanças:** lógica, números concretos, armadilhas da classe média, modelos de comparação. O leitor confia em raciocínio, não em emoção.
+
+**Beleza:** autoestima, transformação percebida, linguagem emocional e de identidade. Focar em como a pessoa se vê e como quer ser vista, não no produto em si.
+
+**Pet:** vínculo emocional entre tutor e animal. O "produto" nunca é o foco — o foco é a relação. Nunca tratar como "produtinho para bichinho".
+
+**Vendas, coaching e marketing:** evitar clichês do nicho com redobrado cuidado. Usar lógica, estrutura, disrupção criativa. O público já viu tudo — só para o scroll se o argumento for genuinamente não óbvio.
 
 ## Linha Editorial
 
@@ -68,7 +96,7 @@ Usar 1 a 3 elementos por peça. Gerar 3 variações.
 
 ## Referência de Exemplos Validados
 
-Consulte `.claude/plugins/workshop-marketing/skills/conteudo/references/exemplos-leads-4-categorias.md` para 12 exemplos reais das 4 categorias de copy (Inadequação, Identificação com o Problema, Plug & Play, Promessa Boa Demais) aplicadas a 3 nichos diferentes (skincare, saúde/imunidade, psicologia B2B).
+Consulte `.claude/skills/conteudo/references/exemplos-leads-4-categorias.md` para 12 exemplos reais das 4 categorias de copy (Inadequação, Identificação com o Problema, Plug & Play, Promessa Boa Demais) aplicadas a 3 nichos diferentes (skincare, saúde/imunidade, psicologia B2B).
 
 **O que usar como referência nos exemplos:**
 - Nível de especificidade (números concretos, situações reais)

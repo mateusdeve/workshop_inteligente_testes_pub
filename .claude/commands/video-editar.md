@@ -92,7 +92,7 @@ Se funcionou, avise "whisper.cpp pronto" e prossiga.
 ### Pergunta 1. Arquivo de entrada
 
 > Qual video voce quer editar? Cole o caminho completo do arquivo.
-> (ex: `C:\Users\Elen\Videos\reel_bruto.mp4`)
+> (ex: `C:\Users\seu-usuario\Videos\reel_bruto.mp4`)
 
 Apos receber, verifique se o arquivo existe com `ls` ou `Read`. Se nao existir, peca para o aluno conferir o caminho.
 

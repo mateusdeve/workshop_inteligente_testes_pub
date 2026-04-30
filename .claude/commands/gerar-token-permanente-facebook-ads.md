@@ -57,7 +57,21 @@ Com o usuario do sistema criado e selecionado, clique em "Atribuir Ativos". Uma 
 - Clique em "Avancar"
 
 **Etapa 3. Atribuir permissoes**
-- Selecione todas as permissoes disponiveis
+
+O Facebook mostra apenas os escopos disponiveis para o tipo de app criado. Marque todos que aparecerem. Os 7 escopos que o Meta Ads CLI precisa sao:
+
+| Escopo | Para que serve |
+|---|---|
+| `ads_management` | Criar e gerenciar campanhas, conjuntos e anuncios |
+| `ads_read` | Ler dados de anuncios e metricas |
+| `business_management` | Acesso ao Business Manager e ativos |
+| `read_insights` | Buscar relatorios e insights de desempenho |
+| `pages_read_engagement` | Dados de engajamento de paginas vinculadas |
+| `pages_show_list` | Listar paginas vinculadas ao negocio |
+| `catalog_management` | Gerenciar catalogos de produtos (necessario para o CLI) |
+
+Se algum desses nao aparecer na tela, nao se preocupe: o Facebook so exibe os que sao compativeis com o caso de uso escolhido no app. Marque tudo que estiver disponivel.
+
 - Clique em "Gerar token"
 
 **Etapa 4. Concluir**

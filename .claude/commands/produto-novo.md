@@ -139,16 +139,36 @@ Qual o nome deste produto?
 
 #### Passo 2. Perguntar o tipo do produto
 
+> **CRÍTICO:** reproduza o texto abaixo exatamente como está. Não altere faixas de preço, não substitua R$37 por outro valor.
+
 ```
 Que tipo de produto é este?
 
-1. Low Ticket (R$7 a R$97. quiz, desafio, mini-curso, agente GPT)
-2. Middle Ticket (R$97 a R$997. curso online, workshop, grupo)
+1. Low Ticket (R$ 37 a R$ 97. quiz, desafio, mini-curso, agente GPT)
+2. Middle Ticket (R$ 97 a R$ 997. curso online, workshop, grupo)
 
 Digite o número:
 ```
 
 Guarde o tipo escolhido. Ele será salvo no arquivo `meus-produtos/{slug}/tipo.md`.
+
+#### Passo 2b. Perguntar o preço do produto
+
+Se Low Ticket:
+
+```
+Qual será o preço de venda?
+(ex: "R$47", "R$67", "R$97")
+```
+
+Se Middle Ticket:
+
+```
+Qual será o preço de venda?
+(ex: "R$197", "R$497", "R$997")
+```
+
+Guarde o valor informado. Ele será salvo em `meus-produtos/{slug}/preco.md`.
 
 #### Passo 3. Gerar slug automaticamente
 
@@ -184,9 +204,11 @@ meus-produtos/{slug}/entregas/textos-de-venda/
 
 Salve o slug em `meus-produtos/.ativo` (sobrescreva o conteúdo anterior).
 
-#### Passo 7. Salvar o tipo do produto
+#### Passo 7. Salvar o tipo e o preço do produto
 
 Salve o tipo escolhido em `meus-produtos/{slug}/tipo.md`.
+
+Salve o preço informado em `meus-produtos/{slug}/preco.md`. O arquivo deve conter apenas o valor (ex: `R$47`), sem texto adicional.
 
 **Formato OBRIGATÓRIO do `tipo.md`:** o arquivo deve conter APENAS uma única linha com o texto literal `Low Ticket` OU `Middle Ticket`. Nada mais. Sem `#` de header, sem `**` de negrito, sem justificativa, sem faixa de preço, sem "formato escolhido", sem comentário, sem linha em branco no final.
 
@@ -222,8 +244,9 @@ Antes de mostrar a mensagem final, execute obrigatoriamente a seção **"Inicial
 Produto "{nome}" criado e ativado.
 Identificador: {slug}
 Tipo: {tipo}
+Preço: {preco}
 
-Próximo passo: /produto-concepcao para cadastrar Quadro, Furadeira, Identidades e Urgências Ocultas.
+Próximo passo: partir para a concepção do produto (/produto-concepcao).
 ```
 
 ---
@@ -239,20 +262,21 @@ Qual é a sua especialidade? O que você ensina ou entrega para as pessoas?
 
 #### Passo 2. Pesquisa de mercado completa (UMA vez, agora)
 
-Com a especialidade informada, execute a SKILL `pesquisa-mercado` completa (9 eixos: tamanho de mercado, concorrentes, faixa de preço, público-alvo, objeções reais, assuntos quentes, YouTube Top 10, biblioteca de anúncios e riscos regulatórios). Esta é a pesquisa definitiva, que alimentará as 50 ideias, a sugestão de preço e todo o fluxo do `/produto-concepcao`. Não refaça em nenhuma etapa posterior.
+Antes de pesquisar, gere um **slug provisório** derivado da especialidade informada (kebab-case, sem acentos, ex: `taro`, `emagrecimento`, `ingles-fluente`). Crie a pasta `meus-produtos/{slug-provisorio}/` e salve o slug em `meus-produtos/.ativo`. Isso garante que a pesquisa seja salva diretamente no caminho definitivo `meus-produtos/{slug-provisorio}/pesquisa-mercado.md`, sem arquivo temporário.
 
-Avise o aluno:
+Em seguida, execute a SKILL `pesquisa-mercado` completa (9 eixos: tamanho de mercado, concorrentes, faixa de preço, público-alvo, objeções reais, assuntos quentes, YouTube Top 10, biblioteca de anúncios e riscos regulatórios). Esta é a pesquisa definitiva, que alimentará as 50 ideias, a sugestão de preço e todo o fluxo do `/produto-concepcao`. Não refaça em nenhuma etapa posterior.
+
+Anuncie ao aluno (Nível 1, pois é o entry point que o aluno invocou):
 ```
-Vou fazer uma pesquisa completa do mercado de {nicho} agora.
-Isso leva alguns minutos e vai embasar todas as sugestões daqui em diante.
+🔍 Próximo passo: pesquisar o mercado de {nicho} (9 passos). Tempo estimado: 8 a 12 minutos.
 ```
 
 Use como inputs para a SKILL:
 - **Nicho:** a especialidade informada pelo aluno
 - **Quadro:** ainda não definido (use a especialidade como promessa inicial)
 - **Formato pretendido:** ainda não definido
-
-Salve o resultado diretamente em `meus-produtos/.pesquisa-temp.md` (o arquivo será movido para o caminho definitivo `meus-produtos/{slug}/pesquisa-mercado.md` no Passo 5, após o produto ser registrado).
+- **Slug:** {slug-provisorio}
+- **Caminho de destino:** `meus-produtos/{slug-provisorio}/pesquisa-mercado.md`
 
 #### Passo 3. Gerar 50 ideias de infoprodutos
 
@@ -331,9 +355,9 @@ Preço sugerido: R${valor} ({justificativa baseada nos concorrentes mapeados})
 
 #### Passo 5. Registrar o produto
 
-Com a ideia aprovada, gere o slug, crie a estrutura de pastas, salve `tipo.md` e defina como ativo (mesmos passos 3 a 6 do Ramo 1).
+Com a ideia aprovada, gere o slug definitivo. Se o slug definitivo for diferente do slug provisório criado no Passo 2, renomeie a pasta `meus-produtos/{slug-provisorio}/` para `meus-produtos/{slug}/` e atualize `meus-produtos/.ativo` com o slug definitivo. A pesquisa já estará no caminho correto dentro da pasta renomeada.
 
-Mova ou salve a pesquisa de mercado em `meus-produtos/{slug}/pesquisa-mercado.md`.
+Crie as subpastas de entregas dentro de `meus-produtos/{slug}/` (mesmos passos 5 a 6 do Ramo 1). Salve `tipo.md` e `preco.md` com os valores confirmados.
 
 #### Passo 6. Atualizar o manifest do painel
 
@@ -353,11 +377,12 @@ Antes de mostrar a mensagem final, execute obrigatoriamente a seção **"Inicial
 Produto "{nome}" criado e ativado.
 Identificador: {slug}
 Tipo: {tipo}
+Preço: {preco}
 
 A pesquisa de mercado do nicho já foi feita e está salva.
 Ela será usada em todas as etapas seguintes sem nova busca.
 
-Próximo passo: /produto-concepcao para cadastrar Quadro, Furadeira, Identidades e Urgências Ocultas.
+Próximo passo: partir para a concepção do produto (/produto-concepcao).
 ```
 
 ---

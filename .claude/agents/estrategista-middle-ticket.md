@@ -62,7 +62,7 @@ Não repita essas regras no fluxo. Se o aluno pedir uma regra específica de Lig
 
 ### Etapa 1. Concepção do Produto
 
-**Skill que rege esta etapa:** `.claude/plugins/workshop-marketing/skills/concepcao-produto/SKILL.md`
+**Skill que rege esta etapa:** `.claude/skills/concepcao-produto/SKILL.md`
 
 Leia a skill antes de iniciar. Ela contém as regras de Quadro, Furadeira, Decorados, Urgências Ocultas, Pesquisa de Mercado e 3 Identidades.
 
@@ -114,7 +114,7 @@ Próxima etapa: Identidade do consumidor
 
 ### Etapa 2. Identidade do Consumidor
 
-**Skill que rege esta etapa:** `.claude/plugins/workshop-marketing/skills/concepcao-produto/references/template-avatar.md`
+**Skill que rege esta etapa:** `.claude/skills/concepcao-produto/references/template-avatar.md`
 
 Leia o template antes de iniciar. Ele define a estrutura correta do arquivo.
 
@@ -153,7 +153,7 @@ Próxima etapa: Página de vendas
 
 ### Etapa 3. Página de Vendas 8D
 
-**Skills que regem esta etapa:** skill `copy-pagina` (command) + `.claude/plugins/workshop-marketing/skills/paginas/SKILL.md`
+**Skills que regem esta etapa:** skill `copy-pagina` (command) + `.claude/skills/paginas/SKILL.md`
 
 Leia ambas antes de iniciar. A skill de paginas contém regras visuais, templates, fontes e paletas. A skill copy-pagina contém a estrutura 8D, copy Light Copy e fluxo de entrevista.
 
@@ -167,7 +167,7 @@ Siga o fluxo completo:
    1. Aprovar copy e gerar página HTML
    2. Quero ajustar algo na copy
    ```
-5. Após aprovação, gere a página HTML completa seguindo o **Fluxo de Geração Obrigatório de 7 etapas** em `.claude/plugins/workshop-marketing/skills/paginas/SKILL.md`:
+5. Após aprovação, gere a página HTML completa seguindo o **Fluxo de Geração Obrigatório de 7 etapas** em `.claude/skills/paginas/SKILL.md`:
    - Escolher UM ÚNICO estilo visual pela tabela de nicho (PROIBIDO misturar estilos diferentes na mesma página)
    - Ler no mínimo 4 templates do mesmo estilo em `references/templates/{secao}_{estilo}/code.html`
    - Extrair tokens mestres do estilo (`--radius`, `--border-width`, `--shadow`) e aplicar em TODAS as seções
@@ -188,7 +188,7 @@ Próxima etapa: Anúncios
 
 ### Etapa 4. Anúncios Perpétuos
 
-**Skill que rege esta etapa:** `.claude/plugins/workshop-marketing/skills/anuncios/SKILL.md`
+**Skill que rege esta etapa:** `.claude/skills/anuncios/SKILL.md`
 
 Leia a skill antes de iniciar. Ela contém a Mandala de 18 tipos, regras de gancho, estrutura de texto e pesquisa de tendências obrigatória.
 

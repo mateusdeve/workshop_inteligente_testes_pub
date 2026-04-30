@@ -32,7 +32,7 @@ except ImportError:
 # ---------------------------------------------------------------------------
 # Constantes
 # ---------------------------------------------------------------------------
-ATOR_APIFY = "apify~youtube-scraper"
+ATOR_APIFY = "streamers~youtube-scraper"
 API_BASE = "https://api.apify.com/v2"
 TIMEOUT_SYNC = 300
 MAX_VIDEOS = 30
@@ -241,7 +241,7 @@ def extrair_palavras_titulo(videos: list, top_pct: float = 0.5) -> list:
 # Apify
 # ---------------------------------------------------------------------------
 
-def chamar_apify(token: str, canal_url: str, log: logging.Logger) -> list:
+def chamar_apify(token: str, canal_url: str, log: logging.Logger, obrigatorio: bool = True) -> list:
     url = f"{API_BASE}/acts/{ATOR_APIFY}/run-sync-get-dataset-items"
     payload = {
         "startUrls": [{"url": canal_url}],
@@ -279,7 +279,9 @@ def chamar_apify(token: str, canal_url: str, log: logging.Logger) -> list:
             log.info(f"Aguardando {espera}s antes de tentar novamente...")
             time.sleep(espera)
     log.error(f"Todas as {max_tentativas} tentativas falharam. Verifique sua conexao e tente novamente.")
-    sys.exit(1)
+    if obrigatorio:
+        sys.exit(1)
+    return []
 
 
 # ---------------------------------------------------------------------------
@@ -332,8 +334,10 @@ def normalizar_canal(itens: list) -> dict:
                     or ""
                 ),
                 "avatar_url": (
-                    ci.get("avatarUrl")
+                    ci.get("channelAvatarUrl")
+                    or ci.get("avatarUrl")
                     or ci.get("thumbnail")
+                    or item.get("channelAvatarUrl")
                     or item.get("channelThumbnail")
                     or ""
                 ),
@@ -1146,9 +1150,20 @@ def main():
         log.error("Nenhum item retornado. Verifique a URL do canal e o token.")
         sys.exit(1)
 
+    shorts_url = canal_url.rstrip("/") + "/shorts"
+    log.info("Buscando Shorts...")
+    itens_shorts = chamar_apify(token, shorts_url, log, obrigatorio=False)
+    if itens_shorts:
+        ids_vistos = {item.get("id") or item.get("videoId") or "" for item in itens}
+        novos = [s for s in itens_shorts if (s.get("id") or s.get("videoId") or "") not in ids_vistos]
+        itens = itens + novos
+        log.info(f"{len(novos)} Shorts adicionados. Total: {len(itens)} itens.")
+    else:
+        log.info("Nenhum Short encontrado.")
+
     log.info("Normalizando dados...")
     canal = normalizar_canal(itens)
-    videos_raw = [normalizar_video(item) for item in itens[:MAX_VIDEOS]]
+    videos_raw = [normalizar_video(item) for item in itens]
     # Filtra itens sem titulo (podem ser metadata do canal sem video)
     videos = [v for v in videos_raw if v["titulo"]]
     log.info(

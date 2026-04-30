@@ -6,6 +6,7 @@ description: >
   (views, likes, comentarios, duracao, titulo, thumbnail). Todas as
   thumbnails embutidas em base64. Roda localmente na maquina do mentorado,
   sem servidor, sem GitHub, sem agendamento automatico.
+user-invocable: false
 ---
 
 # YouTube Dashboard. Metricas Diarias Automaticas
@@ -35,13 +36,14 @@ description: >
 
 ```
 atualizar.py
-  ├── POST Apify (ator YouTube, sync) — canal
-  │     channelUrl ou channelId → inscritos, total views, descricao, avatar
-  │     Baixa avatar → base64
-  ├── POST Apify (ator YouTube, sync) — videos
-  │     channelUrl → ultimos N videos
-  │     Para cada video: views, likes, comentarios, duracao, titulo, data, thumbnail
-  │     Baixa thumbnail de cada video → base64
+  ├── POST Apify (streamers~youtube-scraper, sync) — videos regulares
+  │     {canal_url} → ultimos 30 videos + metadados do canal embutidos
+  │     avatar: aboutChannelInfo.channelAvatarUrl → base64
+  ├── POST Apify (streamers~youtube-scraper, sync, opcional) — Shorts
+  │     {canal_url}/shorts → ate 30 Shorts
+  │     Deduplicados por id/videoId e mesclados com os videos regulares
+  │     Se falhar ou estiver vazio, continua sem erro
+  ├── Para cada video/Short: views, likes, comentarios, duracao, titulo, data, thumbnail → base64
   ├── Calcula metricas: engajamento = (likes + comentarios) / views * 100
   ├── Atualiza historico.json com snapshot do dia
   └── Regenera dashboard.html com dados + thumbnails embutidos como variavel JS
@@ -51,13 +53,14 @@ O `dashboard.html` e sempre autossuficiente. Nao depende de servidor local. Func
 
 ## APIs Utilizadas
 
-Ator utilizado: `apify~youtube-scraper` (o mais estavel e completo para YouTube publico em 2026).
+Ator utilizado: `streamers~youtube-scraper`.
 
-| # | Ator Apify | Tipo | Parametro chave | Retorna |
-|---|---|---|---|---|
-| 1 | `apify~youtube-scraper` | sync, timeout 300s | `startUrls` (URL do canal), `maxResults: 30` | lista de videos com metadados do canal embutidos em cada item (`channelInfo`, `channelName`, `numberOfSubscribers` etc.) |
+| # | Ator Apify | URL chamada | Tipo | Parametro chave | Retorna |
+|---|---|---|---|---|---|
+| 1 | `streamers~youtube-scraper` | `{canal_url}` | sync, timeout 300s | `startUrls`, `maxResults: 30` | videos regulares + metadados do canal (`aboutChannelInfo.channelAvatarUrl`, `channelName`, `numberOfSubscribers` etc.) |
+| 2 | `streamers~youtube-scraper` | `{canal_url}/shorts` | sync, timeout 300s, **obrigatorio=False** | `startUrls`, `maxResults: 30` | Shorts do canal (adicionados e deduplicados por `id`/`videoId`) |
 
-Uma unica chamada sync retorna os videos e os dados do canal (via campos embutidos nos itens). O script extrai as informacoes do canal percorrendo os itens e priorizando o que tiver mais dados.
+Chamada 1 busca os videos regulares. Chamada 2 busca a aba `/shorts` — se falhar ou retornar vazio, o script continua sem erro. Os resultados sao mesclados e deduplicados por ID antes de normalizar. O script extrai os dados do canal percorrendo os itens da chamada 1 e priorizando o que tiver mais dados.
 
 **Por que sync e nao async:** mesmo motivo do Instagram/TikTok. Endpoints async retornam run IDs que podem ficar inacessiveis dependendo do plano. Sync e mais simples e confiavel.
 
@@ -253,21 +256,65 @@ tail -10 meus-produtos/{ativo}/entregas/youtube-dashboard/log.txt
 
 ### PASSO 3. Entrega
 
+Apos confirmar sucesso no log, atualize o painel de entregas:
+
+```bash
+py -3 scripts/painel-incremental.py --secao dashboards
 ```
-Dashboard criado.
 
-Arquivos:
-- Dashboard: meus-produtos/{ativo}/entregas/youtube-dashboard/dashboard.html
-- Script:    .claude/skills/youtube-dashboard/scripts/atualizar.py
-- Log:       meus-produtos/{ativo}/entregas/youtube-dashboard/log.txt
+(macOS/Linux: `python3 scripts/painel-incremental.py --secao dashboards`)
 
-Para atualizar quando quiser:
-python .claude/skills/youtube-dashboard/scripts/atualizar.py --abrir
+Se o painel ainda nao existir, informe:
+
+```
+O painel de entregas ainda nao foi criado para este produto.
+Rode /produto-concepcao primeiro para gerar o painel, depois atualize os dashboards.
+```
+
+Informe ao aluno:
+
+```
+Dashboard do YouTube gerado.
+
+Acesse pelo Painel de Entregas:
+meus-produtos/{ativo}/painel-entregas.html  (aba Dashboards)
+
+Para atualizar os dados quando quiser:
+python .claude/skills/youtube-dashboard/scripts/atualizar.py
+(depois rode: py -3 scripts/painel-incremental.py --secao dashboards)
 
 Canal monitorado: {YOUTUBE_CHANNEL}
 ```
 
 **Sem agendamento automatico:** o aluno roda o script manualmente.
+
+---
+
+### PASSO 4. Verificar Proxima Plataforma na Fila
+
+Apos confirmar entrega com sucesso, verifique se `meus-produtos/{ativo}/.dashboard-queue.json` existe.
+
+**Se o arquivo NAO existir:** exibir os "Proximos Passos" normalmente e encerrar. (Skill foi chamada diretamente, sem fila.)
+
+**Se o arquivo EXISTIR:**
+
+1. Leia o conteudo do arquivo.
+2. Mova `"youtube"` de `pendentes` para `concluidos` (Edit cirurgico no JSON).
+3. Verifique se ainda ha itens em `pendentes`.
+
+**Se `pendentes` estiver vazio:** delete o arquivo `.dashboard-queue.json`. Exiba:
+
+```
+Todos os dashboards foram gerados.
+```
+
+E encerre.
+
+**Regra:** o YouTube e sempre o ultimo da fila (ordem Instagram, TikTok, YouTube). Se `pendentes` ficar vazio aqui, e porque todos foram concluidos. Nunca havera proximo apos o YouTube.
+
+**Regra:** nunca exibir os "Proximos Passos" quando o arquivo de fila existir. A fila tem prioridade sobre as sugestoes de conteudo.
+
+---
 
 ## Regras
 

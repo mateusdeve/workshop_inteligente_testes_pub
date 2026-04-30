@@ -242,8 +242,8 @@ VSL salva em meus-produtos/{ativo}/entregas/textos-de-venda/vsl-[produto].md
 
 Próximos passos sugeridos:
 - /roteiro-de-video → adaptar para Reels 60s (versão curta desta VSL)
-- /anuncio → criar anúncios derivados do hook desta VSL
-- /pagina-de-vendas → criar página HTML com este script como VSL embutida
+- /copy-anuncio → criar anúncios derivados do hook desta VSL
+- /copy-pagina → criar página HTML com este script como VSL embutida
 ```
 
 ---

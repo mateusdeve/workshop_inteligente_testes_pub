@@ -1,6 +1,6 @@
 ---
 name: workshop-marketing:enviar-relatorio-ads
-description: Busca as métricas do dia anterior no Facebook Ads e envia o relatório pelo Telegram ou WhatsApp via Z-API. Roda direto no CLI, sem agendamento.
+description: Busca as métricas do Facebook Ads e envia o relatório pelo Telegram ou WhatsApp. Detecta automaticamente o modo configurado (CLI Python ou Manual PowerShell).
 allowed-tools: Read, Bash
 model: sonnet
 ---
@@ -9,13 +9,28 @@ model: sonnet
 
 Executa imediatamente: busca as metricas do Facebook Ads do periodo escolhido e envia no canal configurado (Telegram ou WhatsApp). Sem agendamento.
 
+Detecta `RELATORIO_AUTH_MODO` no `.env` e usa o script correto:
+- `CLI`: `scripts/relatorio-ads-cli.py` (Python, cross-platform)
+- `MANUAL` ou nao definido: `scripts/relatorio-ads.ps1` (PowerShell, Windows)
+
 ## PASSO 1. Verificar credenciais
 
-Leia `.env` e verifique:
+Leia `.env`.
 
-**Facebook Ads (obrigatorio para ambos os canais):**
-- Pelo menos uma das variaveis de token: `FB_ACCESS_TOKEN_PERMANENTE` ou `FB_ACCESS_TOKEN`
-- `FB_AD_ACCOUNT_ID`
+**Detectar o modo:**
+
+Se `RELATORIO_AUTH_MODO=CLI` (ou nao definido mas `ACCESS_TOKEN` existir):
+- Verificar `ACCESS_TOKEN` (ou fallback `FB_ACCESS_TOKEN_PERMANENTE` / `FB_ACCESS_TOKEN_TEMPORARIO`)
+- Verificar `AD_ACCOUNT_ID` (ou fallback `FB_AD_ACCOUNT_ID`)
+- Se faltar: oriente a rodar `/ads-relatorio` primeiro para configurar o modo CLI.
+
+Se `RELATORIO_AUTH_MODO=MANUAL` (ou nao definido e `ACCESS_TOKEN` nao existir):
+- Verificar pelo menos uma das variaveis: `FB_ACCESS_TOKEN_PERMANENTE` ou `FB_ACCESS_TOKEN_TEMPORARIO`
+- Verificar `FB_AD_ACCOUNT_ID`
+- Se faltar token: pergunte se tem App no Facebook Developers
+  - Se sim: execute a skill `gerar-token-permanente-facebook-ads`
+  - Se nao: execute a skill `criar-aplicativo-analise-ads`, depois `gerar-token-permanente-facebook-ads`
+- Se faltar `FB_AD_ACCOUNT_ID`: execute a skill `obter-id-conta-anuncios`
 
 **Canal de envio:**
 - Se `RELATORIO_CANAL` nao existir no `.env`, pergunte:
@@ -41,9 +56,6 @@ Salve `RELATORIO_CANAL=TELEGRAM` ou `RELATORIO_CANAL=WHATSAPP` no `.env` com `Ed
 
 **Se `RELATORIO_CANAL=WHATSAPP`:**
 - Verificar `ZAPI_INSTANCE_ID`, `ZAPI_TOKEN`, `ZAPI_CLIENT_TOKEN`, `RELATORIO_WHATSAPP_NUMERO`
-- Se faltar token do Facebook ou `FB_AD_ACCOUNT_ID`: pergunte se tem App no Facebook Developers
-  - Se opcao 1 (tem App): execute a skill `gerar-token-permanente-facebook-ads`
-  - Se opcao 2 (nao tem): execute a skill `criar-aplicativo-analise-ads`, depois `gerar-token-permanente-facebook-ads`
 - Se faltar qualquer credencial Z-API: pergunte se tem conta na Z-API
   - Se sim: peca as 3 credenciais uma por vez e salve no `.env` com `Edit`
   - Se nao: execute a skill `configurar-zapi`, depois retorne
@@ -92,15 +104,33 @@ date -d "30 days ago" +%Y-%m-%d 2>/dev/null || date -v-30d +%Y-%m-%d
 
 Guarde `INICIO_ISO`, `FIM_ISO` e `LABEL_PERIODO`.
 
-## PASSO 3. Executar envio seguro
+## PASSO 3. Executar busca de dados
 
-Use o script local. Ele le `.env`, envia o token do Facebook por header, mascara segredos nos logs e envia pelo canal configurado.
+Use o script adequado ao modo configurado. Ambos le o `.env`, mascaram segredos nos logs e retornam os dados formatados.
 
+**Se `RELATORIO_AUTH_MODO=CLI`:**
+
+Determine o comando Python correto primeiro:
+```bash
+python --version 2>&1 || python3 --version 2>&1
 ```
+
+Depois execute (substitua `python` por `python3` se necessario):
+```bash
+python scripts/relatorio-ads-cli.py {ESCOLHA_PERIODO} {INICIO_BR} {FIM_BR}
+```
+
+Onde `{ESCOLHA_PERIODO}` e o numero escolhido no Passo 2 (1, 2, 3 ou 4). Para opcao 4, passe tambem inicio e fim no formato DD/MM/AAAA. Exemplos:
+- Ontem: `python scripts/relatorio-ads-cli.py 1`
+- Ultimos 7 dias: `python scripts/relatorio-ads-cli.py 2`
+- Personalizado: `python scripts/relatorio-ads-cli.py 4 01/04/2026 30/04/2026`
+
+**Se `RELATORIO_AUTH_MODO=MANUAL` (ou nao definido):**
+```bash
 powershell.exe -ExecutionPolicy Bypass -File "scripts/relatorio-ads.ps1"
 ```
 
-Nunca passe `access_token`, `ZAPI_TOKEN`, `TELEGRAM_BOT_TOKEN` ou qualquer chave pela URL, pelo chat ou por comando que possa aparecer no historico do terminal.
+Nunca passe `ACCESS_TOKEN`, `ZAPI_TOKEN`, `TELEGRAM_BOT_TOKEN` ou qualquer chave pela URL, pelo chat ou por comando que possa aparecer no historico do terminal.
 
 ## PASSO 4. Montar a mensagem
 
@@ -163,8 +193,14 @@ Se opcao 2: encerre sem chamar nenhuma API de envio.
 
 ## PASSO 6. Enviar
 
-Execute novamente o script seguro se o usuario confirmar envio:
+O script ja cuida do envio internamente. Basta executar o mesmo comando do Passo 3 se o usuario confirmar:
 
+**Se `RELATORIO_AUTH_MODO=CLI`:**
+```bash
+python scripts/relatorio-ads-cli.py {ESCOLHA_PERIODO}
+```
+
+**Se `RELATORIO_AUTH_MODO=MANUAL` (ou nao definido):**
 ```bash
 powershell.exe -ExecutionPolicy Bypass -File "scripts/relatorio-ads.ps1"
 ```

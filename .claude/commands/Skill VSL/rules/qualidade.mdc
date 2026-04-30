@@ -28,8 +28,8 @@ Percorra o texto frase por frase. Se qualquer item abaixo falhar, reescreva ante
 
 Antes de escrever UMA LINHA de HTML ou CSS, leia os dois arquivos:
 
-1. `.claude/plugins/workshop-marketing/skills/paginas/references/design-system-components.md`
-2. `.claude/plugins/workshop-marketing/skills/paginas/references/design-referencia-vtsd.md`
+1. `.claude/skills/paginas/references/design-system-components.md`
+2. `.claude/skills/paginas/references/design-referencia-vtsd.md`
 
 Depois, confirme internamente:
 - Estou usando CSS variables do design system (não inventei cores, tamanhos ou espaçamentos)

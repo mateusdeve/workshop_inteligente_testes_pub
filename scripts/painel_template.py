@@ -56,7 +56,7 @@ SECOES: list[dict] = [
      "proxima": "Sera preenchida automaticamente no Passo 4C de /produto-concepcao."},
     {"id": "identidade-comunicador", "grupo": "IDENTIDADES", "titulo": "Identidade do Comunicador", "ix": "08",
      "subtitulo": "Tom, posicionamento e linguagem do criador.",
-     "proxima": "Sera preenchida ao concluir o Bloco 3B de /produto-concepcao."},
+     "proxima": "Sera preenchida ao concluir o Bloco 2B de /produto-concepcao."},
     {"id": "comercial-playbook", "grupo": "ENTREGAS", "titulo": "Playbook Comercial", "ix": "09",
      "subtitulo": "Script de venda 1:1 por WhatsApp (middle e low ticket).",
      "proxima": "Sera preenchido ao rodar /comercial-playbook."},
@@ -66,6 +66,9 @@ SECOES: list[dict] = [
     {"id": "copy-pagina", "grupo": "ENTREGAS", "titulo": "Copy da Página",
      "subtitulo": "16 blocos da página de vendas 8D. Aprove um bloco por vez em /copy-pagina.",
      "proxima": "Será preenchida conforme você aprova os blocos em /copy-pagina."},
+    {"id": "dashboards", "grupo": "DADOS", "titulo": "Redes Sociais", "ix": "11",
+     "subtitulo": "Metricas das redes sociais. Instagram, TikTok e YouTube em abas.",
+     "proxima": "Sera preenchido ao rodar /dashboard-social."},
 ]
 
 SECOES_RENDERIZAVEIS = {
@@ -296,11 +299,15 @@ button{font-family:inherit;}
 /* Pesquisa KPI */
 .kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--s-4);margin-bottom:var(--s-8);}
 .kpi{background:transparent;border:0;border-top:1px solid var(--line-1);padding:var(--s-6) 0;}
+.kpi.glow{border-top-color:var(--neon);box-shadow:0 -1px 0 0 var(--neon-glow);}
 .kpi .kpi-label{font-family:var(--font-mono);font-size:9px;color:var(--text-faint);letter-spacing:.18em;text-transform:uppercase;font-weight:400;}
 .kpi .kpi-num{font-family:var(--font-mono);font-size:24px;font-weight:300;color:var(--text-hi);margin-top:var(--s-3);line-height:1;letter-spacing:-.03em;}
+.kpi .kpi-num.neon{color:var(--neon);}
 .kpi .kpi-foot{font-family:var(--font-mono);font-size:10px;color:var(--text-dim);margin-top:var(--s-2);font-weight:300;}
 .kpi .up{color:var(--neon);}
 .kpi .down{color:var(--rust);}
+.kpi-spark{display:block;margin-top:var(--s-3);opacity:.7;}
+.chart-title{display:block;font-family:var(--font-mono);font-size:9px;color:var(--text-faint);letter-spacing:.16em;text-transform:uppercase;margin-bottom:var(--s-4);font-weight:400;}
 
 /* Chart cards e barras */
 .chart-card h3{font-family:var(--font-display);font-size:15px;font-weight:400;margin:0 0 var(--s-2);letter-spacing:-.01em;}
@@ -373,6 +380,23 @@ button{font-family:inherit;}
 .pill{font-family:var(--font-mono);font-size:11px;padding:4px 10px;border:1px solid var(--line-2);border-radius:999px;color:var(--text-mid);}
 .pill.neon{border-color:var(--neon-deep);color:var(--neon);}
 .pill.rust{border-color:#6b3020;color:var(--rust);}
+/* Pesquisa — oportunidades numeradas */
+.opp-list{display:flex;flex-direction:column;gap:var(--s-3);margin-bottom:var(--s-8);}
+.opp-item{display:flex;align-items:flex-start;gap:var(--s-4);padding:var(--s-4) 0;border-bottom:1px solid var(--line-1);}
+.opp-num{font-family:var(--font-mono);font-size:10px;color:var(--neon);letter-spacing:.12em;flex-shrink:0;padding-top:2px;min-width:32px;}
+.opp-text{font-size:13px;color:var(--text-hi);font-weight:300;line-height:1.65;}
+/* Pesquisa — alert box */
+.alert-neon{background:rgba(196,255,94,0.04);border:1px solid rgba(196,255,94,0.18);border-radius:var(--r-md);padding:var(--s-5) var(--s-6);margin-bottom:var(--s-8);}
+.alert-neon .al-title{font-family:var(--font-mono);font-size:9px;color:var(--neon);letter-spacing:.2em;text-transform:uppercase;margin-bottom:var(--s-3);}
+.alert-neon .al-body{font-size:12px;color:var(--text-mid);line-height:1.7;margin-bottom:var(--s-2);}
+.alert-neon .al-body:last-child{margin-bottom:0;}
+/* Pesquisa — gauge e fontes */
+.gauge-wrap{display:flex;align-items:center;gap:var(--s-8);flex-wrap:wrap;padding:var(--s-6) 0;margin-top:var(--s-4);}
+.gauge-label{font-family:var(--font-mono);font-size:9px;color:var(--text-faint);letter-spacing:.14em;text-transform:uppercase;text-align:center;margin-top:var(--s-2);}
+.sources-grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--s-2) var(--s-6);margin-top:var(--s-4);}
+.src-item{font-family:var(--font-mono);font-size:10px;color:var(--text-dim);letter-spacing:.06em;padding:var(--s-2) 0;border-bottom:1px solid var(--line-1);}
+/* Pesquisa — chart caption */
+.chart-foot{font-family:var(--font-mono);font-size:9px;color:var(--text-faint);letter-spacing:.1em;margin-top:var(--s-4);line-height:1.6;}
 .placeholder-box{padding:var(--s-10) 0;text-align:center;border-top:1px solid var(--line-1);}
 .placeholder-box .ph-title{font-family:var(--font-display);font-size:18px;font-weight:300;color:var(--text-dim);margin-bottom:var(--s-3);}
 .placeholder-box .ph-sub{font-family:var(--font-mono);font-size:10px;color:var(--text-faint);letter-spacing:.12em;text-transform:uppercase;max-width:440px;margin:0 auto;line-height:1.8;}
@@ -1076,9 +1100,10 @@ def render_identidade_produto(dados: dict) -> str:
                     f"{paragrafos}"
                     "</div>"
                 )
+            css_class = "objecao open" if idx == 1 else "objecao"
             corpo_args_html = corpo_args or '<p class="card-body">Sem argumentos registrados.</p>'
             acc_items.append(
-                '<div class="objecao">'
+                f'<div class="{css_class}">'
                 '<div class="objecao-head" onclick="toggleObjecao(this)">'
                 f'<div><div class="objecao-n">Objecao {idx:02d}</div>'
                 f'<div class="objecao-quote">{_escape(obj.get("texto", ""))}</div></div>'
@@ -1103,10 +1128,22 @@ def render_identidade_consumidor(dados: dict) -> str:
     perfil: dict = dados.get("perfil_demo") or {}
     comportamento: dict = dados.get("comportamento") or {}
     paliativos: list[str] = dados.get("paliativos") or []
+    sonho: str = dados.get("sonho") or ""
+    frases: list[str] = dados.get("frases") or []
     baldes: list[dict] = dados.get("baldes") or []
+    objecoes: list[dict] = dados.get("objecoes") or []
 
-    if not para_quem and not perfil and not comportamento and not baldes:
-        miolo = _placeholder("Aguardando Identidade do Consumidor.")
+    if not para_quem and not perfil and not comportamento and not baldes and not objecoes:
+        if dados.get("_gerando"):
+            miolo = (
+                '<div class="placeholder-box" style="opacity:.85">'
+                '<div class="ph-title" style="color:var(--accent)">Gerando...</div>'
+                '<div class="ph-sub">A Identidade do Consumidor est\u00e1 sendo criada em background. '
+                'Recarregue o painel em alguns instantes.</div>'
+                "</div>"
+            )
+        else:
+            miolo = _placeholder("Aguardando Identidade do Consumidor.")
         return f"<!-- SECTION:identidade-consumidor -->\n{miolo}\n<!-- /SECTION:identidade-consumidor -->"
 
     blocos: list[str] = []
@@ -1133,9 +1170,24 @@ def render_identidade_consumidor(dados: dict) -> str:
 
         blocos.append(
             '<div class="grid grid-2" style="margin-bottom:var(--s-7)">'
-            f'<div class="card"><span class="card-label">Perfil demografico</span>{_dt(perfil)}</div>'
+            f'<div class="card"><span class="card-label">Perfil demogr\u00e1fico</span>{_dt(perfil)}</div>'
             f'<div class="card"><span class="card-label">Comportamento e canais</span>{_dt(comportamento)}</div>'
             "</div>"
+        )
+
+    if sonho:
+        blocos.append(
+            '<div class="section-h">Sonho</div>'
+            f'<div class="quadro-card" style="margin-bottom:var(--s-8);background:rgba(var(--neon-rgb),0.06)">'
+            f'<div class="big-quote" style="font-size:18px;font-style:italic">{_escape(sonho)}</div>'
+            "</div>"
+        )
+
+    if frases:
+        lis = "".join(f'<li style="font-style:italic">{_escape(f)}</li>' for f in frases)
+        blocos.append(
+            '<div class="section-h">Frases que essa pessoa diz</div>'
+            f'<ul class="acc-list" style="margin-bottom:var(--s-8)">{lis}</ul>'
         )
 
     if paliativos:
@@ -1146,18 +1198,76 @@ def render_identidade_consumidor(dados: dict) -> str:
         )
 
     if baldes:
-        accs = "".join(
-            _acc("", balde.get("nome", "Perfil"), "5 afirmacoes", balde.get("itens", []))
-            for balde in baldes
-        )
+        balde_html = []
+        for balde in baldes:
+            nome = balde.get("nome", "Perfil")
+            descricao = balde.get("descricao", "")
+            itens = balde.get("itens", [])
+            if descricao:
+                # formato novo: nome + descricao
+                balde_html.append(
+                    f'<div class="card" style="margin-bottom:var(--s-4)">'
+                    f'<span class="card-label" style="color:var(--neon)">{_escape(nome)}</span>'
+                    f'<p class="card-body" style="margin-top:var(--s-2)">{_escape(descricao)}</p>'
+                    "</div>"
+                )
+            elif itens:
+                # formato com lista numerada: nome + itens
+                lis_itens = "".join(f"<li>{_escape(it)}</li>" for it in itens)
+                balde_html.append(
+                    f'<div class="card" style="margin-bottom:var(--s-4)">'
+                    f'<span class="card-label" style="color:var(--neon)">{_escape(nome)}</span>'
+                    f'<ul class="acc-list" style="margin-top:var(--s-3)">{lis_itens}</ul>'
+                    "</div>"
+                )
+            else:
+                # fallback: so nome
+                balde_html.append(
+                    f'<div class="card" style="margin-bottom:var(--s-4)">'
+                    f'<span class="card-label" style="color:var(--neon)">{_escape(nome)}</span>'
+                    "</div>"
+                )
         blocos.append(
-            '<div class="section-h">Baldes de para quem e</div>'
-            + accs
+            '<div class="section-h">Baldes — para quem é</div>'
+            + '<div class="grid grid-2" style="margin-bottom:var(--s-8)">'
+            + "".join(balde_html)
+            + "</div>"
+        )
+
+    if objecoes:
+        acc_items = []
+        for idx, obj in enumerate(objecoes, start=1):
+            corpo_args = ""
+            for arg in obj.get("argumentos", []):
+                paragrafos = "".join(
+                    f'<p class="arg-body">{_escape(p)}</p>'
+                    for p in arg.get("paragrafos", []) if p
+                )
+                corpo_args += (
+                    '<div class="arg">'
+                    f'<div class="arg-type">{_escape(arg.get("titulo", ""))}</div>'
+                    f"{paragrafos}"
+                    "</div>"
+                )
+            acc_items.append(
+                '<div class="objecao">'
+                '<div class="objecao-head" onclick="toggleObjecao(this)">'
+                f'<div><div class="objecao-n">Objeção {idx:02d}</div>'
+                f'<div class="objecao-quote">{_escape(obj.get("texto", ""))}</div></div>'
+                '<span style="color:var(--text-faint);font-size:11px">&#9662;</span>'
+                "</div>"
+                '<div class="objecao-body">'
+                f"{corpo_args or '<p class=\"card-body\">Sem argumentos registrados.</p>'}"
+                "</div>"
+                "</div>"
+            )
+        blocos.append(
+            '<div class="section-h">Objeções de compra e como quebrar</div>'
+            + "".join(acc_items)
         )
 
     miolo = "".join(blocos)
     return f"<!-- SECTION:identidade-consumidor -->\n{miolo}\n<!-- /SECTION:identidade-consumidor -->"
-
 
 def render_identidade_comunicador(dados: dict) -> str:
     nome = dados.get("nome") or ""
@@ -1172,7 +1282,7 @@ def render_identidade_comunicador(dados: dict) -> str:
     afastam: list[str] = dados.get("palavras_afastam") or []
 
     if not nome and not valores and not tom and not posicionamento:
-        miolo = _placeholder("Aguardando Identidade do Comunicador do Bloco 3B.")
+        miolo = _placeholder("Aguardando Identidade do Comunicador do Bloco 2B.")
         return f"<!-- SECTION:identidade-comunicador -->\n{miolo}\n<!-- /SECTION:identidade-comunicador -->"
 
     grid_topo = (
@@ -1241,37 +1351,70 @@ def render_pesquisa(dados: dict) -> str:
             {"label": "Ticket medio do nicho", "valor": dados.get("ticket_medio") or "a mapear", "foot": ""},
         ]
 
-    kpis_html = "".join(
-        f'<div class="kpi">'
-        f'<div class="kpi-label">{_escape(k["label"])}</div>'
-        f'<div class="kpi-num">{_escape(k["valor"])}</div>'
-        f'<div class="kpi-foot">{_escape(k.get("foot", "") or k.get("sub", ""))}</div>'
-        "</div>"
-        for k in kpis
-    )
+    # Spark lines: tendência ascendente para mercado/crescimento, neutra para os demais
+    _sparks = [
+        "0,22 15,20 30,18 45,15 60,12 75,9 90,6 105,4 120,2",   # ascendente forte
+        "0,20 20,22 40,18 60,19 80,15 100,13 120,10",             # ascendente irregular
+        "0,14 20,15 40,14 60,13 80,12 100,11 120,10",             # estável/neutro
+        "0,22 20,20 40,18 60,16 80,14 100,12 120,9",              # ascendente suave
+    ]
+    def _spark_svg(pts: str, glow: bool = False) -> str:
+        cor = "#c4ff5e" if glow else "#7a8f4a"
+        sw = "1.2" if glow else "1"
+        return (
+            f'<svg class="kpi-spark" width="100%" height="28" viewBox="0 0 120 28" preserveAspectRatio="none">'
+            f'<polyline fill="none" stroke="{cor}" stroke-width="{sw}" points="{pts}"></polyline>'
+            f'</svg>'
+        )
+
+    kpis_html = ""
+    for i, k in enumerate(kpis):
+        glow = (i == 0)
+        cls = 'class="kpi glow"' if glow else 'class="kpi"'
+        num_cls = 'class="kpi-num neon"' if glow else 'class="kpi-num"'
+        spark = _spark_svg(_sparks[i % len(_sparks)], glow)
+        kpis_html += (
+            f'<div {cls}>'
+            f'<div class="kpi-label">{_escape(k["label"])}</div>'
+            f'<div {num_cls}>{_escape(k["valor"])}</div>'
+            f'<div class="kpi-foot">{_escape(k.get("foot", "") or k.get("sub", ""))}</div>'
+            f'{spark}'
+            f'</div>'
+        )
 
     opo_html = ""
     if oportunidades:
-        lis = "".join(f"<li>{_md(o)}</li>" for o in oportunidades)
+        items_opo = "".join(
+            f'<div class="opp-item">'
+            f'<span class="opp-num">[{str(i + 1).zfill(2)}]</span>'
+            f'<span class="opp-text">{_md(o)}</span>'
+            f'</div>'
+            for i, o in enumerate(oportunidades)
+        )
         opo_html = (
             '<div class="section-h">Oportunidades identificadas</div>'
-            f'<ul class="acc-list" style="margin-bottom:var(--s-8)">{lis}</ul>'
+            f'<div class="opp-list">{items_opo}</div>'
         )
 
     cuid_rec = ""
     if cuidados or reclamacoes:
-        def _col(titulo, items):
-            lis = "".join(f"<li>{_md(i)}</li>" for i in items)
-            return (
-                f'<div class="card"><span class="card-label">{_escape(titulo)}</span>'
+        cuid_html = ""
+        if cuidados:
+            items_al = "".join(f'<div class="al-body">{_md(c)}</div>' for c in cuidados)
+            cuid_html = (
+                f'<div class="alert-neon">'
+                f'<div class="al-title">[alerta] cuidados e riscos</div>'
+                f'{items_al}</div>'
+            )
+        rec_html = ""
+        if reclamacoes:
+            lis = "".join(f"<li>{_md(i)}</li>" for i in reclamacoes)
+            rec_html = (
+                '<div class="card" style="margin-bottom:var(--s-7)">'
+                '<span class="card-label">Padroes de reclamacao (Reclame Aqui)</span>'
                 f'<ul class="acc-list" style="margin-top:var(--s-3)">{lis}</ul></div>'
-            ) if items else ""
-        cuid_rec = (
-            '<div class="grid grid-2" style="margin-bottom:var(--s-7)">'
-            + _col("Cuidados e riscos", cuidados)
-            + _col("Padroes de reclamacao", reclamacoes)
-            + "</div>"
-        )
+            )
+        cuid_rec = cuid_html + rec_html
 
     conc_html = ""
     if concorrentes:
@@ -1417,10 +1560,13 @@ def render_pesquisa(dados: dict) -> str:
         ganchos_aq = assuntos.get("ganchos") or []
         partes_aq = []
         if termos_aq:
-            lis = "".join(f"<li>{_md(t)}</li>" for t in termos_aq)
+            pills = (
+                "".join(f'<span class="pill neon">{_escape(t)}</span>' for t in termos_aq[:5])
+                + "".join(f'<span class="pill">{_escape(t)}</span>' for t in termos_aq[5:])
+            )
             partes_aq.append(
                 '<span class="card-label">Termos em alta</span>'
-                f'<ul class="acc-list" style="margin-bottom:var(--s-7)">{lis}</ul>'
+                f'<div class="pill-list" style="margin-bottom:var(--s-7)">{pills}</div>'
             )
         if ganchos_aq:
             lis = "".join(f"<li>{_md(g)}</li>" for g in ganchos_aq)
@@ -1486,8 +1632,149 @@ def render_pesquisa(dados: dict) -> str:
                 + '<div style="margin-bottom:var(--s-8)"></div>'
             )
 
+    # --- gráficos opcionais (requerem campos do JSON) ---
+
+    # line chart: serie_crescimento [{ano, valor}, ...]
+    # filtra serie para manter apenas itens com mesmo indicador (o mais frequente)
+    # ou, se nao houver campo indicador, usa todos — evita mistura de unidades
+    crescimento_chart = ""
+    serie_raw = dados.get("serie_crescimento") or []
+    if serie_raw:
+        if any("indicador" in p for p in serie_raw):
+            from collections import Counter
+            _ind_count = Counter(p.get("indicador", "") for p in serie_raw)
+            _top_ind = _ind_count.most_common(1)[0][0]
+            serie = [p for p in serie_raw if p.get("indicador", "") == _top_ind]
+        else:
+            serie = serie_raw
+    else:
+        serie = []
+    if len(serie) >= 2:
+        vals = [float(str(p.get("valor", 0)).replace(",", ".")) for p in serie]
+        anos = [str(p.get("ano", "")) for p in serie]
+        vmin, vmax = min(vals), max(vals)
+        vrange = max(vmax - vmin, 1)
+        W, H = 360, 120
+        xs = [round(i * W / (len(vals) - 1)) for i in range(len(vals))]
+        ys = [round(H - ((v - vmin) / vrange) * (H - 16) - 4) for v in vals]
+        pts = " ".join(f"{x},{y}" for x, y in zip(xs, ys))
+        labels = "".join(
+            f'<text x="{x}" y="{H + 14}" text-anchor="middle" fill="#555" font-size="9" font-family="JetBrains Mono">{a}</text>'
+            for x, a, y in zip(xs[::max(1, len(xs)//5)], anos[::max(1, len(xs)//5)], ys[::max(1, len(xs)//5)])
+        )
+        crescimento_chart = (
+            '<div class="grid grid-2" style="margin-bottom:var(--s-8)">'
+            '<div class="card"><span class="chart-title">[crescimento] mercado ao longo do tempo</span>'
+            f'<svg viewBox="0 0 360 140" width="100%" height="140" style="display:block">'
+            f'<defs><linearGradient id="nFade" x1="0" y1="0" x2="0" y2="1">'
+            f'<stop offset="0%" stop-color="#c4ff5e" stop-opacity=".15"/>'
+            f'<stop offset="100%" stop-color="#c4ff5e" stop-opacity="0"/></linearGradient></defs>'
+            f'<polyline fill="none" stroke="#c4ff5e" stroke-width="1.5" points="{pts}"/>'
+            f'{labels}'
+            f'</svg></div>'
+        )
+        # donut: reclamacoes_categorias [{categoria, pct}, ...]
+        # aceita tambem formato rico com frequencia: "alta"/"media"/"baixa"
+        rec_cats = dados.get("reclamacoes_categorias") or []
+        if rec_cats:
+            _freq_map = {"alta": 35, "alto": 35, "media": 22, "medio": 22, "baixa": 10, "baixo": 10}
+            def _get_pct(cat: dict) -> float:
+                v = cat.get("pct")
+                if v is not None:
+                    return float(str(v).replace(",", "."))
+                freq = str(cat.get("frequencia", cat.get("freq", ""))).lower()
+                return float(_freq_map.get(freq, 5))
+            # cap a 6 categorias: as 5 maiores + "Outros" com o restante
+            _MAX_CATS = 6
+            indexed = sorted(enumerate(rec_cats), key=lambda t: -_get_pct(t[1]))
+            if len(rec_cats) > _MAX_CATS:
+                top = [rec_cats[i] for i, _ in indexed[:_MAX_CATS - 1]]
+                outros_val = sum(_get_pct(rec_cats[i]) for i, _ in indexed[_MAX_CATS - 1:])
+                top.append({"categoria": "Outros", "pct": outros_val})
+                rec_cats = top
+            raw_pcts = [_get_pct(c) for c in rec_cats]
+            total = sum(raw_pcts) or 1
+            norm_pcts = [round(v / total * 100, 1) for v in raw_pcts]
+            offset = 25
+            arcs = ""
+            for cat, p in zip(rec_cats, norm_pcts):
+                arcs += (
+                    f'<circle cx="21" cy="21" r="15.915" fill="transparent" stroke="#c4ff5e" stroke-width="3" '
+                    f'stroke-dasharray="{p:.1f} {100-p:.1f}" stroke-dashoffset="{offset}" '
+                    f'transform="rotate(-90 21 21)" stroke-linecap="butt" opacity=".6"/>'
+                )
+                offset -= p
+            legenda = "".join(
+                f'<div style="font-size:11px;color:var(--text-dim);margin-bottom:3px">'
+                f'<span style="color:var(--neon)">{p}%</span> {_escape(cat.get("categoria",""))}</div>'
+                for cat, p in zip(rec_cats, norm_pcts)
+            )
+            crescimento_chart += (
+                '<div class="card"><span class="chart-title">[reclamações] distribuição por categoria</span>'
+                f'<div style="display:flex;gap:var(--s-6);align-items:center">'
+                f'<svg width="80" height="80" viewBox="0 0 42 42">{arcs}</svg>'
+                f'<div>{legenda}</div></div></div>'
+            )
+        crescimento_chart += '</div>'
+
+    # bar chart horizontal: precos_por_formato [{formato, min, max}, ...]
+    # aceita tambem chaves preco_min / preco_max (formato rico do agente)
+    precos_chart = ""
+    precos = dados.get("precos_por_formato") or []
+    if precos:
+        def _pval(p: dict, key: str, alt: str, fallback: float = 0.0) -> float:
+            v = p.get(key) if p.get(key) is not None else p.get(alt, fallback)
+            return float(str(v).replace(",", "."))
+        pmax = max((_pval(p, "max", "preco_max") for p in precos), default=1) or 1
+        rows = ""
+        for p in precos:
+            pmin = _pval(p, "min", "preco_min")
+            pmax_v = _pval(p, "max", "preco_max", pmin)
+            label_val = f"R$ {int(pmax_v):,}".replace(",", ".") if pmax_v else "Grátis"
+            pct_bar = round(pmax_v / pmax * 100)
+            rows += (
+                f'<div class="bar-row">'
+                f'<div class="bar-label">{_escape(p.get("formato",""))}</div>'
+                f'<div class="bar-track"><div class="bar-fill" style="width:{pct_bar}%"></div></div>'
+                f'<div class="bar-val">{label_val}</div>'
+                f'</div>'
+            )
+        precos_chart = (
+            '<div class="section-h">Faixa de preço por formato</div>'
+            f'<div style="margin-bottom:var(--s-8)">{rows}</div>'
+        )
+
+    # gauge de cobertura
+    _secoes = [dados.get("tamanho_mercado"), dados.get("crescimento"),
+               concorrentes, oportunidades, cuidados, reclamacoes,
+               yt_videos, assuntos and any(assuntos.values()),
+               bibl and any(bibl.values())]
+    pct = min(99, int(sum(1 for x in _secoes if x) / len(_secoes) * 100))
+    gauge_html = (
+        '<div class="section-h">Cobertura da pesquisa</div>'
+        '<div class="gauge-wrap">'
+        f'<div><svg width="120" height="120" viewBox="0 0 42 42">'
+        f'<circle cx="21" cy="21" r="15.915" fill="transparent" stroke="#141414" stroke-width="3"/>'
+        f'<circle cx="21" cy="21" r="15.915" fill="transparent" stroke="#c4ff5e" stroke-width="3" '
+        f'stroke-dasharray="{pct} {100-pct}" stroke-dashoffset="25" transform="rotate(-90 21 21)" stroke-linecap="round"/>'
+        f'<text x="21" y="20.5" text-anchor="middle" fill="#c4ff5e" font-size="9" font-family="JetBrains Mono" font-weight="400">{pct}%</text>'
+        f'<text x="21" y="25.5" text-anchor="middle" fill="#555" font-size="2.2" font-family="JetBrains Mono">cobertura</text>'
+        f'</svg><div class="gauge-label">indice composto</div></div>'
+    )
+    if fontes:
+        srcs = "".join(f'<div class="src-item">{_escape(f)}</div>' for f in fontes)
+        gauge_html += (
+            f'<div style="flex:1;min-width:200px">'
+            f'<div class="chart-foot">dados cruzados de multiplas fontes.</div>'
+            f'<div class="sources-grid">{srcs}</div>'
+            f'</div>'
+        )
+    gauge_html += '</div>'
+
     miolo = (
         f'<div class="kpi-grid">{kpis_html}</div>'
+        + crescimento_chart
+        + precos_chart
         + opo_html
         + cuid_rec
         + conc_html
@@ -1496,6 +1783,7 @@ def render_pesquisa(dados: dict) -> str:
         + assuntos_html
         + bibl_html
         + fontes_html
+        + gauge_html
     )
     return f"<!-- SECTION:pesquisa -->\n{miolo}\n<!-- /SECTION:pesquisa -->"
 
@@ -1939,6 +2227,73 @@ def _proximo_bloco(por_numero: dict[int, dict]) -> str:
     return "16"
 
 
+def render_dashboards(dados: dict) -> str:
+    plataformas = dados.get("plataformas", [])
+
+    if not plataformas:
+        return (
+            "<!-- SECTION:dashboards -->\n"
+            + _placeholder("Sera preenchido ao rodar /dashboard-social.")
+            + "\n<!-- /SECTION:dashboards -->"
+        )
+
+    tabs_html = ""
+    frames_html = ""
+    for i, p in enumerate(plataformas):
+        active_cls = " dash-tab-active" if i == 0 else ""
+        display_style = "" if i == 0 else ' style="display:none"'
+        user_span = (
+            f'<span class="dash-user">{_escape(p["user"])}</span>' if p.get("user") else ""
+        )
+        tabs_html += (
+            f'<button class="dash-tab{active_cls}" '
+            f'onclick="showDashTab(\'{p["id"]}\')">'
+            f'{_escape(p["label"])}{user_span}'
+            f"</button>"
+        )
+        frames_html += (
+            f'<div class="dash-frame" id="dash-frame-{p["id"]}"{display_style}>'
+            f'<iframe src="{_escape(p["caminho"])}" class="dash-iframe" '
+            f'title="Dashboard {_escape(p["label"])}"></iframe>'
+            f"</div>"
+        )
+
+    inner = (
+        "<style>"
+        ".dash-tabstrip{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap}"
+        ".dash-tab{background:var(--ink-3,#141414);border:1px solid var(--line-2,#262626);"
+        "color:var(--text-faint,#a8a8a3);padding:10px 18px;cursor:pointer;"
+        "font-family:'JetBrains Mono',monospace;font-size:13px;"
+        "display:flex;flex-direction:column;gap:3px;transition:border-color .15s}"
+        ".dash-tab:hover{border-color:var(--text-dim,#cfcfcb)}"
+        ".dash-tab-active{border-color:var(--neon,#c4ff5e);color:var(--text-hi,#fff)}"
+        ".dash-user{font-size:11px;color:var(--neon,#c4ff5e)}"
+        ".dash-iframe{width:100%;height:calc(100vh - 230px);border:none;background:#000;"
+        "display:block}"
+        ".dash-frame{width:100%}"
+        "</style>"
+        f'<div class="dash-tabstrip">{tabs_html}</div>'
+        f'<div class="dash-frames">{frames_html}</div>'
+        "<script>"
+        "function showDashTab(id){"
+        "document.querySelectorAll('.dash-tab').forEach(function(t){"
+        "t.classList.remove('dash-tab-active')});"
+        "document.querySelectorAll('.dash-frame').forEach(function(f){"
+        "f.style.display='none'});"
+        "var btn=document.querySelector('.dash-tab[onclick*=\"'+id+'\"]');"
+        "if(btn)btn.classList.add('dash-tab-active');"
+        "var frame=document.getElementById('dash-frame-'+id);"
+        "if(frame)frame.style.display=''}"
+        "</script>"
+    )
+
+    return (
+        "<!-- SECTION:dashboards -->\n"
+        + inner
+        + "\n<!-- /SECTION:dashboards -->"
+    )
+
+
 RENDERS = {
     "quadro": render_quadro,
     "furadeira": render_furadeira,
@@ -1950,4 +2305,5 @@ RENDERS = {
     "pesquisa": render_pesquisa,
     "copy-pagina": render_copy_pagina,
     "comercial-playbook": render_comercial_playbook,
+    "dashboards": render_dashboards,
 }

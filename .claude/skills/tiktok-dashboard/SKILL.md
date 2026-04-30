@@ -6,6 +6,7 @@ description: >
   (views, likes, comentarios, compartilhamentos, saves, duracao). Todas as
   thumbnails embutidas em base64. Roda localmente na maquina do mentorado,
   sem servidor, sem GitHub, sem agendamento automatico.
+user-invocable: false
 ---
 
 # TikTok Dashboard. Metricas Diarias Automaticas
@@ -264,21 +265,77 @@ tail -10 meus-produtos/{ativo}/entregas/tiktok-dashboard/log.txt
 
 ### PASSO 3. Entrega
 
+Apos confirmar sucesso no log, atualize o painel de entregas:
+
+```bash
+py -3 scripts/painel-incremental.py --secao dashboards
 ```
-Dashboard criado.
 
-Arquivos:
-- Dashboard: meus-produtos/{ativo}/entregas/tiktok-dashboard/dashboard.html
-- Script:    .claude/skills/tiktok-dashboard/scripts/atualizar.py
-- Log:       meus-produtos/{ativo}/entregas/tiktok-dashboard/log.txt
+(macOS/Linux: `python3 scripts/painel-incremental.py --secao dashboards`)
 
-Para atualizar quando quiser:
-python .claude/skills/tiktok-dashboard/scripts/atualizar.py --abrir
+Se o painel ainda nao existir, informe:
+
+```
+O painel de entregas ainda nao foi criado para este produto.
+Rode /produto-concepcao primeiro para gerar o painel, depois atualize os dashboards.
+```
+
+Informe ao aluno:
+
+```
+Dashboard do TikTok gerado.
+
+Acesse pelo Painel de Entregas:
+meus-produtos/{ativo}/painel-entregas.html  (aba Dashboards)
+
+Para atualizar os dados quando quiser:
+python .claude/skills/tiktok-dashboard/scripts/atualizar.py
+(depois rode: py -3 scripts/painel-incremental.py --secao dashboards)
 
 Perfil monitorado: @{username}
 ```
 
 **Sem agendamento automatico:** o aluno roda o script manualmente.
+
+---
+
+### PASSO 4. Verificar Proxima Plataforma na Fila
+
+Apos confirmar entrega com sucesso, verifique se `meus-produtos/{ativo}/.dashboard-queue.json` existe.
+
+**Se o arquivo NAO existir:** exibir os "Proximos Passos" normalmente e encerrar. (Skill foi chamada diretamente, sem fila.)
+
+**Se o arquivo EXISTIR:**
+
+1. Leia o conteudo do arquivo.
+2. Mova `"tiktok"` de `pendentes` para `concluidos` (Edit cirurgico no JSON).
+3. Verifique se ainda ha itens em `pendentes`.
+
+**Se `pendentes` estiver vazio:** delete o arquivo `.dashboard-queue.json`. Exiba:
+
+```
+Todos os dashboards foram gerados.
+```
+
+E encerre.
+
+**Se `pendentes` tiver proxima plataforma**, exiba a oferta de continuacao:
+
+```
+TikTok concluido.
+
+Proximo na fila: {Plataforma} ({@username ou canal, se ja estiver no .env})
+
+1. Gerar o dashboard do {Plataforma} agora
+2. Parar por aqui (posso continuar depois chamando /dashboard-social)
+```
+
+- Opcao 1: executar a skill correspondente (`youtube-dashboard`).
+- Opcao 2: encerrar sem alterar a fila. Na proxima chamada a `/dashboard-social`, o arquivo sera detectado e oferecera retomada automatica.
+
+**Regra:** nunca exibir os "Proximos Passos" quando o arquivo de fila existir. A fila tem prioridade sobre as sugestoes de conteudo.
+
+---
 
 ## Regras
 

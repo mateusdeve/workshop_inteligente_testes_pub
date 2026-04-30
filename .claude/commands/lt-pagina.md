@@ -172,7 +172,7 @@ Gere as 4 copies em sequência. Cada copy deve:
 3. Parágrafo técnico/racional em itálico
 4. CTA
 
-**Melhor para:** planilhas, templates, checklists, scripts prontos, kits, packs. Low ticket clássico (R$17 a R$97).
+**Melhor para:** planilhas, templates, checklists, scripts prontos, kits, packs. Low ticket clássico (R$37 a R$97).
 
 ---
 

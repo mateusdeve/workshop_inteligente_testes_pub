@@ -176,7 +176,10 @@ Nomes alternativos:
 1. Aprovar e salvar no perfil.md
 2. Quero trocar o nome
 3. Quero ajustar algum bloco específico
+4. Transformar em Trilha de Progressão (somente se mecânica for Fases e Sequências)
 ```
+
+A opção 4 só aparece no resumo quando a mecânica principal for **Fases e Sequências**. Para outras mecânicas, omitir silenciosamente.
 
 ### 9. Tratar resposta do aluno
 
@@ -185,6 +188,33 @@ Nomes alternativos:
 **Se 2 (trocar nome):** mostrar os nomes alternativos numerados, pedir o número escolhido, atualizar nome principal e voltar a mostrar o resumo (passo 8) com o novo nome destacado.
 
 **Se 3 (ajustar bloco):** perguntar qual bloco específico (ex: "Fase 2", "Ramificação Trilha Vermelha", "Pilar 3"), o aluno descreve o ajuste, regenerar só aquele bloco, voltar a mostrar o resumo.
+
+**Se 4 (Trilha de Progressão):** converter as fases em níveis de progressão gamificados. Para cada fase, gerar:
+- **Nome criativo do nível** (pode usar metáforas: faixas, rankings, elementos, estações, etc. — alinhado ao nicho do produto)
+- **Quem está neste nível** (descrição do estado atual do aluno)
+- **O que ele faz aqui** (as microetapas da fase, reescritas como conquistas)
+- **Como avança** (critério concreto e mensurável para passar ao próximo nível)
+
+Mostrar a Trilha formatada para aprovação antes de salvar:
+
+```
+Trilha de Progressão — {Nome do Método}
+
+Nível 1 — {Nome criativo}
+  Quem está aqui: {descrição}
+  O que faz: {conquistas}
+  Avança quando: {critério}
+
+Nível 2 — {Nome criativo}
+  ...
+
+(repetir para cada fase)
+
+1. Aprovar e salvar no perfil.md
+2. Quero ajustar algum nível
+```
+
+Após aprovação, seguir para passo 10 salvando a estrutura de Trilha no lugar das Fases.
 
 ### 10. Salvar no perfil.md
 
@@ -237,7 +267,7 @@ py -3 scripts/painel-incremental.py --slug {ativo}
 
 Nome do método: {nome}
 Mecânica: {mecânica}
-Caminho: C:\Users\Elen\.cursor\Imersão IA\workshop_inteligente\meus-produtos\{ativo}\perfil.md
+Caminho: {raiz-do-projeto}/meus-produtos/{ativo}/perfil.md
 
 Próximo:
 - /furadeira-visual para gerar o prompt do ChatGPT e criar a imagem PNG do método

@@ -73,7 +73,7 @@ VISUAL STYLE:
 The canvas itself has NO background fill — the only visible elements are the infographic shapes,
 text and decorative particles. Empty space between elements shows transparency, not white or any color.
 
-METHOD CONTENT (keep all text exactly in Brazilian Portuguese, do not translate):
+METHOD CONTENT — COPY EVERY WORD EXACTLY AS WRITTEN BELOW. Do not add, translate, rephrase or shorten any label. Do NOT include any text in the infographic that is not listed here:
 
 {conteúdo específico da mecânica:
  - Fases: cada fase numerada com nome + 1 frase
@@ -94,6 +94,7 @@ You will render Brazilian Portuguese text. Common rendering mistakes you must av
 - WRONG: "Maos"  RIGHT: "Mãos"
 - WRONG: "Simbolo" or "simbulo"  RIGHT: "Símbolo"
 - WRONG: "Bia 14"  RIGHT: "Dia 14"
+- When a number appears in a label (ex: "Dia 30"), always clarify: write the digit value in words AND show the digits explicitly to prevent confusion between visually similar digits (3 vs 9, 1 vs 7, 6 vs 0). Example: "Dia 30 (thirty, not ninety — digit THREE followed by ZERO: 30)"
 - WRONG: "Reiri"  RIGHT: "Reiki"
 - WRONG: "voitar a ler paz"  RIGHT: "voltar a ter paz"
 - WRONG: "Reussio dos sinois"  RIGHT: "Revisão dos sinais"
@@ -107,14 +108,14 @@ TONE: {corporate sober / spiritual ethereal / vibrant modern / clean academic / 
 
 HARD CONSTRAINTS (must all be satisfied — these are non-negotiable):
 1. TRANSPARENT BACKGROUND. Output is a PNG with alpha channel. NO white fill, NO black fill, NO colored fill, NO gradient wash behind the canvas. The image, when opened in an image editor, must show the checkered transparency pattern in all areas not covered by infographic elements. This is the most common failure mode — verify the background is transparent before finishing.
-2. All visible text must be in Brazilian Portuguese (pt-BR). Never translate names, phases, categories or labels into English. Keep "Método", "Dia", "Áudio", "Coração", "Símbolo", "Aplicação", "Reiki" exactly as written.
-3. Render every accented character correctly: ã, á, â, à, é, ê, í, ó, ô, õ, ú, ç. Spell every Portuguese word exactly as in the METHOD CONTENT section above. If you are unsure how to render a word, copy it letter by letter from this prompt — do not improvise spelling.
+2. All visible text must be in Brazilian Portuguese (pt-BR). Never translate names, phases, categories or labels into English. Every text label must appear exactly as written in the METHOD CONTENT section above. Do NOT invent or add any word not listed there.
+3. Render every accented character correctly: ã, á, â, à, é, ê, í, ó, ô, õ, ú, ç. Spell every Portuguese word exactly as in the METHOD CONTENT section above. If you are unsure how to render a word, copy it letter by letter from this prompt — do not improvise spelling. Include product-specific WRONG/RIGHT pairs for every accent-bearing word that appears in the METHOD CONTENT (e.g., "vídeos", "Após", "exercício", "lê", "Método"). Never create a pair where WRONG = RIGHT.
 4. No people, no faces, no photographs, no realistic scenes, no handwriting.
 5. No logos, no watermarks, no decorative frames around the full canvas.
 6. Aspect ratio 4:3, minimum width 1200px.
 7. Output: clean professional infographic ready for presentation slide or sales page section.
 
-FINAL CHECK before delivering: confirm the background is transparent (alpha channel) and every Portuguese word is spelled correctly with proper accents. If either is wrong, regenerate.
+FINAL CHECK before delivering: (1) Is the background transparent with alpha channel — no white or colored fill anywhere on the canvas? If no, regenerate. (2) Is every visible word spelled exactly as in the METHOD CONTENT section above, with correct accents? If no, regenerate.
 ```
 
 ### Exemplo (Método 3F, mecânica Fases, nicho Educação)
@@ -202,7 +203,7 @@ Após salvar a PNG:
 | Sintoma | Causa | Correção |
 |---|---|---|
 | Prompt sai com texto em inglês no infográfico | Faltou reforço "keep all text exactly in Brazilian Portuguese" | Sempre incluir essa instrução em maiúscula + nas HARD CONSTRAINTS |
-| ChatGPT gera fundo branco em vez de transparente | Faltou reforço de transparent background | Repetir "transparent background" em 3 pontos do prompt |
+| ChatGPT gera fundo branco em vez de transparente | Faltou reforço de transparent background | Repetir "transparent background" em 4 lugares distintos: abertura, VISUAL STYLE, HARD CONSTRAINT #1 e FINAL CHECK |
 | Acentos saem errados ("Acao" no lugar de "Ação") | Modelo de imagem omite acentos quando não instruído | Sempre incluir lista de acentos + exemplo concreto nas HARD CONSTRAINTS |
 | Layout não combina com a mecânica | Pulou a tabela de mapeamento | Aplicar a tabela mecânica → layout antes de montar o prompt |
 | Cores não combinam com o nicho | Usou paleta genérica | Aplicar a tabela de paleta por nicho |

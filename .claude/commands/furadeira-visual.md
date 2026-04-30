@@ -132,6 +132,8 @@ Anuncie:
 
 Salve em `meus-produtos/{ativo}/entregas/furadeira/prompt-furadeira.md` com este conteúdo:
 
+> **ATENÇÃO:** salvar o arquivo NÃO é o fim do passo. Após salvar, execute o Passo 8 imediatamente — exibir o prompt completo no chat. Não encerre, não mostre apenas o caminho do arquivo, não escreva "Abra o arquivo acima".
+
 ~~~markdown
 # Prompt para gerar a imagem da Furadeira no ChatGPT
 
@@ -160,6 +162,8 @@ Salve em `meus-produtos/{ativo}/entregas/furadeira/prompt-furadeira.md` com este
 ~~~
 
 ### 8. Exibir o prompt no chat
+
+> **OBRIGATÓRIO.** Exibir o prompt completo no chat imediatamente após salvar o arquivo. Não pule este passo. Não substitua o conteúdo por um link para o arquivo. O aluno precisa ver o texto aqui para copiar sem abrir nada.
 
 Mostre o prompt em inglês completo no chat (sem o bloco de código markdown — direto, pronto pra copiar):
 
@@ -192,14 +196,20 @@ Estou esperando a imagem.
 Aguarde o aluno responder. Há 3 cenários possíveis:
 
 **A. Aluno cola a imagem no chat.**
+
+> **OBRIGATÓRIO.** Mover o arquivo imediatamente, sem perguntar nada antes. Não apresente opções de qualidade, não peça confirmação, não comente os erros antes de mover. Primeiro move, depois (se quiser) comenta.
+
 1. Identifique o caminho temporário da imagem.
 2. Crie a pasta `meus-produtos/{ativo}/entregas/furadeira/` se não existir:
    ```
    bash -c "mkdir -p 'meus-produtos/{ativo}/entregas/furadeira'"
    ```
-3. Copie a imagem para `meus-produtos/{ativo}/entregas/furadeira/furadeira.png` (sobrescreve se já existir).
+3. Copie a imagem para `meus-produtos/{ativo}/entregas/furadeira/furadeira.png` (sobrescreve se já existir), independente do nome original do arquivo.
+4. Confirme: `✅ Imagem salva em meus-produtos/{ativo}/entregas/furadeira/furadeira.png`
 
-**B. Aluno diz "imagem salva".**
+Só após mover: se houver erros visíveis de texto (problema comum do ChatGPT com português), mencione brevemente como observação e siga para o passo 10.
+
+**B. Aluno diz "imagem salva" ou variações ("ta na mao", "salvei", "pronto").**
 1. Verifique se `meus-produtos/{ativo}/entregas/furadeira/furadeira.png` existe.
 2. Se não existir, peça pro aluno conferir o caminho.
 
@@ -232,7 +242,7 @@ py -3 scripts/painel-incremental.py --slug {ativo}
 ```
 ✅ Concluído: imagem da Furadeira salva.
 
-Caminho: C:\Users\Elen\.cursor\Imersão IA\workshop_inteligente\meus-produtos\{ativo}\entregas\furadeira\furadeira.png
+Caminho: {raiz-do-projeto}/meus-produtos/{ativo}/entregas/furadeira/furadeira.png
 
 Próximo:
 - /copy-pagina para usar a Furadeira na seção Método da página de vendas (a imagem é embutida automaticamente)

@@ -94,7 +94,7 @@ Verifique também se `meus-produtos/{ativo}/pesquisa-mercado.md` já existe (pes
 **Verificação de pendências do perfil existente (obrigatória quando perfil.md já existe):**
 
 Após ler o `perfil.md`, verifique se a Furadeira foi preenchida mas o visual não foi gerado:
-- Se a seção `## Furadeira (Método)` tiver conteúdo E os três campos `Furadeira HTML`, `Furadeira PNG` e `Furadeira Prompt` estiverem todos como `não gerado`, sinalize antes de continuar:
+- Se a seção `## Furadeira (Método)` tiver conteúdo E os três campos `_html`, `_png` e `_prompt` estiverem todos como `não gerado`, sinalize antes de continuar:
 
 ```
 Encontrei uma pendência do fluxo anterior:
@@ -107,7 +107,7 @@ A Furadeira está preenchida mas o visual ainda não foi gerado.
 Digite o número:
 ```
 
-- Se escolher **1**: acione `/furadeira-visual` completo (pergunta de formato, geração, salvamento e registro no perfil.md) antes de seguir para qualquer outro bloco.
+- Se escolher **1**: acione `/furadeira-visual` completo (geração do prompt, salvamento e registro no perfil.md) antes de seguir para qualquer outro bloco.
 - Se escolher **2**: continue o fluxo normalmente sem gerar o visual.
 
 ### 2. Entrevista guiada (UMA pergunta por vez, com progresso visual)
@@ -139,7 +139,25 @@ Qual o resultado principal que o comprador alcança com isso?
 (ex: "Entender séries americanas sem legenda em 30 dias", "Sair do vermelho em 90 dias controlando os gastos pelo celular", "Conseguir os primeiros 3 clientes freelancer em 30 dias")
 ```
 
+**Pergunta 2B (condicional — nicho abstrato):**
+
+Após receber a resposta da Pergunta 2, avalie se o resultado descrito é abstrato ou intangível. Sinais de alerta: autoconfiança, autoconhecimento, mentalidade, espiritualidade, inteligência emocional, bem-estar, desenvolvimento pessoal, autoestima, propósito, equilíbrio, relacionamentos, cura, despertar, superação, ansiedade, ou qualquer resultado que não tenha uma consequência externa mensurável na vida do aluno.
+
+Se detectar um desses sinais, faça esta pergunta antes de gerar as opções — sem comentar a detecção, sem dizer que identificou o nicho, sem nenhum texto introdutório. Apenas a pergunta:
+
+```
+Qual área da vida isso impacta mais na prática?
+(ex: profissional, financeira, relacionamentos, saúde, vida social)
+```
+
+Use a resposta para ancorar o Quadro em algo concreto e externo. Exemplo: "autoconfiança" + "profissional" → "Falar com segurança em reuniões e ser reconhecido no trabalho". Se o nicho for objetivo e tangível (finanças, idiomas, emagrecimento, vendas, etc.), pule esta pergunta completamente — sem avisar que pulou, sem mencionar o critério.
+
 Com as respostas, gere 5 opções de Quadro seguindo as regras: até 10 palavras, verbo no infinitivo, único resultado, específico e tangível. **ATENÇÃO: o Quadro é o resultado final, nunca o processo.** Cada opção deve descrever o que a pessoa CONQUISTA ou SE TORNA, não o que ela vai aprender, descobrir, identificar ou investigar. Teste interno antes de apresentar: "a pessoa pode dizer 'isso aconteceu na minha vida' ao final do produto?" Se não, reescreva. Apresente numeradas para o aluno escolher ou descrever outro.
+
+**Regras adicionais obrigatórias para cada opção gerada (aplique antes de apresentar):**
+- **Sem palavras de caminho:** não usar "através", "com", "usando", "aplicando", "por meio de" — o Quadro descreve o resultado, nunca o meio para chegar lá.
+- **Sem conjunção "e":** o Quadro tem exatamente um resultado. Se aparecer "e", é porque há dois resultados — elimine um ou escolha o mais importante.
+- **Sem imperativo:** não iniciar com verbo no imperativo (ex: "Descubra", "Aprenda", "Transforme"). Usar sempre o infinitivo (ex: "Descobrir", "Aprender", "Transformar" — mas mesmo esses são fracos; prefira resultados concretos como "Faturar", "Fechar", "Zerar", "Conseguir").
 
 Mostre progresso ao concluir.
 
@@ -158,22 +176,33 @@ Confirme ao aluno em UMA linha:
 
 **Disparar pesquisa de mercado em background (sub-agente):**
 
-Assim que o Quadro estiver aprovado, verifique se `meus-produtos/{ativo}/pesquisa-mercado.md` já existe. Se NÃO existir, dispare um sub-agente em background usando a ferramenta Agent com `run_in_background: true` e `subagent_type: "general-purpose"`. O prompt do sub-agente deve conter:
-- O nicho do produto
-- O Quadro aprovado
-- O formato pretendido (se já souber)
-- Instrução para rodar a skill `pesquisa-mercado` completa e salvar em `meus-produtos/{ativo}/pesquisa-mercado.md`
+Assim que o Quadro estiver aprovado, verifique se `meus-produtos/{ativo}/pesquisa-mercado.md` já existe.
 
-Enquanto o sub-agente roda a pesquisa, continue normalmente com o Bloco 2. Você será notificado quando a pesquisa terminar. No Bloco 3, verifique se o arquivo já foi salvo pelo sub-agente antes de tentar rodar a pesquisa de novo.
+- **Se existir:** use os dados existentes em todo o fluxo. Se o arquivo contiver a linha `**Quadro:** "ainda não definido"`, substitua apenas essa linha pelo Quadro aprovado com o Edit tool. Nunca re-faça a pesquisa.
+- **Se NÃO existir:** avise o aluno em UMA linha e dispare um sub-agente em background com `subagent_type: "pesquisa-mercado"` e `run_in_background: true`. Continue normalmente com o Bloco 2 enquanto o agente pesquisa.
+
+  Mensagem ao aluno antes de disparar:
+  ```
+  Pesquisando o mercado de {nicho} em background. Continue com as próximas perguntas.
+  ```
+
+  O prompt do sub-agente deve conter:
+  - Nicho: {nicho do produto}
+  - Quadro: "{quadro aprovado}"
+  - Formato pretendido: {formato, se já souber; senão "a definir"}
+  - Slug do produto: {slug}
+  - Caminho de destino: meus-produtos/{slug}/pesquisa-mercado.md
 
 **Regra de notificação do sub-agente (CRÍTICO):** Quando a notificação de conclusão do sub-agente de pesquisa chegar, independentemente de onde você estiver no fluxo:
-1. Confirme em UMA linha: `✅ Pesquisa de mercado concluída.`
+1. **Verifique imediatamente** se o arquivo foi salvo: use o Read tool em `meus-produtos/{ativo}/pesquisa-mercado.md`.
+   - **Se o arquivo existir com conteúdo:** confirme em UMA linha `✅ Pesquisa de mercado concluída.` e continue de onde estava.
+   - **Se o arquivo NÃO existir:** o agente não conseguiu salvar pelo sistema de permissões. O conteúdo foi retornado na resposta do agente entre os marcadores `<!-- PESQUISA_CONTENT_START -->` e `<!-- PESQUISA_CONTENT_END -->`. Extraia esse conteúdo e salve com o Write tool em `meus-produtos/{slug}/pesquisa-mercado.md`. Confirme em UMA linha `✅ Pesquisa de mercado salva.` e continue de onde estava.
 2. Continue EXATAMENTE de onde estava. Não interrompa a pergunta atual, não reinicie nenhum bloco, não re-salve seções que já foram salvas.
 3. Os dados da pesquisa serão usados quando o fluxo chegar naturalmente ao ponto que os exige (Bloco 3, Decorados, Urgências, etc.).
 
 **Bloco 2/6. Furadeira (Mecanismo Único):**
 
-**Detecção de tipo de produto:** Verifique em `meus-produtos/{ativo}/tipo.md` se o produto é Low Ticket (R$7-97) ou se o formato é planilha, checklist, e-book, agente GPT, template ou desafio. Se for produto de entrada, siga a regra abaixo. Se for Middle Ticket, siga o fluxo padrão.
+**Detecção de tipo de produto:** Verifique em `meus-produtos/{ativo}/tipo.md` se o produto é Low Ticket (R$37-97) ou se o formato é planilha, checklist, e-book, agente GPT, template ou desafio. Se for produto de entrada, siga a regra abaixo. Se for Middle Ticket, siga o fluxo padrão.
 
 **Se for produto Low Ticket:** A Furadeira É o próprio produto/ferramenta. Não pergunte sobre macroetapas. Pergunte:
 
@@ -189,7 +218,7 @@ Com a resposta, derive automaticamente **3 macroetapas** que representem a jorna
 
 As macroetapas devem ser específicas para o produto descrito, não genéricas. Use os detalhes informados (número de vídeos, dias, protocolos, tipo de ferramenta) para torná-las concretas.
 
-Apresente as 3 macroetapas para validação antes de salvar. Depois siga para o Bloco 3.
+Apresente as 3 macroetapas para validação antes de salvar. Após o aluno confirmar, siga para a etapa "Após validação da Furadeira — Gerar Representação Visual" abaixo (vale para Low Ticket e Middle Ticket).
 
 **Se for produto Middle Ticket:**
 
@@ -220,25 +249,28 @@ Estruture a Furadeira com:
 
 Apresente para validação.
 
-**Após validação da Furadeira — Gerar Representação Visual (obrigatório):**
+**Após validação da Furadeira — Gerar Representação Visual (obrigatório para todos os tipos de produto):**
 
-Assim que o aluno aprovar a Furadeira, acione automaticamente o command `/furadeira-visual` para gerar a representação visual do método. Não force um formato específico: o aluno escolhe entre HTML (trilha navegável), PNG via API (Gemini ou OpenRouter) ou prompt pronto para colar em IA externa.
+Assim que o aluno aprovar a Furadeira (Low Ticket, Middle Ticket ou qualquer outro formato), acione automaticamente o command `/furadeira-visual` para gerar a representação visual do método.
 
 Avise o aluno:
 ```
 Ótimo. Vou gerar agora a representação visual do seu método.
 ```
 
-Execute o fluxo completo do command `/furadeira-visual` conforme definido em `.claude/commands/furadeira-visual.md`:
-1. Faça a pergunta de escolha de formato (1. HTML, 2. API, 3. Prompt pronto)
-2. Siga o fluxo correspondente ao formato escolhido
-3. Salve o arquivo no caminho padrão do formato escolhido
-4. Registre no `perfil.md` ao final o(s) caminho(s) gerado(s) nos campos apropriados:
-   - Se HTML: `furadeira_html` e, se conversão funcionou, `furadeira_png`
-   - Se API: `furadeira_png`
-   - Se Prompt pronto: `furadeira_prompt`
+Execute o fluxo completo do command `/furadeira-visual` conforme definido em `.claude/commands/furadeira-visual.md`. Não pergunte sobre formato. O command decide o layout e a paleta sozinho e gera o prompt para o aluno colar no ChatGPT.
 
-Só siga para o Bloco 3 após confirmar que o arquivo da Furadeira foi salvo.
+Registre no `perfil.md` ao final o caminho gerado:
+- `furadeira_prompt`: caminho do arquivo de prompt
+
+**BLOQUEIO OBRIGATÓRIO — aguardar a imagem PNG antes de avançar:**
+
+Após exibir o prompt para o aluno colar no ChatGPT, pare e aguarde. Não ofereça a opção de "continuar depois" ou "pular a imagem". Não avance para o Bloco 3 até que uma das condições abaixo seja atendida:
+
+1. O aluno cola a imagem no chat (arrastar o PNG para a conversa).
+2. O aluno salva manualmente em `meus-produtos/{ativo}/entregas/furadeira/furadeira.png` e diz "imagem salva".
+
+Só após a imagem estar salva em disco, siga para o Bloco 2B/6 (Identidade do Comunicador).
 
 **Salvar Furadeira (obrigatório, imediato):**
 
@@ -265,7 +297,7 @@ Confirme ao aluno em UMA linha:
 ✅ Seção Furadeira salva no perfil.
 ```
 
-**Bloco 3B/6. Entrevista da Identidade do Comunicador:**
+**Bloco 2B/6. Entrevista da Identidade do Comunicador:**
 
 Avise o aluno:
 ```
@@ -370,13 +402,19 @@ Confirme ao aluno em UMA linha:
 **VERIFIQUE PRIMEIRO:** tente ler `meus-produtos/{ativo}/pesquisa-mercado.md` com o Read tool.
 
 - **Se retornou conteúdo:** use os dados. Não faça nova pesquisa.
-- **Se retornou erro "File does not exist":** o sub-agente de background ainda está em andamento. Avise o aluno e aguarde a notificação de conclusão. Nunca dispare um segundo sub-agente de pesquisa.
+- **Se retornou erro "File does not exist" e a notificação do agente ainda não chegou:** o sub-agente ainda está em andamento. Avise o aluno e aguarde. Nunca dispare um segundo agente de pesquisa.
+- **Se retornou erro "File does not exist" e a notificação do agente já chegou:** o agente rodou mas falhou em salvar o arquivo. Interrompa o fluxo e avise o aluno:
+  ```
+  A pesquisa de mercado não foi salva corretamente. Digite /pesquisa-mercado para gerar antes de continuar.
+  ```
+  Não continue para Identidade do Produto nem para nenhum bloco seguinte sem o arquivo. Todos os blocos dependem dos dados estruturados da pesquisa.
 
 **A partir daqui, todos os blocos seguintes usam os dados desse arquivo. Nenhuma nova busca é feita.**
 
 Apresente um resumo conversacional dos achados (dados, números, insights principais, não o relatório inteiro) e use os dados para gerar a **Identidade do Produto**:
 
-- **Identidade do Produto.** diferencial vs concorrentes da tabela, posicionamento sugerido (Nome, Formato, Preço, Diferencial)
+- **Identidade do Produto.** diferencial vs concorrentes da tabela, posicionamento sugerido (Nome, Nicho, Formato, Preço, Diferencial)
+- **Analogias.** 2 a 3 comparações que tornam o produto imediatamente compreensível numa conversa ou pitch. Estrutura: "É como {referência conhecida}, mas para {resultado do Quadro}." As analogias devem ser do cotidiano do público, nunca de outros produtos digitais ou infoprodutos.
 
 Apresente para validação.
 
@@ -385,7 +423,7 @@ Apresente para validação.
 **Salvar Identidade do Produto:**
 
 Após o aluno validar, faça upsert no `perfil.md` da seção:
-- `## Identidade do Produto` (Nome, Formato, Preço, Diferencial)
+- `## Identidade do Produto` (Nome, Formato, Preço, Diferencial, Analogias)
 
 Confirme ao aluno:
 
@@ -406,21 +444,37 @@ A pesquisa de mercado ainda está sendo concluída. Aguardando para gerar Decora
 
 Só dispare os sub-agentes abaixo após confirmar que `pesquisa-mercado.md` existe e tem conteúdo.
 
-Ao chegar neste ponto com o arquivo disponível, dispare **2 sub-agentes simultaneamente** usando a ferramenta Agent (ambos na mesma mensagem, em paralelo). Avise o aluno:
+Ao chegar neste ponto com o arquivo disponível, dispare **2 sub-agentes em background** usando a ferramenta Agent com `run_in_background: true` (ambos na mesma mensagem, em paralelo). Avise o aluno em UMA linha:
 
 ```
-Gerando Decorados e Urgencias Ocultas em paralelo. Leva alguns segundos.
+Decorados e Urgências Ocultas sendo gerados em background. Continuando.
 ```
 
-**Sub-agente Decorados:** prompt deve conter o Quadro, a Furadeira, as Identidades e o conteudo de `pesquisa-mercado.md`. Instrucao: gerar 50 Decorados em 5 categorias (Financeiro, Tempo, Autoestima, Reputacao, Crescimento), 10 de cada. Devolver a lista completa formatada em markdown.
+**Sub-agente Decorados:** `subagent_type: "gerador-decorados"`. Prompt: passe o Quadro, a Furadeira, as Identidades e o conteúdo completo de `pesquisa-mercado.md`. O agente retorna o bloco markdown com os 50 Decorados em 5 categorias.
 
-**Sub-agente Urgencias Ocultas:** mesmo contexto. Instrucao: gerar 70 itens em 7 categorias (Dores, Duvidas, Desejos, Assuntos Relacionados, Urgencias Quentes, Urgencias Frias, Urgencias Inusitadas), exatamente 10 de cada. Devolver formatado em markdown.
+**Sub-agente Urgências Ocultas:** `subagent_type: "gerador-urgencias-ocultas"`. Mesmo contexto do sub-agente de Decorados. O agente retorna o bloco markdown com as 70 Urgências Ocultas em 7 categorias.
 
-Quando ambos retornarem, apresente os resultados ao aluno para validacao e ajuste. Se quiser mudar algo, ajuste direto sem recriar tudo.
+**CRÍTICO:** após disparar os dois agentes em background, continue IMEDIATAMENTE para o Bloco 6/6 (Argumentos Incontestáveis) sem esperar. Não fique ocioso aguardando os agentes.
+
+**Regra de silêncio para notificações em background:** quando as notificações de conclusão dos agentes chegarem durante o Bloco 6, salve os dados silenciosamente no `perfil.md` SEM interromper o aluno nem anunciar nada. Não diga "Os Decorados ficaram prontos", não mostre o conteúdo, não peça validação agora. Continue o Bloco 6 normalmente até o aluno aprovar os Argumentos Incontestáveis.
+
+**Após o aluno aprovar os Argumentos** (e ambos os agentes já tiverem concluído), apresente a revisão unificada em um único bloco:
+
+```
+Enquanto avançávamos, os Decorados e as Urgências Ocultas também ficaram prontos.
+
+Decorados: 50 benefícios em 5 categorias (Financeiro, Tempo, Autoestima, Reputação, Crescimento).
+Urgências Ocultas: 70 itens em 7 categorias (Dores, Dúvidas, Desejos, Assuntos Relacionados, Urgências Quentes, Frias, Inusitadas).
+
+1. Está bem, pode salvar e continuar
+2. Quero revisar o conteúdo antes
+```
+
+Se o aluno escolher 2, mostre os dois blocos completos para leitura e peça aprovação separada de cada um.
 
 **Salvar Decorados + Urgências Ocultas:**
 
-Após o aluno validar os dois, faça upsert no `perfil.md` das seções:
+Após o aluno confirmar (opção 1 ou após revisar e aprovar), faça upsert no `perfil.md` das seções:
 - `## Decorados (Benefícios)` com os 5 H3 (Financeiro, Tempo, Autoestima, Reputação, Crescimento) e 10 bullets em cada
 - `## Urgências Ocultas` com os 7 H3 (Dores, Dúvidas, Desejos, Assuntos Relacionados, Urgências Quentes, Urgências Frias, Urgências Inusitadas) e 10 bullets em cada
 
@@ -441,7 +495,26 @@ Os argumentos incontestáveis são evidências externas, lógicas ou estatístic
 - **Referências do setor.** o que especialistas ou pesquisas reconhecidas dizem sobre o tema ou a transformação prometida
 - **Dados de resultado.** se a pesquisa revelou resultados documentados de métodos similares no nicho, use-os
 
-Apresente para validação e pergunte se o aluno quer adicionar dados próprios (número de alunos, faturamento gerado, resultados documentados). Se tiver, incorpore à lista existente.
+**Formato obrigatório de cada argumento — premissa → conclusão:**
+
+Cada argumento deve seguir esta estrutura lógica antes de ser escrito como frase final:
+- Premissa 1: fato observável, dado ou tendência (pode ser amplo)
+- Premissa 2: conexão com o nicho ou o público do produto
+- Conclusão: dedução lógica que torna a oferta incontestável
+
+Exemplo:
+> Premissa 1: O Brasil tem mais de 200 milhões de habitantes.
+> Premissa 2: Uma parcela significativa busca renda extra fora do emprego formal.
+> Conclusão: existe demanda real e contínua para um método de geração de renda como este.
+
+O argumento não precisa exibir as premissas separadas — escreva a conclusão final em uma frase direta. As premissas são o raciocínio interno para garantir que o argumento seja de fato incontestável e não uma afirmação genérica.
+
+Apresente para validação e pergunte se o aluno quer adicionar dados próprios (número de alunos, faturamento gerado, resultados documentados). Se tiver, incorpore à lista existente. Use exatamente estas opções:
+
+```
+1. Pode salvar como está
+2. Quero adicionar dados próprios
+```
 
 **Salvar Argumentos Incontestáveis:**
 
@@ -452,6 +525,21 @@ Confirme em UMA linha:
 ```
 ✅ Seção Argumentos Incontestáveis salva no perfil.
 ```
+
+**Disparar revisores de qualidade em paralelo (imediatamente após salvar Argumentos):**
+
+Dispare dois sub-agentes na mesma mensagem, **sem avisar o aluno** (sem `run_in_background`). Aguarde os dois retornarem antes de continuar:
+
+**Sub-agente revisor-perfil:** `subagent_type: "revisor-perfil"`. Prompt: `Revise o arquivo meus-produtos/{slug}/perfil.md. Caminho completo: meus-produtos/{slug}/perfil.md` (substitua `{slug}` pelo slug real do produto ativo).
+
+**Sub-agente revisor-pesquisa:** `subagent_type: "revisor-pesquisa"`. Prompt: `Revise o arquivo meus-produtos/{slug}/pesquisa-mercado.md. Caminho completo: meus-produtos/{slug}/pesquisa-mercado.md` (substitua `{slug}` pelo slug real).
+
+**Fallback obrigatório se qualquer revisor retornar erro "Agent type not found":** Leia o arquivo `.claude/agents/revisor-{tipo}.md` (ex: `.claude/agents/revisor-perfil.md`) com o Read tool. Use `subagent_type: "general-purpose"` e inclua o conteúdo completo do arquivo como prefixo do prompt, antes das instruções de revisão. Tente imediatamente — não pule o passo de revisão.
+
+**Após os dois revisores retornarem:**
+1. Para cada revisor, parse a linha `SECOES_AFETADAS:` do relatório retornado.
+2. Para cada seção listada (ex: `quadro,furadeira,decorados`), rode: `py -3 scripts/painel-incremental.py --secao {secao} --slug {slug}`
+3. Não avise o aluno. Siga para a Seção 3 (Confirmação).
 
 ### 3. Confirmação + Consolidação do Perfil
 
@@ -469,19 +557,21 @@ Estrutura final esperada do `perfil.md`:
 
 ## Furadeira (Método)
 **Nome do Método:** [nome]
-**Formato gerado:** [HTML | PNG via API | Prompt pronto]
-**Furadeira HTML:** [caminho, se gerado; "não gerado" caso contrário]
-**Furadeira PNG:** [caminho, se gerado; "não gerado" caso contrário]
-**Furadeira Prompt:** [caminho, se gerado; "não gerado" caso contrário]
+_formato: [HTML | PNG | Prompt | não gerado]
+_html: [caminho ou não gerado]
+_png: [caminho ou não gerado]
+_prompt: [caminho ou não gerado]
 1. **[Macroetapa]**. [microetapas]
 2. **[Macroetapa]**. [microetapas]
 3. **[Macroetapa]**. [microetapas]
 
 ## Identidade do Produto
 - **Nome:** [nome]
+- **Nicho:** [nicho/área do produto]
 - **Formato:** [formato]
 - **Preço:** [preço]
 - **Diferencial:** [o que torna único]
+- **Analogias:** [2 a 3 comparações do cotidiano]
 
 > A Identidade do Consumidor (perfil + persona + objeções com 7 quebras + baldes "Para quem é" + frases + canais + sonho) NÃO vive aqui. Ela é gerada inteira na Seção 4 e salva em `idconsumidor.md`.
 
@@ -564,23 +654,23 @@ Para verificar o tipo do produto, leia `meus-produtos/{ativo}/tipo.md`.
 
 **Passo 1/3. Dados Demográficos:**
 
-Pergunta 1:
+Leia a Seção 4 (Público-Alvo Real) de `meus-produtos/{ativo}/pesquisa-mercado.md` e extraia: gênero predominante, faixa de idade, profissão/ocupação e renda média. Pré-preencha os campos e apresente ao aluno para confirmação em um único bloco:
+
 ```
-Seu cliente ideal é homem, mulher ou ambos? Qual a faixa de idade?
-(ex: "Mulheres, 25-40 anos")
+Com base na pesquisa de mercado, o público predominante é:
+
+- Gênero: [extraído da pesquisa]
+- Idade: [extraído da pesquisa]
+- Profissão: [extraído da pesquisa]
+- Renda: [extraído da pesquisa]
+
+Está correto ou quer ajustar algum ponto?
+
+1. Confirmar e continuar
+2. Ajustar
 ```
 
-Pergunta 2:
-```
-O que essa pessoa faz no dia a dia? Profissão e ocupação.
-(ex: "Profissional CLT que quer empreender", "Mãe que trabalha de casa")
-```
-
-Pergunta 3:
-```
-Qual a renda média e situação financeira?
-(ex: "R$3-5 mil/mês, apertado no fim do mês")
-```
+Se o aluno escolher 2, pergunte o que quer corrigir e atualize o campo informado. Só então mostre o bloco de conclusão abaixo.
 
 ```
 --- Passo 1/3 concluído ---
@@ -601,210 +691,80 @@ Apresente tudo gerado de uma vez para o aluno validar e ajustar. Não peça item
 
 Mostre progresso ao concluir.
 
-**Passo 3/3. Objeções (Framework dos 7 Argumentos):**
+**Passo 3/3. Objeções (Identificação dos Títulos):**
 
-GERE automaticamente as **5 principais objeções** que um potencial comprador pode ter, com base no perfil do consumidor, preço, nicho, Quadro do produto e dados de `pesquisa-mercado.md` (especialmente Reclame Aqui). NÃO liste opções para o aluno escolher.
+> **Regra de contexto:** NUNCA gere os 7 argumentos de cada objeção inline no chat. Isso consome dezenas de parágrafos do contexto principal sem necessidade. O conteúdo completo é escrito pelo sub-agente diretamente em `idconsumidor.md`. O chat mostra APENAS os 5 títulos.
 
-Para CADA uma das 5 objeções, gere **7 formas diferentes de quebra**, cada uma com **2 parágrafos**, seguindo estes tipos de argumento (nesta ordem fixa):
+Com base no perfil do consumidor, preço, nicho, Quadro do produto e dados de `pesquisa-mercado.md` (especialmente Reclame Aqui e objeções antes da compra), identifique as **5 principais objeções** que um potencial comprador pode ter. NÃO gere os argumentos agora. Apenas os títulos em uma linha cada.
 
-1. **Argumento Incontestável**. dado concreto, estatística ou fato irrefutável com fonte.
-2. **Argumento Lógico (causa e efeito)**. raciocínio frio com números e relação de causa-consequência.
-3. **Argumento por Analogia**. comparação visual e acessível. **Nunca cite celebridades**, use situações reais e alcançáveis que o público viva no dia a dia.
-4. **Argumento por Exemplificação**. caso real com nome fictício, situação inicial, decisão tomada e resultado concreto (storytelling curto).
-5. **Argumento de Valor (custo vs. benefício)**. comparação do investimento com o retorno tangível e intangível.
-6. **Argumento de Consequência (de agir ou não agir)**. o que acontece se a pessoa decidir agora versus adiar.
-7. **Argumento de Contradição (refutação de incoerências)**. aponta onde a objeção contradiz outras escolhas ou prioridades da própria pessoa.
-
-Cada parágrafo deve ter sofisticação de advogado construindo raciocínio lógico, combinada com técnica de comunicação persuasiva. Use analogias visuais, números, retórica forte e provocações que desarmem sem gerar resistência. O produto e o Quadro do perfil orientam o conteúdo.
-
-Aplicar Light Copy: sem travessão, sem ponto de exclamação, sem pergunta retórica abrindo parágrafo, afirmações diretas.
-
-Apresente as 5 objeções com as 7 quebras cada para validação. O aluno aprova, ajusta, adiciona ou remove.
+Liste os 5 títulos numerados e siga imediatamente para a Confirmação.
 
 **Confirmação antes de gerar:**
 ```
 Resumo da identidade do consumidor:
 - Perfil: [gênero], [idade], [profissão]
 - Renda: [renda]
-- Paliativos: [ferramentas e soluções concorrentes do mercado que resolvem o problema parcialmente. incluir apenas se Middle Ticket]
+- Paliativos: [apenas se Middle Ticket]
 - Sonho: [resultado mágico]
 - Canais: [onde busca info]
-- Objeções: [principais objeções]
+- Objeções mapeadas:
+  1. [título]
+  2. [título]
+  3. [título]
+  4. [título]
+  5. [título]
 
 1. Tudo certo, pode gerar
-2. Quero ajustar algo
+2. Quero trocar alguma objeção
 ```
 
-**Gerar Documento (sub-agente em background, painel não espera):**
+Se o aluno escolher **2**, peça qual número quer trocar e por qual texto. Atualize o título e mostre o resumo de novo. Não gere conteúdo de argumentos no chat em nenhuma hipótese.
+
+**Gerar Documento (sub-agente síncrono):**
 
 Após o aluno aprovar:
 
 1. Leia `perfil.md` e `pesquisa-mercado.md` agora, antes de chamar o sub-agente, para passar o conteúdo no prompt.
 
-2. Dispare um sub-agente usando a ferramenta Agent com `subagent_type: "general-purpose"` e `run_in_background: true`. O prompt deve conter:
+2. Avise o aluno em UMA linha:
+   ```
+   Gerando identidade do consumidor. Isso leva alguns minutos...
+   ```
+
+   Em seguida, marque a seção no painel como "Gerando...":
+   ```
+   py -3 scripts/painel-incremental.py --secao identidade-consumidor --gerando --slug {slug}
+   ```
+
+3. Dispare um sub-agente síncrono com `subagent_type: "gerador-idconsumidor"` (sem `run_in_background`). Aguarde o agente concluir. O prompt deve conter:
    - O conteúdo completo de `perfil.md`
    - O conteúdo de `pesquisa-mercado.md`
    - Os dados demográficos coletados (gênero, idade, profissão, renda)
    - O tipo do produto (Low Ticket ou Middle Ticket)
-   - O caminho exato de destino: `meus-produtos/{ativo}/idconsumidor.md` (substitua `{ativo}` pelo slug real)
-   - A instrução explícita: **use a ferramenta Write para salvar o arquivo diretamente. Depois retorne APENAS esta linha: `✅ idconsumidor.md salvo. [Nome fictício], 5 objeções, 35 argumentos.` Não retorne o conteúdo do documento.**
-   - A estrutura do documento descrita abaixo
-   - Regras de Light Copy: sem travessão, sem ponto de exclamação, sem pergunta retórica abrindo parágrafo, afirmações diretas
+   - Os 5 títulos de objeção aprovados pelo aluno (o sub-agente usa esses títulos e gera os 7 argumentos com 2 parágrafos cada diretamente no arquivo)
+   - O caminho exato de destino: `meus-produtos/{slug}/idconsumidor.md` (substitua `{slug}` pelo slug real)
 
-3. Avise o aluno em UMA linha:
-   ```
-   Identidade do consumidor sendo gerada em background. Gerando o painel enquanto isso...
-   ```
-
-4. Siga imediatamente para a Seção 5 sem esperar o sub-agente. O orchestrador não recebe nem lê o conteúdo do documento.
+4. O orchestrador não lê o conteúdo do documento (o agente escreve diretamente no arquivo). Após o agente concluir, siga para o passo de revisão abaixo.
 
 **Quando a notificação do sub-agente chegar (pode acontecer durante ou após a Seção 5):**
 
-1. Avise o aluno: `Finalizando a geração da identidade do consumidor...`
+1. Avise o aluno: `Revisando e finalizando a identidade do consumidor...`
 
 2. Rode o script de verificação:
    ```
    py -3 scripts/verificar-idconsumidor.py
    ```
-   - Se a saída contiver `[!!]`: informe o aluno dos problemas encontrados antes de reconstruir o painel. Ex: `⚠ Identidade do consumidor gerada com 2 problema(s): [lista resumida]. O painel foi atualizado mesmo assim. Recomendo refazer a seção afetada com /produto-concepcao opção 6.`
+   - Se a saída contiver `[!!]`: informe o aluno dos problemas encontrados. Ex: `⚠ Identidade do consumidor gerada com 2 problema(s): [lista resumida]. O revisor aplicou o que pôde. Recomendo refazer a seção afetada com /produto-concepcao opção 6.`
    - Se a saída for `OK`: siga direto para o próximo passo sem mencionar o script ao aluno.
 
-3. Rode `py -3 scripts/painel-incremental.py --secao identidade-consumidor` para atualizar o painel com a identidade do consumidor completa, preservando as outras seções já preenchidas.
+3. Dispare um sub-agente síncrono com `subagent_type: "revisor-idconsumidor"` (sem `run_in_background`). Prompt: `Revise o arquivo meus-produtos/{slug}/idconsumidor.md. Caminho completo: meus-produtos/{slug}/idconsumidor.md` (substitua `{slug}` pelo slug real). Aguarde o retorno do revisor antes de continuar.
 
-4. Confirme ao aluno: `✅ Identidade do consumidor gerada. Atualize a página do painel para ver completo.`
+4. Após o revisor retornar: rode `py -3 scripts/painel-incremental.py --secao identidade-consumidor --slug {slug}`.
 
-5. Não interrompa o fluxo se o aluno estiver respondendo algo. Processe a notificação na primeira oportunidade natural.
+5. Avise o aluno: `✅ Tudo revisado. Recarregue o painel para ver a identidade do consumidor completa.`
 
-**Estrutura do documento a ser gerado pelo sub-agente:**
+6. Não interrompa o fluxo se o aluno estiver respondendo algo. Processe a notificação na primeira oportunidade natural.
 
-Salvar em `meus-produtos/{ativo}/idconsumidor.md` com esta estrutura:
-
-```markdown
-# Identidade do Consumidor: [Nome Fictício]
-
-## Para Quem É
-[Frase de posicionamento clara, 1-2 linhas]
-"Este produto é para [perfil específico], que [problema/situação atual], e quer [transformação desejada]."
-
-Não é para: [exclusões que ajudam a posicionar. quem NÃO é o público]
-
-## Identidade do Consumidor
-- **Idade:** / **Gênero:** / **Profissão:**
-- **Renda:** / **Estado civil:** / **Localização:**
-- **Nível de consciência:** [inconsciente até totalmente consciente]
-- **Onde busca informação:** [canais]
-
-## Paliativos (somente Middle Ticket. ferramentas e soluções concorrentes do mercado que resolvem o problema parcialmente)
-- [ferramenta/solução concorrente] → [o que ela oferece e por que não entrega o resultado completo]
-
-*Se Low Ticket: omitir esta seção inteiramente.*
-
-## Objeções de Compra (Framework dos 7 Argumentos)
-
-Para cada uma das 5 principais objeções, gerar 7 formas de quebra com 2 parágrafos cada. Ordem fixa dos argumentos.
-
-### Objeção 1: [texto da objeção]
-
-**1. Argumento Incontestável**
-[Parágrafo 1: dado concreto, estatística, fato irrefutável com fonte.]
-
-[Parágrafo 2: aprofundamento do dado aplicado à realidade do consumidor.]
-
-**2. Argumento Lógico (causa e efeito)**
-[Parágrafo 1: raciocínio frio com números e relação causa-consequência.]
-
-[Parágrafo 2: virada lógica que reposiciona a pergunta.]
-
-**3. Argumento por Analogia**
-[Parágrafo 1: comparação visual, acessível, SEM celebridades, com situação real que o público vive.]
-
-[Parágrafo 2: extensão da analogia conectando ao contexto de compra.]
-
-**4. Argumento por Exemplificação**
-[Parágrafo 1: caso real com nome fictício, situação inicial, decisão tomada.]
-
-[Parágrafo 2: desfecho concreto e moral aplicável ao leitor.]
-
-**5. Argumento de Valor (custo vs. benefício)**
-[Parágrafo 1: comparação do investimento com retorno tangível.]
-
-[Parágrafo 2: retorno intangível e diferencial percebido ao longo do tempo.]
-
-**6. Argumento de Consequência (de agir ou não agir)**
-[Parágrafo 1: cenário de adiar a decisão.]
-
-[Parágrafo 2: cenário de decidir agora.]
-
-**7. Argumento de Contradição**
-[Parágrafo 1: onde a objeção contradiz outras escolhas ou prioridades da própria pessoa.]
-
-[Parágrafo 2: conclusão que reposiciona a prioridade.]
-
-### Objeção 2: [texto da objeção]
-[mesma estrutura dos 7 argumentos, 2 parágrafos cada]
-
-### Objeção 3: [texto da objeção]
-[mesma estrutura dos 7 argumentos, 2 parágrafos cada]
-
-### Objeção 4: [texto da objeção]
-[mesma estrutura dos 7 argumentos, 2 parágrafos cada]
-
-### Objeção 5: [texto da objeção]
-[mesma estrutura dos 7 argumentos, 2 parágrafos cada]
-
-## Frases que Essa Pessoa Diria
-- "[dor]"
-- "[desejo]"
-- "[objeção]"
-
-## Como se Comunicar
-- Tom de voz recomendado
-- Palavras que conectam
-- Palavras que afastam
-
-## Baldes de Para Quem É
-
-O agente cria 5 perfis específicos de segmentação com base nas Urgências Ocultas, no público mapeado e nos dados de `pesquisa-mercado.md`. Cada perfil tem 5 afirmações diretas em linguagem de copy e tráfego pago.
-
-Os 5 perfis devem representar recortes distintos (por profissão, momento de vida, dor dominante, nível de consciência ou objetivo imediato), não variações do mesmo perfil.
-
-➤ Pra quem é - [Perfil específico 1]
-1.
-2.
-3.
-4.
-5.
-
-➤ Pra quem é - [Perfil específico 2]
-1.
-2.
-3.
-4.
-5.
-
-➤ Pra quem é - [Perfil específico 3]
-1.
-2.
-3.
-4.
-5.
-
-➤ Pra quem é - [Perfil específico 4]
-1.
-2.
-3.
-4.
-5.
-
-➤ Pra quem é - [Perfil específico 5]
-1.
-2.
-3.
-4.
-5.
-```
-
-NOTA: As Urgências Ocultas ficam centralizadas em `meus-produtos/{ativo}/perfil.md`. Os baldes são derivados delas, nunca copiados.
 
 ### 5. Gerar Painel de Entregas (primeira versão imediata, atualização automática)
 
@@ -813,26 +773,34 @@ Neste ponto o sub-agente da identidade do consumidor ainda está rodando em back
 Rode no terminal, uma chamada por seção. O script `painel-incremental.py` cria o shell do painel na primeira execução (com design escuro Fluxo Criativo) e atualiza apenas a seção pedida em cada chamada subsequente, preservando o que já está preenchido:
 
 ```
-py -3 scripts/painel-incremental.py --secao pesquisa
-py -3 scripts/painel-incremental.py --secao quadro
-py -3 scripts/painel-incremental.py --secao furadeira
-py -3 scripts/painel-incremental.py --secao decorados
-py -3 scripts/painel-incremental.py --secao urgencias
-py -3 scripts/painel-incremental.py --secao identidade-produto
-py -3 scripts/painel-incremental.py --secao identidade-comunicador
+py -3 scripts/painel-incremental.py --secao pesquisa --slug {slug}
+py -3 scripts/painel-incremental.py --secao quadro --slug {slug}
+py -3 scripts/painel-incremental.py --secao furadeira --slug {slug}
+py -3 scripts/painel-incremental.py --secao decorados --slug {slug}
+py -3 scripts/painel-incremental.py --secao urgencias --slug {slug}
+py -3 scripts/painel-incremental.py --secao identidade-produto --slug {slug}
+py -3 scripts/painel-incremental.py --secao identidade-comunicador --slug {slug}
 ```
 
 A seção `identidade-consumidor` é atualizada depois, quando o sub-agente em background termina (veja final da Seção 4). O aluno já tem o painel navegável com todas as outras seções (Quadro, Furadeira, Decorados, Urgências, etc.) imediatamente após esta etapa.
 
-Confirme ao aluno:
-```
-✅ Painel de Entregas disponível. Caminho: meus-produtos/{ativo}/painel-entregas.html
+Confirme ao aluno com o bloco abaixo (substitua os valores reais antes de exibir):
 
-A seção de identidade do consumidor ainda está sendo gerada. Quando terminar,
-você receberá uma notificação para atualizar a página.
+```
+Painel de Entregas gerado.
+
+Seções prontas agora:
+  Quadro . Furadeira . Decorados . Urgencias Ocultas
+  Identidade do Produto . Identidade do Comunicador . Pesquisa de Mercado
+
+Processando em background:
+  Identidade do Consumidor (voce sera avisado quando estiver revisada e pronta)
+
+Abra no navegador:
+{caminho absoluto da raiz}\meus-produtos\{ativo}\painel-entregas.html
 ```
 
-**Quando a notificação do sub-agente de idconsumidor chegar** (veja instrução no final da Seção 4), o painel é reconstruído automaticamente e o aluno é avisado para atualizar a página. Não é necessário rodar este passo novamente manualmente.
+**Quando a notificação do sub-agente de idconsumidor chegar** (veja instrução no final da Seção 4), o revisor de identidade do consumidor é acionado, o painel é reconstruído com o conteúdo revisado e o aluno é avisado para atualizar a página.
 
 **NÃO gere o HTML do painel dentro deste command.** A spec de design vive em `scripts/templates/painel-entregas.html`.
 

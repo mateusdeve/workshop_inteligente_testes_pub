@@ -121,8 +121,10 @@ Ao final dos 10 vídeos, sintetize os **padrões observados**: thumb dominante, 
 ## Como executar (passo a passo)
 
 1. **Confirme os 3 inputs** (nicho, Quadro, formato). Se faltar, pergunte.
-2. **Anuncie ao aluno:** "Vou fazer uma pesquisa de mercado completa agora. Isso leva alguns minutos, vou visitar Reclame Aqui, SEBRAE, concorrentes e fontes do nicho."
-3. **Execute as buscas em paralelo sempre que possível** usando WebSearch e WebFetch. Agrupe queries por eixo para ganhar velocidade.
+2. **Anúncio de início:**
+   - **Se chamada diretamente pelo aluno** (não por outra skill): use `🔍 Próximo passo: pesquisar o mercado de {nicho} (9 passos). Tempo estimado: 8 a 12 minutos.`
+   - **Se chamada por outra skill** (produto-novo, produto-concepcao, etc.): não anuncia. A skill chamadora já anunciou o tempo total.
+3. **Execute as buscas** usando WebSearch e WebFetch. Antes de iniciar cada eixo, anuncie em Nível 2: `⏳ Passo {X}/9: {nome do eixo}.` Agrupe queries por eixo para ganhar velocidade.
 4. **Para cada fonte usada, guarde o link.** A tabela final precisa de rastreabilidade.
 5. **Se um eixo falhar**, tente uma segunda query com termos alternativos antes de marcar como vazio.
 6. **Cross-reference** dados entre fontes. Se duas fontes independentes concordam, marque como "alta confiança". Se só uma fonte diz algo, marque como "baixa confiança".
@@ -130,7 +132,7 @@ Ao final dos 10 vídeos, sintetize os **padrões observados**: thumb dominante, 
 
 ## Formato de entrega (obrigatório)
 
-Salve o relatório em `entregas/{ativo}/pesquisa-mercado.md` com a estrutura abaixo. Também gere PDF em `entregas/{ativo}/pesquisa-mercado.pdf` usando a skill `anthropic-skills:pdf`.
+Salve o relatório em `meus-produtos/{ativo}/pesquisa-mercado.md` com a estrutura abaixo.
 
 ```markdown
 # Pesquisa de Mercado. [Nome do Produto / Nicho]
@@ -287,6 +289,49 @@ Depois de gerar o relatório, o assistente DEVE:
 - **Idioma:** relatório em Português do Brasil, sempre.
 - **Proibido travessão (—) em todo o relatório.** Use ponto, dois pontos, parênteses, vírgula.
 
+## Dados Estruturados para Gráficos (JSON obrigatório)
+
+Após salvar o `pesquisa-mercado.md`, extraia os 3 campos abaixo dos dados coletados e salve em `meus-produtos/{ativo}/pesquisa-mercado.json`. Esse arquivo alimenta os gráficos SVG do Painel de Entregas. **Sem o JSON, os gráficos ficam em branco.**
+
+### `serie_crescimento` — line chart (Eixo 1)
+
+Série temporal de UM único indicador homogêneo (ex: faturamento do mercado em R$ bilhões, número de alunos EAD em milhões). Não misture indicadores de unidades diferentes. Inclua apenas se tiver 2 ou mais pontos para o MESMO indicador.
+
+Campos obrigatórios: `ano` (inteiro) e `valor` (número, mesma unidade em todos os itens). Campo opcional: `indicador` (descrição curta, igual em todos os itens).
+
+### `reclamacoes_categorias` — donut chart (Eixo 5)
+
+Categorias de reclamação com percentual estimado. A soma deve dar 100. Use de 3 a 6 categorias que emergiram do Eixo 5. Campos: `categoria` (string) e `pct` (inteiro, sem %).
+
+### `precos_por_formato` — bar chart horizontal (Eixo 3)
+
+Faixa de preço por formato conforme o Eixo 3. Campos: `formato` (string), `min` (número) e `max` (número).
+
+**Formato do arquivo:**
+
+```json
+{
+  "serie_crescimento": [
+    {"ano": 2022, "valor": 7.5, "indicador": "mercado de infoprodutos Brasil (R$ bi)"},
+    {"ano": 2023, "valor": 8.3, "indicador": "mercado de infoprodutos Brasil (R$ bi)"},
+    {"ano": 2024, "valor": 8.8, "indicador": "mercado de infoprodutos Brasil (R$ bi)"}
+  ],
+  "reclamacoes_categorias": [
+    {"categoria": "Resultado não alcançado", "pct": 38},
+    {"categoria": "Qualidade do conteúdo", "pct": 27},
+    {"categoria": "Suporte ruim", "pct": 21},
+    {"categoria": "Outros", "pct": 14}
+  ],
+  "precos_por_formato": [
+    {"formato": "Mini-curso / básico", "min": 37, "max": 97},
+    {"formato": "Curso completo", "min": 197, "max": 497},
+    {"formato": "Mentoria / grupo", "min": 497, "max": 1997}
+  ]
+}
+```
+
+Omita campos que não tenham dados suficientes. Se `serie_crescimento` tiver menos de 2 pontos, omita. Se não houver reclamações categorizáveis, omita `reclamacoes_categorias`.
+
 ## O que NÃO fazer
 
 - Não pular a pesquisa porque "o aluno já tem uma ideia". Mesmo com ideia clara, a pesquisa valida ou ajusta.
@@ -294,3 +339,4 @@ Depois de gerar o relatório, o assistente DEVE:
 - Não aceitar "não encontrei nada" no primeiro try. Tente pelo menos uma segunda query por eixo antes de desistir.
 - Não entregar o relatório sem a síntese estratégica. A síntese é o que transforma dado em decisão.
 - Não misturar essa skill com a de concepção VTSD. Aqui é pesquisa externa; metodologia interna (Quadro, Furadeira, Decorados) fica em `concepcao-produto`.
+- Não salvar só o `.md` sem o `.json`. Os dois arquivos são obrigatórios em toda execução.

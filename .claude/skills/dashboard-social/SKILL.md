@@ -2,19 +2,19 @@
 name: dashboard-social
 description: >
   Porta de entrada unificada para configurar e atualizar os dashboards de
-  métricas do Instagram, TikTok e YouTube. Detecta o estado de cada plataforma
-  no .env, pergunta quais o aluno usa, coleta os dados necessários uma única vez
-  e executa os scripts na sequência. O token Apify é pedido uma só vez e vale
-  para todas as plataformas.
+  métricas do Instagram, TikTok e YouTube. Verifica quais dashboards já existem,
+  oferece apenas os que ainda não foram gerados, consulta o .env antes de pedir
+  qualquer dado e executa os scripts na sequência. O token Apify é pedido uma
+  só vez e vale para todas as plataformas.
 ---
 
 # Dashboard. Central de Métricas das Redes Sociais
 
 ## Quando Usar
 
-- Quando o aluno quiser configurar o monitoramento de uma ou mais redes sociais de uma vez.
-- Quando quiser ver o estado geral de todos os dashboards configurados.
-- Quando quiser atualizar os dados de múltiplas plataformas em sequência.
+- Quando o aluno quiser gerar o dashboard de uma ou mais redes sociais.
+- Quando quiser ver o estado geral de todos os dashboards.
+- Quando quiser atualizar os dados de plataformas já configuradas.
 
 **Alternativa:** cada plataforma também pode ser configurada individualmente pelas skills `instagram-dashboard`, `tiktok-dashboard` e `youtube-dashboard`.
 
@@ -22,145 +22,381 @@ description: >
 
 ## PASSO 0. Detectar Estado Atual (OBRIGATÓRIO — executar antes de qualquer outra coisa)
 
-Leia em paralelo:
-1. `.env` na raiz do projeto
-2. Existência dos arquivos `dashboard.html` de cada plataforma no produto ativo
+### 0a. Verificar Fila de Geracao Interrompida
 
-Monte a tabela de estado interna para uso nos próximos passos:
+Antes de qualquer coisa, verifique se o arquivo `meus-produtos/{ativo}/.dashboard-queue.json` existe.
 
-| Plataforma | Flag no .env | Username/Canal | dashboard.html existe? | Estado |
-|---|---|---|---|---|
-| Instagram | `INSTAGRAM_ATIVO` | `IG_USER` | `meus-produtos/{ativo}/entregas/instagram-dashboard/dashboard.html` | — |
-| TikTok | `TIKTOK_ATIVO` | `TIKTOK_USER` | `meus-produtos/{ativo}/entregas/tiktok-dashboard/dashboard.html` | — |
-| YouTube | `YOUTUBE_ATIVO` | `YOUTUBE_CHANNEL` | `meus-produtos/{ativo}/entregas/youtube-dashboard/dashboard.html` | — |
+**Se o arquivo existir:** houve uma geracao interrompida na sessao anterior. Leia o conteudo:
 
-**Regras de estado por plataforma:**
+```json
+{
+  "pendentes": ["tiktok", "youtube"],
+  "concluidos": ["instagram"],
+  "criado_em": "2026-04-28T10:00:00"
+}
+```
 
-- `CONFIGURADO` — flag=`true`, username preenchido, dashboard.html existe
-- `PENDENTE` — flag=`true` ou ausente, mas falta username ou dashboard.html
-- `INATIVO` — flag=`false` (aluno disse que não usa)
+Exiba a retomada e pergunte:
+
+```
+Encontrei uma geracao incompleta da sessao anterior.
+
+Concluidos: Instagram
+Pendentes: TikTok, YouTube
+
+1. Continuar de onde parou
+2. Comecar do zero (descarta a fila)
+3. Cancelar
+```
+
+- Opcao 1: ir direto para a Etapa 5 (Execucao) com os pendentes da fila. Pular confirmacao.
+- Opcao 2: deletar o arquivo e continuar o fluxo normal abaixo.
+- Opcao 3: encerrar sem fazer nada.
+
+**Se o arquivo NAO existir:** seguir o fluxo normal abaixo.
+
+### 0b. Detectar Comando Python
+
+Execute o seguinte comando para determinar qual executável Python usar:
+
+```bash
+python3 --version 2>&1 || py -3 --version 2>&1
+```
+
+- Se `python3` responder com versão: use `python3` em todos os scripts deste comando.
+- Se `python3` falhar mas `py -3` funcionar: use `py -3`.
+
+Guarde o resultado como `{python}` e use essa variável em todos os comandos Bash abaixo. Nunca hardcode `py -3` nem `python3` diretamente.
+
+### 0c. Detectar Estado das Plataformas
+
+Execute em paralelo:
+1. Leia o `.env` na raiz do projeto e extraia: `IG_USER`, `TIKTOK_USER`, `YOUTUBE_CHANNEL`, `APIFY_API_TOKEN`
+2. Verifique a existência dos três arquivos de dashboard usando glob (cada script salva dentro de uma subpasta com o username):
+   - `meus-produtos/{ativo}/entregas/instagram-dashboard/*/dashboard.html`
+   - `meus-produtos/{ativo}/entregas/tiktok-dashboard/*/dashboard.html`
+   - `meus-produtos/{ativo}/entregas/youtube-dashboard/*/dashboard.html`
+
+Monte a tabela de estado interna:
+
+| Plataforma | dashboard.html existe? | Username no .env? | Estado |
+|---|---|---|---|
+| Instagram | sim/não | IG_USER=valor ou ausente | — |
+| TikTok | sim/não | TIKTOK_USER=valor ou ausente | — |
+| YouTube | sim/não | YOUTUBE_CHANNEL=valor ou ausente | — |
+
+**Regras de estado:**
+
+- `GERADO` — `dashboard.html` existe
+- `PENDENTE` — `dashboard.html` não existe
+
+O username no `.env` é informação de apoio — nunca perguntar o que já está salvo.
 
 ---
 
 ## PASSO 1. Exibir Status e Perguntar o Que Fazer
 
-Exiba o painel de status:
+Exiba o painel de estado:
 
 ```
 Central de Dashboards
 
-Instagram:  [CONFIGURADO @{IG_USER}]   ou   [PENDENTE — falta configurar]   ou   [INATIVO]
-TikTok:     [CONFIGURADO @{TIKTOK_USER}]   ou   [PENDENTE — falta configurar]   ou   [INATIVO]
-YouTube:    [CONFIGURADO {YOUTUBE_CHANNEL}]   ou   [PENDENTE — falta configurar]   ou   [INATIVO]
-
-O que quer fazer?
-
-1. Atualizar todos os dados agora (só executa os CONFIGURADOS)
-2. Configurar uma plataforma que ainda está pendente
-3. Adicionar uma nova plataforma
-4. Abrir um dashboard específico
-5. Ver o que cada dashboard mostra
+Instagram:  [GERADO @{IG_USER}]   ou   [PENDENTE]
+TikTok:     [GERADO @{TIKTOK_USER}]   ou   [PENDENTE]
+YouTube:    [GERADO {YOUTUBE_CHANNEL}]   ou   [PENDENTE]
 ```
 
-**Regra de simplificação:** se todas as 3 plataformas estiverem CONFIGURADAS, exibir só as opções 1, 4 e 5 (sem opções 2 e 3, que não fazem sentido).
+**Regra: se todos os três estiverem GERADOS**, exibir apenas:
 
-**Regra de simplificação:** se nenhuma plataforma estiver configurada (todas PENDENTES ou INATIVAS), pular direto para o fluxo de onboarding do PASSO 2, sem mostrar o menu acima.
+```
+O que quer fazer?
+
+1. Atualizar todos os dados agora
+2. Abrir um dashboard
+3. Ver o que cada dashboard mostra
+```
+
+**Regra: se houver pelo menos um PENDENTE**, exibir:
+
+```
+O que quer fazer?
+
+1. Gerar os dashboards pendentes
+2. Atualizar os que já existem
+3. Abrir um dashboard
+4. Ver o que cada dashboard mostra
+```
+
+**Regra: se todos estiverem PENDENTES (primeira vez)**, pular o menu e ir direto para o Fluxo de Geração abaixo.
 
 ---
 
-## Opção 1. Atualizar Todos os Dados
+## Opção: Gerar Dashboards Pendentes
 
-Para cada plataforma com estado CONFIGURADO (na ordem Instagram → TikTok → YouTube):
+### Etapa 1. Mostrar o que está pendente e perguntar quais gerar
+
+Liste apenas as plataformas com estado PENDENTE, na ordem Instagram, TikTok, YouTube:
+
+```
+Dashboards ainda não gerados:
+
+1. Instagram
+2. TikTok
+3. YouTube
+
+Quais quer gerar agora? (pode marcar mais de um)
+Digite os números separados por vírgula (ex: 1,3) ou o número único:
+```
+
+Se o aluno escolher gerar uma só: aceitar normalmente.
+
+### Etapa 2. Coletar usernames (verificar .env antes de perguntar)
+
+Para cada plataforma selecionada, na ordem Instagram, TikTok, YouTube:
+
+**Verificação obrigatória antes de perguntar:** se o username já existir no `.env`, usar diretamente sem perguntar nada.
+
+Só perguntar quando o campo estiver AUSENTE no `.env`:
+
+**Instagram (só se `IG_USER` não existir no .env):**
+```
+Qual o usuário do seu perfil no Instagram?
+(só o nome, sem o arroba. Ex: meuperfil)
+```
+Normalize: remover @, lowercase. Salve `IG_USER=<username>` no `.env`.
+
+**TikTok (só se `TIKTOK_USER` não existir no .env):**
+
+Se `IG_USER` foi coletado nesta mesma etapa (nao veio do .env), pergunte primeiro:
+```
+Seu TikTok usa o mesmo usuário do Instagram?
+
+1. Sim (@{ig_user})
+2. Não, é outro
+```
+Se escolher 1: salve `TIKTOK_USER={ig_user}` no `.env` e siga sem perguntar mais nada.
+Se escolher 2, ou se `IG_USER` ja estava no `.env`:
+```
+Qual o usuário do seu perfil no TikTok?
+(só o nome, sem o arroba. Ex: meuperfil)
+```
+Normalize: remover @, lowercase. Salve `TIKTOK_USER=<username>` no `.env`.
+
+**YouTube (só se `YOUTUBE_CHANNEL` não existir no .env):**
+```
+Qual o endereço do seu canal no YouTube?
+(ex: @meuperfil  ou  https://www.youtube.com/@meuperfil)
+```
+Aceitar @handle, URL completa ou channel ID. Salve `YOUTUBE_CHANNEL=<valor>` no `.env`.
+
+### Etapa 3. Token Apify (uma vez para todas)
+
+Se `APIFY_API_TOKEN` já estiver no `.env`: usar diretamente, sem perguntar.
+
+Se não estiver: execute a skill `configurar-apify` e retorne aqui após concluir. O token vale para todas as plataformas.
+
+### Etapa 4. Confirmação antes de gerar
+
+Exiba o resumo e peça confirmação:
+
+```
+Pronto para gerar:
+
+{para cada plataforma selecionada}
+- {Plataforma}: @{username}
+{/para}
+- Token Apify: configurado
+
+Custo estimado por geração completa: menos de US$ 0,60 no plano gratuito do Apify.
+
+1. Tudo certo, gerar agora
+2. Quero ajustar algo
+```
+
+**Apos o aluno confirmar (opcao 1), ANTES de executar qualquer script:**
+
+Crie o arquivo `meus-produtos/{ativo}/.dashboard-queue.json` com as plataformas selecionadas:
+
+```json
+{
+  "pendentes": ["instagram", "tiktok", "youtube"],
+  "concluidos": [],
+  "criado_em": "{timestamp ISO 8601}"
+}
+```
+
+Inclua apenas as plataformas que o aluno selecionou. Este arquivo garante que, se o contexto for perdido durante a geracao, a proxima chamada ao comando retome de onde parou.
+
+### Etapa 5. Execução
+
+**Quando 2 ou mais plataformas foram selecionadas**, pergunte antes de iniciar:
+
+```
+Quer gerar os dashboards ao mesmo tempo ou um por vez?
+
+1. Ao mesmo tempo (mais rapido, termina em cerca de 10 minutos no total)
+2. Um por vez (mais facil de acompanhar)
+```
+
+Nota interna (nao exibir ao usuario): gerar as tres plataformas ao mesmo tempo e seguro no plano gratuito do Apify.
+
+---
+
+**Modo: ao mesmo tempo (paralelo)**
+
+Anuncie:
+```
+Iniciando os tres dashboards ao mesmo tempo.
+Cada um pode levar ate 10 minutos. Aviso quando todos terminarem.
+```
+
+Execute os tres scripts como chamadas Bash em paralelo (numa mesma mensagem de tool calls). Nao use `| tail` nem background — rode cada script direto com `2>&1` para capturar a saida completa.
+
+| Plataforma | Script |
+|---|---|
+| Instagram | `{python} .claude/skills/instagram-dashboard/scripts/atualizar.py 2>&1` |
+| TikTok | `{python} .claude/skills/tiktok-dashboard/scripts/atualizar.py 2>&1` |
+| YouTube | `{python} .claude/skills/youtube-dashboard/scripts/atualizar.py 2>&1` |
+
+Apos todos concluirem, leia a saida de cada um e informe:
+
+```
+Concluido.
+
+Instagram (@leandroladeiran): 30 posts coletados. Engajamento: X%
+TikTok (@leandroladeiran): 30 videos. Seguidores: X. Engajamento: X%
+YouTube (@VTSD): 30 videos. Inscritos: X. Engajamento: X%
+```
+
+Se algum falhar, exiba o erro em linguagem simples (sem traceback Python) e oriente o que fazer.
+
+---
+
+**Modo: um por vez (sequencial)**
+
+Para cada plataforma selecionada, na ordem Instagram → TikTok → YouTube:
+
+Anuncie antes de cada uma:
+```
+Gerando dashboard do Instagram (@{IG_USER}).
+Isso costuma levar entre 5 e 10 minutos. Aviso quando terminar.
+```
+
+Execute o script correspondente em primeiro plano, sem `| tail` e sem background:
+```bash
+{python} .claude/skills/instagram-dashboard/scripts/atualizar.py 2>&1
+```
+
+Aguarde a conclusao. Leia a saida completa para confirmar sucesso ou erro. Informe o resultado em linguagem simples antes de seguir para a proxima plataforma.
+
+---
+
+**Apos confirmar sucesso de cada plataforma** (em ambos os modos), execute:
+
+1. Atualize `.dashboard-queue.json` movendo a plataforma de `pendentes` para `concluidos` (Edit cirurgico no arquivo JSON).
+
+2. Atualize a secao Dashboards do painel de entregas:
+```bash
+{python} scripts/painel-incremental.py --secao dashboards
+```
+
+Se o painel nao existir ainda, informe:
+```
+O painel de entregas ainda nao foi criado para este produto.
+O dashboard foi salvo em entregas/{plataforma}-dashboard/{username}/dashboard.html.
+Rode /produto-concepcao para criar o painel e ter acesso centralizado.
+```
+
+Exemplo do arquivo de fila apos o Instagram concluir:
+```json
+{
+  "pendentes": ["tiktok", "youtube"],
+  "concluidos": ["instagram"],
+  "criado_em": "{timestamp}"
+}
+```
+
+### Etapa 6. Entrega Final
+
+Execute o update do painel uma ultima vez para garantir que todas as plataformas geradas aparecem:
+
+```bash
+{python} scripts/painel-incremental.py --secao dashboards
+```
+
+Exiba a mensagem de entrega:
+
+```
+Dashboards criados.
+
+Acesse pelo Painel de Entregas (aba Dashboards):
+meus-produtos/{ativo}/painel-entregas.html
+
+Para atualizar os dados quando quiser, chame este comando de novo.
+```
+
+**Apos exibir a Entrega Final:** delete o arquivo `meus-produtos/{ativo}/.dashboard-queue.json`. A fila foi concluida e nao deve reaparecer na proxima sessao.
+
+### Etapa 7. Oferecer as Plataformas que Ficaram de Fora (opcional)
+
+Apos a Entrega Final, verifique se alguma plataforma PENDENTE nao foi selecionada pelo aluno.
+
+**Pule este passo se:** todas as 3 plataformas foram geradas nesta sessao, ou se o aluno nao selecionou nenhuma (encerrou sem gerar).
+
+**Se sobrou 1 plataforma nao gerada:**
+```
+Quer gerar o dashboard do {plataforma} tambem?
+O token Apify ja esta pronto.
+
+1. Sim
+2. Depois
+```
+
+**Se sobraram 2 plataformas:**
+```
+Quer aproveitar e gerar os outros dashboards tambem?
+O token Apify ja esta pronto.
+
+1. {Plataforma A}
+2. {Plataforma B}
+3. Os dois em sequencia
+4. Depois, por enquanto esta bom
+```
+
+Se o aluno aceitar: volta para a Etapa 2 (coletar usernames que faltam) e executa em sequencia.
+
+---
+
+## Opção: Atualizar os que Ja Existem
+
+Para cada plataforma com estado GERADO (na ordem Instagram → TikTok → YouTube):
 
 ```
 Atualizando Instagram (@{IG_USER})...
 ```
 
-Execute o script correspondente e aguarde:
+Execute o script correspondente e aguarde. Leia as ultimas 5 linhas do log.
 
-```bash
-python .claude/skills/instagram-dashboard/scripts/atualizar.py
-```
-
-Leia as últimas 5 linhas do log para confirmar sucesso ou erro.
-
-Após concluir a plataforma, mostre o resultado e siga para a próxima:
+Apos cada plataforma, informe o resultado e siga para a proxima:
 
 ```
-Instagram: atualizado. Engajamento médio: {X}%
+Instagram: atualizado. Engajamento medio: {X}%
 TikTok: atualizando...
 ```
 
-Ao final, mostre o resumo:
+Ao final, exiba o resumo:
 
 ```
-Atualização concluída.
+Atualizacao concluida.
 
 Instagram:  atualizado   /   erro: {mensagem}
 TikTok:     atualizado   /   erro: {mensagem}
 YouTube:    atualizado   /   erro: {mensagem}
-
-Para abrir um dashboard:
-python .claude/skills/instagram-dashboard/scripts/atualizar.py --abrir
 ```
 
 ---
 
-## Opção 2. Configurar Plataforma Pendente
-
-Liste as plataformas com estado PENDENTE:
-
-```
-Plataformas ainda não configuradas:
-
-1. Instagram
-2. TikTok
-3. YouTube
-
-Qual quer configurar?
-```
-
-Após a escolha, siga o fluxo da skill específica a partir do PASSO 0 (Cenário B):
-- Instagram: skill `instagram-dashboard`
-- TikTok: skill `tiktok-dashboard`
-- YouTube: skill `youtube-dashboard`
-
-**Regra de token:** se `APIFY_API_TOKEN` já estiver no `.env`, não perguntar. Usar diretamente.
-
----
-
-## Opção 3. Adicionar Nova Plataforma
-
-```
-Qual plataforma quer adicionar?
-
-1. Instagram
-2. TikTok
-3. YouTube
-```
-
-Após a escolha:
-
-1. Se a flag estiver como `false` no `.env`, pergunte:
-
-```
-Você marcou anteriormente que não usa {plataforma}.
-
-Quer ativar agora?
-
-1. Sim, tenho {plataforma} agora
-2. Não, cancelar
-```
-
-Se confirmar: atualize a flag para `true` no `.env` (Edit cirúrgico).
-
-2. Siga o fluxo de primeira configuração da skill correspondente (Cenário B).
-
-**Regra de token:** se `APIFY_API_TOKEN` já estiver no `.env`, não perguntar.
-
----
-
-## Opção 4. Abrir Dashboard Específico
+## Opcao: Abrir Dashboard
 
 ```
 Qual dashboard quer abrir?
@@ -170,216 +406,68 @@ Qual dashboard quer abrir?
 3. YouTube ({YOUTUBE_CHANNEL})
 ```
 
-Execute o comando de abertura para o sistema operacional detectado:
+Exibir apenas as plataformas com estado GERADO.
+
+Antes de abrir, localize o caminho real com glob (cada script salva dentro de uma subpasta com o username):
+
+- Instagram: `meus-produtos/{ativo}/entregas/instagram-dashboard/*/dashboard.html`
+- TikTok: `meus-produtos/{ativo}/entregas/tiktok-dashboard/*/dashboard.html`
+- YouTube: `meus-produtos/{ativo}/entregas/youtube-dashboard/*/dashboard.html`
+
+Execute o comando de abertura para o sistema operacional detectado, usando o caminho encontrado pelo glob:
 
 | OS | Comando |
 |---|---|
-| Windows | `start meus-produtos/{ativo}/entregas/{plataforma}-dashboard/dashboard.html` |
-| macOS | `open meus-produtos/{ativo}/entregas/{plataforma}-dashboard/dashboard.html` |
-| Linux | `xdg-open meus-produtos/{ativo}/entregas/{plataforma}-dashboard/dashboard.html` |
+| Windows | `start {caminho-real}/dashboard.html` |
+| macOS | `open {caminho-real}/dashboard.html` |
+| Linux | `xdg-open {caminho-real}/dashboard.html` |
 
 ---
 
-## Opção 5. Ver o Que Cada Dashboard Mostra
-
-Exibir tabela resumida:
+## Opcao: Ver o Que Cada Dashboard Mostra
 
 ```
 O que cada dashboard mostra:
 
 INSTAGRAM
-  Seguidores, engajamento médio, formato mais postado
+  Seguidores, engajamento medio, formato mais postado
   Desempenho por formato (Reel, Carrossel, Foto)
-  Heatmap de melhores horários para postar
-  Top 3 posts, análise de hashtags, linha do tempo, grade completa de posts
+  Heatmap de melhores horarios para postar
+  Top 3 posts, analise de hashtags, linha do tempo, grade completa de posts
 
 TIKTOK
-  Seguidores, likes totais, engajamento médio por views
-  Desempenho por duração do vídeo (até 15s, 16-30s, 31-60s, 60s+)
-  Heatmap de melhores horários para postar
-  Top 3 vídeos, análise de hashtags, linha do tempo, grade completa de vídeos
+  Seguidores, likes totais, engajamento medio por views
+  Desempenho por duracao do video (ate 15s, 16-30s, 31-60s, 60s+)
+  Heatmap de melhores horarios para postar
+  Top 3 videos, analise de hashtags, linha do tempo, grade completa de videos
 
 YOUTUBE
-  Inscritos, total de views do canal, engajamento médio
-  Desempenho por duração (Shorts, curto, médio, longo)
+  Inscritos, total de views do canal, engajamento medio
+  Desempenho por duracao (Shorts, curto, medio, longo)
   Melhores dias para publicar
-  Top 3 vídeos, análise de títulos, linha do tempo, grade completa de vídeos
+  Top 3 videos, analise de titulos, linha do tempo, grade completa de videos
 
-Todos os dashboards abrem direto no navegador, funcionam offline e têm filtros interativos.
+Todos os dashboards abrem direto no navegador, funcionam offline e tem filtros interativos.
 ```
-
----
-
-## Fluxo de Onboarding (Primeira Vez — Nenhuma Plataforma Configurada)
-
-Quando nenhuma plataforma está configurada, execute este fluxo antes de qualquer outra coisa:
-
-### Pergunta 1. Quais redes sociais o aluno usa?
-
-```
-Vamos configurar o monitoramento das suas redes sociais.
-
-Quais você usa ativamente? (pode marcar mais de uma)
-
-1. Instagram
-2. TikTok
-3. YouTube
-4. Nenhuma dessas por enquanto
-
-Digite os números separados por vírgula (ex: 1,3) ou o número único:
-```
-
-Se escolher 4: salve `INSTAGRAM_ATIVO=false`, `TIKTOK_ATIVO=false`, `YOUTUBE_ATIVO=false` no `.env` e encerre com:
-
-```
-Tudo bem. Quando quiser monitorar uma rede social, é só chamar esse comando de novo.
-```
-
-Para cada plataforma NÃO selecionada: salve a flag como `false` no `.env` (Edit cirúrgico). Isso evita que as skills individuais perguntem de novo no futuro.
-
-Para cada plataforma selecionada: salve a flag como `true` no `.env`.
-
-### Pergunta 2. Coletar usernames das plataformas selecionadas
-
-Para cada plataforma selecionada, UMA pergunta por vez:
-
-**Instagram:**
-```
-Qual o usuário do seu perfil no Instagram? (só o nome, sem o arroba)
-(ex: meuperfil)
-```
-Normalize: sem @, lowercase. Salve `IG_USER=<username>` no `.env`.
-
-**TikTok:**
-```
-Qual o usuário do seu perfil no TikTok? (só o nome, sem o arroba)
-(ex: meuperfil)
-```
-Normalize: sem @, lowercase. Salve `TIKTOK_USER=<username>` no `.env`.
-
-**YouTube:**
-```
-Qual o endereço do seu canal no YouTube?
-(ex: @meuperfil  ou  https://www.youtube.com/@meuperfil)
-```
-Aceitar `@handle`, URL completa ou channel ID. Salve `YOUTUBE_CHANNEL=<valor>` no `.env`.
-
-### Pergunta 3. Token Apify (UMA VEZ para todas)
-
-Se `APIFY_API_TOKEN` já estiver no `.env`: usar diretamente, não perguntar.
-
-Se não estiver: execute a skill `configurar-apify` e retorne aqui após concluir. O token configurado vale para Instagram, TikTok e YouTube — não perguntar de novo para cada um.
-
-### Confirmação Única
-
-```
-Configuração confirmada:
-
-{se Instagram selecionado}
-- Instagram: @{IG_USER}
-{/se}
-{se TikTok selecionado}
-- TikTok: @{TIKTOK_USER}
-{/se}
-{se YouTube selecionado}
-- YouTube: {YOUTUBE_CHANNEL}
-{/se}
-- Token Apify: configurado
-
-Custo estimado por atualização completa: menos de US$ 0,60 no plano gratuito do Apify.
-
-1. Tudo certo, gerar os dashboards agora
-2. Quero ajustar algo
-```
-
-### Execução em Sequência
-
-Para cada plataforma selecionada (ordem: Instagram → TikTok → YouTube):
-
-```
-Gerando dashboard do Instagram (@{IG_USER})...
-Isso pode levar até 10 minutos (busca expandida de posts).
-```
-
-Execute o script:
-```bash
-python .claude/skills/instagram-dashboard/scripts/atualizar.py
-```
-(macOS/Linux: `python3 ...`)
-
-Leia as últimas 5 linhas do log para confirmar sucesso. Informe o resultado e siga para a próxima plataforma.
-
-### Entrega Final
-
-```
-Dashboards criados.
-
-{para cada plataforma configurada com sucesso}
-{Plataforma}: meus-produtos/{ativo}/entregas/{plataforma}-dashboard/dashboard.html
-{/para}
-
-Para atualizar os dados quando quiser:
-- Instagram: python .claude/skills/instagram-dashboard/scripts/atualizar.py --abrir
-- TikTok:    python .claude/skills/tiktok-dashboard/scripts/atualizar.py --abrir
-- YouTube:   python .claude/skills/youtube-dashboard/scripts/atualizar.py --abrir
-
-Ou chame este comando de novo para atualizar tudo de uma vez.
-```
-
-### Passo Pós-Entrega. Oferecer Plataformas Adicionais
-
-Após exibir a Entrega Final, verifique no `.env` se há plataformas com flag `false` (INATIVAS).
-
-**Pule este passo se:** todas as 3 plataformas estão CONFIGURADAS, ou o aluno escolheu "Nenhuma" na pergunta inicial (todas as 3 com `false` ao mesmo tempo — não faz sentido oferecer de novo).
-
-**Se há 2 plataformas INATIVAS** (ex: aluno configurou só o Instagram):
-
-```
-Quer aproveitar e adicionar as outras redes sociais também?
-O token Apify já está pronto, é só informar o usuário.
-
-1. Configurar TikTok
-2. Configurar YouTube
-3. Configurar os dois em sequência
-4. Depois, por enquanto está bom
-```
-
-**Se há 1 plataforma INATIVA:**
-
-```
-Quer configurar {plataforma} também?
-O token Apify já está pronto, é só informar o usuário.
-
-1. Sim
-2. Depois
-```
-
-Se o aluno aceitar:
-1. Coletar o username da(s) plataforma(s) escolhida(s), UMA pergunta por vez
-2. Atualizar a flag de `false` para `true` no `.env` (Edit cirúrgico)
-3. Executar o script correspondente na ordem TikTok → YouTube
-4. Exibir o caminho do dashboard gerado ao final de cada um
-
-**Regras do passo pós-entrega:**
-- `APIFY_API_TOKEN` já está configurado. Nunca perguntar de novo.
-- Se o aluno escolher "Depois" (opção 4 ou 2), encerrar normalmente sem alterar as flags.
-- Não executar este passo quando o comando for chamado para "Atualizar todos" (Opção 1 do menu principal) — só no fluxo de onboarding.
 
 ---
 
 ## Regras
 
-- **Sempre ler `.env` antes de pedir qualquer dado ao usuário.** Se `APIFY_API_TOKEN`, `IG_USER`, `TIKTOK_USER` ou `YOUTUBE_CHANNEL` já estiverem presentes, usar diretamente.
-- **Token Apify é pedido uma única vez** mesmo quando múltiplas plataformas estão sendo configuradas.
-- **Flags de plataforma inativa (`false`) nunca devem ser sobrescritas automaticamente.** Sempre perguntar antes de reativar.
-- **Não executar scripts de plataformas com estado INATIVO** mesmo na opção de "atualizar tudo".
-- **Ordem de execução sempre:** Instagram → TikTok → YouTube. Mais lento primeiro para o aluno ver progresso.
-- **Sem agendamento automático:** não configurar CronCreate nem schtasks. O aluno roda manualmente.
-- **Não usar travessão** em nenhum texto exibido ao usuário.
+- **Verificar o `.env` antes de pedir qualquer dado.** Se `IG_USER`, `TIKTOK_USER`, `YOUTUBE_CHANNEL` ou `APIFY_API_TOKEN` ja estiverem presentes, usar diretamente sem perguntar.
+- **O indicador primario de estado e a existencia do `dashboard.html`.** Nao depender de flags para decidir o que oferecer.
+- **Token Apify e pedido uma unica vez** mesmo quando multiplas plataformas estao sendo geradas.
+- **Ordem de execucao sequencial:** Instagram, TikTok, YouTube. No modo paralelo, os tres rodam simultaneamente como chamadas Bash independentes numa mesma mensagem.
+- **Sem agendamento automatico:** nao configurar CronCreate nem schtasks. O aluno roda manualmente.
+- **Nao usar travessao** em nenhum texto exibido ao usuario.
+- **Usernames sao salvos no `.env` imediatamente apos o aluno informar**, antes de executar qualquer script.
+- **Fila de geracao (`.dashboard-queue.json`):** criada ANTES do primeiro script rodar, atualizada apos cada conclusao, deletada ao final. Nunca executar scripts sem criar a fila primeiro. Se o arquivo existir ao abrir o comando, e retomada de sessao anterior.
 
-## Próximos Passos Após Configurar
+---
 
-- `/copy-variacao-post` — criar variações dos posts do Instagram com mais engajamento
-- `/copy-social` — criar conteúdo baseado nos vídeos do TikTok que performaram melhor
-- `/copy-roteiro` — criar roteiros baseados nos vídeos do YouTube com mais views
-- `/dados-instagram` — análise profunda de um perfil concorrente no Instagram
+## Proximos Passos Apos Configurar
+
+- `/copy-variacao-post` — criar variacoes dos posts do Instagram com mais engajamento
+- `/copy-social` — criar conteudo baseado nos videos do TikTok que performaram melhor
+- `/copy-roteiro` — criar roteiros baseados nos videos do YouTube com mais views
+- `/dados-instagram` — analise profunda de um perfil concorrente no Instagram

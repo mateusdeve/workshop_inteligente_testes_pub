@@ -122,7 +122,7 @@ O sistema usa 5 tipos de componentes. Cada um tem um papel especifico:
 - Contexto persistente (onde ler perfil.md e idconsumidor.md)
 - Tabela de onde salvar cada tipo de entrega
 - Padrao de qualidade para HTML
-- Fluxo padrao de 5 passos (Contexto, Entrevista, Confirmacao, Geracao, Entrega)
+- Fluxo padrao de 6 passos (Contexto, Entrevista, Confirmacao, Geracao, Aprovacao, Entrega)
 - Lista de todos os comandos disponiveis (apresentacao na primeira interacao)
 
 **Impacto:** Tudo que esta aqui afeta TODOS os comandos e agentes. Alteracoes neste arquivo mudam o comportamento global.
@@ -598,10 +598,13 @@ Esta tabela e definida no CLAUDE.md e deve ser respeitada por TODOS os commands 
 | Tipo de Material | Pasta | Formato | Exemplo de nome |
 |---|---|---|---|
 | Paginas (vendas, captura, obrigado) | `meus-produtos/{ativo}/entregas/paginas/` | `.html` | `vendas-curso-ingles.html` |
-| Textos de venda (copy, headlines, VSL) | `meus-produtos/{ativo}/entregas/textos-de-venda/` | `.md` | `headlines-curso-ingles.md` |
+| Copy de pagina de vendas | `meus-produtos/{ativo}/entregas/copy-pagina/` | `.md` | `copy-curso-ingles.md` |
 | Sequencias de email | `meus-produtos/{ativo}/entregas/emails/` | `.md` | `sequencia-pico-curso-ingles.md` |
-| Criativos (anuncios, conteudo social, imagens) | `meus-produtos/{ativo}/entregas/criativos/` | `.md`, `.png`, `.mp4` | `anuncios-meta-curso-ingles.md` |
+| Anuncios (Meta, Google) | `meus-produtos/{ativo}/entregas/anuncios/` | `.md` | `anuncios-meta-curso-ingles.md` |
+| Conteudo para redes sociais | `meus-produtos/{ativo}/entregas/conteudo-social/` | `.md` | `carrossel-curso-ingles.md` |
+| Criativos e prompts de imagem | `meus-produtos/{ativo}/entregas/criativos/` | `.md` | `criativos-curso-ingles.md` |
 | Scripts comerciais | `meus-produtos/{ativo}/entregas/comercial/` | `.html` | `playbook-curso-ingles.html` |
+| Videos | `meus-produtos/{ativo}/entregas/videos/` | `.mp4`, `.md` | `roteiro-curso-ingles.md` |
 
 **Se precisar de uma nova pasta de entrega:**
 1. Crie a pasta em `meus-produtos/{ativo}/entregas/`
@@ -685,9 +688,8 @@ CLAUDE.md (regras globais)
     │
     ├── /copy-pagina ──────────► skill: paginas ────────────► salva: entregas/paginas/*.html + entregas/copy-pagina/*.md
     ├── /copy-anuncio ─────────► skill: anuncios ───────────► salva: entregas/anuncios/*.md
-    ├── /copy-social ──────────► skill: conteudo ───────────► salva: entregas/conteudo-social/*.md
-    ├── /copy-roteiro ─────────► skill: conteudo ───────────► salva: entregas/videos/*.md
-    ├── /carrossel ────────────► skill: conteudo ───────────► salva: entregas/conteudo-social/*.md
+    ├── /copy-carrossel ───────► skill: conteudo ───────────► salva: entregas/conteudo-social/*.md
+    ├── /roteiro-de-video ─────► skill: conteudo ───────────► salva: entregas/videos/*.md
     ├── /estrategia-lancamento ► skill: vtsd-completo ──────► salva: entregas/
     ├── /estrategia-funil ─────► skill: trafego-pago ───────► salva: entregas/
     ├── /comercial-playbook ───► skill: playbook-comercial ► salva: entregas/comercial/*.html

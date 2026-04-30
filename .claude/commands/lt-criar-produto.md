@@ -88,5 +88,5 @@ Por quê:
 
 1. Concordo, seguir com [recomendação] → use /quiz ou /paginas-low-ticket
 2. Prefiro o outro formato
-3. Criar anúncios primeiro → use /anuncio
+3. Criar anúncios primeiro → use /copy-anuncio
 ```

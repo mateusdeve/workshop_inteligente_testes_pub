@@ -72,7 +72,7 @@ O agente pode ser usado para criar produtos de mentorados (não só do dono do p
 
 ### Etapa 1. Concepção do Produto
 
-**Skill que rege esta etapa:** `.claude/plugins/workshop-marketing/skills/concepcao-produto/SKILL.md`
+**Skill que rege esta etapa:** `.claude/skills/concepcao-produto/SKILL.md`
 
 Leia a skill antes de iniciar. Ela contém as regras de Quadro, Furadeira, Decorados, Urgências Ocultas, Pesquisa de Mercado e 3 Identidades.
 
@@ -139,7 +139,7 @@ Próxima etapa: Criação do produto
 
 ### Etapa 2. Criação do Produto
 
-**Skill que rege esta etapa:** `.claude/plugins/workshop-marketing/skills/criacao-produto-low-ticket/SKILL.md`
+**Skill que rege esta etapa:** `.claude/skills/criacao-produto-low-ticket/SKILL.md`
 
 Leia a skill antes de iniciar. Ela contém o fluxo completo para cada um dos 6 formatos possíveis, com regras de estrutura, geração em blocos, padrões visuais dos arquivos e onde salvar cada entregável.
 
@@ -156,7 +156,7 @@ Próxima etapa: Identidade do consumidor
 
 ### Etapa 3. Identidade do Consumidor
 
-**Skill que rege esta etapa:** `.claude/plugins/workshop-marketing/skills/concepcao-produto/references/template-avatar.md`
+**Skill que rege esta etapa:** `.claude/skills/concepcao-produto/references/template-avatar.md`
 
 Leia o template antes de iniciar. Ele define a estrutura correta do arquivo.
 
@@ -235,7 +235,7 @@ Aguarde a resposta do aluno antes de acionar qualquer skill.
 
 **Se concordar com PÁGINA ou escolher PÁGINA. Página de vendas do produto:**
 
-**Skill que rege esta etapa:** skill `paginas-low-ticket` (command) + `.claude/plugins/workshop-marketing/skills/paginas/SKILL.md`
+**Skill que rege esta etapa:** skill `paginas-low-ticket` (command) + `.claude/skills/paginas/SKILL.md`
 
 Leia ambas antes de iniciar. A skill de paginas contém as regras visuais, templates, fontes e paletas. A skill paginas-low-ticket contém as 4 copies (Inadequação, Identificação, Plug & Play, Promessa Boa Demais) e as 7 leis da copy.
 
@@ -278,9 +278,8 @@ Siga o fluxo completo conforme a skill `/lt-quiz`:
    ```
 
 **Fase 2. Prompt técnico (após aprovação da Fase 1):**
-6. Leia o template em `C:\Users\Elen\Downloads\prompt-quiz-funnel-detalhado (1).md`
-7. Substitua todo o conteúdo do produto de exemplo pelo produto do aluno, mantendo a estrutura técnica intacta
-8. Salve em `meus-produtos/{ativo}/entregas/quiz/quiz-[produto].md`
+6. Gere o prompt técnico completo para o Lovable.dev com base no produto do aluno: perguntas do quiz (com prompts de imagem, tipos de pergunta e valores de banco), lógica de redirecionamento e estrutura de funil
+7. Salve em `meus-produtos/{ativo}/entregas/quiz/quiz-[produto].md`
 9. Informe ao aluno: "Arquivo salvo. Abra, copie todo o conteúdo e cole no Lovable.dev para construir o funil completo."
 
 ---
@@ -296,7 +295,7 @@ Próxima etapa: Anúncios
 
 ### Etapa 4. Anúncios
 
-**Skill que rege esta etapa:** `.claude/plugins/workshop-marketing/skills/anuncios/SKILL.md`
+**Skill que rege esta etapa:** `.claude/skills/anuncios/SKILL.md`
 
 Leia a skill antes de iniciar. Ela contém a Mandala de 18 tipos, regras de gancho, estrutura de texto, pesquisa de tendências obrigatória e fluxo de entrevista.
 

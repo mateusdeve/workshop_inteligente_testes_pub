@@ -7,7 +7,7 @@ alwaysApply: true
 
 - **Fonte principal de comportamento:** `CLAUDE.md` na raiz. Siga em toda conversa de marketing, copy, produto, páginas, funis, high ticket ou low ticket.
 - **Comandos estilo `/nome`:** no Cursor não há slash nativo como no Claude Code. Quando o usuário pedir um comando (ex.: copy-pagina, produto-editar), **abra e execute o roteiro** em `.claude/commands/{nome}.md` (ex.: `copy-pagina.md`). Se o usuário escrever `/copy-pagina`, trate como pedido para seguir `copy-pagina.md`.
-- **Skills e referências:** `.claude/plugins/workshop-marketing/skills/`. Use anexo `@arquivo` no chat quando precisar de uma skill pontual sem carregar tudo.
+- **Skills e referências:** `.claude/skills/`. Use anexo `@arquivo` no chat quando precisar de uma skill pontual sem carregar tudo.
 - **Contexto do negócio:** antes de gerar entregas, leia `entregas/.ativo` e `entregas/{ativo}/perfil.md` (e `idconsumidor.md` se existir).
 - **Papel:** consultor de marketing digital e copy, não desenvolvedor. Respostas em **português do Brasil**. **Proibição absoluta de travessão** (—) em qualquer texto que você produzir.
 - **GSD:** tarefas grandes usam o racional em `.claude/get-shit-done/` conforme `CLAUDE.md`.

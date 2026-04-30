@@ -331,11 +331,12 @@ def gerar_html(perfil, posts, metricas, historico=None, variacoes=None):
   var R = Recharts;
   var h = React.createElement;
   var TOOLTIP_STYLE = {
-    background: '#141414', border: '1px solid #252525', color: '#fff',
-    fontFamily: "'JetBrains Mono', monospace", fontSize: 12, borderRadius: 0, padding: '8px 12px'
+    background: 'hsl(240,10%,4%)', border: '1px solid hsl(240,4%,16%)', color: 'hsl(0,0%,98%)',
+    fontFamily: "'Inter', sans-serif", fontSize: 12, borderRadius: 8, padding: '8px 12px',
+    boxShadow: '0 4px 6px -1px rgba(0,0,0,.6)'
   };
-  var TICK_STYLE = { fill: '#a8a8a3', fontSize: 10, fontFamily: "'JetBrains Mono', monospace" };
-  var COR = { Reel: '#c4ff5e', Carrossel: '#9a7bb5', Foto: '#7aa8c9' };
+  var TICK_STYLE = { fill: 'hsl(240,5%,65%)', fontSize: 11, fontFamily: "'Inter', sans-serif" };
+  var COR = { Reel: 'hsl(220,70%,50%)', Carrossel: 'hsl(280,65%,60%)', Foto: 'hsl(160,60%,45%)' };
 
   function makeTimelineChart(containerId, data, height) {
     var container = document.getElementById(containerId);
@@ -352,13 +353,13 @@ def gerar_html(perfil, posts, metricas, historico=None, variacoes=None):
       });
     });
     var args = [R.LineChart, { data: data, margin: { top: 8, right: 40, left: 10, bottom: 20 } },
-      h(R.CartesianGrid, { strokeDasharray: '3 3', stroke: '#252525', vertical: false }),
-      h(R.XAxis, { dataKey: 'date', stroke: '#a8a8a3', tick: TICK_STYLE, interval: 'preserveStartEnd' }),
-      h(R.YAxis, { stroke: '#a8a8a3', tick: TICK_STYLE, tickFormatter: fmt, width: 52 }),
+      h(R.CartesianGrid, { strokeDasharray: '4 4', stroke: 'hsl(240,4%,16%)', vertical: false }),
+      h(R.XAxis, { dataKey: 'date', stroke: 'hsl(240,4%,16%)', tick: TICK_STYLE, interval: 'preserveStartEnd' }),
+      h(R.YAxis, { stroke: 'hsl(240,4%,16%)', tick: TICK_STYLE, tickFormatter: fmt, width: 52 }),
       h(R.Tooltip, {
         contentStyle: TOOLTIP_STYLE,
         formatter: function (v, name) { return [fmt(v), name]; },
-        labelStyle: { color: '#a8a8a3' }
+        labelStyle: { color: 'hsl(240,5%,65%)' }
       })
     ].concat(lines);
     var chart = h(R.ResponsiveContainer, { width: '100%', height: height },
@@ -375,18 +376,18 @@ def gerar_html(perfil, posts, metricas, historico=None, variacoes=None):
     });
     var chart = h(R.ResponsiveContainer, { width: '100%', height: 120 },
       h(R.LineChart, { data: data, margin: { top: 8, right: 40, left: 10, bottom: 20 } },
-        h(R.CartesianGrid, { strokeDasharray: '3 3', stroke: '#252525', vertical: false }),
-        h(R.XAxis, { dataKey: 'date', stroke: '#a8a8a3', tick: TICK_STYLE, interval: 'preserveStartEnd' }),
-        h(R.YAxis, { stroke: '#a8a8a3', tick: TICK_STYLE, tickFormatter: fmt, width: 52 }),
+        h(R.CartesianGrid, { strokeDasharray: '4 4', stroke: 'hsl(240,4%,16%)', vertical: false }),
+        h(R.XAxis, { dataKey: 'date', stroke: 'hsl(240,4%,16%)', tick: TICK_STYLE, interval: 'preserveStartEnd' }),
+        h(R.YAxis, { stroke: 'hsl(240,4%,16%)', tick: TICK_STYLE, tickFormatter: fmt, width: 52 }),
         h(R.Tooltip, {
           contentStyle: TOOLTIP_STYLE,
           formatter: function (v) { return [fmt(v)]; },
-          labelStyle: { color: '#a8a8a3' }
+          labelStyle: { color: 'hsl(240,5%,65%)' }
         }),
         h(R.Line, {
           type: 'monotone', dataKey: 'value',
-          stroke: '#c4ff5e', strokeWidth: 2,
-          dot: { r: 3, fill: '#c4ff5e', strokeWidth: 0 },
+          stroke: 'hsl(220,70%,50%)', strokeWidth: 2,
+          dot: { r: 3, fill: 'hsl(220,70%,50%)', strokeWidth: 0 },
           activeDot: { r: 5 }
         })
       )

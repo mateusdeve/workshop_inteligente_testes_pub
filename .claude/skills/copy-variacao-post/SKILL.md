@@ -160,7 +160,7 @@ Para cada post selecionado, antes de gerar as variacoes, identifique internament
 - Analisar visualmente: tema visual, texto nos slides, sequencia de argumento, elementos graficos de destaque
 - Combinar com a caption para entender a narrativa completa
 - Identificar o angulo do primeiro slide (gancho visual) e o argumento que se desenvolve nos slides seguintes
-- Os caminhos em `carouselPaths` sao relativos ao projeto. Construir o caminho absoluto: `{diretorio-do-projeto}/{caminho-do-insights}`. Exemplo: se o projeto esta em `C:\Users\gabri\Documents\GitHub\workshop_inteligente`, usar `Read("C:/Users/gabri/Documents/GitHub/workshop_inteligente/entregas/instagram-dashboard/imagens/slide-6-1.jpg")`
+- Os caminhos em `carouselPaths` sao relativos ao projeto. Construir o caminho absoluto concatenando a raiz do projeto (detectada pelo diretorio de trabalho atual) com o caminho relativo do arquivo. Exemplo: `Read("{raiz-do-projeto}/entregas/instagram-dashboard/imagens/slide-6-1.jpg")`
 - Para saber o diretorio do projeto, ler `meus-produtos/.ativo` ou verificar o caminho do `insights.json` que foi lido no PASSO 0
 
 **Se nenhum dado visual ou de transcricao disponivel (caption curta ou vaga):**

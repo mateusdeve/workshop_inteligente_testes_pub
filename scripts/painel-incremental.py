@@ -31,6 +31,7 @@ Quando o slug nao e informado, o script le meus-produtos/.ativo.
 from __future__ import annotations
 
 import argparse
+import json
 import re
 import shutil
 import sys
@@ -126,11 +127,17 @@ def extrair_secao(texto: str, titulo: str) -> str:
     )
     m = pad.search(texto)
     if not m:
-        # permitir prefixos (ex: "## Furadeira (Metodo)")
+        # permitir sufixos (ex: "## Furadeira (Metodo)")
         pad2 = re.compile(
             rf"^##\s+{re.escape(titulo)}\b[^\n]*$", re.IGNORECASE | re.MULTILINE
         )
         m = pad2.search(texto)
+    if not m:
+        # permitir prefixo numerico (ex: "## 1. Tamanho de Mercado")
+        pad3 = re.compile(
+            rf"^##\s+[\d.]+\s+{re.escape(titulo)}\b[^\n]*$", re.IGNORECASE | re.MULTILINE
+        )
+        m = pad3.search(texto)
     if not m:
         return ""
     inicio = m.end()
@@ -161,13 +168,14 @@ def extrair_subsecao(texto: str, titulo: str) -> str:
 
 
 def bullets(texto: str) -> list[str]:
-    """Extrai itens de uma lista de bullets (- ou *)."""
+    """Extrai itens de lista de bullets (- ou *) OU lista numerada (1., 2., ...)."""
     if not texto:
         return []
     out = []
     for linha in texto.splitlines():
         linha = linha.rstrip()
-        m = re.match(r"^\s*[-*]\s+(.+?)\s*$", linha)
+        m = re.match(r"^\s*[-*]\s+(.+?)\s*$", linha) \
+            or re.match(r"^\s*\d+\.\s+(.+?)\s*$", linha)
         if m:
             out.append(m.group(1).strip())
     return out
@@ -231,10 +239,8 @@ def parse_furadeira(perfil: str, produto_dir: Path) -> dict:
     bloco = extrair_secao(perfil, "Furadeira (Metodo)") \
         or extrair_secao(perfil, "Furadeira")
     nome_metodo = valor_label(bloco, "Nome do Metodo") or valor_label(bloco, "Nome do Método")
-    mecanica = valor_label(bloco, "Mecanica") or valor_label(bloco, "Mecânica") \
-        or valor_label(bloco, "Mecanicas") or valor_label(bloco, "Mecânica(s)") \
-        or valor_label(bloco, "Mecanica(s)")
-    eficiencia = valor_label(bloco, "Eficiencia principal") or valor_label(bloco, "Eficiência principal")
+    mecanica = ""
+    eficiencia = ""
 
     macro = []
     for m in re.finditer(
@@ -297,14 +303,13 @@ def parse_identidade_produto(perfil: str) -> dict:
     ip = extrair_secao(perfil, "Identidade do Produto")
     kv = kv_bullets(ip)
     args = bullets(extrair_secao(perfil, "Argumentos Incontestaveis") or extrair_secao(perfil, "Argumentos Incontestáveis"))
-    objecoes = parse_objecoes_do_idconsumidor(None)  # preenchido depois via kwargs
     return {
         "diferencial": kv.get("Diferencial", ""),
         "formato": kv.get("Formato", ""),
         "nome": kv.get("Nome", ""),
         "preco": kv.get("Preco", "") or kv.get("Preço", ""),
         "argumentos_incontestaveis": args,
-        "objecoes": objecoes,
+        "objecoes": [],
     }
 
 
@@ -325,7 +330,9 @@ def parse_objecoes_do_idconsumidor(idc_texto: str | None) -> list[dict]:
     bloco = extrair_secao(idc_texto, "Objecoes de Compra (Framework dos 7 Argumentos)") \
         or extrair_secao(idc_texto, "Objeções de Compra (Framework dos 7 Argumentos)") \
         or extrair_secao(idc_texto, "Objecoes de Compra") \
-        or extrair_secao(idc_texto, "Objeções de Compra")
+        or extrair_secao(idc_texto, "Objeções de Compra") \
+        or extrair_secao(idc_texto, "Objecoes") \
+        or extrair_secao(idc_texto, "Objeções")
     if not bloco:
         return []
     # Divide em objecoes via H3 "Objecao N:"
@@ -343,7 +350,7 @@ def parse_objecoes_do_idconsumidor(idc_texto: str | None) -> list[dict]:
         # cada argumento comeca com **N. Nome...**
         blocos_arg = re.split(r"^\*\*(\d+)\.\s+([^\n]+?)\*\*\s*$", corpo, flags=re.MULTILINE)
         for j in range(1, len(blocos_arg), 3):
-            titulo = f"{blocos_arg[j]}. {blocos_arg[j+1].strip()}"
+            titulo = f"{blocos_arg[j]}. {blocos_arg[j + 1].strip()}"
             corpo_arg = blocos_arg[j + 2] if j + 2 < len(blocos_arg) else ""
             paragrafos = [p.strip() for p in re.split(r"\n\s*\n", corpo_arg) if p.strip()]
             # remove paragrafos que sao na verdade marcadores
@@ -370,7 +377,18 @@ def parse_identidade_consumidor(perfil: str, idc: str) -> dict:
     ic_bloco = extrair_secao(idc, "Identidade do Consumidor")
     if not ic_bloco:
         ic_bloco = extrair_secao(perfil, "Identidade do Consumidor")
-    kv = kv_bullets(ic_bloco)
+    # Extrai pares chave-valor no formato inline: **Chave:** valor | **Chave2:** valor2
+    kv: dict[str, str] = {}
+    for linha in (ic_bloco or "").splitlines():
+        for mi in re.finditer(r"\*\*(.+?)\s*:\*\*\s*(.+?)(?=\s*\|\s*\*\*|\s*$)", linha):
+            k = mi.group(1).strip()
+            v = mi.group(2).strip().rstrip("|").strip()
+            if k not in kv:
+                kv[k] = v
+    # Complementa com bullets no formato padrao: - **Chave:** valor
+    for k, v in kv_bullets(ic_bloco).items():
+        if k not in kv:
+            kv[k] = v
 
     perfil_demo = {
         "Idade": kv.get("Idade", ""),
@@ -396,13 +414,47 @@ def parse_identidade_consumidor(perfil: str, idc: str) -> dict:
         or extrair_secao(idc, "Paliativos")
     )
 
-    # baldes
+    # sonho
+    sonho = (extrair_secao(idc, "Sonho") or "").strip().strip('"').strip("'")
+
+    # frases que a pessoa diria
+    frases_bloco = extrair_secao(idc, "Frases que essa pessoa diria") or ""
+    frases = bullets(frases_bloco)
+    if not frases:
+        frases = [
+            re.sub(r"^\d+\.\s+\"?", "", ln).strip().strip('"')
+            for ln in frases_bloco.splitlines()
+            if re.match(r"^\d+\.\s+", ln.strip())
+        ]
+
+    # baldes — suporta dois formatos:
+    # 1) formato original: seta Pra quem e - Nome\n1. item...
+    # 2) formato novo: **Balde N – Nome**\nDescricao paragraph
     baldes = []
     if idc:
-        baldes_txt = extrair_secao(idc, "Baldes de Para Quem E") or extrair_secao(idc, "Baldes de Para Quem É")
+        baldes_txt = (
+            extrair_secao(idc, "Baldes de Para Quem E")
+            or extrair_secao(idc, "Baldes de Para Quem \u00c9")
+            or ""
+        )
+        if not baldes_txt:
+            # busca flexivel: qualquer H2 que contenha "Baldes"
+            m_sec = re.search(r"^##[^\n]*Baldes[^\n]*$", idc, re.MULTILINE | re.IGNORECASE)
+            if not m_sec:
+                m_sec = re.search(
+                    r"^##\s+Para quem[^\n]+\([^\n]*Baldes[^\n]*\)\s*$",
+                    idc,
+                    re.MULTILINE | re.IGNORECASE,
+                )
+            if m_sec:
+                inicio = m_sec.end()
+                fim_m = _H2_RE.search(idc, pos=inicio)
+                baldes_txt = idc[inicio: fim_m.start() if fim_m else len(idc)].strip()
+
         if baldes_txt:
+            # formato 1: seta + "Pra quem \u00e9" + separador (- ou \u2014 ou \u2013 ou :) + nome + itens numerados
             for m in re.finditer(
-                r"\u279c\s*Pra quem e\s*-\s*(.+?)\n((?:\d+\.\s+.+?\n?)+)",
+                r"[\u27a4\u279c\u27a2]\s*Pra quem [e\u00e9]\s*[-\u2013\u2014:]\s*(.+?)\n\n?((?:\d+\.\s+[^\n]+\n?)+)",
                 baldes_txt,
                 re.IGNORECASE,
             ):
@@ -412,13 +464,50 @@ def parse_identidade_consumidor(perfil: str, idc: str) -> dict:
                     for ln in m.group(2).splitlines()
                     if ln.strip()
                 ]
-                baldes.append({"nome": nome, "itens": itens})
+                baldes.append({"nome": nome, "descricao": "", "itens": itens})
 
+            # formato 2: **Balde N – Nome**\nDescricao
+            if not baldes:
+                for m in re.finditer(
+                    r"\*\*Balde\s+\d+\s*[-\u2013\u2014]\s*(.+?)\*\*\n+(.+?)(?=\n\n\*\*Balde|\Z)",
+                    baldes_txt,
+                    re.DOTALL,
+                ):
+                    nome = m.group(1).strip()
+                    descricao = m.group(2).strip()
+                    baldes.append({"nome": nome, "descricao": descricao, "itens": []})
+
+            # formato 3: ### Balde N: Nome (gerado pelo gerador-idconsumidor)
+            if not baldes:
+                for m in re.finditer(
+                    r"^###\s+Balde\s+\d+:\s*(.+?)\s*$\n+(.*?)(?=^###\s+Balde\s+\d+:|\Z)",
+                    baldes_txt,
+                    re.MULTILINE | re.DOTALL,
+                ):
+                    nome = m.group(1).strip()
+                    corpo = m.group(2).strip()
+                    desc_m = re.search(
+                        r"\*\*Descri[cç][aã]o:\*\*\s*(.+?)(?=\n\n|\*\*Como|\Z)",
+                        corpo,
+                        re.DOTALL,
+                    )
+                    if desc_m:
+                        descricao = desc_m.group(1).strip()
+                    else:
+                        descricao = ""
+                        for p in re.split(r"\n\s*\n", corpo):
+                            p = p.strip()
+                            if p and not p.startswith("**Como"):
+                                descricao = p
+                                break
+                    baldes.append({"nome": nome, "descricao": descricao, "itens": []})
     return {
         "para_quem_e": para_quem,
         "perfil_demo": {k: v for k, v in perfil_demo.items() if v},
         "comportamento": {k: v for k, v in comportamento.items() if v},
         "paliativos": paliativos,
+        "sonho": sonho,
+        "frases": frases,
         "baldes": baldes,
     }
 
@@ -433,17 +522,27 @@ def parse_identidade_comunicador(perfil: str, idc: str) -> dict:
         partes = re.split(r"[,;]\s*|\s*\|\s*", valor)
         return [p.strip() for p in partes if p.strip()]
 
+    def _listar_frases(valor: str) -> list[str]:
+        """Divide por | ou ; mas nunca por vírgula (mantras podem ter vírgulas internas)."""
+        if not valor:
+            return []
+        partes = re.split(r"\s*[|;]\s*|\n+", valor)
+        return [p.strip().strip('"\'') for p in partes if p.strip().strip('"\'')]
+
+    # regex tolerante com bold markers (**Key:** ou Key:)
+    _KV_RE = r"^[-*]\s+\*{{0,2}}{chave}\*{{0,2}}\s*:\*{{0,2}}\s*(.+?)$"
+
     comunicar_idc = extrair_secao(idc, "Como se Comunicar")
     conectam = []
     afastam = []
     if comunicar_idc:
         m_c = re.search(
-            r"^[-*]\s+Palavras que conectam\s*:?\s*(.+?)$",
+            _KV_RE.format(chave="Palavras que conectam"),
             comunicar_idc,
             re.MULTILINE | re.IGNORECASE,
         )
         m_a = re.search(
-            r"^[-*]\s+Palavras que afastam\s*:?\s*(.+?)$",
+            _KV_RE.format(chave="Palavras que afastam"),
             comunicar_idc,
             re.MULTILINE | re.IGNORECASE,
         )
@@ -454,13 +553,15 @@ def parse_identidade_comunicador(perfil: str, idc: str) -> dict:
 
     if not conectam:
         conectam = _listar(kv.get("Vocabulario base", "") or kv.get("Vocabulário base", ""))
+    if not afastam:
+        afastam = _listar(kv.get("Evitar na comunicacao", "") or kv.get("Evitar na comunicação", ""))
 
     return {
         "nome": kv.get("Nome", ""),
         "especialidade": kv.get("Especialidade", ""),
         "valores": _listar(kv.get("Valores", "")),
-        "mantras": _listar(kv.get("Mantras/Jargoes proprios", "")
-                           or kv.get("Mantras/Jargões próprios", "")),
+        "mantras": _listar_frases(kv.get("Mantras/Jargoes proprios", "")
+                                   or kv.get("Mantras/Jargões próprios", "")),
         "formatos": _listar(kv.get("Formatos que combinam mais", "")),
         "elementos_visuais": _listar(kv.get("Elementos visuais recomendados", "")),
         "tom_de_voz": kv.get("Tom de voz", ""),
@@ -523,6 +624,44 @@ def parse_pesquisa(texto: str) -> dict:
     crescimento = valor_label(texto, "Crescimento") or valor_label(texto, "Crescimento anual")
     ticket = valor_label(texto, "Ticket medio") or valor_label(texto, "Ticket médio")
 
+    # Fallbacks para formato numerado (## 1. Tamanho de Mercado, ## 3. Faixa de Preço, etc.)
+    _sec_tam = ""
+    if not tamanho:
+        _sec_tam = (
+            extrair_secao(texto, "Tamanho de Mercado")
+            or extrair_secao(texto, "Tamanho do Mercado")
+        )
+        if _sec_tam:
+            m_val = re.search(
+                r"((?:USD|R\$)\s*[\d,.]+\s*(?:bi(?:lh[aã]o(?:es)?)?|milh[aã]o|tri)?)",
+                _sec_tam, re.IGNORECASE,
+            )
+            tamanho = m_val.group(1).strip() if m_val else (bullets(_sec_tam) or [""])[0][:50]
+    if not crescimento:
+        _sec_t = _sec_tam or extrair_secao(texto, "Tamanho de Mercado") or ""
+        m_cagr = re.search(r"CAGR\s+de\s+([\d,.]+%?)", _sec_t, re.IGNORECASE)
+        if m_cagr:
+            crescimento = "+" + m_cagr.group(1) + " a.a."
+        else:
+            m_pct = re.search(r"crescendo?\s+(?:a\s+)?([\d,.]+%)", _sec_t, re.IGNORECASE)
+            if m_pct:
+                crescimento = "+" + m_pct.group(1) + " a.a."
+    if not ticket:
+        _sec_prec = (
+            extrair_secao(texto, "Faixa de Preço Praticada")
+            or extrair_secao(texto, "Faixa de Preco Praticada")
+            or extrair_secao(texto, "Preço Praticado")
+            or extrair_secao(texto, "Precos Praticados")
+        )
+        if _sec_prec:
+            m_merc = re.search(r"[Mm]ercado principal[^:]*:\s*([^\n]+)", _sec_prec)
+            if m_merc:
+                ticket = re.sub(r"\s*\(.*?\)", "", m_merc.group(1))
+                ticket = re.sub(r"[\*_`]", "", ticket).strip()[:50]
+            else:
+                m_prec = re.search(r"R\$\s*[\d,.]+(?:\s+a\s+R\$\s*[\d,.]+)?", _sec_prec)
+                ticket = m_prec.group(0) if m_prec else ""
+
     # Oportunidades
     opo_bloco = (
         extrair_secao(texto, "Oportunidades Identificadas")
@@ -530,12 +669,27 @@ def parse_pesquisa(texto: str) -> dict:
         or extrair_subsecao(texto, "Oportunidades de posicionamento")
     )
     oportunidades = bullets(opo_bloco) if opo_bloco else []
+    if not oportunidades:
+        _angulo = (
+            extrair_secao(texto, "Ângulo Estratégico Recomendado")
+            or extrair_secao(texto, "Angulo Estrategico Recomendado")
+            or extrair_secao(texto, "Ângulo Estratégico")
+            or extrair_secao(texto, "Angulo Estrategico")
+        )
+        if _angulo:
+            oportunidades = [
+                s.strip() for s in re.split(r"(?<=[.!?])\s+|\n+", _angulo)
+                if len(s.strip()) > 20
+            ][:7]
 
     # Cuidados
     cuidados_bloco = (
         extrair_secao(texto, "Cuidados e Riscos")
         or extrair_secao(texto, "Alertas e Riscos")
         or extrair_secao(texto, "Cuidados")
+        or extrair_secao(texto, "Riscos Regulatórios")
+        or extrair_secao(texto, "Riscos Regulatorios")
+        or extrair_secao(texto, "Riscos")
     )
     cuidados = bullets(cuidados_bloco) if cuidados_bloco else []
 
@@ -545,7 +699,21 @@ def parse_pesquisa(texto: str) -> dict:
         or extrair_secao(texto, "Padroes de Reclamacao")
         or extrair_secao(texto, "Reclamacoes")
         or extrair_secao(texto, "Reclamações")
+        or extrair_secao(texto, "Objeções Reais")
+        or extrair_secao(texto, "Objecoes Reais")
     )
+    # fallback: subseção dentro de Objeções Reais com título Reclame Aqui
+    if not rec_bloco:
+        m_obj = re.search(
+            r'^##[^\n]*Obje[çc][õo]es Reais[^\n]*\n(.*?)(?=^##\s|\Z)',
+            texto, re.MULTILINE | re.DOTALL | re.IGNORECASE,
+        )
+        if m_obj:
+            objecoes_bloco = m_obj.group(1)
+            rec_bloco = (
+                extrair_subsecao(objecoes_bloco, "Levantamento do Reclame Aqui")
+                or extrair_subsecao(objecoes_bloco, "Reclame Aqui")
+            )
     reclamacoes = bullets(rec_bloco) if rec_bloco else []
 
     # Concorrentes: busca a primeira tabela markdown
@@ -573,7 +741,13 @@ def parse_pesquisa(texto: str) -> dict:
     youtube: list[dict] = []
     if sec_yt:
         rich = parse_youtube_rich(sec_yt)
-        youtube = rich if rich else []
+        if rich:
+            youtube = rich
+        else:
+            # fallback: bullets simples (cada item é um título de vídeo)
+            _yt_empty = {"canal": "", "link": "", "views": "", "data": "",
+                         "angulo": "", "lacuna": "", "comentarios": [], "thumbnail": {}}
+            youtube = [dict(_yt_empty, titulo=t) for t in bullets(sec_yt)[:10]]
 
     # Público-Alvo Real (seção ## 4. Público-Alvo Real)
     sec_publico = (
@@ -592,7 +766,7 @@ def parse_pesquisa(texto: str) -> dict:
     publico_alvo: dict = {}
     if sec_publico:
         demo = bullets(extrair_subsecao(sec_publico, "Demografic") or extrair_subsecao(sec_publico, "Perfil"))
-        comport = bullets(extrair_subsecao(sec_publico, "Comportamento"))
+        comport = bullets(extrair_subsecao(sec_publico, "Comportamento") or extrair_subsecao(sec_publico, "Comportamental"))
         consci = bullets(
             extrair_subsecao(sec_publico, "Consciência")
             or extrair_subsecao(sec_publico, "Nivel de Consciencia")
@@ -607,10 +781,12 @@ def parse_pesquisa(texto: str) -> dict:
         extrair_secao(texto, "6. Assuntos Quentes e Ângulos Virais")
         or extrair_secao(texto, "Assuntos Quentes e Ângulos Virais")
         or extrair_secao(texto, "Assuntos Quentes")
+        or extrair_secao(texto, "Assuntos Virais")
+        or extrair_secao(texto, "Tendências")
     )
     if not sec_assuntos:
         m_aq = re.search(
-            r'^##[^\n]*Assuntos Quentes[^\n]*\n(.*?)(?=^##\s|\Z)',
+            r'^##[^\n]*(?:Assuntos Quentes|Assuntos Virais|Tend[êe]ncias)[^\n]*\n(.*?)(?=^##\s|\Z)',
             texto, re.MULTILINE | re.DOTALL | re.IGNORECASE,
         )
         if m_aq:
@@ -633,6 +809,13 @@ def parse_pesquisa(texto: str) -> dict:
             "virais": _bullets_e_numerados(virais_sub) if virais_sub else [],
             "ganchos": bullets(ganchos_sub) if ganchos_sub else [],
         }
+        # fallback: seção plana sem subseções — trata todos os bullets como virais
+        if not any(assuntos_quentes.values()):
+            assuntos_quentes = {
+                "termos": [],
+                "virais": _bullets_e_numerados(sec_assuntos),
+                "ganchos": [],
+            }
 
     # Biblioteca de Anúncios (seção 8)
     sec_bibl = (
@@ -659,6 +842,12 @@ def parse_pesquisa(texto: str) -> dict:
             "criativos": bullets(criativos_sub) if criativos_sub else [],
             "observacoes": bullets(obs_sub) if obs_sub else [],
         }
+        # fallback: seção plana sem subseções — bullets viram headlines
+        if not any(biblioteca_anuncios.values()):
+            biblioteca_anuncios = {
+                "headlines": bullets(sec_bibl),
+                "padroes_oferta": [], "criativos": [], "observacoes": [],
+            }
 
     return {
         "tamanho_mercado": tamanho,
@@ -690,10 +879,10 @@ def parse_tabela_concorrentes(texto: str) -> list[dict]:
         if len(linhas) < 2:
             continue
         header = [c.strip().lower() for c in linhas[0].strip("|").split("|")]
-        # heuristica: precisa ter alguma coluna de nome/concorrente
-        if not any("nome" in h or "concorrente" in h or "marca" in h for h in header):
+        # heuristica: precisa ter alguma coluna de nome/concorrente/produto
+        if not any("nome" in h or "concorrente" in h or "marca" in h or "produto" in h for h in header):
             continue
-        col_nome = next((i for i, h in enumerate(header) if "nome" in h or "concorrente" in h or "marca" in h), 0)
+        col_nome = next((i for i, h in enumerate(header) if "nome" in h or "concorrente" in h or "marca" in h or "produto" in h), 0)
         col_insta = next((i for i, h in enumerate(header) if "instagram" in h or "insta" in h), None)
         col_pagina = next((i for i, h in enumerate(header) if "pagina" in h or "página" in h or "site" in h or "link" in h), None)
         col_preco = next((i for i, h in enumerate(header) if "preco" in h or "preço" in h or "valor" in h), None)
@@ -720,6 +909,29 @@ def parse_tabela_concorrentes(texto: str) -> list[dict]:
             })
         if out:
             break  # primeira tabela valida e suficiente
+    # fallback: concorrentes em prosa com headings **Nome** dentro de seção Concorrentes
+    if not out:
+        m_conc = re.search(
+            r'^##[^\n]*Concorrentes?[^\n]*\n(.*?)(?=^##\s|\Z)',
+            texto, re.MULTILINE | re.DOTALL | re.IGNORECASE,
+        )
+        if m_conc:
+            bloco = m_conc.group(1)
+            for m in re.finditer(r'^\*\*([^*\n]{3,80})\*\*\s*$', bloco, re.MULTILINE):
+                nome = m.group(1).strip()
+                preco = ""
+                pos = m.end()
+                preco_m = re.search(
+                    r'[-*]\s*Pre[çc]o[:\s]+([^\n]+)',
+                    bloco[pos:pos + 400],
+                    re.IGNORECASE,
+                )
+                if preco_m:
+                    preco = _limpa_texto(preco_m.group(1))
+                out.append({
+                    "nome": nome, "promessa": "", "formato": "",
+                    "preco": preco, "diferencial": "", "pagina": "", "instagram": "",
+                })
     return out
 
 
@@ -744,6 +956,67 @@ def _extrai_url(s: str) -> str:
     if m2:
         return m2.group(0).rstrip("),.")
     return s.strip() if s.startswith("http") else ""
+
+
+def parse_dashboards(produto_dir: Path) -> dict:
+    """Detecta quais dashboards HTML existem e le usernames do .env."""
+    env_path = REPO_ROOT / ".env"
+    env_vars: dict[str, str] = {}
+    if env_path.exists():
+        for linha in env_path.read_text(encoding="utf-8").splitlines():
+            linha = linha.strip()
+            if "=" in linha and not linha.startswith("#"):
+                k, _, v = linha.partition("=")
+                env_vars[k.strip()] = v.strip()
+
+    plataformas = []
+
+    def _achar_dashboard(pasta: str) -> str:
+        """Retorna o caminho relativo ao produto_dir do primeiro dashboard.html encontrado."""
+        base = produto_dir / "entregas" / pasta
+        if not base.exists():
+            return ""
+        direto = base / "dashboard.html"
+        if direto.exists():
+            return f"entregas/{pasta}/dashboard.html"
+        for sub in sorted(base.iterdir()):
+            if sub.is_dir():
+                candidato = sub / "dashboard.html"
+                if candidato.exists():
+                    return f"entregas/{pasta}/{sub.name}/dashboard.html"
+        return ""
+
+    ig_caminho = _achar_dashboard("instagram-dashboard")
+    if ig_caminho:
+        user = env_vars.get("IG_USER", "")
+        plataformas.append({
+            "id": "instagram",
+            "label": "Instagram",
+            "user": f"@{user}" if user else "",
+            "caminho": ig_caminho,
+        })
+
+    tt_caminho = _achar_dashboard("tiktok-dashboard")
+    if tt_caminho:
+        user = env_vars.get("TIKTOK_USER", "")
+        plataformas.append({
+            "id": "tiktok",
+            "label": "TikTok",
+            "user": f"@{user}" if user else "",
+            "caminho": tt_caminho,
+        })
+
+    yt_caminho = _achar_dashboard("youtube-dashboard")
+    if yt_caminho:
+        channel = env_vars.get("YOUTUBE_CHANNEL", "")
+        plataformas.append({
+            "id": "youtube",
+            "label": "YouTube",
+            "user": channel,
+            "caminho": yt_caminho,
+        })
+
+    return {"plataformas": plataformas}
 
 
 def parse_comercial_playbook(slug: str, produto_dir: Path) -> dict:
@@ -789,18 +1062,56 @@ def montar_dados(secao: str, produto_dir: Path, slug: str) -> tuple[dict, str]:
         return parse_urgencias(perfil), nome_produto
     if secao == "identidade-produto":
         dados = parse_identidade_produto(perfil)
-        dados["objecoes"] = parse_objecoes_do_idconsumidor(idc)
+        idc_json_path = produto_dir / "idconsumidor.json"
+        if idc_json_path.exists():
+            try:
+                idc_json = json.loads(idc_json_path.read_text(encoding="utf-8"))
+                if "objecoes" in idc_json:
+                    dados["objecoes"] = idc_json["objecoes"]
+                else:
+                    dados["objecoes"] = parse_objecoes_do_idconsumidor(idc)
+            except (json.JSONDecodeError, OSError):
+                dados["objecoes"] = parse_objecoes_do_idconsumidor(idc)
+        else:
+            dados["objecoes"] = parse_objecoes_do_idconsumidor(idc)
         return dados, nome_produto
     if secao == "identidade-consumidor":
-        return parse_identidade_consumidor(perfil, idc), nome_produto
+        dados_idc = parse_identidade_consumidor(perfil, idc)
+        idc_json_path = produto_dir / "idconsumidor.json"
+        if idc_json_path.exists():
+            try:
+                idc_json = json.loads(idc_json_path.read_text(encoding="utf-8"))
+                if "objecoes" in idc_json:
+                    dados_idc["objecoes"] = idc_json["objecoes"]
+                else:
+                    dados_idc["objecoes"] = parse_objecoes_do_idconsumidor(idc)
+                if "baldes" in idc_json:
+                    dados_idc["baldes"] = idc_json["baldes"]
+            except (json.JSONDecodeError, OSError):
+                dados_idc["objecoes"] = parse_objecoes_do_idconsumidor(idc)
+        else:
+            dados_idc["objecoes"] = parse_objecoes_do_idconsumidor(idc)
+        return dados_idc, nome_produto
     if secao == "identidade-comunicador":
         return parse_identidade_comunicador(perfil, idc), nome_produto
     if secao == "pesquisa":
-        return parse_pesquisa(pesquisa), nome_produto
+        dados_p = parse_pesquisa(pesquisa)
+        json_path = produto_dir / "pesquisa-mercado.json"
+        if json_path.exists():
+            try:
+                extras = json.loads(json_path.read_text(encoding="utf-8"))
+                for k in ("serie_crescimento", "reclamacoes_categorias", "precos_por_formato"):
+                    if k in extras:
+                        dados_p[k] = extras[k]
+            except (json.JSONDecodeError, OSError):
+                pass
+        return dados_p, nome_produto
     if secao == "copy-pagina":
         return tmpl.parse_copy_pagina(produto_dir, slug, REPO_ROOT), nome_produto
     if secao == "comercial-playbook":
         return parse_comercial_playbook(slug, produto_dir), nome_produto
+    if secao == "dashboards":
+        return parse_dashboards(produto_dir), nome_produto
     raise ValueError(f"Secao desconhecida: {secao}")
 
 
@@ -846,7 +1157,12 @@ def montar_visao_geral(html_txt: str, perfil: str, slug: str, tipo: str) -> dict
 
     preco = kv_ip.get("Preco", "") or kv_ip.get("Preço", "")
     diferencial = kv_ip.get("Diferencial", "")
-    nicho = kv_ic.get("Nicho", "") or kv_ic.get("Publico-alvo", "") or kv_ic.get("Público-alvo", "")
+    nicho = (
+        kv_ip.get("Nicho", "")
+        or kv_ic.get("Nicho", "")
+        or kv_ic.get("Publico-alvo", "")
+        or kv_ic.get("Público-alvo", "")
+    )
 
     return {
         "nome_produto": extrair_titulo_produto(perfil, slug),
@@ -901,6 +1217,11 @@ def main() -> int:
         action="store_true",
         help="Forca a recriacao do shell mesmo que o painel ja exista (uso raro)",
     )
+    parser.add_argument(
+        "--gerando",
+        action="store_true",
+        help="Marca secao identidade-consumidor como 'Gerando...' (usado enquanto agente background roda)",
+    )
     args = parser.parse_args()
 
     slug = args.slug or ler_ativo()
@@ -948,6 +1269,8 @@ def main() -> int:
 
     # Atualiza secao pedida
     dados, _ = montar_dados(args.secao, produto_dir, slug)
+    if args.secao == "identidade-consumidor" and args.gerando:
+        dados["_gerando"] = True
     render = tmpl.RENDERS[args.secao]
     novo_bloco = render(dados)
     existente = substituir_secao(existente, args.secao, novo_bloco)

@@ -15,7 +15,7 @@ This is a **Claude Code-based AI assistant system** for Brazilian digital market
 - **CLAUDE.md** (root): Global persona, rules, behavior for ALL interactions
 - **Commands** (`.claude/commands/*.md`): Interactive slash commands (e.g., `/meu-produto`)
 - **Agents** (`.claude/agents/*.md`): Autonomous subprocesses for complex tasks
-- **Skills** (`.claude/plugins/workshop-marketing/skills/*/SKILL.md`): Reference knowledge base
+- **Skills** (`.claude/skills/*/SKILL.md`): Reference knowledge base
 - **Plugin** (`.claude/plugins/workshop-marketing/.claude-plugin/plugin.json`): Skill registry
 
 ### Data Flow:
@@ -84,7 +84,7 @@ node server.js                    # Runs on http://localhost:4000
 
 ### Reference Files:
 - **[CLAUDE.md](CLAUDE.md)**: Global role definition (300+ lines)
-- **[.claude/plugins/workshop-marketing/skills/vtsd-completo/SKILL.md](.claude/plugins/workshop-marketing/skills/vtsd-completo/SKILL.md)**: VTSD foundation (1084 lines)
+- **[.claude/skills/vtsd-completo/SKILL.md](.claude/skills/vtsd-completo/SKILL.md)**: VTSD foundation (1084 lines)
 - **[ARQUITETURA.md](ARQUITETURA.md)**: Technical architecture guide
 
 ### Command Examples:
@@ -96,7 +96,7 @@ node server.js                    # Runs on http://localhost:4000
 
 - **Multi-product support:** Each product isolated in `entregas/{slug}/`. Active tracked in `entregas/.ativo`
 - **Naming convention change:** `meu-negocio/` → `entregas/{ativo}/` (migration in progress)
-- **Agents need full skill paths:** Reference `.claude/plugins/workshop-marketing/skills/X/SKILL.md`
+- **Agents need full skill paths:** Reference `.claude/skills/X/SKILL.md`
 - **low ticket (Low Ticket) underrepresented:** Missing dedicated commands for quiz pages, challenges, GPT agents
 - **API integrations optional:** Vercel, Freepik, HeyGen, Meta, Google Ads, Hotmart, WhatsApp support via `.env`
 

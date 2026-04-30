@@ -219,8 +219,11 @@ def normalizar_video(item: dict) -> dict:
         hashtags = [str(h) for h in hashtags_raw]
 
     video_obj = item.get("video") or {}
+    video_meta = item.get("videoMeta") or {}
     thumbnail_url = (
-        video_obj.get("cover")
+        video_meta.get("coverUrl")
+        or video_meta.get("originalCoverUrl")
+        or video_obj.get("cover")
         or video_obj.get("originCover")
         or item.get("thumbnailUrl")
         or item.get("coverUrl")
@@ -248,7 +251,7 @@ def normalizar_video(item: dict) -> dict:
         "comentarios": comentarios,
         "shares": shares,
         "saves": saves,
-        "duracao": int(item.get("duration") or 0),
+        "duracao": int((item.get("videoMeta") or {}).get("duration") or item.get("duration") or 0),
         "hashtags": hashtags,
         "thumbnail_url": thumbnail_url,
         "link": link,
@@ -546,8 +549,8 @@ def gerar_html(perfil, videos, metricas, historico, usuario, output_dir, log):
   var R = window.Recharts;
   if (!R || !window.React) { console.error('Recharts nao encontrado'); return; }
   var h = React.createElement;
-  var TT_STYLE = { background: '#141414', border: '1px solid #252525', borderRadius: 0, fontSize: 11, fontFamily: '"JetBrains Mono", monospace', color: '#e8e8e6' };
-  var TICK = { fontSize: 10, fontFamily: '"JetBrains Mono", monospace', fill: '#a8a8a3' };
+  var TT_STYLE = { background: 'hsl(240,10%,4%)', border: '1px solid hsl(240,4%,16%)', borderRadius: 8, boxShadow: '0 4px 6px -1px rgba(0,0,0,.6)', fontSize: 12, fontFamily: '"Inter",sans-serif', color: 'hsl(0,0%,98%)', padding: '8px 12px' };
+  var TICK = { fontSize: 11, fontFamily: '"Inter",sans-serif', fill: 'hsl(240,5%,65%)' };
   function renderLinha(id, labels, data, cor, fmtFn) {
     var el = document.getElementById(id);
     if (!el || !labels || !labels.length) return;
@@ -555,9 +558,9 @@ def gerar_html(perfil, videos, metricas, historico, usuario, output_dir, log):
     ReactDOM.createRoot(el).render(
       h(R.ResponsiveContainer, { width: '100%', height: 170 },
         h(R.LineChart, { data: d, margin: { top: 8, right: 40, left: 10, bottom: 20 } },
-          h(R.CartesianGrid, { strokeDasharray: '3 3', stroke: '#252525', vertical: false }),
-          h(R.XAxis, { dataKey: 'x', stroke: '#a8a8a3', tick: TICK, interval: 'preserveStartEnd' }),
-          h(R.YAxis, { stroke: '#a8a8a3', tick: TICK, tickFormatter: fmtFn, width: 52 }),
+          h(R.CartesianGrid, { strokeDasharray: '4 4', stroke: 'hsl(240,4%,16%)', vertical: false }),
+          h(R.XAxis, { dataKey: 'x', stroke: 'hsl(240,4%,16%)', tick: TICK, interval: 'preserveStartEnd' }),
+          h(R.YAxis, { stroke: 'hsl(240,4%,16%)', tick: TICK, tickFormatter: fmtFn, width: 52 }),
           h(R.Tooltip, { contentStyle: TT_STYLE, formatter: function (v) { return [fmtFn(v)]; } }),
           h(R.Line, { type: 'monotone', dataKey: 'v', stroke: cor, strokeWidth: 2,
             dot: { r: 3, fill: cor, strokeWidth: 0 }, activeDot: { r: 5 }, connectNulls: true })
@@ -572,11 +575,11 @@ def gerar_html(perfil, videos, metricas, historico, usuario, output_dir, log):
     ReactDOM.createRoot(el).render(
       h(R.ResponsiveContainer, { width: '100%', height: 150 },
         h(R.BarChart, { data: d, margin: { top: 8, right: 20, left: 10, bottom: 30 } },
-          h(R.CartesianGrid, { strokeDasharray: '3 3', stroke: '#252525', vertical: false }),
-          h(R.XAxis, { dataKey: 'x', stroke: '#a8a8a3', tick: TICK, interval: 0, angle: -45, textAnchor: 'end' }),
-          h(R.YAxis, { stroke: '#a8a8a3', tick: TICK, width: 40 }),
+          h(R.CartesianGrid, { strokeDasharray: '4 4', stroke: 'hsl(240,4%,16%)', vertical: false }),
+          h(R.XAxis, { dataKey: 'x', stroke: 'hsl(240,4%,16%)', tick: TICK, interval: 0, angle: -45, textAnchor: 'end' }),
+          h(R.YAxis, { stroke: 'hsl(240,4%,16%)', tick: TICK, width: 40 }),
           h(R.Tooltip, { contentStyle: TT_STYLE }),
-          h(R.Bar, { dataKey: 'v', fill: cor || '#c4ff5e', radius: [3, 3, 0, 0] })
+          h(R.Bar, { dataKey: 'v', fill: cor || 'hsl(220,70%,50%)', radius: [4, 4, 0, 0] })
         )
       )
     );
@@ -586,15 +589,15 @@ def gerar_html(perfil, videos, metricas, historico, usuario, output_dir, log):
   function fmtSeg(v) { return v >= 1000 ? (v / 1000).toFixed(1) + 'K' : String(Math.round(v)); }
   window.renderRechartsAll = function () {
     if (typeof TEM !== 'undefined' && TEM && typeof HL !== 'undefined' && HL.length >= 2) {
-      renderLinha('c-seg', HL, HS, '#c4ff5e', fmtSeg);
-      renderLinha('c-eh', HL, HE, '#9a7bb5', fmtPct);
+      renderLinha('c-seg', HL, HS, 'hsl(220,70%,50%)', fmtSeg);
+      renderLinha('c-eh', HL, HE, 'hsl(280,65%,60%)', fmtPct);
     }
-    if (typeof SL !== 'undefined' && SL.length) renderBarra('c-freq', SL, SC, '#c4ff5e');
+    if (typeof SL !== 'undefined' && SL.length) renderBarra('c-freq', SL, SC, 'hsl(220,70%,50%)');
     if (typeof TL !== 'undefined' && TL.length > 1) {
-      renderLinha('c-tv', TL, TV, '#c4ff5e', fmtK);
-      renderLinha('c-tl', TL, TLk, '#f59e0b', fmtK);
-      renderLinha('c-te', TL, TE, '#9a7bb5', fmtPct);
-      renderLinha('c-ts', TL, TS, '#7aa8c9', fmtK);
+      renderLinha('c-tv', TL, TV, 'hsl(220,70%,50%)', fmtK);
+      renderLinha('c-tl', TL, TLk, 'hsl(30,80%,55%)', fmtK);
+      renderLinha('c-te', TL, TE, 'hsl(280,65%,60%)', fmtPct);
+      renderLinha('c-ts', TL, TS, 'hsl(160,60%,45%)', fmtK);
     }
   };
 })();
@@ -688,7 +691,7 @@ body{{font-family:'Space Grotesk','Inter',sans-serif;background:var(--bg);color:
 .chart-row{{display:grid;grid-template-columns:1fr 1fr;gap:14px}}
 @media(max-width:640px){{.chart-row{{grid-template-columns:1fr}}}}
 .hm-wrap{{overflow-x:auto}}
-.hm-table{{border-collapse:collapse;font-size:.7rem}}
+.hm-table{{border-collapse:collapse;font-size:.7rem;width:100%}}
 .hm-table td,.hm-table th{{padding:2px;text-align:center;min-width:22px}}
 .hm-table th{{color:var(--mu);font-weight:500;font-family:'JetBrains Mono',monospace}}
 .hm-rl{{color:var(--mu);font-size:.7rem;padding-right:6px;white-space:nowrap;font-family:'JetBrains Mono',monospace}}
@@ -883,7 +886,7 @@ function fmtN(n){{if(n>=1e6)return(n/1e6).toFixed(1)+'M';if(n>=1e3)return(n/1e3)
     for(let h=0;h<24;h++){{
       const td=document.createElement('td');
       const v=HM[di][h];const a=(0.08+((mx>0?v/mx:0)*0.92)).toFixed(2);
-      td.style.cssText=`background:rgba(196,255,94,${{a}});width:22px;height:17px;`;
+      td.style.cssText=`background:rgba(196,255,94,${{a}});height:17px;`;
       td.title=`${{d}} ${{h}}h: ${{v.toFixed(1)}}%`;tr.appendChild(td);
     }}
     tb.appendChild(tr);
