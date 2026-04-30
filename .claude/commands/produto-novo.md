@@ -44,7 +44,50 @@ Porta de entrada do projeto. Detecta se já existe produto ativo, cria um produt
 > - `🔍 Próximo passo: criar a pasta do produto e salvar o tipo.md com o formato escolhido. Tempo estimado: cerca de 5 segundos.`
 > - `✅ Concluído: produto {nome} criado e ativado. Caminho: meus-produtos/{slug}/.`
 
-### 0. Verificar produto ativo (SEMPRE primeiro)
+### Passo 0. MOSTRAR O LINK DO PAINEL DO ALUNO (obrigatório, ANTES de qualquer pergunta)
+
+🚨 **A primeira mensagem do chat sempre é o link do painel.** Mostrar esse texto no chat é OBRIGATÓRIO. Não importa se você consegue ou não rodar comandos no terminal nesta sessão. O texto abaixo precisa aparecer pro aluno antes de qualquer outra pergunta. Sem exceção.
+
+#### O. Mensagem obrigatória (copie e cole exatamente, ajustando só `{caminho}`)
+
+```
+🎬 Antes de começar, abra o Painel do Aluno no seu navegador.
+
+Cole este link na barra de endereço:
+
+  file://{caminho-absoluto-do-projeto}/painel/index.html
+
+Deixa essa aba aberta de lado. O painel já abre com a estrutura completa do produto (Visão Geral, Quadro, Furadeira, Decorados, Urgências, Identidades, Pesquisa, Copy, Anúncios, Vídeos), com cada seção marcada como "Em breve". Conforme a gente avança, os blocos vão sendo preenchidos sozinhos.
+
+Pra ver os agentes trabalhando em tempo real (mapa estilo videogame com 7 salas: PROD, COPY, PAG, AD, VID, SALES, DATA), clique em "Sala dos Agentes" no menu lateral do painel. Cada ferramenta que eu rodar, o boneco caminha até a estação certa e a bolha mostra o que estou fazendo.
+
+Quando estiver com a aba aberta, me responde a próxima pergunta. Vamos começar.
+```
+
+Para descobrir o `{caminho-absoluto-do-projeto}`, rode `git rev-parse --show-toplevel` no Bash. **Se a saída contiver `/.claude/worktrees/`, corte ali e use só a parte ANTES.** Worktrees são pastas internas do Claude Code que o aluno não acessa pelo navegador. O aluno só consegue abrir o caminho real do projeto.
+
+Exemplo: se a saída for `/Users/foo/Dev/workshop_inteligente/.claude/worktrees/abc-123`, o caminho que o aluno usa é `/Users/foo/Dev/workshop_inteligente`. Se a saída já for `/Users/foo/Dev/workshop_inteligente`, use ela direto.
+
+#### Sub-etapas opcionais (faça se conseguir, mas a mensagem acima é o que importa)
+
+A. **Resetar status para o template** (limpa eventos de sessões anteriores):
+   `cp .claude/agents-memory/agents-status.template.js .claude/agents-memory/agents-status.js`
+
+B. **Garantir o hook** em `.claude/settings.json`. Se não existir entrada com `node .claude/hooks/agent-status-writer.js` no array `hooks.PostToolUse`, adicione:
+   ```json
+   { "matcher": "Write|Edit|Bash|Agent|Task|WebFetch|WebSearch",
+     "hooks": [{ "type": "command", "command": "node .claude/hooks/agent-status-writer.js", "timeout": 5 }] }
+   ```
+
+C. **Abrir o painel direto** (Mac): `open "$(pwd)/painel/index.html"`
+
+Se essas sub-etapas falharem ou você optar por não executá-las, **a mensagem acima continua sendo obrigatória**. O aluno vai abrir o link manualmente.
+
+**Depois da mensagem mostrada**, siga para o Passo 1.
+
+### Passo 1. Verificar produto ativo
+
+> ⚠️ Pré-requisito: o Passo 0 (PRIMEIRA AÇÃO OBRIGATÓRIA) já rodou. Se você ainda não executou as 4 sub-etapas do Passo 0, volte e execute antes de seguir.
 
 Antes de qualquer pergunta, leia `meus-produtos/.ativo`.
 
@@ -61,12 +104,12 @@ Digite o número:
 ```
 
 - Se escolher **1**: encerre a skill com a mensagem "Seguindo com **{nome}**. Me diga o que quer criar (copy, página, anúncio, funil) ou digite o comando da skill que quer usar." e pare.
-- Se escolher **2**: siga direto para o **Ramo 1** abaixo (pule o Passo 1).
-- Se escolher **3**: siga direto para o **Ramo 2** abaixo (pule o Passo 1).
+- Se escolher **2**: siga direto para o **Ramo 1** abaixo (pule o Passo 2).
+- Se escolher **3**: siga direto para o **Ramo 2** abaixo (pule o Passo 2).
 
-**Se não houver produto ativo** (arquivo `.ativo` inexistente ou vazio), siga para o Passo 1.
+**Se não houver produto ativo** (arquivo `.ativo` inexistente ou vazio), siga para o Passo 2.
 
-### 1. Verificar se já tem produto ou ideia
+### Passo 2. Verificar se já tem produto ou ideia
 
 Primeira pergunta obrigatória (só quando NÃO há produto ativo):
 
@@ -169,7 +212,11 @@ Rode no terminal para regenerar `meus-produtos/index.js` (o painel global em `pa
 py -3 scripts/painel-atualizar.py
 ```
 
-#### Passo 9. Confirmar e sugerir próximo passo
+#### Passo 9. Inicializar Painel de Entregas
+
+Antes de mostrar a mensagem final, execute obrigatoriamente a seção **"Inicialização do Painel de Entregas"** no fim deste arquivo. Ela gera o `painel-entregas.html` do produto com placeholders "Em breve" e atualiza o manifest. O painel global e a Sala dos Agentes já foram abertos no início da skill, então aqui é só ligar o painel específico do produto.
+
+#### Passo 10. Confirmar e sugerir próximo passo
 
 ```
 Produto "{nome}" criado e ativado.
@@ -296,9 +343,11 @@ Rode no terminal para regenerar `meus-produtos/index.js`:
 py -3 scripts/painel-atualizar.py
 ```
 
-#### Passo 7. Confirmar e sugerir próximo passo
+#### Passo 7. Inicializar Painel de Entregas
 
-O Painel de Entregas será gerado completo pelo `/produto-concepcao` (Seção 5), após todos os dados estarem prontos. Não gere o painel aqui.
+Antes de mostrar a mensagem final, execute obrigatoriamente a seção **"Inicialização do Painel de Entregas"** no fim deste arquivo. Ela gera o `painel-entregas.html` do produto com placeholders "Em breve" (incluindo a seção de pesquisa, que já está pronta) e atualiza o manifest. O painel global e a Sala dos Agentes já foram abertos no início da skill, então aqui é só ligar o painel específico do produto.
+
+#### Passo 8. Confirmar e sugerir próximo passo
 
 ```
 Produto "{nome}" criado e ativado.
@@ -309,4 +358,54 @@ A pesquisa de mercado do nicho já foi feita e está salva.
 Ela será usada em todas as etapas seguintes sem nova busca.
 
 Próximo passo: /produto-concepcao para cadastrar Quadro, Furadeira, Identidades e Urgências Ocultas.
+```
+
+---
+
+## Inicialização do Painel de Entregas
+
+> Bloco compartilhado pelos dois ramos. Roda **uma vez**, logo após o produto estar criado e ativado, antes da mensagem final ao aluno. O painel global e a Sala dos Agentes já foram abertos no início da skill (na seção "Antes de qualquer pergunta"); aqui ligamos apenas o painel de entregas específico do produto que acabou de ser criado.
+
+### A. Anunciar a operação
+
+```
+🔍 Próximo passo: gerar o painel de entregas do produto. Tempo estimado: cerca de 5 segundos.
+```
+
+### B. Gerar o painel de entregas com placeholders
+
+Rode no terminal (use `python3` no Mac/Linux, `py -3` no Windows):
+
+```
+python3 scripts/painel-incremental.py --secao quadro
+```
+
+Isso cria `meus-produtos/{slug}/painel-entregas.html` com o shell completo e todas as seções marcadas como "Em breve". Os blocos vão sendo preenchidos automaticamente conforme o aluno roda `/produto-concepcao`, `/copy-pagina`, `/copy-anuncio` etc.
+
+Se for Ramo 2 (pesquisa de mercado já feita), rode também:
+
+```
+python3 scripts/painel-incremental.py --secao pesquisa
+```
+
+para que o card de pesquisa já apareça preenchido no painel.
+
+### C. Atualizar o manifest
+
+Garanta que o manifest está atualizado pra que o painel global encontre o produto novo:
+
+```
+python3 scripts/painel-atualizar.py
+```
+
+### D. Explicar ao aluno (mensagem obrigatória no chat)
+
+Mostre exatamente este texto ao aluno, ajustando o nome do produto:
+
+```
+✅ Concluído: painel de entregas do produto criado. Caminho: meus-produtos/{slug}/painel-entregas.html
+
+Volte na aba do navegador onde abri o Painel do Aluno: agora a aba "Painel do produto" já mostra o painel de entregas do **{nome}**, com todas as seções marcadas como "Em breve". Cada bloco vai sendo preenchido sozinho conforme rodarmos os próximos comandos.
+
+A aba "Sala dos agentes", que você já viu no início, continua atualizando em tempo real. Pode acompanhar tudo de lá.
 ```
