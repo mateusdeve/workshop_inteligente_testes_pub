@@ -94,6 +94,16 @@
             "timeout": 5
           }
         ]
+      },
+      {
+        "matcher": "Write|Edit|Bash|Agent|Task|WebFetch|WebSearch",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node .claude/hooks/agent-status-writer.js",
+            "timeout": 5
+          }
+        ]
       }
     ],
     "PreToolUse": [

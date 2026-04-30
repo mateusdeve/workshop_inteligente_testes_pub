@@ -137,6 +137,15 @@ button{font-family:inherit;}
 .brand-mark{width:24px;height:24px;border-radius:3px;background:url("./painel-assets/logo-square.jpg") center/cover;flex-shrink:0;}
 .brand-text{font-family:var(--font-mono);font-weight:400;font-size:11px;letter-spacing:.04em;line-height:1.2;color:var(--text-hi);}
 .brand-text .tiny{display:block;color:var(--text-faint);font-weight:400;font-size:9px;letter-spacing:.18em;text-transform:uppercase;margin-top:3px;}
+.sala-link{margin:0 var(--s-3) var(--s-5);padding:10px var(--s-3);background:var(--ink-2);border:1px solid var(--line-2);border-radius:var(--r-md);display:flex;align-items:center;gap:var(--s-2);cursor:pointer;color:var(--text-mid);font-family:var(--font-mono);font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;transition:border-color 120ms,color 120ms,background 120ms;}
+.sala-link:hover{border-color:var(--neon-deep);color:var(--neon);background:var(--ink-3);}
+.sala-link.active{border-color:var(--neon-deep);background:var(--ink-3);color:var(--neon);}
+.sala-link .live-pulse{width:6px;height:6px;border-radius:50%;background:var(--neon);box-shadow:0 0 8px var(--neon-glow);margin-left:auto;animation:salaPulse 1.6s ease-in-out infinite;flex-shrink:0;}
+@keyframes salaPulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.55;transform:scale(.85);}}
+.sala-wrap{position:absolute;inset:0;background:var(--ink-0);}
+.sala-wrap[hidden]{display:none;}
+.sala-wrap iframe{width:100%;height:100%;border:0;display:block;background:var(--ink-0);}
+.main{position:relative;}
 .user-block{padding:0 var(--s-5) var(--s-6);margin-bottom:var(--s-2);}
 .user-block .label{font-family:var(--font-mono);font-size:9px;color:var(--text-faint);letter-spacing:.18em;text-transform:uppercase;}
 .user-block .product{font-family:var(--font-display);font-size:15px;font-weight:400;margin-top:var(--s-2);letter-spacing:-.015em;color:var(--text-hi);}
@@ -518,12 +527,46 @@ _JS = """\
     document.querySelectorAll('.section').forEach(function(s){s.classList.remove('active');});
     document.querySelectorAll('.nav-item').forEach(function(n){n.classList.remove('active');});
     document.querySelectorAll('.tabstrip-item').forEach(function(t){t.classList.remove('active');});
+    var salaLink = document.getElementById('sala-link');
+    if(salaLink) salaLink.classList.remove('active');
+    var salaWrap = document.getElementById('sala-wrap');
+    if(salaWrap) salaWrap.hidden = true;
+    var topbar = document.querySelector('.topbar');
+    if(topbar) topbar.style.display = '';
+    var tabstrip = document.querySelector('.tabstrip');
+    if(tabstrip) tabstrip.style.display = '';
     var s = document.getElementById('section-'+id);
     if(s) s.classList.add('active');
     document.querySelectorAll('[data-id="'+id+'"]').forEach(function(el){el.classList.add('active');});
     var crumb = document.getElementById('crumb-now');
     if(crumb) crumb.textContent = id.replace(/-/g,'_');
     if(history.replaceState) history.replaceState(null,'','#'+id);
+  }
+
+  function showSala(){
+    document.querySelectorAll('.section').forEach(function(s){s.classList.remove('active');});
+    document.querySelectorAll('.nav-item').forEach(function(n){n.classList.remove('active');});
+    document.querySelectorAll('.tabstrip-item').forEach(function(t){t.classList.remove('active');});
+    var salaLink = document.getElementById('sala-link');
+    if(salaLink) salaLink.classList.add('active');
+    var salaWrap = document.getElementById('sala-wrap');
+    if(salaWrap){
+      if(!salaWrap.querySelector('iframe')){
+        var f = document.createElement('iframe');
+        f.id = 'sala-frame';
+        f.title = 'Sala dos Agentes';
+        f.src = '../../workshop-live-office.html?embed=1';
+        salaWrap.appendChild(f);
+      }
+      salaWrap.hidden = false;
+    }
+    var topbar = document.querySelector('.topbar');
+    if(topbar) topbar.style.display = 'none';
+    var tabstrip = document.querySelector('.tabstrip');
+    if(tabstrip) tabstrip.style.display = 'none';
+    var crumb = document.getElementById('crumb-now');
+    if(crumb) crumb.textContent = 'sala_dos_agentes';
+    if(history.replaceState) history.replaceState(null,'','#sala-dos-agentes');
   }
 
   function toggleAcc(head){
@@ -535,10 +578,12 @@ _JS = """\
 
   document.addEventListener('DOMContentLoaded', function(){
     var hash = location.hash.replace('#','');
-    show(hash || 'visao-geral');
+    if(hash === 'sala-dos-agentes') showSala();
+    else show(hash || 'visao-geral');
   });
 
   window.showPanel = show;
+  window.showSala = showSala;
   window.toggleAcc = toggleAcc;
   window.toggleObjecao = toggleObjecao;
 
@@ -714,6 +759,10 @@ def build_shell(nome_produto: str, owner: str = "", timestamp: str = "") -> str:
       <div class="brand-mark" aria-hidden="true"></div>
       <div class="brand-text">fluxo<br/>criativo<span class="tiny">Painel &middot; v1.0</span></div>
     </div>
+    <div class="sala-link" id="sala-link" data-id="sala-dos-agentes" onclick="showSala()" title="Ver agentes trabalhando ao vivo">
+      <span>Sala dos Agentes</span>
+      <span class="live-pulse" aria-hidden="true"></span>
+    </div>
     <div class="user-block">
       <div class="label">Produto ativo</div>
       <div class="product" id="sidebar-product">{_escape(nome_produto)}</div>
@@ -747,6 +796,7 @@ def build_shell(nome_produto: str, owner: str = "", timestamp: str = "") -> str:
     <div id="pages">
 {all_sections}
     </div>
+    <div id="sala-wrap" class="sala-wrap" hidden></div>
   </main>
 </div>
 <script>
@@ -1025,6 +1075,7 @@ def render_identidade_produto(dados: dict) -> str:
                     f"{paragrafos}"
                     "</div>"
                 )
+            corpo_args_html = corpo_args or '<p class="card-body">Sem argumentos registrados.</p>'
             acc_items.append(
                 '<div class="objecao">'
                 '<div class="objecao-head" onclick="toggleObjecao(this)">'
@@ -1033,7 +1084,7 @@ def render_identidade_produto(dados: dict) -> str:
                 '<span style="color:var(--text-faint);font-size:11px">&#9662;</span>'
                 "</div>"
                 '<div class="objecao-body">'
-                f"{corpo_args or '<p class=\"card-body\">Sem argumentos registrados.</p>'}"
+                f"{corpo_args_html}"
                 "</div>"
                 "</div>"
             )
