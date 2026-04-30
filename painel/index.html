@@ -297,29 +297,22 @@
     return true;
   }
 
+  function carregarSkeleton(rotuloSelect) {
+    $select.innerHTML = '<option>' + rotuloSelect + '</option>';
+    $subtitle.textContent = 'Selecione um produto';
+    $aviso.classList.add('hidden');
+    $frame.classList.remove('hidden');
+    $frame.src = 'skeleton-painel-entregas.html';
+  }
+
   function iniciar() {
     if (window.__MANIFEST_FALTANDO || !window.MEUS_PRODUTOS) {
-      $select.innerHTML = '<option>Sem manifest</option>';
-      renderAviso({
-        titulo: 'Manifest de produtos ainda não foi gerado',
-        texto: 'O arquivo <code>meus-produtos/index.js</code> não existe ou não pôde ser lido. Gere o manifest rodando um dos comandos abaixo.',
-        passos: [
-          { titulo: 'Pelo terminal',
-            desc: 'Na raiz do projeto, rode o script abaixo.',
-            cmd: 'py -3 scripts/painel-atualizar.py' },
-          { titulo: 'Pelo assistente de marketing',
-            desc: 'No chat, rode <code>/painel-atualizar</code>.' }
-        ]
-      });
+      carregarSkeleton('Sem manifest');
       return;
     }
     const produtos = window.MEUS_PRODUTOS.produtos || [];
     if (produtos.length === 0) {
-      $select.innerHTML = '<option>Sem produtos</option>';
-      $subtitle.textContent = 'Selecione um produto';
-      $aviso.classList.add('hidden');
-      $frame.classList.remove('hidden');
-      $frame.src = 'skeleton-painel-entregas.html';
+      carregarSkeleton('Sem produtos');
       return;
     }
     $select.innerHTML = produtos
