@@ -147,9 +147,9 @@ async function install(send) {
     send(5, 'Baixando o Workshop IA...', 72)
     const git = fs.existsSync(`${brewBin}/git`) ? `${brewBin}/git` : 'git'
     if (fs.existsSync(path.join(INSTALL_DIR, '.git'))) {
-      await run(git, ['-C', INSTALL_DIR, 'pull', 'origin', 'poc'], { env })
+      await run(git, ['-C', INSTALL_DIR, 'pull', 'origin', 'main'], { env })
     } else {
-      await run(git, ['clone', '-b', 'poc', REPO_URL, INSTALL_DIR], { env })
+      await run(git, ['clone', '-b', 'main', REPO_URL, INSTALL_DIR], { env })
     }
 
     send(6, 'Instalando dependências do painel...', 90)
@@ -167,9 +167,9 @@ async function install(send) {
 
     send(5, 'Baixando o Workshop IA...', 72)
     if (fs.existsSync(path.join(INSTALL_DIR, '.git'))) {
-      await run(git, ['-C', INSTALL_DIR, 'pull', 'origin', 'poc'])
+      await run(git, ['-C', INSTALL_DIR, 'pull', 'origin', 'main'])
     } else {
-      await run(git, ['clone', '-b', 'poc', REPO_URL, INSTALL_DIR])
+      await run(git, ['clone', '-b', 'main', REPO_URL, INSTALL_DIR])
     }
 
     send(6, 'Instalando dependências do painel...', 90)

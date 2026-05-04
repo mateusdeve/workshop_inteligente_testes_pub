@@ -22,25 +22,49 @@ function getRepoDir() {
 
 let mainWindow = null
 
+// Detecta Claude no Windows via MSIX (Get-AppxPackage) ou Squirrel legado
+function isClaudeInstalledWin() {
+  return new Promise(resolve => {
+    // MSIX: verifica pelo pacote instalado (funciona mesmo sem acesso a Program Files\WindowsApps)
+    exec(
+      'powershell -NoProfile -ExecutionPolicy Bypass -Command "if (Get-AppxPackage -Name \'*Claude*\' -ErrorAction SilentlyContinue) { exit 0 } else { exit 1 }"',
+      { timeout: 8000 },
+      (err) => {
+        if (!err) { resolve(true); return }
+
+        // Fallback Squirrel legado: subpastas app-x.y.z
+        const local = path.join(os.homedir(), 'AppData', 'Local')
+        const squirrelRoots = [path.join(local, 'AnthropicClaude'), path.join(local, 'Claude')]
+        for (const root of squirrelRoots) {
+          if (!fs.existsSync(root)) continue
+          try {
+            const appDirs = fs.readdirSync(root).filter(e => e.startsWith('app-'))
+            for (const dir of appDirs) {
+              if (fs.existsSync(path.join(root, dir, 'Claude.exe'))) { resolve(true); return }
+            }
+            if (fs.existsSync(path.join(root, 'Claude.exe'))) { resolve(true); return }
+          } catch {}
+        }
+
+        resolve(false)
+      }
+    )
+  })
+}
+
 function isClaudeInstalled() {
   if (process.platform === 'darwin') {
-    return [
+    return Promise.resolve([
       '/Applications/Claude.app',
       path.join(os.homedir(), 'Applications', 'Claude.app'),
-    ].some(p => fs.existsSync(p))
+    ].some(p => fs.existsSync(p)))
   }
-  if (process.platform === 'win32') {
-    return [
-      path.join(os.homedir(), 'AppData', 'Local', 'AnthropicClaude', 'claude.exe'),
-      path.join(os.homedir(), 'AppData', 'Local', 'Programs', 'Claude', 'Claude.exe'),
-      'C:\\Program Files\\Anthropic\\Claude\\Claude.exe',
-    ].some(p => fs.existsSync(p))
-  }
-  return false
+  if (process.platform === 'win32') return isClaudeInstalledWin()
+  return Promise.resolve(false)
 }
 
 function silentPull(callback) {
-  exec(`git -C "${getRepoDir()}" pull origin poc`, { timeout: 20000 }, (err, stdout) => {
+  exec(`git -C "${getRepoDir()}" pull origin main`, { timeout: 20000 }, (err, stdout) => {
     const updated = !err && stdout && !stdout.trim().endsWith('Already up to date.')
     callback(updated)
   })
@@ -208,19 +232,9 @@ end tell`
     })
 
   } else if (process.platform === 'win32') {
-    const candidates = [
-      path.join(os.homedir(), 'AppData', 'Local', 'AnthropicClaude', 'claude.exe'),
-      path.join(os.homedir(), 'AppData', 'Local', 'Programs', 'Claude', 'Claude.exe'),
-      'C:\\Program Files\\Anthropic\\Claude\\Claude.exe',
-    ]
-    const found = candidates.find(p => fs.existsSync(p))
-    if (found) {
-      exec(`"${found}" "${dir}"`, (err) => {
-        if (err) exec(`"${found}"`)
-      })
-    } else {
-      shell.openExternal('https://claude.ai/download')
-    }
+    exec('explorer.exe "shell:AppsFolder\\Claude_pzs8sxrjxfjjc!App"', (err) => {
+      if (err) shell.openExternal('https://claude.ai/download')
+    })
   }
 })
 
