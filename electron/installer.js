@@ -57,8 +57,13 @@ async function install(send) {
   const npm = fs.existsSync(`${brewBin}/npm`) ? `${brewBin}/npm` : 'npm'
   await run(npm, ['install'], { cwd: INSTALL_DIR, env })
 
+  if (isMac) {
+    send(7, 'Removendo restrições de segurança...', 95)
+    await run('xattr', ['-rd', 'com.apple.quarantine', INSTALL_DIR], { env }).catch(() => {})
+  }
+
   fs.writeFileSync(path.join(INSTALL_DIR, '.installed'), new Date().toISOString())
-  send(7, 'Tudo pronto!', 100)
+  send(8, 'Tudo pronto!', 100)
 }
 
 module.exports = { install, INSTALL_DIR }
