@@ -14,16 +14,116 @@ function run(cmd, args, opts = {}) {
   })
 }
 
+// ─── Windows helpers ──────────────────────────────────────────────────────────
+
+function runPs(script) {
+  return run('powershell.exe', ['-NoProfile', '-ExecutionPolicy', 'Bypass', '-Command', script])
+}
+
+function hasWinget() {
+  return new Promise(resolve => {
+    const proc = spawn('winget', ['--version'], { stdio: 'pipe' })
+    proc.on('close', code => resolve(code === 0))
+    proc.on('error', () => resolve(false))
+  })
+}
+
+function hasChoco() {
+  const local = path.join(os.homedir(), 'AppData', 'Local', 'Chocolatey', 'bin', 'choco.exe')
+  if (fs.existsSync(local)) return local
+  const system = 'C:\\ProgramData\\chocolatey\\bin\\choco.exe'
+  if (fs.existsSync(system)) return system
+  return null
+}
+
+// PATH isn't updated in the running process after winget/choco installs,
+// so we probe known locations and fall back to the bare command name.
+function resolveWinGit() {
+  const candidates = [
+    'C:\\Program Files\\Git\\cmd\\git.exe',
+    'C:\\Program Files (x86)\\Git\\cmd\\git.exe',
+    path.join(os.homedir(), 'AppData', 'Local', 'Programs', 'Git', 'cmd', 'git.exe'),
+  ]
+  return candidates.find(p => fs.existsSync(p)) || 'git'
+}
+
+function resolveWinNpm() {
+  const candidates = [
+    'C:\\Program Files\\nodejs\\npm.cmd',
+    path.join(os.homedir(), 'AppData', 'Roaming', 'npm', 'npm.cmd'),
+  ]
+  return candidates.find(p => fs.existsSync(p)) || 'npm'
+}
+
+// .cmd files cannot be spawned directly — must go through cmd /c
+function runNpm(npmPath, args, opts = {}) {
+  if (npmPath.endsWith('.cmd')) {
+    return run('cmd.exe', ['/c', npmPath, ...args], opts)
+  }
+  return run(npmPath, args, opts)
+}
+
+async function installWindows(send) {
+  const winget = await hasWinget()
+
+  if (winget) {
+    send(1, 'Verificando gerenciador de pacotes (winget)...', 8)
+
+    send(2, 'Instalando Python 3...', 22)
+    await run('winget', [
+      'install', '--id', 'Python.Python.3.12',
+      '--accept-source-agreements', '--accept-package-agreements',
+      '--silent', '--scope', 'user',
+    ]).catch(() => {})
+
+    send(3, 'Instalando Git...', 40)
+    await run('winget', [
+      'install', '--id', 'Git.Git',
+      '--accept-source-agreements', '--accept-package-agreements',
+      '--silent',
+    ]).catch(() => {})
+
+    send(4, 'Instalando Node.js...', 58)
+    await run('winget', [
+      'install', '--id', 'OpenJS.NodeJS.LTS',
+      '--accept-source-agreements', '--accept-package-agreements',
+      '--silent',
+    ]).catch(() => {})
+
+    return
+  }
+
+  // Fallback: Chocolatey
+  let chocoExe = hasChoco()
+  if (!chocoExe) {
+    send(1, 'Instalando Chocolatey...', 8)
+    await runPs(
+      `Set-ExecutionPolicy Bypass -Scope Process -Force; ` +
+      `[System.Net.ServicePointManager]::SecurityProtocol = ` +
+      `[System.Net.ServicePointManager]::SecurityProtocol -bor 3072; ` +
+      `iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))`
+    )
+    chocoExe = hasChoco() || 'choco'
+  } else {
+    send(1, 'Chocolatey já instalado.', 8)
+  }
+
+  send(2, 'Instalando Python 3, Git e Node.js...', 50)
+  await run(chocoExe, ['install', 'python3', 'git', 'nodejs-lts', '-y', '--no-progress']).catch(() => {})
+}
+
+// ─── Main entry ───────────────────────────────────────────────────────────────
+
 async function install(send) {
   const isMac = process.platform === 'darwin'
-
-  let brewBin = '/opt/homebrew/bin'
-  if (!fs.existsSync(`${brewBin}/brew`)) brewBin = '/usr/local/bin'
-  const brewExe = `${brewBin}/brew`
-
-  const env = { ...process.env, PATH: `${brewBin}:/usr/local/bin:/usr/bin:/bin` }
+  const isWin = process.platform === 'win32'
 
   if (isMac) {
+    let brewBin = '/opt/homebrew/bin'
+    if (!fs.existsSync(`${brewBin}/brew`)) brewBin = '/usr/local/bin'
+    const brewExe = `${brewBin}/brew`
+    const env = { ...process.env, PATH: `${brewBin}:/usr/local/bin:/usr/bin:/bin` }
+
     if (!fs.existsSync(brewExe)) {
       send(1, 'Instalando Homebrew...', 8)
       await run('/bin/bash', ['-c',
@@ -43,27 +143,41 @@ async function install(send) {
 
     send(4, 'Instalando Node.js...', 58)
     await run(`${brewBin}/brew`, ['install', 'node'], { env }).catch(() => {})
-  }
 
-  send(5, 'Baixando o Workshop IA...', 72)
-  const git = fs.existsSync(`${brewBin}/git`) ? `${brewBin}/git` : 'git'
-  if (fs.existsSync(path.join(INSTALL_DIR, '.git'))) {
-    await run(git, ['-C', INSTALL_DIR, 'pull', 'origin', 'poc'], { env })
-  } else {
-    await run(git, ['clone', '-b', 'poc', REPO_URL, INSTALL_DIR], { env })
-  }
+    send(5, 'Baixando o Workshop IA...', 72)
+    const git = fs.existsSync(`${brewBin}/git`) ? `${brewBin}/git` : 'git'
+    if (fs.existsSync(path.join(INSTALL_DIR, '.git'))) {
+      await run(git, ['-C', INSTALL_DIR, 'pull', 'origin', 'poc'], { env })
+    } else {
+      await run(git, ['clone', '-b', 'poc', REPO_URL, INSTALL_DIR], { env })
+    }
 
-  send(6, 'Instalando dependências do painel...', 90)
-  const npm = fs.existsSync(`${brewBin}/npm`) ? `${brewBin}/npm` : 'npm'
-  await run(npm, ['install'], { cwd: INSTALL_DIR, env })
+    send(6, 'Instalando dependências do painel...', 90)
+    const npm = fs.existsSync(`${brewBin}/npm`) ? `${brewBin}/npm` : 'npm'
+    await run(npm, ['install'], { cwd: INSTALL_DIR, env })
 
-  if (isMac) {
     send(7, 'Removendo restrições de segurança...', 95)
     await run('xattr', ['-rd', 'com.apple.quarantine', INSTALL_DIR], { env }).catch(() => {})
+
+  } else if (isWin) {
+    await installWindows(send)
+
+    const git = resolveWinGit()
+    const npm = resolveWinNpm()
+
+    send(5, 'Baixando o Workshop IA...', 72)
+    if (fs.existsSync(path.join(INSTALL_DIR, '.git'))) {
+      await run(git, ['-C', INSTALL_DIR, 'pull', 'origin', 'poc'])
+    } else {
+      await run(git, ['clone', '-b', 'poc', REPO_URL, INSTALL_DIR])
+    }
+
+    send(6, 'Instalando dependências do painel...', 90)
+    await runNpm(npm, ['install'], { cwd: INSTALL_DIR })
   }
 
   fs.writeFileSync(path.join(INSTALL_DIR, '.installed'), new Date().toISOString())
-  send(8, 'Tudo pronto!', 100)
+  send(7, 'Tudo pronto!', 100)
 }
 
 module.exports = { install, INSTALL_DIR }

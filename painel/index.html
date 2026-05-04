@@ -246,7 +246,6 @@
     </div>
   </main>
 
-<script src="../meus-produtos/index.js" onerror="window.__MANIFEST_FALTANDO = true"></script>
 <script>
 (function () {
   const $select = document.getElementById('select-produto');
@@ -326,7 +325,7 @@
     });
   }
 
-  function trocarProduto(slug) {
+  async function trocarProduto(slug) {
     const produtos = (window.MEUS_PRODUTOS && window.MEUS_PRODUTOS.produtos) || [];
     const produto = produtos.find(p => p.slug === slug);
     if (!produto) {
@@ -351,7 +350,12 @@
     }
     limparAviso();
     $frame.classList.remove('hidden');
-    $frame.src = '../meus-produtos/' + produto.url;
+    if (window.electronAPI && window.electronAPI.getProductPath) {
+      const absPath = await window.electronAPI.getProductPath(produto.url);
+      $frame.src = 'file:///' + absPath.replace(/\\/g, '/');
+    } else {
+      $frame.src = '../meus-produtos/' + produto.url;
+    }
     return true;
   }
 
@@ -363,12 +367,17 @@
     $frame.src = 'skeleton-painel-entregas.html';
   }
 
-  function iniciarPainel() {
-    if (window.__MANIFEST_FALTANDO || !window.MEUS_PRODUTOS) {
+  async function iniciarPainel() {
+    let manifest = null;
+    if (window.electronAPI && window.electronAPI.getManifest) {
+      manifest = await window.electronAPI.getManifest();
+    }
+    if (!manifest) {
       carregarSkeleton('Sem manifest');
       return;
     }
-    const produtos = window.MEUS_PRODUTOS.produtos || [];
+    window.MEUS_PRODUTOS = manifest;
+    const produtos = manifest.produtos || [];
     if (produtos.length === 0) {
       carregarSkeleton('Sem produtos');
       return;
@@ -377,13 +386,13 @@
       .map(p => '<option value="' + p.slug + '">' + (p.nome || p.slug) + '</option>')
       .join('');
     $select.disabled = false;
-    const ativoDoManifest = window.MEUS_PRODUTOS.ativo;
+    const ativoDoManifest = manifest.ativo;
     const inicial = ativoDoManifest && produtos.some(p => p.slug === ativoDoManifest)
       ? ativoDoManifest
       : produtos[0].slug;
     $select.value = inicial;
-    $select.addEventListener('change', e => trocarProduto(e.target.value));
-    trocarProduto(inicial);
+    $select.onchange = e => trocarProduto(e.target.value);
+    await trocarProduto(inicial);
   }
 
   async function iniciar() {
@@ -394,10 +403,13 @@
         return;
       }
     }
-    iniciarPainel();
+    await iniciarPainel();
   }
 
   iniciar();
+  if (window.electronAPI && window.electronAPI.onManifestChanged) {
+    window.electronAPI.onManifestChanged(() => iniciarPainel());
+  }
 })();
 </script>
 </body>

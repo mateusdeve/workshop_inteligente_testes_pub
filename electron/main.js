@@ -2,6 +2,7 @@ const { app, BrowserWindow, ipcMain, shell } = require('electron')
 const path = require('path')
 const os = require('os')
 const fs = require('fs')
+const vm = require('vm')
 const { exec } = require('child_process')
 const { install, INSTALL_DIR } = require('./installer')
 
@@ -89,6 +90,29 @@ function injectUpdateToast(win) {
   `).catch(() => {})
 }
 
+let _manifestWatcher = null
+let _manifestDebounce = null
+
+function watchManifest() {
+  if (_manifestWatcher) return
+  const dir = path.join(getRepoDir(), 'meus-produtos')
+
+  function tryWatch() {
+    if (!fs.existsSync(dir)) { setTimeout(tryWatch, 3000); return }
+    try {
+      _manifestWatcher = fs.watch(dir, (_, filename) => {
+        if (filename !== 'index.js') return
+        clearTimeout(_manifestDebounce)
+        _manifestDebounce = setTimeout(() => {
+          if (mainWindow) mainWindow.webContents.send('manifest-changed')
+        }, 300)
+      })
+    } catch { setTimeout(tryWatch, 3000) }
+  }
+
+  tryWatch()
+}
+
 function createPanelWindow() {
   mainWindow = new BrowserWindow({
     width: 1280,
@@ -108,6 +132,7 @@ function createPanelWindow() {
 
   mainWindow.webContents.on('did-finish-load', () => {
     injectClaudeButton(mainWindow)
+    watchManifest()
     silentPull((updated) => {
       if (updated && mainWindow) injectUpdateToast(mainWindow)
     })
@@ -131,6 +156,23 @@ function createSetupWindow() {
 }
 
 ipcMain.handle('check-claude', () => isClaudeInstalled())
+
+ipcMain.handle('get-manifest', () => {
+  const manifestPath = path.join(getRepoDir(), 'meus-produtos', 'index.js')
+  try {
+    const code = fs.readFileSync(manifestPath, 'utf8')
+    const ctx = { window: {} }
+    vm.createContext(ctx)
+    vm.runInContext(code, ctx)
+    return ctx.window.MEUS_PRODUTOS || null
+  } catch {
+    return null
+  }
+})
+
+ipcMain.handle('get-product-path', (_, relUrl) => {
+  return path.join(getRepoDir(), 'meus-produtos', relUrl)
+})
 
 ipcMain.on('open-download-claude', () => {
   shell.openExternal('https://claude.ai/download')
