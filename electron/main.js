@@ -174,36 +174,24 @@ ipcMain.on('open-claude', () => {
   const dir = getRepoDir()
 
   if (process.platform === 'darwin') {
-    const shDir = dir.replace(/'/g, "'\\''")
-    const script = [
-      'try',
-      '  tell application "iTerm2"',
-      '    activate',
-      '    create window with default profile',
-      '    tell current session of current window',
-      `      write text "cd '${shDir}' && claude"`,
-      '    end tell',
-      '  end tell',
-      'on error',
-      '  tell application "Terminal"',
-      `    do script "cd '${shDir}' && claude"`,
-      '    activate',
-      '  end tell',
-      'end try',
-    ].join('\n')
-    // Write to a temp .scpt file — more reliable than stdin in packaged apps
-    const tmpFile = path.join(os.tmpdir(), 'workshop-ia-claude.scpt')
-    fs.writeFileSync(tmpFile, script, 'utf8')
-    exec(`/usr/bin/osascript "${tmpFile}"`, (err) => {
+    exec(`open -a "Claude" "${dir}"`, (err) => {
       if (err) shell.openExternal('https://claude.ai/download')
     })
 
   } else if (process.platform === 'win32') {
-    const winDir = dir.replace(/\//g, '\\')
-    exec(`wt new-tab --title "Workshop IA" cmd /k "cd /d "${winDir}" && claude"`, (err) => {
-      if (!err) return
-      exec(`start cmd /k "cd /d "${winDir}" && claude"`)
-    })
+    const candidates = [
+      path.join(os.homedir(), 'AppData', 'Local', 'AnthropicClaude', 'claude.exe'),
+      path.join(os.homedir(), 'AppData', 'Local', 'Programs', 'Claude', 'Claude.exe'),
+      'C:\\Program Files\\Anthropic\\Claude\\Claude.exe',
+    ]
+    const found = candidates.find(p => fs.existsSync(p))
+    if (found) {
+      exec(`"${found}" "${dir}"`, (err) => {
+        if (err) exec(`"${found}"`)
+      })
+    } else {
+      shell.openExternal('https://claude.ai/download')
+    }
   }
 })
 
