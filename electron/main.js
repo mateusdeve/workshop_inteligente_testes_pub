@@ -174,8 +174,37 @@ ipcMain.on('open-claude', () => {
   const dir = getRepoDir()
 
   if (process.platform === 'darwin') {
-    exec(`open -a "Claude" "${dir}"`, (err) => {
-      if (err) shell.openExternal('https://claude.ai/download')
+    // Open Claude with the project dir, then click the Code tab via AppleScript
+    const script = `
+tell application "Claude"
+  activate
+end tell
+do shell script "open -a Claude \\"${dir.replace(/"/g, '\\"')}\\""
+delay 0.8
+tell application "System Events"
+  tell process "Claude"
+    try
+      set allBtns to every button of window 1
+      repeat with b in allBtns
+        if name of b contains "Code" then click b
+      end repeat
+    on error
+      try
+        repeat with grp in groups of window 1
+          try
+            set b to first button whose name contains "Code" of grp
+            click b
+            exit repeat
+          end try
+        end repeat
+      end try
+    end try
+  end tell
+end tell`
+    const tmpFile = path.join(os.tmpdir(), 'workshop-ia-claude.scpt')
+    fs.writeFileSync(tmpFile, script, 'utf8')
+    exec(`/usr/bin/osascript "${tmpFile}"`, (err) => {
+      if (err) exec(`open -a "Claude" "${dir}"`)
     })
 
   } else if (process.platform === 'win32') {
