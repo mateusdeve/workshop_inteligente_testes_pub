@@ -2732,7 +2732,7 @@
   const ROOMS = {
     prod: {
       x: 1, y: 1, w: 9, h: 4,
-      color: '#c4ff5e', name: 'PROD', role: 'produto', emblem: 'IDEA',
+      color: '#c4ff5e', name: 'ESTRATEGISTA', role: 'estratégia', emblem: 'IDEA',
       is2d: true,
       furniture: [
         // Kanban grande na parede norte (3 tiles, com 3 colunas e post-its)
@@ -2753,7 +2753,7 @@
     },
     copy: {
       x: 10, y: 1, w: 6, h: 4,
-      color: '#ffffff', name: 'COPY', role: 'copy', emblem: 'TEXT',
+      color: '#ffffff', name: 'COPY', role: 'copywriting', emblem: 'TEXT',
       is2d: true,                          // sala em modo 2.5D (Gather Town-like)
       furniture: [
         // Estante alta encostada na parede norte (3 tiles, 4 prateleiras com livros)
@@ -2774,7 +2774,7 @@
     },
     pag: {
       x: 16, y: 1, w: 7, h: 4,
-      color: '#9ec947', name: 'PAG', role: 'páginas', emblem: 'PAGE',
+      color: '#9ec947', name: 'PÁGINAS', role: 'páginas', emblem: 'PAGE',
       is2d: true,
       furniture: [
         // 3 monitores curvos na parede norte
@@ -2795,7 +2795,7 @@
     },
     sales: {
       x: 1, y: 5, w: 6, h: 5,
-      color: '#cfcfcb', name: 'SALES', role: 'comercial', emblem: 'CALL',
+      color: '#cfcfcb', name: 'VENDAS', role: 'comercial', emblem: 'CALL',
       is2d: true,
       furniture: [
         // Gráfico de barras na parede norte
@@ -2834,7 +2834,7 @@
     },
     vid: {
       x: 12, y: 5, w: 7, h: 5,
-      color: '#d97757', name: 'VID', role: 'vídeo', emblem: 'VID',
+      color: '#d97757', name: 'VÍDEO', role: 'vídeo', emblem: 'VID',
       is2d: true,
       furniture: [
         // Chroma como parede oeste (não bloqueia portas em (12,7)(12,8))
@@ -2857,7 +2857,7 @@
     },
     ad: {
       x: 19, y: 5, w: 4, h: 2,
-      color: '#d4a24a', name: 'AD', role: 'anúncios', emblem: 'AD',
+      color: '#d4a24a', name: 'ANÚNCIOS', role: 'anúncios', emblem: 'AD',
       is2d: true,
       furniture: [
         // Mural de pôsteres ocupando toda a parede norte (4 tiles)
@@ -2871,7 +2871,7 @@
     },
     data: {
       x: 19, y: 7, w: 4, h: 3,
-      color: '#7aa8c9', name: 'DATA', role: 'dados', emblem: 'DATA',
+      color: '#7aa8c9', name: 'PESQUISADOR', role: 'pesquisa', emblem: 'DATA',
       is2d: true,
       furniture: [
         // Rack de servidores na parede norte (deixa (20,7) livre = porta AD↔DATA)
@@ -2910,13 +2910,13 @@
 
   // Mapeia agente → sala home.
   const AGENT_DEFS = [
-    { id: 'prod',  name: 'PROD'  },
-    { id: 'copy',  name: 'COPY'  },
-    { id: 'pag',   name: 'PAG'   },
-    { id: 'ad',    name: 'AD'    },
-    { id: 'vid',   name: 'VID'   },
-    { id: 'sales', name: 'SALES' },
-    { id: 'data',  name: 'DATA'  },
+    { id: 'prod',  name: 'ESTRATEGISTA' },
+    { id: 'copy',  name: 'COPY'      },
+    { id: 'pag',   name: 'PÁGINAS'  },
+    { id: 'ad',    name: 'ANÚNCIOS' },
+    { id: 'vid',   name: 'VÍDEO'    },
+    { id: 'sales', name: 'VENDAS'   },
+    { id: 'data',  name: 'PESQUISADOR'  },
   ];
 
 
