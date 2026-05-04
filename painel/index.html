@@ -356,19 +356,10 @@
     }
     $subtitle.textContent = produto.nome || slug;
     if (!produto.url) {
-      renderAviso({
-        titulo: 'Este produto ainda não tem painel',
-        texto: 'O produto <strong>' + (produto.nome || slug) + '</strong> ainda não tem um <code>painel-entregas.html</code> gerado.',
-        passos: [
-          { titulo: 'Gerar o painel do produto',
-            desc: 'No assistente, rode o comando abaixo. Ele cadastra Quadro, Furadeira, Identidades e Urgências Ocultas e gera o painel já preenchido.',
-            cmd: '/produto-concepcao' },
-          { titulo: 'Depois, atualizar o manifest',
-            desc: 'Quando o painel for criado, rode o script abaixo no terminal (ou <code>/painel-atualizar</code> no assistente).',
-            cmd: 'py -3 scripts/painel-atualizar.py' }
-        ]
-      });
-      return false;
+      limparAviso();
+      $frame.classList.remove('hidden');
+      $frame.src = 'skeleton-painel-entregas.html';
+      return true;
     }
     limparAviso();
     $frame.classList.remove('hidden');
