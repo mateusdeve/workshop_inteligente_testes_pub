@@ -46,7 +46,6 @@ function silentPull(callback) {
 }
 
 function injectClaudeButton(win) {
-  if (!isClaudeInstalled()) return
   win.webContents.executeJavaScript(`
     (function() {
       if (document.getElementById('__claude-btn')) return;
