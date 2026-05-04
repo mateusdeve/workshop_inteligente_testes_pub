@@ -307,16 +307,12 @@
       texto: 'Para usar o Workshop IA, o <strong>Claude da Anthropic</strong> precisa estar instalado no seu computador.',
       actions: [
         {
-          id: 'btn-instalar-claude',
+          id: 'btn-baixar-claude',
           tipo: 'primary',
-          label: 'Instalar Claude agora',
+          label: 'Baixar Claude',
           onClick: function() {
-            const btn = document.getElementById('btn-instalar-claude');
-            const btnVerificar = document.getElementById('btn-verificar-claude');
-            if (btn) { btn.disabled = true; btn.textContent = 'Instalando...'; }
-            if (btnVerificar) btnVerificar.disabled = true;
-            if (window.electronAPI && window.electronAPI.installClaude) {
-              window.electronAPI.installClaude();
+            if (window.electronAPI && window.electronAPI.openDownloadClaude) {
+              window.electronAPI.openDownloadClaude();
             }
           }
         },
@@ -399,31 +395,6 @@
       }
     }
     iniciarPainel();
-  }
-
-  if (window.electronAPI && window.electronAPI.onClaudeInstallResult) {
-    window.electronAPI.onClaudeInstallResult(function(ok) {
-      if (ok) {
-        iniciarPainel();
-      } else {
-        const btn = document.getElementById('btn-instalar-claude');
-        const btnVerificar = document.getElementById('btn-verificar-claude');
-        if (btn) { btn.disabled = false; btn.textContent = 'Instalar Claude agora'; }
-        if (btnVerificar) btnVerificar.disabled = false;
-        renderAviso({
-          titulo: 'Instalação não concluída',
-          texto: 'O Claude não foi encontrado após a instalação. Baixe manualmente em <strong>claude.ai/download</strong> e depois clique em "Já instalei".',
-          actions: [
-            {
-              id: 'btn-verificar-claude',
-              tipo: 'secondary',
-              label: 'Já instalei, verificar novamente',
-              onClick: function() { iniciar(); }
-            }
-          ]
-        });
-      }
-    });
   }
 
   iniciar();

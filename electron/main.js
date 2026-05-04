@@ -2,7 +2,7 @@ const { app, BrowserWindow, ipcMain, shell } = require('electron')
 const path = require('path')
 const os = require('os')
 const fs = require('fs')
-const { exec, spawn } = require('child_process')
+const { exec } = require('child_process')
 const { install, INSTALL_DIR } = require('./installer')
 
 function getPanelPath() {
@@ -133,25 +133,8 @@ function createSetupWindow() {
 
 ipcMain.handle('check-claude', () => isClaudeInstalled())
 
-ipcMain.on('install-claude', () => {
-  if (process.platform === 'darwin') {
-    const brewBin = fs.existsSync('/opt/homebrew/bin/brew') ? '/opt/homebrew/bin' : '/usr/local/bin'
-    const brewExe = `${brewBin}/brew`
-    if (fs.existsSync(brewExe)) {
-      const env = { ...process.env, PATH: `${brewBin}:/usr/local/bin:/usr/bin:/bin` }
-      const proc = spawn(brewExe, ['install', '--cask', 'claude'], { stdio: 'pipe', env })
-      proc.on('close', () => {
-        if (mainWindow) mainWindow.webContents.send('claude-install-result', isClaudeInstalled())
-      })
-      proc.on('error', () => {
-        shell.openExternal('https://claude.ai/download')
-      })
-    } else {
-      shell.openExternal('https://claude.ai/download')
-    }
-  } else {
-    shell.openExternal('https://claude.ai/download')
-  }
+ipcMain.on('open-download-claude', () => {
+  shell.openExternal('https://claude.ai/download')
 })
 
 ipcMain.on('setup:start', async () => {

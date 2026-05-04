@@ -53,21 +53,12 @@ async function install(send) {
     await run(git, ['clone', '-b', 'poc', REPO_URL, INSTALL_DIR], { env })
   }
 
-  send(6, 'Instalando dependências do painel...', 80)
+  send(6, 'Instalando dependências do painel...', 90)
   const npm = fs.existsSync(`${brewBin}/npm`) ? `${brewBin}/npm` : 'npm'
   await run(npm, ['install'], { cwd: INSTALL_DIR, env })
 
-  if (isMac) {
-    send(7, 'Instalando Claude...', 92)
-    try {
-      await run(`${brewBin}/brew`, ['install', '--cask', 'claude'], { env })
-    } catch (e) {
-      send(7, 'Claude: instale manualmente em claude.ai/download', 92)
-    }
-  }
-
   fs.writeFileSync(path.join(INSTALL_DIR, '.installed'), new Date().toISOString())
-  send(8, 'Tudo pronto!', 100)
+  send(7, 'Tudo pronto!', 100)
 }
 
 module.exports = { install, INSTALL_DIR }
