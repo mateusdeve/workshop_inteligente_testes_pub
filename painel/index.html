@@ -82,6 +82,23 @@
   .controls select:hover { border-color: var(--line-3); }
   .controls select:focus { outline: none; border-color: var(--neon-dim); }
   .controls select:disabled { opacity: .5; cursor: not-allowed; }
+  .controls-sep {
+    width: 1px; height: 20px;
+    background: var(--line-2);
+    margin: 0 4px;
+  }
+  .btn-claude {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 7px 14px;
+    background: var(--neon); color: var(--ink-0);
+    border: none; border-radius: 6px;
+    font-family: var(--font-mono);
+    font-size: 11px; font-weight: 600;
+    letter-spacing: .08em; text-transform: uppercase;
+    cursor: pointer; transition: opacity .15s;
+    white-space: nowrap;
+  }
+  .btn-claude:hover { opacity: .82; }
 
   main {
     flex: 1;
@@ -187,6 +204,22 @@
     user-select: all; cursor: text;
   }
 
+  .aviso-actions { display: flex; flex-direction: column; gap: 10px; margin-top: 22px; }
+  .aviso-actions.hidden { display: none; }
+  .aviso-btn {
+    width: 100%; padding: 12px 20px;
+    border: none; border-radius: 8px;
+    font-family: var(--font-body);
+    font-size: 14px; font-weight: 600;
+    cursor: pointer; transition: opacity .15s;
+  }
+  .aviso-btn:hover { opacity: .85; }
+  .aviso-btn:disabled { opacity: .45; cursor: default; }
+  .aviso-btn-primary { background: var(--neon); color: var(--ink-0); }
+  .aviso-btn-secondary {
+    background: transparent; border: 1px solid var(--line-2); color: var(--text-dim);
+  }
+
   @media (max-width: 640px) {
     header {
       flex-direction: column;
@@ -213,6 +246,11 @@
       <select id="select-produto" disabled>
         <option>Carregando...</option>
       </select>
+      <div class="controls-sep"></div>
+      <button class="btn-claude" onclick="window.electronAPI && window.electronAPI.openClaude()">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+        Abrir Claude
+      </button>
     </div>
   </header>
   <main>
@@ -225,11 +263,11 @@
         <h2 id="aviso-titulo">Carregando...</h2>
         <p class="aviso-lead" id="aviso-texto">Aguarde enquanto a lista de produtos é carregada.</p>
         <div id="aviso-passos" class="passos hidden"></div>
+        <div id="aviso-actions" class="aviso-actions hidden"></div>
       </div>
     </div>
   </main>
 
-<script src="../meus-produtos/index.js" onerror="window.__MANIFEST_FALTANDO = true"></script>
 <script>
 (function () {
   const $select = document.getElementById('select-produto');
@@ -238,9 +276,10 @@
   const $avisoTitulo = document.getElementById('aviso-titulo');
   const $avisoTexto = document.getElementById('aviso-texto');
   const $avisoPassos = document.getElementById('aviso-passos');
+  const $avisoActions = document.getElementById('aviso-actions');
   const $subtitle = document.getElementById('subtitle');
 
-  function renderAviso({ titulo, texto, passos }) {
+  function renderAviso({ titulo, texto, passos, actions }) {
     $avisoTitulo.textContent = titulo;
     $avisoTexto.innerHTML = texto;
     if (passos && passos.length) {
@@ -259,6 +298,21 @@
       $avisoPassos.innerHTML = '';
       $avisoPassos.classList.add('hidden');
     }
+    if (actions && actions.length) {
+      $avisoActions.innerHTML = actions.map(a =>
+        '<button class="aviso-btn aviso-btn-' + a.tipo + '" id="' + (a.id || '') + '">' + a.label + '</button>'
+      ).join('');
+      $avisoActions.classList.remove('hidden');
+      actions.forEach(a => {
+        if (a.id && a.onClick) {
+          const el = document.getElementById(a.id);
+          if (el) el.addEventListener('click', a.onClick);
+        }
+      });
+    } else {
+      $avisoActions.innerHTML = '';
+      $avisoActions.classList.add('hidden');
+    }
     $aviso.classList.remove('hidden');
     $frame.classList.add('hidden');
     $frame.src = 'about:blank';
@@ -268,7 +322,32 @@
     $aviso.classList.add('hidden');
   }
 
-  function trocarProduto(slug) {
+  function renderAvisoInstalarClaude() {
+    renderAviso({
+      titulo: 'Claude não está instalado',
+      texto: 'Para usar o Workshop IA, o <strong>Claude da Anthropic</strong> precisa estar instalado no seu computador.',
+      actions: [
+        {
+          id: 'btn-baixar-claude',
+          tipo: 'primary',
+          label: 'Baixar Claude',
+          onClick: function() {
+            if (window.electronAPI && window.electronAPI.openDownloadClaude) {
+              window.electronAPI.openDownloadClaude();
+            }
+          }
+        },
+        {
+          id: 'btn-verificar-claude',
+          tipo: 'secondary',
+          label: 'Já instalei, verificar novamente',
+          onClick: function() { iniciar(); }
+        }
+      ]
+    });
+  }
+
+  async function trocarProduto(slug) {
     const produtos = (window.MEUS_PRODUTOS && window.MEUS_PRODUTOS.produtos) || [];
     const produto = produtos.find(p => p.slug === slug);
     if (!produto) {
@@ -277,20 +356,19 @@
     }
     $subtitle.textContent = produto.nome || slug;
     if (!produto.url) {
-      renderAviso({
-        titulo: 'Este produto ainda não tem painel',
-        texto: 'O produto <strong>' + (produto.nome || slug) + '</strong> ainda não tem um <code>painel-entregas.html</code> gerado. Volte ao chat e termine o cadastro em <code>/produto-novo</code>, ou rode <code>/produto-concepcao</code> se o cadastro já estiver completo.',
-        passos: [
-          { titulo: 'Atualizar o manifest depois',
-            desc: 'Quando o painel for criado, rode o script abaixo no terminal (ou <code>/painel-atualizar</code> no assistente).',
-            cmd: 'py -3 scripts/painel-atualizar.py' }
-        ]
-      });
-      return false;
+      limparAviso();
+      $frame.classList.remove('hidden');
+      $frame.src = 'skeleton-painel-entregas.html';
+      return true;
     }
     limparAviso();
     $frame.classList.remove('hidden');
-    $frame.src = '../meus-produtos/' + produto.url;
+    if (window.electronAPI && window.electronAPI.getProductPath) {
+      const absPath = await window.electronAPI.getProductPath(produto.url);
+      $frame.src = 'file:///' + absPath.replace(/\\/g, '/');
+    } else {
+      $frame.src = '../meus-produtos/' + produto.url;
+    }
     return true;
   }
 
@@ -302,12 +380,17 @@
     $frame.src = 'skeleton-painel-entregas.html';
   }
 
-  function iniciar() {
-    if (window.__MANIFEST_FALTANDO || !window.MEUS_PRODUTOS) {
+  async function iniciarPainel() {
+    let manifest = null;
+    if (window.electronAPI && window.electronAPI.getManifest) {
+      manifest = await window.electronAPI.getManifest();
+    }
+    if (!manifest) {
       carregarSkeleton('Sem manifest');
       return;
     }
-    const produtos = window.MEUS_PRODUTOS.produtos || [];
+    window.MEUS_PRODUTOS = manifest;
+    const produtos = manifest.produtos || [];
     if (produtos.length === 0) {
       carregarSkeleton('Sem produtos');
       return;
@@ -316,16 +399,30 @@
       .map(p => '<option value="' + p.slug + '">' + (p.nome || p.slug) + '</option>')
       .join('');
     $select.disabled = false;
-    const ativoDoManifest = window.MEUS_PRODUTOS.ativo;
+    const ativoDoManifest = manifest.ativo;
     const inicial = ativoDoManifest && produtos.some(p => p.slug === ativoDoManifest)
       ? ativoDoManifest
       : produtos[0].slug;
     $select.value = inicial;
-    $select.addEventListener('change', e => trocarProduto(e.target.value));
-    trocarProduto(inicial);
+    $select.onchange = e => trocarProduto(e.target.value);
+    await trocarProduto(inicial);
+  }
+
+  async function iniciar() {
+    if (window.electronAPI && window.electronAPI.checkClaude) {
+      const claudeOk = await window.electronAPI.checkClaude();
+      if (!claudeOk) {
+        renderAvisoInstalarClaude();
+        return;
+      }
+    }
+    await iniciarPainel();
   }
 
   iniciar();
+  if (window.electronAPI && window.electronAPI.onManifestChanged) {
+    window.electronAPI.onManifestChanged(() => iniciarPainel());
+  }
 })();
 </script>
 </body>

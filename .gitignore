@@ -46,6 +46,13 @@ meus-produtos/
 # Node
 node_modules/
 
+# Electron build output
+dist-electron/
+
+# DMG binários gerados pelo build (não versionar artefatos de distribuição)
+instalador/*.dmg
+instalador/*.exe
+
 # Assets locais. A pasta fica no Git via assets/.gitkeep,
 # mas todo conteudo gerado ou colocado pelo usuario fica fora.
 assets/**
