@@ -187,6 +187,22 @@
     user-select: all; cursor: text;
   }
 
+  .aviso-actions { display: flex; flex-direction: column; gap: 10px; margin-top: 22px; }
+  .aviso-actions.hidden { display: none; }
+  .aviso-btn {
+    width: 100%; padding: 12px 20px;
+    border: none; border-radius: 8px;
+    font-family: var(--font-body);
+    font-size: 14px; font-weight: 600;
+    cursor: pointer; transition: opacity .15s;
+  }
+  .aviso-btn:hover { opacity: .85; }
+  .aviso-btn:disabled { opacity: .45; cursor: default; }
+  .aviso-btn-primary { background: var(--neon); color: var(--ink-0); }
+  .aviso-btn-secondary {
+    background: transparent; border: 1px solid var(--line-2); color: var(--text-dim);
+  }
+
   @media (max-width: 640px) {
     header {
       flex-direction: column;
@@ -225,6 +241,7 @@
         <h2 id="aviso-titulo">Carregando...</h2>
         <p class="aviso-lead" id="aviso-texto">Aguarde enquanto a lista de produtos é carregada.</p>
         <div id="aviso-passos" class="passos hidden"></div>
+        <div id="aviso-actions" class="aviso-actions hidden"></div>
       </div>
     </div>
   </main>
@@ -238,9 +255,10 @@
   const $avisoTitulo = document.getElementById('aviso-titulo');
   const $avisoTexto = document.getElementById('aviso-texto');
   const $avisoPassos = document.getElementById('aviso-passos');
+  const $avisoActions = document.getElementById('aviso-actions');
   const $subtitle = document.getElementById('subtitle');
 
-  function renderAviso({ titulo, texto, passos }) {
+  function renderAviso({ titulo, texto, passos, actions }) {
     $avisoTitulo.textContent = titulo;
     $avisoTexto.innerHTML = texto;
     if (passos && passos.length) {
@@ -259,6 +277,21 @@
       $avisoPassos.innerHTML = '';
       $avisoPassos.classList.add('hidden');
     }
+    if (actions && actions.length) {
+      $avisoActions.innerHTML = actions.map(a =>
+        '<button class="aviso-btn aviso-btn-' + a.tipo + '" id="' + (a.id || '') + '">' + a.label + '</button>'
+      ).join('');
+      $avisoActions.classList.remove('hidden');
+      actions.forEach(a => {
+        if (a.id && a.onClick) {
+          const el = document.getElementById(a.id);
+          if (el) el.addEventListener('click', a.onClick);
+        }
+      });
+    } else {
+      $avisoActions.innerHTML = '';
+      $avisoActions.classList.add('hidden');
+    }
     $aviso.classList.remove('hidden');
     $frame.classList.add('hidden');
     $frame.src = 'about:blank';
@@ -266,6 +299,35 @@
 
   function limparAviso() {
     $aviso.classList.add('hidden');
+  }
+
+  function renderAvisoInstalarClaude() {
+    renderAviso({
+      titulo: 'Claude não está instalado',
+      texto: 'Para usar o Workshop IA, o <strong>Claude da Anthropic</strong> precisa estar instalado no seu computador.',
+      actions: [
+        {
+          id: 'btn-instalar-claude',
+          tipo: 'primary',
+          label: 'Instalar Claude agora',
+          onClick: function() {
+            const btn = document.getElementById('btn-instalar-claude');
+            const btnVerificar = document.getElementById('btn-verificar-claude');
+            if (btn) { btn.disabled = true; btn.textContent = 'Instalando...'; }
+            if (btnVerificar) btnVerificar.disabled = true;
+            if (window.electronAPI && window.electronAPI.installClaude) {
+              window.electronAPI.installClaude();
+            }
+          }
+        },
+        {
+          id: 'btn-verificar-claude',
+          tipo: 'secondary',
+          label: 'Já instalei, verificar novamente',
+          onClick: function() { iniciar(); }
+        }
+      ]
+    });
   }
 
   function trocarProduto(slug) {
@@ -305,7 +367,7 @@
     $frame.src = 'skeleton-painel-entregas.html';
   }
 
-  function iniciar() {
+  function iniciarPainel() {
     if (window.__MANIFEST_FALTANDO || !window.MEUS_PRODUTOS) {
       carregarSkeleton('Sem manifest');
       return;
@@ -326,6 +388,42 @@
     $select.value = inicial;
     $select.addEventListener('change', e => trocarProduto(e.target.value));
     trocarProduto(inicial);
+  }
+
+  async function iniciar() {
+    if (window.electronAPI && window.electronAPI.checkClaude) {
+      const claudeOk = await window.electronAPI.checkClaude();
+      if (!claudeOk) {
+        renderAvisoInstalarClaude();
+        return;
+      }
+    }
+    iniciarPainel();
+  }
+
+  if (window.electronAPI && window.electronAPI.onClaudeInstallResult) {
+    window.electronAPI.onClaudeInstallResult(function(ok) {
+      if (ok) {
+        iniciarPainel();
+      } else {
+        const btn = document.getElementById('btn-instalar-claude');
+        const btnVerificar = document.getElementById('btn-verificar-claude');
+        if (btn) { btn.disabled = false; btn.textContent = 'Instalar Claude agora'; }
+        if (btnVerificar) btnVerificar.disabled = false;
+        renderAviso({
+          titulo: 'Instalação não concluída',
+          texto: 'O Claude não foi encontrado após a instalação. Baixe manualmente em <strong>claude.ai/download</strong> e depois clique em "Já instalei".',
+          actions: [
+            {
+              id: 'btn-verificar-claude',
+              tipo: 'secondary',
+              label: 'Já instalei, verificar novamente',
+              onClick: function() { iniciar(); }
+            }
+          ]
+        });
+      }
+    });
   }
 
   iniciar();
