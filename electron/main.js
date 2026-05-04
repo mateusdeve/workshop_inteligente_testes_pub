@@ -3,7 +3,7 @@ const path = require('path')
 const os = require('os')
 const fs = require('fs')
 const vm = require('vm')
-const { exec } = require('child_process')
+const { exec, spawn } = require('child_process')
 const { install, INSTALL_DIR } = require('./installer')
 
 function getPanelPath() {
@@ -195,42 +195,40 @@ ipcMain.on('setup:open-panel', () => {
 })
 
 ipcMain.on('open-claude', () => {
+  const dir = getRepoDir()
+
   if (process.platform === 'darwin') {
-    const macPaths = [
-      '/Applications/Claude.app',
-      path.join(os.homedir(), 'Applications', 'Claude.app'),
-      '/Applications/Claude AI.app',
-      path.join(os.homedir(), 'Applications', 'Claude AI.app')
-    ]
-    const found = macPaths.find(p => fs.existsSync(p))
-    if (found) {
-      exec(`open "${found}"`, (err) => {
-        if (err) shell.openExternal('https://claude.ai/download')
-      })
-    } else {
-      exec('open -a "Claude"', (err) => {
-        if (err) exec('open -a "Claude AI"', (err2) => {
-          if (err2) shell.openExternal('https://claude.ai/download')
-        })
-      })
-    }
+    // Single-quote the path for use inside the shell command string in AppleScript.
+    // Escape any single quotes already in the path (rare but possible).
+    const shDir = dir.replace(/'/g, "'\\''")
+    const script = `
+try
+  tell application "iTerm2"
+    activate
+    create window with default profile
+    tell current session of current window
+      write text "cd '${shDir}' && claude"
+    end tell
+  end tell
+on error
+  tell application "Terminal"
+    do script "cd '${shDir}' && claude"
+    activate
+  end tell
+end try`
+    // Write script to osascript via stdin — avoids all shell quoting issues
+    const child = spawn('osascript', ['-'])
+    child.stdin.write(script)
+    child.stdin.end()
+    child.on('error', () => shell.openExternal('https://claude.ai/download'))
+
   } else if (process.platform === 'win32') {
-    const winPaths = [
-      path.join(os.homedir(), 'AppData', 'Local', 'AnthropicClaude', 'claude.exe'),
-      path.join(os.homedir(), 'AppData', 'Local', 'Programs', 'Claude', 'Claude.exe'),
-      'C:\\Program Files\\Anthropic\\Claude\\Claude.exe',
-      'C:\\Program Files (x86)\\Anthropic\\Claude\\Claude.exe'
-    ]
-    const found = winPaths.find(p => fs.existsSync(p))
-    if (found) {
-      exec(`"${found}"`, (err) => {
-        if (err) shell.openExternal('https://claude.ai/download')
-      })
-    } else {
-      exec('start "" "Claude"', (err) => {
-        if (err) shell.openExternal('https://claude.ai/download')
-      })
-    }
+    const winDir = dir.replace(/\//g, '\\')
+    // Try Windows Terminal, fall back to plain cmd
+    exec(`wt new-tab --title "Workshop IA" cmd /k "cd /d "${winDir}" && claude"`, (err) => {
+      if (!err) return
+      exec(`start cmd /k "cd /d "${winDir}" && claude"`)
+    })
   }
 })
 
