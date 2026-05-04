@@ -46,29 +46,6 @@ function silentPull(callback) {
   })
 }
 
-function injectClaudeButton(win) {
-  win.webContents.executeJavaScript(`
-    (function() {
-      if (document.getElementById('__claude-btn')) return;
-      const btn = document.createElement('button');
-      btn.id = '__claude-btn';
-      btn.innerHTML = '⚡ Abrir Claude';
-      btn.style.cssText = [
-        'position:fixed','top:14px','right:14px','z-index:99999',
-        'background:rgba(20,20,30,0.88)','backdrop-filter:blur(10px)',
-        'border:1px solid rgba(124,58,237,0.45)','border-radius:20px',
-        'padding:6px 14px','color:#c4b5fd','font-size:12px','font-weight:600',
-        'cursor:pointer','transition:all 0.15s',
-        'font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif',
-        'box-shadow:0 2px 12px rgba(124,58,237,0.2)','letter-spacing:0.02em'
-      ].join(';');
-      btn.onmouseover = () => { btn.style.background='rgba(124,58,237,0.82)'; btn.style.color='#fff'; };
-      btn.onmouseout  = () => { btn.style.background='rgba(20,20,30,0.88)';   btn.style.color='#c4b5fd'; };
-      btn.onclick = () => window.electronAPI && window.electronAPI.openClaude();
-      document.body.appendChild(btn);
-    })();
-  `).catch(() => {})
-}
 
 function injectUpdateToast(win) {
   win.webContents.executeJavaScript(`
@@ -131,7 +108,6 @@ function createPanelWindow() {
   mainWindow.setMenuBarVisibility(false)
 
   mainWindow.webContents.on('did-finish-load', () => {
-    injectClaudeButton(mainWindow)
     watchManifest()
     silentPull((updated) => {
       if (updated && mainWindow) injectUpdateToast(mainWindow)
@@ -198,33 +174,32 @@ ipcMain.on('open-claude', () => {
   const dir = getRepoDir()
 
   if (process.platform === 'darwin') {
-    // Single-quote the path for use inside the shell command string in AppleScript.
-    // Escape any single quotes already in the path (rare but possible).
     const shDir = dir.replace(/'/g, "'\\''")
-    const script = `
-try
-  tell application "iTerm2"
-    activate
-    create window with default profile
-    tell current session of current window
-      write text "cd '${shDir}' && claude"
-    end tell
-  end tell
-on error
-  tell application "Terminal"
-    do script "cd '${shDir}' && claude"
-    activate
-  end tell
-end try`
-    // Write script to osascript via stdin — avoids all shell quoting issues
-    const child = spawn('osascript', ['-'])
-    child.stdin.write(script)
-    child.stdin.end()
-    child.on('error', () => shell.openExternal('https://claude.ai/download'))
+    const script = [
+      'try',
+      '  tell application "iTerm2"',
+      '    activate',
+      '    create window with default profile',
+      '    tell current session of current window',
+      `      write text "cd '${shDir}' && claude"`,
+      '    end tell',
+      '  end tell',
+      'on error',
+      '  tell application "Terminal"',
+      `    do script "cd '${shDir}' && claude"`,
+      '    activate',
+      '  end tell',
+      'end try',
+    ].join('\n')
+    // Write to a temp .scpt file — more reliable than stdin in packaged apps
+    const tmpFile = path.join(os.tmpdir(), 'workshop-ia-claude.scpt')
+    fs.writeFileSync(tmpFile, script, 'utf8')
+    exec(`/usr/bin/osascript "${tmpFile}"`, (err) => {
+      if (err) shell.openExternal('https://claude.ai/download')
+    })
 
   } else if (process.platform === 'win32') {
     const winDir = dir.replace(/\//g, '\\')
-    // Try Windows Terminal, fall back to plain cmd
     exec(`wt new-tab --title "Workshop IA" cmd /k "cd /d "${winDir}" && claude"`, (err) => {
       if (!err) return
       exec(`start cmd /k "cd /d "${winDir}" && claude"`)

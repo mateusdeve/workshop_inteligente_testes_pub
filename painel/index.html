@@ -82,6 +82,23 @@
   .controls select:hover { border-color: var(--line-3); }
   .controls select:focus { outline: none; border-color: var(--neon-dim); }
   .controls select:disabled { opacity: .5; cursor: not-allowed; }
+  .controls-sep {
+    width: 1px; height: 20px;
+    background: var(--line-2);
+    margin: 0 4px;
+  }
+  .btn-claude {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 7px 14px;
+    background: var(--neon); color: var(--ink-0);
+    border: none; border-radius: 6px;
+    font-family: var(--font-mono);
+    font-size: 11px; font-weight: 600;
+    letter-spacing: .08em; text-transform: uppercase;
+    cursor: pointer; transition: opacity .15s;
+    white-space: nowrap;
+  }
+  .btn-claude:hover { opacity: .82; }
 
   main {
     flex: 1;
@@ -229,6 +246,11 @@
       <select id="select-produto" disabled>
         <option>Carregando...</option>
       </select>
+      <div class="controls-sep"></div>
+      <button class="btn-claude" onclick="window.electronAPI && window.electronAPI.openClaude()">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+        Abrir Claude
+      </button>
     </div>
   </header>
   <main>
