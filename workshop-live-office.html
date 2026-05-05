@@ -2664,7 +2664,7 @@
       '/produto-consumidor':   { spot: { x: 5, y: 3 }, furnType: 'meeting-table-oval' },
       '/gerar-furadeira':      { spot: { x: 3, y: 2 }, furnType: 'kanban-tall' },
       '/furadeira-visual':     { spot: { x: 3, y: 2 }, furnType: 'kanban-tall' },
-      _default:                { spot: { x: 5, y: 3 }, furnType: 'meeting-table-oval' },
+      _default:                { spot: { x: 7, y: 3 }, furnType: 'writing-desk' },
     },
     copy: {
       '/copy-pagina':          { spot: { x: 14, y: 3 }, furnType: 'writing-desk' },
@@ -2679,9 +2679,9 @@
       _default:                { spot: { x: 14, y: 3 }, furnType: 'writing-desk' },
     },
     pag: {
-      '/pagina-visual':        { spot: { x: 19, y: 2 }, furnType: 'monitors-curved' },
-      '/pagina-ajuste':        { spot: { x: 19, y: 2 }, furnType: 'monitors-curved' },
-      '/pagina-de-vendas':     { spot: { x: 19, y: 2 }, furnType: 'monitors-curved' },
+      '/pagina-visual':        { spot: { x: 19, y: 3 }, furnType: 'monitors-curved' },
+      '/pagina-ajuste':        { spot: { x: 19, y: 3 }, furnType: 'monitors-curved' },
+      '/pagina-de-vendas':     { spot: { x: 19, y: 3 }, furnType: 'monitors-curved' },
       '/pagina-performance':   { spot: { x: 17, y: 2 }, furnType: 'tablet' },
       '/feedback-pagina':      { spot: { x: 17, y: 2 }, furnType: 'tablet' },
       '/feedback-low-ticket':  { spot: { x: 17, y: 2 }, furnType: 'tablet' },
@@ -2691,7 +2691,7 @@
       '/pagina-lovable':       { spot: { x: 17, y: 2 }, furnType: 'tablet' },
       '/pagina-vercel':        { spot: { x: 17, y: 2 }, furnType: 'tablet' },
       '/pagina-precheckout':   { spot: { x: 17, y: 2 }, furnType: 'tablet' },
-      _default:                { spot: { x: 19, y: 2 }, furnType: 'monitors-curved' },
+      _default:                { spot: { x: 19, y: 3 }, furnType: 'writing-desk' },
     },
     ad: {
       '/copy-anuncio':         { spot: { x: 20, y: 6 }, furnType: 'poster-wall' },
@@ -2745,15 +2745,16 @@
         { type: 'kanban-tall',        x: 2, y: 1, w: 3, h: 1 },
         // Mesa de reunião oval no centro
         { type: 'meeting-table-oval', x: 4, y: 2, w: 3, h: 1 },
-        // 4 cadeiras ao redor da mesa
+        // Cadeiras ao redor da mesa de reunião
         { type: 'chair-25d',          x: 4, y: 3, w: 1, h: 1 },
         { type: 'chair-25d',          x: 6, y: 3, w: 1, h: 1 },
-        { type: 'chair-25d',          x: 7, y: 2, w: 1, h: 1 },
+        // Estação de trabalho pessoal do estrategista
+        { type: 'writing-desk',       x: 7, y: 2, w: 1, h: 1 },
         // Plantas nos cantos
         { type: 'plant-25d',          x: 1, y: 4, w: 1, h: 1 },
         { type: 'plant-25d',          x: 8, y: 4, w: 1, h: 1 },
       ],
-      workSpot:  { x: 5, y: 3 },
+      workSpot:  { x: 7, y: 3 },
       idleSpots: [{ x: 2, y: 3 }, { x: 8, y: 3 }, { x: 5, y: 4 }],
       plate:     { side: 'east', tile: 4 },
     },
@@ -2787,15 +2788,17 @@
         { type: 'monitors-curved', x: 18, y: 1, w: 3, h: 1 },
         // Paleta de cores no canto da parede
         { type: 'palette-wall',    x: 22, y: 1, w: 1, h: 1 },
-        // Cadeira giratória
-        { type: 'swivel-chair',    x: 19, y: 3, w: 1, h: 1 },
+        // Mesa de trabalho do construtor (entre monitores e cadeira)
+        { type: 'writing-desk',    x: 19, y: 2, w: 1, h: 1 },
+        // Cadeira giratória (deslocada para liberar o espaço em frente à mesa)
+        { type: 'swivel-chair',    x: 20, y: 3, w: 1, h: 1 },
         // Tablet/mesa digitalizadora
         { type: 'tablet',          x: 16, y: 3, w: 1, h: 1 },
         // Plantas
         { type: 'plant-25d',       x: 16, y: 4, w: 1, h: 1 },
         { type: 'plant-25d',       x: 22, y: 4, w: 1, h: 1 },
       ],
-      workSpot:  { x: 19, y: 2 },
+      workSpot:  { x: 19, y: 3 },
       idleSpots: [{ x: 17, y: 2 }, { x: 21, y: 2 }, { x: 18, y: 3 }],
       plate:     { side: 'east', tile: 3 },
     },
@@ -2810,9 +2813,11 @@
         { type: 'classic-phone',    x: 1, y: 5, w: 1, h: 1 },
         // Mesa redonda no centro
         { type: 'round-table-25d',  x: 3, y: 7, w: 2, h: 2 },
-        // Cadeiras ao redor da mesa
+        // 4 cadeiras ao redor da mesa redonda
         { type: 'chair-25d',        x: 3, y: 6, w: 1, h: 1 },
         { type: 'chair-25d',        x: 5, y: 7, w: 1, h: 1 },
+        { type: 'chair-25d',        x: 2, y: 7, w: 1, h: 1 },
+        { type: 'chair-25d',        x: 3, y: 9, w: 1, h: 1 },
         // Máquina de café alta no canto sul-oeste
         { type: 'coffee-machine',   x: 1, y: 9, w: 1, h: 1 },
         // Planta no canto sul-leste
@@ -2848,6 +2853,8 @@
         { type: 'chroma-tall',     x: 12, y: 6, w: 1, h: 1 },
         // Ilha de edição com 2 monitores
         { type: 'edit-island-2m',  x: 14, y: 7, w: 2, h: 1 },
+        // Monitor dedicado à timeline de edição
+        { type: 'monitor-graph',   x: 13, y: 7, w: 1, h: 1 },
         // Microfone num pedestal vertical
         { type: 'mic-stand',       x: 17, y: 6, w: 1, h: 1 },
         // Fones em cima de outra mesa
