@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Como instalar o Workshop IA no Windows</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: #0f0f13;
+    color: #e8e8f0;
+    min-height: 100vh;
+    padding: 40px 20px 60px;
+  }
+
+  .container {
+    max-width: 720px;
+    margin: 0 auto;
+  }
+
+  .header {
+    text-align: center;
+    margin-bottom: 48px;
+  }
+
+  .logo {
+    font-size: 32px;
+    font-weight: 800;
+    background: linear-gradient(135deg, #a78bfa, #60a5fa);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 8px;
+  }
+
+  .subtitle {
+    color: #9ca3af;
+    font-size: 15px;
+  }
+
+  .alert-box {
+    background: rgba(251, 191, 36, 0.1);
+    border: 1px solid rgba(251, 191, 36, 0.3);
+    border-radius: 12px;
+    padding: 18px 22px;
+    margin-bottom: 40px;
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+  }
+
+  .alert-icon {
+    font-size: 22px;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .alert-text {
+    font-size: 14px;
+    line-height: 1.6;
+    color: #fde68a;
+  }
+
+  .alert-text strong {
+    color: #fbbf24;
+  }
+
+  .steps-title {
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #6b7280;
+    margin-bottom: 20px;
+  }
+
+  .step {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 32px;
+    align-items: flex-start;
+  }
+
+  .step-number {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #7c3aed, #2563eb);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 16px;
+    flex-shrink: 0;
+    color: #fff;
+    box-shadow: 0 0 16px rgba(124, 58, 237, 0.4);
+  }
+
+  .step-content {
+    flex: 1;
+    padding-top: 6px;
+  }
+
+  .step-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: #f3f4f6;
+    margin-bottom: 6px;
+  }
+
+  .step-desc {
+    font-size: 14px;
+    color: #9ca3af;
+    line-height: 1.6;
+  }
+
+  .step-desc strong {
+    color: #e5e7eb;
+    font-weight: 600;
+  }
+
+  .screen-mock {
+    background: #1e1e2e;
+    border: 1px solid #2d2d40;
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin-top: 14px;
+    position: relative;
+  }
+
+  .screen-mock .window-bar {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 16px;
+  }
+
+  .dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+  }
+
+  .dot-red { background: #ef4444; }
+  .dot-yellow { background: #f59e0b; }
+  .dot-green { background: #10b981; }
+
+  .window-title {
+    font-size: 12px;
+    color: #6b7280;
+    margin-left: 8px;
+  }
+
+  .smartscreen-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 16px;
+  }
+
+  .shield-icon {
+    width: 48px;
+    height: 48px;
+    background: #1e3a5f;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    flex-shrink: 0;
+  }
+
+  .smartscreen-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: #93c5fd;
+    margin-bottom: 2px;
+  }
+
+  .smartscreen-sub {
+    font-size: 12px;
+    color: #6b7280;
+  }
+
+  .btn-row {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 14px;
+  }
+
+  .btn-mock {
+    padding: 8px 18px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    border: none;
+    cursor: default;
+  }
+
+  .btn-primary {
+    background: #2563eb;
+    color: #fff;
+  }
+
+  .btn-secondary {
+    background: #27272a;
+    color: #a1a1aa;
+    border: 1px solid #3f3f46;
+  }
+
+  .btn-link {
+    background: transparent;
+    color: #60a5fa;
+    padding: 8px 4px;
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: underline;
+    cursor: default;
+  }
+
+  .highlight-arrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(251, 191, 36, 0.15);
+    border: 1px solid rgba(251, 191, 36, 0.35);
+    border-radius: 6px;
+    padding: 3px 10px;
+    font-size: 12px;
+    color: #fbbf24;
+    font-weight: 600;
+    margin-top: 8px;
+  }
+
+  .divider {
+    border: none;
+    border-top: 1px solid #1f1f2e;
+    margin: 36px 0;
+  }
+
+  .success-box {
+    background: rgba(16, 185, 129, 0.08);
+    border: 1px solid rgba(16, 185, 129, 0.25);
+    border-radius: 12px;
+    padding: 20px 24px;
+    text-align: center;
+    margin-top: 40px;
+  }
+
+  .success-icon {
+    font-size: 36px;
+    margin-bottom: 10px;
+  }
+
+  .success-title {
+    font-size: 17px;
+    font-weight: 700;
+    color: #34d399;
+    margin-bottom: 6px;
+  }
+
+  .success-desc {
+    font-size: 14px;
+    color: #6b7280;
+    line-height: 1.6;
+  }
+
+  .tag {
+    display: inline-block;
+    background: rgba(124, 58, 237, 0.2);
+    color: #a78bfa;
+    border-radius: 4px;
+    padding: 1px 8px;
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <div class="header">
+    <div class="logo">Workshop IA</div>
+    <div class="subtitle">Guia de instalação para Windows</div>
+  </div>
+
+  <div class="alert-box">
+    <div class="alert-icon">⚠️</div>
+    <div class="alert-text">
+      <strong>Por que esse aviso aparece?</strong><br>
+      O Windows exibe esse alerta para todos os aplicativos novos que ainda não têm um certificado de publicadora registrado. O Workshop IA é seguro. Siga os 3 passos abaixo para instalar normalmente.
+    </div>
+  </div>
+
+  <div class="steps-title">Passo a passo</div>
+
+  <!-- Passo 1 -->
+  <div class="step">
+    <div class="step-number">1</div>
+    <div class="step-content">
+      <div class="step-title">Baixe e abra o instalador</div>
+      <div class="step-desc">
+        Clique duas vezes no arquivo <strong>Workshop-IA-Setup.exe</strong> que você baixou. O Windows vai mostrar a tela de proteção do SmartScreen.
+      </div>
+      <div class="screen-mock">
+        <div class="window-bar">
+          <div class="dot dot-red"></div>
+          <div class="dot dot-yellow"></div>
+          <div class="dot dot-green"></div>
+          <div class="window-title">Windows protegeu seu computador</div>
+        </div>
+        <div class="smartscreen-header">
+          <div class="shield-icon">🛡️</div>
+          <div>
+            <div class="smartscreen-title">O Windows Defender SmartScreen impediu</div>
+            <div class="smartscreen-sub">Um aplicativo não reconhecido pode colocar seu PC em risco.</div>
+          </div>
+        </div>
+        <div class="btn-row">
+          <button class="btn-mock btn-link">Mais informações</button>
+          <button class="btn-mock btn-secondary">Não executar</button>
+        </div>
+        <div class="highlight-arrow">👆 Clique em "Mais informações"</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Passo 2 -->
+  <div class="step">
+    <div class="step-number">2</div>
+    <div class="step-content">
+      <div class="step-title">Clique em "Mais informações"</div>
+      <div class="step-desc">
+        Depois de clicar, a tela vai atualizar e mostrar um novo botão na parte inferior.
+      </div>
+      <div class="screen-mock">
+        <div class="window-bar">
+          <div class="dot dot-red"></div>
+          <div class="dot dot-yellow"></div>
+          <div class="dot dot-green"></div>
+          <div class="window-title">Windows protegeu seu computador</div>
+        </div>
+        <div class="smartscreen-header">
+          <div class="shield-icon">🛡️</div>
+          <div>
+            <div class="smartscreen-title">O Windows Defender SmartScreen impediu</div>
+            <div class="smartscreen-sub">Aplicativo: Workshop-IA-Setup.exe &nbsp;|&nbsp; Publicador: desconhecido</div>
+          </div>
+        </div>
+        <div class="btn-row">
+          <button class="btn-mock btn-primary">Executar mesmo assim</button>
+          <button class="btn-mock btn-secondary">Não executar</button>
+        </div>
+        <div class="highlight-arrow">👆 Clique em "Executar mesmo assim"</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Passo 3 -->
+  <div class="step">
+    <div class="step-number">3</div>
+    <div class="step-content">
+      <div class="step-title">Clique em "Executar mesmo assim"</div>
+      <div class="step-desc">
+        O instalador vai abrir normalmente. Clique em <strong>Instalar</strong> e aguarde. O Workshop IA será instalado e um atalho aparecerá na sua área de trabalho.
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <div class="success-box">
+    <div class="success-icon">✅</div>
+    <div class="success-title">Pronto, pode usar!</div>
+    <div class="success-desc">
+      Esse aviso aparece apenas na primeira instalação. Nas próximas atualizações o processo será automático e sem interrupções.
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

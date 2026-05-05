@@ -9,11 +9,41 @@ jobs:
     runs-on: macos-14
     steps:
       - uses: actions/checkout@v4
+
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
+
       - run: npm install
-      - run: npm run build -- --publish never
+
+      - name: Importar certificado Mac
+        if: ${{ env.APPLE_CERTIFICATE != '' }}
+        env:
+          APPLE_CERTIFICATE: ${{ secrets.APPLE_CERTIFICATE }}
+          APPLE_CERTIFICATE_PASSWORD: ${{ secrets.APPLE_CERTIFICATE_PASSWORD }}
+        run: |
+          echo "$APPLE_CERTIFICATE" | base64 --decode > certificate.p12
+          security create-keychain -p "" build.keychain
+          security import certificate.p12 -k build.keychain -P "$APPLE_CERTIFICATE_PASSWORD" -T /usr/bin/codesign
+          security list-keychains -s build.keychain
+          security default-keychain -s build.keychain
+          security unlock-keychain -p "" build.keychain
+          security set-key-partition-list -S apple-tool:,apple: -s -k "" build.keychain
+
+      - name: Build Mac (com assinatura)
+        if: ${{ env.APPLE_CERTIFICATE != '' }}
+        env:
+          APPLE_CERTIFICATE: ${{ secrets.APPLE_CERTIFICATE }}
+          APPLE_CERTIFICATE_PASSWORD: ${{ secrets.APPLE_CERTIFICATE_PASSWORD }}
+          APPLE_ID: ${{ secrets.APPLE_ID }}
+          APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+          APPLE_APP_SPECIFIC_PASSWORD: ${{ secrets.APPLE_APP_SPECIFIC_PASSWORD }}
+        run: npm run build -- --publish never
+
+      - name: Build Mac (sem assinatura)
+        if: ${{ env.APPLE_CERTIFICATE == '' }}
+        run: npm run build -- --publish never
+
       - uses: actions/upload-artifact@v4
         with:
           name: mac-dmg
@@ -24,11 +54,24 @@ jobs:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4
+
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
+
       - run: npm install
-      - run: npm run build:win -- --publish never
+
+      - name: Build Windows (com assinatura)
+        if: ${{ env.CSC_LINK != '' }}
+        env:
+          CSC_LINK: ${{ secrets.CSC_LINK }}
+          CSC_KEY_PASSWORD: ${{ secrets.CSC_KEY_PASSWORD }}
+        run: npm run build:win -- --publish never
+
+      - name: Build Windows (sem assinatura)
+        if: ${{ env.CSC_LINK == '' }}
+        run: npm run build:win -- --publish never
+
       - uses: actions/upload-artifact@v4
         with:
           name: win-exe
@@ -42,11 +85,14 @@ jobs:
       contents: write
     steps:
       - uses: actions/checkout@v4
+
       - id: pkg
         run: echo "version=$(node -p "require('./package.json').version")" >> $GITHUB_OUTPUT
+
       - uses: actions/download-artifact@v4
         with:
           path: artifacts
+
       - name: Publicar release
         env:
           GH_TOKEN: ${{ github.token }}
