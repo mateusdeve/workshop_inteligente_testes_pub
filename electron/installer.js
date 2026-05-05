@@ -4,7 +4,7 @@ const os = require('os')
 const fs = require('fs')
 
 const DEFAULT_INSTALL_DIR = path.join(os.homedir(), 'Documents', 'workshop-ia')
-const REPO_URL = 'https://github.com/mateusdeve/workshop_inteligente_testes_pub.git'
+const REPO_URL = 'https://github.com/engdailyapp-rlv/workshop_inteligente.git'
 
 function run(cmd, args, opts = {}) {
   return new Promise((resolve, reject) => {
