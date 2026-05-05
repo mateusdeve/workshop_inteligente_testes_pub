@@ -7,6 +7,12 @@ on:
 jobs:
   build-mac:
     runs-on: macos-14
+    env:
+      APPLE_CERTIFICATE: ${{ secrets.APPLE_CERTIFICATE }}
+      APPLE_CERTIFICATE_PASSWORD: ${{ secrets.APPLE_CERTIFICATE_PASSWORD }}
+      APPLE_ID: ${{ secrets.APPLE_ID }}
+      APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+      APPLE_APP_SPECIFIC_PASSWORD: ${{ secrets.APPLE_APP_SPECIFIC_PASSWORD }}
     steps:
       - uses: actions/checkout@v4
 
@@ -17,11 +23,11 @@ jobs:
       - run: npm install
 
       - name: Importar certificado Mac
-        if: ${{ secrets.APPLE_CERTIFICATE != '' }}
-        env:
-          APPLE_CERTIFICATE: ${{ secrets.APPLE_CERTIFICATE }}
-          APPLE_CERTIFICATE_PASSWORD: ${{ secrets.APPLE_CERTIFICATE_PASSWORD }}
         run: |
+          if [ -z "$APPLE_CERTIFICATE" ]; then
+            echo "Sem certificado configurado, pulando importação."
+            exit 0
+          fi
           echo "$APPLE_CERTIFICATE" | base64 --decode > certificate.p12
           security create-keychain -p "" build.keychain
           security import certificate.p12 -k build.keychain -P "$APPLE_CERTIFICATE_PASSWORD" -T /usr/bin/codesign
@@ -30,18 +36,7 @@ jobs:
           security unlock-keychain -p "" build.keychain
           security set-key-partition-list -S apple-tool:,apple: -s -k "" build.keychain
 
-      - name: Build Mac (com assinatura e notarização)
-        if: ${{ secrets.APPLE_CERTIFICATE != '' }}
-        env:
-          APPLE_CERTIFICATE: ${{ secrets.APPLE_CERTIFICATE }}
-          APPLE_CERTIFICATE_PASSWORD: ${{ secrets.APPLE_CERTIFICATE_PASSWORD }}
-          APPLE_ID: ${{ secrets.APPLE_ID }}
-          APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
-          APPLE_APP_SPECIFIC_PASSWORD: ${{ secrets.APPLE_APP_SPECIFIC_PASSWORD }}
-        run: npm run build -- --publish never
-
-      - name: Build Mac (sem assinatura)
-        if: ${{ secrets.APPLE_CERTIFICATE == '' }}
+      - name: Build Mac
         run: npm run build -- --publish never
 
       - uses: actions/upload-artifact@v4
@@ -52,6 +47,9 @@ jobs:
 
   build-win:
     runs-on: windows-latest
+    env:
+      CSC_LINK: ${{ secrets.CSC_LINK }}
+      CSC_KEY_PASSWORD: ${{ secrets.CSC_KEY_PASSWORD }}
     steps:
       - uses: actions/checkout@v4
 
@@ -61,15 +59,7 @@ jobs:
 
       - run: npm install
 
-      - name: Build Windows (com assinatura)
-        if: ${{ secrets.CSC_LINK != '' }}
-        env:
-          CSC_LINK: ${{ secrets.CSC_LINK }}
-          CSC_KEY_PASSWORD: ${{ secrets.CSC_KEY_PASSWORD }}
-        run: npm run build:win -- --publish never
-
-      - name: Build Windows (sem assinatura)
-        if: ${{ secrets.CSC_LINK == '' }}
+      - name: Build Windows
         run: npm run build:win -- --publish never
 
       - uses: actions/upload-artifact@v4
