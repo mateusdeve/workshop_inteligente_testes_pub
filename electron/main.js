@@ -96,7 +96,7 @@ function injectUpdateToast(win) {
         'font-family:-apple-system,sans-serif','backdrop-filter:blur(8px)',
         'transition:opacity 0.5s','pointer-events:none'
       ].join(';');
-      t.textContent = '✓ Workshop IA atualizado';
+      t.textContent = '✓ Fluxo Criativo atualizado';
       document.body.appendChild(t);
       setTimeout(() => { t.style.opacity='0'; }, 3000);
       setTimeout(() => t.remove(), 3600);
@@ -158,7 +158,7 @@ function createPanelWindow() {
     height: 800,
     minWidth: 900,
     minHeight: 600,
-    title: 'Workshop IA',
+    title: 'Fluxo Criativo',
     webPreferences: {
       nodeIntegration: false,
       contextIsolation: true,
@@ -182,7 +182,7 @@ function createSetupWindow() {
     width: 540,
     height: 520,
     resizable: false,
-    title: 'Workshop IA — Configuração',
+    title: 'Fluxo Criativo — Configuração',
     webPreferences: {
       nodeIntegration: false,
       contextIsolation: true,
@@ -205,7 +205,7 @@ ipcMain.handle('choose-folder', async () => {
     buttonLabel: 'Selecionar pasta'
   })
   if (result.canceled || !result.filePaths[0]) return null
-  return path.join(result.filePaths[0], 'workshop-ia')
+  return path.join(result.filePaths[0], 'fluxo-criativo')
 })
 
 ipcMain.handle('get-manifest', () => {
@@ -279,7 +279,7 @@ tell application "System Events"
     end try
   end tell
 end tell`
-    const tmpFile = path.join(os.tmpdir(), 'workshop-ia-claude.scpt')
+    const tmpFile = path.join(os.tmpdir(), 'fluxo-criativo-claude.scpt')
     fs.writeFileSync(tmpFile, script, 'utf8')
     exec(`/usr/bin/osascript "${tmpFile}"`, (err) => {
       if (err) exec(`open -a "Claude" "${dir}"`)

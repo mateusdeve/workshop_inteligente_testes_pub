@@ -88,7 +88,7 @@ jobs:
           gh release delete "$TAG" --yes 2>/dev/null || true
           git push --delete origin "$TAG" 2>/dev/null || true
           gh release create "$TAG" \
-            --title "Workshop IA $TAG" \
+            --title "Fluxo Criativo $TAG" \
             --notes "Build automático — commit \`${{ github.sha }}\`" \
             artifacts/mac-dmg/*.dmg \
             artifacts/win-exe/*.exe

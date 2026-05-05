@@ -3,7 +3,7 @@ const path = require('path')
 const os = require('os')
 const fs = require('fs')
 
-const DEFAULT_INSTALL_DIR = path.join(os.homedir(), 'Documents', 'workshop-ia')
+const DEFAULT_INSTALL_DIR = path.join(os.homedir(), 'Documents', 'fluxo-criativo')
 const REPO_URL = 'https://github.com/engdailyapp-rlv/workshop_inteligente.git'
 
 function run(cmd, args, opts = {}) {
@@ -144,7 +144,7 @@ async function install(send, destDir = DEFAULT_INSTALL_DIR) {
     send(4, 'Instalando Node.js...', 58)
     await run(`${brewBin}/brew`, ['install', 'node'], { env }).catch(() => {})
 
-    send(5, 'Baixando o Workshop IA...', 72)
+    send(5, 'Baixando o Fluxo Criativo...', 72)
     const git = fs.existsSync(`${brewBin}/git`) ? `${brewBin}/git` : 'git'
     if (fs.existsSync(path.join(destDir, '.git'))) {
       await run(git, ['-C', destDir, 'pull', 'origin', 'main'], { env })
@@ -165,7 +165,7 @@ async function install(send, destDir = DEFAULT_INSTALL_DIR) {
     const git = resolveWinGit()
     const npm = resolveWinNpm()
 
-    send(5, 'Baixando o Workshop IA...', 72)
+    send(5, 'Baixando o Fluxo Criativo...', 72)
     if (fs.existsSync(path.join(destDir, '.git'))) {
       await run(git, ['-C', destDir, 'pull', 'origin', 'main'])
     } else {

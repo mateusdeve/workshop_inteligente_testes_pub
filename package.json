@@ -1,5 +1,5 @@
 {
-  "name": "workshop-ia",
+  "name": "fluxo-criativo",
   "version": "1.0.2",
   "private": true,
   "main": "electron/main.js",
@@ -19,8 +19,8 @@
     "electron-builder": "^25.0.0"
   },
   "build": {
-    "appId": "com.workshopia.painel",
-    "productName": "Workshop IA",
+    "appId": "com.fluxocriativo.painel",
+    "productName": "Fluxo Criativo",
     "directories": {
       "output": "dist-electron"
     },
