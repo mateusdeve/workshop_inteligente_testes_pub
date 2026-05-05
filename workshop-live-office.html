@@ -2307,7 +2307,9 @@
   .tool-tag.t-sk, .tool-tag.t-ag, .tool-tag.t-tk { color: #7aa8c9; border-color: #1a3045; background: rgba(122, 168, 201, 0.08); }
 
   /* ── Agentes ────────────────────────────────────────────────────────── */
-  #agent-status-list { display: flex; flex-direction: column; gap: 2px; flex: 1; }
+  #agent-status-list { display: flex; flex-direction: column; gap: 2px; flex: 1; overflow-y: auto; }
+  #agent-status-list::-webkit-scrollbar { width: 4px; }
+  #agent-status-list::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 2px; }
   .agent-row {
     display: grid;
     grid-template-columns: 12px max-content 1fr;
@@ -2354,7 +2356,9 @@
   }
 
   /* ── Progresso ──────────────────────────────────────────────────────── */
-  #progress-list { display: flex; flex-direction: column; gap: 1px; flex: 1; }
+  #progress-list { display: flex; flex-direction: column; gap: 1px; flex: 1; overflow-y: auto; }
+  #progress-list::-webkit-scrollbar { width: 4px; }
+  #progress-list::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 2px; }
   .progress-row {
     display: grid;
     grid-template-columns: 16px 1fr auto;
