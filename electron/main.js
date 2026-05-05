@@ -114,6 +114,31 @@ function watchManifest() {
   tryWatch()
 }
 
+let _painelWatcher = null
+let _painelDebounce = null
+
+function watchPainel(filePath) {
+  if (_painelWatcher) { try { _painelWatcher.close() } catch {} _painelWatcher = null }
+  if (!filePath) return
+  const dir = path.dirname(filePath)
+  const base = path.basename(filePath)
+  function tryWatch() {
+    if (!fs.existsSync(dir)) { setTimeout(tryWatch, 3000); return }
+    try {
+      _painelWatcher = fs.watch(dir, (_, filename) => {
+        if (filename !== base) return
+        clearTimeout(_painelDebounce)
+        _painelDebounce = setTimeout(() => {
+          if (mainWindow) mainWindow.webContents.send('painel-changed')
+        }, 400)
+      })
+    } catch { setTimeout(tryWatch, 3000) }
+  }
+  tryWatch()
+}
+
+ipcMain.on('set-painel-watch', (_, filePath) => watchPainel(filePath))
+
 function createPanelWindow() {
   mainWindow = new BrowserWindow({
     width: 1280,
