@@ -47,9 +47,6 @@ jobs:
 
   build-win:
     runs-on: windows-latest
-    env:
-      CSC_LINK: ${{ secrets.CSC_LINK }}
-      CSC_KEY_PASSWORD: ${{ secrets.CSC_KEY_PASSWORD }}
     steps:
       - uses: actions/checkout@v4
 
@@ -62,16 +59,25 @@ jobs:
       - name: Build Windows
         run: npm run build:win -- --publish never
 
+      - name: Assinar com Azure Trusted Signing
+        uses: azure/trusted-signing-action@v0.5.1
+        with:
+          azure-tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          azure-client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          azure-client-secret: ${{ secrets.AZURE_CLIENT_SECRET }}
+          endpoint: ${{ secrets.AZURE_TRUSTED_SIGNING_ENDPOINT }}
+          trusted-signing-account-name: ${{ secrets.AZURE_TRUSTED_SIGNING_ACCOUNT_NAME }}
+          certificate-profile-name: ${{ secrets.AZURE_TRUSTED_SIGNING_CERTIFICATE_PROFILE_NAME }}
+          files-folder: dist-electron
+          files-folder-filter: exe
+          file-digest: SHA256
+          timestamp-rfc3161: http://timestamp.acs.microsoft.com
+          timestamp-digest: SHA256
+
       - uses: actions/upload-artifact@v4
         with:
           name: win-exe
           path: dist-electron/*.exe
-          if-no-files-found: error
-
-      - uses: actions/upload-artifact@v4
-        with:
-          name: win-zip
-          path: dist-electron/*.zip
           if-no-files-found: error
 
   release:
@@ -100,5 +106,4 @@ jobs:
             --title "Workshop IA $TAG" \
             --notes "Build automático — commit \`${{ github.sha }}\`" \
             artifacts/mac-dmg/*.dmg \
-            artifacts/win-exe/*.exe \
-            artifacts/win-zip/*.zip
+            artifacts/win-exe/*.exe
