@@ -3,7 +3,7 @@ const path = require('path')
 const os = require('os')
 const fs = require('fs')
 
-const INSTALL_DIR = path.join(os.homedir(), 'Documents', 'workshop-ia')
+const DEFAULT_INSTALL_DIR = path.join(os.homedir(), 'Documents', 'workshop-ia')
 const REPO_URL = 'https://github.com/mateusdeve/workshop_inteligente_testes_pub.git'
 
 function run(cmd, args, opts = {}) {
@@ -114,7 +114,7 @@ async function installWindows(send) {
 
 // ─── Main entry ───────────────────────────────────────────────────────────────
 
-async function install(send) {
+async function install(send, destDir = DEFAULT_INSTALL_DIR) {
   const isMac = process.platform === 'darwin'
   const isWin = process.platform === 'win32'
 
@@ -146,18 +146,18 @@ async function install(send) {
 
     send(5, 'Baixando o Workshop IA...', 72)
     const git = fs.existsSync(`${brewBin}/git`) ? `${brewBin}/git` : 'git'
-    if (fs.existsSync(path.join(INSTALL_DIR, '.git'))) {
-      await run(git, ['-C', INSTALL_DIR, 'pull', 'origin', 'main'], { env })
+    if (fs.existsSync(path.join(destDir, '.git'))) {
+      await run(git, ['-C', destDir, 'pull', 'origin', 'main'], { env })
     } else {
-      await run(git, ['clone', '-b', 'main', REPO_URL, INSTALL_DIR], { env })
+      await run(git, ['clone', '-b', 'main', REPO_URL, destDir], { env })
     }
 
     send(6, 'Instalando dependências do painel...', 90)
     const npm = fs.existsSync(`${brewBin}/npm`) ? `${brewBin}/npm` : 'npm'
-    await run(npm, ['install'], { cwd: INSTALL_DIR, env })
+    await run(npm, ['install'], { cwd: destDir, env })
 
     send(7, 'Removendo restrições de segurança...', 95)
-    await run('xattr', ['-rd', 'com.apple.quarantine', INSTALL_DIR], { env }).catch(() => {})
+    await run('xattr', ['-rd', 'com.apple.quarantine', destDir], { env }).catch(() => {})
 
   } else if (isWin) {
     await installWindows(send)
@@ -166,18 +166,18 @@ async function install(send) {
     const npm = resolveWinNpm()
 
     send(5, 'Baixando o Workshop IA...', 72)
-    if (fs.existsSync(path.join(INSTALL_DIR, '.git'))) {
-      await run(git, ['-C', INSTALL_DIR, 'pull', 'origin', 'main'])
+    if (fs.existsSync(path.join(destDir, '.git'))) {
+      await run(git, ['-C', destDir, 'pull', 'origin', 'main'])
     } else {
-      await run(git, ['clone', '-b', 'main', REPO_URL, INSTALL_DIR])
+      await run(git, ['clone', '-b', 'main', REPO_URL, destDir])
     }
 
     send(6, 'Instalando dependências do painel...', 90)
-    await runNpm(npm, ['install'], { cwd: INSTALL_DIR })
+    await runNpm(npm, ['install'], { cwd: destDir })
   }
 
-  fs.writeFileSync(path.join(INSTALL_DIR, '.installed'), new Date().toISOString())
+  fs.writeFileSync(path.join(destDir, '.installed'), new Date().toISOString())
   send(7, 'Tudo pronto!', 100)
 }
 
-module.exports = { install, INSTALL_DIR }
+module.exports = { install, DEFAULT_INSTALL_DIR }

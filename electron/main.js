@@ -1,23 +1,36 @@
-const { app, BrowserWindow, ipcMain, shell } = require('electron')
+const { app, BrowserWindow, ipcMain, shell, dialog } = require('electron')
 const path = require('path')
 const os = require('os')
 const fs = require('fs')
 const vm = require('vm')
 const { exec, spawn } = require('child_process')
-const { install, INSTALL_DIR } = require('./installer')
+const { install, DEFAULT_INSTALL_DIR } = require('./installer')
+
+function getConfigPath() {
+  return path.join(app.getPath('userData'), 'install-path.txt')
+}
+
+function getSavedInstallDir() {
+  try {
+    const p = fs.readFileSync(getConfigPath(), 'utf8').trim()
+    if (p && fs.existsSync(path.join(p, '.installed'))) return p
+  } catch {}
+  return null
+}
+
+function getRepoDir() {
+  if (!app.isPackaged) return path.join(__dirname, '..')
+  return getSavedInstallDir() || DEFAULT_INSTALL_DIR
+}
 
 function getPanelPath() {
   if (!app.isPackaged) return path.join(__dirname, '..', 'painel', 'index.html')
-  return path.join(INSTALL_DIR, 'painel', 'index.html')
+  return path.join(getRepoDir(), 'painel', 'index.html')
 }
 
 function isInstalled() {
   if (!app.isPackaged) return fs.existsSync(path.join(__dirname, '..', 'painel', 'index.html'))
-  return fs.existsSync(path.join(INSTALL_DIR, '.installed'))
-}
-
-function getRepoDir() {
-  return app.isPackaged ? INSTALL_DIR : path.join(__dirname, '..')
+  return fs.existsSync(path.join(getRepoDir(), '.installed'))
 }
 
 let mainWindow = null
@@ -182,6 +195,19 @@ function createSetupWindow() {
 
 ipcMain.handle('check-claude', () => isClaudeInstalled())
 
+ipcMain.handle('get-default-folder', () => DEFAULT_INSTALL_DIR)
+
+ipcMain.handle('choose-folder', async () => {
+  const result = await dialog.showOpenDialog(mainWindow, {
+    properties: ['openDirectory', 'createDirectory'],
+    title: 'Escolher pasta de instalação',
+    defaultPath: path.dirname(DEFAULT_INSTALL_DIR),
+    buttonLabel: 'Selecionar pasta'
+  })
+  if (result.canceled || !result.filePaths[0]) return null
+  return path.join(result.filePaths[0], 'workshop-ia')
+})
+
 ipcMain.handle('get-manifest', () => {
   const manifestPath = path.join(getRepoDir(), 'meus-produtos', 'index.js')
   try {
@@ -203,11 +229,14 @@ ipcMain.on('open-download-claude', () => {
   shell.openExternal('https://claude.ai/download')
 })
 
-ipcMain.on('setup:start', async () => {
+ipcMain.on('setup:start', async (_, chosenDir) => {
+  const destDir = chosenDir || DEFAULT_INSTALL_DIR
   try {
     await install((step, msg, pct) => {
       if (mainWindow) mainWindow.webContents.send('setup:progress', { step, msg, pct })
-    })
+    }, destDir)
+    fs.mkdirSync(path.dirname(getConfigPath()), { recursive: true })
+    fs.writeFileSync(getConfigPath(), destDir, 'utf8')
     if (mainWindow) mainWindow.webContents.send('setup:done')
   } catch (err) {
     if (mainWindow) mainWindow.webContents.send('setup:error', err.message)

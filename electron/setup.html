@@ -196,6 +196,13 @@
         <div class="step-item"><div class="step-dot"></div> Node.js</div>
         <div class="step-item"><div class="step-dot"></div> Workshop IA (painel e arquivos)</div>
       </div>
+      <div style="margin-bottom:20px;text-align:left;">
+        <div style="font-size:11px;color:var(--text-faint);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px;font-weight:500;">Pasta de instalação</div>
+        <div style="display:flex;gap:8px;align-items:center;">
+          <div id="folder-path" style="flex:1;background:var(--ink-3);border:1px solid var(--line-2);border-radius:6px;padding:8px 12px;font-family:var(--font-mono);font-size:11px;color:var(--text-dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;"></div>
+          <button class="btn" style="padding:8px 14px;font-size:12px;flex-shrink:0;" onclick="alterarPasta()">Alterar</button>
+        </div>
+      </div>
       <button class="btn" id="btn-start" onclick="iniciar()">Instalar agora</button>
     </div>
 
@@ -230,6 +237,7 @@
 
   <script>
     const ALL_AREAS = ['smartscreen-area', 'initial-area', 'progress-area', 'done-area', 'error-area']
+    let chosenFolder = null
 
     function show(id) {
       ALL_AREAS.forEach(i => {
@@ -239,11 +247,25 @@
 
     function passarSmartscreen() { show('initial-area') }
 
+    async function alterarPasta() {
+      const result = await window.setup.chooseFolder()
+      if (result) {
+        chosenFolder = result
+        document.getElementById('folder-path').textContent = result
+      }
+    }
+
     function iniciar() {
       document.getElementById('btn-start').disabled = true
       show('progress-area')
-      window.setup.start()
+      window.setup.start(chosenFolder)
     }
+
+    // Carrega pasta padrão ao abrir
+    window.setup.getDefaultFolder().then(p => {
+      chosenFolder = p
+      document.getElementById('folder-path').textContent = p
+    })
 
     // Mostra aviso SmartScreen apenas no Windows
     if (navigator.userAgent.includes('Windows')) show('smartscreen-area')
