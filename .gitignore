@@ -125,3 +125,10 @@ entregas/instagram-dashboard/dashboard.html
 entregas/instagram-dashboard/insights.json
 entregas/instagram-dashboard/log.txt
 entregas/instagram-dashboard/imagens/
+
+# Certificados e chaves privadas (nunca versionar)
+*.key
+*.p12
+*.cer
+*.certSigningRequest
+*.pem
