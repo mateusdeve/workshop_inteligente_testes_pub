@@ -2,7 +2,7 @@
 set -e
 
 INSTALL_DIR="$HOME/Documents/workshop-ia"
-REPO_URL="https://github.com/mateusdeve/workshop_inteligente_testes_pub.git"
+REPO_URL="https://github.com/ReadyToGo-Education/fluxo_criativo.git"
 DESKTOP="$HOME/Desktop"
 
 echo ""
