@@ -250,44 +250,31 @@ ipcMain.on('setup:open-panel', () => {
 
 ipcMain.on('open-claude', () => {
   const dir = getRepoDir()
+  const escaped = dir.replace(/"/g, '\\"')
 
   if (process.platform === 'darwin') {
-    // Open Claude with the project dir, then click the Code tab via AppleScript
-    const script = `
-tell application "Claude"
-  activate
-end tell
-do shell script "open -a Claude \\"${dir.replace(/"/g, '\\"')}\\""
-delay 0.8
-tell application "System Events"
-  tell process "Claude"
-    try
-      set allBtns to every button of window 1
-      repeat with b in allBtns
-        if name of b contains "Code" then click b
-      end repeat
-    on error
-      try
-        repeat with grp in groups of window 1
-          try
-            set b to first button whose name contains "Code" of grp
-            click b
-            exit repeat
-          end try
-        end repeat
-      end try
-    end try
-  end tell
-end tell`
-    const tmpFile = path.join(os.tmpdir(), 'fluxo-criativo-claude.scpt')
-    fs.writeFileSync(tmpFile, script, 'utf8')
-    exec(`/usr/bin/osascript "${tmpFile}"`, (err) => {
-      if (err) exec(`open -a "Claude" "${dir}"`)
-    })
+    const claudeCliCandidates = [
+      '/usr/local/bin/claude',
+      '/opt/homebrew/bin/claude',
+      path.join(os.homedir(), '.local', 'bin', 'claude'),
+    ]
+    const claudeCli = claudeCliCandidates.find(p => fs.existsSync(p))
+
+    if (claudeCli) {
+      spawn(claudeCli, [dir], { detached: true, stdio: 'ignore' }).unref()
+    } else {
+      exec(`open -a "Claude" --args "${escaped}"`, (err) => {
+        if (err) exec(`open -a "Claude"`)
+      })
+    }
 
   } else if (process.platform === 'win32') {
-    exec('explorer.exe "shell:AppsFolder\\Claude_pzs8sxrjxfjjc!App"', (err) => {
-      if (err) shell.openExternal('https://claude.ai/download')
+    exec(`cmd /c start "" claude "${escaped}"`, { shell: true }, (err) => {
+      if (err) {
+        exec('explorer.exe "shell:AppsFolder\\Claude_pzs8sxrjxfjjc!App"', (err2) => {
+          if (err2) shell.openExternal('https://claude.ai/download')
+        })
+      }
     })
   }
 })
