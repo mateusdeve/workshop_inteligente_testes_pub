@@ -19,7 +19,41 @@ O mentoreado nunca abre arquivo, nunca instala nada manualmente. So cola as chav
 
 ---
 
+## PASSO -1. Verificar modo de conexão Meta
+
+Antes de qualquer coisa, leia `META_AUTH_MODO` no `.env`.
+
+**Se a variável estiver vazia ou ausente:**
+
+A conexão Meta ainda não foi configurada. Avise o aluno:
+
+```
+Você ainda não configurou a conexão com o Meta Ads.
+
+Vou rodar /meta-conexao primeiro para você escolher entre o MCP da
+Meta (recomendado) ou o caminho do App via Facebook Developers.
+Quando terminar, volto direto pra configuração do relatório.
+```
+
+Acione a skill `/meta-conexao`. Quando ela terminar e gravar `META_AUTH_MODO` no `.env`, retorne aqui e siga conforme o valor salvo.
+
+**Se `META_AUTH_MODO=MCP_CONECTOR`:**
+
+Pule todo o **Passo 0** e o **Passo 0-CLI**. Não precisa instalar Python, nem o pacote `meta-ads`, nem coletar `ACCESS_TOKEN` ou `AD_ACCOUNT_ID` (essas variáveis só importam no caminho APP). A conexão com o Meta já está garantida pelo conector personalizado validado em `/meta-conexao`.
+
+Vá direto para o **Passo 0-CANAL** (configuração do canal de envio Telegram ou WhatsApp).
+
+**Se `META_AUTH_MODO=APP`:**
+
+Siga para o **Passo 0** atual. Dentro do ramo APP, a variável `RELATORIO_AUTH_MODO` continua decidindo qual script de execução roda (Python CLI ou PowerShell).
+
+> **Nota sobre as duas variáveis.** `META_AUTH_MODO` decide o caminho de autenticação com o Meta (MCP via Claude ou Token via App no `.env`). `RELATORIO_AUTH_MODO` decide o executor do relatório dentro do ramo App (Python CLI cross-platform ou PowerShell Windows). Não são redundantes, atuam em camadas diferentes.
+
+---
+
 ## PASSO 0. Verificar Modo de Integracao
+
+> Este passo só executa se `META_AUTH_MODO=APP`. Caminho MCP pula direto para o Passo 0-CANAL.
 
 Leia `.env`. Se `RELATORIO_AUTH_MODO` ja existir com valor `CLI`, pule para o **Passo 0-CLI**.
 
